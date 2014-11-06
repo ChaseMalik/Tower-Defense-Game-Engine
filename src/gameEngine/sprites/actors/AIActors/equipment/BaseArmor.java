@@ -1,4 +1,4 @@
-package gameEngine.sprites.actors.AIActors.objects;
+package gameEngine.sprites.actors.AIActors.equipment;
 
 import gameEngine.sprites.actors.AIActors.behaviors.IDefend;
 
