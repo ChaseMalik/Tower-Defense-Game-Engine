@@ -3,8 +3,8 @@ package gameAuthoring.mainclasses;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.EnemyBuildingScene;
 import gameAuthoring.scenes.LevelBuildingScene;
-import gameAuthoring.scenes.PathBuildingScene;
 import gameAuthoring.scenes.TowerBuildingScene;
+import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -26,8 +26,14 @@ public class AuthorController extends Application {
     @Override
     public void start (Stage stage) throws Exception {
         myStage = stage;
-        StageInitializer.setupStage(myStage);
         buildScenes();
+        showPathBuildingScene();
+        configureAndDisplayStage();
+    }
+
+    private void configureAndDisplayStage () {
+        myStage.setResizable(false);
+        myStage.show(); 
     }
 
     private void buildScenes () {
