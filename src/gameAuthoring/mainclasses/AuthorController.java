@@ -1,9 +1,6 @@
 package gameAuthoring.mainclasses;
 
-import gameAuthoring.actorData.actorDataHolders.EnemyDataHolder;
-import gameAuthoring.actorData.actorDataHolders.TowerDataHolder;
-import gameAuthoring.levelData.LevelDataHolder;
-import gameAuthoring.pathData.PathDataHolder;
+import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.EnemyBuildingScene;
 import gameAuthoring.scenes.LevelBuildingScene;
 import gameAuthoring.scenes.PathBuildingScene;
@@ -16,11 +13,6 @@ public class AuthorController extends Application {
 
     public static final double SCREEN_WIDTH = 700;
     public static final double SCREEN_HEIGHT = 600;
-    
-    private PathDataHolder  myPathDataHolder = new PathDataHolder();
-    private EnemyDataHolder myEnemyDataHolder = new EnemyDataHolder();
-    private TowerDataHolder myTowerDataHolder = new TowerDataHolder();
-    private LevelDataHolder myLevelDataHolder = new LevelDataHolder();
     
     private EnemyBuildingScene myEnemyBuildingScene;
     private TowerBuildingScene myTowerBuildingScene;
@@ -39,26 +31,30 @@ public class AuthorController extends Application {
     }
 
     private void buildScenes () {
-        myPathBuildingScene = new PathBuildingScene(new BorderPane(), myPathDataHolder);
-        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), myEnemyDataHolder);
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myTowerDataHolder);
-        myLevelBuildingScene = new LevelBuildingScene(new BorderPane(), myLevelDataHolder);
+        myPathBuildingScene = new PathBuildingScene(new BorderPane());
+        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane());
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane());
+        myLevelBuildingScene = new LevelBuildingScene(new BorderPane());
     }
     
-    
-    public void buildTowersJSONFile() {
-        
+    public void showPathBuildingScene() {
+        setSceneAndTitle(myPathBuildingScene);
     }
     
-    public void buildLevelsJSONFile() {
-        
+    public void showEnemyBuildingScene() {
+        setSceneAndTitle(myEnemyBuildingScene);
     }
     
-    public void buildEnemiesJSONFile() {
-        
+    public void showTowerBuildingScene() {
+        setSceneAndTitle(myTowerBuildingScene);
     }
     
-    public void buildPathJSONFile() {
-        
+    public void showLevelBuildingScene() {
+        setSceneAndTitle(myLevelBuildingScene);
+    }
+    
+    private void setSceneAndTitle(BuildingScene scene) {
+        myStage.setScene(scene);
+        myStage.setTitle(scene.getTitle());
     }
 }

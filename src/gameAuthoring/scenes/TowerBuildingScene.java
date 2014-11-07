@@ -1,14 +1,17 @@
 package gameAuthoring.scenes;
 
 import gameAuthoring.actorData.actorDataHolders.TowerDataHolder;
-import gameAuthoring.mainclasses.AuthorController;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class TowerBuildingScene extends Scene {
+public class TowerBuildingScene extends BuildingScene {
+    
+    private static final String TITLE = "Tower Building";
+    
+    private TowerDataHolder myTowerDataHolder;
 
-    public TowerBuildingScene (BorderPane root, TowerDataHolder holder) {
-        super(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+    public TowerBuildingScene (BorderPane root) {
+        super(root, TITLE);
+        myTowerDataHolder = new TowerDataHolder();
     }
 
 }

@@ -1,14 +1,17 @@
 package gameAuthoring.scenes;
 
 import gameAuthoring.actorData.actorDataHolders.EnemyDataHolder;
-import gameAuthoring.mainclasses.AuthorController;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class EnemyBuildingScene extends Scene {
+public class EnemyBuildingScene extends BuildingScene {
+    
+    private static final String TITLE = "Enemy Building";
+    
+    private EnemyDataHolder myEnemyDataHolder;
 
-    public EnemyBuildingScene (BorderPane root, EnemyDataHolder data) {
-        super(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+    public EnemyBuildingScene (BorderPane root) {
+        super(root, TITLE);
+        myEnemyDataHolder = new EnemyDataHolder();
     }
 
 }

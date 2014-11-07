@@ -1,15 +1,17 @@
 package gameAuthoring.scenes;
 
-import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.pathData.PathDataHolder;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class PathBuildingScene extends Scene {
+public class PathBuildingScene extends BuildingScene {
     
+    private static final String TITLE = "Path Building";
+    
+    private PathDataHolder  myPathDataHolder;
 
-    public PathBuildingScene (BorderPane root, PathDataHolder holder) {
-        super(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_WIDTH);
+    public PathBuildingScene (BorderPane root) {
+        super(root, TITLE);
+        myPathDataHolder = new PathDataHolder();
     }
 
 }
