@@ -6,3 +6,8 @@
 	-fx-background-color: white;
 
 }
+
+.selected {
+	-fx-background-color: gray;
+
+}

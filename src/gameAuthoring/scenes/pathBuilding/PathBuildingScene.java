@@ -3,10 +3,14 @@ package gameAuthoring.scenes.pathBuilding;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.pathData.PathDataHolder;
 import gameAuthoring.scenes.BuildingScene;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 
 public class PathBuildingScene extends BuildingScene {
     
@@ -24,6 +28,12 @@ public class PathBuildingScene extends BuildingScene {
     private BorderPane myPane;
     private enum PATH_DRAWING_MODE { OFF, LINE_MODE, CURVE_MODE };
     private PATH_DRAWING_MODE currentDrawingMode;
+    
+    private Pane myLinePathOptionPane;
+    private Pane myCurvePathOptionPane;   
+    private Pane myBuildScreenPane;
+      
+    private Line myLineBeingCreated;
 
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
@@ -32,6 +42,50 @@ public class PathBuildingScene extends BuildingScene {
         createPathBuildingOptions();
         myPathDataHolder = new PathDataHolder();
         currentDrawingMode = PATH_DRAWING_MODE.OFF;
+        
+    }
+    
+    private void createBuildScreen () {
+        myBuildScreenPane = new Pane();
+        myBuildScreenPane.setPrefWidth(DRAW_SCREEN_WIDTH);
+        myBuildScreenPane.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
+        myBuildScreenPane.setOnMouseClicked(event->handleBuildScreenClick(event));
+        myPane.setLeft(myBuildScreenPane);
+        myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle (MouseEvent event) {
+                if(currentDrawingMode != PATH_DRAWING_MODE.OFF) {
+                    if(myLineBeingCreated != null){
+                        myLineBeingCreated.setEndX(event.getX());
+                        myLineBeingCreated.setEndY(event.getY());
+                    }
+                }
+                  
+            }        
+        });
+    }
+
+    private void handleBuildScreenClick (MouseEvent event) {
+        System.out.println(currentDrawingMode == PATH_DRAWING_MODE.LINE_MODE);
+        switch(currentDrawingMode) {
+            case OFF: break;
+            case LINE_MODE:
+                if(myLineBeingCreated == null){
+                    myLineBeingCreated = new Line();
+                    myBuildScreenPane.getChildren().add(myLineBeingCreated);
+                    myLineBeingCreated.setStartX(event.getX());
+                    myLineBeingCreated.setStartY(event.getY());
+                    myLineBeingCreated.setEndX(event.getX());
+                    myLineBeingCreated.setEndY(event.getY());
+                }
+                else {
+                    Line tempLine = myLineBeingCreated;
+                    myBuildScreenPane.getChildren().remove(myLineBeingCreated);
+                    myBuildScreenPane.getChildren().add(tempLine);
+                    myLineBeingCreated = null;
+                }
+                break;
+        }
     }
 
     private void createPathBuildingOptions () {
@@ -40,16 +94,28 @@ public class PathBuildingScene extends BuildingScene {
         pathBuildingOptions.setStyle("-fx-background-color: red");
         myPane.setRight(pathBuildingOptions);
         
-        Pane linePathComponentOption = createPathComponentOption("Line");
-        linePathComponentOption.setOnMouseClicked(event->setLineDrawerMode());
+        myLinePathOptionPane = createPathComponentOption("Line");
+        myLinePathOptionPane.setOnMouseClicked(event->setLineDrawerMode());
         
-        Pane curvePathComponentOption = createPathComponentOption("Curve");
-        curvePathComponentOption.setOnMouseClicked(event->setCurveDrawerMode());
+        myCurvePathOptionPane = createPathComponentOption("Curve");
+        myCurvePathOptionPane.setOnMouseClicked(event->setCurveDrawerMode());
         
         
-        pathBuildingOptions.getChildren().addAll(linePathComponentOption,
-                                                 curvePathComponentOption);
+        pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
+                                                 myCurvePathOptionPane);
          
+    }
+
+    private void setCurveDrawerMode () {
+        currentDrawingMode = PATH_DRAWING_MODE.CURVE_MODE;
+        myCurvePathOptionPane.getStyleClass().add("selected");
+        myLinePathOptionPane.getStyleClass().remove("selected");
+    }
+
+    private void setLineDrawerMode () {
+        currentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
+        myLinePathOptionPane.getStyleClass().add("selected");
+        myCurvePathOptionPane.getStyleClass().remove("selected");
     }
 
     private Pane createPathComponentOption (String componentName) {
@@ -59,12 +125,4 @@ public class PathBuildingScene extends BuildingScene {
         pathComponentPane.getStyleClass().add("pathComponentOption");
         return pathComponentPane;
     }
-
-    private void createBuildScreen () {
-        VBox buildScreen = new VBox();
-        buildScreen.setPrefWidth(DRAW_SCREEN_WIDTH);
-        buildScreen.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
-        myPane.setLeft(buildScreen);
-    }
-
 }
