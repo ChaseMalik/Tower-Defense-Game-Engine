@@ -1,6 +1,6 @@
 package gameAuthoring.factory;
 
-import gameAuthoring.actorData.ActorData;
+import gameAuthoring.actorData.*;
 
 /**
  * A data factory to produce 
@@ -8,11 +8,12 @@ import gameAuthoring.actorData.ActorData;
  *
  */
 public class SingletonDataFactory {
+    private static final String DATA_CLASSES_PATH = "gameAuthoring.actorData.";
     private static final String DATA = "Data";
     private static SingletonDataFactory myFactoryInstance;
-    
+
     private SingletonDataFactory(){}
-    
+
     public static SingletonDataFactory getInstance() {
         if(myFactoryInstance == null) {
             myFactoryInstance = new SingletonDataFactory();
@@ -24,11 +25,13 @@ public class SingletonDataFactory {
      * Builds an actor data instance. This will be called when the user
      * is creating enemies, towers, and levels.
      */
-    public static ActorData buildActorDataInstance(String actorType)  {
+    public ActorData buildActorDataInstance(String actorType)  {
         try{
-            return (ActorData) Class.forName(actorType.concat(DATA)).getConstructor().newInstance();
+            return (ActorData) Class.forName(DATA_CLASSES_PATH + actorType + DATA).getConstructor().newInstance();
         }
-        catch(Exception E) {}
-        return null;
+        catch(Exception E) {  
+            E.printStackTrace();
+            return new NullData(); 
+        }
     }
 }

@@ -2,10 +2,9 @@ package gameAuthoring.actorDataManager;
 
 public class LevelDataManager extends ActorDataManager {
 
-    @Override
-    public void createData () {
-        // TODO Auto-generated method stub
-        
-    }
+    private static final String TYPE = "Level";
 
+    public LevelDataManager () {
+        super(TYPE);
+    }
 }

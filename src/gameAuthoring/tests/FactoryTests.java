@@ -8,8 +8,7 @@ public class FactoryTests {
 
     @Test
     public void FactoryDataCreation () {
-        SingletonDataFactory factory = new SingletonDataFactory();
-        assertNotNull(factory.buildActorDataInstance("Enemy"));
+        assertNotNull(SingletonDataFactory.getInstance().buildActorDataInstance("Enemy"));
     }
 
 
