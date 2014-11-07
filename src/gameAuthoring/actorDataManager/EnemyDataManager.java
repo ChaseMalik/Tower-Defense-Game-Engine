@@ -1,10 +1,21 @@
 package gameAuthoring.actorDataManager;
 
-public class EnemyDataManager extends ActorDataManager {
+import java.util.Iterator;
+import java.util.List;
+import gameAuthoring.data.Data;
+import gameAuthoring.data.EnemyData;
 
-    private static final String TYPE = "Actor";
+public class EnemyDataManager extends ActorDataManager implements Iterable<EnemyData> {
 
-    public EnemyDataManager () {
-        super(TYPE);
+    private List<EnemyData> myData;
+
+    @Override
+    public void addData (Data dataObj) {
+        myData.add((EnemyData) dataObj);
+    }
+
+    @Override
+    public Iterator<EnemyData> iterator () {
+        return myData.iterator();
     }
 }

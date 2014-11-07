@@ -1,16 +1,7 @@
 package gameAuthoring.actorDataManager;
 
-import gameAuthoring.factory.SingletonDataFactory;
+import gameAuthoring.data.Data;
 
-public abstract class ActorDataManager {
-    
-    private String myActorType;
-    
-    public ActorDataManager(String actorType){
-        myActorType = actorType;
-    }
-    
-    public void createData() {
-        SingletonDataFactory.getInstance().buildActorDataInstance(myActorType);
-    }
+public abstract class ActorDataManager {   
+    public abstract void addData(Data dataObj);
 }
