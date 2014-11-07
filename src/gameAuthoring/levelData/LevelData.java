@@ -1,5 +1,6 @@
-package gameAuthoring.data;
+package gameAuthoring.levelData;
 
+import gameAuthoring.mainclasses.Data;
 import java.util.HashMap;
 import java.util.Map;
 import org.w3c.dom.Node;

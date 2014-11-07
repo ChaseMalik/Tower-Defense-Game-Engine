@@ -1,4 +1,4 @@
-package gameAuthoring.data;
+package gameAuthoring.actorData;
 
 import org.w3c.dom.Node;
 

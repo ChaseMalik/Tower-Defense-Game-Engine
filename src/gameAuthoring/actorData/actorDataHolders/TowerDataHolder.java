@@ -1,11 +1,12 @@
-package gameAuthoring.actorDataManager;
+package gameAuthoring.actorData.actorDataHolders;
 
 import java.util.Iterator;
 import java.util.List;
-import gameAuthoring.data.Data;
-import gameAuthoring.data.TowerData;
+import gameAuthoring.actorData.TowerData;
+import gameAuthoring.mainclasses.Data;
+import gameAuthoring.mainclasses.DataHolder;
 
-public class TowerDataManager extends ActorDataManager implements Iterable<TowerData> {
+public class TowerDataHolder extends DataHolder implements Iterable<TowerData> {
 
     private List<TowerData> myData;
     

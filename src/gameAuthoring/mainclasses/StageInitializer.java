@@ -1,4 +1,4 @@
-package gameAuthoring.control;
+package gameAuthoring.mainclasses;
 
 import javafx.stage.Stage;
 

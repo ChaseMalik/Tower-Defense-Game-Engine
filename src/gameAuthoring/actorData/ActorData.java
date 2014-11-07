@@ -1,5 +1,6 @@
-package gameAuthoring.data;
+package gameAuthoring.actorData;
 
+import gameAuthoring.mainclasses.Data;
 import java.util.HashMap;
 
 public abstract class ActorData extends Data {

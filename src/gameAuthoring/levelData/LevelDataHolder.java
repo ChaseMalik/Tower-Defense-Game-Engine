@@ -1,11 +1,11 @@
-package gameAuthoring.actorDataManager;
+package gameAuthoring.levelData;
 
 import java.util.Iterator;
 import java.util.List;
-import gameAuthoring.data.Data;
-import gameAuthoring.data.LevelData;
+import gameAuthoring.mainclasses.Data;
+import gameAuthoring.mainclasses.DataHolder;
 
-public class LevelDataManager extends ActorDataManager implements Iterator<LevelData> {
+public class LevelDataHolder extends DataHolder implements Iterator<LevelData> {
 
     private List<LevelData> myData;
 

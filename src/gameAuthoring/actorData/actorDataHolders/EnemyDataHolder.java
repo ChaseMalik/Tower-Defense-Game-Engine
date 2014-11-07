@@ -1,11 +1,12 @@
-package gameAuthoring.actorDataManager;
+package gameAuthoring.actorData.actorDataHolders;
 
 import java.util.Iterator;
 import java.util.List;
-import gameAuthoring.data.Data;
-import gameAuthoring.data.EnemyData;
+import gameAuthoring.actorData.EnemyData;
+import gameAuthoring.mainclasses.Data;
+import gameAuthoring.mainclasses.DataHolder;
 
-public class EnemyDataManager extends ActorDataManager implements Iterable<EnemyData> {
+public class EnemyDataHolder extends DataHolder implements Iterable<EnemyData> {
 
     private List<EnemyData> myData;
 
