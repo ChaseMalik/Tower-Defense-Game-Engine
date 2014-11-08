@@ -1,7 +1,6 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.shape.CubicCurve;
 
 public class PathCurve extends CubicCurve implements PathComponent {

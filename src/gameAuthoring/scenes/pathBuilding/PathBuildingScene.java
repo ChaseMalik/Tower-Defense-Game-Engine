@@ -1,18 +1,14 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.pathData.PathDataHolder;
 import gameAuthoring.scenes.BuildingScene;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.Line;
 
 public class PathBuildingScene extends BuildingScene {
 
@@ -38,8 +34,7 @@ public class PathBuildingScene extends BuildingScene {
     private Pane mySelectComponentOptionPane;
 
     private PathLine myLineBeingCreated;
-    private CubicCurve myCurveBeingCreated;
-    
+
     private Button mySaveStartsButton;
     private Button mySaveEndsButton;
     private Label mySaveStartsLabel;
@@ -63,7 +58,7 @@ public class PathBuildingScene extends BuildingScene {
         myBuildScreenPane.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
         myBuildScreenPane.setOnMousePressed(event->handleBuildScreenClick(event));
         myPane.setLeft(myBuildScreenPane);
-        
+
         mySaveStartsButton = new Button("Set Start Locations");
         mySaveStartsButton.setOnAction(event->proceedToDrawingEnds());
         mySaveStartsLabel = new Label("Click to add start locations");
@@ -71,9 +66,9 @@ public class PathBuildingScene extends BuildingScene {
         mySaveStartsLabel.setLayoutY(270);
         mySaveStartsButton.setLayoutX(200);
         mySaveStartsButton.setLayoutY(300);
-        
+
         myBuildScreenPane.getChildren().addAll(mySaveStartsLabel, mySaveStartsButton);
-        
+
         mySaveEndsButton = new Button("Set End Locations");
         mySaveEndsButton.setOnAction(event->proceedToDrawLines());
         mySaveEndsLabel = new Label("Click to add end locations");
@@ -81,7 +76,7 @@ public class PathBuildingScene extends BuildingScene {
         mySaveEndsLabel.setLayoutY(270);
         mySaveEndsButton.setLayoutX(200);
         mySaveEndsButton.setLayoutY(300);
-        
+
         myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
@@ -114,14 +109,16 @@ public class PathBuildingScene extends BuildingScene {
     private void handleBuildScreenClick (MouseEvent event) {
         switch(myCurrentDrawingMode) {
             case DRAW_STARTS:
-                StartingLocation startLoc = new StartingLocation(event.getSceneX(), event.getSceneY());
-                myPath.addStartingLocation(startLoc);
-                myBuildScreenPane.getChildren().add(startLoc);
+                StartingLocation createdStartingLoc = myPath.addStartingLocation(event.getSceneX(), event.getSceneY());
+                if(createdStartingLoc != null){
+                    myBuildScreenPane.getChildren().add(createdStartingLoc);
+                }
                 break;
             case DRAW_ENDS:
-                EndingLocation endLoc = new EndingLocation(event.getSceneX(), event.getSceneY());
-                myPath.addEndingLocation(endLoc);
-                myBuildScreenPane.getChildren().add(endLoc);
+                EndingLocation createdEndingLoc = myPath.addEndingLocation(event.getSceneX(), event.getSceneY());
+                if(createdEndingLoc != null){
+                    myBuildScreenPane.getChildren().add(createdEndingLoc);
+                }
                 break;
             case LINE_MODE:
                 if(myLineBeingCreated == null){
@@ -177,11 +174,6 @@ public class PathBuildingScene extends BuildingScene {
             default:
 
         }
-    }
-
-    private Object removeLoc (StartingLocation startLoc) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     private void createPathBuildingOptions () {

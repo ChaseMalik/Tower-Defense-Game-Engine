@@ -8,22 +8,28 @@ import javafx.geometry.Point2D;
 public class Path {
     private static final double CONNECT_THRESHOLD = 40;
 
-    private static final double INSIDE_STARTING_LOC_THRESHOLD = 40;
-    
+    private static final double INSIDE_STARTING_LOC_THRESHOLD = 50;
+
+    private static final double MIN_DISTANCE_BTW_LOCS = 150;
+
+    private static final int MAX_NUM_STARTING_LOCS = 2;
+
+    private static final int MAX_NUM_ENDING_LOCS = 2;
+
     private List<StartingLocation> myStartingLocations;    
     private List<EndingLocation> myEndingLocations;
     private List<LinkedList<PathComponent>> myPath;
-    
+
     public Path() {
         myPath = new ArrayList<LinkedList<PathComponent>>();
         myStartingLocations = new ArrayList<StartingLocation>();
         myEndingLocations = new ArrayList<EndingLocation>();
     }
-    
+
     public void addPathComponentToPath(PathComponent componentToAdd) {
-        
+
         if(!componentSuccessfullyAddedToStartingLocation(componentToAdd) &&
-           !componentSuccessfullyAddedToEndOfAConnectedComponent(componentToAdd)) {
+                !componentSuccessfullyAddedToEndOfAConnectedComponent(componentToAdd)) {
             createNewConnectedComponent(componentToAdd);
         }
     }
@@ -98,11 +104,47 @@ public class Path {
             }
         }   
     }
-    
-    public void addStartingLocation(StartingLocation loc) {
-        myStartingLocations.add(loc);
+
+    public StartingLocation addStartingLocation(double x, double y) {
+        if(canCreateStartingLocationAt(x, y)){
+            StartingLocation loc = new StartingLocation(x, y);
+            myStartingLocations.add(loc);
+            return loc;
+        }
+        return null;
+    }
+
+    private boolean canCreateStartingLocationAt (double x, double y) {
+        Point2D newLocation = new Point2D(x, y);
+        for(StartingLocation loc:myStartingLocations){
+            Point2D centerOfStartingLoc = new Point2D(loc.getCenterX(), loc.getCenterY());
+            if(centerOfStartingLoc.distance(newLocation) < MIN_DISTANCE_BTW_LOCS){
+                return false;
+            }
+        }
+        return myStartingLocations.size() < MAX_NUM_STARTING_LOCS;
     }
     
+    public EndingLocation addEndingLocation(double x, double y) {
+        if(canCreateEndingLocationAt(x, y)){
+            EndingLocation loc = new EndingLocation(x, y);
+            myEndingLocations.add(loc);
+            return loc;
+        }
+        return null;
+    }
+
+    private boolean canCreateEndingLocationAt (double x, double y) {
+        Point2D newLocation = new Point2D(x, y);
+        for(EndingLocation loc:myEndingLocations){
+            Point2D centerOfStartingLoc = new Point2D(loc.getCenterX(), loc.getCenterY());
+            if(centerOfStartingLoc.distance(newLocation) < MIN_DISTANCE_BTW_LOCS){
+                return false;
+            }
+        }
+        return myEndingLocations.size() < MAX_NUM_ENDING_LOCS;
+    }
+
     public void addEndingLocation(EndingLocation loc) {
         myEndingLocations.add(loc);
     }
@@ -114,6 +156,6 @@ public class Path {
     public boolean endingLocationsConfiguredCorrectly () {
         return !myEndingLocations.isEmpty();
     }
-    
-    
+
+
 }
