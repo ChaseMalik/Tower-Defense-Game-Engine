@@ -5,6 +5,7 @@ import gameAuthoring.pathData.PathDataHolder;
 import gameAuthoring.scenes.BuildingScene;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +15,7 @@ import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 
 public class PathBuildingScene extends BuildingScene {
-    
+
     private static final String TITLE = "Path Building";
     private static final double DRAW_SCREEN_WIDTH_RATIO = .7;
     private static final double DRAW_SCREEN_WIDTH = 
@@ -24,20 +25,26 @@ public class PathBuildingScene extends BuildingScene {
             AuthorController.SCREEN_WIDTH*PATH_BUILDING_OPTIONS_WIDTH_RATIO;
     private static final String BUILD_SCREEN_CSS_CLASS = "buildScreen";
     private static final int PATH_COMPONENT_OPTION_HEIGHT = 150;
-    
+    private static final double MIN_LINE_LENGTH = 30;
+
     private Path  myPath;
     private BorderPane myPane;
-    private enum PATH_DRAWING_MODE { SELECT_MODE, LINE_MODE, CURVE_MODE };
+    private enum PATH_DRAWING_MODE { DRAW_STARTS, DRAW_ENDS, SELECT_MODE, LINE_MODE, CURVE_MODE };
     private PATH_DRAWING_MODE myCurrentDrawingMode;
-    
+
     private Pane myLinePathOptionPane;
     private Pane myCurvePathOptionPane;   
     private Pane myBuildScreenPane;
     private Pane mySelectComponentOptionPane;
-      
+
     private PathLine myLineBeingCreated;
     private CubicCurve myCurveBeingCreated;
     
+    private Button mySaveStartsButton;
+    private Button mySaveEndsButton;
+    private Label mySaveStartsLabel;
+    private Label mySaveEndsLabel;
+
     private double mouseX;
     private double mouseY;
 
@@ -47,15 +54,34 @@ public class PathBuildingScene extends BuildingScene {
         createBuildScreen();
         createPathBuildingOptions();
         myPath = new Path();
-        myCurrentDrawingMode = PATH_DRAWING_MODE.SELECT_MODE;  
+        myCurrentDrawingMode = PATH_DRAWING_MODE.DRAW_STARTS;  
     }
-    
+
     private void createBuildScreen () {
         myBuildScreenPane = new Pane();
         myBuildScreenPane.setPrefWidth(DRAW_SCREEN_WIDTH);
         myBuildScreenPane.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
         myBuildScreenPane.setOnMousePressed(event->handleBuildScreenClick(event));
         myPane.setLeft(myBuildScreenPane);
+        
+        mySaveStartsButton = new Button("Set Start Locations");
+        mySaveStartsButton.setOnAction(event->proceedToDrawingEnds());
+        mySaveStartsLabel = new Label("Click to add start locations");
+        mySaveStartsLabel.setLayoutX(190);
+        mySaveStartsLabel.setLayoutY(270);
+        mySaveStartsButton.setLayoutX(200);
+        mySaveStartsButton.setLayoutY(300);
+        
+        myBuildScreenPane.getChildren().addAll(mySaveStartsLabel, mySaveStartsButton);
+        
+        mySaveEndsButton = new Button("Set End Locations");
+        mySaveEndsButton.setOnAction(event->proceedToDrawLines());
+        mySaveEndsLabel = new Label("Click to add end locations");
+        mySaveEndsLabel.setLayoutX(190);
+        mySaveEndsLabel.setLayoutY(270);
+        mySaveEndsButton.setLayoutX(200);
+        mySaveEndsButton.setLayoutY(300);
+        
         myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
@@ -69,9 +95,34 @@ public class PathBuildingScene extends BuildingScene {
         });
     }
 
+
+    private void proceedToDrawLines () {
+        if(myPath.endingLocationsConfiguredCorrectly()){
+            myCurrentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
+            myBuildScreenPane.getChildren().removeAll(mySaveEndsLabel, mySaveEndsButton);
+        }
+    }
+
+    private void proceedToDrawingEnds () {
+        if(myPath.startingLocationsConfiguredCorrectly()){
+            myBuildScreenPane.getChildren().removeAll(mySaveStartsLabel, mySaveStartsButton);
+            myBuildScreenPane.getChildren().addAll(mySaveEndsLabel, mySaveEndsButton);
+            myCurrentDrawingMode = PATH_DRAWING_MODE.DRAW_ENDS;
+        }
+    }
+
     private void handleBuildScreenClick (MouseEvent event) {
-        System.out.println(myCurrentDrawingMode == PATH_DRAWING_MODE.LINE_MODE);
         switch(myCurrentDrawingMode) {
+            case DRAW_STARTS:
+                StartingLocation startLoc = new StartingLocation(event.getSceneX(), event.getSceneY());
+                myPath.addStartingLocation(startLoc);
+                myBuildScreenPane.getChildren().add(startLoc);
+                break;
+            case DRAW_ENDS:
+                EndingLocation endLoc = new EndingLocation(event.getSceneX(), event.getSceneY());
+                myPath.addEndingLocation(endLoc);
+                myBuildScreenPane.getChildren().add(endLoc);
+                break;
             case LINE_MODE:
                 if(myLineBeingCreated == null){
                     myLineBeingCreated = new PathLine(event.getX(), event.getY());
@@ -79,41 +130,58 @@ public class PathBuildingScene extends BuildingScene {
                     myPath.addPathComponentToPath(myLineBeingCreated);
                 }
                 else {
-                    PathLine tempLine = myLineBeingCreated;
                     myBuildScreenPane.getChildren().remove(myLineBeingCreated);
-                    myBuildScreenPane.getChildren().add(tempLine);
-                    
-                    tempLine.setOnMousePressed(new EventHandler<MouseEvent>(){
+                    if(myLineBeingCreated.getLength() > MIN_LINE_LENGTH){
+                        PathLine tempLine = myLineBeingCreated;
+                        myBuildScreenPane.getChildren().add(tempLine);
 
-                        @Override
-                        public void handle (MouseEvent event) {
-                            mouseX = event.getSceneX();
-                            mouseY = event.getSceneY();                           
-                        }
-                        
-                    });
-                    tempLine.setOnMouseDragged(new EventHandler<MouseEvent>(){
+                        tempLine.setOnMousePressed(new EventHandler<MouseEvent>(){
 
-                        @Override
-                        public void handle (MouseEvent event) {
-                            if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
-                                double deltaX = event.getSceneX() - mouseX;
-                                double deltaY = event.getSceneY() - mouseY;
-                                myPath.moveConnectedComponent(tempLine, deltaX, deltaY);
+                            @Override
+                            public void handle (MouseEvent event) {
                                 mouseX = event.getSceneX();
-                                mouseY = event.getSceneY(); 
+                                mouseY = event.getSceneY();                           
                             }
-                            
-                        }
-                        
-                    });
+
+                        });
+                        tempLine.setOnMouseDragged(new EventHandler<MouseEvent>(){
+
+                            @Override
+                            public void handle (MouseEvent event) {
+                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
+                                    double deltaX = event.getSceneX() - mouseX;
+                                    double deltaY = event.getSceneY() - mouseY;
+                                    myPath.moveConnectedComponent(tempLine, deltaX, deltaY);
+                                    mouseX = event.getSceneX();
+                                    mouseY = event.getSceneY(); 
+                                }                           
+                            }                      
+                        });
+                        tempLine.setOnMouseReleased(new EventHandler<MouseEvent>(){
+
+                            @Override
+                            public void handle (MouseEvent event) {
+                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
+                                    myPath.tryToConnectComponents(tempLine);
+
+                                }
+
+                            }
+
+                        });
+                    }
                     myLineBeingCreated = null;
                 }
                 break;
-            
+
             default:
-           
+
         }
+    }
+
+    private Object removeLoc (StartingLocation startLoc) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     private void createPathBuildingOptions () {
@@ -121,21 +189,21 @@ public class PathBuildingScene extends BuildingScene {
         pathBuildingOptions.setPrefWidth(PATH_BUILDING_OPTIONS_WIDTH);
         pathBuildingOptions.setStyle("-fx-background-color: red");
         myPane.setRight(pathBuildingOptions);
-        
+
         myLinePathOptionPane = createPathComponentOption("Line");
         myLinePathOptionPane.setOnMouseClicked(event->setLineDrawerMode());
-        
+
         myCurvePathOptionPane = createPathComponentOption("Curve");
         myCurvePathOptionPane.setOnMouseClicked(event->setCurveDrawerMode());
-        
+
         mySelectComponentOptionPane = createPathComponentOption("Selection");
         mySelectComponentOptionPane.setOnMouseClicked(event->setSelectionMode());
-        
-        
+
+
         pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
                                                  myCurvePathOptionPane,
                                                  mySelectComponentOptionPane);
-         
+
     }
 
     private void setSelectionMode () {

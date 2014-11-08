@@ -21,19 +21,29 @@ public class PathLine extends Line implements PathComponent {
     public Point2D getEndingPoint () {
         return new Point2D(this.getEndX(), this.getEndY());
     }
-    
+
     @Override
     public void setStartingPoint (Point2D startingPoint) {
         this.setStartX(startingPoint.getX());
         this.setStartY(startingPoint.getY());
     }
-    
+
     @Override
     public void translate (double deltaX, double deltaY) {
         this.setStartX(this.getStartX()+deltaX);
         this.setStartY(this.getStartY()+deltaY);
         this.setEndX(this.getEndX()+deltaX);
         this.setEndY(this.getEndY()+deltaY);
+    }
+
+    @Override
+    public void setEndingPoint (Point2D endingPoint) {
+        this.setEndX(endingPoint.getX());
+        this.setEndY(endingPoint.getY());
+    }
+
+    public double getLength () {
+        return getEndingPoint().distance(getStartingPoint());
     }
 
 }
