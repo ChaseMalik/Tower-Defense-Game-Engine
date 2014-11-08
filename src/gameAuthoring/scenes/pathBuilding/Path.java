@@ -161,6 +161,10 @@ public class Path {
     }
 
     public void setSelectedComponent (PathLine tempLine) {
+        if(mySelectedComponent != null && componentIsInSelectedComponent(tempLine)) {
+            deselectSelectedConnectedComponent();
+            return;
+        }
         deselectSelectedConnectedComponent();
         mySelectedComponent = tempLine;
         LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
@@ -170,6 +174,16 @@ public class Path {
             }
         }
 
+    }
+
+    private boolean componentIsInSelectedComponent (PathLine componentClickedOn) {
+        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
+        for(PathComponent comp:selectedConnectedComponent){
+            if(comp.equals(componentClickedOn)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void deselectSelectedConnectedComponent () {
