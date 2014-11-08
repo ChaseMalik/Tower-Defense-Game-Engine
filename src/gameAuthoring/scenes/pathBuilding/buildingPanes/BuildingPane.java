@@ -1,6 +1,9 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
+import java.util.LinkedList;
+import java.util.List;
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.scenes.pathBuilding.PathComponent;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -16,7 +19,6 @@ public class BuildingPane extends Pane {
 
     public BuildingPane(Group group) {
         myGroup = group;
-        System.out.println(group.getChildren().size());
         this.getChildren().add(myGroup);
         this.setPrefWidth(DRAW_SCREEN_WIDTH);
         this.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
@@ -37,7 +39,12 @@ public class BuildingPane extends Pane {
         this.getChildren().add(myGroup);
     }
 
-    public void removeFromGroup (Node component) {
+    public void removeComponentFromScreen (Node component) {
         myGroup.getChildren().remove(component);       
+    }
+
+    public void removeConnectedComponentFromScreen (List<PathComponent> deletedComponent) {
+        myGroup.getChildren().removeAll(deletedComponent);
+        
     }
 }

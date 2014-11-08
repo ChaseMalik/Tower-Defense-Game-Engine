@@ -211,7 +211,7 @@ public class Path {
         mySelectedComponent = null;
     }
 
-    public LinkedList<PathComponent> deleteSelectedComponent () {
+    public List<PathComponent> deleteSelectedComponent () {
         if(mySelectedComponent == null){
             return null;
         }
@@ -220,7 +220,14 @@ public class Path {
             myPath.remove(connectedComponentToDelete);
         }
         mySelectedComponent = null; 
-        return connectedComponentToDelete;
-        
+        return connectedComponentToDelete;       
+    }
+    
+    public List<PathComponent> getAllPathComponents(){
+        List<PathComponent> componentsList = new ArrayList<PathComponent>();
+        for(LinkedList<PathComponent> connectedComponent:myPath){
+            componentsList.addAll(connectedComponent);
+        }
+        return componentsList;
     }
 }

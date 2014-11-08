@@ -44,7 +44,7 @@ public class LineDrawingPane extends BuildingPane {
             myPath.addPathComponentToPath(myLineBeingCreated);
         }
         else {
-            super.removeFromGroup(myLineBeingCreated);
+            super.removeComponentFromScreen(myLineBeingCreated);
             if(myLineBeingCreated.getLength() > MIN_LINE_LENGTH){
                 PathLine tempLine = myLineBeingCreated;
                 drawPathComponent(tempLine);

@@ -1,8 +1,5 @@
 package gameAuthoring.scenes.pathBuilding;
 
-import java.util.LinkedList;
-import java.util.Observable;
-import java.util.Observer;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
@@ -10,16 +7,11 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyEndingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane;
-import javafx.beans.InvalidationListener;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
+import java.util.List;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,10 +32,10 @@ public class PathBuildingScene extends BuildingScene {
     private EnemyEndingLocationsPane myEnemyEndingLocationsPane;
     private LineDrawingPane myLineDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
+    private BuildingPane myCurrentBuildingPane;
 
     private Pane myLinePathOptionPane;
     private Pane myCurvePathOptionPane;   
-    private Pane myBuildScreenPane;
     private Pane mySelectComponentOptionPane;
 
 
@@ -73,9 +65,9 @@ public class PathBuildingScene extends BuildingScene {
 
     private void handleKeyPress (KeyEvent event) {
         if(event.getCode() == KeyCode.DELETE){
-            LinkedList<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
+            List<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
             if(deletedComponent != null)
-                myBuildScreenPane.getChildren().removeAll(deletedComponent);
+                myCurrentBuildingPane.removeConnectedComponentFromScreen(deletedComponent);
         }
     }
 
@@ -103,6 +95,8 @@ public class PathBuildingScene extends BuildingScene {
         myCurvePathOptionPane.getStyleClass().remove("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().add("selected");
+        mySelectionComponentPane.addListenersToComponents();
+        switchBuildingPanes(mySelectionComponentPane);
     }
 
     private void setCurveDrawerMode () {
@@ -111,10 +105,11 @@ public class PathBuildingScene extends BuildingScene {
         mySelectComponentOptionPane.getStyleClass().remove("selected");  
     }
 
-    private void setLineDrawerMode () {
+    public void setLineDrawerMode () {
         myLinePathOptionPane.getStyleClass().add("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().remove("selected");
+        switchBuildingPanes(myLineDrawingPane);
     }
 
     private Pane createPathComponentOption (String componentName) {
@@ -129,11 +124,8 @@ public class PathBuildingScene extends BuildingScene {
         switchBuildingPanes(myEnemyEndingLocationsPane);
     }
     
-    public void proceedToLineDrawing() {
-        switchBuildingPanes(myLineDrawingPane);
-    }
-    
     public void switchBuildingPanes(BuildingPane nextPane) {
+        myCurrentBuildingPane = nextPane;
         myPane.getChildren().remove(myPane.getLeft());
         myPane.setLeft(nextPane);
         nextPane.refreshScreen();
