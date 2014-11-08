@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.pathBuilding;
+package gameAuthoring.scenes.pathBuilding.pathComponents;
 
 import javafx.geometry.Point2D;
 

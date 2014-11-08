@@ -1,44 +1,56 @@
 package gameAuthoring.scenes.pathBuilding;
 
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.geometry.Point2D;
 
 public class Path {
+
     private static final double CONNECT_THRESHOLD = 40;
-
     private static final double INSIDE_STARTING_LOC_THRESHOLD = 50;
-
     private static final double MIN_DISTANCE_BTW_LOCS = 150;
-
     private static final int MAX_NUM_STARTING_LOCS = 2;
-
     private static final int MAX_NUM_ENDING_LOCS = 2;
 
-    private List<StartingLocation> myStartingLocations;    
-    private List<EndingLocation> myEndingLocations;
+    private List<PathStartingLocation> myStartingLocations;    
+    private List<PathEndingLocation> myEndingLocations;
     private List<LinkedList<PathComponent>> myPath;
 
     private PathComponent mySelectedComponent;
 
     public Path() {
         myPath = new ArrayList<LinkedList<PathComponent>>();
-        myStartingLocations = new ArrayList<StartingLocation>();
-        myEndingLocations = new ArrayList<EndingLocation>();
+        myStartingLocations = new ArrayList<PathStartingLocation>();
+        myEndingLocations = new ArrayList<PathEndingLocation>();
     }
 
-    public void addPathComponentToPath(PathComponent componentToAdd) {
-
-        if(!componentSuccessfullyAddedToStartingLocation(componentToAdd) &&
-           !componentSuccessfullyAddedToEndOfAConnectedComponent(componentToAdd)) {
+    public void addComponentToPath(PathComponent componentToAdd) {
+        if(!componentAddedToStartingLocation(componentToAdd) &&
+           !componentAddedToEndOfExistingConnectedComponent(componentToAdd)) {
             createNewConnectedComponent(componentToAdd);
-            return;
         }
     }
 
-    public boolean tryToConnectComponentEndToEndLocation (PathComponent componentToAdd) {
-        for(EndingLocation endingLoc:myEndingLocations){
+    private boolean componentAddedToStartingLocation (PathComponent componentToAdd) {
+        for(PathStartingLocation startingLoc:myStartingLocations){
+            Point2D centerOfStartingLoc = 
+                    new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
+            if(addedComponentIsWithinCircle(componentToAdd.getStartingPoint(), centerOfStartingLoc)) {
+                componentToAdd.setStartingPoint(centerOfStartingLoc);
+                createNewConnectedComponent(componentToAdd);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean tryToAddConnectComponentToEndingLocation (PathComponent componentToAdd) {
+        for(PathEndingLocation endingLoc:myEndingLocations){
             Point2D centerCircle = new Point2D(endingLoc.getCenterX(), endingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd.getEndingPoint(), centerCircle)) {
                 componentToAdd.setEndingPoint(centerCircle);
@@ -48,24 +60,8 @@ public class Path {
         }
         return false;
     }
-
-    private boolean componentSuccessfullyAddedToStartingLocation (PathComponent componentToAdd) {
-        for(StartingLocation startingLoc:myStartingLocations){
-            Point2D centerCircle = new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
-            if(addedComponentIsWithinCircle(componentToAdd.getStartingPoint(), centerCircle)) {
-                componentToAdd.setStartingPoint(centerCircle);
-                createNewConnectedComponent(componentToAdd);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addedComponentIsWithinCircle (Point2D pointNearestCircle, Point2D centerCircle) {
-        return pointNearestCircle.distance(centerCircle) < INSIDE_STARTING_LOC_THRESHOLD;
-    }
-
-    private boolean componentSuccessfullyAddedToEndOfAConnectedComponent (PathComponent componentToAdd) {
+    
+    private boolean componentAddedToEndOfExistingConnectedComponent (PathComponent componentToAdd) {
         for(LinkedList<PathComponent> connectedComponent:myPath){
             PathComponent lastComponentInConnectedComponent = connectedComponent.getLast();
             if(closeEnoughToConnect(lastComponentInConnectedComponent, componentToAdd)){
@@ -75,6 +71,10 @@ public class Path {
             }
         }
         return false;
+    }
+
+    private boolean addedComponentIsWithinCircle (Point2D pointNearestCircle, Point2D centerCircle) {
+        return pointNearestCircle.distance(centerCircle) < INSIDE_STARTING_LOC_THRESHOLD;
     }
 
     private void createNewConnectedComponent (PathComponent componentToAdd) {
@@ -106,23 +106,9 @@ public class Path {
         return null;
     }
 
-    public void tryToConnectComponents (PathComponent componentDragged) {
-        LinkedList<PathComponent> draggedConnectedComponent = 
-                getConnectedComponentContaining(componentDragged);
-        for(LinkedList<PathComponent> connectedComponent:myPath){
-            PathComponent lastComponentInConnectedComponent = connectedComponent.getLast();
-            if(closeEnoughToConnect(lastComponentInConnectedComponent, draggedConnectedComponent.getFirst())){
-                draggedConnectedComponent.getFirst().setStartingPoint(lastComponentInConnectedComponent.getEndingPoint());
-                connectedComponent.addAll(draggedConnectedComponent);
-                myPath.remove(draggedConnectedComponent);
-                return;             
-            }
-        }   
-    }
-
-    public StartingLocation addStartingLocation(double x, double y) {
+    public PathStartingLocation addStartingLocation(double x, double y) {
         if(canCreateStartingLocationAt(x, y)){
-            StartingLocation loc = new StartingLocation(x, y);
+            PathStartingLocation loc = new PathStartingLocation(x, y);
             myStartingLocations.add(loc);
             return loc;
         }
@@ -130,19 +116,19 @@ public class Path {
     }
 
     private boolean canCreateStartingLocationAt (double x, double y) {
-        Point2D newLocation = new Point2D(x, y);
-        for(StartingLocation loc:myStartingLocations){
-            Point2D centerOfStartingLoc = new Point2D(loc.getCenterX(), loc.getCenterY());
-            if(centerOfStartingLoc.distance(newLocation) < MIN_DISTANCE_BTW_LOCS){
-                return false;
-            }
-        }
-        return myStartingLocations.size() < MAX_NUM_STARTING_LOCS;
+        return !isAnotherStartingLocationToClose(x, y) && 
+                myStartingLocations.size() < MAX_NUM_STARTING_LOCS;
     }
 
-    public EndingLocation addEndingLocation(double x, double y) {
+    private boolean isAnotherStartingLocationToClose (double x, double y) {
+        Point2D newLocation = new Point2D(x, y);
+        return myStartingLocations.stream()
+                .filter(loc->isLocationCloseTo(loc, newLocation)).count() > 0;
+    }
+
+    public PathEndingLocation addEndingLocation(double x, double y) {
         if(canCreateEndingLocationAt(x, y)){
-            EndingLocation loc = new EndingLocation(x, y);
+            PathEndingLocation loc = new PathEndingLocation(x, y);
             myEndingLocations.add(loc);
             return loc;
         }
@@ -150,17 +136,21 @@ public class Path {
     }
 
     private boolean canCreateEndingLocationAt (double x, double y) {
-        Point2D newLocation = new Point2D(x, y);
-        for(EndingLocation loc:myEndingLocations){
-            Point2D centerOfStartingLoc = new Point2D(loc.getCenterX(), loc.getCenterY());
-            if(centerOfStartingLoc.distance(newLocation) < MIN_DISTANCE_BTW_LOCS){
-                return false;
-            }
-        }
-        return myEndingLocations.size() < MAX_NUM_ENDING_LOCS;
+        return !isAnotherEndingLocationToClose(x, y) &&
+                myEndingLocations.size() < MAX_NUM_ENDING_LOCS;
     }
 
-    public void addEndingLocation(EndingLocation loc) {
+    private boolean isAnotherEndingLocationToClose (double x, double y) {
+        Point2D newLocation = new Point2D(x, y);
+        return myEndingLocations.stream()
+                .filter(loc->isLocationCloseTo(loc, newLocation)).count() > 0;
+    }
+
+    private boolean isLocationCloseTo (PathLocation pathLocation, Point2D newLocation) {
+        return pathLocation.getCenterLoc().distance(newLocation) < MIN_DISTANCE_BTW_LOCS;
+    }
+
+    public void addEndingLocation(PathEndingLocation loc) {
         myEndingLocations.add(loc);
     }
 
@@ -172,57 +162,52 @@ public class Path {
         return !myEndingLocations.isEmpty();
     }
 
-    public void setSelectedComponent (PathLine tempLine) {
-        if(mySelectedComponent != null && componentIsInSelectedComponent(tempLine)) {
+    public void handleComponentSelection (PathComponent componentClickedOn) {
+        if(isComponentInPreviouslySelectedComponent(componentClickedOn)){
             deselectSelectedConnectedComponent();
-            return;
         }
-        deselectSelectedConnectedComponent();
-        mySelectedComponent = tempLine;
-        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
-        if(selectedConnectedComponent != null){
+        else{
+            deselectSelectedConnectedComponent();
+            mySelectedComponent = componentClickedOn;
+            LinkedList<PathComponent> selectedConnectedComponent = 
+                    getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
                 comp.select();
             }
         }
-
     }
 
-    private boolean componentIsInSelectedComponent (PathLine componentClickedOn) {
-        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
-        for(PathComponent comp:selectedConnectedComponent){
-            if(comp.equals(componentClickedOn)){
-                return true;
-            }
+    private boolean isComponentInPreviouslySelectedComponent (PathComponent componentClickedOn) {
+        if(mySelectedComponent != null){
+            LinkedList<PathComponent> selectedConnectedComponent = 
+                    getConnectedComponentContaining(mySelectedComponent);
+            return selectedConnectedComponent.stream()
+                    .filter(comp->comp.equals(componentClickedOn)).count() > 0;
         }
         return false;
     }
 
     private void deselectSelectedConnectedComponent () {
-        if(mySelectedComponent == null){
-            return;
-        }
-        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
-        if(selectedConnectedComponent != null){
+        if(mySelectedComponent != null){
+            LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
                 comp.deselect();
             }
+            mySelectedComponent = null;
         }
-        mySelectedComponent = null;
     }
 
     public List<PathComponent> deleteSelectedComponent () {
-        if(mySelectedComponent == null){
-            return null;
-        }
-        LinkedList<PathComponent> connectedComponentToDelete = getConnectedComponentContaining(mySelectedComponent);
-        if(connectedComponentToDelete != null){
+        if(mySelectedComponent != null){
+            LinkedList<PathComponent> connectedComponentToDelete = 
+                    getConnectedComponentContaining(mySelectedComponent);
             myPath.remove(connectedComponentToDelete);
+            mySelectedComponent = null; 
+            return connectedComponentToDelete;    
         }
-        mySelectedComponent = null; 
-        return connectedComponentToDelete;       
+        return null;
     }
-    
+
     public List<PathComponent> getAllPathComponents(){
         List<PathComponent> componentsList = new ArrayList<PathComponent>();
         for(LinkedList<PathComponent> connectedComponent:myPath){

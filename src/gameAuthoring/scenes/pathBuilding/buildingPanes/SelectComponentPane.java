@@ -1,8 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
 import gameAuthoring.scenes.pathBuilding.Path;
-import gameAuthoring.scenes.pathBuilding.PathComponent;
-import gameAuthoring.scenes.pathBuilding.PathLine;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +21,6 @@ public class SelectComponentPane extends BuildingPane {
     public void addListenersToComponents() {
         for(PathComponent component:myPath.getAllPathComponents()){
             addSelectionListeners((PathLine) component);
-            System.out.println("Added listeners to component.");
         }
     }
 
@@ -31,7 +30,6 @@ public class SelectComponentPane extends BuildingPane {
             public void handle (MouseEvent event) {
                 mouseX = event.getSceneX();
                 mouseY = event.getSceneY();   
-                myPath.setSelectedComponent(component);
             }
 
         });

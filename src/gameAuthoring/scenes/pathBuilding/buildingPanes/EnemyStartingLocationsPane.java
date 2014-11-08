@@ -2,7 +2,7 @@ package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
 import gameAuthoring.scenes.pathBuilding.Path;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
-import gameAuthoring.scenes.pathBuilding.StartingLocation;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +24,7 @@ public class EnemyStartingLocationsPane extends BuildingPane {
     }
     
     private void addNewStartingLocation (MouseEvent event) {
-        StartingLocation createdStartingLoc = myPath.addStartingLocation(event.getSceneX(), event.getSceneY());
+        PathStartingLocation createdStartingLoc = myPath.addStartingLocation(event.getSceneX(), event.getSceneY());
         if(createdStartingLoc != null){
             drawLocation(createdStartingLoc);
         }

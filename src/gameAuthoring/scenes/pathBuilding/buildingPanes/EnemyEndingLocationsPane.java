@@ -1,8 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
-import gameAuthoring.scenes.pathBuilding.EndingLocation;
 import gameAuthoring.scenes.pathBuilding.Path;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,7 +35,7 @@ public class EnemyEndingLocationsPane extends BuildingPane {
     }
     
     private void addNewEndingLocation(MouseEvent event){
-        EndingLocation createdEndingLoc = myPath.addEndingLocation(event.getSceneX(), event.getSceneY());
+        PathEndingLocation createdEndingLoc = myPath.addEndingLocation(event.getSceneX(), event.getSceneY());
         if(createdEndingLoc != null){
             drawLocation(createdEndingLoc);
         }

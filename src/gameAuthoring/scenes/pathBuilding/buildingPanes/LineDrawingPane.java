@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import gameAuthoring.scenes.pathBuilding.Path;
-import gameAuthoring.scenes.pathBuilding.PathLine;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 
 public class LineDrawingPane extends BuildingPane {
     
@@ -41,14 +41,14 @@ public class LineDrawingPane extends BuildingPane {
         if(myLineBeingCreated == null){
             myLineBeingCreated = new PathLine(event.getX(), event.getY());
             drawPathComponent(myLineBeingCreated);
-            myPath.addPathComponentToPath(myLineBeingCreated);
+            myPath.addComponentToPath(myLineBeingCreated);
         }
         else {
             super.removeComponentFromScreen(myLineBeingCreated);
             if(myLineBeingCreated.getLength() > MIN_LINE_LENGTH){
                 PathLine tempLine = myLineBeingCreated;
                 drawPathComponent(tempLine);
-                myPath.tryToConnectComponentEndToEndLocation(tempLine);
+                myPath.tryToAddConnectComponentToEndingLocation(tempLine);
             }
             myLineBeingCreated = null;
         }
