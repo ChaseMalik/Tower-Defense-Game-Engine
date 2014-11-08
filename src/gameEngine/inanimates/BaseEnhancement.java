@@ -1,5 +1,5 @@
 package gameEngine.inanimates;
 
-public class BasePowerUp {
+public class BaseEnhancement {
 
 }

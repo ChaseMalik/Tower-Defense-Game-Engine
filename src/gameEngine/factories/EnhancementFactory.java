@@ -1,5 +1,5 @@
 package gameEngine.factories;
 
-public class InanimateFactory {
+public class EnhancementFactory {
 
 }
