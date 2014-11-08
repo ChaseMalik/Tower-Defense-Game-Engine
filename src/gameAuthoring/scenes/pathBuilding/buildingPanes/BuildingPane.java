@@ -1,9 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
-import java.util.LinkedList;
-import java.util.List;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.PathComponent;
+import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;

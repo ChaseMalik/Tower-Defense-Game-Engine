@@ -27,7 +27,7 @@ public class PathBuildingScene extends BuildingScene {
     private Path  myPath;
     private BorderPane myPane;
     private static Group myGroup;
-    
+
     private EnemyStartingLocationsPane myEnemyStartingLocationsPane;
     private EnemyEndingLocationsPane myEnemyEndingLocationsPane;
     private LineDrawingPane myLineDrawingPane;
@@ -45,22 +45,18 @@ public class PathBuildingScene extends BuildingScene {
         myPath = new Path();
         myGroup = new Group();
         createBuildingPanes();
-        setEnemyStartingLocationsSelection();
-        createPathBuildingOptions(); 
-        this.setOnKeyReleased(event->handleKeyPress(event));
+        createPathBuildingOptions();
+        setOnKeyReleased(event->handleKeyPress(event));
+        setCurrentBuildingPane(myEnemyStartingLocationsPane); 
     }
-    
+
     private void createBuildingPanes () {
         //NOT GOOD, MAYBE USE OBSERVABLES INSTEAD?!?!?!?
         myEnemyStartingLocationsPane = new EnemyStartingLocationsPane(myGroup, myPath, this);
         myEnemyEndingLocationsPane = new EnemyEndingLocationsPane(myGroup, myPath, this);
-        
+
         myLineDrawingPane = new LineDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
-    }
-
-    private void setEnemyStartingLocationsSelection () {
-        myPane.setLeft(myEnemyStartingLocationsPane);       
     }
 
     private void handleKeyPress (KeyEvent event) {
@@ -71,7 +67,7 @@ public class PathBuildingScene extends BuildingScene {
         }
     }
 
-    
+
     private void createPathBuildingOptions () {
         VBox pathBuildingOptions = new VBox(10);
         pathBuildingOptions.setPrefWidth(PATH_BUILDING_OPTIONS_WIDTH);
@@ -96,7 +92,7 @@ public class PathBuildingScene extends BuildingScene {
         myLinePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().add("selected");
         mySelectionComponentPane.addListenersToComponents();
-        switchBuildingPanes(mySelectionComponentPane);
+        setCurrentBuildingPane(mySelectionComponentPane);
     }
 
     private void setCurveDrawerMode () {
@@ -109,7 +105,7 @@ public class PathBuildingScene extends BuildingScene {
         myLinePathOptionPane.getStyleClass().add("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().remove("selected");
-        switchBuildingPanes(myLineDrawingPane);
+        setCurrentBuildingPane(myLineDrawingPane);
     }
 
     private Pane createPathComponentOption (String componentName) {
@@ -121,15 +117,22 @@ public class PathBuildingScene extends BuildingScene {
     }
 
     public void proceedToEndLocationsSelection () {
-        switchBuildingPanes(myEnemyEndingLocationsPane);
+        if(myPath.startingLocationsConfiguredCorrectly()){
+            setCurrentBuildingPane(myEnemyEndingLocationsPane);
+        }
     }
     
-    public void switchBuildingPanes(BuildingPane nextPane) {
+    public void proceedToLineDrawerMode () {
+        if(myPath.endingLocationsConfiguredCorrectly()){
+            setLineDrawerMode();
+        }
+    }
+
+    public void setCurrentBuildingPane(BuildingPane nextPane) {
         myCurrentBuildingPane = nextPane;
         myPane.getChildren().remove(myPane.getLeft());
         myPane.setLeft(nextPane);
         nextPane.refreshScreen();
     }
-
 
 }

@@ -25,7 +25,7 @@ public class EnemyEndingLocationsPane extends BuildingPane {
 
     private void createEnemyEndingLocationsSetupComponents () {
         mySaveEndsButton = new Button("Set End Locations");
-        mySaveEndsButton.setOnAction(event->myPathBuildingScene.setLineDrawerMode());
+        mySaveEndsButton.setOnAction(event->myPathBuildingScene.proceedToLineDrawerMode());
         mySaveEndsLabel = new Label("Click to add end locations");
         mySaveEndsLabel.setLayoutX(190);
         mySaveEndsLabel.setLayoutY(270);
