@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 
 public class PathBuildingScene extends BuildingScene {
@@ -24,7 +25,7 @@ public class PathBuildingScene extends BuildingScene {
     private static final String BUILD_SCREEN_CSS_CLASS = "buildScreen";
     private static final int PATH_COMPONENT_OPTION_HEIGHT = 150;
     
-    private PathDataHolder  myPathDataHolder;
+    private Path  myPath;
     private BorderPane myPane;
     private enum PATH_DRAWING_MODE { OFF, LINE_MODE, CURVE_MODE };
     private PATH_DRAWING_MODE currentDrawingMode;
@@ -33,23 +34,23 @@ public class PathBuildingScene extends BuildingScene {
     private Pane myCurvePathOptionPane;   
     private Pane myBuildScreenPane;
       
-    private Line myLineBeingCreated;
+    private PathLine myLineBeingCreated;
+    private CubicCurve myCurveBeingCreated;
 
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
         myPane = root;
         createBuildScreen();
         createPathBuildingOptions();
-        myPathDataHolder = new PathDataHolder();
-        currentDrawingMode = PATH_DRAWING_MODE.OFF;
-        
+        myPath = new Path();
+        currentDrawingMode = PATH_DRAWING_MODE.OFF;  
     }
     
     private void createBuildScreen () {
         myBuildScreenPane = new Pane();
         myBuildScreenPane.setPrefWidth(DRAW_SCREEN_WIDTH);
         myBuildScreenPane.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
-        myBuildScreenPane.setOnMouseClicked(event->handleBuildScreenClick(event));
+        myBuildScreenPane.setOnMousePressed(event->handleBuildScreenClick(event));
         myPane.setLeft(myBuildScreenPane);
         myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
             @Override
@@ -60,7 +61,6 @@ public class PathBuildingScene extends BuildingScene {
                         myLineBeingCreated.setEndY(event.getY());
                     }
                 }
-                  
             }        
         });
     }
@@ -68,23 +68,31 @@ public class PathBuildingScene extends BuildingScene {
     private void handleBuildScreenClick (MouseEvent event) {
         System.out.println(currentDrawingMode == PATH_DRAWING_MODE.LINE_MODE);
         switch(currentDrawingMode) {
-            case OFF: break;
             case LINE_MODE:
                 if(myLineBeingCreated == null){
-                    myLineBeingCreated = new Line();
+                    myLineBeingCreated = new PathLine(event.getX(), event.getY());
                     myBuildScreenPane.getChildren().add(myLineBeingCreated);
-                    myLineBeingCreated.setStartX(event.getX());
-                    myLineBeingCreated.setStartY(event.getY());
-                    myLineBeingCreated.setEndX(event.getX());
-                    myLineBeingCreated.setEndY(event.getY());
+                    myPath.addPathComponentToPath(myLineBeingCreated);
                 }
                 else {
-                    Line tempLine = myLineBeingCreated;
+                    PathLine tempLine = myLineBeingCreated;
                     myBuildScreenPane.getChildren().remove(myLineBeingCreated);
                     myBuildScreenPane.getChildren().add(tempLine);
                     myLineBeingCreated = null;
                 }
                 break;
+            case CURVE_MODE:
+                if(myCurveBeingCreated == null){
+                    myCurveBeingCreated = new CubicCurve();
+                    myBuildScreenPane.getChildren().add(myCurveBeingCreated);
+                    myCurveBeingCreated.setStartX(event.getX());
+                    myCurveBeingCreated.setStartY(event.getY());
+                    myCurveBeingCreated.setEndX(event.getX());
+                    myCurveBeingCreated.setEndY(event.getY());
+                }
+            default:
+                break;
+           
         }
     }
 
