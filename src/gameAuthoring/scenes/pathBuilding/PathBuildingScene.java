@@ -1,9 +1,19 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyEndingLocationsPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyStartingLocationsPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane;
+import javafx.beans.InvalidationListener;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,87 +27,51 @@ import javafx.scene.layout.VBox;
 public class PathBuildingScene extends BuildingScene {
 
     private static final String TITLE = "Path Building";
-    private static final double DRAW_SCREEN_WIDTH_RATIO = .7;
-    private static final double DRAW_SCREEN_WIDTH = 
-            AuthorController.SCREEN_WIDTH*DRAW_SCREEN_WIDTH_RATIO;
     private static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = .3;
     private static final double PATH_BUILDING_OPTIONS_WIDTH = 
-            AuthorController.SCREEN_WIDTH*PATH_BUILDING_OPTIONS_WIDTH_RATIO;
-    private static final String BUILD_SCREEN_CSS_CLASS = "buildScreen";
+            AuthorController.SCREEN_WIDTH * PATH_BUILDING_OPTIONS_WIDTH_RATIO;
     private static final int PATH_COMPONENT_OPTION_HEIGHT = 150;
-    private static final double MIN_LINE_LENGTH = 30;
 
     private Path  myPath;
     private BorderPane myPane;
-    private enum PATH_DRAWING_MODE { DRAW_STARTS, DRAW_ENDS, SELECT_MODE, LINE_MODE, CURVE_MODE };
-    private PATH_DRAWING_MODE myCurrentDrawingMode;
+    private static Group myGroup;
+    
+    private EnemyStartingLocationsPane myEnemyStartingLocationsPane;
+    private EnemyEndingLocationsPane myEnemyEndingLocationsPane;
+    private LineDrawingPane myLineDrawingPane;
+    private SelectComponentPane mySelectionComponentPane;
 
     private Pane myLinePathOptionPane;
     private Pane myCurvePathOptionPane;   
     private Pane myBuildScreenPane;
     private Pane mySelectComponentOptionPane;
 
-    private PathLine myLineBeingCreated;
-
-    private Button mySaveStartsButton;
-    private Button mySaveEndsButton;
-    private Label mySaveStartsLabel;
-    private Label mySaveEndsLabel;
-
-    private double mouseX;
-    private double mouseY;
 
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
         myPane = root;
-        this.setOnKeyReleased(event->handleKeyPress(event));
-        createBuildScreen();
-        createPathBuildingOptions();
         myPath = new Path();
-        myCurrentDrawingMode = PATH_DRAWING_MODE.DRAW_STARTS;  
+        myGroup = new Group();
+        createBuildingPanes();
+        setEnemyStartingLocationsSelection();
+        createPathBuildingOptions(); 
+        this.setOnKeyReleased(event->handleKeyPress(event));
+    }
+    
+    private void createBuildingPanes () {
+        //NOT GOOD, MAYBE USE OBSERVABLES INSTEAD?!?!?!?
+        myEnemyStartingLocationsPane = new EnemyStartingLocationsPane(myGroup, myPath, this);
+        myEnemyEndingLocationsPane = new EnemyEndingLocationsPane(myGroup, myPath, this);
+        
+        myLineDrawingPane = new LineDrawingPane(myGroup, myPath);
+        mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
     }
 
-    private void createBuildScreen () {
-        myBuildScreenPane = new Pane();
-        myBuildScreenPane.setPrefWidth(DRAW_SCREEN_WIDTH);
-        myBuildScreenPane.getStyleClass().add(BUILD_SCREEN_CSS_CLASS);
-        myBuildScreenPane.setOnMousePressed(event->handleBuildScreenClick(event));
-        myPane.setLeft(myBuildScreenPane);
-
-        mySaveStartsButton = new Button("Set Start Locations");
-        mySaveStartsButton.setOnAction(event->proceedToDrawingEnds());
-        mySaveStartsLabel = new Label("Click to add start locations");
-        mySaveStartsLabel.setLayoutX(190);
-        mySaveStartsLabel.setLayoutY(270);
-        mySaveStartsButton.setLayoutX(200);
-        mySaveStartsButton.setLayoutY(300);
-
-        myBuildScreenPane.getChildren().addAll(mySaveStartsLabel, mySaveStartsButton);
-
-        mySaveEndsButton = new Button("Set End Locations");
-        mySaveEndsButton.setOnAction(event->proceedToDrawLines());
-        mySaveEndsLabel = new Label("Click to add end locations");
-        mySaveEndsLabel.setLayoutX(190);
-        mySaveEndsLabel.setLayoutY(270);
-        mySaveEndsButton.setLayoutX(200);
-        mySaveEndsButton.setLayoutY(300);
-
-        myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle (MouseEvent event) {
-                if(myCurrentDrawingMode != PATH_DRAWING_MODE.SELECT_MODE) {
-                    if(myLineBeingCreated != null){
-                        myLineBeingCreated.setEndX(event.getX());
-                        myLineBeingCreated.setEndY(event.getY());
-                    }
-                }
-            }        
-        });
+    private void setEnemyStartingLocationsSelection () {
+        myPane.setLeft(myEnemyStartingLocationsPane);       
     }
-
 
     private void handleKeyPress (KeyEvent event) {
-        System.out.println("keypressed");
         if(event.getCode() == KeyCode.DELETE){
             LinkedList<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
             if(deletedComponent != null)
@@ -105,99 +79,10 @@ public class PathBuildingScene extends BuildingScene {
         }
     }
 
-    private void proceedToDrawLines () {
-        if(myPath.endingLocationsConfiguredCorrectly()){
-            myBuildScreenPane.getChildren().removeAll(mySaveEndsLabel, mySaveEndsButton);
-            this.setLineDrawerMode();
-        }
-    }
-
-    private void proceedToDrawingEnds () {
-        if(myPath.startingLocationsConfiguredCorrectly()){
-            myBuildScreenPane.getChildren().removeAll(mySaveStartsLabel, mySaveStartsButton);
-            myBuildScreenPane.getChildren().addAll(mySaveEndsLabel, mySaveEndsButton);
-            myCurrentDrawingMode = PATH_DRAWING_MODE.DRAW_ENDS;
-        }
-    }
-
-    private void handleBuildScreenClick (MouseEvent event) {
-        switch(myCurrentDrawingMode) {
-            case DRAW_STARTS:
-                StartingLocation createdStartingLoc = myPath.addStartingLocation(event.getSceneX(), event.getSceneY());
-                if(createdStartingLoc != null){
-                    myBuildScreenPane.getChildren().add(createdStartingLoc);
-                }
-                break;
-            case DRAW_ENDS:
-                EndingLocation createdEndingLoc = myPath.addEndingLocation(event.getSceneX(), event.getSceneY());
-                if(createdEndingLoc != null){
-                    myBuildScreenPane.getChildren().add(createdEndingLoc);
-                }
-                break;
-            case LINE_MODE:
-                if(myLineBeingCreated == null){
-                    myLineBeingCreated = new PathLine(event.getX(), event.getY());
-                    draw(myLineBeingCreated);
-                    myPath.addPathComponentToPath(myLineBeingCreated);
-                }
-                else {
-                    myBuildScreenPane.getChildren().remove(myLineBeingCreated);
-                    if(myLineBeingCreated.getLength() > MIN_LINE_LENGTH){
-                        PathLine tempLine = myLineBeingCreated;
-                        draw(tempLine);
-                        myPath.tryToConnectComponentEndToEndLocation(tempLine);
-                        tempLine.setOnMousePressed(new EventHandler<MouseEvent>(){
-
-                            @Override
-                            public void handle (MouseEvent event) {
-                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
-                                    mouseX = event.getSceneX();
-                                    mouseY = event.getSceneY();   
-                                    myPath.setSelectedComponent(tempLine);
-                                }
-                            }
-
-                        });
-                        tempLine.setOnMouseDragged(new EventHandler<MouseEvent>(){
-                            @Override
-                            public void handle (MouseEvent event) {
-                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
-                                    double deltaX = event.getSceneX() - mouseX;
-                                    double deltaY = event.getSceneY() - mouseY;
-                                    myPath.moveConnectedComponent(tempLine, deltaX, deltaY);
-                                    mouseX = event.getSceneX();
-                                    mouseY = event.getSceneY(); 
-                                }                           
-                            }                      
-                        });
-                        tempLine.setOnMouseReleased(new EventHandler<MouseEvent>(){
-
-                            @Override
-                            public void handle (MouseEvent event) {
-                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
-                                    myPath.tryToConnectComponents(tempLine);
-                                }
-                            }
-                        });
-                    }
-                    myLineBeingCreated = null;
-                }
-                break;
-
-            default:
-
-        }
-    }
-
-    private void draw (PathComponent comp) {
-       myBuildScreenPane.getChildren().add(0, (Node) comp);
-        
-    }
-
+    
     private void createPathBuildingOptions () {
         VBox pathBuildingOptions = new VBox(10);
         pathBuildingOptions.setPrefWidth(PATH_BUILDING_OPTIONS_WIDTH);
-        pathBuildingOptions.setStyle("-fx-background-color: red");
         myPane.setRight(pathBuildingOptions);
 
         myLinePathOptionPane = createPathComponentOption("Line");
@@ -209,29 +94,24 @@ public class PathBuildingScene extends BuildingScene {
         mySelectComponentOptionPane = createPathComponentOption("Selection");
         mySelectComponentOptionPane.setOnMouseClicked(event->setSelectionMode());
 
-
         pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
                                                  myCurvePathOptionPane,
                                                  mySelectComponentOptionPane);
-
     }
 
     private void setSelectionMode () {
-        myCurrentDrawingMode = PATH_DRAWING_MODE.SELECT_MODE;
         myCurvePathOptionPane.getStyleClass().remove("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().add("selected");
     }
 
     private void setCurveDrawerMode () {
-        myCurrentDrawingMode = PATH_DRAWING_MODE.CURVE_MODE;
         myCurvePathOptionPane.getStyleClass().add("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().remove("selected");  
     }
 
     private void setLineDrawerMode () {
-        myCurrentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
         myLinePathOptionPane.getStyleClass().add("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().remove("selected");
@@ -244,4 +124,20 @@ public class PathBuildingScene extends BuildingScene {
         pathComponentPane.getStyleClass().add("pathComponentOption");
         return pathComponentPane;
     }
+
+    public void proceedToEndLocationsSelection () {
+        switchBuildingPanes(myEnemyEndingLocationsPane);
+    }
+    
+    public void proceedToLineDrawing() {
+        switchBuildingPanes(myLineDrawingPane);
+    }
+    
+    public void switchBuildingPanes(BuildingPane nextPane) {
+        myPane.getChildren().remove(myPane.getLeft());
+        myPane.setLeft(nextPane);
+        nextPane.refreshScreen();
+    }
+
+
 }

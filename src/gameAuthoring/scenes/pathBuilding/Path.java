@@ -37,7 +37,7 @@ public class Path {
         }
     }
 
-    protected boolean tryToConnectComponentEndToEndLocation (PathComponent componentToAdd) {
+    public boolean tryToConnectComponentEndToEndLocation (PathComponent componentToAdd) {
         for(EndingLocation endingLoc:myEndingLocations){
             Point2D centerCircle = new Point2D(endingLoc.getCenterX(), endingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd.getEndingPoint(), centerCircle)) {
