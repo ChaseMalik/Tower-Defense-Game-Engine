@@ -9,6 +9,7 @@ public class PathLine extends Line implements PathComponent {
         this.setStartY(initialMouseClickY);
         this.setEndX(initalMouseClickX);
         this.setEndY(initialMouseClickY);
+        this.setStrokeWidth(20);
     }
 
     @Override
@@ -25,6 +26,14 @@ public class PathLine extends Line implements PathComponent {
     public void setStartingPoint (Point2D startingPoint) {
         this.setStartX(startingPoint.getX());
         this.setStartY(startingPoint.getY());
+    }
+    
+    @Override
+    public void translate (double deltaX, double deltaY) {
+        this.setStartX(this.getStartX()+deltaX);
+        this.setStartY(this.getStartY()+deltaY);
+        this.setEndX(this.getEndX()+deltaX);
+        this.setEndY(this.getEndY()+deltaY);
     }
 
 }

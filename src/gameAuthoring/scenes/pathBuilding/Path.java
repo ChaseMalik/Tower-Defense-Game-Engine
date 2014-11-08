@@ -3,6 +3,7 @@ package gameAuthoring.scenes.pathBuilding;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.scene.input.MouseEvent;
 
 public class Path {
     private static final double CONNECT_THRESHOLD = 30;
@@ -40,4 +41,25 @@ public class Path {
     private boolean closeEnoughToConnect (PathComponent last, PathComponent componentToAdd) {
         return last.getEndingPoint().distance(componentToAdd.getStartingPoint()) < CONNECT_THRESHOLD;
     }
+
+    public void moveConnectedComponent (PathComponent draggedComponent, double deltaX, double deltaY) {
+        LinkedList<PathComponent> connectedComponent = 
+                getConnectedComponentContainingDraggedComponent(draggedComponent);
+        for(PathComponent component:connectedComponent) {
+            component.translate(deltaX, deltaY);
+        }
+    }
+
+    private LinkedList<PathComponent> getConnectedComponentContainingDraggedComponent (PathComponent draggedComponent) {
+        for(LinkedList<PathComponent> connectedComponent:myPath){
+            for(PathComponent component:connectedComponent) {
+                if(draggedComponent.equals(component)) {
+                    return connectedComponent;
+                }
+            }
+        }
+        return null;
+    }
+    
+    
 }

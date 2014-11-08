@@ -53,4 +53,10 @@ public class PathCurve extends CubicCurve implements PathComponent {
         this.setStartX(startingPoint.getX());
         this.setStartY(startingPoint.getY());
     }
+
+    @Override
+    public void translate (double deltaX, double deltaY) {
+        this.setTranslateX(deltaX);
+        this.setTranslateY(deltaY);      
+    }
 }

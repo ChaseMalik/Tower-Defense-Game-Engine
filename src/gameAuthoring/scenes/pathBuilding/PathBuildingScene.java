@@ -27,15 +27,19 @@ public class PathBuildingScene extends BuildingScene {
     
     private Path  myPath;
     private BorderPane myPane;
-    private enum PATH_DRAWING_MODE { OFF, LINE_MODE, CURVE_MODE };
-    private PATH_DRAWING_MODE currentDrawingMode;
+    private enum PATH_DRAWING_MODE { SELECT_MODE, LINE_MODE, CURVE_MODE };
+    private PATH_DRAWING_MODE myCurrentDrawingMode;
     
     private Pane myLinePathOptionPane;
     private Pane myCurvePathOptionPane;   
     private Pane myBuildScreenPane;
+    private Pane mySelectComponentOptionPane;
       
     private PathLine myLineBeingCreated;
     private CubicCurve myCurveBeingCreated;
+    
+    private double mouseX;
+    private double mouseY;
 
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
@@ -43,7 +47,7 @@ public class PathBuildingScene extends BuildingScene {
         createBuildScreen();
         createPathBuildingOptions();
         myPath = new Path();
-        currentDrawingMode = PATH_DRAWING_MODE.OFF;  
+        myCurrentDrawingMode = PATH_DRAWING_MODE.SELECT_MODE;  
     }
     
     private void createBuildScreen () {
@@ -55,7 +59,7 @@ public class PathBuildingScene extends BuildingScene {
         myBuildScreenPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
-                if(currentDrawingMode != PATH_DRAWING_MODE.OFF) {
+                if(myCurrentDrawingMode != PATH_DRAWING_MODE.SELECT_MODE) {
                     if(myLineBeingCreated != null){
                         myLineBeingCreated.setEndX(event.getX());
                         myLineBeingCreated.setEndY(event.getY());
@@ -66,8 +70,8 @@ public class PathBuildingScene extends BuildingScene {
     }
 
     private void handleBuildScreenClick (MouseEvent event) {
-        System.out.println(currentDrawingMode == PATH_DRAWING_MODE.LINE_MODE);
-        switch(currentDrawingMode) {
+        System.out.println(myCurrentDrawingMode == PATH_DRAWING_MODE.LINE_MODE);
+        switch(myCurrentDrawingMode) {
             case LINE_MODE:
                 if(myLineBeingCreated == null){
                     myLineBeingCreated = new PathLine(event.getX(), event.getY());
@@ -78,20 +82,36 @@ public class PathBuildingScene extends BuildingScene {
                     PathLine tempLine = myLineBeingCreated;
                     myBuildScreenPane.getChildren().remove(myLineBeingCreated);
                     myBuildScreenPane.getChildren().add(tempLine);
+                    
+                    tempLine.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+                        @Override
+                        public void handle (MouseEvent event) {
+                            mouseX = event.getSceneX();
+                            mouseY = event.getSceneY();                           
+                        }
+                        
+                    });
+                    tempLine.setOnMouseDragged(new EventHandler<MouseEvent>(){
+
+                        @Override
+                        public void handle (MouseEvent event) {
+                            if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
+                                double deltaX = event.getSceneX() - mouseX;
+                                double deltaY = event.getSceneY() - mouseY;
+                                myPath.moveConnectedComponent(tempLine, deltaX, deltaY);
+                                mouseX = event.getSceneX();
+                                mouseY = event.getSceneY(); 
+                            }
+                            
+                        }
+                        
+                    });
                     myLineBeingCreated = null;
                 }
                 break;
-            case CURVE_MODE:
-                if(myCurveBeingCreated == null){
-                    myCurveBeingCreated = new CubicCurve();
-                    myBuildScreenPane.getChildren().add(myCurveBeingCreated);
-                    myCurveBeingCreated.setStartX(event.getX());
-                    myCurveBeingCreated.setStartY(event.getY());
-                    myCurveBeingCreated.setEndX(event.getX());
-                    myCurveBeingCreated.setEndY(event.getY());
-                }
+            
             default:
-                break;
            
         }
     }
@@ -108,22 +128,35 @@ public class PathBuildingScene extends BuildingScene {
         myCurvePathOptionPane = createPathComponentOption("Curve");
         myCurvePathOptionPane.setOnMouseClicked(event->setCurveDrawerMode());
         
+        mySelectComponentOptionPane = createPathComponentOption("Selection");
+        mySelectComponentOptionPane.setOnMouseClicked(event->setSelectionMode());
+        
         
         pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
-                                                 myCurvePathOptionPane);
+                                                 myCurvePathOptionPane,
+                                                 mySelectComponentOptionPane);
          
     }
 
+    private void setSelectionMode () {
+        myCurrentDrawingMode = PATH_DRAWING_MODE.SELECT_MODE;
+        myCurvePathOptionPane.getStyleClass().remove("selected");
+        myLinePathOptionPane.getStyleClass().remove("selected");
+        mySelectComponentOptionPane.getStyleClass().add("selected");
+    }
+
     private void setCurveDrawerMode () {
-        currentDrawingMode = PATH_DRAWING_MODE.CURVE_MODE;
+        myCurrentDrawingMode = PATH_DRAWING_MODE.CURVE_MODE;
         myCurvePathOptionPane.getStyleClass().add("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
+        mySelectComponentOptionPane.getStyleClass().remove("selected");  
     }
 
     private void setLineDrawerMode () {
-        currentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
+        myCurrentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
         myLinePathOptionPane.getStyleClass().add("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
+        mySelectComponentOptionPane.getStyleClass().remove("selected");
     }
 
     private Pane createPathComponentOption (String componentName) {
