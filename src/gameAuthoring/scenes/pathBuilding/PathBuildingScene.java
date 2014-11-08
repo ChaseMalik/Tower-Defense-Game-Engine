@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -136,15 +137,15 @@ public class PathBuildingScene extends BuildingScene {
             case LINE_MODE:
                 if(myLineBeingCreated == null){
                     myLineBeingCreated = new PathLine(event.getX(), event.getY());
-                    myBuildScreenPane.getChildren().add(myLineBeingCreated);
+                    draw(myLineBeingCreated);
                     myPath.addPathComponentToPath(myLineBeingCreated);
                 }
                 else {
                     myBuildScreenPane.getChildren().remove(myLineBeingCreated);
                     if(myLineBeingCreated.getLength() > MIN_LINE_LENGTH){
                         PathLine tempLine = myLineBeingCreated;
-                        myBuildScreenPane.getChildren().add(tempLine);
-
+                        draw(tempLine);
+                        myPath.tryToConnectComponentEndToEndLocation(tempLine);
                         tempLine.setOnMousePressed(new EventHandler<MouseEvent>(){
 
                             @Override
@@ -186,6 +187,11 @@ public class PathBuildingScene extends BuildingScene {
             default:
 
         }
+    }
+
+    private void draw (PathComponent comp) {
+       myBuildScreenPane.getChildren().add(0, (Node) comp);
+        
     }
 
     private void createPathBuildingOptions () {

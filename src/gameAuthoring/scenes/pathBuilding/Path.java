@@ -31,15 +31,28 @@ public class Path {
     public void addPathComponentToPath(PathComponent componentToAdd) {
 
         if(!componentSuccessfullyAddedToStartingLocation(componentToAdd) &&
-                !componentSuccessfullyAddedToEndOfAConnectedComponent(componentToAdd)) {
+           !componentSuccessfullyAddedToEndOfAConnectedComponent(componentToAdd)) {
             createNewConnectedComponent(componentToAdd);
+            return;
         }
+    }
+
+    protected boolean tryToConnectComponentEndToEndLocation (PathComponent componentToAdd) {
+        for(EndingLocation endingLoc:myEndingLocations){
+            Point2D centerCircle = new Point2D(endingLoc.getCenterX(), endingLoc.getCenterY());
+            if(addedComponentIsWithinCircle(componentToAdd.getEndingPoint(), centerCircle)) {
+                componentToAdd.setEndingPoint(centerCircle);
+                createNewConnectedComponent(componentToAdd);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean componentSuccessfullyAddedToStartingLocation (PathComponent componentToAdd) {
         for(StartingLocation startingLoc:myStartingLocations){
             Point2D centerCircle = new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
-            if(addedComponentIsWithinCircle(componentToAdd, centerCircle)) {
+            if(addedComponentIsWithinCircle(componentToAdd.getStartingPoint(), centerCircle)) {
                 componentToAdd.setStartingPoint(centerCircle);
                 createNewConnectedComponent(componentToAdd);
                 return true;
@@ -48,9 +61,8 @@ public class Path {
         return false;
     }
 
-    private boolean addedComponentIsWithinCircle (PathComponent componentToAdd, Point2D centerCircle) {
-        System.out.println(componentToAdd.getStartingPoint().distance(centerCircle));
-        return componentToAdd.getStartingPoint().distance(centerCircle) < INSIDE_STARTING_LOC_THRESHOLD;
+    private boolean addedComponentIsWithinCircle (Point2D pointNearestCircle, Point2D centerCircle) {
+        return pointNearestCircle.distance(centerCircle) < INSIDE_STARTING_LOC_THRESHOLD;
     }
 
     private boolean componentSuccessfullyAddedToEndOfAConnectedComponent (PathComponent componentToAdd) {
