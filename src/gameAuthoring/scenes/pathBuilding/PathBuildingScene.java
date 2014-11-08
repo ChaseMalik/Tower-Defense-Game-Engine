@@ -1,10 +1,13 @@
 package gameAuthoring.scenes.pathBuilding;
 
+import java.util.LinkedList;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -46,6 +49,7 @@ public class PathBuildingScene extends BuildingScene {
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
         myPane = root;
+        this.setOnKeyReleased(event->handleKeyPress(event));
         createBuildScreen();
         createPathBuildingOptions();
         myPath = new Path();
@@ -91,10 +95,19 @@ public class PathBuildingScene extends BuildingScene {
     }
 
 
+    private void handleKeyPress (KeyEvent event) {
+        System.out.println("keypressed");
+        if(event.getCode() == KeyCode.DELETE){
+            LinkedList<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
+            if(deletedComponent != null)
+                myBuildScreenPane.getChildren().removeAll(deletedComponent);
+        }
+    }
+
     private void proceedToDrawLines () {
         if(myPath.endingLocationsConfiguredCorrectly()){
-            myCurrentDrawingMode = PATH_DRAWING_MODE.LINE_MODE;
             myBuildScreenPane.getChildren().removeAll(mySaveEndsLabel, mySaveEndsButton);
+            this.setLineDrawerMode();
         }
     }
 
@@ -136,13 +149,15 @@ public class PathBuildingScene extends BuildingScene {
 
                             @Override
                             public void handle (MouseEvent event) {
-                                mouseX = event.getSceneX();
-                                mouseY = event.getSceneY();                           
+                                if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
+                                    mouseX = event.getSceneX();
+                                    mouseY = event.getSceneY();   
+                                    myPath.setSelectedComponent(tempLine);
+                                }
                             }
 
                         });
                         tempLine.setOnMouseDragged(new EventHandler<MouseEvent>(){
-
                             @Override
                             public void handle (MouseEvent event) {
                                 if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
@@ -160,11 +175,8 @@ public class PathBuildingScene extends BuildingScene {
                             public void handle (MouseEvent event) {
                                 if(myCurrentDrawingMode == PATH_DRAWING_MODE.SELECT_MODE){
                                     myPath.tryToConnectComponents(tempLine);
-
                                 }
-
                             }
-
                         });
                     }
                     myLineBeingCreated = null;

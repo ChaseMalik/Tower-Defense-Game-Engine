@@ -20,6 +20,8 @@ public class Path {
     private List<EndingLocation> myEndingLocations;
     private List<LinkedList<PathComponent>> myPath;
 
+    private PathComponent mySelectedComponent;
+
     public Path() {
         myPath = new ArrayList<LinkedList<PathComponent>>();
         myStartingLocations = new ArrayList<StartingLocation>();
@@ -39,6 +41,7 @@ public class Path {
             Point2D centerCircle = new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd, centerCircle)) {
                 componentToAdd.setStartingPoint(centerCircle);
+                createNewConnectedComponent(componentToAdd);
                 return true;
             }
         }
@@ -124,7 +127,7 @@ public class Path {
         }
         return myStartingLocations.size() < MAX_NUM_STARTING_LOCS;
     }
-    
+
     public EndingLocation addEndingLocation(double x, double y) {
         if(canCreateEndingLocationAt(x, y)){
             EndingLocation loc = new EndingLocation(x, y);
@@ -157,5 +160,41 @@ public class Path {
         return !myEndingLocations.isEmpty();
     }
 
+    public void setSelectedComponent (PathLine tempLine) {
+        deselectSelectedConnectedComponent();
+        mySelectedComponent = tempLine;
+        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
+        if(selectedConnectedComponent != null){
+            for(PathComponent comp:selectedConnectedComponent) {
+                comp.select();
+            }
+        }
 
+    }
+
+    private void deselectSelectedConnectedComponent () {
+        if(mySelectedComponent == null){
+            return;
+        }
+        LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
+        if(selectedConnectedComponent != null){
+            for(PathComponent comp:selectedConnectedComponent) {
+                comp.deselect();
+            }
+        }
+        mySelectedComponent = null;
+    }
+
+    public LinkedList<PathComponent> deleteSelectedComponent () {
+        if(mySelectedComponent == null){
+            return null;
+        }
+        LinkedList<PathComponent> connectedComponentToDelete = getConnectedComponentContaining(mySelectedComponent);
+        if(connectedComponentToDelete != null){
+            myPath.remove(connectedComponentToDelete);
+        }
+        mySelectedComponent = null; 
+        return connectedComponentToDelete;
+        
+    }
 }

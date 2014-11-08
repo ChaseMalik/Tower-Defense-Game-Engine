@@ -8,4 +8,6 @@ public interface PathComponent {
     void setStartingPoint (Point2D endingPoint);
     void setEndingPoint (Point2D startingPoint);
     void translate(double deltaX, double deltaY);
+    void select ();
+    void deselect ();
 }

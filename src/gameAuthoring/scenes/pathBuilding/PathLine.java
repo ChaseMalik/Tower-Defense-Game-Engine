@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class PathLine extends Line implements PathComponent {
@@ -46,4 +47,13 @@ public class PathLine extends Line implements PathComponent {
         return getEndingPoint().distance(getStartingPoint());
     }
 
+    @Override
+    public void select () {
+        super.setStroke(Color.GREEN);        
+    }
+    
+    @Override
+    public void deselect () {
+        super.setStroke(Color.BLACK);        
+    }
 }

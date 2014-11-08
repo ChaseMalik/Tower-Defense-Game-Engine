@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 
 public class PathCurve extends CubicCurve implements PathComponent {
@@ -63,5 +64,15 @@ public class PathCurve extends CubicCurve implements PathComponent {
     public void translate (double deltaX, double deltaY) {
         this.setTranslateX(deltaX);
         this.setTranslateY(deltaY);      
+    }
+    
+    @Override
+    public void select () {
+        super.setStroke(Color.GREEN);        
+    }
+    
+    @Override
+    public void deselect () {
+        super.setStroke(Color.BLACK);        
     }
 }
