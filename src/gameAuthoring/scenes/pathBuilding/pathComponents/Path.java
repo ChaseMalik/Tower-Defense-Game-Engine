@@ -1,11 +1,9 @@
-package gameAuthoring.scenes.pathBuilding;
+package gameAuthoring.scenes.pathBuilding.pathComponents;
 
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
-import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javafx.geometry.Point2D;
 
@@ -19,12 +17,12 @@ public class Path {
 
     private List<PathStartingLocation> myStartingLocations;    
     private List<PathEndingLocation> myEndingLocations;
-    private List<LinkedList<PathComponent>> myPath;
+    private List<ConnectedPathComponents> myPath;
 
     private PathComponent mySelectedComponent;
 
     public Path() {
-        myPath = new ArrayList<LinkedList<PathComponent>>();
+        myPath = new ArrayList<ConnectedPathComponents>();
         myStartingLocations = new ArrayList<PathStartingLocation>();
         myEndingLocations = new ArrayList<PathEndingLocation>();
     }
@@ -61,9 +59,9 @@ public class Path {
     }
 
     public boolean attemptToConnectComponents (PathComponent comp) {
-        LinkedList<PathComponent> connectedComponent1 = 
+        ConnectedPathComponents connectedComponent1 = 
                 getConnectedComponentContaining(comp);        
-        for(LinkedList<PathComponent> connectedComponent2:myPath){
+        for(ConnectedPathComponents connectedComponent2:myPath){
             if(!connectedComponent1.equals(connectedComponent2)){
                 if(closeEnoughToConnect(connectedComponent1.getLast(), connectedComponent2.getFirst())) {
                     connectComponents(connectedComponent1, connectedComponent2);
@@ -78,8 +76,8 @@ public class Path {
         return false;
     }
 
-    private void connectComponents (LinkedList<PathComponent> connectedComponent1,
-                                    LinkedList<PathComponent> connectedComponent2) {
+    private void connectComponents (ConnectedPathComponents connectedComponent1,
+                                    ConnectedPathComponents connectedComponent2) {
         connectedComponent2.getFirst().setStartingPoint(connectedComponent1.getLast().getEndingPoint());
         connectedComponent1.addAll(connectedComponent2);
         myPath.remove(connectedComponent2);
@@ -90,7 +88,7 @@ public class Path {
     }
 
     private void createNewConnectedComponent (PathComponent componentToAdd) {
-        LinkedList<PathComponent> newConnectedComponent = new LinkedList<PathComponent>();
+        ConnectedPathComponents newConnectedComponent = new ConnectedPathComponents();
         newConnectedComponent.add(componentToAdd);
         myPath.add(newConnectedComponent);
     }
@@ -100,17 +98,17 @@ public class Path {
     }
 
     public void moveConnectedComponent (PathComponent draggedComponent, double deltaX, double deltaY) {
-        LinkedList<PathComponent> connectedComponent = 
+        ConnectedPathComponents connectedComponent = 
                 getConnectedComponentContaining(draggedComponent);
         for(PathComponent component:connectedComponent) {
             component.translate(deltaX, deltaY);
         }
     }
 
-    private LinkedList<PathComponent> getConnectedComponentContaining (PathComponent draggedComponent) {
-        for(LinkedList<PathComponent> connectedComponent:myPath){
+    private ConnectedPathComponents getConnectedComponentContaining (PathComponent comp) {
+        for(ConnectedPathComponents connectedComponent:myPath){
             for(PathComponent component:connectedComponent) {
-                if(draggedComponent.equals(component)) {
+                if(comp.equals(component)) {
                     return connectedComponent;
                 }
             }
@@ -181,7 +179,7 @@ public class Path {
         else{
             deselectSelectedConnectedComponent();
             mySelectedComponent = componentClickedOn;
-            LinkedList<PathComponent> selectedConnectedComponent = 
+            ConnectedPathComponents selectedConnectedComponent = 
                     getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
                 comp.select();
@@ -191,9 +189,9 @@ public class Path {
 
     private boolean isComponentInPreviouslySelectedComponent (PathComponent componentClickedOn) {
         if(mySelectedComponent != null){
-            LinkedList<PathComponent> selectedConnectedComponent = 
+            ConnectedPathComponents selectedConnectedComponent = 
                     getConnectedComponentContaining(mySelectedComponent);
-            return selectedConnectedComponent.stream()
+            return selectedConnectedComponent.getComponents().stream()
                     .filter(comp->comp.equals(componentClickedOn)).count() > 0;
         }
         return false;
@@ -201,7 +199,7 @@ public class Path {
 
     private void deselectSelectedConnectedComponent () {
         if(mySelectedComponent != null){
-            LinkedList<PathComponent> selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
+            ConnectedPathComponents selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
                 comp.deselect();
             }
@@ -211,19 +209,19 @@ public class Path {
 
     public List<PathComponent> deleteSelectedComponent () {
         if(mySelectedComponent != null){
-            LinkedList<PathComponent> connectedComponentToDelete = 
+            ConnectedPathComponents connectedComponentToDelete = 
                     getConnectedComponentContaining(mySelectedComponent);
             myPath.remove(connectedComponentToDelete);
             mySelectedComponent = null; 
-            return connectedComponentToDelete;    
+            return connectedComponentToDelete.getComponents();    
         }
         return null;
     }
 
     public List<PathComponent> getAllPathComponents(){
         List<PathComponent> componentsList = new ArrayList<PathComponent>();
-        for(LinkedList<PathComponent> connectedComponent:myPath){
-            componentsList.addAll(connectedComponent);
+        for(ConnectedPathComponents connectedComponent:myPath){
+            componentsList.addAll(connectedComponent.getComponents());
         }
         return componentsList;
     }

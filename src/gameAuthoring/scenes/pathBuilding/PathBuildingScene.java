@@ -7,6 +7,7 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyEndingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane;
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.List;
 import javafx.scene.Group;

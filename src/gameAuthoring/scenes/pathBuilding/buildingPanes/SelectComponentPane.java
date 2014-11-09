@@ -1,6 +1,6 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
-import gameAuthoring.scenes.pathBuilding.Path;
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 import javafx.event.EventHandler;

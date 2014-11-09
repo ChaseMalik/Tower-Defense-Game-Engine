@@ -1,8 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
-import gameAuthoring.scenes.pathBuilding.Path;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

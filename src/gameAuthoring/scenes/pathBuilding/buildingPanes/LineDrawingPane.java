@@ -3,7 +3,7 @@ package gameAuthoring.scenes.pathBuilding.buildingPanes;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import gameAuthoring.scenes.pathBuilding.Path;
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 
 public class LineDrawingPane extends BuildingPane {
