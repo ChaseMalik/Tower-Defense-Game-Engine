@@ -43,6 +43,11 @@ public class SelectComponentPane extends BuildingPane {
                 mouseY = event.getSceneY(); 
             }                      
         });        
-        component.setOnMouseReleased(event->myPath.tryToConnectComponents(component));
+        component.setOnMouseReleased(event->handleSelectionAndTryToConnectComponents(component));
+    }
+
+    private void handleSelectionAndTryToConnectComponents (PathComponent component) {
+        myPath.attemptToConnectComponents(component);
+        myPath.handleComponentSelection(component);
     }
 }

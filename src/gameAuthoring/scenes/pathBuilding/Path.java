@@ -30,9 +30,9 @@ public class Path {
     }
 
     public void addComponentToPath(PathComponent componentToAdd) {
-        if(!componentAddedToStartingLocation(componentToAdd) &&
-           !componentAddedToEndOfExistingConnectedComponent(componentToAdd)) {
-            createNewConnectedComponent(componentToAdd);
+        createNewConnectedComponent(componentToAdd);
+        if(!componentAddedToStartingLocation(componentToAdd)){
+            attemptToConnectComponents(componentToAdd);
         }
     }
 
@@ -42,7 +42,6 @@ public class Path {
                     new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd.getStartingPoint(), centerOfStartingLoc)) {
                 componentToAdd.setStartingPoint(centerOfStartingLoc);
-                createNewConnectedComponent(componentToAdd);
                 return true;
             }
         }
@@ -60,17 +59,30 @@ public class Path {
         }
         return false;
     }
-    
-    private boolean componentAddedToEndOfExistingConnectedComponent (PathComponent componentToAdd) {
-        for(LinkedList<PathComponent> connectedComponent:myPath){
-            PathComponent lastComponentInConnectedComponent = connectedComponent.getLast();
-            if(closeEnoughToConnect(lastComponentInConnectedComponent, componentToAdd)){
-                componentToAdd.setStartingPoint(lastComponentInConnectedComponent.getEndingPoint());
-                connectedComponent.add(componentToAdd);
-                return true;
+
+    public boolean attemptToConnectComponents (PathComponent comp) {
+        LinkedList<PathComponent> connectedComponent1 = 
+                getConnectedComponentContaining(comp);        
+        for(LinkedList<PathComponent> connectedComponent2:myPath){
+            if(!connectedComponent1.equals(connectedComponent2)){
+                if(closeEnoughToConnect(connectedComponent1.getLast(), connectedComponent2.getFirst())) {
+                    connectComponents(connectedComponent1, connectedComponent2);
+                    return true;
+                }
+                else if(closeEnoughToConnect(connectedComponent2.getLast(), connectedComponent1.getFirst())){
+                    connectComponents(connectedComponent2, connectedComponent1);
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    private void connectComponents (LinkedList<PathComponent> connectedComponent1,
+                                    LinkedList<PathComponent> connectedComponent2) {
+        connectedComponent2.getFirst().setStartingPoint(connectedComponent1.getLast().getEndingPoint());
+        connectedComponent1.addAll(connectedComponent2);
+        myPath.remove(connectedComponent2);
     }
 
     private boolean addedComponentIsWithinCircle (Point2D pointNearestCircle, Point2D centerCircle) {
