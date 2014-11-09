@@ -50,5 +50,9 @@ public class ConnectedPathComponents implements Iterable<PathComponent> {
     public List<PathComponent> getComponents () {
         return myConnectedComponent;
     }
+
+    public boolean isNotConnectedToStartOrEndLocations () {
+        return myStartingLocation == null && myEndingLocation == null;
+    }
    
 }

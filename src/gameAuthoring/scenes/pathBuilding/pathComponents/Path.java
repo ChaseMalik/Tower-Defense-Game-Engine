@@ -40,6 +40,7 @@ public class Path {
                     new Point2D(startingLoc.getCenterX(), startingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd.getStartingPoint(), centerOfStartingLoc)) {
                 componentToAdd.setStartingPoint(centerOfStartingLoc);
+                getConnectedComponentContaining(componentToAdd).setStartingLocation(startingLoc);
                 return true;
             }
         }
@@ -51,7 +52,7 @@ public class Path {
             Point2D centerCircle = new Point2D(endingLoc.getCenterX(), endingLoc.getCenterY());
             if(addedComponentIsWithinCircle(componentToAdd.getEndingPoint(), centerCircle)) {
                 componentToAdd.setEndingPoint(centerCircle);
-                createNewConnectedComponent(componentToAdd);
+                getConnectedComponentContaining(componentToAdd).setEndingLocation(endingLoc);               
                 return true;
             }
         }
@@ -100,8 +101,10 @@ public class Path {
     public void moveConnectedComponent (PathComponent draggedComponent, double deltaX, double deltaY) {
         ConnectedPathComponents connectedComponent = 
                 getConnectedComponentContaining(draggedComponent);
-        for(PathComponent component:connectedComponent) {
-            component.translate(deltaX, deltaY);
+        if(connectedComponent.isNotConnectedToStartOrEndLocations()){
+            for(PathComponent component:connectedComponent) {
+                component.translate(deltaX, deltaY);
+            }
         }
     }
 
