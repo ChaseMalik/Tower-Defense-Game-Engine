@@ -75,4 +75,10 @@ public class PathCurve extends CubicCurve implements PathComponent {
     public void deselect () {
         super.setStroke(Color.BLACK);        
     }
+
+    @Override
+    public PathComponent deepCopy () {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

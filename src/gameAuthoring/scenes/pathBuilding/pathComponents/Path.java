@@ -6,6 +6,8 @@ import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 
 public class Path {
 
@@ -17,12 +19,14 @@ public class Path {
 
     private List<PathStartingLocation> myStartingLocations;    
     private List<PathEndingLocation> myEndingLocations;
-    private List<ConnectedPathComponents> myPath;
+    private List<PathRoute> myPath;
 
     private PathComponent mySelectedComponent;
+    private static Group myGroup;
 
-    public Path() {
-        myPath = new ArrayList<ConnectedPathComponents>();
+    public Path(Group group) {
+        myGroup = group;
+        myPath = new ArrayList<PathRoute>();
         myStartingLocations = new ArrayList<PathStartingLocation>();
         myEndingLocations = new ArrayList<PathEndingLocation>();
     }
@@ -60,25 +64,50 @@ public class Path {
     }
 
     public boolean attemptToConnectComponents (PathComponent comp) {
-        ConnectedPathComponents connectedComponent1 = 
+        PathRoute connectedComponent1 = 
                 getConnectedComponentContaining(comp);        
-        for(ConnectedPathComponents connectedComponent2:myPath){
+        for(PathRoute connectedComponent2:myPath){
             if(!connectedComponent1.equals(connectedComponent2)){
-                if(closeEnoughToConnect(connectedComponent1.getLast(), connectedComponent2.getFirst())) {
-                    connectComponents(connectedComponent1, connectedComponent2);
-                    return true;
-                }
-                else if(closeEnoughToConnect(connectedComponent2.getLast(), connectedComponent1.getFirst())){
-                    connectComponents(connectedComponent2, connectedComponent1);
-                    return true;
+                for(PathComponent component:connectedComponent2) {
+                    if(!component.equals(connectedComponent2.getLast())){
+                        if(closeEnoughToConnect(component, connectedComponent1.getFirst())){
+                            PathRoute componentsBefore = connectedComponent2.getComponentsBefore(component);
+                            //Have to add new component.
+                            drawComponents(componentsBefore.getComponents());
+                            myPath.add(componentsBefore);
+                            connectComponents(componentsBefore, connectedComponent1);
+                            return true;
+                        }
+                    }
+                    
+                                        
+                    //Connecting component 1 to the end of component 2
+                    //or connecting component 2 to the end of component 1
+                    else {
+                        if(closeEnoughToConnect(connectedComponent1.getLast(), connectedComponent2.getFirst())) {
+                            connectComponents(connectedComponent1, connectedComponent2);
+                            return true;
+                        }
+                        else if(closeEnoughToConnect(connectedComponent2.getLast(), connectedComponent1.getFirst())){
+                            connectComponents(connectedComponent2, connectedComponent1);
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
 
-    private void connectComponents (ConnectedPathComponents connectedComponent1,
-                                    ConnectedPathComponents connectedComponent2) {
+    private void drawComponents (List<PathComponent> components) {
+        for(PathComponent component:components){
+            myGroup.getChildren().add(0, (Node) component);
+        }
+        
+    }
+
+    private void connectComponents (PathRoute connectedComponent1,
+                                    PathRoute connectedComponent2) {
         connectedComponent2.getFirst().setStartingPoint(connectedComponent1.getLast().getEndingPoint());
         connectedComponent1.addAll(connectedComponent2);
         myPath.remove(connectedComponent2);
@@ -89,7 +118,7 @@ public class Path {
     }
 
     private void createNewConnectedComponent (PathComponent componentToAdd) {
-        ConnectedPathComponents newConnectedComponent = new ConnectedPathComponents();
+        PathRoute newConnectedComponent = new PathRoute();
         newConnectedComponent.add(componentToAdd);
         myPath.add(newConnectedComponent);
     }
@@ -99,7 +128,7 @@ public class Path {
     }
 
     public void moveConnectedComponent (PathComponent draggedComponent, double deltaX, double deltaY) {
-        ConnectedPathComponents connectedComponent = 
+        PathRoute connectedComponent = 
                 getConnectedComponentContaining(draggedComponent);
         if(connectedComponent.isNotConnectedToStartOrEndLocations()){
             for(PathComponent component:connectedComponent) {
@@ -108,8 +137,8 @@ public class Path {
         }
     }
 
-    private ConnectedPathComponents getConnectedComponentContaining (PathComponent comp) {
-        for(ConnectedPathComponents connectedComponent:myPath){
+    private PathRoute getConnectedComponentContaining (PathComponent comp) {
+        for(PathRoute connectedComponent:myPath){
             for(PathComponent component:connectedComponent) {
                 if(comp.equals(component)) {
                     return connectedComponent;
@@ -182,17 +211,24 @@ public class Path {
         else{
             deselectSelectedConnectedComponent();
             mySelectedComponent = componentClickedOn;
-            ConnectedPathComponents selectedConnectedComponent = 
+            PathRoute selectedConnectedComponent = 
                     getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
+                bringComponentToFrontOfGroup(comp);
                 comp.select();
             }
         }
     }
 
+    private void bringComponentToFrontOfGroup (PathComponent comp) {
+        myGroup.getChildren().remove(comp);
+        myGroup.getChildren().add((Node) comp);
+        
+    }
+
     private boolean isComponentInPreviouslySelectedComponent (PathComponent componentClickedOn) {
         if(mySelectedComponent != null){
-            ConnectedPathComponents selectedConnectedComponent = 
+            PathRoute selectedConnectedComponent = 
                     getConnectedComponentContaining(mySelectedComponent);
             return selectedConnectedComponent.getComponents().stream()
                     .filter(comp->comp.equals(componentClickedOn)).count() > 0;
@@ -202,7 +238,7 @@ public class Path {
 
     private void deselectSelectedConnectedComponent () {
         if(mySelectedComponent != null){
-            ConnectedPathComponents selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
+            PathRoute selectedConnectedComponent = getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
                 comp.deselect();
             }
@@ -212,7 +248,7 @@ public class Path {
 
     public List<PathComponent> deleteSelectedComponent () {
         if(mySelectedComponent != null){
-            ConnectedPathComponents connectedComponentToDelete = 
+            PathRoute connectedComponentToDelete = 
                     getConnectedComponentContaining(mySelectedComponent);
             myPath.remove(connectedComponentToDelete);
             mySelectedComponent = null; 
@@ -223,7 +259,7 @@ public class Path {
 
     public List<PathComponent> getAllPathComponents(){
         List<PathComponent> componentsList = new ArrayList<PathComponent>();
-        for(ConnectedPathComponents connectedComponent:myPath){
+        for(PathRoute connectedComponent:myPath){
             componentsList.addAll(connectedComponent.getComponents());
         }
         return componentsList;

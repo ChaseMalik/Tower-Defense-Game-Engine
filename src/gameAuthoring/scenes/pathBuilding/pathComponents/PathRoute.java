@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConnectedPathComponents implements Iterable<PathComponent> {
+public class PathRoute implements Iterable<PathComponent> {
     private PathStartingLocation myStartingLocation;
     private PathEndingLocation myEndingLocation;
     
     private List<PathComponent> myConnectedComponent;
     
-    public ConnectedPathComponents() {
+    public PathRoute() {
         myConnectedComponent = new ArrayList<PathComponent>();
     }
 
@@ -41,7 +41,7 @@ public class ConnectedPathComponents implements Iterable<PathComponent> {
         return myConnectedComponent.get(myConnectedComponent.size()-1);
     }
 
-    public void addAll (ConnectedPathComponents connectedComponent) {
+    public void addAll (PathRoute connectedComponent) {
         for(PathComponent comp:connectedComponent){
             myConnectedComponent.add(comp);
         }       
@@ -54,5 +54,17 @@ public class ConnectedPathComponents implements Iterable<PathComponent> {
     public boolean isNotConnectedToStartOrEndLocations () {
         return myStartingLocation == null && myEndingLocation == null;
     }
-   
+
+    public PathRoute getComponentsBefore (PathComponent component) {
+        PathRoute components = new PathRoute();
+        components.setStartingLocation(myStartingLocation);
+        for(int i = 0; i < myConnectedComponent.size(); i++){
+            PathComponent comp = myConnectedComponent.get(i);
+            components.add(myConnectedComponent.get(i).deepCopy());
+            if(comp.equals(component)){
+                break;
+            }
+        }
+        return components;       
+    }   
 }

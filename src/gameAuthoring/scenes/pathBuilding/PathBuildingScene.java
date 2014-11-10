@@ -44,8 +44,8 @@ public class PathBuildingScene extends BuildingScene {
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
         myPane = root;
-        myPath = new Path();
         myGroup = new Group();
+        myPath = new Path(myGroup);
         createBuildingPanes();
         createPathBuildingOptions();
         setOnKeyReleased(event->handleKeyPress(event));
