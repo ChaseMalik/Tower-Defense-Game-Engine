@@ -192,10 +192,6 @@ public class Path {
         return pathLocation.getCenterLoc().distance(newLocation) < MIN_DISTANCE_BTW_LOCS;
     }
 
-    public void addEndingLocation(PathEndingLocation loc) {
-        myEndingLocations.add(loc);
-    }
-
     public boolean startingLocationsConfiguredCorrectly () {
         return !myStartingLocations.isEmpty();
     }
@@ -284,5 +280,9 @@ public class Path {
     public void clearEnemyEndingLocations () {
         myGroup.getChildren().removeAll(myEndingLocations);
         myEndingLocations.clear();
+    }
+    
+    public int getNumRoutes() {
+        return myPath.size();
     }
 }
