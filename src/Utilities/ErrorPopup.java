@@ -5,6 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Utility class that easily allows for the creation of error popups in a new window.
+ * @author Austin Kyker
+ *
+ */
 public class ErrorPopup extends Stage {
 
     private static final int ERROR_POPUP_WIDTH = 200;
