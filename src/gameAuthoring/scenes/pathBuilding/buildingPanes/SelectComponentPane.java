@@ -6,6 +6,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Shape;
 
 public class SelectComponentPane extends BuildingPane {
 
@@ -20,12 +21,12 @@ public class SelectComponentPane extends BuildingPane {
     
     public void addListenersToComponents() {
         for(PathComponent component:myPath.getAllPathComponents()){
-            addSelectionListeners((PathLine) component);
+            addSelectionListeners(component);
         }
     }
 
-    private void addSelectionListeners(PathLine component){
-        component.setOnMousePressed(new EventHandler<MouseEvent>(){
+    private void addSelectionListeners(PathComponent component){
+        ((Shape) component).setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
                 mouseX = event.getSceneX();
@@ -33,7 +34,7 @@ public class SelectComponentPane extends BuildingPane {
             }
 
         });
-        component.setOnMouseDragged(new EventHandler<MouseEvent>(){
+        ((Shape) component).setOnMouseDragged(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
                 double deltaX = event.getSceneX() - mouseX;
@@ -43,7 +44,7 @@ public class SelectComponentPane extends BuildingPane {
                 mouseY = event.getSceneY(); 
             }                      
         });        
-        component.setOnMouseReleased(event->handleSelectionAndTryToConnectComponents(component));
+        ((Shape) component).setOnMouseReleased(event->handleSelectionAndTryToConnectComponents(component));
     }
 
     private void handleSelectionAndTryToConnectComponents (PathComponent component) {

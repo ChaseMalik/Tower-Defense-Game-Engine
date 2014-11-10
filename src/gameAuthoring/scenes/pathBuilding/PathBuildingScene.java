@@ -3,6 +3,7 @@ package gameAuthoring.scenes.pathBuilding;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.CurveDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyEndingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
@@ -33,6 +34,7 @@ public class PathBuildingScene extends BuildingScene {
     private EnemyStartingLocationsPane myEnemyStartingLocationsPane;
     private EnemyEndingLocationsPane myEnemyEndingLocationsPane;
     private LineDrawingPane myLineDrawingPane;
+    private CurveDrawingPane myCurveDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
     private BuildingPane myCurrentBuildingPane;
 
@@ -56,8 +58,8 @@ public class PathBuildingScene extends BuildingScene {
         //NOT GOOD, MAYBE USE OBSERVABLES INSTEAD?!?!?!?
         myEnemyStartingLocationsPane = new EnemyStartingLocationsPane(myGroup, myPath, this);
         myEnemyEndingLocationsPane = new EnemyEndingLocationsPane(myGroup, myPath, this);
-
         myLineDrawingPane = new LineDrawingPane(myGroup, myPath);
+        myCurveDrawingPane = new CurveDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
     }
 
@@ -100,7 +102,8 @@ public class PathBuildingScene extends BuildingScene {
     private void setCurveDrawerMode () {
         myCurvePathOptionPane.getStyleClass().add("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
-        mySelectComponentOptionPane.getStyleClass().remove("selected");  
+        mySelectComponentOptionPane.getStyleClass().remove("selected"); 
+        setCurrentBuildingPane(myCurveDrawingPane);
     }
 
     public void setLineDrawerMode () {
