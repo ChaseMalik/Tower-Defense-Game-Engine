@@ -32,7 +32,7 @@ public class Path {
     public void addComponentToPath(PathComponent componentToAdd) {
         createNewConnectedComponent(componentToAdd);
         if(!componentAddedToStartingLocation(componentToAdd)){
-            attemptToConnectComponents(componentToAdd);
+            attemptToConnectRoutes(componentToAdd);
         }
     }
 
@@ -61,7 +61,7 @@ public class Path {
         return false;
     }
 
-    public boolean attemptToConnectComponents (PathComponent comp) {
+    public boolean attemptToConnectRoutes (PathComponent comp) {
         PathRoute connectedComponent1 = 
                 getRouteContaining(comp);        
         for(PathRoute connectedComponent2:myPath){
@@ -73,7 +73,7 @@ public class Path {
                             //Have to add new component.
                             drawComponents(componentsBefore.getComponents());
                             myPath.add(componentsBefore);
-                            connectComponents(componentsBefore, connectedComponent1);
+                            connectRoutes(componentsBefore, connectedComponent1);
                             return true;
                         }
                     }
@@ -83,11 +83,11 @@ public class Path {
                     //or connecting component 2 to the end of component 1
                     else {
                         if(closeEnoughToConnect(connectedComponent1.getLast(), connectedComponent2.getFirst())) {
-                            connectComponents(connectedComponent1, connectedComponent2);
+                            connectRoutes(connectedComponent1, connectedComponent2);
                             return true;
                         }
                         else if(closeEnoughToConnect(connectedComponent2.getLast(), connectedComponent1.getFirst())){
-                            connectComponents(connectedComponent2, connectedComponent1);
+                            connectRoutes(connectedComponent2, connectedComponent1);
                             return true;
                         }
                     }
@@ -100,11 +100,10 @@ public class Path {
     private void drawComponents (List<PathComponent> components) {
         for(PathComponent component:components){
             myGroup.getChildren().add(0, (Node) component);
-        }
-        
+        }     
     }
 
-    private void connectComponents (PathRoute connectedComponent1,
+    protected void connectRoutes (PathRoute connectedComponent1,
                                     PathRoute connectedComponent2) {
         connectedComponent2.getFirst().setStartingPoint(connectedComponent1.getLast().getEndingPoint());
         connectedComponent1.addAll(connectedComponent2);
