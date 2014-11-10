@@ -29,7 +29,7 @@ public class BuildingPane extends Pane {
     }
     
     public void drawPathComponent(Node component) {
-        myGroup.getChildren().add(0, component);
+        myGroup.getChildren().add(1, component);
         refreshScreen();
     }
 

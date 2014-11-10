@@ -1,12 +1,16 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 public class EnemyEndingLocationsPane extends BuildingPane {
     
@@ -24,14 +28,17 @@ public class EnemyEndingLocationsPane extends BuildingPane {
     }
 
     private void createEnemyEndingLocationsSetupComponents () {
+        VBox container = new VBox(10);
+        container.setPadding(new Insets(15));
+        container.setLayoutX(BuildingPane.DRAW_SCREEN_WIDTH/2-50);
+        container.setLayoutY(AuthorController.SCREEN_HEIGHT/2);
+        container.setAlignment(Pos.CENTER);
+        container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.95");
         mySaveEndsButton = new Button("Set End Locations");
         mySaveEndsButton.setOnAction(event->myPathBuildingScene.proceedToLineDrawerMode());
         mySaveEndsLabel = new Label("Click to add end locations");
-        mySaveEndsLabel.setLayoutX(190);
-        mySaveEndsLabel.setLayoutY(270);
-        mySaveEndsButton.setLayoutX(200);
-        mySaveEndsButton.setLayoutY(300);
-        this.getChildren().addAll(mySaveEndsLabel, mySaveEndsButton);
+        container.getChildren().addAll(mySaveEndsLabel, mySaveEndsButton);
+        this.getChildren().add(container);
     }
     
     private void addNewEndingLocation(MouseEvent event){
