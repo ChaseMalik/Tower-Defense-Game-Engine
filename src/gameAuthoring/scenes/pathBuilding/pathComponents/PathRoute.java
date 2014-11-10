@@ -54,6 +54,14 @@ public class PathRoute implements Iterable<PathComponent> {
     public boolean isNotConnectedToStartOrEndLocations () {
         return myStartingLocation == null && myEndingLocation == null;
     }
+    
+    public boolean isConnectedToStartingLocation() {
+        return myStartingLocation != null;
+    }
+    
+    public boolean isConnectToEndingLocation() {
+        return myEndingLocation != null;
+    }
 
     public PathRoute getComponentsBefore (PathComponent component) {
         PathRoute components = new PathRoute();

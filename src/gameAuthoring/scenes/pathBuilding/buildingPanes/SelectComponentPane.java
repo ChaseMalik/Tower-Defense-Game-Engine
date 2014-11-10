@@ -47,7 +47,7 @@ public class SelectComponentPane extends BuildingPane {
     }
 
     private void handleSelectionAndTryToConnectComponents (PathComponent component) {
-        myPath.attemptToConnectComponents(component);
+        myPath.attemptToConnectRoutes(component);
         myPath.handleComponentSelection(component);
     }
 }
