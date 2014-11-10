@@ -1,0 +1,11 @@
+<behaviors>
+ 	<movement>
+		<element>FastMovement</element>
+		<element>SlowMovement</element>
+		<element>NoMovement</element>
+	</movement>
+	 <attack>
+		<element>BigAttack</element>
+		<element>SmallAttack</element>
+	</attack>
+</behaviors>
