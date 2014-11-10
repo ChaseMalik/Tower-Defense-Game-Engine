@@ -2,6 +2,8 @@ package gameAuthoring.scenes.pathBuilding.pathComponents;
 
 
 import static org.junit.Assert.*;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
+import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import org.junit.Before;
@@ -131,5 +133,44 @@ public class PathCreationTests {
         myPath.addComponentToPath(pathLine1);
         myPath.tryToAddConnectComponentToEndingLocation(pathLine1);
         assertTrue(myPath.getRoutes().get(0).isConnectToEndingLocation());
+    }
+    
+    @Test
+    public void IsLocationCloseToMethodTest() {
+        PathStartingLocation loc = new PathStartingLocation(100, 100);
+        Point2D closePoint = new Point2D(105, 110);
+        Point2D farPoint = new Point2D(250, 250);
+        assertTrue(myPath.isLocationCloseToPoint(loc, closePoint));
+        assertFalse(myPath.isLocationCloseToPoint(loc, farPoint));
+    }
+    
+    @Test
+    public void AddingStartingLocationWithNearbyStartLocationTest() {
+        myPath.addStartingLocation(120, 110);
+        assertFalse(myPath.canCreateLocationAtPoint(100, 100));
+        myPath.clearEnemyStartingLocations();
+        assertTrue(myPath.canCreateLocationAtPoint(100, 100));
+    }
+    
+    @Test
+    public void AddingStartingLocationWithNearbyEndingLocationTest() {
+        myPath.addEndingLocation(120, 110);
+        assertFalse(myPath.canCreateLocationAtPoint(100, 100));
+        myPath.clearEnemyEndingLocations();
+        assertTrue(myPath.canCreateLocationAtPoint(100, 100));
+    }
+    
+    @Test
+    public void GetRouteContainingComponentTest() {
+        PathLine pathLine1 = new PathLine(30, 30);
+        pathLine1.setEndingPoint(new Point2D(100, 100));
+        PathLine pathLine2 = new PathLine(300, 0);
+        pathLine2.setEndingPoint(new Point2D(330, 0));
+        myPath.addComponentToPath(pathLine1);
+        myPath.addComponentToPath(pathLine2);
+        assertNotEquals(myPath.getRouteContaining(pathLine1),
+                        myPath.getRouteContaining(pathLine2));
+        assertEquals(myPath.getRoutes().get(0), myPath.getRouteContaining(pathLine1));
+        assertEquals(myPath.getRoutes().get(1), myPath.getRouteContaining(pathLine2));
     }
 }
