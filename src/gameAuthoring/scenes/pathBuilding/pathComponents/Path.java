@@ -214,13 +214,23 @@ public class Path {
             PathRoute selectedConnectedComponent = 
                     getConnectedComponentContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
-                bringComponentToFrontOfGroup(comp);
+                bringComponentToFrontOfGroup((Node) comp);
                 comp.select();
             }
+            ensureLocationsAreInFront();
         }
     }
 
-    private void bringComponentToFrontOfGroup (PathComponent comp) {
+    private void ensureLocationsAreInFront () {
+        for(PathStartingLocation loc:myStartingLocations){
+            bringComponentToFrontOfGroup(loc);
+        }
+        for(PathEndingLocation loc:myEndingLocations){
+           bringComponentToFrontOfGroup(loc);
+        }       
+    }
+
+    private void bringComponentToFrontOfGroup (Node comp) {
         myGroup.getChildren().remove(comp);
         myGroup.getChildren().add((Node) comp);
         
