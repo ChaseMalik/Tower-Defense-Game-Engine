@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 public class BuildingPane extends Pane {
 
     private static final double DRAW_SCREEN_WIDTH_RATIO = .7;
-    private static final double DRAW_SCREEN_WIDTH = 
+    protected static final double DRAW_SCREEN_WIDTH = 
             AuthorController.SCREEN_WIDTH * DRAW_SCREEN_WIDTH_RATIO;
     private static final String BUILD_SCREEN_CSS_CLASS = "buildScreen";
     protected static Group myGroup;
@@ -35,7 +35,7 @@ public class BuildingPane extends Pane {
 
     public void refreshScreen() {
         this.getChildren().remove(myGroup);
-        this.getChildren().add(myGroup);
+        this.getChildren().add(0, myGroup);
     }
 
     public void removeComponentFromScreen (Node component) {

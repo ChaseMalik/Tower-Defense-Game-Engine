@@ -19,7 +19,6 @@ public class CurveDrawingPane extends BuildingPane {
 
     private void addListeners () {
         this.setOnMousePressed(event->handleBuildScreenClick(event));
-
         this.setOnMouseMoved(event->stretchLineToEndAtCurrentMousePosition(event));
     }
 

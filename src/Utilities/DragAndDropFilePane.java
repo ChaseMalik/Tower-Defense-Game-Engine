@@ -2,18 +2,24 @@ package Utilities;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import javafx.event.EventHandler;
+import java.util.Observable;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
-public class DragAndDropFilePane extends Pane {
+public class DragAndDropFilePane extends Observable {
     
     private String[] myValidExtensions;
     private String myFileDestination;
+    private Pane myPane;
+    private File myFile;
 
     /**
      * 
@@ -23,9 +29,19 @@ public class DragAndDropFilePane extends Pane {
     public DragAndDropFilePane(double width, double height, String[] validExtensions, String fileDestination) {
         myValidExtensions = validExtensions;
         myFileDestination = fileDestination;
-        setOnDragOver(event->handleDragOver(event));
-        setOnDragExited(event->handleDragExit(event));
-        setOnDragDropped(event->handleFileDrop(event));
+        myPane = new Pane();
+        myPane.setPrefSize(width, height);
+        myPane.setOnDragOver(event->handleDragOver(event));
+        myPane.setOnDragExited(event->handleDragExit(event));
+        myPane.setOnDragDropped(event->handleFileDrop(event));
+        showInstructionLabel(width, height);
+    }
+
+    private void showInstructionLabel (double width, double height) {
+        Label label = new Label("Drag and Drop Map Image");
+        label.setLayoutX(width/2 - 70);
+        label.setLayoutY(height/2-20);
+        myPane.getChildren().add(label);
     }
 
     private void handleFileDrop (DragEvent event) {
@@ -37,9 +53,12 @@ public class DragAndDropFilePane extends Pane {
                 String fileName = file.toPath().toString();
                 for(String extension:myValidExtensions){
                     if(fileName.toLowerCase().contains(extension)){
-                        File targetFile = new File(myFileDestination);
+                        File targetFile = new File(myFileDestination + file.getName().toString());
                         try {
+                            myFile = file;
                             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
+                            this.setChanged();
+                            this.notifyObservers();
                         }
                         catch (IOException e) {
                             new ErrorPopup("Invalid file");
@@ -56,19 +75,35 @@ public class DragAndDropFilePane extends Pane {
 
 
     private void handleDragExit (DragEvent event) {
-        setStyle("-fx-background-color: white;");
+        myPane.setStyle("-fx-background-color: white;");
         event.consume();
     }
 
 
     private void handleDragOver (DragEvent event) {
+        System.out.println("Drag Over");
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);
-            setStyle("-fx-background-color: lightgreen");
+            myPane.setStyle("-fx-background-color: lightgreen");
         }
         else {
             event.consume();
         }
+    }
+
+    public Node getPane () {
+        return myPane;
+    }
+
+    public FileInputStream getImageStream () {
+        FileInputStream stream = null;
+        try {
+            stream = new FileInputStream(myFile);
+        }
+        catch (FileNotFoundException e) {
+            new ErrorPopup("File was not found");
+        }
+        return stream;
     }
 }
