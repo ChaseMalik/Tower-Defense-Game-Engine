@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.pathBuilding;
+package gameAuthoring.scenes.pathBuilding.pathComponents;
 
 import javafx.geometry.Point2D;
 
@@ -10,4 +10,5 @@ public interface PathComponent {
     void translate(double deltaX, double deltaY);
     void select ();
     void deselect ();
+    PathComponent deepCopy();
 }

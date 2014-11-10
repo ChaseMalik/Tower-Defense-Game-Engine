@@ -33,5 +33,4 @@ public class BaseBaddie {
         myDefend.defend();
         myTerminate.terminate(); //onDeath()?
     }
-
 }
