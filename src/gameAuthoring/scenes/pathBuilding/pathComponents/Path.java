@@ -274,4 +274,15 @@ public class Path {
         }
         return componentsList;
     }
+
+    public void clearEnemyStartingLocations () {
+        myGroup.getChildren().removeAll(myStartingLocations);
+        myStartingLocations.clear();
+        
+    }
+    
+    public void clearEnemyEndingLocations () {
+        myGroup.getChildren().removeAll(myEndingLocations);
+        myEndingLocations.clear();
+    }
 }
