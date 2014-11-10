@@ -1,10 +1,7 @@
-package gameAuthoring.tests;
+package gameAuthoring.scenes.pathBuilding.pathComponents;
 
 
 import static org.junit.Assert.*;
-import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
-import gameAuthoring.scenes.pathBuilding.pathComponents.PathCurve;
-import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import org.junit.Before;
@@ -116,4 +113,23 @@ public class PathCreationTests {
         myPath.clearEnemyEndingLocations();
         assertFalse(myPath.endingLocationsConfiguredCorrectly());
     }   
+    
+    @Test
+    public void ConnectComponentToStartingLocationTest() {
+        myPath.addStartingLocation(30, 30);
+        PathLine pathLine1 = new PathLine(30, 30);
+        pathLine1.setEndingPoint(new Point2D(100, 100));
+        myPath.addComponentToPath(pathLine1);
+        assertTrue(myPath.getRoutes().get(0).isConnectedToStartingLocation());
+    }
+    
+    @Test
+    public void ConnectComponentToEndingLocationTest() {
+        myPath.addEndingLocation(100, 100);
+        PathLine pathLine1 = new PathLine(30, 30);
+        pathLine1.setEndingPoint(new Point2D(100, 100));
+        myPath.addComponentToPath(pathLine1);
+        myPath.tryToAddConnectComponentToEndingLocation(pathLine1);
+        assertTrue(myPath.getRoutes().get(0).isConnectToEndingLocation());
+    }
 }

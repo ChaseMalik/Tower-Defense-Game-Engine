@@ -282,7 +282,13 @@ public class Path {
         myEndingLocations.clear();
     }
     
-    public int getNumRoutes() {
+    protected int getNumRoutes() {
         return myPath.size();
     }
+    
+    protected List<PathRoute> getRoutes() {
+        return myPath;
+    }
+    
+    
 }
