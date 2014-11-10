@@ -81,7 +81,6 @@ public class DragAndDropFilePane extends Observable {
 
 
     private void handleDragOver (DragEvent event) {
-        System.out.println("Drag Over");
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);

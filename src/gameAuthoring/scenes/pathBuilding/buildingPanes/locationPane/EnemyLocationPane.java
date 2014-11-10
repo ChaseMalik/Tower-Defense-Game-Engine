@@ -34,5 +34,4 @@ public abstract class EnemyLocationPane extends BuildingPane {
         container.getChildren().addAll(label, button, myClearLocations);
         this.getChildren().add(container);
     }
-
 }
