@@ -9,6 +9,6 @@
 	</WindowSize>
 	
 	<WindowStyleSheet>
-	    <element>./src/gamePlayer/styleSheets/guibuilderdefault.css</element>
+	    <element>/gamePlayer/styleSheets/guibuilder_customtheme_1.css</element>
 	</WindowStyleSheet>
 </GuiBuilderProperties>

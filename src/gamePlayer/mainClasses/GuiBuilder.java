@@ -42,9 +42,11 @@ public class GuiBuilder {
             
             Group group = new Group();
             Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
-            scene.getStylesheets().add(myParser.getValuesFromTag("WindowStyleSheet").get(0));
-            stage.setScene(scene);
+            String styleSheetPath = myParser.getValuesFromTag("WindowStyleSheet").get(0);
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
             
+            stage.setScene(scene);
             stage.setTitle(myTextGen.get(Text.VOOGASALAD));
             stage.setResizable(true);
             stage.show();
