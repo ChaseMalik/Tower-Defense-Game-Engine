@@ -1,6 +1,7 @@
 package gamePlayer.mainClasses;
 
 import java.util.List;
+import javafx.scene.Node;
 
 /**
  * Class defines universal Gui element behavior that both containers and items have
@@ -13,4 +14,5 @@ public interface GuiElement {
      * @param componentSize size of the component within which this GuiElement is hosted
      */
     public abstract void initialize(List<Double> componentSize);
+    public abstract Node getNode();
 }

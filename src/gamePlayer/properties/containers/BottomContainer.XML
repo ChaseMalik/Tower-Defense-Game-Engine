@@ -10,7 +10,7 @@
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-	
+	    <element>BottomItemPlaceholder</element>
 	</Items>
 	
 </ContainerProperties>

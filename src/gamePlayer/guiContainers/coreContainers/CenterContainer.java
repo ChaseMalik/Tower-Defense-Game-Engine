@@ -2,6 +2,7 @@ package gamePlayer.guiContainers.coreContainers;
 
 import java.util.List;
 import gamePlayer.guiContainers.GuiContainer;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 public class CenterContainer extends BorderPane implements GuiContainer {
@@ -12,6 +13,8 @@ public class CenterContainer extends BorderPane implements GuiContainer {
         
     }
 
-    
-
+    @Override
+    public Node getNode () {
+        return this;
+    }
 }

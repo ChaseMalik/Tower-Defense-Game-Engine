@@ -2,6 +2,7 @@ package gamePlayer.guiContainers.coreContainers;
 
 import java.util.List;
 import gamePlayer.guiContainers.GuiContainer;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
 public class LeftContainer extends VBox implements GuiContainer {
@@ -12,5 +13,8 @@ public class LeftContainer extends VBox implements GuiContainer {
         
     }
 
-    
+    @Override
+    public Node getNode () {
+        return this;
+    }
 }
