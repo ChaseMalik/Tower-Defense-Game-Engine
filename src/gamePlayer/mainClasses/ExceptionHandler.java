@@ -16,6 +16,7 @@ public class ExceptionHandler {
     
     public void handle(ReflectiveOperationException e) {
         System.out.println("ReflectiveOperationException exception raised\n");
+        e.printStackTrace();
     }
     
 }
