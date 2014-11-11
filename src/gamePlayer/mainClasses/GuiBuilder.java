@@ -1,22 +1,22 @@
-package gamePlayer.guiComponents;
+package gamePlayer.mainClasses;
 
+import gamePlayer.textGeneration.Text;
+import gamePlayer.textGeneration.TextGenerator;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import Utilities.XMLParsing.XMLParser;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class GuiBuilder {
     private static GuiBuilder myReference = null;
     private static final String myPropertiesPath =  "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     private XMLParser myParser;
+    private TextGenerator myTextGen;
     
     private GuiBuilder() {
         try {
@@ -26,6 +26,8 @@ public class GuiBuilder {
             System.out.println("Error creating XML parser\n");
             e.printStackTrace();
         }
+        
+        myTextGen = TextGenerator.getInstance();
     }
     
     public static GuiBuilder getInstance() {
@@ -42,12 +44,9 @@ public class GuiBuilder {
             Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
             scene.getStylesheets().add(myParser.getValuesFromTag("WindowStyleSheet").get(0));
             stage.setScene(scene);
-            /*
-            stage.setTitle(textGen.get(TextGenerator.SLOGO));
-            stage.setResizable(false);
+            
+            stage.setTitle(myTextGen.get(Text.VOOGASALAD));
+            stage.setResizable(true);
             stage.show();
-            return pane;
-            */
-            //pane.setPrefSize(windowSize.get(0), windowSize.get(1));
     }
 }

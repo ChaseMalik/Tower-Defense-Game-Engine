@@ -1,4 +1,4 @@
-package gamePlayer.guiComponents;
+package gamePlayer.mainClasses;
 
 import javafx.stage.Stage;
 

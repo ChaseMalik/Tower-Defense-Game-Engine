@@ -10,5 +10,5 @@
 	
 	<WindowStyleSheet>
 	    <element>./src/gamePlayer/styleSheets/guibuilderdefault.css</element>
-	<WindowStyleSheet>
+	</WindowStyleSheet>
 </GuiBuilderProperties>

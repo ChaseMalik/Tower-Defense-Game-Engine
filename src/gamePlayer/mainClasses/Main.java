@@ -1,6 +1,5 @@
 package gamePlayer.mainClasses;
 
-import gamePlayer.guiComponents.GuiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

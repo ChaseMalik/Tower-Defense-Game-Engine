@@ -1,8 +1,9 @@
-package gamePlayer.mainClasses;
+package gamePlayer.textGeneration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -16,23 +17,17 @@ import Utilities.XMLParsing.XMLParser;
  *
  */
 public class TextGenerator  {
-
-    public static final String VOOGASALAD = "VOOGASALAD";
-
-    public static final String ENGLISH = "English";
-
     private static TextGenerator myself;
     private Map<String, Locale> supportedLocales;
     private ResourceBundle myCurrentResourceBundle;
     
+    public static final String ENGLISH = "English";
     private static final String myPropertiesPath =  "./src/gamePlayer/properties/TextGeneratorProperties.XML";
     private XMLParser myParser;
 
+    private static final String myBundlesPath = "gamePlayer.properties.languages/LanguagesBundle";
+    
     private TextGenerator() {
-        supportedLocales = new HashMap<String, Locale>();
-        addSupportedLanguages();
-        myCurrentResourceBundle = getResourceBundle(ENGLISH);
-        
         try {
             myParser = new XMLParser(new File(myPropertiesPath));
         }
@@ -40,6 +35,11 @@ public class TextGenerator  {
             System.out.println("Error creating XML parser\n");
             e.printStackTrace();
         }
+        
+        supportedLocales = new HashMap<String, Locale>();
+        addSupportedLanguages();
+        myCurrentResourceBundle = getResourceBundle(ENGLISH);
+        
     }
 
     public static TextGenerator getInstance() {
@@ -53,14 +53,16 @@ public class TextGenerator  {
         supportedLocales.put(language, locale);
     }
 
-    //in the future have this read from properties file too
     private void addSupportedLanguages() {
-        addLocale(ENGLISH, Locale.ENGLISH);
+        myParser.getValuesFromTag("LanguagesSupported");
+        List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
+        for (String language:languagesSupported) {
+            addLocale(language,new Locale(language));
+        }
     }
 
     private ResourceBundle getResourceBundle (String language) {
-        return ResourceBundle.getBundle("resources.guiResources/LabelsBundle",
-                                        supportedLocales.get(language));
+        return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));
     }
 
     /**
