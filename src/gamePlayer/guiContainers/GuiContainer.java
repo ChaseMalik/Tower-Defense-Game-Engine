@@ -1,5 +1,6 @@
 package gamePlayer.guiContainers;
 
+import Utilities.XMLParsing.XMLParser;
 import gamePlayer.mainClasses.GuiElement;
 
 /**
@@ -8,4 +9,5 @@ import gamePlayer.mainClasses.GuiElement;
  *
  */
 public interface GuiContainer extends GuiElement  {
+    public static final String myPropertiesPath =  "./src/gamePlayer/properties/containers/";
 }

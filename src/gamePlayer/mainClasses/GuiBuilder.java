@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import Utilities.XMLParsing.XMLParser;
+import Utilities.XMLParsing.XMLParserInstantiator;
 
 public class GuiBuilder {
     private static GuiBuilder myReference = null;
@@ -26,14 +27,7 @@ public class GuiBuilder {
     private TextGenerator myTextGen;
 
     private GuiBuilder() {
-        try {
-            myParser = new XMLParser(new File(myPropertiesPath));
-        }
-        catch (ParserConfigurationException | SAXException | IOException e) {
-            System.out.println("Error creating XML parser\n");
-            e.printStackTrace();
-        }
-
+        myParser = XMLParserInstantiator.getInstance(new File(myPropertiesPath));
         myTextGen = TextGenerator.getInstance();
     }
 
