@@ -1,5 +1,10 @@
 package gamePlayer.mainClasses;
 
+import gamePlayer.guiContainers.coreContainers.BottomContainer;
+import gamePlayer.guiContainers.coreContainers.CenterContainer;
+import gamePlayer.guiContainers.coreContainers.LeftContainer;
+import gamePlayer.guiContainers.coreContainers.RightContainer;
+import gamePlayer.guiContainers.coreContainers.TopContainer;
 import gamePlayer.textGeneration.Text;
 import gamePlayer.textGeneration.TextGenerator;
 import java.io.File;
@@ -19,7 +24,7 @@ public class GuiBuilder {
     private static final String myPropertiesPath =  "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     private XMLParser myParser;
     private TextGenerator myTextGen;
-    
+
     private GuiBuilder() {
         try {
             myParser = new XMLParser(new File(myPropertiesPath));
@@ -28,10 +33,10 @@ public class GuiBuilder {
             System.out.println("Error creating XML parser\n");
             e.printStackTrace();
         }
-        
+
         myTextGen = TextGenerator.getInstance();
     }
-    
+
     public static GuiBuilder getInstance() {
         if (myReference == null) {
             myReference = new GuiBuilder();
@@ -40,25 +45,29 @@ public class GuiBuilder {
     }
 
     public void build (Stage stage) {
-            List<Integer> windowSize = myParser.getIntegerValuesFromTag("WindowSize");
-            
-            Group group = new Group();
-            Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
-            String styleSheetPath = myParser.getValuesFromTag("WindowStyleSheet").get(0);
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
-            
-            stage.setScene(scene);
-            stage.setTitle(myTextGen.get(Text.VOOGASALAD));
-            stage.setResizable(true);
-            group.getChildren().add(initializeCoreContainers(windowSize));
-            stage.show();
+        List<Integer> windowSize = myParser.getIntegerValuesFromTag("WindowSize");
+
+        Group group = new Group();
+        Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
+        String styleSheetPath = myParser.getValuesFromTag("WindowStyleSheet").get(0);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
+
+        stage.setScene(scene);
+        stage.setTitle(myTextGen.get(Text.VOOGASALAD));
+        stage.setResizable(true);
+        group.getChildren().add(initializeCoreContainers(windowSize));
+        stage.show();
     }
-    
+
     public Node initializeCoreContainers(List<Integer> windowSize) {
         BorderPane pane = new BorderPane();
         pane.setPrefSize(windowSize.get(0), windowSize.get(1));
-        
-        return null;
+        pane.setTop(new TopContainer(windowSize));
+        pane.setLeft(new LeftContainer(windowSize));
+        pane.setRight(new RightContainer(windowSize));
+        pane.setBottom(new BottomContainer(windowSize));
+        pane.setCenter(new CenterContainer(windowSize)); 
+        return pane;
     }
 }
