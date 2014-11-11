@@ -5,15 +5,12 @@ import gamePlayer.guiContainers.GuiContainer;
 import javafx.scene.layout.HBox;
 
 public class TopContainer extends HBox implements GuiContainer {
-    
-    public TopContainer (List<Integer> windowSize) {
-        super();
-    }
 
     @Override
-    public void initialize () {
+    public void initialize (List<Double> componentSize) {
         // TODO Auto-generated method stub
         
     }
-
+    
+    
 }

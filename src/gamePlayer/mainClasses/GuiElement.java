@@ -1,11 +1,16 @@
 package gamePlayer.mainClasses;
 
+import java.util.List;
+
 /**
- * Interface that all guiContainers and guiItems implement. Defines the initialize method
- * that all of them must have for uniform  Gui initialization (and extension afterwards). 
+ * Class defines universal Gui element behavior that both containers and items have
  * @author allankiplagat
  *
  */
 public interface GuiElement {
-    public void initialize();
+    /**
+     * GuiElement should set its size based on the componentSize
+     * @param componentSize size of the component within which this GuiElement is hosted
+     */
+    public abstract void initialize(List<Double> componentSize);
 }

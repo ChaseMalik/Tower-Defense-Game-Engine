@@ -13,4 +13,11 @@
 	    <element>600</element>
 	    <element>400</element>
 	</integerValues>
+	
+	<doubleValues>
+	    <element>0.6</element>
+	    <element>0.4</element>
+	</doubleValues>
+	
+	
 </behaviors>

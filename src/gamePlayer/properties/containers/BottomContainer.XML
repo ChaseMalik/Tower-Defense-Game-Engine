@@ -8,4 +8,9 @@
 		<element>0.1</element>
 	</SizeRatio>
 	
+	<!--items contained within this container (added via reflection)-->
+	<Items>
+	
+	</Items>
+	
 </ContainerProperties>

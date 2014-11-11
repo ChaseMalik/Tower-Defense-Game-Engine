@@ -6,14 +6,12 @@ import javafx.scene.layout.BorderPane;
 
 public class CenterContainer extends BorderPane implements GuiContainer {
 
-    public CenterContainer (List<Integer> windowSize) {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
-    public void initialize () {
+    public void initialize (List<Double> componentSize) {
         // TODO Auto-generated method stub
         
     }
+
+    
 
 }

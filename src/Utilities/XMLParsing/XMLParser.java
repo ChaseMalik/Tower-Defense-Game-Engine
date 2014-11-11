@@ -56,4 +56,9 @@ public class XMLParser {
         return getValuesFromTag(tagName)
                 .stream().map(s->Integer.parseInt(s)).collect(Collectors.toList());
     }
+    
+    public List<Double> getDoubleValuesFromTag(String tagName) {
+        return getValuesFromTag(tagName)
+                .stream().map(s->Double.parseDouble(s)).collect(Collectors.toList());
+    }
 }

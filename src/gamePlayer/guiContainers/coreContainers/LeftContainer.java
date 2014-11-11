@@ -6,14 +6,11 @@ import javafx.scene.layout.VBox;
 
 public class LeftContainer extends VBox implements GuiContainer {
 
-    public LeftContainer (List<Integer> windowSize) {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
-    public void initialize () {
+    public void initialize (List<Double> componentSize) {
         // TODO Auto-generated method stub
         
     }
 
+    
 }

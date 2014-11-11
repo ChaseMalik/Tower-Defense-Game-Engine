@@ -37,5 +37,13 @@ public class XMLParserTest {
         for(int i = 0; i < integerValuesList.size(); i++){
             assertTrue(integers[i]==integerValuesList.get(i));
         } 
+        
+        
+        List<Double> doubleValuesList = parser.getDoubleValuesFromTag("doubleValues");
+        assertEquals(2, doubleValuesList.size());
+        double[] doubles = new double[]{0.6, 0.4};
+        for(int i = 0; i < doubleValuesList.size(); i++){
+            assertTrue(doubles[i]==doubleValuesList.get(i));
+        } 
     }
 }
