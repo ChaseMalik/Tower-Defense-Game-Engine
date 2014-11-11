@@ -1,11 +1,14 @@
 package gamePlayer.guiContainers.coreContainers;
 
 import gamePlayer.guiContainers.GuiContainer;
+import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import Utilities.ErrorPopup;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 
@@ -23,7 +26,15 @@ public class BottomContainer extends HBox implements GuiContainer {
         //add contained elements
         List<String> myItems = myParser.getValuesFromTag("Items");
         for (String item:myItems) {
-            //(GuiElement) Class.forName(item).getConstructor(new Class[]{String.class,int.class}).newInstance(property.description,property.odds)
+            try {
+                GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
+            }
+            catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException
+                    | ClassNotFoundException e) {
+                System.out.println("Error instantiating class\n");
+                e.printStackTrace();
+            }
         }
     }
 
