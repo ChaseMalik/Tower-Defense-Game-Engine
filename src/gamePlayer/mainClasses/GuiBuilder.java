@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -49,6 +51,14 @@ public class GuiBuilder {
             stage.setScene(scene);
             stage.setTitle(myTextGen.get(Text.VOOGASALAD));
             stage.setResizable(true);
+            group.getChildren().add(initializeCoreContainers(windowSize));
             stage.show();
+    }
+    
+    public Node initializeCoreContainers(List<Integer> windowSize) {
+        BorderPane pane = new BorderPane();
+        pane.setPrefSize(windowSize.get(0), windowSize.get(1));
+        
+        return null;
     }
 }
