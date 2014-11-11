@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -49,5 +50,10 @@ public class XMLParser {
             }
         }
         return valuesFromTag;
+    }
+
+    public List<Integer> getIntegerValuesFromTag(String tagName) {
+        return getValuesFromTag(tagName)
+                .stream().map(s->Integer.parseInt(s)).collect(Collectors.toList());
     }
 }

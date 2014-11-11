@@ -8,4 +8,9 @@
 		<element>BigAttack</element>
 		<element>SmallAttack</element>
 	</attack>
+	
+	<integerValues>
+	    <element>600</element>
+	    <element>400</element>
+	</integerValues>
 </behaviors>

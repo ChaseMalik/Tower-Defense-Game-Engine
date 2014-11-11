@@ -1,0 +1,11 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<GuiBuilderProperties>
+
+    <!--window width and height -->
+ 	<WindowSize>
+		<element>600</element>
+		<element>400</element>
+	</WindowSize>
+	
+</GuiBuilderProperties>
