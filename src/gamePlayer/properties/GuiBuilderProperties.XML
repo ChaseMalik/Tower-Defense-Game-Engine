@@ -8,4 +8,7 @@
 		<element>400</element>
 	</WindowSize>
 	
+	<WindowStyleSheet>
+	    <element>./src/gamePlayer/styleSheets/guibuilderdefault.css</element>
+	<WindowStyleSheet>
 </GuiBuilderProperties>

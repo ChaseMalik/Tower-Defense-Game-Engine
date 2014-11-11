@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import Utilities.XMLParsing.XMLParser;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -34,21 +35,19 @@ public class GuiBuilder {
         return myReference;
     }
 
-    public void build (Stage myStage) {
-            BorderPane pane = new BorderPane();
+    public void build (Stage stage) {
             List<Integer> windowSize = myParser.getIntegerValuesFromTag("WindowSize");
             
-            System.out.println(windowSize.get(0));
-            /*
-            
-            pane.setPrefSize(windowSize.get(0), windowSize.get(1));
-            
-            Scene scene = new Scene(pane, SCREEN_WIDTH, SCREEN_HEIGHT, Color.CORNSILK);
-            scene.getStylesheets().add(STYLESHEET_PACKAGE + "style.css");
+            Group group = new Group();
+            Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
+            scene.getStylesheets().add(myParser.getValuesFromTag("WindowStyleSheet").get(0));
             stage.setScene(scene);
+            /*
             stage.setTitle(textGen.get(TextGenerator.SLOGO));
             stage.setResizable(false);
             stage.show();
-            return pane;*/
+            return pane;
+            */
+            //pane.setPrefSize(windowSize.get(0), windowSize.get(1));
     }
 }
