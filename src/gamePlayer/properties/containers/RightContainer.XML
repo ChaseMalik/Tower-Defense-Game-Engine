@@ -10,7 +10,7 @@
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-	    <element>gamePlayer.guiItems.all.RightItemPlaceholder</element>
+	    <element>gamePlayer.guiItems.placeholders.RightItemPlaceholder</element>
 	</Items>
 	
 </ContainerProperties>

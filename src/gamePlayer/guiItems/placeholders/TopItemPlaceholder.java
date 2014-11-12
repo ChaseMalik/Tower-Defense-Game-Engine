@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.all;
+package gamePlayer.guiItems.placeholders;
 
 import gamePlayer.guiItems.GuiItem;
 import java.util.List;
