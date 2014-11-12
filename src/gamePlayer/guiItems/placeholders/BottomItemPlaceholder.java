@@ -9,13 +9,13 @@ import javafx.scene.layout.Pane;
 public class BottomItemPlaceholder extends Pane implements GuiItemInterface {
 
     @Override
-    public void initialize (List<Double> componentSize) {
-        this.setPrefSize(componentSize.get(0)*1, componentSize.get(1)*1);
-        this.setStyle("-fx-background-color: blue;");
+    public Node getNode () {
+        return this;
     }
 
     @Override
-    public Node getNode () {
-        return this;
+    public void initialize (List<Double> containerSize) {
+        this.setPrefSize(containerSize.get(0)*1, containerSize.get(1)*1);
+        this.setStyle("-fx-background-color: blue;");
     }
 }

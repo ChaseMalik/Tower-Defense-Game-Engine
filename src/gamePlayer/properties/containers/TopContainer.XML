@@ -10,7 +10,8 @@
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-	    <element>gamePlayer.guiItems.placeholders.TopItemPlaceholder</element>
+	    <!--<element>gamePlayer.guiItems.placeholders.TopItemPlaceholder</element>-->
+	    <element>gamePlayer.guiItems.menuBar.VoogaMenuBar</element>
 	</Items>
 	
 </ContainerProperties>

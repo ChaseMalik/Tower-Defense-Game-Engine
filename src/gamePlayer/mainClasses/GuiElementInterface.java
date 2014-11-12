@@ -13,6 +13,6 @@ public interface GuiElementInterface {
      * In this method, a GuiElement should set its size based on the componentSize
      * @param componentSize size of the component within which this GuiElement is hosted
      */
-    public abstract void initialize(List<Double> componentSize);
+    public abstract void initialize(List<Double> containerSize);
     public abstract Node getNode();
 }
