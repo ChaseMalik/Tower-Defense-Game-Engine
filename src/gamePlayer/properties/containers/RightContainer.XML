@@ -8,4 +8,9 @@
 		<element>0.8</element>
 	</SizeRatio>
 	
+	<!--items contained within this container (added via reflection)-->
+	<Items>
+	    <element>gamePlayer.guiItems.all.RightItemPlaceholder</element>
+	</Items>
+	
 </ContainerProperties>

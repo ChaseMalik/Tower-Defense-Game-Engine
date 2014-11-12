@@ -10,4 +10,5 @@ import gamePlayer.mainClasses.GuiElement;
  */
 public interface GuiContainer extends GuiElement {
     public static final String myPropertiesPath =  "./src/gamePlayer/properties/containers/";
+    
 }

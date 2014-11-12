@@ -32,7 +32,7 @@ public class BottomContainer extends HBox implements GuiContainer {
             try {
                 GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
                 element.initialize(mySize);
-                this.getChildren().addAll(element.getNode());
+                this.getChildren().add(element.getNode());
             }
             catch (ReflectiveOperationException e) {
                 handler.handle(e);

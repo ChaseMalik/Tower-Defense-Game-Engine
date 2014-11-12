@@ -4,8 +4,13 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>0.1</element>
+		<element>0.8</element>
 		<element>0.8</element>
 	</SizeRatio>
+	
+	<!--items contained within this container (added via reflection)-->
+	<Items>
+	    <element>gamePlayer.guiItems.all.CenterItemPlaceholder</element>
+	</Items>
 	
 </ContainerProperties>
