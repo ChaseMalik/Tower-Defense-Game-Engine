@@ -1,4 +1,4 @@
-package gamePlayer.textGeneration;
+package gamePlayer.textGenerator;
 
 import java.io.File;
 import java.io.IOException;

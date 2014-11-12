@@ -1,4 +1,4 @@
-package gamePlayer.utilityFunctions;
+package gamePlayer.guiFeatures;
 
 import java.io.File;
 import javafx.stage.FileChooser;

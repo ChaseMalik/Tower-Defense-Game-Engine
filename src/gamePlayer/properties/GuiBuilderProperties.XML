@@ -4,12 +4,13 @@
 
     <!--window width and height -->
  	<GuiSize>
-		<element>800</element>
+		<element>600</element>
 		<element>400</element>
 	</GuiSize>
 	
 	<GuiStyleSheet>
-	    <element>/gamePlayer/styleSheets/guibuilder_customtheme_1.css</element>
+	    <!--leave blank to load default style sheet; else insert custom one -->
+	    <element></element>
 	</GuiStyleSheet>
 	
 </GuiBuilderProperties>

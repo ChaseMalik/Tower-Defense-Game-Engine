@@ -1,8 +1,8 @@
 package gamePlayer.guiContainers.coreContainers;
 
-import gamePlayer.guiContainers.GuiContainerInterface;
+import gamePlayer.guiContainers.GuiContainer;
 import gamePlayer.mainClasses.ExceptionHandler;
-import gamePlayer.mainClasses.GuiElementInterface;
+import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 
-public class BottomContainer extends HBox implements GuiContainerInterface {
+public class BottomContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
 
     @Override
@@ -29,7 +29,7 @@ public class BottomContainer extends HBox implements GuiContainerInterface {
         ExceptionHandler handler = ExceptionHandler.getInstance();
         for (String item:myItems) {
             try {
-                GuiElementInterface element = (GuiElementInterface) Class.forName(item).getConstructor().newInstance();
+                GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
                 element.initialize(mySize);
                 this.getChildren().add(element.getNode());
             }

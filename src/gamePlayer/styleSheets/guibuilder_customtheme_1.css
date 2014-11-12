@@ -1,12 +1,13 @@
 /* 
     Document   : controlStyle2
+    From: https://docs.oracle.com/javafx/2/css_tutorial/controlStyle2.css.htm
 */
 
 .root{
     -fx-font-size: 16pt;
     -fx-font-family: "Courier New";
     -fx-base: rgb(132, 145, 47);
-    -fx-background: "CORNSILK";
+    -fx-background: rgb(225, 228, 203);
 }
 
 .button{

@@ -1,12 +1,12 @@
-package gamePlayer.guiItems.menuBar;
+package gamePlayer.guiItems.voogaMenuBar;
 
-import gamePlayer.guiItemListenerInterfaces.VoogaMenuBarListenerInterface;
-import gamePlayer.guiItems.GuiItemInterface;
-import gamePlayer.guiItems.menuBar.menus.LoadMenu;
-import gamePlayer.mainClasses.GuiConstants;
-import gamePlayer.textGeneration.Text;
-import gamePlayer.textGeneration.TextGenerator;
-import gamePlayer.utilityFunctions.FileLoader;
+import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItems.voogaMenuBar.menus.LoadMenu;
+import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
+import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
+import gamePlayer.textGenerator.Text;
+import gamePlayer.textGenerator.TextGenerator;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +15,8 @@ import javafx.scene.control.MenuBar;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 
-public class VoogaMenuBar extends MenuBar implements GuiItemInterface {
-    private VoogaMenuBarListenerInterface myListener;
+public class VoogaMenuBar extends MenuBar implements GuiItem {
+    private VoogaMenuBarListener myListener;
     private XMLParser myParser;    
 
     @Override
@@ -40,8 +40,8 @@ public class VoogaMenuBar extends MenuBar implements GuiItemInterface {
     }
 
     private void load() {
-        GuiConstants.GUI_LISTENER.readLoadedFile(FileLoader.getInstance()
-                                                 .load(GuiConstants.GUI_LISTENER.getStage()));
+        GuiBuilderConstants.CURRENT_GUI_CONTROLLER.readLoadedFile(FileLoader.getInstance()
+                                                 .load(GuiBuilderConstants.CURRENT_GUI_CONTROLLER.getStage()));
     }
 
     @Override

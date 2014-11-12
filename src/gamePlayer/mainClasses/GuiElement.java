@@ -8,7 +8,7 @@ import javafx.scene.Node;
  * @author allankiplagat
  *
  */
-public interface GuiElementInterface {
+public interface GuiElement {
     /**
      * In this method, a GuiElement should set its size based on the componentSize
      * @param componentSize size of the component within which this GuiElement is hosted

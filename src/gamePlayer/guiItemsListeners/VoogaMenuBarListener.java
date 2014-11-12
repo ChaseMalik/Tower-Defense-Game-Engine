@@ -1,9 +1,9 @@
-package gamePlayer.guiItemListenerInterfaces;
+package gamePlayer.guiItemsListeners;
 
 import java.io.File;
 import javafx.stage.Stage;
 
-public interface VoogaMenuBarListenerInterface {
+public interface VoogaMenuBarListener {
     public void readLoadedFile(File file);
     public Stage getStage();
 }
