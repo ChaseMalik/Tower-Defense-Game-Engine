@@ -1,13 +1,13 @@
 package gamePlayer.guiItems.placeholders;
 
-import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItems.GuiItemInterface;
 import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
 
-public class CenterItemPlaceholder extends Pane implements GuiItem {
+public class CenterItemPlaceholder extends Pane implements GuiItemInterface {
 
     @Override
     public void initialize (List<Double> componentSize) {

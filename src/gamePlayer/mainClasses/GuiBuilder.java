@@ -18,21 +18,16 @@ import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 
 public class GuiBuilder {
-    private static GuiBuilder myReference = null;
-    private static final String myPropertiesPath =  "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     private XMLParser myParser;
     private TextGenerator myTextGen;
 
-    private GuiBuilder() {
-        myParser = XMLParserInstantiator.getInstance(new File(myPropertiesPath));
+    private GuiBuilder(String propertiesPath) {
+        myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
         myTextGen = TextGenerator.getInstance();
     }
 
-    public static GuiBuilder getInstance() {
-        if (myReference == null) {
-            myReference = new GuiBuilder();
-        }
-        return myReference;
+    public static GuiBuilder getInstance(String propertiesPath) {
+        return new GuiBuilder(propertiesPath);
     }
 
     public void build (Stage stage) {

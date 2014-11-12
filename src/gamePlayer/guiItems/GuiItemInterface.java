@@ -1,6 +1,6 @@
 package gamePlayer.guiItems;
 
-import gamePlayer.mainClasses.GuiElement;
+import gamePlayer.mainClasses.GuiElementInterface;
 import java.util.List;
 
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @author allankiplagat
  *
  */
-public interface GuiItem extends GuiElement  {
+public interface GuiItemInterface extends GuiElementInterface  {
     public static final String myPropertiesPath =  "./src/gamePlayer/properties/items/";
     
 }

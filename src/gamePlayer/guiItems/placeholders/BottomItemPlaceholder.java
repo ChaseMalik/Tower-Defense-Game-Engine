@@ -1,12 +1,12 @@
 package gamePlayer.guiItems.placeholders;
 
-import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItems.GuiItemInterface;
 import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 
-public class BottomItemPlaceholder extends Pane implements GuiItem {
+public class BottomItemPlaceholder extends Pane implements GuiItemInterface {
 
     @Override
     public void initialize (List<Double> componentSize) {

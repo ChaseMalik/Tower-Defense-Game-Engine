@@ -4,7 +4,7 @@
 
     <!--window width and height -->
  	<GuiSize>
-		<element>900</element>
+		<element>800</element>
 		<element>400</element>
 	</GuiSize>
 	

@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
-import gamePlayer.guiContainers.GuiContainer;
+import gamePlayer.guiContainers.GuiContainerInterface;
 import gamePlayer.mainClasses.ExceptionHandler;
-import gamePlayer.mainClasses.GuiElement;
+import gamePlayer.mainClasses.GuiElementInterface;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
-public class CenterContainer extends BorderPane implements GuiContainer {
+public class CenterContainer extends BorderPane implements GuiContainerInterface {
     private XMLParser myParser;
 
     @Override
@@ -29,7 +29,7 @@ public class CenterContainer extends BorderPane implements GuiContainer {
         ExceptionHandler handler = ExceptionHandler.getInstance();
         for (String item:myItems) {
             try {
-                GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
+                GuiElementInterface element = (GuiElementInterface) Class.forName(item).getConstructor().newInstance();
                 element.initialize(mySize);
                 this.setCenter(element.getNode());
             }

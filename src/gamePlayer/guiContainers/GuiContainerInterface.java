@@ -1,6 +1,6 @@
 package gamePlayer.guiContainers;
 
-import gamePlayer.mainClasses.GuiElement;
+import gamePlayer.mainClasses.GuiElementInterface;
 
 
 /**
@@ -8,6 +8,6 @@ import gamePlayer.mainClasses.GuiElement;
  * @author allankiplagat
  *
  */
-public interface GuiContainer extends GuiElement {
+public interface GuiContainerInterface extends GuiElementInterface {
     public static final String myPropertiesPath =  "./src/gamePlayer/properties/containers/";
 }
