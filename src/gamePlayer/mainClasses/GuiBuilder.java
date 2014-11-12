@@ -39,6 +39,9 @@ public class GuiBuilder {
         List<Double> windowSize = myParser.getDoubleValuesFromTag("WindowSize");
 
         Group group = new Group();
+        group.setAutoSizeChildren(true);
+        group.getChildren().add(initializeCoreContainers(windowSize));
+        
         Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
         String styleSheetPath = myParser.getValuesFromTag("WindowStyleSheet").get(0);
         scene.getStylesheets().clear();
@@ -46,13 +49,15 @@ public class GuiBuilder {
 
         stage.setScene(scene);
         stage.setTitle(myTextGen.get(Text.VOOGASALAD));
-        stage.setResizable(true);
-        group.getChildren().add(initializeCoreContainers(windowSize));
+        
+        //for now, no re-sizing window dynamically until dynamic window resizing algorithm is written
+        stage.setResizable(false);
         stage.show();
     }
 
-    public Node initializeCoreContainers(List<Double> windowSize) {
+    private Node initializeCoreContainers(List<Double> windowSize) {
         BorderPane pane = new BorderPane();
+
         pane.setPrefSize(windowSize.get(0), windowSize.get(1));
 
         TopContainer top = new TopContainer(); 
@@ -69,6 +74,7 @@ public class GuiBuilder {
         
         CenterContainer center = new CenterContainer(); 
         center.initialize(windowSize); pane.setCenter(center); 
+        
         return pane;
     }
 }
