@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 

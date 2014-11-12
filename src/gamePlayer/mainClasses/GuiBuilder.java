@@ -36,14 +36,14 @@ public class GuiBuilder {
     }
 
     public void build (Stage stage) {
-        List<Double> windowSize = myParser.getDoubleValuesFromTag("WindowSize");
+        List<Double> windowSize = myParser.getDoubleValuesFromTag("GuiSize");
 
         Group group = new Group();
         group.setAutoSizeChildren(true);
         group.getChildren().add(initializeCoreContainers(windowSize));
         
         Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
-        String styleSheetPath = myParser.getValuesFromTag("WindowStyleSheet").get(0);
+        String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
         scene.getStylesheets().clear();
         scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
 

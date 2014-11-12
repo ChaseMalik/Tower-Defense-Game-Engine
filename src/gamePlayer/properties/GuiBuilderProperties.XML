@@ -3,13 +3,13 @@
 <GuiBuilderProperties>
 
     <!--window width and height -->
- 	<WindowSize>
-		<element>600</element>
+ 	<GuiSize>
+		<element>900</element>
 		<element>400</element>
-	</WindowSize>
+	</GuiSize>
 	
-	<WindowStyleSheet>
+	<GuiStyleSheet>
 	    <element>/gamePlayer/styleSheets/guibuilder_customtheme_1.css</element>
-	</WindowStyleSheet>
+	</GuiStyleSheet>
 	
 </GuiBuilderProperties>
