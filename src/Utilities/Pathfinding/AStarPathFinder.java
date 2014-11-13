@@ -1,5 +1,6 @@
 package Utilities.Pathfinding;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
 
         public PQTuple (T node, Number value) {
             myNode = node;
+            myValue = value;
         }
 
         public T getNode () {
@@ -53,7 +55,7 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
 
         @Override
         public boolean equals (Object o) {
-            if (o == null || o instanceof AStarPathFinder.PQTuple) { return false; }
+            if (o == null || !(o instanceof AStarPathFinder.PQTuple)) { return false; }
             PQTuple other = (PQTuple) o;
             return myNode.equals(other.getNode());
         }
