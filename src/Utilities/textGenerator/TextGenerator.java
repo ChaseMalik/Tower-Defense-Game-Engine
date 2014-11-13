@@ -1,4 +1,4 @@
-package gamePlayer.textGenerator;
+package Utilities.textGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +80,11 @@ public class TextGenerator  {
         return false;
     }
 
+    /**
+     * Checks whether the current language is supported
+     * @param language
+     * @return true if supported, false otherwise
+     */
     public boolean languageSupported(String language) {
         return supportedLocales.containsKey(language);
     }

@@ -6,7 +6,6 @@ import gamePlayer.guiItems.voogaMenuBar.menus.LoadMenu;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
-import gamePlayer.textGenerator.TextGenerator;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
+import Utilities.textGenerator.TextGenerator;
 
 public class VoogaMenuBar extends MenuBar implements GuiItem {
     private VoogaMenuBarListener myListener;

@@ -1,0 +1,18 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<TextGeneratorProperties>
+
+    <BundlesPath>
+      <element>Utilities.textGenerator.languages/LanguagesBundle</element>
+    </BundlesPath>
+
+ 	<LanguagesSupported>
+		<element>English</element>
+		<element>French</element>
+	</LanguagesSupported>
+
+ 	<DefaultLanguage>
+		<element>English</element>
+	</DefaultLanguage>
+    
+</TextGeneratorProperties>

@@ -6,7 +6,6 @@ import gamePlayer.guiContainers.coreContainers.LeftContainer;
 import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
 import gamePlayer.mainClasses.GuiManager;
-import gamePlayer.textGenerator.TextGenerator;
 import java.io.File;
 import java.util.List;
 import javafx.scene.Group;
@@ -16,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
+import Utilities.textGenerator.TextGenerator;
 
 public class GuiBuilder {
     private XMLParser myParser;
