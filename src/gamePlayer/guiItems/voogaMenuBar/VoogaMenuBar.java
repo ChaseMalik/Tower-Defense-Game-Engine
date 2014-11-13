@@ -5,7 +5,7 @@ import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItems.voogaMenuBar.menus.LoadMenu;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
-import gamePlayer.textGenerator.Text;
+import gamePlayer.mainClasses.guiBuilder.GuiText;
 import gamePlayer.textGenerator.TextGenerator;
 import java.io.File;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class VoogaMenuBar extends MenuBar implements GuiItem {
 
     private void initializeMenus() {
         LoadMenu loadMenu = new LoadMenu();
-        loadMenu.setText(TextGenerator.getInstance().get(Text.LOAD_GAME));
+        loadMenu.setText("Load Game");
         loadMenu.setOnAction(event->load());
         this.getMenus().add(loadMenu);
     }

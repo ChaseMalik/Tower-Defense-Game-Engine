@@ -1,6 +1,6 @@
-package gamePlayer.textGenerator;
+package gamePlayer.mainClasses.guiBuilder;
 
-public class Text {
+public class GuiText {
     public static final String VOOGASALAD = "VOOGASALAD";
     public static final String LOAD_GAME = "LoadGame";
 }

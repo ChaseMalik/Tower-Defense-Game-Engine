@@ -17,17 +17,12 @@ import Utilities.XMLParsing.XMLParser;
  *
  */
 public class TextGenerator  {
-    private static TextGenerator myself;
+    private XMLParser myParser;
+    private String myBundlesPath;
     private Map<String, Locale> supportedLocales;
     private ResourceBundle myCurrentResourceBundle;
-    
-    public static final String ENGLISH = "English";
-    private static final String myPropertiesPath =  "./src/gamePlayer/properties/TextGeneratorProperties.XML";
-    private XMLParser myParser;
 
-    private static final String myBundlesPath = "gamePlayer.properties.languages/LanguagesBundle";
-    
-    private TextGenerator() {
+    public TextGenerator (String myPropertiesPath) {
         try {
             myParser = new XMLParser(new File(myPropertiesPath));
         }
@@ -35,31 +30,29 @@ public class TextGenerator  {
             System.out.println("Error creating XML parser\n");
             e.printStackTrace();
         }
-        
-        supportedLocales = new HashMap<String, Locale>();
-        addSupportedLanguages();
-        myCurrentResourceBundle = getResourceBundle(ENGLISH);
-        
-    }
 
-    public static TextGenerator getInstance() {
-        if (myself==null) {
-            myself = new TextGenerator();
-        } 
-        return myself;
+        myBundlesPath = myParser.getValuesFromTag("BundlesPath").get(0);
+        supportedLocales = new HashMap<String,Locale>();
+        addSupportedLocales();
+        setDefaultLanguage();
     }
 
     private void addLocale(String language,Locale locale) {
         supportedLocales.put(language, locale);
     }
 
-    private void addSupportedLanguages() {
-        myParser.getValuesFromTag("LanguagesSupported");
+    private void addSupportedLocales() {
         List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
         for (String language:languagesSupported) {
-            addLocale(language,new Locale(language));
+            Locale newLocale = new Locale(language);
+            addLocale(language,newLocale);
         }
     }
+
+    private void setDefaultLanguage() {
+        String defaultLanguage = myParser.getValuesFromTag("DefaultLanguage").get(0);
+        setLanguage(defaultLanguage);
+    };
 
     private ResourceBundle getResourceBundle (String language) {
         return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));

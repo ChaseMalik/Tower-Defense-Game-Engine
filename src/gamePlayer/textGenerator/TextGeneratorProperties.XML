@@ -2,8 +2,16 @@
 
 <TextGeneratorProperties>
 
+    <BundlesPath>
+      <element>gamePlayer.textGenerator.languages/LanguagesBundle</element>
+    </BundlesPath>
+
  	<LanguagesSupported>
 		<element>English</element>
 	</LanguagesSupported>
 
+ 	<DefaultLanguage>
+		<element>English</element>
+	</DefaultLanguage>
+    
 </TextGeneratorProperties>
