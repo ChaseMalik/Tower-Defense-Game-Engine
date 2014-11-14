@@ -13,7 +13,7 @@ import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
 
 /**
- * Singleton class generates the text to be displayed on the GUI using resource bundles
+ * Class generates text to be displayed on a GUI using resource bundles
  * @author allankiplagat
  *
  */
@@ -23,36 +23,16 @@ public class TextGenerator  {
     private Map<String, Locale> supportedLocales;
     private ResourceBundle myCurrentResourceBundle;
 
+    /**
+     * @param propertiesPath is the XML properties file from which the text generator will look up
+     * the configurations to use
+     */
     public TextGenerator (String propertiesPath) {
         myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
         myBundlesPath = myParser.getValuesFromTag("BundlesPath").get(0);
         supportedLocales = new HashMap<String,Locale>();
         addSupportedLocales();
         setDefaultLanguage();
-    }
-
-    private void addLocale(String language,Locale locale) {
-        supportedLocales.put(language, locale);
-    }
-
-    private void addSupportedLocales() {
-        List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
-        
-        for (String language:languagesSupported) {
-            List<Locale.LanguageRange> range = new ArrayList<Locale.LanguageRange>();    
-            range.add(new LanguageRange(language));
-            Locale newLocale = Locale.lookup(range,Arrays.asList(Locale.getAvailableLocales()) );
-            addLocale(language,newLocale);
-        }
-    }
-
-    private void setDefaultLanguage() {
-        String defaultLanguage = myParser.getValuesFromTag("DefaultLanguage").get(0);
-        setLanguage(defaultLanguage);
-    };
-
-    private ResourceBundle getResourceBundle (String language) {
-        return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));
     }
 
     /**
@@ -84,5 +64,31 @@ public class TextGenerator  {
      */
     public boolean languageSupported(String language) {
         return supportedLocales.containsKey(language);
+    }
+    
+
+    private void addLocale(String language,Locale locale) {
+        supportedLocales.put(language, locale);
+    }
+
+    private void addSupportedLocales() {
+        List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
+        for (String language:languagesSupported) {
+            //create language range for locale look-up
+            List<Locale.LanguageRange> range = new ArrayList<Locale.LanguageRange>();    
+            range.add(new LanguageRange(language));
+            //get the corresponding locale from system-supported locales
+            Locale newLocale = Locale.lookup(range,Arrays.asList(Locale.getAvailableLocales()) );
+            addLocale(language,newLocale);
+        }
+    }
+
+    private void setDefaultLanguage() {
+        String defaultLanguage = myParser.getValuesFromTag("DefaultLanguage").get(0);
+        setLanguage(defaultLanguage);
+    };
+
+    private ResourceBundle getResourceBundle (String language) {
+        return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));
     }
 }
