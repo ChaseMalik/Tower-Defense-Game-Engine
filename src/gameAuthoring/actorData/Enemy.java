@@ -6,5 +6,9 @@ public class Enemy {
     
     private MOVE myMove;
     private ATTACK myAttack;
+    private String myName;
+    
+    
+    
     
 }
