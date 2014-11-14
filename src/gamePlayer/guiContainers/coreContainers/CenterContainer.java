@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
+import Utilities.reflection.Reflection;
 import gamePlayer.guiContainers.GuiContainer;
 import gamePlayer.mainClasses.ExceptionHandler;
 import gamePlayer.mainClasses.GuiElement;
@@ -26,16 +27,10 @@ public class CenterContainer extends BorderPane implements GuiContainer {
         
         //add contained GUI elements
         List<String> myItems = myParser.getValuesFromTag("Items");
-        ExceptionHandler handler = ExceptionHandler.getInstance();
         for (String item:myItems) {
-            try {
-                GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
+                GuiElement element = (GuiElement) Reflection.createInstance(item);
                 element.initialize(mySize);
                 this.setCenter(element.getNode());
-            }
-            catch (ReflectiveOperationException e) {
-                handler.handle(e);
-            }
         }
     }
 

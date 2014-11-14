@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
+import Utilities.reflection.Reflection;
 
 public class BottomContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
@@ -26,16 +27,10 @@ public class BottomContainer extends HBox implements GuiContainer {
         
         //add contained GUI elements
         List<String> myItems = myParser.getValuesFromTag("Items");
-        ExceptionHandler handler = ExceptionHandler.getInstance();
         for (String item:myItems) {
-            try {
-                GuiElement element = (GuiElement) Class.forName(item).getConstructor().newInstance();
+                GuiElement element = (GuiElement) Reflection.createInstance(item);
                 element.initialize(mySize);
                 this.getChildren().add(element.getNode());
-            }
-            catch (ReflectiveOperationException e) {
-                handler.handle(e);
-            }
         }
     }
 

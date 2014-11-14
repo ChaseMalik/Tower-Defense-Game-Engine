@@ -1,7 +1,6 @@
 package gamePlayer.mainClasses;
 
-import java.lang.reflect.InvocationTargetException;
-
+//TODO Deprecated class for now 
 public class ExceptionHandler {
     private static ExceptionHandler myReference = null;
     private ExceptionHandler() {
