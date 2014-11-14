@@ -1,4 +1,4 @@
-package gamePlayer.textGenerator;
+package Utilities.textGenerator;
 
 public class Text {
     public static final String VOOGASALAD = "VOOGASALAD";

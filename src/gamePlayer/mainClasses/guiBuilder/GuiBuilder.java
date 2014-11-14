@@ -6,8 +6,6 @@ import gamePlayer.guiContainers.coreContainers.LeftContainer;
 import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
 import gamePlayer.mainClasses.GuiManager;
-import gamePlayer.textGenerator.Text;
-import gamePlayer.textGenerator.TextGenerator;
 import java.io.File;
 import java.util.List;
 import javafx.scene.Group;
@@ -17,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
+import Utilities.textGenerator.TextGenerator;
 
 public class GuiBuilder {
     private XMLParser myParser;
@@ -24,7 +23,8 @@ public class GuiBuilder {
 
     private GuiBuilder(String propertiesPath) {
         myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
-        myTextGen = TextGenerator.getInstance();
+        myTextGen = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
+        myTextGen.setLanguage("English");
     }
 
     public static GuiBuilder getInstance(String propertiesPath) {
@@ -42,7 +42,7 @@ public class GuiBuilder {
         Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
         setStyleSheet(scene);
         stage.setScene(scene);
-        stage.setTitle(myTextGen.get(Text.VOOGASALAD));
+        stage.setTitle(myTextGen.get(GuiText.VOOGASALAD));
 
         //for now, no re-sizing window dynamically until dynamic window resizing algorithm is written
         stage.setResizable(false);

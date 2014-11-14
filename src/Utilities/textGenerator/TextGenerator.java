@@ -1,4 +1,4 @@
-package gamePlayer.textGenerator;
+package Utilities.textGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import Utilities.XMLParsing.XMLParser;
  *
  */
 public class TextGenerator  {
+<<<<<<< HEAD:src/gamePlayer/textGenerator/TextGenerator.java
 	private static TextGenerator myself;
 	private Map<String, Locale> supportedLocales;
 	private ResourceBundle myCurrentResourceBundle;
@@ -26,6 +27,27 @@ public class TextGenerator  {
 	private XMLParser myParser;
 
 	private static final String myBundlesPath = "gamePlayer.properties.languages/LanguagesBundle";
+=======
+    private XMLParser myParser;
+    private String myBundlesPath;
+    private Map<String, Locale> supportedLocales;
+    private ResourceBundle myCurrentResourceBundle;
+
+    public TextGenerator (String myPropertiesPath) {
+        try {
+            myParser = new XMLParser(new File(myPropertiesPath));
+        }
+        catch (ParserConfigurationException | SAXException | IOException e) {
+            System.out.println("Error creating XML parser\n");
+            e.printStackTrace();
+        }
+
+        myBundlesPath = myParser.getValuesFromTag("BundlesPath").get(0);
+        supportedLocales = new HashMap<String,Locale>();
+        addSupportedLocales();
+        setDefaultLanguage();
+    }
+>>>>>>> 28861bbe757317e1befb574a9519fc1b67acb1ac:src/Utilities/textGenerator/TextGenerator.java
 
 	private TextGenerator() {
 		myParser = new XMLParser(new File(myPropertiesPath));
@@ -33,6 +55,7 @@ public class TextGenerator  {
 		addSupportedLanguages();
 		myCurrentResourceBundle = getResourceBundle(ENGLISH);
 
+<<<<<<< HEAD:src/gamePlayer/textGenerator/TextGenerator.java
 	}
 
 	public static TextGenerator getInstance() {
@@ -41,6 +64,24 @@ public class TextGenerator  {
 		} 
 		return myself;
 	}
+=======
+    private void addSupportedLocales() {
+        List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
+        for (String language:languagesSupported) {
+            Locale newLocale = new Locale(language);
+            addLocale(language,newLocale);
+        }
+    }
+
+    private void setDefaultLanguage() {
+        String defaultLanguage = myParser.getValuesFromTag("DefaultLanguage").get(0);
+        setLanguage(defaultLanguage);
+    };
+
+    private ResourceBundle getResourceBundle (String language) {
+        return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));
+    }
+>>>>>>> 28861bbe757317e1befb574a9519fc1b67acb1ac:src/Utilities/textGenerator/TextGenerator.java
 
 	private void addLocale(String language,Locale locale) {
 		supportedLocales.put(language, locale);
@@ -54,6 +95,7 @@ public class TextGenerator  {
 		}
 	}
 
+<<<<<<< HEAD:src/gamePlayer/textGenerator/TextGenerator.java
 	private ResourceBundle getResourceBundle (String language) {
 		return ResourceBundle.getBundle(myBundlesPath,supportedLocales.get(language));
 	}
@@ -83,4 +125,14 @@ public class TextGenerator  {
 	public boolean languageSupported(String language) {
 		return supportedLocales.containsKey(language);
 	}
+=======
+    /**
+     * Checks whether the current language is supported
+     * @param language
+     * @return true if supported, false otherwise
+     */
+    public boolean languageSupported(String language) {
+        return supportedLocales.containsKey(language);
+    }
+>>>>>>> 28861bbe757317e1befb574a9519fc1b67acb1ac:src/Utilities/textGenerator/TextGenerator.java
 }
