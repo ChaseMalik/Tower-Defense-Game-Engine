@@ -10,7 +10,7 @@
 	
 	<!-- specifies properties path to be passed to the text generator object used by the guibuilder -->
 	<TextGeneratorPropertiesPath>
-		<element>./src/gamePlayer/textGenerator/TextGeneratorProperties.XML</element>
+		<element>./src/gamePlayer/properties/TextGeneratorProperties.XML</element>
 	</TextGeneratorPropertiesPath>
 	
 	<GuiStyleSheet>
