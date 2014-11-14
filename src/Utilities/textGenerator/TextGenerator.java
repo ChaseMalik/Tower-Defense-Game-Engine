@@ -1,15 +1,16 @@
 package Utilities.textGenerator;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Locale.LanguageRange;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 import Utilities.XMLParsing.XMLParser;
+import Utilities.XMLParsing.XMLParserInstantiator;
 
 /**
  * Singleton class generates the text to be displayed on the GUI using resource bundles
@@ -22,15 +23,8 @@ public class TextGenerator  {
     private Map<String, Locale> supportedLocales;
     private ResourceBundle myCurrentResourceBundle;
 
-    public TextGenerator (String myPropertiesPath) {
-        try {
-            myParser = new XMLParser(new File(myPropertiesPath));
-        }
-        catch (ParserConfigurationException | SAXException | IOException e) {
-            System.out.println("Error creating XML parser\n");
-            e.printStackTrace();
-        }
-
+    public TextGenerator (String propertiesPath) {
+        myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
         myBundlesPath = myParser.getValuesFromTag("BundlesPath").get(0);
         supportedLocales = new HashMap<String,Locale>();
         addSupportedLocales();
@@ -43,8 +37,11 @@ public class TextGenerator  {
 
     private void addSupportedLocales() {
         List<String> languagesSupported = myParser.getValuesFromTag("LanguagesSupported");
+        
         for (String language:languagesSupported) {
-            Locale newLocale = new Locale(language);
+            List<Locale.LanguageRange> range = new ArrayList<Locale.LanguageRange>();    
+            range.add(new LanguageRange(language));
+            Locale newLocale = Locale.lookup(range,Arrays.asList(Locale.getAvailableLocales()) );
             addLocale(language,newLocale);
         }
     }
@@ -64,7 +61,7 @@ public class TextGenerator  {
      * @return translated text
      */
     public String get(String text) {
-        return myCurrentResourceBundle.getString(text);
+        return myCurrentResourceBundle.getString(text);  
     }
 
     /**

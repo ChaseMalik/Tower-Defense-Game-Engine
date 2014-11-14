@@ -7,12 +7,12 @@
     </BundlesPath>
 
  	<LanguagesSupported>
-		<element>English</element>
-		<element>French</element>
+		<element>en</element>
+		<element>fr</element>
 	</LanguagesSupported>
 
  	<DefaultLanguage>
-		<element>English</element>
+		<element>en</element>
 	</DefaultLanguage>
     
 </TextGeneratorProperties>

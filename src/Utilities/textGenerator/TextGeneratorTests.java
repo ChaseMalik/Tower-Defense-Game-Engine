@@ -8,7 +8,7 @@ public class TextGeneratorTests {
     //Write your own properties file since it is implementation-specific
     private static final String propertiesPath =  "./src/Utilities/textGenerator/SampleGeneratorProperties.XML";
     
-    private TextGenerator generator;
+    private static TextGenerator generator;
     private void resetGenerator() {
         generator = new TextGenerator(propertiesPath);
     }
@@ -16,14 +16,15 @@ public class TextGeneratorTests {
     @Test
     public void testLanguageSupport() {
         resetGenerator();
-        assertTrue(generator.languageSupported("English"));
-        assertTrue(generator.languageSupported("French"));
+        assertTrue(generator.languageSupported("en"));
+        assertTrue(generator.languageSupported("fr"));
+        assertFalse(generator.setLanguage("NotALanguage"));
     }
     
     @Test
     public void testEnglish() {
         resetGenerator();
-        generator.setLanguage("English");
+        generator.setLanguage("en");
         assertTrue("Load Game".equals(generator.get(Text.LOAD_GAME)));
         assertTrue("VOOGASALAD".equals(generator.get(Text.VOOGASALAD)));
     }
@@ -31,12 +32,8 @@ public class TextGeneratorTests {
     @Test
     public void testFrench() {
         resetGenerator();
-        assertFalse(generator.setLanguage("Math"));
-        assertTrue(generator.setLanguage("French"));
-        generator.setLanguage("French");
-        //assertTrue("Jeu De Charge".equals(generator.get(Text.LOAD_GAME)));
-        System.out.println(generator.get(Text.VOOGASALAD));
-        //assertTrue("VOOGASALAD FRANCAIS".equals(generator.get(Text.VOOGASALAD)));
-        
+        generator.setLanguage("fr");
+        assertTrue("Jeu de charge".equals(generator.get(Text.LOAD_GAME)));
+        assertTrue("FRENCH VOOGASALAD".equals(generator.get(Text.VOOGASALAD)));   
     }
 }
