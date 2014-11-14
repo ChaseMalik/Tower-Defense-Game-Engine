@@ -1,5 +1,4 @@
-package Utilities.Pathfinding;
-
+package Utilities.pathfinding;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  *         any data object as the generic.
  * @param <T> Any object type.
  */
-public interface IPathFinder<T> {
+public interface IPathFinder<T>{
 
     /**
      * Gets the cost of traveling from beginningNode to endingNode.
@@ -28,7 +27,7 @@ public interface IPathFinder<T> {
      * @param node Node in question
      * @return A collection of neighboring nodes
      */
-    public Collection<T> getNeighbors (T node);
+    public Iterable<T> getNeighbors (T node);
 
     /**
      * Indicates whether a node is the destination node. In most cases, this method should use the
@@ -49,4 +48,16 @@ public interface IPathFinder<T> {
      * @return Path from start to destination in order.
      */
     public List<T> findPath (T start, T destination);
+
+    /**
+     * Specifies the behavior for breaking ties when the cost values for getting to two nodes is the
+     * same. Should return something similar to Comparable's compareTo(other) method.
+     * 
+     * @param node Node in question. In the case of a class implementing Comparable's
+     *        compareTo(other), it would be the equivalent of this.
+     * @param other The other node. In the case of a class implementing Comparable's
+     *        compareTo(other), it would be the equivalent of the parameter.
+     * @return Result of tie breaker.
+     */
+    public int breakTie (T node, T other);
 }

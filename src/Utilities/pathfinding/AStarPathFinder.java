@@ -1,5 +1,4 @@
-package Utilities.Pathfinding;
-
+package Utilities.pathfinding;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +9,7 @@ import java.util.PriorityQueue;
 
 
 /**
- * @author Duke
+ * @author Duke Kim
  *
  *         Utility class for finding the least cost path in a network of nodes using A* path finding
  *         algorithm. To use, create a class that extends this abstract, and define all the
@@ -19,7 +18,10 @@ import java.util.PriorityQueue;
  *         class, and call the method findPath by passing in the starting node and the ending node.
  *         The only other requirement apart from implementing the abstract methods is that the type
  *         specified in the generic correctly implements the equals method inherited from Object and
- *         that cost and heuristic values be positive numbers.
+ *         that cost and heuristic values be positive numbers. Final note about the finder is that
+ *         while any Number object may be returned for the cost and heuristic values, value accuracy
+ *         will be lost for values which are too large or too small.
+ *         
  * @param <T> Any object type.
  */
 public abstract class AStarPathFinder<T> implements IPathFinder<T> {
@@ -64,13 +66,15 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
         public int compareTo (AStarPathFinder<T>.PQTuple o) {
             Double doubleValue = myValue.doubleValue();
             Double otherValue = o.getValue().doubleValue();
-            return doubleValue.compareTo(otherValue);
+            int compareValue = doubleValue.compareTo(otherValue);
+            return compareValue == 0 ? breakTie(this.myNode, o.getNode()) : compareValue;
         }
     }
 
     /**
      * Gets the h(x) heuristic value from node to destination. If no heuristic is to be defined,
-     * then simply return 0 every time (becomes Djikstra's algorithm then)
+     * then simply return 0 every time (becomes Djikstra's algorithm then). Heuristics must be
+     * positive. Heuristic functions must be consistent.
      * 
      * @param node Node in question
      * @param destination Destination node
@@ -83,8 +87,20 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
         return node.equals(destinationNode);
     }
 
+    private Number getAndCheckCost (T beginningNode, T endingNode) throws InvalidCostException {
+        Number cost = getCost(beginningNode, endingNode);
+        if (!isPositive(cost)) { throw new InvalidCostException(); }
+        return cost;
+    }
+
+    private Number getAndCheckHeuristicValue (T node, T destination) throws InvalidCostException {
+        Number heuristicValue = getHeuristicValue(node, destination);
+        if (!isPositive(heuristicValue)) { throw new InvalidCostException(); }
+        return heuristicValue;
+    }
+
     @Override
-    public List<T> findPath (T start, T destination) {
+    public List<T> findPath (T start, T destination) throws InvalidCostException {
         PQ frontierQueue = new PQ();
         HashSet<T> visitedNodes = new HashSet<>();
         HashMap<T, Number> nodeToValueMap = new HashMap<>();
@@ -92,7 +108,6 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
 
         PQTuple startTuple = new PQTuple(start, getHeuristicValue(start, destination));
         frontierQueue.add(startTuple);
-
         ArrayList<T> beginningRoute = new ArrayList<>();
         nodeToCurrentPathMap.put(start, beginningRoute);
 
@@ -109,11 +124,11 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
             visitedNodes.add(currentNode);
             Number valueSoFar = nodeToValueMap.get(currentNode);
             ArrayList<T> pathSoFar = nodeToCurrentPathMap.get(currentNode);
-            Collection<T> nextNodes = getNeighbors(currentNode);
+            Iterable<T> nextNodes = getNeighbors(currentNode);
             for (T neighboringNextNode : nextNodes) {
                 if (!visitedNodes.contains(neighboringNextNode)) {
-                    Number gScore =
-                            addNumbers(valueSoFar, getCost(currentNode, neighboringNextNode));
+                    Number traversalCost = getAndCheckCost(currentNode, neighboringNextNode);
+                    Number gScore = addNumbers(valueSoFar, traversalCost);
                     Number currentRecordedValue = nodeToValueMap.get(neighboringNextNode);
                     if (currentRecordedValue == null ||
                         gScore.doubleValue() < currentRecordedValue.doubleValue()) {
@@ -121,10 +136,8 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
                         ArrayList<T> pathSoFarCopy = new ArrayList<>(pathSoFar);
                         pathSoFarCopy.add(currentNode);
                         nodeToCurrentPathMap.put(neighboringNextNode, pathSoFarCopy);
-
-                        Number hScore = getHeuristicValue(neighboringNextNode, destination);
-                        Number totalScore = addNumbers(gScore, hScore.doubleValue());
-
+                        Number hScore = getAndCheckHeuristicValue(neighboringNextNode, destination);
+                        Number totalScore = addNumbers(gScore, hScore);
                         PQTuple tuple = new PQTuple(neighboringNextNode, totalScore);
                         frontierQueue.add(tuple);
                     }
@@ -133,6 +146,10 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
 
         }
         return null;
+    }
+
+    private boolean isPositive (Number number) {
+        return number.doubleValue() >= 0;
     }
 
     private Number addNumbers (Number ... numbers) {

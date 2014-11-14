@@ -1,4 +1,4 @@
-package Utilities.Pathfinding;
+package Utilities.pathfinding;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -8,8 +8,40 @@ import java.util.Random;
 import org.junit.Test;
 
 
+/**
+ * Simple test using 2d arrays. 
+ * @author Duke
+ *
+ */
 public class AStarTest {
-
+    
+//Uncomment to test. 
+  @Test
+  public void testAStarLogic () {
+      int xMax = 50;
+      int yMax = 39;
+      TestNode[][] nodeMap = new TestNode[xMax][yMax];
+      for (int i = 0; i < xMax; i++) {
+          for (int j = 0; j < yMax; j++) {
+              TestNode node = new TestNode(i, j);
+              nodeMap[i][j] = node;
+          }
+      }
+      TestAStarFinder finder = new TestAStarFinder(nodeMap);
+      Random rand = new Random();
+      for (int i = 0; i < 50; i++) {
+          int startX = rand.nextInt(xMax);
+          int startY = rand.nextInt(yMax);
+          int endX = rand.nextInt(xMax);
+          int endY = rand.nextInt(yMax);
+          TestNode start = new TestNode(startX, startY);
+          TestNode destination = new TestNode(endX, endY);
+          List<TestNode> result = finder.findPath(start, destination);
+          assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) + 1),
+                       new Double(result.size()));
+      }
+  }
+    
     private class TestNode {
 
         private int myX;
@@ -27,18 +59,16 @@ public class AStarTest {
         public int getY () {
             return myY;
         }
-        
+
         @Override
-        public boolean equals(Object other){
-            if(other == null || !(other instanceof TestNode)){
-                return false;
-            }
-            TestNode otherNode = (TestNode)other;
+        public boolean equals (Object other) {
+            if (other == null || !(other instanceof TestNode)) { return false; }
+            TestNode otherNode = (TestNode) other;
             return myX == otherNode.getX() && myY == otherNode.getY();
         }
-        
+
         @Override
-        public String toString(){
+        public String toString () {
             return myX + ", " + myY;
         }
     }
@@ -69,7 +99,8 @@ public class AStarTest {
             for (int[] direction : myDefault2DDirections) {
                 int neighborX = x + direction[0];
                 int neighborY = y + direction[1];
-                if(neighborX >= 0 && neighborX < myMap.length && neighborY >= 0 && neighborY < myMap[0].length){
+                if (neighborX >= 0 && neighborX < myMap.length && neighborY >= 0 &&
+                    neighborY < myMap[0].length) {
                     nodeList.add(myMap[neighborX][neighborY]);
                 }
             }
@@ -86,30 +117,15 @@ public class AStarTest {
                              Math.pow(endingY - beginningY, 2));
         }
 
+        @Override
+        public int breakTie (TestNode node, TestNode other) {
+            Integer x = node.getX();
+            Integer otherX = other.getX();
+            int xCompareValue = x.compareTo(otherX);
+            return xCompareValue == 0 ? ((Integer) node.getY()).compareTo((Integer) other.getY())
+                                     : xCompareValue;
+        }
+
     }
 
-    @Test
-    public void testAStarLogic() {
-        int xMax = 50;
-        int yMax = 39;
-        TestNode[][] nodeMap = new TestNode[xMax][yMax];
-        for(int i=0; i < xMax; i++){
-            for (int j=0; j < yMax; j++){
-                TestNode node = new TestNode(i, j);
-                nodeMap[i][j] = node;
-            }
-        }
-        TestAStarFinder finder = new TestAStarFinder(nodeMap);
-        Random rand = new Random();
-        for(int i=0; i < 50; i ++){
-            int startX = rand.nextInt(xMax);
-            int startY = rand.nextInt(yMax);
-            int endX = rand.nextInt(xMax);
-            int endY = rand.nextInt(yMax);
-            TestNode start = new TestNode(startX, startY);
-            TestNode destination = new TestNode(endX, endY);
-            List<TestNode> result = finder.findPath(start, destination);
-            assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) +1), new Double(result.size()));
-        }
-    }
 }
