@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 
 public class PathLocation extends Circle {
     
-    private static final int RADIUS = 40;
+    private static final int RADIUS = 25;
     
     public PathLocation(double x, double y, Color color) {
         super(RADIUS);

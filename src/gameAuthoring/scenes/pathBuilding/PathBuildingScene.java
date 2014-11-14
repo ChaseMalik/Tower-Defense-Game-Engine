@@ -3,10 +3,12 @@ package gameAuthoring.scenes.pathBuilding;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyEndingLocationsPane;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.EnemyStartingLocationsPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.CurveDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.PathBackgroundSelectionPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyEndingLocationsPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.List;
@@ -30,9 +32,11 @@ public class PathBuildingScene extends BuildingScene {
     private BorderPane myPane;
     private static Group myGroup;
 
+    private PathBackgroundSelectionPane myBackgroundSelectionPane;
     private EnemyStartingLocationsPane myEnemyStartingLocationsPane;
     private EnemyEndingLocationsPane myEnemyEndingLocationsPane;
     private LineDrawingPane myLineDrawingPane;
+    private CurveDrawingPane myCurveDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
     private BuildingPane myCurrentBuildingPane;
 
@@ -44,20 +48,21 @@ public class PathBuildingScene extends BuildingScene {
     public PathBuildingScene (BorderPane root) {
         super(root, TITLE);
         myPane = root;
-        myPath = new Path();
         myGroup = new Group();
+        myPath = new Path(myGroup);
         createBuildingPanes();
         createPathBuildingOptions();
         setOnKeyReleased(event->handleKeyPress(event));
-        setCurrentBuildingPane(myEnemyStartingLocationsPane); 
+        setCurrentBuildingPane(myBackgroundSelectionPane); 
     }
 
     private void createBuildingPanes () {
         //NOT GOOD, MAYBE USE OBSERVABLES INSTEAD?!?!?!?
+        myBackgroundSelectionPane = new PathBackgroundSelectionPane(myGroup, this);
         myEnemyStartingLocationsPane = new EnemyStartingLocationsPane(myGroup, myPath, this);
         myEnemyEndingLocationsPane = new EnemyEndingLocationsPane(myGroup, myPath, this);
-
         myLineDrawingPane = new LineDrawingPane(myGroup, myPath);
+        myCurveDrawingPane = new CurveDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
     }
 
@@ -100,7 +105,8 @@ public class PathBuildingScene extends BuildingScene {
     private void setCurveDrawerMode () {
         myCurvePathOptionPane.getStyleClass().add("selected");
         myLinePathOptionPane.getStyleClass().remove("selected");
-        mySelectComponentOptionPane.getStyleClass().remove("selected");  
+        mySelectComponentOptionPane.getStyleClass().remove("selected"); 
+        setCurrentBuildingPane(myCurveDrawingPane);
     }
 
     public void setLineDrawerMode () {
@@ -135,6 +141,11 @@ public class PathBuildingScene extends BuildingScene {
         myPane.getChildren().remove(myPane.getLeft());
         myPane.setLeft(nextPane);
         nextPane.refreshScreen();
+    }
+
+    public void proceedToStartLocationSelection () {
+        setCurrentBuildingPane(myEnemyStartingLocationsPane);
+        
     }
 
 }

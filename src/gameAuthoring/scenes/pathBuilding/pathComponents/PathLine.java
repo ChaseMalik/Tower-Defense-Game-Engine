@@ -5,6 +5,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class PathLine extends Line implements PathComponent {
+    
+    public PathLine() {
+        this(0, 0);
+    }
+    
     public PathLine(double initalMouseClickX, double initialMouseClickY) {
         this.setStartX(initalMouseClickX);
         this.setStartY(initialMouseClickY);
@@ -55,5 +60,15 @@ public class PathLine extends Line implements PathComponent {
     @Override
     public void deselect () {
         super.setStroke(Color.BLACK);        
+    }
+
+    @Override
+    public PathComponent deepCopy () {
+        PathLine copy = new PathLine();
+        copy.setStartingPoint(this.getStartingPoint());
+        copy.setEndingPoint(this.getEndingPoint());
+        copy.setStroke(this.getStroke());
+        copy.setStrokeWidth(this.getStrokeWidth());
+        return copy;
     }
 }

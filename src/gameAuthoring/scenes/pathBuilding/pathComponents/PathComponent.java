@@ -10,4 +10,5 @@ public interface PathComponent {
     void translate(double deltaX, double deltaY);
     void select ();
     void deselect ();
+    PathComponent deepCopy();
 }

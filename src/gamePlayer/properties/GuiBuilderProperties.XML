@@ -1,0 +1,16 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<GuiBuilderProperties>
+
+    <!--window width and height -->
+ 	<GuiSize>
+		<element>600</element>
+		<element>400</element>
+	</GuiSize>
+	
+	<GuiStyleSheet>
+	    <!--leave blank to load default style sheet; else insert custom one -->
+	    <element></element>
+	</GuiStyleSheet>
+	
+</GuiBuilderProperties>

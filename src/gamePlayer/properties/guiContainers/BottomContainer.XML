@@ -1,0 +1,16 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<ContainerProperties>
+
+    <!--width and height size ratios to window size-->
+ 	<SizeRatio>
+		<element>1</element>
+		<element>0.1</element>
+	</SizeRatio>
+	
+	<!--items contained within this container (added via reflection)-->
+	<Items>
+	    <element>gamePlayer.guiItems.placeholders.BottomItemPlaceholder</element>
+	</Items>
+	
+</ContainerProperties>

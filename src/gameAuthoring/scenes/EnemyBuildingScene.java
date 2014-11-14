@@ -1,6 +1,7 @@
 package gameAuthoring.scenes;
 
-import gameAuthoring.actorData.actorDataHolders.EnemyDataHolder;
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -10,22 +11,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 public class EnemyBuildingScene extends BuildingScene {
 
+
 	private static final String TITLE = "Enemy Building";
 
-	private EnemyDataHolder myEnemyDataHolder;
+
 	private BorderPane myPane;
 	private ListView<String> list;
 
 	public EnemyBuildingScene (BorderPane root) {
 		super(root, TITLE);
 		myPane = root;
-		myEnemyDataHolder = new EnemyDataHolder(); 
+
 		createEnemyListView();
 		myPane.setLeft(list);
 		VBox centerVBox = new VBox();
@@ -105,13 +106,5 @@ public class EnemyBuildingScene extends BuildingScene {
 	}
 	
 	
-	
-
-
-
-
-
-
-
 
 }

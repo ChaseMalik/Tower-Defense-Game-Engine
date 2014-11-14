@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class AuthorController extends Application {
 
-    public static final double SCREEN_WIDTH = 700;
+    public static final double SCREEN_WIDTH = 900;
     public static final double SCREEN_HEIGHT = 600;
     
     private EnemyBuildingScene myEnemyBuildingScene;
