@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.voogaMenuBar;
 
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItems.voogaMenuBar.menuItems.VoogaMenuItem;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import java.io.File;
@@ -40,7 +41,8 @@ public class VoogaMenuBar implements GuiItem {
         
         List<String> myItems = myParser.getValuesFromTag(menuName);
         for (String item:myItems) {
-            MenuItem menuItem = (MenuItem) Reflection.createInstance(item);
+            VoogaMenuItem menuItem = (VoogaMenuItem) Reflection.createInstance(item);
+            menuItem.initialize();
             menu.getItems().add(menuItem);
         }
         return menu;
