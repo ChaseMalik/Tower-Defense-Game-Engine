@@ -4,12 +4,13 @@ import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
-public class Path {
+public class Path implements Iterable<PathRoute> {
 
     private static final double CONNECT_THRESHOLD = 40;
     private static final double INSIDE_STARTING_LOC_THRESHOLD = 50;
@@ -279,9 +280,14 @@ public class Path {
         return myPath.size();
     }
     
+    //method is only here for CreationTests. Classes outside
+    //the path cannot use it.
     protected List<PathRoute> getRoutes() {
         return myPath;
     }
-    
-    
+
+    @Override
+    public Iterator<PathRoute> iterator () {
+        return myPath.iterator();
+    }    
 }

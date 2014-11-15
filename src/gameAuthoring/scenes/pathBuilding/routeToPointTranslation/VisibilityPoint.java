@@ -2,11 +2,19 @@ package gameAuthoring.scenes.pathBuilding.routeToPointTranslation;
 
 import javafx.geometry.Point2D;
 
-public class VisibilityPoints {
+/**
+ * A point on the route from the starting location to the ending location
+ * for an enemy. The visibility boolean determines if the enemy will be 
+ * visible or invisible while traveling to the next point in the 
+ * BackendRoute object.
+ * @author Austin Kyker
+ *
+ */
+public class VisibilityPoint {
     public boolean myVisibility;
     public Point2D myPoint;
     
-    public VisibilityPoints(boolean visibility, Point2D point) {
+    public VisibilityPoint(boolean visibility, Point2D point) {
         myVisibility = visibility;
         myPoint = point;
     }
