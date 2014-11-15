@@ -27,8 +27,8 @@ public class AuthorController extends Application {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        //showPathBuildingScene();
-        showEnemyBuildingScene();
+        showPathBuildingScene();
+       // showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
