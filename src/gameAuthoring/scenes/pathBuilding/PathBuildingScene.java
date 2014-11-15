@@ -13,6 +13,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.List;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -52,7 +53,7 @@ public class PathBuildingScene extends BuildingScene {
         myPath = new Path(myGroup);
         createBuildingPanes();
         createPathBuildingOptions();
-        setOnKeyReleased(event->handleKeyPress(event));
+        this.getScene().setOnKeyReleased(event->handleKeyPress(event));
         setCurrentBuildingPane(myBackgroundSelectionPane); 
     }
 
@@ -88,10 +89,22 @@ public class PathBuildingScene extends BuildingScene {
 
         mySelectComponentOptionPane = createPathComponentOption("Selection");
         mySelectComponentOptionPane.setOnMouseClicked(event->setSelectionMode());
+        
+        Button finishedBuildingPathButton = new Button("Completed Path");
+        finishedBuildingPathButton.setOnAction(event->handleFinishButtonClick());
+        
 
         pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
                                                  myCurvePathOptionPane,
-                                                 mySelectComponentOptionPane);
+                                                 mySelectComponentOptionPane,
+                                                 finishedBuildingPathButton);
+    }
+
+    private void handleFinishButtonClick () {
+        if(myPath.isCompletedAndRoutesVerified()) {
+            this.setChanged();
+            this.notifyObservers(myPath);
+        }
     }
 
     private void setSelectionMode () {
@@ -147,5 +160,4 @@ public class PathBuildingScene extends BuildingScene {
         setCurrentBuildingPane(myEnemyStartingLocationsPane);
         
     }
-
 }
