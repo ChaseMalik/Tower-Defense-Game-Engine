@@ -20,9 +20,10 @@ public class StatsBoard implements GuiItem {
     public void initialize (List<Double> containerSize) {
         myParser = XMLParserInstantiator.getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
 
-        myTableView = new TableView();
+        myTableView = new TableView<GameStats>();
         List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");
-        myTableView.setPrefSize(sizeRatio.get(0)*containerSize.get(0), sizeRatio.get(1)*containerSize.get(1));
+        //List<Double> mySize = 
+        //myTableView.setPrefSize(sizeRatio.get(0)*containerSize.get(0), sizeRatio.get(1)*containerSize.get(1));
     }
     
     public static void setGameStats(List<GameStats> stats) {
@@ -30,12 +31,14 @@ public class StatsBoard implements GuiItem {
         ObservableList<GameStats> statsList = FXCollections.observableArrayList(stats);
         myTableView.setItems(statsList);
         
-        TableColumn<GameStats,String> firstNameCol = new TableColumn<GameStats,String>("Stat");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory("gameStat"));
-        TableColumn<GameStats,String> lastNameCol = new TableColumn<GameStats,String>("Value");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory("statValue"));
+        TableColumn<GameStats,String> statCol = new TableColumn<GameStats,String>("Stat");
+        statCol.setCellValueFactory(new PropertyValueFactory("gameStat"));
+        //statCol.setPrefWidth(arg0);
+        TableColumn<GameStats,String> valueCol = new TableColumn<GameStats,String>("Value");
+        valueCol.setCellValueFactory(new PropertyValueFactory("statValue"));
         
-        myTableView.getColumns().setAll(firstNameCol, lastNameCol);
+        myTableView.getColumns().setAll(statCol, valueCol);
+        
     }
 
     @Override

@@ -1,6 +1,5 @@
 package gamePlayer.mainClasses;
 
-import gameEngine.GameManager;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import javafx.application.Application;
@@ -21,6 +20,6 @@ public class Main extends Application {
         builder.build(stage, new GuiManager(manager));
         
         manager.createGameStats();
-        manager.changeScores();
+        manager.updateGameStats();
     }
 }
