@@ -48,9 +48,8 @@ public class GuiBuilder {
     }
 
     private void setStyleSheet(Scene scene) {
-        String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
-        if (!styleSheetPath.equals("")) {
-            scene.getStylesheets().clear();
+        if (!myParser.getValuesFromTag("GuiStyleSheet").isEmpty()) {
+            String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
             scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
         }
     }

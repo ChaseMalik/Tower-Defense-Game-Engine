@@ -27,22 +27,29 @@ public class StatsBoard implements GuiItem {
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
+        myTableView.getStylesheets().add(myParser.getValuesFromTag("StyleSheet").get(0));
+        myTableView.getStyleClass().add("statsBoard");
+        myTableView.applyCss();
         
         GuiConstants.GUI_MANAGER.registerStatsBoard(this);
     }
     
     public void setGameStats(List<GameStats> stats) {
+        List<Double> colSizeRatio = myParser.getDoubleValuesFromTag("ColumnWidth");
+        
         //convert list into observable list
         ObservableList<GameStats> statsList = FXCollections.observableArrayList(stats);
         myTableView.setItems(statsList);
         
         TableColumn<GameStats,String> statCol = new TableColumn<GameStats,String>("Stat");
         statCol.setCellValueFactory(new PropertyValueFactory("gameStat"));
-        statCol.setPrefWidth(mySize.getWidth()/2);
+        statCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
+        statCol.setResizable(false);
         
         TableColumn<GameStats,String> valueCol = new TableColumn<GameStats,String>("Value");
         valueCol.setCellValueFactory(new PropertyValueFactory("statValue"));
-        valueCol.setPrefWidth(mySize.getWidth()/2);
+        valueCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
+        valueCol.setResizable(false);
         
         myTableView.getColumns().setAll(statCol, valueCol);
         

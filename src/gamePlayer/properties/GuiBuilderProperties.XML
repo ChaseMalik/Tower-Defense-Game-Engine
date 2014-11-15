@@ -14,8 +14,7 @@
 	</TextGeneratorPropertiesPath>
 	
 	<GuiStyleSheet>
-	    <!--leave blank to load default style sheet; else insert custom one -->
-	    <element></element>
+	    <!--<element>/gamePlayer/styleSheets/guibuilder_customtheme_1.css</element> -->
 	</GuiStyleSheet>
 	
 </GuiBuilderProperties>
