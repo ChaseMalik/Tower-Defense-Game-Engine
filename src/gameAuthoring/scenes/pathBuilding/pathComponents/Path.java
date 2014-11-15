@@ -293,6 +293,7 @@ public class Path implements Iterable<PathRoute> {
 
     //All routes must be completed...They must be connected to a start and ending location
     public boolean isCompletedAndRoutesVerified () {
+        if(myPath.isEmpty()) return false;
         for(PathRoute route:myPath){
             if(!route.isConnectedToStartAndEndLocations()){
                 return false;

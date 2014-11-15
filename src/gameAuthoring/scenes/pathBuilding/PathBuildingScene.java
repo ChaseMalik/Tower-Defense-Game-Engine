@@ -157,7 +157,6 @@ public class PathBuildingScene extends BuildingScene {
     }
 
     public void proceedToStartLocationSelection () {
-        setCurrentBuildingPane(myEnemyStartingLocationsPane);
-        
+        setCurrentBuildingPane(myEnemyStartingLocationsPane);        
     }
 }

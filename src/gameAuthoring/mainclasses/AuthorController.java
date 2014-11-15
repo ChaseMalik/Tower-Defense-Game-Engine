@@ -77,6 +77,7 @@ public class AuthorController extends Application implements Observer {
     public void update (Observable ob, Object value) {
         if(ob.equals(myPathBuildingScene)){
             myBackendRoutesRepresentation = BackendRoutesGenerator.getBackendRoutes((Path) value);
+            showEnemyBuildingScene();
         }      
     }
 }
