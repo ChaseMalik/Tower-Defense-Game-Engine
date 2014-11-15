@@ -1,0 +1,17 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<TextGeneratorProperties>
+
+    <BundlesPath>
+      <element>gamePlayer.properties.languages/LanguagesBundle</element>
+    </BundlesPath>
+
+ 	<LanguagesSupported>
+		<element>en</element>
+	</LanguagesSupported>
+
+ 	<DefaultLanguage>
+		<element>en</element>
+	</DefaultLanguage>
+    
+</TextGeneratorProperties>

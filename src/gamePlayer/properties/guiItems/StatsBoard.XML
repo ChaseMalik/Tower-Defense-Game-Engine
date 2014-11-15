@@ -1,0 +1,15 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<ItemProperties>
+
+ 	<SizeRatio>
+		<element>1</element>
+		<element>0.3</element>
+	</SizeRatio>
+	
+	
+    <ColumnWidth>
+		 <element>0.49</element>
+    </ColumnWidth>
+
+</ItemProperties>

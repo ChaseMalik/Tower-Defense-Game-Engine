@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
@@ -14,6 +14,13 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
+/**
+ * This utility allows for the creation of drag and drop file panes. Simply specify the extensions of files
+ * you accept, and where you want the file to be dropped. The class extends Observable so you can
+ * set up an observer class to listen for when a file is dropped.
+ * @author Austin Kyker
+ *
+ */
 public class DragAndDropFilePane extends Observable {
     
     private String[] myValidExtensions;
@@ -22,7 +29,6 @@ public class DragAndDropFilePane extends Observable {
     private File myFile;
 
     /**
-     * 
      * @param validExtensions The extensions you will accept for the drag and dropped file. Ex: [.jpg, .png]
      * @param fileDestination where you want the file dragged and dropped to be saved.
      */

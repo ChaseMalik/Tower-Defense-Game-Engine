@@ -1,0 +1,16 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<ContainerProperties>
+
+    <!--width and height size ratios to window size-->
+ 	<SizeRatio>
+		<element>0.2</element>
+		<element>0.8</element>
+	</SizeRatio>
+	
+	<!--items contained within this container (added via reflection)-->
+	<Items>
+	    <element>gamePlayer.guiItems.statsBoard.StatsBoard</element>
+	</Items>
+	
+</ContainerProperties>

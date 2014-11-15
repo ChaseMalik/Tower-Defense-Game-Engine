@@ -5,10 +5,10 @@ import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import java.io.FileInputStream;
 import java.util.Observable;
 import java.util.Observer;
+import utilities.DragAndDropFilePane;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import Utilities.DragAndDropFilePane;
 
 public class PathBackgroundSelectionPane extends BuildingPane implements Observer {
 
