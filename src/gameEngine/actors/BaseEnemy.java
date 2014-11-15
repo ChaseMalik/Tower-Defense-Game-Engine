@@ -10,16 +10,14 @@ import gameEngine.actors.behaviors.ITerminate;
  * @author $cotty $haw
  *
  */
-public class BaseBaddie {
+public class BaseEnemy {
 
-    private ISpawn mySpawn;
     private IMove myMove;
     private IAttack myAttack;
     private IDefend myDefend;
     private ITerminate myTerminate;
 
-    public BaseBaddie (ISpawn spawn, IMove move, IAttack attack, IDefend defend, ITerminate terminate) {
-        mySpawn = spawn;
+    public BaseEnemy (IMove move, IAttack attack, IDefend defend, ITerminate terminate) {
         myMove = move;
         myAttack = attack;
         myDefend = defend;
@@ -27,10 +25,9 @@ public class BaseBaddie {
     }
 
     public void update () {
-        mySpawn.spawn();
         myMove.move();
         myAttack.attack();
         myDefend.defend();
-        myTerminate.terminate(); //onDeath()?
     }
 }
+    
