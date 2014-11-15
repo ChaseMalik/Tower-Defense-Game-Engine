@@ -55,6 +55,10 @@ public class PathRoute implements Iterable<PathComponent> {
         return myStartingLocation == null && myEndingLocation == null;
     }
     
+    public boolean isConnectedToStartAndEndLocations() {
+        return myStartingLocation != null && myEndingLocation != null;
+    }
+    
     public boolean isConnectedToStartingLocation() {
         return myStartingLocation != null;
     }

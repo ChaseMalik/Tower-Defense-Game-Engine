@@ -1,7 +1,8 @@
-package gameAuthoring.scenes.pathBuilding.routeToPointTranslation;
+package gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation;
 
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,10 +24,16 @@ public class BackendRoute implements Iterable<VisibilityPoint> {
     }
 
     private void setUpBackendRouteFromFrontEndRoute (PathRoute route) {
+        myPoints = new ArrayList<VisibilityPoint>();
         for(PathComponent component:route) {
             myPoints.add(new VisibilityPoint(true, component.getStartingPoint()));
         }       
         myPoints.add(new VisibilityPoint(true, route.getLast().getEndingPoint()));
+    }
+
+    //Only used for testing, see BackendRouteTranslationTests
+    protected List<VisibilityPoint> getMyPoints() {
+        return myPoints;
     }
 
     @Override

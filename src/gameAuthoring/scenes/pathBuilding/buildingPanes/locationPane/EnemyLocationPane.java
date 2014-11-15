@@ -13,7 +13,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 public abstract class EnemyLocationPane extends BuildingPane {
 
     private static final int CONTAINER_PADDING = 15;
-    private static final String CLR_BTN_TEXT = "Clear End Locations";
+    private static final String CLR_BTN_TEXT = "Clear Locations";
     
     protected Button myClearLocations = new Button(CLR_BTN_TEXT);
     protected Path myPath;

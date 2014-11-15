@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.pathBuilding.routeToPointTranslation;
+package gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation;
 
 import javafx.geometry.Point2D;
 
@@ -11,8 +11,8 @@ import javafx.geometry.Point2D;
  *
  */
 public class VisibilityPoint {
-    public boolean myVisibility;
-    public Point2D myPoint;
+    private boolean myVisibility;
+    private Point2D myPoint;
     
     public VisibilityPoint(boolean visibility, Point2D point) {
         myVisibility = visibility;

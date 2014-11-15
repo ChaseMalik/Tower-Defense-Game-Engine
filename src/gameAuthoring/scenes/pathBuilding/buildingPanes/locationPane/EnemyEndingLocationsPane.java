@@ -23,7 +23,7 @@ public class EnemyEndingLocationsPane extends EnemyLocationPane {
 
     private void createEnemyEndingLocationsSetupComponents () {
         super.createEnemyLocationsSetupComponents(mySaveEndsButton, LABEL_TEXT);
-        mySaveEndsButton.setOnAction(event->myPathBuildingScene.proceedToLineDrawerMode());
+        mySaveEndsButton.setOnAction(event->myPathBuildingScene.proceedToLineDrawerModeIfLocationsVerified());
         myClearLocations.setOnAction(event->myPath.clearEnemyEndingLocations());
     }
     

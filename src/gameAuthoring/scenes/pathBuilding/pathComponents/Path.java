@@ -289,5 +289,16 @@ public class Path implements Iterable<PathRoute> {
     @Override
     public Iterator<PathRoute> iterator () {
         return myPath.iterator();
+    }
+
+    //All routes must be completed...They must be connected to a start and ending location
+    public boolean isCompletedAndRoutesVerified () {
+        if(myPath.isEmpty()) return false;
+        for(PathRoute route:myPath){
+            if(!route.isConnectedToStartAndEndLocations()){
+                return false;
+            }
+        }
+        return true;
     }    
 }

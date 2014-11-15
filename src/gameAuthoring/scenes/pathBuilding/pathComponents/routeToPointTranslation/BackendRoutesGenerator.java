@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.pathBuilding.routeToPointTranslation;
+package gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation;
 
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute;
