@@ -4,6 +4,11 @@ import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Class launches the application
+ * @author allankiplagat
+ *
+ */
 public class Main extends Application {
     
     public static void main (String[] args) {

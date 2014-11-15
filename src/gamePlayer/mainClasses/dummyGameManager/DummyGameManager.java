@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.stage.Stage;
 
+/**
+ * Class simulates an engine GameManager for testing purposes
+ * @author allankiplagat
+ *
+ */
 public class DummyGameManager {
     private GuiManager myGuiManager;
     private List<GameStats> gameStats;
