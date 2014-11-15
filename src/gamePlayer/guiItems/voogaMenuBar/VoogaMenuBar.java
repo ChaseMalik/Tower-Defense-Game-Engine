@@ -1,51 +1,53 @@
 package gamePlayer.guiItems.voogaMenuBar;
 
-import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItems.voogaMenuBar.menus.LoadMenu;
-import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import javafx.scene.Node;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import Utilities.XMLParsing.XMLParser;
 import Utilities.XMLParsing.XMLParserInstantiator;
-import Utilities.textGenerator.TextGenerator;
+import Utilities.reflection.Reflection;
 
-public class VoogaMenuBar extends MenuBar implements GuiItem {
-    private VoogaMenuBarListener myListener;
-    private XMLParser myParser;    
+public class VoogaMenuBar implements GuiItem {
+
+    private XMLParser myParser;
+    private MenuBar myMenuBar;
 
     @Override
     public void initialize (List<Double> containerSize) {
-        myParser = XMLParserInstantiator.
-                getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+        myParser = XMLParserInstantiator.getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
 
-        //set item size
+        myMenuBar = new MenuBar();
         List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");
-        List<Double> mySize = Arrays.asList(containerSize.get(0)*sizeRatio.get(0),containerSize.get(1)*sizeRatio.get(1));
-        this.setPrefSize(mySize.get(0),mySize.get(1));
-
+        myMenuBar.setPrefSize(sizeRatio.get(0)*containerSize.get(0), sizeRatio.get(1)*containerSize.get(1));
         initializeMenus();
     }
 
     private void initializeMenus() {
-        LoadMenu loadMenu = new LoadMenu();
-        loadMenu.setText("Load Game");
-        loadMenu.setOnAction(event->load());
-        this.getMenus().add(loadMenu);
+        Menu fileMenu = createMenu("FileMenu");
+        fileMenu.setText(GuiBuilderConstants.TEXT_GEN.get(GuiText.FILE));
+        myMenuBar.getMenus().add(fileMenu);
+       
     }
 
-    private void load() {
-        GuiBuilderConstants.CURRENT_GUI_CONTROLLER.readLoadedFile(FileLoader.getInstance()
-                                                 .load(GuiBuilderConstants.CURRENT_GUI_CONTROLLER.getStage()));
+    private Menu createMenu(String menuName) {
+        Menu menu = new Menu();
+        
+        List<String> myItems = myParser.getValuesFromTag(menuName);
+        for (String item:myItems) {
+            MenuItem menuItem = (MenuItem) Reflection.createInstance(item);
+            menu.getItems().add(menuItem);
+        }
+        return menu;
     }
 
     @Override
     public Node getNode () {
-        return this;
+        return myMenuBar;
     }
 }

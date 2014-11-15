@@ -4,7 +4,13 @@
 
  	<SizeRatio>
 		<element>1</element>
-		<element>0.1</element>
+		<element>1</element>
 	</SizeRatio>
 	
+	
+    <FileMenu>
+		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.LoadMenuItem</element>
+		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.SaveMenuItem</element>
+    </FileMenu>
+
 </ItemProperties>
