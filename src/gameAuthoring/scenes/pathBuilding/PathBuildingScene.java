@@ -33,7 +33,7 @@ public class PathBuildingScene extends BuildingScene {
     private static final String DRAWING_OPTIONS_IMG_DIR = 
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
     private static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = 
-            1 - BuildingPane.DRAW_SCREEN_WIDTH_RATIO;
+            1 - BuildingPane.DRAW_SCREEN_WIDTH_RATIO - DefaultMapSelectionPane.SCREEN_WIDTH_RATIO;
     private static final double PATH_BUILDING_OPTIONS_WIDTH = 
             AuthorController.SCREEN_WIDTH * PATH_BUILDING_OPTIONS_WIDTH_RATIO;
     private static final double OPTIONS_IMAGE_WIDTH = PATH_BUILDING_OPTIONS_WIDTH - 3*BUILDING_OPTIONS_PADDING;
@@ -55,6 +55,7 @@ public class PathBuildingScene extends BuildingScene {
     private VBox myCurvePathOptionPane;   
     private VBox mySelectComponentOptionPane;
     private VBox myFinishedPathBuildingOptionPane;
+    private DefaultMapSelectionPane myDefaultMapSelectionPane;
 
 
     public PathBuildingScene (BorderPane root) {
@@ -62,13 +63,21 @@ public class PathBuildingScene extends BuildingScene {
         myPane = root;
         myGroup = new Group();
         myPath = new Path(myGroup);
+        createDefaultMapSelectionPane();
         createBuildingPanes();
         createPathBuildingOptions();
         this.getScene().setOnKeyReleased(event->handleKeyPress(event));
         setCurrentBuildingPane(myBackgroundSelectionPane); 
     }
 
-    private void createBuildingPanes () {
+    private void createDefaultMapSelectionPane() {
+		
+    	myDefaultMapSelectionPane = new DefaultMapSelectionPane();
+    	myPane.setLeft(myDefaultMapSelectionPane.getDefaultMapsScrollPane());
+		
+	}
+
+	private void createBuildingPanes () {
         //NOT GOOD, MAYBE USE OBSERVABLES INSTEAD?!?!?!?
         myBackgroundSelectionPane = new PathBackgroundSelectionPane(myGroup, this);
         myEnemyStartingLocationsPane = new EnemyStartingLocationsPane(myGroup, myPath, this);
@@ -194,8 +203,8 @@ public class PathBuildingScene extends BuildingScene {
 
     public void setCurrentBuildingPane(BuildingPane nextPane) {
         myCurrentBuildingPane = nextPane;
-        myPane.getChildren().remove(myPane.getLeft());
-        myPane.setLeft(nextPane);
+        myPane.getChildren().remove(myPane.getCenter());
+        myPane.setCenter(nextPane);
         nextPane.refreshScreen();
     }
 
