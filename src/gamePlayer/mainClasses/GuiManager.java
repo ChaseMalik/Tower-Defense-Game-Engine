@@ -1,8 +1,8 @@
 package gamePlayer.mainClasses;
 
-import gameEngine.GameManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
+import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import java.io.File;
 import javafx.stage.Stage;
 
@@ -12,10 +12,10 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener  {
-    private GameManager myGameManager;
+    private DummyGameManager myGameManager;
     private Stage myStage; 
     
-    public GuiManager(GameManager manager) {
+    public GuiManager(DummyGameManager manager) {
         myGameManager = manager;
     }
     

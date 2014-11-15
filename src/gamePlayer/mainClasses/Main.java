@@ -1,6 +1,7 @@
 package gamePlayer.mainClasses;
 
 import gameEngine.GameManager;
+import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,6 +17,10 @@ public class Main extends Application {
     public void start (Stage stage) throws Exception {
         GuiBuilder builder = GuiBuilder.getInstance(guiBuilderPropertiesPath);
         //builder will set up the application using the stage and given properties
-        builder.build(stage, new GuiManager(new GameManager()));
+        DummyGameManager manager = new DummyGameManager();
+        builder.build(stage, new GuiManager(manager));
+        
+        manager.createGameStats();
+        manager.changeScores();
     }
 }

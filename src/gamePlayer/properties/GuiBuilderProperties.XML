@@ -4,8 +4,8 @@
 
     <!--window width and height -->
  	<GuiSize>
-		<element>500</element>
-		<element>300</element>
+		<element>600</element>
+		<element>400</element>
 	</GuiSize>
 	
 	<!-- specifies properties path to be passed to the text generator object used by the guibuilder -->
