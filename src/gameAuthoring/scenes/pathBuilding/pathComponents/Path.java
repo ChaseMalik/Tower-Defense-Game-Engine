@@ -74,6 +74,7 @@ public class Path {
                             drawComponents(componentsBefore.getComponents());
                             myPath.add(componentsBefore);
                             connectRoutes(componentsBefore, connectedComponent1);
+                            ensureLocationsAreInFront();
                             return true;
                         }
                     }
@@ -99,7 +100,7 @@ public class Path {
 
     private void drawComponents (List<PathComponent> components) {
         for(PathComponent component:components){
-            myGroup.getChildren().add(0, (Node) component);
+            myGroup.getChildren().add((Node) component);
         }     
     }
 
