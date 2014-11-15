@@ -19,5 +19,9 @@
 	    <element>0.4</element>
 	</doubleValues>
 	
+	<dimensions>
+		<element>600</element>
+	    <element>400</element>
+	</dimensions>
 	
 </behaviors>

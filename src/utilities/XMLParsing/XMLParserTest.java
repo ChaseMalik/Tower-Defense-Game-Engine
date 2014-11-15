@@ -1,10 +1,12 @@
 package utilities.XMLParsing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import javafx.geometry.Dimension2D;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -45,5 +47,9 @@ public class XMLParserTest {
         for(int i = 0; i < doubleValuesList.size(); i++){
             assertTrue(doubles[i]==doubleValuesList.get(i));
         } 
+        
+        Dimension2D dimension = parser.getDimension("dimensions");
+        assertTrue(Math.abs(dimension.getWidth()-600)<0.0001);
+        assertTrue(Math.abs(dimension.getHeight()-400)<0.0001);
     }
 }

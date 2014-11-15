@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.geometry.Dimension2D;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -66,4 +67,10 @@ public class XMLParser {
         return getValuesFromTag(tagName)
                 .stream().map(s->Double.parseDouble(s)).collect(Collectors.toList());
     }
+    
+    public Dimension2D getDimension(String tagName) {
+        List<Double> dimensionList = getDoubleValuesFromTag(tagName);
+        return new Dimension2D(dimensionList.get(0),dimensionList.get(1));
+    }
+    
 }
