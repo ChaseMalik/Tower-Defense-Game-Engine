@@ -14,7 +14,7 @@
 	</TextGeneratorPropertiesPath>
 	
 	<GuiStyleSheet>
-	    <!--<element>/gamePlayer/styleSheets/guibuilder_customtheme_1.css</element> -->
+	    <element>/gamePlayer/styleSheets/guibuilder_default_theme.css</element> 
 	</GuiStyleSheet>
 	
 </GuiBuilderProperties>

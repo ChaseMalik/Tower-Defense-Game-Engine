@@ -27,9 +27,7 @@ public class StatsBoard implements GuiItem {
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        myTableView.getStylesheets().add(myParser.getValuesFromTag("StyleSheet").get(0));
         myTableView.getStyleClass().add("statsBoard");
-        myTableView.applyCss();
         
         GuiConstants.GUI_MANAGER.registerStatsBoard(this);
     }
