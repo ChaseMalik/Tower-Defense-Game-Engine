@@ -23,7 +23,6 @@ import javafx.scene.shape.Rectangle;
 
 public class EnemyBuildingScene extends BuildingScene {
 
-
 	//private static final String MOVE_BEHAVIOR = "movement";
 	private static final String TITLE = "Enemy Building";
 	private static final String ENEMY_FILE = "./src/gameAuthoring/Resources/EnemyBehaviors.xml";

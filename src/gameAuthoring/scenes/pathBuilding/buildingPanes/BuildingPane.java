@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 public class BuildingPane extends Pane {
 
-    private static final double DRAW_SCREEN_WIDTH_RATIO = .7;
+    public static final double DRAW_SCREEN_WIDTH_RATIO = .84;
     protected static final double DRAW_SCREEN_WIDTH = 
             AuthorController.SCREEN_WIDTH * DRAW_SCREEN_WIDTH_RATIO;
     private static final String BUILD_SCREEN_CSS_CLASS = "buildScreen";
