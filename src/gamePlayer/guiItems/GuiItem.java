@@ -4,7 +4,7 @@ import gamePlayer.mainClasses.GuiElement;
 
 
 /**
- * Tag interface for a item node which is hosted within a GuiContainer
+ * Tag interface for a GuiElement which is hosted within a GuiContainer
  * @author allankiplagat
  *
  */

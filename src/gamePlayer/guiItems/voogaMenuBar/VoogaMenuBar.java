@@ -12,8 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 
+/**
+ * This GuiItem initializes and manages the menu bar
+ * @author allankiplagat
+ *
+ */
 public class VoogaMenuBar implements GuiItem {
-
     private XMLParser myParser;
     private MenuBar myMenuBar;
 

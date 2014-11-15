@@ -13,6 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * This GuiItem initializes and manages the game statistics board
+ * @author allankiplagat
+ *
+ */
 public class StatsBoard implements GuiItem {
     private XMLParser myParser;
     private TableView<GameStats> myTableView;
@@ -32,6 +37,9 @@ public class StatsBoard implements GuiItem {
         GuiConstants.GUI_MANAGER.registerStatsBoard(this);
     }
     
+    /**
+     * @param stats the list of GameStats objects to be displayed
+     */
     public void setGameStats(List<GameStats> stats) {
         List<Double> colSizeRatio = myParser.getDoubleValuesFromTag("ColumnWidth");
         
