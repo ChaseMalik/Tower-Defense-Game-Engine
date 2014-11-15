@@ -5,16 +5,15 @@ import gamePlayer.guiContainers.coreContainers.CenterContainer;
 import gamePlayer.guiContainers.coreContainers.LeftContainer;
 import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
-import gamePlayer.mainClasses.GuiManager;
 import java.io.File;
-import java.util.List;
-import utilities.XMLParsing.XMLParser;
-import utilities.textGenerator.TextGenerator;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.XMLParsing.XMLParser;
+import utilities.textGenerator.TextGenerator;
 
 public class GuiBuilder {
     private XMLParser myParser;
@@ -27,20 +26,18 @@ public class GuiBuilder {
         return new GuiBuilder(propertiesPath);
     }
 
-    public void build (Stage stage, GuiManager guiManager) {
+    public void build (Stage stage) {
         //set constants
-        GuiConstants.GUI_CONTROLLER = guiManager;
-        GuiConstants.GUI_CONTROLLER.setStage(stage);
         GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.TEXT_GEN.setLanguage("en");
         
-        List<Double> windowSize = myParser.getDoubleValuesFromTag("GuiSize");
-
+        Dimension2D windowSize = myParser.getDimension("GuiSize");
+        
         Group group = new Group();
         group.setAutoSizeChildren(true);
         group.getChildren().add(initializeCoreContainers(windowSize));
 
-        Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
+        Scene scene = new Scene(group, windowSize.getWidth(), windowSize.getHeight());
         setStyleSheet(scene);
         stage.setScene(scene);
         stage.setTitle(GuiConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
@@ -58,10 +55,10 @@ public class GuiBuilder {
         }
     }
 
-    private Node initializeCoreContainers(List<Double> windowSize) {
+    private Node initializeCoreContainers(Dimension2D windowSize) {
         BorderPane pane = new BorderPane();
 
-        pane.setPrefSize(windowSize.get(0), windowSize.get(1));
+        pane.setPrefSize(windowSize.getWidth(), windowSize.getHeight());
 
         TopContainer top = new TopContainer(); 
         top.initialize(windowSize); pane.setTop(top);

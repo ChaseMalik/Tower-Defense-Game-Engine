@@ -8,9 +8,8 @@
 	</SizeRatio>
 	
 	
-    <FileMenu>
-		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.LoadMenuItem</element>
-		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.SaveMenuItem</element>
-    </FileMenu>
+    <ColumnWidth>
+		 <element>0.49</element>
+    </ColumnWidth>
 
 </ItemProperties>

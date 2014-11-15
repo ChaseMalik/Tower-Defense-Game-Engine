@@ -1,6 +1,6 @@
 package gamePlayer.mainClasses;
 
-import java.util.List;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 
 /**
@@ -13,6 +13,6 @@ public interface GuiElement {
      * In this method, a GuiElement should set its size based on the componentSize
      * @param componentSize size of the component within which this GuiElement is hosted
      */
-    public abstract void initialize(List<Double> containerSize);
+    public abstract void initialize(Dimension2D containerSize);
     public abstract Node getNode();
 }

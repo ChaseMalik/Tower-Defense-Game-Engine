@@ -8,6 +8,6 @@ public class LoadMenuItem extends VoogaMenuItem {
         
     public void initialize() {
         this.setText(GuiConstants.TEXT_GEN.get(GuiText.LOAD));
-        this.setOnAction(event->GuiConstants.GUI_CONTROLLER.loadGame());
+        this.setOnAction(event->GuiConstants.GUI_MANAGER.loadGame());
     }
 }

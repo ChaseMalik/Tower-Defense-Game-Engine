@@ -1,9 +1,15 @@
 package gamePlayer.mainClasses;
 
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiItems.statsBoard.GameStats;
+import gamePlayer.guiItems.statsBoard.StatsBoard;
+import gamePlayer.guiItemsListeners.StatsBoardListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
+import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
+import java.util.List;
 import javafx.stage.Stage;
 
 /**
@@ -11,16 +17,22 @@ import javafx.stage.Stage;
  * @author allankiplagat
  *
  */
-public class GuiManager implements VoogaMenuBarListener  {
+public class GuiManager implements
+ VoogaMenuBarListener, 
+ StatsBoardListener
+
+{
+    
+    private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     private DummyGameManager myGameManager;
     private Stage myStage; 
+    private StatsBoard myStatsBoard;
     
-    public GuiManager(DummyGameManager manager) {
+    public GuiManager(Stage stage, DummyGameManager manager) {
         myGameManager = manager;
-    }
-    
-    public void setStage(Stage stage) {
         myStage = stage;
+        GuiConstants.GUI_MANAGER = this;
+        GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
     }
     
     @Override
@@ -33,5 +45,12 @@ public class GuiManager implements VoogaMenuBarListener  {
     public void saveGame () {
         System.out.println("Save game");
     }
-    
+
+    @Override
+    public void registerStatsBoard (StatsBoard statsBoard) {
+        myStatsBoard = statsBoard;
+    }
+    public void setGameStats(List<GameStats> stats) {
+        myStatsBoard.setGameStats(stats);
+    }
 }

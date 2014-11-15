@@ -8,6 +8,6 @@ public class SaveMenuItem extends VoogaMenuItem {
     
     public void initialize() {
         this.setText(GuiConstants.TEXT_GEN.get(GuiText.SAVE));
-        this.setOnAction(event->GuiConstants.GUI_CONTROLLER.saveGame());
+        this.setOnAction(event->GuiConstants.GUI_MANAGER.saveGame());
     }
 }

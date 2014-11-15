@@ -1,12 +1,24 @@
 package gamePlayer.mainClasses.dummyGameManager;
 
 import gamePlayer.guiItems.statsBoard.GameStats;
-import gamePlayer.guiItems.statsBoard.StatsBoard;
+import gamePlayer.mainClasses.GuiManager;
+import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.stage.Stage;
 
 public class DummyGameManager {
+    private GuiManager myGuiManager;
     private List<GameStats> gameStats;
+    
+    public DummyGameManager(Stage stage) {
+        myGuiManager = new GuiManager(stage,this);     
+    }
+    
+    public void run() {
+        createGameStats();
+        updateGameStats();
+    }
     
     public void createGameStats() {
         GameStats score = new GameStats();
@@ -19,7 +31,7 @@ public class DummyGameManager {
         
         gameStats = new ArrayList<GameStats>();
         gameStats.add(score); gameStats.add(health);
-        StatsBoard.setGameStats(gameStats);
+        myGuiManager.setGameStats(gameStats);
     }
     
     public void updateGameStats() {

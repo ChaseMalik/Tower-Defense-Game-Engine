@@ -3,24 +3,25 @@ package gamePlayer.guiContainers.coreContainers;
 import gamePlayer.guiContainers.GuiContainer;
 import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
-import utilities.XMLParsing.XMLParser;
-import utilities.reflection.Reflection;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import utilities.XMLParsing.XMLParser;
+import utilities.reflection.Reflection;
 
 public class TopContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
 
     @Override
-    public void initialize (List<Double> containerSize) {
+    public void initialize (Dimension2D containerSize) {
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
         
         //set component size
-        List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");
-        List<Double> mySize = Arrays.asList(containerSize.get(0)*sizeRatio.get(0),containerSize.get(1)*sizeRatio.get(1));
-        this.setPrefSize(mySize.get(0),mySize.get(1));
+        Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
+        Dimension2D mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
+                                             containerSize.getHeight()*sizeRatio.getHeight());
+        this.setPrefSize(mySize.getWidth(),mySize.getHeight());
         
         //add contained GUI elements
         List<String> myItems = myParser.getValuesFromTag("Items");

@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -17,12 +18,13 @@ public class VoogaMenuBar implements GuiItem {
     private MenuBar myMenuBar;
 
     @Override
-    public void initialize (List<Double> containerSize) {
+    public void initialize (Dimension2D containerSize) {
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
 
         myMenuBar = new MenuBar();
-        List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");
-        myMenuBar.setPrefSize(sizeRatio.get(0)*containerSize.get(0), sizeRatio.get(1)*containerSize.get(1));
+        Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
+        myMenuBar.setPrefSize(sizeRatio.getWidth()*containerSize.getWidth(), 
+                              sizeRatio.getHeight()*containerSize.getHeight());
         initializeMenus();
     }
 
