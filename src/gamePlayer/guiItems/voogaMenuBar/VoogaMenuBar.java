@@ -1,8 +1,7 @@
 package gamePlayer.guiItems.voogaMenuBar;
 
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItems.voogaMenuBar.menuItems.VoogaMenuItem;
-import gamePlayer.mainClasses.guiBuilder.GuiBuilderConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import java.io.File;
 import java.util.List;
@@ -31,7 +30,7 @@ public class VoogaMenuBar implements GuiItem {
 
     private void initializeMenus() {
         Menu fileMenu = createMenu("FileMenu");
-        fileMenu.setText(GuiBuilderConstants.TEXT_GEN.get(GuiText.FILE));
+        fileMenu.setText(GuiConstants.TEXT_GEN.get(GuiText.FILE));
         myMenuBar.getMenus().add(fileMenu);
        
     }

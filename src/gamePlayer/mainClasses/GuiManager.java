@@ -1,6 +1,7 @@
 package gamePlayer.mainClasses;
 
 import gameEngine.GameManager;
+import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import java.io.File;
 import javafx.stage.Stage;
@@ -12,20 +13,25 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener  {
     private GameManager myGameManager;
+    private Stage myStage; 
     
     public GuiManager(GameManager manager) {
         myGameManager = manager;
     }
     
+    public void setStage(Stage stage) {
+        myStage = stage;
+    }
+    
     @Override
-    public void readLoadedFile (File file) {
+    public void loadGame () {
+        File file = FileLoader.getInstance().load(myStage);
         System.out.println(file.getAbsolutePath()+"\n");
     }
 
     @Override
-    public Stage getStage () {
-        // TODO Return the actual stage
-        return null;
+    public void saveGame () {
+        System.out.println("Save game");
     }
     
 }

@@ -19,7 +19,6 @@ import Utilities.textGenerator.TextGenerator;
 
 public class GuiBuilder {
     private XMLParser myParser;
-    private TextGenerator myTextGen;
 
     private GuiBuilder(String propertiesPath) {
         myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
@@ -29,11 +28,12 @@ public class GuiBuilder {
         return new GuiBuilder(propertiesPath);
     }
 
-    public void build (Stage stage, GuiManager controller) {
-        //set building constants
-        GuiBuilderConstants.CURRENT_GUI_CONTROLLER = controller;
-        GuiBuilderConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
-        GuiBuilderConstants.TEXT_GEN.setLanguage("en");
+    public void build (Stage stage, GuiManager guiManager) {
+        //set constants
+        GuiConstants.GUI_CONTROLLER = guiManager;
+        GuiConstants.GUI_CONTROLLER.setStage(stage);
+        GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
+        GuiConstants.TEXT_GEN.setLanguage("en");
         
         List<Double> windowSize = myParser.getDoubleValuesFromTag("GuiSize");
 
@@ -44,7 +44,7 @@ public class GuiBuilder {
         Scene scene = new Scene(group, windowSize.get(0), windowSize.get(1));
         setStyleSheet(scene);
         stage.setScene(scene);
-        stage.setTitle(GuiBuilderConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
+        stage.setTitle(GuiConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
 
         //for now, no re-sizing window dynamically until dynamic window resizing algorithm is written
         stage.setResizable(false);

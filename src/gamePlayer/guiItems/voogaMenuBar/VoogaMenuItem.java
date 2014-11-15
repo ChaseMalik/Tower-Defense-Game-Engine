@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.voogaMenuBar.menuItems;
+package gamePlayer.guiItems.voogaMenuBar;
 
 import javafx.scene.control.MenuItem;
 
