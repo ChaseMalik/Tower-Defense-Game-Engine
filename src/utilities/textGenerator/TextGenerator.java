@@ -1,4 +1,4 @@
-package Utilities.textGenerator;
+package utilities.textGenerator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,8 +9,7 @@ import java.util.Locale;
 import java.util.Locale.LanguageRange;
 import java.util.Map;
 import java.util.ResourceBundle;
-import Utilities.XMLParsing.XMLParser;
-import Utilities.XMLParsing.XMLParserInstantiator;
+import utilities.XMLParsing.XMLParser;
 
 /**
  * Class generates text to be displayed on a GUI using resource bundles
@@ -28,7 +27,7 @@ public class TextGenerator  {
      * the configurations to use
      */
     public TextGenerator (String propertiesPath) {
-        myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
+        myParser = new XMLParser(new File(propertiesPath));
         myBundlesPath = myParser.getValuesFromTag("BundlesPath").get(0);
         supportedLocales = new HashMap<String,Locale>();
         addSupportedLocales();

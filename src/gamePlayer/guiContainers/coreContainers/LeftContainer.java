@@ -1,14 +1,12 @@
 package gamePlayer.guiContainers.coreContainers;
 
+import gamePlayer.guiContainers.GuiContainer;
+import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import Utilities.XMLParsing.XMLParser;
-import Utilities.XMLParsing.XMLParserInstantiator;
-import Utilities.reflection.Reflection;
-import gamePlayer.guiContainers.GuiContainer;
-import gamePlayer.mainClasses.ExceptionHandler;
-import gamePlayer.mainClasses.GuiElement;
+import utilities.XMLParsing.XMLParser;
+import utilities.reflection.Reflection;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
@@ -17,8 +15,7 @@ public class LeftContainer extends VBox implements GuiContainer {
 
     @Override
     public void initialize (List<Double> containerSize) {
-        myParser = XMLParserInstantiator.
-                getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
         
         //set component size
         List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");

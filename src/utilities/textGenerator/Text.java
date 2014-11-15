@@ -1,4 +1,4 @@
-package Utilities.textGenerator;
+package utilities.textGenerator;
 
 /**
  * Convenience class used to store the string definitions used in the language properties files

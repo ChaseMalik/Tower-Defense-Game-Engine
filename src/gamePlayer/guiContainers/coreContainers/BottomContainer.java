@@ -1,24 +1,21 @@
 package gamePlayer.guiContainers.coreContainers;
 
 import gamePlayer.guiContainers.GuiContainer;
-import gamePlayer.mainClasses.ExceptionHandler;
 import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import utilities.XMLParsing.XMLParser;
+import utilities.reflection.Reflection;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
-import Utilities.XMLParsing.XMLParser;
-import Utilities.XMLParsing.XMLParserInstantiator;
-import Utilities.reflection.Reflection;
 
 public class BottomContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
 
     @Override
     public void initialize (List<Double> containerSize) {
-        myParser = XMLParserInstantiator.
-                getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
         
         //set component size
         List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");

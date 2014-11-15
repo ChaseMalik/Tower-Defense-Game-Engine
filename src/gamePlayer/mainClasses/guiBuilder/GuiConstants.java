@@ -1,6 +1,6 @@
 package gamePlayer.mainClasses.guiBuilder;
 
-import Utilities.textGenerator.TextGenerator;
+import utilities.textGenerator.TextGenerator;
 import gamePlayer.mainClasses.GuiManager;
 
 public class GuiConstants {

@@ -3,14 +3,13 @@ package gamePlayer.guiItems.statsBoard;
 import gamePlayer.guiItems.GuiItem;
 import java.io.File;
 import java.util.List;
+import utilities.XMLParsing.XMLParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import Utilities.XMLParsing.XMLParser;
-import Utilities.XMLParsing.XMLParserInstantiator;
 
 public class StatsBoard implements GuiItem {
     private XMLParser myParser;
@@ -18,7 +17,7 @@ public class StatsBoard implements GuiItem {
     
     @Override
     public void initialize (List<Double> containerSize) {
-        myParser = XMLParserInstantiator.getInstance(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
 
         myTableView = new TableView<GameStats>();
         List<Double> sizeRatio = myParser.getDoubleValuesFromTag("SizeRatio");

@@ -8,20 +8,19 @@ import gamePlayer.guiContainers.coreContainers.TopContainer;
 import gamePlayer.mainClasses.GuiManager;
 import java.io.File;
 import java.util.List;
+import utilities.XMLParsing.XMLParser;
+import utilities.textGenerator.TextGenerator;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import Utilities.XMLParsing.XMLParser;
-import Utilities.XMLParsing.XMLParserInstantiator;
-import Utilities.textGenerator.TextGenerator;
 
 public class GuiBuilder {
     private XMLParser myParser;
 
     private GuiBuilder(String propertiesPath) {
-        myParser = XMLParserInstantiator.getInstance(new File(propertiesPath));
+        myParser = new XMLParser(new File(propertiesPath)); 
     }
 
     public static GuiBuilder getInstance(String propertiesPath) {

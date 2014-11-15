@@ -1,4 +1,4 @@
-package Utilities.XMLParsing;
+package utilities.XMLParsing;
 
 import static org.junit.Assert.*;
 import java.io.File;

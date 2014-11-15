@@ -1,8 +1,7 @@
-package Utilities.XMLParsing;
+package utilities.XMLParsing;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +25,17 @@ public class XMLParser {
 
     private Document myDocument;
 
-    public XMLParser(File file) throws ParserConfigurationException, FileNotFoundException, 
-    SAXException, IOException {
+    public XMLParser(File file)  {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        myDocument = builder.parse(new FileInputStream(file));
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+            myDocument = builder.parse(new FileInputStream(file));
+        }
+        catch (ParserConfigurationException |SAXException | IOException e) {
+            System.out.println("Error creating XML parser\n");
+            e.printStackTrace();
+        }
     }
 
     /**

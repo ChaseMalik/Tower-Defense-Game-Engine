@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
