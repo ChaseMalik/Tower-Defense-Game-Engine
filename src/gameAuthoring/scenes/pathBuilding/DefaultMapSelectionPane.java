@@ -5,6 +5,7 @@ import gameAuthoring.mainclasses.AuthorController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Observable;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import utilities.ErrorPopup;
 
-public class DefaultMapSelectionPane {
+public class DefaultMapSelectionPane extends Observable {
 
 	private static final String DEFAULT_MAP_IMAGES_DIR = "./src/gameAuthoring/Resources/DefaultMapImages/";
 	public static final Double SCREEN_WIDTH_RATIO = 0.15;
@@ -47,7 +48,7 @@ public class DefaultMapSelectionPane {
 			try {
 
 				imgView.setImage(new Image(new FileInputStream(f), IMAGE_WIDTH, IMAGE_HEIGHT, false,true) );
-				imgView.setOnMouseClicked(event -> System.out.println("clicked" + f));
+				imgView.setOnMouseClicked(event -> handleImageClick(f));
 				myImageDisplayVBox.getChildren().add(imgView);
 			} catch (FileNotFoundException e) {
 				new ErrorPopup("Image File Not Found");
@@ -58,6 +59,11 @@ public class DefaultMapSelectionPane {
 		
 	}
 	
+	private void handleImageClick(File fileCorrespondingToMapSelected) {
+		this.setChanged();
+		this.notifyObservers(fileCorrespondingToMapSelected);
+	}
+
 	public ScrollPane getDefaultMapsScrollPane(){
 		return myScrollPane;
 	}

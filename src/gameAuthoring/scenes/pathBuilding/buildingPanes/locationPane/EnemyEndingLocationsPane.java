@@ -28,7 +28,7 @@ public class EnemyEndingLocationsPane extends EnemyLocationPane {
     }
     
     private void addNewEndingLocation(MouseEvent event){
-        PathEndingLocation createdEndingLoc = myPath.addEndingLocation(event.getSceneX(), event.getSceneY());
+        PathEndingLocation createdEndingLoc = myPath.addEndingLocation(event.getX(), event.getY());
         if(createdEndingLoc != null){
             drawLocation(createdEndingLoc);
         }
