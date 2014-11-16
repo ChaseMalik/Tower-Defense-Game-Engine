@@ -3,7 +3,7 @@ package gamePlayer.mainClasses;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.HUD.GameStats;
-import gamePlayer.guiItems.HUD.HUD;
+import gamePlayer.guiItems.HUD.Stats;
 import gamePlayer.guiItemsListeners.GoButtonListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.StoreListener;
@@ -34,7 +34,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 	private DummyGameManager myGameManager;
 	private Stage myStage;
-	private HUD myStatsBoard;
+	private Stats myStatsBoard;
 	private Group myRoot;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
@@ -58,7 +58,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void registerStatsBoard(HUD statsBoard) {
+	public void registerStatsBoard(Stats statsBoard) {
 		myStatsBoard = statsBoard;
 	}
 

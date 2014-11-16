@@ -18,7 +18,7 @@ import utilities.XMLParsing.XMLParser;
  * @author allankiplagat
  *
  */
-public class HUD implements GuiItem {
+public class Stats implements GuiItem {
     private XMLParser myParser;
     private TableView<GameStats> myTableView;
     private Dimension2D mySize;
