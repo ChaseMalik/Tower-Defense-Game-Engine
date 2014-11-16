@@ -5,6 +5,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javafx.geometry.Point2D;
 
 /**
  * Represents a back-end representation of a single enemy route. The points
@@ -18,6 +19,13 @@ import java.util.List;
  */
 public class BackendRoute implements Iterable<VisibilityPoint> {
     private List<VisibilityPoint> myPoints;
+    
+    //Used for non-path TD games and also on the backend to calculate
+    //the routes of the bullets.
+    public BackendRoute(Point2D start, Point2D end) {
+        myPoints.add(new VisibilityPoint(true, start));
+        myPoints.add(new VisibilityPoint(true, end));
+    }
     
     public BackendRoute(PathRoute route){
         setUpBackendRouteFromFrontEndRoute(route);
