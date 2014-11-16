@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.util.ResourceBundle;
 
@@ -12,8 +13,8 @@ import javafx.scene.image.ImageView;
 
 public class StoreItemCell implements GuiItem {
 
-	String myName;
-	ImageView myImage;
+	private String myName;
+	private ImageView myImage;
 
 	public StoreItemCell(String name) {
 		myName = name;
@@ -39,11 +40,13 @@ public class StoreItemCell implements GuiItem {
 
 		myImage = new ImageView(image);
 
-		myImage.imageProperty().bind(
-				Bindings.when(myImage.hoverProperty()).then(hoverImage)
+		myImage.imageProperty().bind(Bindings
+						.when(myImage.hoverProperty())
+						.then(hoverImage)
 						.otherwise(image));
 
 		myImage.setOnMouseClicked(event -> buyItem());
+		
 	}
 
 	@Override
@@ -53,7 +56,8 @@ public class StoreItemCell implements GuiItem {
 
 	// Send this to the controller with my ID
 	private void buyItem() {
-		System.out.println("Buy Item!");
+		if (myName.equals("LockedItem")) return;
+		GuiConstants.GUI_MANAGER.buyItem(myName);
 	}
 
 }

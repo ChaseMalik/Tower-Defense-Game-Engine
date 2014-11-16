@@ -65,7 +65,6 @@ public class Store implements GuiItem {
 		int col = 0;
 		int row = 0;
 		for (String itemName:inventoryList) {
-			System.out.println(row + ","+col);
 			GuiItem cell = new StoreItemCell(itemName);
 			cell.initialize(myCellSize);
 			myGridPane.add(cell.getNode(), col, row);
