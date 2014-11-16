@@ -39,8 +39,7 @@ public class BackendRoute {
         myPoints.add(new VisibilityPoint(true, route.getLast().getEndingPoint()));
     }
 
-    //Only used for testing, see BackendRouteTranslationTests
-    protected List<VisibilityPoint> getMyPoints() {
+    public List<VisibilityPoint> getPoints() {
         return Collections.unmodifiableList(myPoints);
     }
 }
