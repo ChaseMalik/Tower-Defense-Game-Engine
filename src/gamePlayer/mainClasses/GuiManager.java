@@ -2,10 +2,10 @@ package gamePlayer.mainClasses;
 
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
-import gamePlayer.guiItems.statsBoard.GameStats;
-import gamePlayer.guiItems.statsBoard.StatsBoard;
+import gamePlayer.guiItems.HUD.GameStats;
+import gamePlayer.guiItems.HUD.HUD;
 import gamePlayer.guiItemsListeners.GoButtonListener;
-import gamePlayer.guiItemsListeners.StatsBoardListener;
+import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
@@ -27,14 +27,14 @@ import javafx.stage.Stage;
  * @author allankiplagat
  *
  */
-public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
+public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		StoreListener, GoButtonListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 	private DummyGameManager myGameManager;
 	private Stage myStage;
-	private StatsBoard myStatsBoard;
+	private HUD myStatsBoard;
 	private Group myRoot;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
@@ -58,7 +58,7 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	}
 
 	@Override
-	public void registerStatsBoard(StatsBoard statsBoard) {
+	public void registerStatsBoard(HUD statsBoard) {
 		myStatsBoard = statsBoard;
 	}
 

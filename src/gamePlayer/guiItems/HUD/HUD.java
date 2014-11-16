@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.statsBoard;
+package gamePlayer.guiItems.HUD;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -18,7 +18,7 @@ import utilities.XMLParsing.XMLParser;
  * @author allankiplagat
  *
  */
-public class StatsBoard implements GuiItem {
+public class HUD implements GuiItem {
     private XMLParser myParser;
     private TableView<GameStats> myTableView;
     private Dimension2D mySize;
