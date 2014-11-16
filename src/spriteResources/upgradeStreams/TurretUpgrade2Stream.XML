@@ -1,0 +1,27 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<TurretUpgrade2Stream>
+
+	<UpgradeNames>
+		<element>2X Range</element>
+		<element>3X Range</element>
+		<element>Infinite Range</element>
+	</UpgradeNames>
+
+ 	<ButtonColor>
+		<element>Blue</element>
+	</ButtonColor>
+	
+    <UpgradeCosts>
+		 <element>250</element>
+		 <element>300</element>
+		 <element>650</element>
+    </UpgradeCosts>
+    
+    <LevelRequirements>
+    	<element>0</element>
+    	<element>1</element>
+    	<element>4</element>
+    </LevelRequirements>
+
+</TurretUpgrade2Stream>

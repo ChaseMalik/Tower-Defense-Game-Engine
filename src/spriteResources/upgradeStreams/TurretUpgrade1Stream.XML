@@ -1,0 +1,27 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<TurretUpgrade1Stream>
+
+	<UpgradeNames>
+		<element>2X Damage</element>
+		<element>Increased ROF</element>
+		<element>3X Damage</element>
+	</UpgradeNames>
+
+ 	<ButtonColor>
+		<element>Green</element>
+	</ButtonColor>
+	
+    <UpgradeCosts>
+		 <element>300</element>
+		 <element>400</element>
+		 <element>550</element>
+    </UpgradeCosts>
+    
+    <LevelRequirements>
+    	<element>0</element>
+    	<element>1</element>
+    	<element>2</element>
+    </LevelRequirements>
+
+</TurretUpgrade1Stream>
