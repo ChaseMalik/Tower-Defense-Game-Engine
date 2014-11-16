@@ -28,7 +28,7 @@ public class EnemyStartingLocationsPane extends EnemyLocationPane {
     }
 
     private void addNewStartingLocation (MouseEvent event) {
-        PathStartingLocation createdStartingLoc = myPath.addStartingLocation(event.getSceneX(), event.getSceneY());
+        PathStartingLocation createdStartingLoc = myPath.addStartingLocation(event.getX(), event.getY());
         if(createdStartingLoc != null){
             drawLocation(createdStartingLoc);
         }
