@@ -10,6 +10,11 @@ import javafx.scene.layout.HBox;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
+/**
+ * GuiContainer that hosts GuiElements at the top of the screen
+ * @author allankiplagat
+ *
+ */
 public class TopContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
 

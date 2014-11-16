@@ -1,6 +1,6 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<ItemProperties>
+<VoogaMenuBarProperties>
 
  	<SizeRatio>
 		<element>1</element>
@@ -13,4 +13,4 @@
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.SaveMenuItem</element>
     </FileMenu>
 
-</ItemProperties>
+</VoogaMenuBarProperties>
