@@ -17,6 +17,14 @@
     <InventoryList>
     	<element>Turret</element>
     	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
     </InventoryList>
 
 </StoreProperties>

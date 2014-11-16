@@ -18,7 +18,8 @@ import utilities.XMLParsing.XMLParser;
  * To add a new tower:
  * 		(1) Create a new Properties File named <TowerName>.properties in the spriteResources.towers package
  * 		(2) Add the <TowerName> to the Inventory List in the StoreProperties XML file in the gamePlayer.properties.guiItems package
- * 
+ * 		(3) Create an Image for the Cell to be displayed in the store with a picture of the tower, its name, and its cost
+ * 		(4) Put the image file in the main voogasalad directory (outside of src)
  * @author brianbolze
  */
 public class Store implements GuiItem {
@@ -34,13 +35,12 @@ public class Store implements GuiItem {
 		
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
 		
-		myGridPane = new GridPane();
 		myNumColumns = myParser.getIntegerValuesFromTag("Columns").get(0);
-		for (int i=0; i<myNumColumns; i++) {
-			myGridPane.addColumn(i);
-		}
-		myGridPane.setVgap(myParser.getDoubleValuesFromTag("VPadding").get(0));
-		myGridPane.setHgap(myParser.getDoubleValuesFromTag("HPadding").get(0));
+
+		myGridPane = new GridPane();
+		myGridPane.setVgap(myParser.getDoubleValuesFromTag("VPadding").get(0)/myNumColumns);
+		myGridPane.setHgap(myParser.getDoubleValuesFromTag("HPadding").get(0)/myNumColumns);
+		myGridPane.setMaxWidth(containerSize.getWidth());
 		
 		double iconSize = (containerSize.getWidth() - myGridPane.getHgap())/myNumColumns;
 		myCellSize = new Dimension2D(iconSize, iconSize); //Square Icons
@@ -50,6 +50,7 @@ public class Store implements GuiItem {
 		myScrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		myScrollPane.setMinHeight(containerSize.getHeight());
 		myScrollPane.setMaxHeight(containerSize.getHeight());
+		myScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		
 		buildInventoryItems(containerSize);
 	}
@@ -64,12 +65,12 @@ public class Store implements GuiItem {
 		int col = 0;
 		int row = 0;
 		for (String itemName:inventoryList) {
-			System.out.println(col);
+			System.out.println(row + ","+col);
 			GuiItem cell = new StoreItemCell(itemName);
 			cell.initialize(myCellSize);
-			myGridPane.add(cell.getNode(), row, col);
+			myGridPane.add(cell.getNode(), col, row);
 			col++;
-			if (col==myNumColumns-1) {
+			if (col == myNumColumns) {
 				col = 0;
 				row++;
 			}
