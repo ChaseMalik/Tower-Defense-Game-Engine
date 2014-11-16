@@ -1,6 +1,6 @@
-package Utilities.pathfinding.example;
+package utilities.pathfinding.example;
 
-import Utilities.pathfinding.AStarPathFinder;
+import utilities.pathfinding.AStarPathFinder;
 
 public class LinkedNodeAStarFinder extends AStarPathFinder<LinkedNode>{
 

@@ -1,4 +1,4 @@
-package Utilities.pathfinding;
+package utilities.pathfinding;
 
 import java.util.Collection;
 import java.util.List;
