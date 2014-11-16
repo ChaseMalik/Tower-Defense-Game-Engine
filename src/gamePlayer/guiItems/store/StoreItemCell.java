@@ -24,7 +24,7 @@ public class StoreItemCell implements GuiItem {
 	public void initialize(Dimension2D containerSize) {
 		ResourceBundle resources = null;
 		try {
-			resources = ResourceBundle.getBundle("spriteResources/towers/"+myName);
+			resources = ResourceBundle.getBundle("spriteResources."+myName);
 		} catch (Exception e) {
 			System.out.println("Error reading properties file");
 			System.exit(1); //Kill Program
