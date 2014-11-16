@@ -3,6 +3,8 @@ package gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javafx.geometry.Point2D;
@@ -17,7 +19,7 @@ import javafx.geometry.Point2D;
  * @author Austin Kyker
  *
  */
-public class BackendRoute implements Iterable<VisibilityPoint> {
+public class BackendRoute {
     private List<VisibilityPoint> myPoints;
     
     //Used for non-path TD games and also on the backend to calculate
@@ -41,12 +43,6 @@ public class BackendRoute implements Iterable<VisibilityPoint> {
 
     //Only used for testing, see BackendRouteTranslationTests
     protected List<VisibilityPoint> getMyPoints() {
-        return myPoints;
+        return Collections.unmodifiableList(myPoints);
     }
-
-    @Override
-    public Iterator<VisibilityPoint> iterator () {
-        return myPoints.iterator();
-    }
-
 }
