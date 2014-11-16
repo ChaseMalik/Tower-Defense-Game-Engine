@@ -7,5 +7,5 @@ package gamePlayer.guiItemsListeners;
  * @author brianbolze
  */
 public interface StoreItemListener {
-	public void buyItem(String itemName);
+	public void buyItem(String itemID);
 }

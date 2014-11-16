@@ -1,6 +1,7 @@
 package gamePlayer.mainClasses;
 
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.statsBoard.GameStats;
 import gamePlayer.guiItems.statsBoard.StatsBoard;
 import gamePlayer.guiItemsListeners.StatsBoardListener;
@@ -13,6 +14,8 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
 
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
 import javafx.stage.Stage;
 
 /**
@@ -31,12 +34,13 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	private DummyGameManager myGameManager;
 	private Stage myStage;
 	private StatsBoard myStatsBoard;
+	private Group myRoot;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
 		myGameManager = manager;
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
-		GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
+		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 	}
 
 	@Override
@@ -62,7 +66,13 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	}
 
 	@Override
-	public void buyItem(String itemName) {
-		System.out.println("Buy Item: " + itemName);
+	public void buyItem(String itemID) {
+		System.out.println("Buy Item: " + itemID);
+		//Check to make sure I have enough money
+		TowerPlacer.getInstance().placeItem(itemID, myRoot);
+	}
+	
+	public void addItem(String itemID, Dimension2D location) {
+		System.out.println("Add Item: " + itemID);
 	}
 }

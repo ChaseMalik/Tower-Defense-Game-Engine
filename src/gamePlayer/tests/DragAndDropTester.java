@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 public class DragAndDropTester extends Application {
@@ -35,12 +36,16 @@ public class DragAndDropTester extends Application {
 	private void buildContainer() {
 		myContainer = new AnchorPane();
 		myContainer.setMinSize(mySize.getWidth(),mySize.getHeight());
-		myStore = new Group();
-		myBadSpace = new Group();
-		myGoodSpace = new Group();
-		myStore.getChildren().add(new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.LIGHTGREY));
-		myBadSpace.getChildren().add(new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.LIGHTPINK));
-		myGoodSpace.getChildren().add(new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.LIGHTGREEN));
+		myStore = new Group(); myBadSpace = new Group(); myGoodSpace = new Group();
+		Rectangle storeRect = new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.WHITE);
+		storeRect.setStroke(Color.BLACK);
+		myStore.getChildren().add(storeRect);
+		Rectangle badRect = new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.WHITE);
+		badRect.setStroke(Color.RED);
+		myBadSpace.getChildren().add(badRect);
+		Rectangle goodRect = new Rectangle(mySize.getWidth()/3, mySize.getHeight(), Color.WHITE);
+		goodRect.setStroke(Color.GREEN);
+		myGoodSpace.getChildren().add(goodRect);
 		
 		AnchorPane.setTopAnchor(myStore, 0.);
 		AnchorPane.setLeftAnchor(myStore, 0.);
@@ -62,15 +67,21 @@ public class DragAndDropTester extends Application {
 	}
 	
 	private void newDrag(double X, double Y) {
-		Node draggable = new Circle(40, Color.GREY);
+		Shape draggable = new Circle(75, Color.RED);
+		draggable.setOpacity(0.1);
 		myContainer.setOnMouseMoved(event -> drag(draggable, event.getX(), event.getY()));
 		myContainer.setOnMouseReleased(event -> drop(draggable, event.getX(), event.getY()));
 		myContainer.getChildren().add(draggable);
 	}
 	
-	private void drag(Node node, double X, double Y) {
+	private void drag(Shape node, double X, double Y) {
 		node.setTranslateX(X);
 		node.setTranslateY(Y);
+		if (X > 2.*mySize.getWidth()/3) {
+			node.setFill(Color.GREEN);
+		} else {
+			node.setFill(Color.RED);
+		}
 	}
 	
 	private void drop(Node node, double X, double Y) {
