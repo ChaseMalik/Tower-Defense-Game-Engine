@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ public class StoreItemCell implements GuiItem {
 
 	private String myName;
 	private ImageView myImage;
+	private StoreListener myListener = 	GuiConstants.GUI_MANAGER;
 
 	public StoreItemCell(String name) {
 		myName = name;
@@ -54,10 +56,9 @@ public class StoreItemCell implements GuiItem {
 		return myImage;
 	}
 
-	// Send this to the controller with my ID
 	private void buyItem() {
 		if (myName.equals("LockedItem")) return;
-		GuiConstants.GUI_MANAGER.buyItem(myName);
+		myListener.buyItem(myName);
 	}
 
 }

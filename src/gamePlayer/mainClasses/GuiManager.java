@@ -6,7 +6,7 @@ import gamePlayer.guiItems.statsBoard.GameStats;
 import gamePlayer.guiItems.statsBoard.StatsBoard;
 import gamePlayer.guiItemsListeners.GoButtonListener;
 import gamePlayer.guiItemsListeners.StatsBoardListener;
-import gamePlayer.guiItemsListeners.StoreItemListener;
+import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
-		StoreItemListener, GoButtonListener
+		StoreListener, GoButtonListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -68,8 +68,10 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 
 	@Override
 	public void buyItem(String itemID) {
+		
+		// TODO : Check to make sure I have enough money
 		System.out.println("Buy Item: " + itemID);
-		//Check to make sure I have enough money
+		
 		TowerPlacer.getInstance().placeItem(itemID, myRoot);
 	}
 	

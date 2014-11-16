@@ -30,6 +30,15 @@ public class Store implements GuiItem {
 	private Dimension2D myCellSize;
 	private int myNumColumns;
 
+	private static Store myReference = null;
+
+    public static Store getInstance() {
+        if (myReference==null) {
+            myReference = new Store();
+        }
+        return myReference;
+    }
+	
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		
