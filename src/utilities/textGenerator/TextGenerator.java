@@ -24,7 +24,7 @@ public class TextGenerator  {
 
     /**
      * @param propertiesPath is the XML properties file from which the text generator will look up
-     * the configurations to use
+     * the configurations to use. If the language is not explicitly set, it is initialized to default one
      */
     public TextGenerator (String propertiesPath) {
         myParser = new XMLParser(new File(propertiesPath));

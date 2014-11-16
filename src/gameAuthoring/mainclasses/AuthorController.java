@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class AuthorController extends Application implements Observer {
 
-    public static final double SCREEN_WIDTH = 900;
+    public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 600;
 
     private EnemyBuildingScene myEnemyBuildingScene;
@@ -35,7 +35,6 @@ public class AuthorController extends Application implements Observer {
         myStage = stage;
         buildScenes();
         showPathBuildingScene();
-        //        showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
@@ -77,6 +76,7 @@ public class AuthorController extends Application implements Observer {
     public void update (Observable ob, Object value) {
         if(ob.equals(myPathBuildingScene)){
             myBackendRoutesRepresentation = BackendRoutesGenerator.getBackendRoutes((Path) value);
+            showEnemyBuildingScene();
         }      
     }
 }

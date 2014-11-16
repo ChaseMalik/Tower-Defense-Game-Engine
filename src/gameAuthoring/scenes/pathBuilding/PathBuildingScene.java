@@ -11,23 +11,37 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyEndingL
 import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import utilities.ErrorPopup;
 
-public class PathBuildingScene extends BuildingScene {
+public class PathBuildingScene extends BuildingScene implements Observer{
 
+    private static final int BUILDING_OPTIONS_PADDING = 10;
     private static final String TITLE = "Path Building";
-    private static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = .3;
+    private static final String DRAWING_OPTIONS_IMG_DIR = 
+            "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
+    private static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = 
+            1 - BuildingPane.DRAW_SCREEN_WIDTH_RATIO - DefaultMapSelectionPane.SCREEN_WIDTH_RATIO;
     private static final double PATH_BUILDING_OPTIONS_WIDTH = 
             AuthorController.SCREEN_WIDTH * PATH_BUILDING_OPTIONS_WIDTH_RATIO;
-    private static final int PATH_COMPONENT_OPTION_HEIGHT = 150;
+    private static final double OPTIONS_IMAGE_WIDTH = PATH_BUILDING_OPTIONS_WIDTH - 3*BUILDING_OPTIONS_PADDING;
+    private static final int OPTIONS_IMAGE_HEIGHT = 103;
 
     private Path  myPath;
     private BorderPane myPane;
@@ -41,9 +55,11 @@ public class PathBuildingScene extends BuildingScene {
     private SelectComponentPane mySelectionComponentPane;
     private BuildingPane myCurrentBuildingPane;
 
-    private Pane myLinePathOptionPane;
-    private Pane myCurvePathOptionPane;   
-    private Pane mySelectComponentOptionPane;
+    private VBox myLinePathOptionPane;
+    private VBox myCurvePathOptionPane;   
+    private VBox mySelectComponentOptionPane;
+    private VBox myFinishedPathBuildingOptionPane;
+    private DefaultMapSelectionPane myDefaultMapSelectionPane;
 
 
     public PathBuildingScene (BorderPane root) {
@@ -51,10 +67,20 @@ public class PathBuildingScene extends BuildingScene {
         myPane = root;
         myGroup = new Group();
         myPath = new Path(myGroup);
+        createDefaultMapSelectionPane();
         createBuildingPanes();
         createPathBuildingOptions();
         this.getScene().setOnKeyReleased(event->handleKeyPress(event));
         setCurrentBuildingPane(myBackgroundSelectionPane); 
+    }
+
+    private void createDefaultMapSelectionPane() {
+
+        myDefaultMapSelectionPane = new DefaultMapSelectionPane();
+        myDefaultMapSelectionPane.addObserver(this);
+        myPane.setLeft(myDefaultMapSelectionPane.getDefaultMapsScrollPane());
+
+
     }
 
     private void createBuildingPanes () {
@@ -77,7 +103,8 @@ public class PathBuildingScene extends BuildingScene {
 
 
     private void createPathBuildingOptions () {
-        VBox pathBuildingOptions = new VBox(10);
+        VBox pathBuildingOptions = new VBox(BUILDING_OPTIONS_PADDING);
+        pathBuildingOptions.setPadding(new Insets(BUILDING_OPTIONS_PADDING));
         pathBuildingOptions.setPrefWidth(PATH_BUILDING_OPTIONS_WIDTH);
         myPane.setRight(pathBuildingOptions);
 
@@ -89,15 +116,15 @@ public class PathBuildingScene extends BuildingScene {
 
         mySelectComponentOptionPane = createPathComponentOption("Selection");
         mySelectComponentOptionPane.setOnMouseClicked(event->setSelectionMode());
-        
-        Button finishedBuildingPathButton = new Button("Completed Path");
-        finishedBuildingPathButton.setOnAction(event->handleFinishButtonClick());
-        
+
+        myFinishedPathBuildingOptionPane = createPathComponentOption("Finished");
+        myFinishedPathBuildingOptionPane.setOnMouseClicked(event->handleFinishButtonClick());
+
 
         pathBuildingOptions.getChildren().addAll(myLinePathOptionPane,
                                                  myCurvePathOptionPane,
                                                  mySelectComponentOptionPane,
-                                                 finishedBuildingPathButton);
+                                                 myFinishedPathBuildingOptionPane);
     }
 
     private void handleFinishButtonClick () {
@@ -108,33 +135,63 @@ public class PathBuildingScene extends BuildingScene {
     }
 
     private void setSelectionMode () {
-        myCurvePathOptionPane.getStyleClass().remove("selected");
-        myLinePathOptionPane.getStyleClass().remove("selected");
-        mySelectComponentOptionPane.getStyleClass().add("selected");
-        mySelectionComponentPane.addListenersToComponents();
-        setCurrentBuildingPane(mySelectionComponentPane);
+        if(!isCurrentPane(mySelectionComponentPane) && canDrawComponents()) {
+            myCurvePathOptionPane.getStyleClass().remove("selected");
+            myLinePathOptionPane.getStyleClass().remove("selected");
+            mySelectComponentOptionPane.getStyleClass().add("selected");
+            mySelectionComponentPane.addListenersToComponents();
+            setCurrentBuildingPane(mySelectionComponentPane);
+        }
     }
 
     private void setCurveDrawerMode () {
-        myCurvePathOptionPane.getStyleClass().add("selected");
-        myLinePathOptionPane.getStyleClass().remove("selected");
-        mySelectComponentOptionPane.getStyleClass().remove("selected"); 
-        setCurrentBuildingPane(myCurveDrawingPane);
+        if(!isCurrentPane(myCurveDrawingPane) && canDrawComponents()) {
+            myCurvePathOptionPane.getStyleClass().add("selected");
+            myLinePathOptionPane.getStyleClass().remove("selected");
+            mySelectComponentOptionPane.getStyleClass().remove("selected"); 
+            setCurrentBuildingPane(myCurveDrawingPane);
+        }
     }
 
     public void setLineDrawerMode () {
+        if(!isCurrentPane(myLineDrawingPane) && canDrawComponents()){
+            proceedToLineDrawing();
+        }
+    }
+
+    private void proceedToLineDrawing () {
         myLinePathOptionPane.getStyleClass().add("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
         mySelectComponentOptionPane.getStyleClass().remove("selected");
         setCurrentBuildingPane(myLineDrawingPane);
     }
 
-    private Pane createPathComponentOption (String componentName) {
-        Pane pathComponentPane = new Pane();
-        pathComponentPane.setPrefHeight(PATH_COMPONENT_OPTION_HEIGHT);
-        pathComponentPane.getChildren().add(new Label(componentName));
-        pathComponentPane.getStyleClass().add("pathComponentOption");
-        return pathComponentPane;
+    private boolean canDrawComponents() {
+        return !(isCurrentPane(myEnemyStartingLocationsPane) || 
+                isCurrentPane(myEnemyEndingLocationsPane) ||
+                isCurrentPane(myBackgroundSelectionPane));
+    }
+
+    private boolean isCurrentPane(BuildingPane pane){
+        return myCurrentBuildingPane.equals(pane);
+    }
+
+    private VBox createPathComponentOption (String componentName) {
+        VBox pathComponentBox = new VBox();
+        pathComponentBox.setPadding(new Insets(BUILDING_OPTIONS_PADDING));
+        pathComponentBox.getChildren().add(new Label(componentName));
+        pathComponentBox.getStyleClass().add("pathComponentOption");
+        ImageView imageView = new ImageView();
+        File imgFile = new File(DRAWING_OPTIONS_IMG_DIR + componentName.toLowerCase() + ".png");
+        try {
+            imageView.setImage(new Image(new FileInputStream(imgFile), OPTIONS_IMAGE_WIDTH, 
+                                         OPTIONS_IMAGE_HEIGHT, false, true));
+            pathComponentBox.getChildren().add(imageView);
+        }
+        catch (FileNotFoundException e) {
+            new ErrorPopup("No file found representing " + componentName + " image.");
+        }
+        return pathComponentBox;
     }
 
     public void proceedToEndLocationsSelection () {
@@ -142,22 +199,38 @@ public class PathBuildingScene extends BuildingScene {
             setCurrentBuildingPane(myEnemyEndingLocationsPane);
         }
     }
-    
-    public void proceedToLineDrawerMode () {
+
+    public void proceedToLineDrawerModeIfLocationsVerified () {
         if(myPath.endingLocationsConfiguredCorrectly()){
-            setLineDrawerMode();
+            proceedToLineDrawing();
         }
     }
 
     public void setCurrentBuildingPane(BuildingPane nextPane) {
         myCurrentBuildingPane = nextPane;
-        myPane.getChildren().remove(myPane.getLeft());
-        myPane.setLeft(nextPane);
+        myPane.getChildren().remove(myPane.getCenter());
+        myPane.setCenter(nextPane);
         nextPane.refreshScreen();
     }
 
     public void proceedToStartLocationSelection () {
-        setCurrentBuildingPane(myEnemyStartingLocationsPane);
-        
+        setCurrentBuildingPane(myEnemyStartingLocationsPane);        
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o.equals(myDefaultMapSelectionPane)){
+            try {
+                ImageView imageView = new ImageView();
+                Image image = new Image(new FileInputStream((File) arg), BuildingPane.DRAW_SCREEN_WIDTH, 
+                                        AuthorController.SCREEN_HEIGHT, false, true);
+                imageView.setImage(image);
+                myGroup.getChildren().add(imageView);   
+                proceedToStartLocationSelection();
+            } catch (FileNotFoundException e) {
+                new ErrorPopup("Image file could not be found.");
+            }
+        }
+
     }
 }
