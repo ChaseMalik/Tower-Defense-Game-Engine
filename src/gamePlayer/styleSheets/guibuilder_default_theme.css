@@ -14,3 +14,8 @@
     -fx-padding: 4 4 4 4;
     -fx-border-width: 1;
 }
+
+.label{
+	-fx-font-size: 16pt;
+	-fx-font-family: "Comic Sans MS";
+}
