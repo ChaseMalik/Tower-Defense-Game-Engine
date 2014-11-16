@@ -5,6 +5,7 @@ import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.statsBoard.GameStats;
 import gamePlayer.guiItems.statsBoard.StatsBoard;
 import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.guiItemsListeners.SelectTowerListener;
 import gamePlayer.guiItemsListeners.StatsBoardListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -35,6 +36,7 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	private DummyGameManager myGameManager;
 	private Stage myStage;
 	private StatsBoard myStatsBoard;
+	private SelectTowerListener mySelectTowerListener;
 	private Group myRoot;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
@@ -77,8 +79,15 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	
 	public void addItem(String itemID, Dimension2D location) {
 		System.out.println("Add Item: " + itemID);
+		// For testing purposes...
+		mySelectTowerListener.selectTower(itemID);
+		
 	}
-
+	
+	@Override
+	public void registerTowerListener(SelectTowerListener listener) {
+		mySelectTowerListener = listener;
+	}
 
 	@Override
 	public void pause() {
@@ -94,4 +103,5 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	public void fastforward() {
 		
 	}
+	
 }
