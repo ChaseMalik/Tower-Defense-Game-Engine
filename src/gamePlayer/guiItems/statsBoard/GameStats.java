@@ -5,6 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * This engine class encapsulates the overall game statistics such as score and health
+ * that are going to be observable on the GUI
+ * @author allankiplagat
+ *
+ */
 public class GameStats {
     private StringProperty gameStat;
     public void setGameStat(String value) {

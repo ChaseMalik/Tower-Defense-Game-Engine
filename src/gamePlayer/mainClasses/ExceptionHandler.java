@@ -1,6 +1,10 @@
 package gamePlayer.mainClasses;
 
-//TODO Deprecated class for now 
+/**
+ * Class handles exceptions thrown in the GUI
+ * @author allankiplagat
+ *
+ */
 public class ExceptionHandler {
     private static ExceptionHandler myReference = null;
     private ExceptionHandler() {
@@ -12,10 +16,5 @@ public class ExceptionHandler {
         }
         return myReference;
     }   
-    
-    public void handle(ReflectiveOperationException e) {
-        System.out.println("ReflectiveOperationException exception raised\n");
-        e.printStackTrace();
-    }
     
 }

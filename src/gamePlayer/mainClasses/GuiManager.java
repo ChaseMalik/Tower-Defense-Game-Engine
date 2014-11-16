@@ -15,7 +15,8 @@ import java.util.List;
 import javafx.stage.Stage;
 
 /**
- * GuiManager class MUST implement ALL of the interfaces in the guiItemsListeners package
+ * Class controls all GUI items and MUST implement ALL of the interfaces in the guiItemsListeners package
+ * The game engine accesses GUI resources through this class
  * @author allankiplagat
  *
  */

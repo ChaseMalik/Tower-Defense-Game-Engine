@@ -15,6 +15,12 @@ import javafx.stage.Stage;
 import utilities.XMLParsing.XMLParser;
 import utilities.textGenerator.TextGenerator;
 
+/**
+ * Class builds a GUI recursively by calling 'initialize' on core GuiElements, 
+ * which in turn call 'initialize' on the elements they host and so on
+ * @author allankiplagat
+ *
+ */
 public class GuiBuilder {
     private XMLParser myParser;
 
@@ -22,15 +28,22 @@ public class GuiBuilder {
         myParser = new XMLParser(new File(propertiesPath)); 
     }
 
+    /**
+     * Returns an instance of a GuiBuilder that can build a GUI 
+     * @param propertiesPath path to the GuiBuilder's XML properties file
+     */
     public static GuiBuilder getInstance(String propertiesPath) {
         return new GuiBuilder(propertiesPath);
     }
 
+    /**
+     * Constructs a GUI. IMPORTANT: Before calling this method, set the appropriate 
+     * GUI_MANAGER constant in GuiConstants
+     * @param stage the stage in which to construct the GUI
+     */
     public void build (Stage stage) {
         //set constants
         GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
-        GuiConstants.TEXT_GEN.setLanguage("en");
-        
         Dimension2D windowSize = myParser.getDimension("GuiSize");
         
         Group group = new Group();
@@ -48,9 +61,8 @@ public class GuiBuilder {
     }
 
     private void setStyleSheet(Scene scene) {
-        String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
-        if (!styleSheetPath.equals("")) {
-            scene.getStylesheets().clear();
+        if (!myParser.getValuesFromTag("GuiStyleSheet").isEmpty()) {
+            String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
             scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
         }
     }

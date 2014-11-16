@@ -5,7 +5,11 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-
+/**
+ * Class is a placeholder item for the TopContainer guiContainer (for testing purposes)
+ * @author allankiplagat
+ *
+ */
 public class TopItemPlaceholder extends Pane implements GuiItem {
 
     @Override
