@@ -80,16 +80,16 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 
 	@Override
 	public void pause() {
-
+		System.out.println("Paused");
 	}
 
 	@Override
 	public void play() {
-		
+		System.out.println("Playing");
 	}
 
 	@Override
 	public void fastforward() {
-		
+		System.out.println("Fast-forwarding");
 	}
 }
