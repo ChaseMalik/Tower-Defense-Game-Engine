@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.goButton;
 
 import java.io.File;
+import java.util.List;
 
 import utilities.XMLParsing.XMLParser;
 import javafx.geometry.Dimension2D;
@@ -17,13 +18,9 @@ public class GoButton implements GuiItem {
 	private ImageView myImageView;
 	private Dimension2D buttonSize;
 	private Dimension2D imageSize;
-	private int mySpeed;
 	
-	public static final String playImagePath = "gamePlayer/playerImages/play.png";
-	public static final String ffImagePath = "gamePlayer/playerImages/fastforward.png";
-	public static final int PAUSED = 0;
-	public static final int NORMAL = 1;
-	public static final int FAST = 2;
+	private String playImage;
+	private String ffImage;
 			
 	
 	public GoButton() {
@@ -36,13 +33,15 @@ public class GoButton implements GuiItem {
 		myImageView = new ImageView();
 		myButton = new Button();
 		
+		List<String> images = myParser.getValuesFromTag("Images");
+		playImage = images.get(0);
+		ffImage = images.get(1);
+		
 		setUpSizing(containerSize);
 		
-		myButton.setOnAction(event -> onClick());
-		setImage(playImagePath);
+		myButton.setOnAction(event -> play());
+		setImage(playImage);
 		myButton.setGraphic(myImageView);
-		
-		mySpeed = 0;
 	}
 
 	@Override
@@ -56,27 +55,22 @@ public class GoButton implements GuiItem {
 			myImageView.setImage(newImage);
 		}
 		catch(NullPointerException npe){
-		    System.out.println("Image error");
 		}
 	}
 	
-	private void onClick(){
-		switch (mySpeed){
-			case PAUSED:
-				setImage(ffImagePath);
-				mySpeed = NORMAL;
-				break;
-			case NORMAL:
-				setImage(playImagePath);
-				mySpeed = FAST;
-				break;
-			case FAST:
-				setImage(ffImagePath);
-				mySpeed = NORMAL;
-				break;
-		}
-				
-				
+	private void play(){
+		setImage(ffImage);
+		myButton.setOnAction(event -> fastForward());
+	}
+	
+	private void fastForward(){
+		setImage(playImage);
+		myButton.setOnAction(event -> play());
+	}
+	
+	public void pause(){
+		setImage(playImage);
+		myButton.setOnAction(event -> play());
 	}
 	
 	private void setUpSizing(Dimension2D containerSize){
@@ -92,10 +86,4 @@ public class GoButton implements GuiItem {
 		myImageView.setFitHeight(imageSize.getHeight());
 		myImageView.setFitWidth(imageSize.getWidth());
 	}
-	
-	public void pause(){
-		mySpeed = PAUSED;
-		onClick();
-	}
-
 }
