@@ -8,8 +8,10 @@ import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 import java.util.List;
+
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +40,9 @@ public class GuiManager implements
     @Override
     public void loadGame () {
         File file = FileLoader.getInstance().load(myStage);
-        System.out.println(file.getAbsolutePath()+"\n");
+        if (file!=null) {
+            System.out.println(file.getAbsolutePath()+"\n");
+        }
     }
 
     @Override
