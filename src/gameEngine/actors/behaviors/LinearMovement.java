@@ -1,6 +1,5 @@
 package gameEngine.actors.behaviors;
 
-import javafx.scene.Group;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 

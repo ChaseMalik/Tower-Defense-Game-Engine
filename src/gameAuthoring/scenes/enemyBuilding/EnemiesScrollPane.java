@@ -1,19 +1,22 @@
 package gameAuthoring.scenes.enemyBuilding;
 
-import gameEngine.actors.BaseBaddie;
-import java.util.Observable;
-import javafx.collections.FXCollections;
+import gameAuthoring.mainclasses.AuthorController;
+import gameEngine.actors.BaseActor;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 
-public class EnemiesScrollPane extends Observable {
-    private ListView<BaseBaddie> myEnemies;
+public class EnemiesScrollPane extends ScrollPane {
     
-    public EnemiesScrollPane() {
-//        myEnemies = new ListView<BaseBaddie>();
-//        BaseBaddie baddie1 = new BaseBaddie();
-//        ObservableList<BaseBaddie> items = FXCollections.observableArrayList();
-//        list.setItems(items);  
-//        list.setPrefWidth(ENEMY_LIST_WIDTH);
+    private ObservableList<BaseActor> myEnemies;
+    private ListView<BaseActor> myEnemiesListView;
+    
+    public EnemiesScrollPane(List<BaseActor> enemies) {
+        myEnemies = (ObservableList<BaseActor>) enemies;
+        myEnemiesListView = new ListView<BaseActor>();
+        myEnemiesListView.setItems(myEnemies);
+        myEnemiesListView.setPrefSize(EnemyBuildingScene.ENEMY_IMG_WIDTH + 15, AuthorController.SCREEN_HEIGHT - 7);
+        this.setContent(myEnemiesListView);
     }
 }

@@ -47,7 +47,6 @@ public class AuthorController extends Application implements Observer {
     private void buildScenes () {
         myPathBuildingScene = new PathBuildingScene(new BorderPane());
         myPathBuildingScene.addObserver(this);
-        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane());
         myTowerBuildingScene = new TowerBuildingScene(new BorderPane());
         myLevelBuildingScene = new LevelBuildingScene(new BorderPane());
     }
@@ -57,6 +56,7 @@ public class AuthorController extends Application implements Observer {
     }
 
     public void showEnemyBuildingScene() {
+        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), myBackendRoutesRepresentation);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
