@@ -1,5 +1,11 @@
 package gamePlayer.guiItems.goButton;
 
+/**
+ * 
+ * @author Greg Lyons
+ * 
+ */
+
 import java.io.File;
 import java.util.List;
 
@@ -10,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 public class GoButton implements GuiItem {
 
@@ -18,6 +26,8 @@ public class GoButton implements GuiItem {
 	private ImageView myImageView;
 	private Dimension2D buttonSize;
 	private Dimension2D imageSize;
+	
+	private GoButtonListener myListener = GuiConstants.GUI_MANAGER;
 	
 	private String playImage;
 	private String ffImage;
@@ -61,16 +71,19 @@ public class GoButton implements GuiItem {
 	private void play(){
 		setImage(ffImage);
 		myButton.setOnAction(event -> fastForward());
+		myListener.play();
 	}
 	
 	private void fastForward(){
 		setImage(playImage);
 		myButton.setOnAction(event -> play());
+		myListener.fastforward();
 	}
 	
 	public void pause(){
 		setImage(playImage);
 		myButton.setOnAction(event -> play());
+		myListener.pause();
 	}
 	
 	private void setUpSizing(Dimension2D containerSize){

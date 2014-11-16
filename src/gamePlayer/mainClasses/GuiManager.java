@@ -4,6 +4,7 @@ import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.statsBoard.GameStats;
 import gamePlayer.guiItems.statsBoard.StatsBoard;
+import gamePlayer.guiItemsListeners.GoButtonListener;
 import gamePlayer.guiItemsListeners.StatsBoardListener;
 import gamePlayer.guiItemsListeners.StoreItemListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -27,7 +28,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
-		StoreItemListener
+		StoreItemListener, GoButtonListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -74,5 +75,21 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	
 	public void addItem(String itemID, Dimension2D location) {
 		System.out.println("Add Item: " + itemID);
+	}
+
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void play() {
+		
+	}
+
+	@Override
+	public void fastforward() {
+		
 	}
 }
