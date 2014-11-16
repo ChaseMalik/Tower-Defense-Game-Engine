@@ -6,6 +6,7 @@ import gamePlayer.guiItems.HUD.GameStats;
 import gamePlayer.guiItems.HUD.Stats;
 import gamePlayer.guiItemsListeners.GoButtonListener;
 import gamePlayer.guiItemsListeners.HUDListener;
+import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
@@ -15,6 +16,7 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.stage.Stage;
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-		StoreListener, GoButtonListener
+		StoreListener, GoButtonListener, HealthListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -93,5 +95,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void fastforward() {
 		System.out.println("Fast-forwarding");
+	}
+
+	@Override
+	public void bindHealth(DoubleProperty healthRemaining) {
+		//Binding goes here
 	}
 }

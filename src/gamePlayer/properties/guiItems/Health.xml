@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HealthProperties>
+	<SizeRatio>
+		<element>0.15</element>
+		<element>1</element>
+	</SizeRatio>
+	<ImageRatio>
+		<element>0.75</element>
+		<element>0.6</element>
+	</ImageRatio>
+	<Image>
+		<element>gamePlayer/playerImages/heart.png</element>
+	</Image>
+
+</HealthProperties>
