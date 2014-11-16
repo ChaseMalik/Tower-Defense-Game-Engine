@@ -38,7 +38,7 @@ public class GuiItemTester extends Application {
 	
 	// Add whatever you want to test here!!!
 	private void buildComponent() {
-		StoreItemCell cell = new StoreItemCell();
+		StoreItemCell cell = new StoreItemCell("Turret");
 		cell.initialize(mySize);
 		myContainer.getChildren().add(cell.getNode());
 	}

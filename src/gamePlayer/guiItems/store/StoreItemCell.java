@@ -1,6 +1,9 @@
 package gamePlayer.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
+
+import java.util.ResourceBundle;
+
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
@@ -9,14 +12,29 @@ import javafx.scene.image.ImageView;
 
 public class StoreItemCell implements GuiItem {
 
+	String myName;
 	ImageView myImage;
 
+	public StoreItemCell(String name) {
+		myName = name;
+	}
+	
 	@Override
 	public void initialize(Dimension2D containerSize) {
+		ResourceBundle resources = null;
+		try {
+			resources = ResourceBundle.getBundle("spriteResources/towers/"+myName);
+		} catch (Exception e) {
+			System.out.println("Error reading properties file");
+			System.exit(1); //Kill Program
+		}
 
-		Image image = new Image("file:LockedCell.png",
+		String imagePath = (String)resources.getObject("Store_Cell_Image");
+		String hoverImagePath = (String)resources.getObject("Store_Cell_Hover_Image");
+		
+		Image image = new Image("file:"+imagePath,
 				containerSize.getWidth(), containerSize.getHeight(), false, false);
-		Image hoverImage = new Image("file:TurretCell.png",
+		Image hoverImage = new Image("file:"+hoverImagePath,
 				containerSize.getWidth(), containerSize.getHeight(), false, false);
 
 		myImage = new ImageView(image);
