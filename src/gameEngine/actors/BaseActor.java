@@ -1,40 +1,37 @@
 package gameEngine.actors;
 
-import gameEngine.actors.behaviors.IAct;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.backendExceptions.BackendException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * @author $cotty $haw
  *
  */
-public abstract class BaseActor extends Node implements Observer { //extend Observable or not?
+public abstract class BaseActor extends ImageView {
     
-    private int myID;
-    private List<Behavior> myBehaviors;
+    private List<IBehavior> myBehaviors;
     
-    public BaseActor (int ID, List<Behavior> list) throws BackendException {
-        myID = ID;
-        myBehaviors=list;
+    public BaseActor (List<IBehavior> behaviors, Image image) {
+        myBehaviors=behaviors;
+        this.setImage(image);
     }
     
     /**
-     * Updates the actor's position
+     * Updates the actor
      */
     public void update (){
-        for(Behavior behavior: myBehaviors){
-            behavior.onUpdate();
+        for(IBehavior behavior: myBehaviors){
+            behavior.execute(this);
         }
         
     }
     
-    /**
-     * Executes the actor's on-death actions
-     */
-    public abstract void onDeath ();
-
 }
