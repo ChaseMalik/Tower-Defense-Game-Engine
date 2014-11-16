@@ -2,15 +2,21 @@ package gamePlayer.guiContainers.coreContainers;
 
 import gamePlayer.guiContainers.GuiContainer;
 import gamePlayer.mainClasses.GuiElement;
+
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
+/**
+ * GuiContainer that hosts GuiElements at the center of the screen
+ * @author allankiplagat
+ *
+ */
 public class CenterContainer extends BorderPane implements GuiContainer {
     private XMLParser myParser;
 

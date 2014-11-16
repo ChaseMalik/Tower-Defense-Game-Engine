@@ -4,10 +4,8 @@
 
 .pathComponentOption {
 	-fx-background-color: white;
-
 }
 
 .selected {
-	-fx-background-color: gray;
-
+	-fx-background-color: LightGreen;
 }

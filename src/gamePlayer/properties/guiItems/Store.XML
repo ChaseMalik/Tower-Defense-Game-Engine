@@ -1,0 +1,30 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<StoreProperties>
+
+ 	<Columns>
+		<element>2</element>
+	</Columns>
+	
+    <VPadding>
+		 <element>10</element>
+    </VPadding>
+    
+    <HPadding>
+		 <element>10</element>
+    </HPadding>
+    
+    <InventoryList>
+    	<element>Turret</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    </InventoryList>
+
+</StoreProperties>

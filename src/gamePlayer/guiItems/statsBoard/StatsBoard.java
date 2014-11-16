@@ -13,6 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * This GuiItem initializes and manages the game statistics board
+ * @author allankiplagat
+ *
+ */
 public class StatsBoard implements GuiItem {
     private XMLParser myParser;
     private TableView<GameStats> myTableView;
@@ -27,22 +32,30 @@ public class StatsBoard implements GuiItem {
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
+        myTableView.getStyleClass().add("statsBoard");
         
         GuiConstants.GUI_MANAGER.registerStatsBoard(this);
     }
     
+    /**
+     * @param stats the list of GameStats objects to be displayed
+     */
     public void setGameStats(List<GameStats> stats) {
+        List<Double> colSizeRatio = myParser.getDoubleValuesFromTag("ColumnWidth");
+        
         //convert list into observable list
         ObservableList<GameStats> statsList = FXCollections.observableArrayList(stats);
         myTableView.setItems(statsList);
         
         TableColumn<GameStats,String> statCol = new TableColumn<GameStats,String>("Stat");
         statCol.setCellValueFactory(new PropertyValueFactory("gameStat"));
-        statCol.setPrefWidth(mySize.getWidth()/2);
+        statCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
+        statCol.setResizable(false);
         
         TableColumn<GameStats,String> valueCol = new TableColumn<GameStats,String>("Value");
         valueCol.setCellValueFactory(new PropertyValueFactory("statValue"));
-        valueCol.setPrefWidth(mySize.getWidth()/2);
+        valueCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
+        valueCol.setResizable(false);
         
         myTableView.getColumns().setAll(statCol, valueCol);
         

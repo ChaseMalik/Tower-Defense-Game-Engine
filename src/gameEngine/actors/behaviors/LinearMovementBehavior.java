@@ -1,11 +1,12 @@
 package gameEngine.actors.behaviors;
 
+import javafx.scene.Group;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 
-public class LinearBehavior extends BaseMoveBehavior {
+public class LinearMovementBehavior extends BaseMoveBehavior {
 
-    public LinearBehavior (BackendRoute route, double speed) {
+    public LinearMovementBehavior (BackendRoute route, double speed) {
         super(route, speed);
     }
 

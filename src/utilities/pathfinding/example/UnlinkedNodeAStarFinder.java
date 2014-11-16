@@ -1,8 +1,8 @@
-package Utilities.pathfinding.example;
+package utilities.pathfinding.example;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import Utilities.pathfinding.AStarPathFinder;
+import utilities.pathfinding.AStarPathFinder;
 
 public class UnlinkedNodeAStarFinder extends AStarPathFinder<UnlinkedNode>{
 

@@ -1,4 +1,4 @@
-package Utilities.pathfinding.example;
+package utilities.pathfinding.example;
 
 import java.util.ArrayList;
 import java.util.HashMap;

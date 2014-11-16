@@ -8,8 +8,8 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
  */
 public abstract class BaseMoveBehavior implements IBehavior {
 
-    BackendRoute myRoute;
-    double mySpeed;
+    protected BackendRoute myRoute;
+    protected double mySpeed;
     
     public BaseMoveBehavior(BackendRoute route, double speed){
         myRoute = route;

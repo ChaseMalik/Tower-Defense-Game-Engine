@@ -1,4 +1,4 @@
-package Utilities.pathfinding;
+package utilities.pathfinding;
 
 public class InvalidCostException extends IllegalArgumentException{
 

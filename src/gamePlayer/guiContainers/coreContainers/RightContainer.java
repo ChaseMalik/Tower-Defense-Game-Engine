@@ -3,7 +3,6 @@ package gamePlayer.guiContainers.coreContainers;
 import gamePlayer.guiContainers.GuiContainer;
 import gamePlayer.mainClasses.GuiElement;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
@@ -11,6 +10,11 @@ import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
+/**
+ * GuiContainer that hosts GuiElements on the right side of the screen
+ * @author allankiplagat
+ *
+ */
 public class RightContainer extends VBox implements GuiContainer {
     private XMLParser myParser;
 

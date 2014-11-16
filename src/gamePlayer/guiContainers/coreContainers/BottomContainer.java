@@ -10,6 +10,11 @@ import javafx.scene.layout.HBox;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
+/**
+ * GuiContainer that hosts GuiElements at the bottom of the screen
+ * @author allankiplagat
+ *
+ */
 public class BottomContainer extends HBox implements GuiContainer {
     private XMLParser myParser;
 

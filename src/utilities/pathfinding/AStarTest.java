@@ -1,4 +1,4 @@
-package Utilities.pathfinding;
+package utilities.pathfinding;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
