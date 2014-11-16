@@ -27,10 +27,11 @@ public class SingleAttack extends BaseAttackBehavior{
         Group enemies=(Group)((Group)actor.getParent().getParent()).getChildren().get(0);
         Group projectiles=(Group)((Group)actor.getParent().getParent()).getChildren().get(1);
         for(Node n: enemies.getChildren()){
-            if(range.intersects(n.getBoundsInLocal())){
+            if(range.intersects(n.getBoundsInLocal()) && myCooldown==0){
                 BackendRoute route=new BackendRoute(new Point2D(actor.getX(), actor.getY()), new Point2D(((ImageView) n).getX(),((ImageView) n).getY())); 
                 LinearMovement move=new LinearMovement(route, myBullet.getMySpeed()); 
                 projectiles.getChildren().add(new BaseProjectile(myBullet, move));
+                myCooldown=myAttSpeed;
                 return;
             }
         }
