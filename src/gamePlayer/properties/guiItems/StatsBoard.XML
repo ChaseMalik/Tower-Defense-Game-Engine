@@ -1,6 +1,6 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<ItemProperties>
+<StatsBoardProperties>
 
  	<SizeRatio>
 		<element>1</element>
@@ -9,7 +9,11 @@
 	
 	
     <ColumnWidth>
-		 <element>0.49</element>
+		 <element>0.46</element>
     </ColumnWidth>
+    
+    <StyleSheet>
+         <element>/gamePlayer/styleSheets/statsBoard.css</element>
+    </StyleSheet>
 
-</ItemProperties>
+</StatsBoardProperties>

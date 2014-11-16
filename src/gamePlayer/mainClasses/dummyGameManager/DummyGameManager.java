@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.stage.Stage;
 
+/**
+ * Class simulates an engine GameManager for testing purposes
+ * @author allankiplagat
+ *
+ */
 public class DummyGameManager {
     private GuiManager myGuiManager;
     private List<GameStats> gameStats;
@@ -16,11 +21,10 @@ public class DummyGameManager {
     }
     
     public void run() {
-        createGameStats();
-        updateGameStats();
+        testGameStats();
     }
     
-    public void createGameStats() {
+    public void testGameStats() {
         GameStats score = new GameStats();
         score.setGameStat("Score");
         score.setStatValue(0);
@@ -32,9 +36,8 @@ public class DummyGameManager {
         gameStats = new ArrayList<GameStats>();
         gameStats.add(score); gameStats.add(health);
         myGuiManager.setGameStats(gameStats);
-    }
-    
-    public void updateGameStats() {
+        
+        //update game stats
         gameStats.get(0).setStatValue(50);
         gameStats.get(1).setStatValue(50);
     }

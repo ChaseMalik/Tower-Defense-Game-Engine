@@ -10,6 +10,11 @@ import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
+/**
+ * GuiContainer that hosts GuiElements on the left side of the screen
+ * @author allankiplagat
+ *
+ */
 public class LeftContainer extends VBox implements GuiContainer {
     private XMLParser myParser;
 
