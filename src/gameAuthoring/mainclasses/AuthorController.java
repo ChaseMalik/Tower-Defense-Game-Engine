@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import gameAuthoring.scenes.BuildingScene;
-import gameAuthoring.scenes.EnemyBuildingScene;
 import gameAuthoring.scenes.LevelBuildingScene;
 import gameAuthoring.scenes.TowerBuildingScene;
+import gameAuthoring.scenes.enemyBuilding.EnemyBuildingScene;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -35,6 +35,7 @@ public class AuthorController extends Application implements Observer {
         myStage = stage;
         buildScenes();
         showPathBuildingScene();
+//        showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
