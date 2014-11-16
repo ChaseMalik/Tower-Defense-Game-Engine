@@ -3,9 +3,7 @@ package gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import javafx.geometry.Point2D;
 
