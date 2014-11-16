@@ -1,0 +1,20 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<UpgradeStoreProperties>
+	
+	<HeightRatios>
+		<element>0.15</element> <!-- Header -->
+		<element>0.35</element> <!-- Icon -->
+		<element>0.5</element> <!-- Buttons -->
+	</HeightRatios>
+	
+    <VPadding>
+		 <element>15</element>
+    </VPadding>
+    
+    <UpgradeStreams>
+    	<element>Upgrade 1</element> <!-- Get from specific Properties file -->
+    	<element>Upgrade 2</element> <!-- Get from specific Properties file -->
+    </UpgradeStreams>
+
+</UpgradeStoreProperties>
