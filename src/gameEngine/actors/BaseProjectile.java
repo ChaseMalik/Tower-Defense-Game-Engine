@@ -1,6 +1,6 @@
 package gameEngine.actors;
 
-import gameEngine.actors.behaviors.BaseMoveBehavior;
+import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class BaseProjectile extends BaseActor{
 
     private ProjectileInfo myInfo;
-    public BaseProjectile (ProjectileInfo info, BaseMoveBehavior move) {
+    public BaseProjectile (ProjectileInfo info, BaseMovementBehavior move) {
         myInfo=info;
         List<IBehavior> behaviors=new ArrayList<IBehavior>();
         behaviors.add(move);

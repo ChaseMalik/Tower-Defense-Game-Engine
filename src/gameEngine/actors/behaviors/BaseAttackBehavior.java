@@ -1,6 +1,6 @@
 package gameEngine.actors.behaviors;
 
-import gameEngine.actors.BaseActor;
+import gameEngine.actors.ProjectileInfo;
 
 /**
  * @author $cotty $haw
@@ -9,8 +9,8 @@ import gameEngine.actors.BaseActor;
 public abstract class BaseAttackBehavior implements IBehavior {
     protected int myAttSpeed;
     protected double myRange;
-    protected BaseActor myBullet;
-    public BaseAttackBehavior(int attackSpeed, double range, BaseActor projectile){
+    protected ProjectileInfo myBullet;
+    public BaseAttackBehavior(int attackSpeed, double range, ProjectileInfo projectile){
         myAttSpeed=attackSpeed;
         myRange=range;
         myBullet=projectile;
