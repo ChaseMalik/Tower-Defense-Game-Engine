@@ -15,6 +15,7 @@ public class MainGameManager implements GameManager {
     private AtomicBoolean myIsRunning;
     private AtomicBoolean myPauseRequested;
     private AtomicBoolean readyToPlay;
+    private AtomicBoolean myIsPaused;
 
     private double myRenderInterval;
     private double myUpdateInterval;
@@ -23,11 +24,12 @@ public class MainGameManager implements GameManager {
 
     private double myLastUpdateTime;
     private double myLastRenderTime;
-
+    
     public MainGameManager () {
         myIsRunning = new AtomicBoolean(false);
         readyToPlay = new AtomicBoolean(false);
         myPauseRequested = new AtomicBoolean(false);
+        myIsPaused = new AtomicBoolean(true);
 
         myRenderInterval = ONE_SECOND_IN_NANO / FPS;
         myUpdateInterval = myRenderInterval;
@@ -63,7 +65,11 @@ public class MainGameManager implements GameManager {
         myPauseRequested.set(false);
     }
 
-    public synchronized void addActor (BaseActor actor) {
+    public synchronized void createActor (Class<? extends BaseActor> actorType, double x, double y) {
+        
+    }
+
+    private synchronized void addNewActors () {
         
     }
 
@@ -87,10 +93,11 @@ public class MainGameManager implements GameManager {
         while (myIsRunning.get()) {
             double now = System.nanoTime();
             if (!myPauseRequested.get() && readyToPlay.get()) {
+                myIsPaused.set(false);
                 double adjustedUpdateInterval = myUpdateInterval / myUpdateSpeed.get();
                 double updateTimeDifference = now - myLastUpdateTime;
                 double timeBetweenUpdateAndRender = now - myLastRenderTime;
-                //Allow for catchup in the case of inaccurate thread waking up.
+                // Allow for catchup in the case of inaccurate thread waking up.
                 do {
                     double updateStart = System.nanoTime();
                     update();
@@ -120,7 +127,8 @@ public class MainGameManager implements GameManager {
                 }
             }
             else {
-                Thread.yield();
+                myIsPaused.set(true);
+                // Thread.yield();
                 try {
                     Thread.sleep(0, 500);
                 }
@@ -132,6 +140,7 @@ public class MainGameManager implements GameManager {
     }
 
     private void update () {
+        addNewActors();
 
     }
 
@@ -145,9 +154,17 @@ public class MainGameManager implements GameManager {
     }
 
     @Override
-    public void loadLevel (BaseLevel level) {
+    public synchronized void loadLevel (BaseLevel level) {
         readyToPlay.set(false);
-        // load
+        while (!myIsPaused.get()) {
+            try {
+                Thread.sleep(0, 500);
+            }
+            catch (InterruptedException e) {
+                // Probably fine
+            }
+        }
+        
         readyToPlay.set(true);
     }
 }
