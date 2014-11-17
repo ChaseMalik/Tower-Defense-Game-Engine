@@ -15,12 +15,14 @@ import javafx.scene.image.ImageView;
  */
 public class BaseActor extends ImageView {
     protected Map<String,IBehavior> myBehaviors;
+    protected String myName;
 
     public BaseActor () {
 
     }
 
-    public BaseActor (Map<String,IBehavior> behaviors, Image image) {
+    public BaseActor (Map<String,IBehavior> behaviors, Image image, String name) {
+        myName = name;
         myBehaviors = behaviors;
         this.setImage(image);
         this.setVisible(false);
@@ -41,11 +43,16 @@ public class BaseActor extends ImageView {
         for (String s: myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        return new BaseActor(clonedBehaviors, this.getImage());
+        return new BaseActor(clonedBehaviors, this.getImage(), myName);
     }
     
     public IBehavior getBehavior(String s){
         return myBehaviors.get(s);
+    }
+    
+    @Override
+    public String toString(){
+        return myName;
     }
 
 }
