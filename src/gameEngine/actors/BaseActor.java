@@ -1,14 +1,8 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
-import gameEngine.backendExceptions.BackendException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

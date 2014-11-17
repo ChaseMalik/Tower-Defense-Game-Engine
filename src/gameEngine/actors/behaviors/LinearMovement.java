@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -9,8 +10,8 @@ import gameEngine.actors.BaseActor;
 public class LinearMovement extends BaseMovementBehavior {
     int myIndex = 0;
 
-    public LinearMovement (BackendRoute route, double speed) {
-        super(route, speed);
+    public LinearMovement (List<BackendRoute> routeOptions, double speed) {
+        super(routeOptions, speed);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class LinearMovement extends BaseMovementBehavior {
 
     @Override
     public IBehavior copy () {
-        return new LinearMovement(myBackendRoute, mySpeed);
+        return new LinearMovement(myOptions, mySpeed);
     }
 
 }
