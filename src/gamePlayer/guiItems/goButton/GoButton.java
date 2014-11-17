@@ -6,18 +6,19 @@ package gamePlayer.guiItems.goButton;
  * 
  */
 
+import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 import java.util.List;
 
-import utilities.XMLParsing.XMLParser;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.GoButtonListener;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import utilities.XMLParsing.XMLParser;
 
 public class GoButton implements GuiItem {
 
@@ -31,11 +32,6 @@ public class GoButton implements GuiItem {
 	
 	private String playImage;
 	private String ffImage;
-			
-	
-	public GoButton() {
-
-	}
 
 	@Override
 	public void initialize(Dimension2D containerSize) {

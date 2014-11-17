@@ -4,8 +4,6 @@
 
 	<UpgradeNames>
 		<element>2X Range</element>
-		<element>3X Range</element>
-		<element>Infinite Range</element>
 	</UpgradeNames>
 
  	<ButtonColor>
@@ -13,15 +11,16 @@
 	</ButtonColor>
 	
     <UpgradeCosts>
-		 <element>250</element>
 		 <element>300</element>
-		 <element>650</element>
     </UpgradeCosts>
     
     <LevelRequirements>
-    	<element>0</element>
     	<element>1</element>
-    	<element>4</element>
     </LevelRequirements>
+    
+    <ImagePaths>
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_*_1</element> <!-- Default -->
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_*_2</element>
+    </ImagePaths>
 
 </TurretUpgrade2Stream>

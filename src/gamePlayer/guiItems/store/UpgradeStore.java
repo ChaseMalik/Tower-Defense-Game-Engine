@@ -7,24 +7,31 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * Panel that will show up in place of the store when a tower on the map is selected. 
+ * The switching behavior is handled by the Store class
+ * 
+ * @author brianbolze
+ *
+ */
 public class UpgradeStore implements GuiItem {
 	
 	private String myTowerID;
-	private Pane root;
 	private XMLParser myParser;
+	private ResourceBundle myTowerResources;
+	
+	private VBox root, myButtons;
 	private Label myHeader;
 	private ImageView myIcon;
-	private Pane myButtons;
-	private ResourceBundle myTowerResources;
 	
 	public UpgradeStore(String towerID) {
 		myTowerID = towerID;
@@ -42,6 +49,10 @@ public class UpgradeStore implements GuiItem {
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
         
 		root = new VBox();
+		root.setMinWidth(containerSize.getWidth());
+		root.setMinHeight(containerSize.getHeight());
+		root.alignmentProperty().setValue(Pos.TOP_CENTER);
+		root.getStyleClass().add("store-pane");
 		
 		List<Double> heightRatios = myParser.getDoubleValuesFromTag("HeightRatios");
 		buildHeader(containerSize.getWidth(), heightRatios.get(0)*containerSize.getHeight());

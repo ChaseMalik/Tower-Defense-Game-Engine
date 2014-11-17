@@ -3,7 +3,6 @@
 <TurretUpgrade1Stream>
 
 	<UpgradeNames>
-		<element>2X Damage</element>
 		<element>Increased ROF</element>
 		<element>3X Damage</element>
 	</UpgradeNames>
@@ -14,14 +13,18 @@
 	
     <UpgradeCosts>
 		 <element>300</element>
-		 <element>400</element>
 		 <element>550</element>
     </UpgradeCosts>
     
     <LevelRequirements>
     	<element>0</element>
-    	<element>1</element>
     	<element>2</element>
     </LevelRequirements>
+    
+    <ImagePaths>
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_1_*</element> <!-- Default -->
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_2_*</element>
+	    <element>spriteResources.upgradeStreams.upgradeImages.Turret_3_*</element>
+    </ImagePaths>
 
 </TurretUpgrade1Stream>
