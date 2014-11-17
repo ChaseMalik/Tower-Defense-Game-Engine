@@ -2,7 +2,9 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,13 +14,13 @@ import javafx.scene.image.ImageView;
  *
  */
 public class BaseActor extends ImageView {
-    protected List<IBehavior> myBehaviors;
+    protected Map<String,IBehavior> myBehaviors;
 
     public BaseActor () {
 
     }
 
-    public BaseActor (List<IBehavior> behaviors, Image image) {
+    public BaseActor (Map<String,IBehavior> behaviors, Image image) {
         myBehaviors = behaviors;
         this.setImage(image);
         this.setVisible(false);
@@ -28,18 +30,22 @@ public class BaseActor extends ImageView {
      * Updates the actor
      */
     public void update () {
-        for (IBehavior behavior : myBehaviors) {
-            behavior.execute(this);
+        for(String s: myBehaviors.keySet()){
+            myBehaviors.get(s).execute(this);
         }
 
     }
 
     public BaseActor copy () {
-        List<IBehavior> clonedBehaviors = new ArrayList<>();
-        for (IBehavior behavior : myBehaviors) {
-            clonedBehaviors.add(behavior.copy());
+        Map<String, IBehavior> clonedBehaviors = new HashMap<>();
+        for (String s: myBehaviors.keySet()) {
+            clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
         return new BaseActor(clonedBehaviors, this.getImage());
+    }
+    
+    public IBehavior getBehavior(String s){
+        return myBehaviors.get(s);
     }
 
 }

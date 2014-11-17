@@ -33,9 +33,9 @@ public class SingleAttack extends BaseAttackBehavior{
             if(range.intersects(n.getBoundsInLocal()) && myCooldown==0){
                 BackendRoute route=new BackendRoute(new Point2D(actor.getX(), actor.getY()), new Point2D(((ImageView) n).getX(),((ImageView) n).getY())); 
                 List<BackendRoute> list = Arrays.asList(route);
-                LinearMovement move=new LinearMovement(list, myBullet.getMySpeed()); 
-                projectiles.getChildren().add(new BaseProjectile(myBullet, move));
-                myCooldown=myAttSpeed;
+                LinearMovement move=new LinearMovement(list, myProjectileInfo.getMySpeed()); 
+                projectiles.getChildren().add(new BaseProjectile(myProjectileInfo, move));
+                myCooldown=myAttackSpeed;
                 return;
             }
         }
@@ -44,7 +44,7 @@ public class SingleAttack extends BaseAttackBehavior{
 
     @Override
     public IBehavior copy () {
-        return new SingleAttack(myAttSpeed,myRange,myBullet);
+        return new SingleAttack(myAttackSpeed,myRange,myProjectileInfo);
     }
 
 }
