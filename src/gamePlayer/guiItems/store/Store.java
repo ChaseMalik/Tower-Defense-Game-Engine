@@ -100,6 +100,7 @@ public class Store implements GuiItem, SelectTowerListener {
 		storeLabel.setMinWidth(myContentSize.getWidth());
 		storeLabel.setMinHeight(myContentSize.getHeight()*headerHeightRatio);
 		myHeader = storeLabel;
+		myHeader.getStyleClass().add("header-2");
 	}
 	
 	private void buildInventoryContainer() {
@@ -109,9 +110,11 @@ public class Store implements GuiItem, SelectTowerListener {
 		myGridPane.setVgap(myParser.getDoubleValuesFromTag("VPadding").get(0)/myNumColumns);
 		myGridPane.setHgap(myParser.getDoubleValuesFromTag("HPadding").get(0)/myNumColumns);
 		myGridPane.setMaxWidth(myContentSize.getWidth());
+		myGridPane.getStyleClass().add("store-pane");
 		
 		double iconSize = myContentSize.getWidth()/myNumColumns - myGridPane.getHgap();
 		myCellSize = new Dimension2D(iconSize, iconSize); //Square Icons
+		
 	}
 	
 	private void buildInventoryItems() {

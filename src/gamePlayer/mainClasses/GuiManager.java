@@ -110,4 +110,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void bindHealth(DoubleProperty healthRemaining) {
 		//Binding goes here
 	}
+
+	@Override
+	public void changeTheme() {
+		File file = FileLoader.getInstance().load(myStage, "StyleSheets", "*.css");
+		if (file != null) {
+			System.out.println(file.getAbsolutePath() + "\n");
+			myStage.getScene().getStylesheets().clear();
+			myStage.getScene().getStylesheets().add("file:"+file.getAbsolutePath());
+		}
+	}
 }

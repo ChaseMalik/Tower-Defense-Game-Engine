@@ -3,15 +3,15 @@
 <GoButtonProperties>
 	<SizeRatio>
 		<element>0.25</element>
-		<element>1</element>
+		<element>0.9</element>
 	</SizeRatio>
 	<ImageRatio>
+		<element>1</element>
 		<element>0.7</element>
-		<element>0.5</element>
 	</ImageRatio>
 	<Images>
-		<element>gamePlayer/playerImages/play.png</element>
-		<element>gamePlayer/playerImages/fastforward.png</element>
+		<element>gamePlayer/playerImages/Play_Button.png</element>
+		<element>gamePlayer/playerImages/FF_Button.png</element>
 	</Images>
 
 
