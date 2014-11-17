@@ -2,6 +2,15 @@
 
 <StoreProperties>
 
+	<HeaderTitle>
+		<element>Store</element>
+	</HeaderTitle>
+	
+	<HeightRatio>
+		<element>0.1</element>
+		<element>0.9</element>
+	</HeightRatio>
+
  	<Columns>
 		<element>2</element>
 	</Columns>

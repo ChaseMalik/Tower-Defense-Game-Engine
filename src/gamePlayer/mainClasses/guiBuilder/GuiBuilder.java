@@ -5,7 +5,9 @@ import gamePlayer.guiContainers.coreContainers.CenterContainer;
 import gamePlayer.guiContainers.coreContainers.LeftContainer;
 import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
+
 import java.io.File;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -41,7 +43,7 @@ public class GuiBuilder {
      * GUI_MANAGER constant in GuiConstants
      * @param stage the stage in which to construct the GUI
      */
-    public void build (Stage stage) {
+    public Group build (Stage stage) {
         //set constants
         GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         Dimension2D windowSize = myParser.getDimension("GuiSize");
@@ -58,6 +60,8 @@ public class GuiBuilder {
         //for now, no re-sizing window dynamically until dynamic window resizing algorithm is written
         stage.setResizable(false);
         stage.show();
+        
+        return group;
     }
 
     private void setStyleSheet(Scene scene) {

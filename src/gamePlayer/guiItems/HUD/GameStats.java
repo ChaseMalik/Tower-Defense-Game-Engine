@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.statsBoard;
+package gamePlayer.guiItems.HUD;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

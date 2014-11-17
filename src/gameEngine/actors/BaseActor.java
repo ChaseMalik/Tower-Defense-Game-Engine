@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
  *
  */
 public class BaseActor extends ImageView {
-
     protected List<IBehavior> myBehaviors;
 
     public BaseActor () {

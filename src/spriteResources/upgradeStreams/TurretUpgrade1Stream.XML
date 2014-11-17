@@ -1,0 +1,30 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<TurretUpgrade1Stream>
+
+	<UpgradeNames>
+		<element>Increased ROF</element>
+		<element>3X Damage</element>
+	</UpgradeNames>
+
+ 	<ButtonColor>
+		<element>Green</element>
+	</ButtonColor>
+	
+    <UpgradeCosts>
+		 <element>300</element>
+		 <element>550</element>
+    </UpgradeCosts>
+    
+    <LevelRequirements>
+    	<element>0</element>
+    	<element>2</element>
+    </LevelRequirements>
+    
+    <ImagePaths>
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_1_*</element> <!-- Default -->
+    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_2_*</element>
+	    <element>spriteResources.upgradeStreams.upgradeImages.Turret_3_*</element>
+    </ImagePaths>
+
+</TurretUpgrade1Stream>

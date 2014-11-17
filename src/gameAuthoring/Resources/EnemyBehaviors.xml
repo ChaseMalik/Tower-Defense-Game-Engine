@@ -1,23 +1,9 @@
 <behaviors>
  	<movement>
-		<element>FastMovement</element>
-		<element>SlowMovement</element>
-		<element>NoMovement</element>
+		<element>LinearMovement</element>
 	</movement>
 	 <attack>
-		<element>BigAttack</element>
+		<element>SingleAttack</element>
 		<element>SmallAttack</element>
 	</attack>
-	<spawn>
-		<element>InstantSpawn</element>
-		<element>NoSpawn</element>
-	</spawn>
-	<defend>
-		<element>StrongDefence</element>
-		<element>WeakDefence</element>
-	</defend>
-	<terminate>
-		<element>InstantTerminate</element>
-		<element>SlowTerminate</element>
-	</terminate>	
 </behaviors>

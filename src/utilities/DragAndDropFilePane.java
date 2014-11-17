@@ -64,7 +64,7 @@ public class DragAndDropFilePane extends Observable {
                             myFile = file;
                             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
                             this.setChanged();
-                            this.notifyObservers();
+                            this.notifyObservers(myFile);
                         }
                         catch (IOException e) {
                             new ErrorPopup("Invalid file");

@@ -20,19 +20,24 @@ import javafx.geometry.Point2D;
 public class BackendRoute {
     private List<VisibilityPoint> myPoints;
     
+    public BackendRoute() {
+        myPoints = new ArrayList<VisibilityPoint>();
+    }
+    
     //Used for non-path TD games and also on the backend to calculate
     //the routes of the bullets.
     public BackendRoute(Point2D start, Point2D end) {
+        this();
         myPoints.add(new VisibilityPoint(true, start));
         myPoints.add(new VisibilityPoint(true, end));
     }
     
     public BackendRoute(PathRoute route){
+        this();
         setUpBackendRouteFromFrontEndRoute(route);
     }
 
     private void setUpBackendRouteFromFrontEndRoute (PathRoute route) {
-        myPoints = new ArrayList<VisibilityPoint>();
         for(PathComponent component:route) {
             myPoints.add(new VisibilityPoint(true, component.getStartingPoint()));
         }       
@@ -41,5 +46,14 @@ public class BackendRoute {
 
     public List<VisibilityPoint> getPoints() {
         return Collections.unmodifiableList(myPoints);
+    }
+
+    public BackendRoute deepCopy () {
+        BackendRoute copy = new BackendRoute();
+        for(int i = 0; i < myPoints.size(); i++){
+            Point2D point = new Point2D(myPoints.get(i).getPoint().getX(), myPoints.get(i).getPoint().getY());
+            copy.myPoints.add(new VisibilityPoint(true, point));
+        }
+        return copy;
     }
 }

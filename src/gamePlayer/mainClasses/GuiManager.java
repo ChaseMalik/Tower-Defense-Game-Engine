@@ -1,10 +1,14 @@
 package gamePlayer.mainClasses;
 
 import gamePlayer.guiFeatures.FileLoader;
-import gamePlayer.guiItems.statsBoard.GameStats;
-import gamePlayer.guiItems.statsBoard.StatsBoard;
-import gamePlayer.guiItemsListeners.StatsBoardListener;
-import gamePlayer.guiItemsListeners.StoreItemListener;
+import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiItems.HUD.GameStats;
+import gamePlayer.guiItems.HUD.Stats;
+import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.guiItemsListeners.HUDListener;
+import gamePlayer.guiItemsListeners.HealthListener;
+import gamePlayer.guiItemsListeners.SelectTowerListener;
+import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
@@ -13,6 +17,9 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
 import javafx.stage.Stage;
 
 /**
@@ -23,20 +30,22 @@ import javafx.stage.Stage;
  * @author allankiplagat
  *
  */
-public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
-		StoreItemListener
+public class GuiManager implements VoogaMenuBarListener, HUDListener,
+		StoreListener, GoButtonListener, HealthListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 	private DummyGameManager myGameManager;
 	private Stage myStage;
-	private StatsBoard myStatsBoard;
+	private SelectTowerListener mySelectTowerListener;
+	private Stats myStatsBoard;
+	private Group myRoot;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
 		myGameManager = manager;
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
-		GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
+		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	}
 
 	@Override
-	public void registerStatsBoard(StatsBoard statsBoard) {
+	public void registerStatsBoard(Stats statsBoard) {
 		myStatsBoard = statsBoard;
 	}
 
@@ -62,7 +71,52 @@ public class GuiManager implements VoogaMenuBarListener, StatsBoardListener,
 	}
 
 	@Override
-	public void buyItem(String itemName) {
-		System.out.println("Buy Item: " + itemName);
+	public void buyItem(String itemID) {
+		
+		// TODO : Check to make sure I have enough money
+		System.out.println("Buy Item: " + itemID);
+		
+		TowerPlacer.getInstance().placeItem(itemID, myRoot);
+	}
+	
+	public void addItem(String itemID, Dimension2D location) {
+		System.out.println("Add Item: " + itemID);
+		// For testing purposes...
+		mySelectTowerListener.selectTower(itemID);
+		
+	}
+	
+	@Override
+	public void registerTowerListener(SelectTowerListener listener) {
+		mySelectTowerListener = listener;
+	}
+
+	@Override
+	public void pause() {
+		System.out.println("Paused");
+	}
+
+	@Override
+	public void play() {
+		System.out.println("Playing");
+	}
+
+	@Override
+	public void fastforward() {
+		System.out.println("Fast-forwarding");
+	}
+
+	@Override
+	public void bindHealth(DoubleProperty healthRemaining) {
+		//Binding goes here
+	}
+
+	@Override
+	public void changeTheme() {
+		File file = FileLoader.getInstance().load(myStage, "StyleSheets", "*.css");
+		if (file != null) {
+			myStage.getScene().getStylesheets().clear();
+			myStage.getScene().getStylesheets().add("file:"+file.getAbsolutePath());
+		}
 	}
 }

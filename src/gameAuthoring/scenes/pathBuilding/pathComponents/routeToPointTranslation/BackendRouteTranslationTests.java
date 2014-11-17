@@ -35,7 +35,7 @@ public class BackendRouteTranslationTests {
         PathLine pathLine = new PathLine(30, 30);
         route.add(pathLine);
         BackendRoute backendRoute = new BackendRoute(route);
-        List<VisibilityPoint> visibilityPoints = backendRoute.getMyPoints();
+        List<VisibilityPoint> visibilityPoints = backendRoute.getPoints();
         assertEquals(pathLine.getStartingPoint(), visibilityPoints.get(0).getPoint());
         assertEquals(pathLine.getEndingPoint(), visibilityPoints.get(1).getPoint());
     }
@@ -54,12 +54,12 @@ public class BackendRouteTranslationTests {
         List<BackendRoute> routes = BackendRoutesGenerator.getBackendRoutes(myPath);
         assertEquals(2, routes.size());
         BackendRoute route1 = routes.get(0);
-        List<VisibilityPoint> route1VisibilityPoints = route1.getMyPoints();
+        List<VisibilityPoint> route1VisibilityPoints = route1.getPoints();
         Point2D[] expectedPointsForRoute1 = new Point2D[]{pathLine1.getStartingPoint(), pathCurve1.getStartingPoint(),
                                                           pathCurve1.getEndingPoint()};
         testCorrectRouteTranslation(expectedPointsForRoute1, route1VisibilityPoints);
         BackendRoute route2 = routes.get(1);
-        List<VisibilityPoint> route2VisibilityPoints = route2.getMyPoints();
+        List<VisibilityPoint> route2VisibilityPoints = route2.getPoints();
         Point2D[] expectedPointsForRoute2 = new Point2D[]{curveInRoute2.getStartingPoint(),
                                                           curveInRoute2.getEndingPoint()};
         testCorrectRouteTranslation(expectedPointsForRoute2, route2VisibilityPoints);
