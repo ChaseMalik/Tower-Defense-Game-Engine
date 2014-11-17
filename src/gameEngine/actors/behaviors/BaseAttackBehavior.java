@@ -11,6 +11,7 @@ public abstract class BaseAttackBehavior implements IBehavior {
     protected double myRange;
     protected int myCooldown;
     protected ProjectileInfo myBullet;
+    
     public BaseAttackBehavior(int attackSpeed, double range, ProjectileInfo projectile){
         myAttSpeed=attackSpeed;
         myRange=range;

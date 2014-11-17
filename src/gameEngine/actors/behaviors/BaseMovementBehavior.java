@@ -12,8 +12,10 @@ public abstract class BaseMovementBehavior implements IBehavior {
 
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
+    protected BackendRoute myBackendRoute;
     
     public BaseMovementBehavior(BackendRoute route, double speed){
+        myBackendRoute = route;
         myRoute = route.getPoints();
         mySpeed = speed;
     }

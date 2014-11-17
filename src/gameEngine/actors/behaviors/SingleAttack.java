@@ -38,4 +38,9 @@ public class SingleAttack extends BaseAttackBehavior{
          
     }
 
+    @Override
+    public IBehavior copy () {
+        return new SingleAttack(myAttSpeed,myRange,myBullet);
+    }
+
 }
