@@ -4,7 +4,9 @@ import java.util.List;
 
 
 /**
- * @author $cotty $haw
+ *  Behavior that defines the defense of an actor
+ * 
+ * @author Chase Malik, Timesh Patel
  *
  */
 public abstract class BaseDefendBehavior implements IBehavior {

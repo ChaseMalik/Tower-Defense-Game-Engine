@@ -3,11 +3,19 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import javafx.geometry.Point2D;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
 
 
+/**
+ * Specific implementation of the movement behavior for an actor, whereby the actor moves
+ * from point to point along a route that is randomly chosen from the given options
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class LinearMovement extends BaseMovementBehavior {
-    int myIndex = 0;
+    private int myIndex = 0;
 
     public LinearMovement (List<BackendRoute> routeOptions, double speed) {
         super(routeOptions, speed);
@@ -16,39 +24,39 @@ public class LinearMovement extends BaseMovementBehavior {
     @Override
     public void execute (BaseActor actor) {
         if (myIndex == 0) {
-            actor.setVisible(true);
-            actor.setX(myRoute.get(0).getPoint().getX());
-            actor.setY(myRoute.get(0).getPoint().getY());
+            move(actor, myRoute.get(myIndex));
             myIndex++;
             return;
         }
-        if (myIndex == myRoute.size()){
-            //TODO handle this
+        if (myIndex == myRoute.size()) {
+            // TODO handle this
             return;
         }
-        Point2D position = new Point2D(actor.getX(),actor.getY());
-        
+        Point2D current = new Point2D(actor.getX(), actor.getY());
         Point2D destination = myRoute.get(myIndex).getPoint();
-        
-        double speed = mySpeed;
-        
-        while(speed > destination.distance(position)){
-            speed = destination.distance(position);
+        double distance = mySpeed;
+
+        while (distance > destination.distance(current)) {
             myIndex++;
-            if(myIndex == myRoute.size()){
+            if (myIndex == myRoute.size()) {
                 // TODO Handle this
                 return;
             }
-            position = new Point2D(destination.getX(),destination.getY());
+            distance -= destination.distance(current);
+            current = new Point2D(destination.getX(), destination.getY());
             destination = myRoute.get(myIndex).getPoint();
         }
-        
-        actor.setVisible(myRoute.get(myIndex).isVisible());
-        Point2D vector = destination.subtract(position).normalize().multiply(mySpeed);
-        Point2D answer = position.add(vector);
-        actor.setX(answer.getX());
-        actor.setY(answer.getY());
-        
+
+        Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
+        Point2D answer = current.add(vector);
+        move(actor, new VisibilityPoint(myRoute.get(myIndex).isVisible(), answer));
+
+    }
+
+    private void move (BaseActor actor, VisibilityPoint point) {
+        actor.setVisible(point.isVisible());
+        actor.setX(point.getPoint().getX());
+        actor.setY(point.getPoint().getY());
     }
 
     @Override

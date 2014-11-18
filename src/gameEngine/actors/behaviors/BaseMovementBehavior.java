@@ -7,7 +7,9 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 
 
 /**
- * @author $cotty $haw
+ *  Behavior that defines the movement of an actor
+ * 
+ * @author Chase Malik, Timesh Patel
  *
  */
 public abstract class BaseMovementBehavior implements IBehavior {

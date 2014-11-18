@@ -3,7 +3,7 @@ package gameEngine.actors.behaviors;
 import gameEngine.actors.ProjectileInfo;
 
 /**
- * @author $cotty $haw
+ * @author Chase Malik, Timesh Patel
  *
  */
 public abstract class BaseAttackBehavior implements IBehavior {

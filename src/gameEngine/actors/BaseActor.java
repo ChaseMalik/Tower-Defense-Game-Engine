@@ -10,7 +10,11 @@ import javafx.scene.image.ImageView;
 
 
 /**
- * @author $cotty $haw
+ * Base Actor class that represents all of the actors on the screen (enemies, towers, projectiles)
+ * Stores its behaviors, image, and a name
+ * On an update call, it simply loops over its current behaviors and executes them
+ * 
+ * @author Chase Malik, Timesh Patel
  *
  */
 public class BaseActor extends ImageView {
@@ -29,7 +33,7 @@ public class BaseActor extends ImageView {
     }
 
     /**
-     * Updates the actor
+     * Updates the actor by looping over all of its behaviors and performing them
      */
     public void update () {
         for(String s: myBehaviors.keySet()){
@@ -38,12 +42,18 @@ public class BaseActor extends ImageView {
 
     }
 
+    /**
+     * Copies the current actor to create another one
+     * This is used when creating x amount of enemies of the same type on a specific level
+     * The copy is created by copying all of the behaviors and creating a new BaseActor object
+     * @return
+     */
     public BaseActor copy () {
         Map<String, IBehavior> clonedBehaviors = new HashMap<>();
         for (String s: myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        return new BaseActor(clonedBehaviors, this.getImage(), myName);
+        return new BaseActor(clonedBehaviors, getImage(), myName);
     }
     
     public IBehavior getBehavior(String s){

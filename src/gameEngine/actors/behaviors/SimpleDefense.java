@@ -7,11 +7,16 @@ import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+/**
+ * Simple defense behavior that only stores an actor's health
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class SimpleDefense extends BaseDefendBehavior{
 
     SimpleDefense (double health, List<String> harmfulBullets) {
         super(health, harmfulBullets);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

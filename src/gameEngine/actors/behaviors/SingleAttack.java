@@ -13,6 +13,13 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
+/**
+ * Attack behavior that produces one projectile when it is able to attack and it shoots it
+ * at the location of an enemy within its range 
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class SingleAttack extends BaseAttackBehavior{
 
     public SingleAttack (int attackSpeed, double range, ProjectileInfo projectile) {
