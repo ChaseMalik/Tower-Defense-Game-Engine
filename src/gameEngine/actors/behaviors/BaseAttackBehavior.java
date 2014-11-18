@@ -26,6 +26,14 @@ public abstract class BaseAttackBehavior implements IBehavior {
         return myRange;
     }
     
+    public void setAttackSpeed(int attack){
+        myAttackSpeed = attack;
+    }
+    
+    public void setRange(double range){
+        myRange = range;
+    }
+    
     public ProjectileInfo getProjectileInfo(){
         return myProjectileInfo;
     }
