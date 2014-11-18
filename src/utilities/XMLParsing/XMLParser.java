@@ -57,6 +57,19 @@ public class XMLParser {
         }
         return valuesFromTag;
     }
+    
+    public List<String> getAllBehaviorTypes() {
+        List<String> allBehaviorTypes = new ArrayList<String>();
+        NodeList behaviorTypesNodes = myDocument.getDocumentElement().getChildNodes();
+        for(int i = 0; i < behaviorTypesNodes.getLength(); i++){
+            Node n = behaviorTypesNodes.item(i);
+            if(n instanceof Element) {
+                allBehaviorTypes.add(n.getNodeName());
+            }
+        }
+        return allBehaviorTypes;
+    }
+    
 
     public List<Integer> getIntegerValuesFromTag(String tagName) {
         return getValuesFromTag(tagName)

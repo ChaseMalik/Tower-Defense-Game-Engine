@@ -2,6 +2,12 @@ package gameEngine.actors;
 
 import javafx.scene.image.Image;
 
+/**
+ * Data object that stores information about a projectile - its speed, damage, and image
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class ProjectileInfo {
     protected double mySpeed;
     protected double myDamage;

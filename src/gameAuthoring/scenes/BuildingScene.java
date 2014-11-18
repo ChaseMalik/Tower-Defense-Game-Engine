@@ -18,7 +18,8 @@ public abstract class BuildingScene extends Observable {
     }
     
     private String getStyleSheetFileName () {
-        return STYLESHEET_PACKAGE + myTitle.replace(" ", "").toLowerCase().concat(".css");
+        System.out.println(myTitle.concat("building").toLowerCase().concat(".css"));
+        return STYLESHEET_PACKAGE + myTitle.concat("building").toLowerCase().concat(".css");
     }
 
     public String getTitle() {

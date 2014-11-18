@@ -1,11 +1,13 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.ProjectileInfo;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.actors.behaviors.NullBehavior;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +24,8 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
     private Slider myRangeSlider;
     private Image myImageForEnemyProjectile;
 
-    public AttackBuilder() {
+    public AttackBuilder(List<BackendRoute> routes, List<String> attackOptions) {
+        super(routes, attackOptions);
         createCenterDisplay(ATTACK);
         setUpSlider();
         myContainer.getChildren().addAll(myAttackSpeedSlider,

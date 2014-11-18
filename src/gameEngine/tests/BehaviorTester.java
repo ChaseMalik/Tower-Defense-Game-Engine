@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public class BehaviorTester {
             }
         };
 
-        BaseActor actor = new BaseActor(movement, null);
+        BaseActor actor = new BaseActor(movement, null,null);
         updateAndCheck(actor, 0, 0);
         actor.update();
         updateAndCheck(actor, -3, 4);
@@ -53,7 +54,7 @@ public class BehaviorTester {
                 put(null, new LinearMovement(myOptions, Math.sqrt(18)));
             }
         };
-        BaseActor actor = new BaseActor((movement), null);
+        BaseActor actor = new BaseActor((movement), null,null);
         actor.update();
         updateAndCheck(actor, 3, 3);
         updateAndCheck(actor, 6, 6);
@@ -67,7 +68,7 @@ public class BehaviorTester {
             }
         };
 
-        BaseActor actor = new BaseActor(movement, null);
+        BaseActor actor = new BaseActor(movement, null,null);
         actor.update();
         actor.update();
         List<BaseActor> clones = new ArrayList<>();

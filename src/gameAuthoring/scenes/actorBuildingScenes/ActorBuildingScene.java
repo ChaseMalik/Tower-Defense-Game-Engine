@@ -4,11 +4,13 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +32,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.DragAndDropFilePane;
 import utilities.ErrorPopup;
+import utilities.XMLParsing.XMLParser;
+import utilities.reflection.Reflection;
 
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
+    private static final String CLASS_ROUTE_TO_BUILDERS = "gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.";
     private static final String FILE_NOT_FOUND_ERROR_MSG = "Image file representing actor could not be found";
     private static final int DRAG_AND_DROP_WIDTH = 560;
-    private static final String ENEMY_IMAGES_DIR = "./src/gameAuthoring/Resources/enemyImages/";
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
     
@@ -44,22 +48,41 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     protected CreatedActorsScrollPane myCreatedActorsScrollPane;
     protected DragAndDropFilePane myDragAndDrop;
     protected TextField myActorNameField;
-    protected Image myImageForEnemyBeingCreated;
+    protected Image myActorImage;
     protected List<BehaviorBuilder> myBehaviorBuilders;
+    private String myActorImageDirectory;
+    private List<BackendRoute> myRoutes;
     
-    public ActorBuildingScene (BorderPane root, String title) {
+    public ActorBuildingScene (BorderPane root, List<BackendRoute> routes, String title, String behaviorXMLFileLocation, String actorImageDirectory) {
         super(root, title);
         myPane = root;
+        myRoutes = routes;
+        myActorImageDirectory = actorImageDirectory;
+        setupBehaviorBuilders(behaviorXMLFileLocation);
         setupFileMenu();
         initializeActorsAndBuildScrollPane();
         createCenterDisplay();  
         setupDragAndDropForActorImage();
     }
 
+    private void setupBehaviorBuilders (String behaviorXMLFileLocation) {
+        myBehaviorBuilders = new ArrayList<BehaviorBuilder>();
+        XMLParser parser = new XMLParser(new File(behaviorXMLFileLocation));
+        List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
+        for(String behaviorType:allBehaviorTypes){
+            List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
+            myBehaviorBuilders.add((BehaviorBuilder) Reflection.createInstance(CLASS_ROUTE_TO_BUILDERS + capitalize(behaviorType) + "Builder", myRoutes, behaviorOptions));
+        }
+    }
+
+    private String capitalize (String behaviorType) {
+        return behaviorType.substring(0, 1).toUpperCase().concat(behaviorType.substring(1));
+    }
+
     private void setupDragAndDropForActorImage () {
         myDragAndDrop = 
                 new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
-                                        ENEMY_IMAGES_DIR);
+                                        myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
         myPane.setRight(myDragAndDrop.getPane());
@@ -83,7 +106,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     
     private void createCenterDisplay() {
         VBox centerOptionsBox = new VBox(25);
-        Label title = new Label("Enemy Behaviors");
+        Label title = new Label(super.getTitle() + " Behaviors.");
         title.getStyleClass().add("behaviorsTitle");
         centerOptionsBox.getChildren().addAll(title, createEnemyNameTextField());
         centerOptionsBox.setPadding(new Insets(10));
@@ -118,7 +141,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void makeNewEnemy (Map<String, IBehavior> iBehaviorMap) {
         myActors.add(new BaseActor(iBehaviorMap,
-                                    myImageForEnemyBeingCreated,
+                                    myActorImage,
                                     myActorNameField.getText()));
     }
 
@@ -136,10 +159,11 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             builder.reset();
         }
+        myActorImage = null;
     }
 
     private boolean fieldsAreValidForEnemyCreation (Map<String, IBehavior> iBehaviorMap) {
-        return myImageForEnemyBeingCreated != null && 
+        return myActorImage != null && 
                 !iBehaviorMap.isEmpty() &&
                 !myActorNameField.getText().isEmpty();
     }
@@ -161,8 +185,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     @Override
     public void update (Observable arg0, Object arg1) {
         try {
-            myImageForEnemyBeingCreated = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, false, true);    
-            ImageView imageView = new ImageView(myImageForEnemyBeingCreated);
+            myActorImage = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, false, true);    
+            ImageView imageView = new ImageView(myActorImage);
             imageView.setScaleX(1.5);
             imageView.setScaleY(1.5);
             imageView.setLayoutX(220);
