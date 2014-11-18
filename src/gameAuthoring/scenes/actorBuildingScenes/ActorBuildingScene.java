@@ -1,15 +1,14 @@
-package gameAuthoring.scenes.enemyBuilding;
-
+package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,52 +29,58 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.DragAndDropFilePane;
+import utilities.ErrorPopup;
 
-public class EnemyBuildingScene extends BuildingScene implements Observer {
+public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
+    private static final String FILE_NOT_FOUND_ERROR_MSG = "Image file representing actor could not be found";
     private static final int DRAG_AND_DROP_WIDTH = 560;
     private static final String ENEMY_IMAGES_DIR = "./src/gameAuthoring/Resources/enemyImages/";
-    public static final int ENEMY_IMG_HEIGHT = 150;
-    public static final int ENEMY_IMG_WIDTH = 150;
-
-    private static final String TITLE = "Enemy Building";
-
-    private BorderPane myPane;
-    private Image myImageForEnemyBeingCreated;
-    private ObservableList<BaseActor> myEnemies;
-    private List<BehaviorBuilder> myBehaviorBuilders;
-    private EnemiesScrollPane myEnemiesScrollPane;
-    private DragAndDropFilePane myDragAndDrop;
-    private TextField myEnemyNameField;
-
-    public EnemyBuildingScene (BorderPane root, List<BackendRoute> enemyRoutes) {
-        super(root, TITLE);
+    public static final int ACTOR_IMG_HEIGHT = 150;
+    public static final int ACTOR_IMG_WIDTH = 150;
+    
+    protected BorderPane myPane;
+    protected ObservableList<BaseActor> myActors;
+    protected CreatedActorsScrollPane myCreatedActorsScrollPane;
+    protected DragAndDropFilePane myDragAndDrop;
+    protected TextField myActorNameField;
+    protected Image myImageForEnemyBeingCreated;
+    protected List<BehaviorBuilder> myBehaviorBuilders;
+    
+    public ActorBuildingScene (BorderPane root, String title) {
+        super(root, title);
         myPane = root;
+        setupFileMenu();
+        initializeActorsAndBuildScrollPane();
+        createCenterDisplay();  
+        setupDragAndDropForActorImage();
+    }
+
+    private void setupDragAndDropForActorImage () {
+        myDragAndDrop = 
+                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
+                                        ENEMY_IMAGES_DIR);
+        myDragAndDrop.addObserver(this);
+        myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
+        myPane.setRight(myDragAndDrop.getPane());
+    }
+
+    private void initializeActorsAndBuildScrollPane () {
+        myActors = FXCollections.observableArrayList();
+        myCreatedActorsScrollPane = new CreatedActorsScrollPane(myActors);
+        myPane.setLeft(myCreatedActorsScrollPane);
+    }
+
+    private void setupFileMenu () {
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu("File");
         MenuItem finishedBuildingItem = new MenuItem("Finished");
-        finishedBuildingItem.setOnAction(event->finishBuildingEnemies());
+        finishedBuildingItem.setOnAction(event->finishBuildingActors());
         menu.getItems().add(finishedBuildingItem);
         menuBar.getMenus().add(menu);
         myPane.setTop(menuBar);
-        
-        
-       
-        
-        myEnemies = FXCollections.observableArrayList();
-        myEnemiesScrollPane = new EnemiesScrollPane(myEnemies);
-        myPane.setLeft(myEnemiesScrollPane);
-        myBehaviorBuilders = new ArrayList<BehaviorBuilder>();
-        myBehaviorBuilders.add(new MovementBuilder(enemyRoutes));
-        myBehaviorBuilders.add(new AttackBuilder());
-        createCenterDisplay();
     }
-
-    private void finishBuildingEnemies () {
-        this.setChanged();
-        this.notifyObservers(myEnemies);
-    }
-
+    
     private void createCenterDisplay() {
         VBox centerOptionsBox = new VBox(25);
         Label title = new Label("Enemy Behaviors");
@@ -85,28 +90,22 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
         for(BehaviorBuilder builder:myBehaviorBuilders){
             centerOptionsBox.getChildren().add(builder.getContainer());
         }
-        centerOptionsBox.getChildren().add(createSaveButton());	
+        centerOptionsBox.getChildren().add(createSaveButton()); 
         myPane.setCenter(centerOptionsBox);
-        myDragAndDrop = 
-                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
-                                        ENEMY_IMAGES_DIR);
-        myDragAndDrop.addObserver(this);
-        myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
-        myPane.setRight(myDragAndDrop.getPane());
     }
 
     private VBox createEnemyNameTextField () {
         VBox box = new VBox(5);
         Label label = new Label("Enemy Name");
-        myEnemyNameField = new TextField();
-        box.getChildren().addAll(label, myEnemyNameField);
+        myActorNameField = new TextField();
+        box.getChildren().addAll(label, myActorNameField);
         return box;
     }
 
     private Button createSaveButton(){
         Button saveButton = new Button("Save");
         saveButton.setOnAction(event->handleSaveButtonClicked());
-        return saveButton;		
+        return saveButton;              
     }
 
     private void handleSaveButtonClicked () {
@@ -118,20 +117,20 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
     }
 
     private void makeNewEnemy (Map<String, IBehavior> iBehaviorMap) {
-        myEnemies.add(new BaseActor(iBehaviorMap,
+        myActors.add(new BaseActor(iBehaviorMap,
                                     myImageForEnemyBeingCreated,
-                                    myEnemyNameField.getText()));
+                                    myActorNameField.getText()));
     }
 
     private boolean enemyNameIsUnique () {
-        return myEnemies
+        return myActors
                 .stream()
-                .filter(enemy -> enemy.toString().equalsIgnoreCase(myEnemyNameField.getText()))
+                .filter(enemy -> enemy.toString().equalsIgnoreCase(myActorNameField.getText()))
                 .count() == 0;
     }
     
     private void clearFields() {
-        myEnemyNameField.clear();
+        myActorNameField.clear();
         myPane.getChildren().remove(myPane.getRight());
         myPane.setRight(myDragAndDrop.getPane());
         for(BehaviorBuilder builder:myBehaviorBuilders) {
@@ -142,7 +141,7 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
     private boolean fieldsAreValidForEnemyCreation (Map<String, IBehavior> iBehaviorMap) {
         return myImageForEnemyBeingCreated != null && 
                 !iBehaviorMap.isEmpty() &&
-                !myEnemyNameField.getText().isEmpty();
+                !myActorNameField.getText().isEmpty();
     }
 
     private Map<String, IBehavior> buildIBehaviorMap () {
@@ -154,25 +153,30 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
         return iBehaviorMap;
     }
 
+    public void finishBuildingActors(){
+        this.setChanged();
+        this.notifyObservers(myActors);
+    }
+    
     @Override
     public void update (Observable arg0, Object arg1) {
         try {
-            myImageForEnemyBeingCreated = new Image(new FileInputStream((File) arg1), ENEMY_IMG_WIDTH, ENEMY_IMG_HEIGHT, false, true);    
+            myImageForEnemyBeingCreated = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, false, true);    
             ImageView imageView = new ImageView(myImageForEnemyBeingCreated);
             imageView.setScaleX(1.5);
             imageView.setScaleY(1.5);
             imageView.setLayoutX(220);
             imageView.setLayoutY(220);
             Pane rightPane = new Pane();
-            rightPane.setPrefWidth(560);
+            rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
             rightPane.getChildren().add(imageView);
             rightPane.setStyle("-fx-background-color: white;");
             myPane.getChildren().remove(myDragAndDrop);
             myPane.setRight(rightPane);
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            new ErrorPopup(FILE_NOT_FOUND_ERROR_MSG);
         } 
     }
+
 }

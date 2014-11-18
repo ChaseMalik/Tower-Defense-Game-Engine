@@ -8,8 +8,7 @@
 
 }
 
-.removeEnemyLabel {
+.removeActorLabel {
 	-fx-text-fill: red;
 	-fx-font-size: 22px;
-
 }

@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.enemyBuilding;
+package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.behaviors.IBehavior;

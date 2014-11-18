@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.enemyBuilding;
+package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import java.io.File;
 import javafx.scene.control.ComboBox;

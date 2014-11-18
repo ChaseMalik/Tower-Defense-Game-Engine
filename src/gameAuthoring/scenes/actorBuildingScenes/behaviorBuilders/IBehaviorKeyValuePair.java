@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.enemyBuilding;
+package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import gameEngine.actors.behaviors.IBehavior;
 

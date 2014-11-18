@@ -1,4 +1,4 @@
-package gameAuthoring.scenes.enemyBuilding;
+package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameEngine.actors.BaseActor;
@@ -13,17 +13,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-public class EnemiesScrollPane extends ScrollPane {
+public class CreatedActorsScrollPane extends ScrollPane {
     
-    private ObservableList<BaseActor> myEnemies;
-    private ListView<BaseActor> myEnemiesListView;
+    private ObservableList<BaseActor> myActors;
+    private ListView<BaseActor> myActorsListView;
     
-    public EnemiesScrollPane(List<BaseActor> enemies) {
-        myEnemies = (ObservableList<BaseActor>) enemies;
-        myEnemiesListView = new ListView<BaseActor>();
-        myEnemiesListView.setItems(myEnemies);
-        myEnemiesListView.setPrefSize(EnemyBuildingScene.ENEMY_IMG_WIDTH + 15, AuthorController.SCREEN_HEIGHT - 7);
-        myEnemiesListView.setCellFactory(new Callback<ListView<BaseActor>, 
+    public CreatedActorsScrollPane(List<BaseActor> actors) {
+        myActors = (ObservableList<BaseActor>) actors;
+        myActorsListView = new ListView<BaseActor>();
+        myActorsListView.setItems(myActors);
+        myActorsListView.setPrefSize(ActorBuildingScene.ACTOR_IMG_WIDTH + 15, AuthorController.SCREEN_HEIGHT - 7);
+        myActorsListView.setCellFactory(new Callback<ListView<BaseActor>, 
                             ListCell<BaseActor>>() {
                                 @Override 
                                 public ListCell<BaseActor> call(ListView<BaseActor> list) {
@@ -31,7 +31,7 @@ public class EnemiesScrollPane extends ScrollPane {
                                 }
                             }
                         );
-        this.setContent(myEnemiesListView);
+        this.setContent(myActorsListView);
     }
     
     private class EnemyCell extends ListCell<BaseActor> {
@@ -39,17 +39,16 @@ public class EnemiesScrollPane extends ScrollPane {
         public void updateItem(BaseActor item, boolean empty) {
             super.updateItem(item, empty);
             if(item != null) {
-                VBox enemyContainer = new VBox(5);
-                enemyContainer.setAlignment(Pos.CENTER);
+                VBox actorCellContainer = new VBox(5);
+                actorCellContainer.setAlignment(Pos.CENTER);
                 Label removeLabel = new Label("X");
-                removeLabel.getStyleClass().add("removeEnemyLabel");
-                removeLabel.setOnMouseClicked(event->myEnemies.remove(item));
+                removeLabel.getStyleClass().add("removeActorLabel");
+                removeLabel.setOnMouseClicked(event->myActors.remove(item));
                 Label enemyNameLabel = new Label(item.toString());
-                enemyContainer.getChildren().addAll(removeLabel,
+                actorCellContainer.getChildren().addAll(removeLabel,
                                                     new ImageView(item.getImage()), 
                                                     enemyNameLabel);                
-                setGraphic(enemyContainer);
-                
+                setGraphic(actorCellContainer);
             }
         }
     }
