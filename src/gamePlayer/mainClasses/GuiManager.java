@@ -1,5 +1,7 @@
 package gamePlayer.mainClasses;
 
+import gameEngine.GameManager;
+import gameEngine.MainGameManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.HUD.GameStats;
@@ -9,6 +11,7 @@ import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.SelectTowerListener;
 import gamePlayer.guiItemsListeners.StoreListener;
+import gamePlayer.guiItemsListeners.TowerPlaceListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
@@ -31,18 +34,21 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-		StoreListener, GoButtonListener, HealthListener
+		StoreListener, GoButtonListener, HealthListener, TowerPlaceListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
-	private DummyGameManager myGameManager;
 	private Stage myStage;
 	private SelectTowerListener mySelectTowerListener;
 	private Stats myStatsBoard;
 	private Group myRoot;
+	private Group myEngineGroup;
+	
+	private MainGameManager myGameManager;
 
 	public GuiManager(Stage stage, DummyGameManager manager) {
-		myGameManager = manager;
+		myEngineGroup = new Group();
+		//myGameManager = new MainGameManager(this, myEngineGroup);
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
@@ -58,7 +64,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void saveGame() {
-		System.out.println("Save game");
+		myGameManager.saveState("sampleFileName"+Math.random()*1000);
 	}
 
 	@Override
@@ -93,22 +99,22 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void pause() {
-		System.out.println("Paused");
+		myGameManager.pause();
 	}
 
 	@Override
 	public void play() {
-		System.out.println("Playing");
+		myGameManager.resume();
 	}
 
 	@Override
 	public void fastforward() {
-		System.out.println("Fast-forwarding");
+		//myGameManager.speedUp();
 	}
 
 	@Override
 	public void bindHealth(DoubleProperty healthRemaining) {
-		//Binding goes here
+		//myGameManager.getHealthProperty();
 	}
 
 	@Override
@@ -118,5 +124,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			myStage.getScene().getStylesheets().clear();
 			myStage.getScene().getStylesheets().add("file:"+file.getAbsolutePath());
 		}
+	}
+
+	@Override
+	public void placeTower(double x, double y, String towerName) {
+		//myGameManager.makeTower(x, y, towerName);
+		System.out.println(x + " " + y);
 	}
 }

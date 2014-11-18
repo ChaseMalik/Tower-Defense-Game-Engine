@@ -4,6 +4,8 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.ProjectileInfo;
+import java.util.Arrays;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -29,13 +31,18 @@ public class SingleAttack extends BaseAttackBehavior{
         for(Node n: enemies.getChildren()){
             if(range.intersects(n.getBoundsInLocal()) && myCooldown==0){
                 BackendRoute route=new BackendRoute(new Point2D(actor.getX(), actor.getY()), new Point2D(((ImageView) n).getX(),((ImageView) n).getY())); 
-                LinearMovement move=new LinearMovement(route, myBullet.getMySpeed()); 
-                projectiles.getChildren().add(new BaseProjectile(myBullet, move));
-                myCooldown=myAttSpeed;
+                List<BackendRoute> list = Arrays.asList(route);
+                LinearMovement move=new LinearMovement(list, myProjectileInfo.getMySpeed()); 
+                projectiles.getChildren().add(new BaseProjectile(myProjectileInfo, move));
+                myCooldown=myAttackSpeed;
                 return;
             }
-        }
-         
+        }       
+    }
+
+    @Override
+    public IBehavior copy () {
+        return new SingleAttack(myAttackSpeed,myRange,myProjectileInfo);
     }
 
 }

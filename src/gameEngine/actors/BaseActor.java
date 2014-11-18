@@ -1,34 +1,58 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 
 /**
  * @author $cotty $haw
  *
  */
 public class BaseActor extends ImageView {
-    
-    protected List<IBehavior> myBehaviors;
-    
-    public BaseActor(){
-        
+    protected Map<String,IBehavior> myBehaviors;
+    protected String myName;
+
+    public BaseActor () {
+
     }
-    public BaseActor (List<IBehavior> behaviors, Image image) {
-        myBehaviors=behaviors;
+
+    public BaseActor (Map<String,IBehavior> behaviors, Image image, String name) {
+        myName = name;
+        myBehaviors = behaviors;
         this.setImage(image);
+        this.setVisible(false);
     }
-    
+
     /**
      * Updates the actor
      */
-    public void update (){
-        for(IBehavior behavior: myBehaviors){
-            behavior.execute(this);
+    public void update () {
+        for(String s: myBehaviors.keySet()){
+            myBehaviors.get(s).execute(this);
         }
-        
+
+    }
+
+    public BaseActor copy () {
+        Map<String, IBehavior> clonedBehaviors = new HashMap<>();
+        for (String s: myBehaviors.keySet()) {
+            clonedBehaviors.put(s, myBehaviors.get(s).copy());
+        }
+        return new BaseActor(clonedBehaviors, this.getImage(), myName);
     }
     
+    public IBehavior getBehavior(String s){
+        return myBehaviors.get(s);
+    }
+    
+    @Override
+    public String toString(){
+        return myName;
+    }
+
 }

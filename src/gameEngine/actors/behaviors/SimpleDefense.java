@@ -35,4 +35,9 @@ public class SimpleDefense extends BaseDefendBehavior{
         }
     }
 
+    @Override
+    public IBehavior copy () {
+        return new SimpleDefense(myHealth, myHarmfulBullets);
+    }
+
 }

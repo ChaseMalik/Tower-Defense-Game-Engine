@@ -1,5 +1,7 @@
 package gameEngine;
 
+import gameEngine.levels.BaseLevel;
+
 public interface GameManager {
     /**
      * @author $cotty $haw
@@ -35,8 +37,10 @@ public interface GameManager {
     /**
      * Plays or resumes the game
      */
-    public void play ();
+    public void start ();
 
+    public void loadLevel(BaseLevel level);
+    
     /**
      * Quits the game
      */

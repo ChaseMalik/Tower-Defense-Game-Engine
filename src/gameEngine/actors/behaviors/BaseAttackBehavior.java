@@ -7,13 +7,26 @@ import gameEngine.actors.ProjectileInfo;
  *
  */
 public abstract class BaseAttackBehavior implements IBehavior {
-    protected int myAttSpeed;
+    protected int myAttackSpeed;
     protected double myRange;
     protected int myCooldown;
-    protected ProjectileInfo myBullet;
+    protected ProjectileInfo myProjectileInfo;
+    
     public BaseAttackBehavior(int attackSpeed, double range, ProjectileInfo projectile){
-        myAttSpeed=attackSpeed;
+        myAttackSpeed=attackSpeed;
         myRange=range;
-        myBullet=projectile;
+        myProjectileInfo=projectile;
+    }
+    
+    public int getAttackSpeed(){
+        return myAttackSpeed;
+    }
+    
+    public double getRange(){
+        return myRange;
+    }
+    
+    public ProjectileInfo getProjectileInfo(){
+        return myProjectileInfo;
     }
 }

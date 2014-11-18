@@ -1,8 +1,6 @@
-package gameAuthoring.scenes.enemyBuilding;
+package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
-import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
-import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -22,12 +20,12 @@ public abstract class BehaviorBuilder {
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
     
-    public abstract IBehavior buildBehavior();
+    public abstract IBehaviorKeyValuePair buildBehavior();
     
     public void createCenterDisplay(String title) {
         myContainer = new VBox();
-        myContainer.setPadding(new Insets(10, 10, 10, 20));
         myContainer.setSpacing(20); 
+        myContainer.setPrefWidth(COMBO_BOX_WIDTH);
         Label label = new Label(title);
         myComboBox = createComboBox(title);
         myContainer.getChildren().addAll(label, myComboBox);
@@ -36,7 +34,7 @@ public abstract class BehaviorBuilder {
     protected void setSliderProperties (Slider slider) {
         slider.setMin(SLIDER_MIN);
         slider.setMax(SLIDER_MAX);
-        slider.setValue(SLIDER_START);
+        slider.setValue(SLIDER_MIN);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setMajorTickUnit(SLIDER_TICK_UNIT);
@@ -53,5 +51,9 @@ public abstract class BehaviorBuilder {
 
     public VBox getContainer () {
         return myContainer;
+    }
+
+    public void reset () {
+        myComboBox.setValue(null);
     }
 }
