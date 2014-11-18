@@ -52,7 +52,7 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
     }
 
     private boolean isNoAttackSelected () {
-        return myComboBox.getValue().equals("No attack");
+        return "No attack".equalsIgnoreCase(myComboBox.getValue());
     }
 
     private void setUpSlider () {

@@ -12,6 +12,7 @@ import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
+import gameEngine.actors.BaseActor;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -51,7 +52,6 @@ public class AuthorController extends Application implements Observer {
     private void buildScenes () {
         myPathBuildingScene = new PathBuildingScene(new BorderPane());
         myPathBuildingScene.addObserver(this);
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane());
         myLevelBuildingScene = new LevelBuildingScene(new BorderPane());
     }
 
@@ -61,10 +61,12 @@ public class AuthorController extends Application implements Observer {
 
     public void showEnemyBuildingScene() {
         myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), myBackendRoutesRepresentation);
+        myEnemyBuildingScene.addObserver(this);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
-    public void showTowerBuildingScene() {
+    public void showTowerBuildingScene(List<BaseActor> enemies) {
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), enemies);
         setSceneAndTitle(myTowerBuildingScene);
     }
 
@@ -82,6 +84,10 @@ public class AuthorController extends Application implements Observer {
         if(ob.equals(myPathBuildingScene)){
             myBackendRoutesRepresentation = BackendRoutesGenerator.getBackendRoutes((Path) value);
             showEnemyBuildingScene();
-        }      
+        }
+        else if(ob.equals(myEnemyBuildingScene)) {           
+            showTowerBuildingScene((List<BaseActor>) value);
+        }
+        
     }
 }

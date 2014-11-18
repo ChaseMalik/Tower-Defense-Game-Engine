@@ -20,6 +20,9 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,6 +33,7 @@ import utilities.DragAndDropFilePane;
 
 public class EnemyBuildingScene extends BuildingScene implements Observer {
 
+    private static final int DRAG_AND_DROP_WIDTH = 560;
     private static final String ENEMY_IMAGES_DIR = "./src/gameAuthoring/Resources/enemyImages/";
     public static final int ENEMY_IMG_HEIGHT = 150;
     public static final int ENEMY_IMG_WIDTH = 150;
@@ -47,6 +51,17 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
     public EnemyBuildingScene (BorderPane root, List<BackendRoute> enemyRoutes) {
         super(root, TITLE);
         myPane = root;
+        MenuBar menuBar = new MenuBar();
+        Menu menu = new Menu("File");
+        MenuItem finishedBuildingItem = new MenuItem("Finished");
+        finishedBuildingItem.setOnAction(event->finishBuildingEnemies());
+        menu.getItems().add(finishedBuildingItem);
+        menuBar.getMenus().add(menu);
+        myPane.setTop(menuBar);
+        
+        
+       
+        
         myEnemies = FXCollections.observableArrayList();
         myEnemiesScrollPane = new EnemiesScrollPane(myEnemies);
         myPane.setLeft(myEnemiesScrollPane);
@@ -54,6 +69,11 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
         myBehaviorBuilders.add(new MovementBuilder(enemyRoutes));
         myBehaviorBuilders.add(new AttackBuilder());
         createCenterDisplay();
+    }
+
+    private void finishBuildingEnemies () {
+        this.setChanged();
+        this.notifyObservers(myEnemies);
     }
 
     private void createCenterDisplay() {
@@ -68,7 +88,7 @@ public class EnemyBuildingScene extends BuildingScene implements Observer {
         centerOptionsBox.getChildren().add(createSaveButton());	
         myPane.setCenter(centerOptionsBox);
         myDragAndDrop = 
-                new DragAndDropFilePane(560, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
+                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
                                         ENEMY_IMAGES_DIR);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
