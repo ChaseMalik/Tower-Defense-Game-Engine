@@ -26,7 +26,7 @@ public class AuthorController extends Application implements Observer {
     private TowerBuildingScene myTowerBuildingScene;
     private PathBuildingScene myPathBuildingScene;
     private LevelBuildingScene myLevelBuildingScene;
-    private List<BackendRoute> myBackendRoutesRepresentation;
+    private List<BackendRoute> myBackendRoutes;
 
     private Stage myStage;
 
@@ -39,7 +39,7 @@ public class AuthorController extends Application implements Observer {
 //        showPathBuildingScene();
         List<BackendRoute> routes = new ArrayList<BackendRoute>();
         routes.add(new BackendRoute());
-        myBackendRoutesRepresentation = routes;
+        myBackendRoutes = routes;
         showEnemyBuildingScene();
         configureAndDisplayStage();
     }
@@ -60,13 +60,13 @@ public class AuthorController extends Application implements Observer {
     }
 
     public void showEnemyBuildingScene() {
-        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), myBackendRoutesRepresentation);
+        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), myBackendRoutes);
         myEnemyBuildingScene.addObserver(this);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
     public void showTowerBuildingScene(List<BaseActor> enemies) {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), enemies);
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), enemies, myBackendRoutes);
         setSceneAndTitle(myTowerBuildingScene);
     }
 
@@ -76,13 +76,13 @@ public class AuthorController extends Application implements Observer {
 
     private void setSceneAndTitle(BuildingScene scene) {
         myStage.setScene(scene.getScene());
-        myStage.setTitle(scene.getTitle());
+        myStage.setTitle(scene.getTitle().concat(" Building"));
     }
 
     @Override
     public void update (Observable ob, Object value) {
         if(ob.equals(myPathBuildingScene)){
-            myBackendRoutesRepresentation = BackendRoutesGenerator.getBackendRoutes((Path) value);
+            myBackendRoutes = BackendRoutesGenerator.getBackendRoutes((Path) value);
             showEnemyBuildingScene();
         }
         else if(ob.equals(myEnemyBuildingScene)) {           

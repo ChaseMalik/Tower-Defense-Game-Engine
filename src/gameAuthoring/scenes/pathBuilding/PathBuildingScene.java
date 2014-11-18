@@ -31,7 +31,7 @@ import utilities.ErrorPopup;
 public class PathBuildingScene extends BuildingScene implements Observer {
 
     public static final int BUILDING_OPTIONS_PADDING = 10;
-    private static final String TITLE = "Path Building";
+    private static final String TITLE = "Path";
     public static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = 
             1 - BuildingPane.DRAW_SCREEN_WIDTH_RATIO - DefaultMapSelectionPane.SCREEN_WIDTH_RATIO;
     public static final double PATH_BUILDING_OPTIONS_WIDTH = 

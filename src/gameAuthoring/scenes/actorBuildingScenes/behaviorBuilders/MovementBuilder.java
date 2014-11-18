@@ -11,10 +11,9 @@ public class MovementBuilder extends BehaviorBuilder {
     private static final String MOVEMENT = "movement";
     
     private Slider mySpeedSlider;
-    private List<BackendRoute> myRoutes;
 
-    public MovementBuilder(List<BackendRoute> routes) {
-        myRoutes = routes;
+    public MovementBuilder(List<BackendRoute> routes, List<String> movementOptions) {
+        super(routes, movementOptions);
         createCenterDisplay(MOVEMENT);
         setUpSlider();
         myContainer.getChildren().addAll(mySpeedSlider);
