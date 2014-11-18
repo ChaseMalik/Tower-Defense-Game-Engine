@@ -2,6 +2,7 @@ package gameAuthoring.scenes.enemyBuilding;
 
 import gameEngine.actors.ProjectileInfo;
 import gameEngine.actors.behaviors.IBehavior;
+import gameEngine.actors.behaviors.NullBehavior;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,15 +29,15 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
                                          myRangeSlider);
         myComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
-              handleSelection();
+                handleSelection();
             }    
         });
-//        DragAndDropFilePane dragAndDrop = 
-//                new DragAndDropFilePane(200, 300, new String[]{".jpg", ".jpeg", ".png"}, 
-//                        "./src/gameAuthoring/Resources/enemyImages/");
-//        dragAndDrop.addObserver(this);
-//        dragAndDrop.getPane().getStyleClass().add("dragAndDrop");
-//        myContainer.getChildren().add(dragAndDrop.getPane());
+        //        DragAndDropFilePane dragAndDrop = 
+        //                new DragAndDropFilePane(200, 300, new String[]{".jpg", ".jpeg", ".png"}, 
+        //                        "./src/gameAuthoring/Resources/enemyImages/");
+        //        dragAndDrop.addObserver(this);
+        //        dragAndDrop.getPane().getStyleClass().add("dragAndDrop");
+        //        myContainer.getChildren().add(dragAndDrop.getPane());
     }
 
     private void handleSelection () {
@@ -62,16 +63,18 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
     }
 
     @Override
-    public IBehavior buildBehavior () {
+    public IBehaviorKeyValuePair buildBehavior () {
         if(isNoAttackSelected()) {
-            return null;
+            return new IBehaviorKeyValuePair(ATTACK, new NullBehavior());
         }
         String typeOfAttack = myComboBox.getValue();
         int speed = (int) myAttackSpeedSlider.getValue();
         double range = myRangeSlider.getValue();
         String className = "gameEngine.actors.behaviors." + typeOfAttack;
-        return (IBehavior) Reflection.createInstance(className, speed, range, new ProjectileInfo(10, 10, null));   
-    }
+        return new IBehaviorKeyValuePair(ATTACK, 
+                (IBehavior) Reflection.createInstance(className, speed, range, 
+                                                      new ProjectileInfo(10, 10, null)));
+       }
 
     @Override
     public void update (Observable arg0, Object arg1) {
@@ -82,5 +85,12 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
+    }
+    
+    @Override
+    public void reset() {
+        super.reset();
+        setSliderProperties(myAttackSpeedSlider);
+        setSliderProperties(myRangeSlider);
     }
 }

@@ -1,12 +1,11 @@
 package gameEngine.actors.behaviors;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.ProjectileInfo;
+import java.util.Arrays;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -38,8 +37,7 @@ public class SingleAttack extends BaseAttackBehavior{
                 myCooldown=myAttackSpeed;
                 return;
             }
-        }
-         
+        }       
     }
 
     @Override

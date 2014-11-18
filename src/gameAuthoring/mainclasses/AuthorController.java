@@ -1,5 +1,6 @@
 package gameAuthoring.mainclasses;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -34,8 +35,11 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        showPathBuildingScene();
-//        showEnemyBuildingScene();
+//        showPathBuildingScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutesRepresentation = routes;
+        showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
