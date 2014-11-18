@@ -25,8 +25,9 @@ import utilities.XMLParsing.XMLParser;
  */
 public class UpgradeStore implements GuiItem {
 	
-	private String myTowerID;
-	private XMLParser myParser;
+	private int[] upgradeLevel = new int[]{3,2}; //For testing purposes
+	private String myTowerID, myIconPath;
+	private XMLParser myStoreParser, myUpgrade1Parser, myUpgrade2Parser;
 	private ResourceBundle myTowerResources;
 	
 	private VBox root, myButtons;
@@ -46,15 +47,19 @@ public class UpgradeStore implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
+        myStoreParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
+        myUpgrade1Parser = new XMLParser(new File("./src/spriteResources/upgradeStreams/"+myTowerID+"Upgrade1Stream.XML"));
+        myUpgrade2Parser = new XMLParser(new File("./src/spriteResources/upgradeStreams/"+myTowerID+"Upgrade2Stream.XML"));
         
 		root = new VBox();
 		root.setMinWidth(containerSize.getWidth());
 		root.setMinHeight(containerSize.getHeight());
 		root.alignmentProperty().setValue(Pos.TOP_CENTER);
 		root.getStyleClass().add("store-pane");
+		root.setSpacing(myStoreParser.getDoubleValuesFromTag("VPadding").get(0));
+
 		
-		List<Double> heightRatios = myParser.getDoubleValuesFromTag("HeightRatios");
+		List<Double> heightRatios = myStoreParser.getDoubleValuesFromTag("HeightRatios");
 		buildHeader(containerSize.getWidth(), heightRatios.get(0)*containerSize.getHeight());
 		buildIcon(containerSize.getWidth(), heightRatios.get(1)*containerSize.getHeight());
 		buildButtons(containerSize.getWidth(), heightRatios.get(2)*containerSize.getHeight());
@@ -64,18 +69,34 @@ public class UpgradeStore implements GuiItem {
 
 	private void buildButtons(double width, double height) {
 		myButtons = new VBox();
+		myButtons.setAlignment(Pos.CENTER);
+		myButtons.setSpacing(myStoreParser.getDoubleValuesFromTag("VPadding").get(0)/2.);
+		
 		Button sellButton = new Button("Sell");
+		sellButton.setId("sell-button");
+		
 		String upgrade1Name = (String)myTowerResources.getObject("Upgrade_1");
 		String upgrade2Name = (String)myTowerResources.getObject("Upgrade_2");
+		
 		Button upgrade1Button = new Button(upgrade1Name);
+		upgrade1Button.setId(myUpgrade1Parser.getValuesFromTag("ButtonTheme").get(0)+"-button");
+		
 		Button upgrade2Button = new Button(upgrade2Name);
+		upgrade2Button.setId(myUpgrade2Parser.getValuesFromTag("ButtonTheme").get(0)+"-button");
+		
 		myButtons.getChildren().addAll(sellButton, upgrade1Button, upgrade2Button);
 	}
 
 	private void buildIcon(double width, double height) {
 		myIcon = new ImageView();
-		String imagePath = (String)myTowerResources.getObject("Tower_Image");
-		myIcon.setImage(new Image("file:"+imagePath,
+		
+		StringBuilder iconPath = new StringBuilder(myUpgrade1Parser.getValuesFromTag("ImagePaths").get(upgradeLevel[0]-1));
+		iconPath.append(upgradeLevel[1]);
+		iconPath.append(".png");
+		myIconPath = iconPath.toString();
+		System.out.println(myIconPath);
+		
+		myIcon.setImage(new Image(myIconPath,
 				0, height, true, false));
 		
 	}
@@ -85,6 +106,7 @@ public class UpgradeStore implements GuiItem {
 		myHeader.setText((String)myTowerResources.getObject("Name"));
 		myHeader.setMinHeight(height);
 		myHeader.setMinWidth(width);
+		myHeader.setAlignment(Pos.CENTER);
 	}
 
 	@Override

@@ -7,9 +7,9 @@
 		<element>3X Damage</element>
 	</UpgradeNames>
 
- 	<ButtonColor>
-		<element>Green</element>
-	</ButtonColor>
+ 	<ButtonTheme>
+		<element>damage</element>
+	</ButtonTheme>
 	
     <UpgradeCosts>
 		 <element>300</element>
@@ -22,9 +22,9 @@
     </LevelRequirements>
     
     <ImagePaths>
-    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_1_*</element> <!-- Default -->
-    	<element>spriteResources.upgradeStreams.upgradeImages.Turret_2_*</element>
-	    <element>spriteResources.upgradeStreams.upgradeImages.Turret_3_*</element>
+    	<element>gamePlayer/turretImages/Turret_1_</element> <!-- Default -->
+    	<element>gamePlayer/turretImages/Turret_2_</element>
+	    <element>gamePlayer/turretImages/Turret_3_</element>
     </ImagePaths>
 
 </TurretUpgrade1Stream>

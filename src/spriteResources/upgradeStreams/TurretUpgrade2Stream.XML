@@ -6,9 +6,9 @@
 		<element>2X Range</element>
 	</UpgradeNames>
 
- 	<ButtonColor>
-		<element>Blue</element>
-	</ButtonColor>
+ 	<ButtonTheme>
+		<element>range</element>
+	</ButtonTheme>
 	
     <UpgradeCosts>
 		 <element>300</element>
