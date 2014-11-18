@@ -3,7 +3,7 @@ package gameEngine.actors.behaviors;
 import gameEngine.actors.ProjectileInfo;
 
 /**
- * @author $cotty $haw
+ * @author Chase Malik, Timesh Patel
  *
  */
 public abstract class BaseAttackBehavior implements IBehavior {
@@ -24,6 +24,14 @@ public abstract class BaseAttackBehavior implements IBehavior {
     
     public double getRange(){
         return myRange;
+    }
+    
+    public void setAttackSpeed(int attack){
+        myAttackSpeed = attack;
+    }
+    
+    public void setRange(double range){
+        myRange = range;
     }
     
     public ProjectileInfo getProjectileInfo(){
