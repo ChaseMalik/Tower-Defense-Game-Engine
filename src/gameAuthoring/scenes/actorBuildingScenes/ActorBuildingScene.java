@@ -2,6 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedActorsDisplay;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -45,7 +46,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     
     protected BorderPane myPane;
     protected ObservableList<BaseActor> myActors;
-    protected CreatedActorsScrollPane myCreatedActorsScrollPane;
+    protected CreatedActorsDisplay myCreatedActorDisplay;
     protected DragAndDropFilePane myDragAndDrop;
     protected TextField myActorNameField;
     protected Image myActorImage;
@@ -53,14 +54,15 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     private String myActorImageDirectory;
     private List<BackendRoute> myRoutes;
     
-    public ActorBuildingScene (BorderPane root, List<BackendRoute> routes, String title, String behaviorXMLFileLocation, String actorImageDirectory) {
+    public ActorBuildingScene (BorderPane root, List<BackendRoute> routes, String title, 
+                               String behaviorXMLFileLocation, String actorImageDirectory) {
         super(root, title);
         myPane = root;
         myRoutes = routes;
         myActorImageDirectory = actorImageDirectory;
         setupBehaviorBuilders(behaviorXMLFileLocation);
         setupFileMenu();
-        initializeActorsAndBuildScrollPane();
+        initializeActorsAndBuildActorDisplay();
         createCenterDisplay();  
         setupDragAndDropForActorImage();
     }
@@ -88,10 +90,10 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myPane.setRight(myDragAndDrop.getPane());
     }
 
-    private void initializeActorsAndBuildScrollPane () {
+    private void initializeActorsAndBuildActorDisplay () {
         myActors = FXCollections.observableArrayList();
-        myCreatedActorsScrollPane = new CreatedActorsScrollPane(myActors);
-        myPane.setLeft(myCreatedActorsScrollPane);
+        myCreatedActorDisplay = new CreatedActorsDisplay(myActors);
+        myPane.setLeft(myCreatedActorDisplay);
     }
 
     private void setupFileMenu () {
@@ -143,6 +145,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myActors.add(new BaseActor(iBehaviorMap,
                                     myActorImage,
                                     myActorNameField.getText()));
+        System.out.println(myActors.size());
     }
 
     private boolean enemyNameIsUnique () {
@@ -177,7 +180,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         return iBehaviorMap;
     }
 
-    public void finishBuildingActors(){
+    public void finishBuildingActors() {
         this.setChanged();
         this.notifyObservers(myActors);
     }
@@ -185,7 +188,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     @Override
     public void update (Observable arg0, Object arg1) {
         try {
-            myActorImage = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, false, true);    
+            myActorImage = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, true, false);    
             ImageView imageView = new ImageView(myActorImage);
             imageView.setScaleX(1.5);
             imageView.setScaleY(1.5);
