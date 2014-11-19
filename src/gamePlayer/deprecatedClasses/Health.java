@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.HUD;
+package gamePlayer.deprecatedClasses;
 
 import java.io.File;
 

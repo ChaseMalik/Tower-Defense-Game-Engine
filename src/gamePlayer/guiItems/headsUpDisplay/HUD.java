@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.HUD;
+package gamePlayer.guiItems.headsUpDisplay;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -14,11 +14,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import utilities.XMLParsing.XMLParser;
 
 /**
- * This GuiItem initializes and manages the game statistics board
+ * This GuiItem initializes and manages the game statistics board (heads-up-display)
  * @author allankiplagat
  *
  */
-public class Stats implements GuiItem {
+public class HUD implements GuiItem {
     private XMLParser myParser;
     private TableView<GameStats> myTableView;
     private Dimension2D mySize;

@@ -10,7 +10,7 @@
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-	    <element>gamePlayer.guiItems.HUD.Stats</element>
+	    <element>gamePlayer.guiItems.HUD.HUD</element>
 	    <element>gamePlayer.guiItems.store.Store</element>
 	</Items>
 	

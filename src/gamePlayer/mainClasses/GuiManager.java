@@ -3,8 +3,8 @@ package gamePlayer.mainClasses;
 import gameEngine.MainGameManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
-import gamePlayer.guiItems.HUD.GameStats;
-import gamePlayer.guiItems.HUD.Stats;
+import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItemsListeners.GoButtonListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
@@ -37,7 +37,7 @@ StoreListener, GoButtonListener, HealthListener, SelectTowerListener, TowerPlace
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     private Stage myStage;
     private SelectTowerListener mySelectTowerListener;
-    private Stats myStatsBoard;
+    private HUD myStatsBoard;
     private Group myRoot;
     private Group myEngineGroup;
 
@@ -65,7 +65,7 @@ StoreListener, GoButtonListener, HealthListener, SelectTowerListener, TowerPlace
     }
 
     @Override
-    public void registerStatsBoard(Stats statsBoard) {
+    public void registerStatsBoard(HUD statsBoard) {
         myStatsBoard = statsBoard;
     }
 

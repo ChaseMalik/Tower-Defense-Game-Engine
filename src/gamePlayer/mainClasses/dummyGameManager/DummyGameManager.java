@@ -1,11 +1,9 @@
 package gamePlayer.mainClasses.dummyGameManager;
 
-import gamePlayer.guiItems.HUD.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.mainClasses.GuiManager;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +31,10 @@ public class DummyGameManager {
         GameStats health = new GameStats();
         health.setGameStat("Health");
         health.setStatValue(100);
+        
+        GameStats level = new GameStats();
+        level.setGameStat("Level");
+        level.setStatValue(1);
         
         gameStats = new ArrayList<GameStats>();
         gameStats.add(score); gameStats.add(health);
