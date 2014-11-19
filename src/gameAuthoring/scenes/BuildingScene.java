@@ -10,8 +10,10 @@ public abstract class BuildingScene extends Observable {
     public static final String STYLESHEET_PACKAGE = "./gameAuthoring/Stylesheets/";
     private Scene myScene;
     private String myTitle;
+    protected BorderPane myPane;
 
     public BuildingScene (BorderPane root, String title) {
+        myPane = root;
         myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
         myTitle = title;
         myScene.getStylesheets().add(getStyleSheetFileName()); 
