@@ -1,11 +1,9 @@
 package gamePlayer.previousVersionCode.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
+import gamePlayer.previousVersionCode.StoreListener;
 import java.util.ResourceBundle;
-
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;

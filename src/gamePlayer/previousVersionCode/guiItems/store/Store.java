@@ -1,12 +1,10 @@
 package gamePlayer.previousVersionCode.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.SelectTowerListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
+import gamePlayer.previousVersionCode.SelectTowerListener;
 import java.io.File;
 import java.util.List;
-
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

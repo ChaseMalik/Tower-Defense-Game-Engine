@@ -1,4 +1,5 @@
-package gamePlayer.guiItemsListeners;
+package gamePlayer.previousVersionCode;
+
 
 public interface StoreListener {
 	public void buyItem(String itemID);
