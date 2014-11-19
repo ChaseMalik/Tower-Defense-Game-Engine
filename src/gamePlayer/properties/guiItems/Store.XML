@@ -8,7 +8,7 @@
 	
 	<HeightRatio>
 		<element>0.1</element>
-		<element>0.9</element>
+		<element>0.7</element>
 	</HeightRatio>
 
  	<Columns>
@@ -25,10 +25,6 @@
     
     <InventoryList>
     	<element>Turret</element>
-    	<element>LockedItem</element>
-    	<element>LockedItem</element>
-    	<element>LockedItem</element>
-    	<element>LockedItem</element>
     	<element>LockedItem</element>
     	<element>LockedItem</element>
     	<element>LockedItem</element>
