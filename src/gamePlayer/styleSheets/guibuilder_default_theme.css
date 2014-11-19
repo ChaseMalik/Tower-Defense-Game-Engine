@@ -17,11 +17,11 @@
 }
 
 .HUD: hover {
-    -fx-opacity: 0.5;
+    
 }
 
 .GameWorld: hover {
-    -fx-background-color: green;
+    
 }
 
 .header-2 {
