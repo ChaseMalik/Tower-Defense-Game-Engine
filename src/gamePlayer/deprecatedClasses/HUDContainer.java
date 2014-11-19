@@ -1,4 +1,4 @@
-package gamePlayer.guiContainers.secondaryContainers;
+package gamePlayer.deprecatedClasses;
 
 /**
  * 
