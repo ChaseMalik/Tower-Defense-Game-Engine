@@ -1,6 +1,9 @@
 package gamePlayer.mainClasses;
 
 import gameEngine.MainGameManager;
+import gamePlayer.codeWarehouse.SelectTowerListener;
+import gamePlayer.codeWarehouse.StoreListener;
+import gamePlayer.codeWarehouse.TowerPlaceListener;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.controlDock.ControlDock;
@@ -13,9 +16,6 @@ import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-import gamePlayer.previousVersionCode.SelectTowerListener;
-import gamePlayer.previousVersionCode.StoreListener;
-import gamePlayer.previousVersionCode.TowerPlaceListener;
 import java.io.File;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;

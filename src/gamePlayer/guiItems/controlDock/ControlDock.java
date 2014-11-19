@@ -1,14 +1,13 @@
 package gamePlayer.guiItems.controlDock;
 
-import java.io.File;
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItems.headsUpDisplayB.GameStats;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import java.io.File;
+import java.util.List;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.TilePane;
 import utilities.XMLParsing.XMLParser;
+import utilities.reflection.Reflection;
 
 public class ControlDock implements GuiItem {
     private XMLParser myParser;
@@ -29,9 +28,13 @@ public class ControlDock implements GuiItem {
     }
 
     private void initializeButtons() {
-        
+        List<String> myButtons = myParser.getValuesFromTag("Buttons");
+        for (String button:myButtons) {
+            ControlDockButton dockButton = (ControlDockButton) Reflection.createInstance(button);
+            dockButton.initialize(mySize);
+            myTilePane.getChildren().add(dockButton);
+        }
     }
-    
     
     @Override
     public Node getNode () {

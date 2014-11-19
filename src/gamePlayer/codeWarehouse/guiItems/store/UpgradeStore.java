@@ -1,4 +1,4 @@
-package gamePlayer.previousVersionCode.guiItems.store;
+package gamePlayer.codeWarehouse.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
 
