@@ -35,8 +35,8 @@ public class GameWorld implements GuiItem {
 		myMap.setOnMouseClicked(event -> placeTower(event));
 	}
 
-	private void placeTower(MouseEvent me) {
-		myListener.placeTower(me.getX(), me.getY(), "DEFAULT TOWER");
+	private void placeTower(MouseEvent mouseEvent) {
+		myListener.placeTower(mouseEvent.getX(), mouseEvent.getY(), "DEFAULT TOWER");
 	}
 
 	@Override
