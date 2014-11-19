@@ -1,6 +1,5 @@
 package gamePlayer.mainClasses;
 
-import gameEngine.GameManager;
 import gameEngine.MainGameManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
@@ -11,15 +10,12 @@ import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.SelectTowerListener;
 import gamePlayer.guiItemsListeners.StoreListener;
-import gamePlayer.guiItemsListeners.TowerPlaceListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 import java.util.List;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -34,7 +30,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-		StoreListener, GoButtonListener, HealthListener, TowerPlaceListener
+		StoreListener, GoButtonListener, HealthListener, SelectTowerListener
 {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -126,9 +122,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 	}
 
-	@Override
-	public void placeTower(double x, double y, String towerName) {
-		//myGameManager.makeTower(x, y, towerName);
-		System.out.println(x + " " + y);
-	}
+    @Override
+    public void selectTower (String towerID) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void deselectTower () {
+        // TODO Auto-generated method stub
+        
+    }
 }
