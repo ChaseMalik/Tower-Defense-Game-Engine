@@ -1,12 +1,14 @@
 package gamePlayer.guiItemsListeners;
 
+import gamePlayer.guiItems.controlDock.ControlDock;
+
 /**
  * 
  * @author Greg Lyons
  *
  */
 
-public interface GoButtonListener {
+public interface ControlDockListener {
 	
 	public void pause();
 	

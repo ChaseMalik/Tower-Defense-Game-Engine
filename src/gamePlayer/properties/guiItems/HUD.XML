@@ -4,16 +4,12 @@
 
  	<SizeRatio>
 		<element>1</element>
-		<element>0.5</element>
+		<element>0.25</element>
 	</SizeRatio>
 	
 	
     <ColumnWidth>
 		 <element>0.5</element>
     </ColumnWidth>
-    
-    <StyleSheet>
-         <element>/gamePlayer/styleSheets/statsBoard.css</element>
-    </StyleSheet>
 
 </StatsBoardProperties>

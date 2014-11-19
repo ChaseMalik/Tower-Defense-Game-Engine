@@ -11,8 +11,8 @@
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 		<!--<element>gamePlayer.guiItems.HUD.Health</element>-->
-		<element>gamePlayer.guiItems.placeholders.BottomItemPlaceholder</element>
-		<element>gamePlayer.guiItems.goButton.GoButton</element>
+		<!--<element>gamePlayer.guiItems.placeholders.BottomItemPlaceholder</element>-->
+		<!--<element>gamePlayer.guiItems.goButton.GoButton</element>-->
 	</Items>
 	
 </ContainerProperties>

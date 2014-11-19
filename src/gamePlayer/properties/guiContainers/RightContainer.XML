@@ -11,7 +11,9 @@
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.headsUpDisplayB.HUD</element>
-	    <element>gamePlayer.guiItems.store.Store</element>
+	    
+	    <!--<element>gamePlayer.guiItems.store.Store</element>-->
+	    <element>gamePlayer.guiItems.controlDock.ControlDock</element>
 	</Items>
 	
 </ContainerProperties>

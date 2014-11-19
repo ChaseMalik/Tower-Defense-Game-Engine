@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.goButton;
+package gamePlayer.guiItems.controlDock.buttons;
 
 /**
  * 
@@ -6,13 +6,11 @@ package gamePlayer.guiItems.goButton;
  * 
  */
 
-import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.guiItems.controlDock.ControlDockButton;
+import gamePlayer.guiItemsListeners.ControlDockListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 import java.util.List;
-
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,15 +18,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utilities.XMLParsing.XMLParser;
 
-public class GoButton implements GuiItem {
-
+public class GoButton extends ControlDockButton{
 	private XMLParser myParser;
-	private Button myButton;
 	private ImageView myImageView;
 	private Dimension2D buttonSize;
 	private Dimension2D imageSize;
 	
-	private GoButtonListener myListener = GuiConstants.GUI_MANAGER;
+	private ControlDockListener myListener = GuiConstants.GUI_MANAGER;
 	
 	private String playImage;
 	private String ffImage;
@@ -37,7 +33,6 @@ public class GoButton implements GuiItem {
 	public void initialize(Dimension2D containerSize) {
 		myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
 		myImageView = new ImageView();
-		myButton = new Button();
 		
 		List<String> images = myParser.getValuesFromTag("Images");
 		playImage = images.get(0);
@@ -45,14 +40,9 @@ public class GoButton implements GuiItem {
 		
 		setUpSizing(containerSize);
 		
-		myButton.setOnAction(event -> play());
+		this.setOnAction(event -> play());
 		setImage(playImage);
-		myButton.setGraphic(myImageView);
-	}
-
-	@Override
-	public Node getNode() {
-		return myButton;
+		this.setGraphic(myImageView);
 	}
 	
 	private void setImage(String path){
@@ -66,19 +56,19 @@ public class GoButton implements GuiItem {
 	
 	private void play(){
 		setImage(ffImage);
-		myButton.setOnAction(event -> fastForward());
+		this.setOnAction(event -> fastForward());
 		myListener.play();
 	}
 	
 	private void fastForward(){
 		setImage(playImage);
-		myButton.setOnAction(event -> play());
+		this.setOnAction(event -> play());
 		myListener.fastforward();
 	}
 	
 	public void pause(){
 		setImage(playImage);
-		myButton.setOnAction(event -> play());
+		this.setOnAction(event -> play());
 		myListener.pause();
 	}
 	
@@ -91,7 +81,7 @@ public class GoButton implements GuiItem {
 		imageSize = new Dimension2D(imageRatio.getWidth()*buttonSize.getWidth(),
 									imageRatio.getHeight()*buttonSize.getHeight());
 
-		myButton.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
+		this.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
 		myImageView.setFitHeight(imageSize.getHeight());
 		myImageView.setFitWidth(imageSize.getWidth());
 	}

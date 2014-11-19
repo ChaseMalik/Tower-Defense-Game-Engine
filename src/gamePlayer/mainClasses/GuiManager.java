@@ -3,9 +3,10 @@ package gamePlayer.mainClasses;
 import gameEngine.MainGameManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiItems.controlDock.ControlDock;
 import gamePlayer.guiItems.headsUpDisplayB.GameStats;
 import gamePlayer.guiItems.headsUpDisplayB.HUD;
-import gamePlayer.guiItemsListeners.GoButtonListener;
+import gamePlayer.guiItemsListeners.ControlDockListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-StoreListener, GoButtonListener, HealthListener, SelectTowerListener, TowerPlaceListener
+StoreListener, ControlDockListener, HealthListener, SelectTowerListener, TowerPlaceListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -140,4 +141,5 @@ StoreListener, GoButtonListener, HealthListener, SelectTowerListener, TowerPlace
         //myGameManager.makeTower(x, y, towerName);
         System.out.println(x + " " + y);
     }
+
 }

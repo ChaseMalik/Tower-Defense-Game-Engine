@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<GoButtonProperties>
+<ControlDockProperties>
 	<SizeRatio>
+		<element>1</element>
+		<element>0.2</element>
+	</SizeRatio>
+
+    <SizeRatio>
 		<element>0.3</element>
 		<element>1</element>
 	</SizeRatio>
+	
 	<ImageRatio>
 		<element>1</element>
 		<element>0.7</element>
 	</ImageRatio>
+	
 	<Images>
 		<element>gamePlayer/playerImages/Play_Button.png</element>
 		<element>gamePlayer/playerImages/FF_Button.png</element>
 	</Images>
 
-
-</GoButtonProperties>
+</ControlDockProperties>
