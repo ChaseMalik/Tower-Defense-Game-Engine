@@ -49,8 +49,9 @@ public class UpgradeStore implements GuiItem {
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
         
 		root = new VBox();
-		root.setMinWidth(containerSize.getWidth());
-		root.setMinHeight(containerSize.getHeight());
+		//root.setMinWidth(containerSize.getWidth());
+		//root.setMinHeight(containerSize.getHeight());
+		root.setPrefSize(containerSize.getWidth(), containerSize.getHeight()*0.5);
 		root.alignmentProperty().setValue(Pos.TOP_CENTER);
 		root.getStyleClass().add("store-pane");
 		

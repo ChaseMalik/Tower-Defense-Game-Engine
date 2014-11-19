@@ -4,15 +4,14 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>0.3</element>
-		<element>0.95</element>
+		<element>0.2</element>
+		<element>0.75</element>
 	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.HUD.Stats</element>
 	    <element>gamePlayer.guiItems.store.Store</element>
-	    <element>gamePlayer.guiItems.goButton.GoButton</element>
 	</Items>
 	
 </ContainerProperties>

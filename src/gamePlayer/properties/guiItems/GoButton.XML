@@ -2,8 +2,8 @@
 
 <GoButtonProperties>
 	<SizeRatio>
-		<element>0.25</element>
-		<element>0.9</element>
+		<element>0.3</element>
+		<element>1</element>
 	</SizeRatio>
 	<ImageRatio>
 		<element>1</element>
