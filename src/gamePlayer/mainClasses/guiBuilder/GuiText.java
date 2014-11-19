@@ -10,4 +10,5 @@ public class GuiText {
     public static final String FILE = "File";
     public static final String LOAD = "Load";
     public static final String SAVE = "Save";
+    public static final String CHANGE_THEME = "ChangeTheme";
 }

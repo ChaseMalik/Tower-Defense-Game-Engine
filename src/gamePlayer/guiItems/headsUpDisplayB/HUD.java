@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.headsUpDisplay;
+package gamePlayer.guiItems.headsUpDisplayB;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -57,8 +57,8 @@ public class HUD implements GuiItem {
         valueCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
         valueCol.setResizable(false);
         
+        myTableView.getColumns().clear();
         myTableView.getColumns().setAll(statCol, valueCol);
-        
     }
 
     @Override
