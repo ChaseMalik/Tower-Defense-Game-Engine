@@ -1,4 +1,4 @@
-package gamePlayer.deprecatedClasses;
+package gamePlayer.unusedClasses;
 
 /**
  * 

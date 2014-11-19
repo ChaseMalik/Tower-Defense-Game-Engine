@@ -24,6 +24,10 @@ public class DummyGameManager {
     }
     
     public void testGameStats() {
+        GameStats level = new GameStats();
+        level.setGameStat("Level");
+        level.setStatValue(1);
+        
         GameStats score = new GameStats();
         score.setGameStat("Score");
         score.setStatValue(0);
@@ -32,16 +36,12 @@ public class DummyGameManager {
         health.setGameStat("Health");
         health.setStatValue(100);
         
-        GameStats level = new GameStats();
-        level.setGameStat("Level");
-        level.setStatValue(1);
-        
         gameStats = new ArrayList<GameStats>();
-        gameStats.add(score); gameStats.add(health);
+        gameStats.add(level); gameStats.add(score); gameStats.add(health);
         myGuiManager.setGameStats(gameStats);
         
         //update game stats
-        gameStats.get(0).setStatValue(50);
         gameStats.get(1).setStatValue(50);
+        gameStats.get(2).setStatValue(50);
     }
 }

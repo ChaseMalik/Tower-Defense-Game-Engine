@@ -32,7 +32,7 @@ public class HUD implements GuiItem {
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        myTableView.getStyleClass().add("statsBoard");
+        myTableView.getStyleClass().add("HUD");
         
         GuiConstants.GUI_MANAGER.registerStatsBoard(this);
     }
