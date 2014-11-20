@@ -5,6 +5,7 @@ import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
+import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
+PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener, GameItemListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -119,4 +120,9 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
     public void refreshStore () {
         myStore.refreshStore();
     }
+
+	@Override
+	public void selectItem(int itemID) {
+		System.out.println(itemID);
+	}
 }

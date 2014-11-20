@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.gameWorld;
 
 import gamePlayer.guiItemsListeners.GameItemListener;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
@@ -14,7 +15,7 @@ public class GameItem {
 	protected DoubleProperty X, Y, rotation;
 	protected ImageView myImageView;
 	protected Group myGroup;
-	private GameItemListener myListener;
+	protected GameItemListener myListener = GuiConstants.GUI_MANAGER;
 	
 	public GameItem(int ID, Point2D loc, ImageView imageView) {
 		myID = ID;

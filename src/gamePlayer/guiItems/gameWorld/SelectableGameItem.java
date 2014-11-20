@@ -30,7 +30,8 @@ public class SelectableGameItem extends GameItem {
 		double opacity = myParser.getDoubleValuesFromTag("CircleOpacity").get(0);
 		String color = myParser.getValuesFromTag("CircleColor").get(0);
 		
-		selectedProperty = new SimpleBooleanProperty(true);
+		selectedProperty = new SimpleBooleanProperty(false);
+		myGroup.setOnMouseReleased(event -> select());
 
 		mySelectCircle = new Circle(radius);
 		mySelectCircle.setFill(Color.web(color));
@@ -39,6 +40,11 @@ public class SelectableGameItem extends GameItem {
 		
 		Node tmp = myGroup.getChildren().remove(0);
 		myGroup.getChildren().addAll(mySelectCircle, tmp);
+	}
+	
+	private void select() {
+		selectedProperty.set(!selectedProperty.get());
+		myListener.selectItem(myID);
 	}
 
 }
