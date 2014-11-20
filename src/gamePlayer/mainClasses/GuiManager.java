@@ -4,12 +4,12 @@ import gameEngine.MainGameManager;
 import gamePlayer.codeWarehouse.SelectTowerListener;
 import gamePlayer.codeWarehouse.StoreListener;
 import gamePlayer.codeWarehouse.TowerPlaceListener;
+import gamePlayer.guiContainers.secondaryContainers.ControlDock;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
-import gamePlayer.guiItems.controlDock.ControlDock;
 import gamePlayer.guiItems.headsUpDisplayB.GameStats;
 import gamePlayer.guiItems.headsUpDisplayB.HUD;
-import gamePlayer.guiItemsListeners.ControlDockListener;
+import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-StoreListener, ControlDockListener, HealthListener, SelectTowerListener, TowerPlaceListener
+StoreListener, PlayButtonListener, HealthListener, SelectTowerListener, TowerPlaceListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -97,19 +97,21 @@ StoreListener, ControlDockListener, HealthListener, SelectTowerListener, TowerPl
 
     @Override
     public void pause() {
-        myGameManager.pause();
+        //myGameManager.pause();
+        System.out.println("Pause\n");
     }
 
     @Override
     public void play() {
-        myGameManager.resume();
+        //myGameManager.resume();
+        System.out.println("Play\n");
     }
-
+/*
     @Override
     public void fastforward() {
         //myGameManager.speedUp();
     }
-
+*/
     @Override
     public void bindHealth(DoubleProperty healthRemaining) {
         //myGameManager.getHealthProperty();

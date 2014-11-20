@@ -1,4 +1,4 @@
-package gamePlayer.mainClasses;
+package gamePlayer.mainClasses.ExceptionHandling;
 
 /**
  * Class handles exceptions thrown in the GUI
@@ -17,4 +17,9 @@ public class ExceptionHandler {
         return myReference;
     }   
     
+    //TODO: Add actual exception-handling code
+    public void handle(NullPointerException e) {
+        System.out.println("Null pointer exception\n");
+        e.printStackTrace();
+    }
 }

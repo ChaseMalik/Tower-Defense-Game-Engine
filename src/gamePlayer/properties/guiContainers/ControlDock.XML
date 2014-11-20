@@ -6,8 +6,8 @@
 		<element>0.2</element>
 	</SizeRatio>
 
-    <Buttons>
-        <element>gamePlayer.guiItems.controlDock.buttons.GoButton</element>
-    </Buttons
+    <Items>
+        <element>gamePlayer.guiItems.playButton.PlayButton</element>
+    </Items>
 
 </ControlDockProperties>
