@@ -1,5 +1,8 @@
 package gamePlayer.guiItems.gameWorld;
 
+import gamePlayer.guiItemsListeners.GameItemListener;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 
 import javafx.beans.property.BooleanProperty;
@@ -16,6 +19,8 @@ public class SelectableGameItem extends GameItem {
 	private XMLParser myParser;
 	private Circle mySelectCircle;
 	private BooleanProperty selectedProperty;
+	protected GameItemListener myListener = GuiConstants.GUI_MANAGER;
+
 
 	public SelectableGameItem(int ID, Point2D loc, ImageView imageView) {
 		super(ID, loc, imageView);

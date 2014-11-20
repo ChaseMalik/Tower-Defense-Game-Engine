@@ -55,11 +55,16 @@ public class GameWorld implements GuiItem {
 	}
 	
 	private void addTestGameItem() {
-		ImageView imageView = new ImageView();
-		String path = "gamePlayer/turretImages/Turret_2_1.png";
-		imageView.setImage(new Image(path, 40, 40, false, false));
-		SelectableGameItem testItem = new SelectableGameItem(1, new Point2D(100,100), imageView);
-		myMap.getChildren().add(testItem.getNode());
+		ImageView imageView1 = new ImageView();
+		String path1 = "gamePlayer/turretImages/Turret_2_1.png";
+		imageView1.setImage(new Image(path1, 60, 60, false, false));
+		SelectableGameItem testItem1 = new SelectableGameItem(1, new Point2D(250,250), imageView1);
+		
+		ImageView imageView2 = new ImageView();
+		String path2 = "gamePlayer/turretImages/Turret_3_2.png";
+		imageView2.setImage(new Image(path2, 40, 40, false, false));
+		SelectableGameItem testItem2 = new SelectableGameItem(15, new Point2D(100,100), imageView2);
+		myMap.getChildren().addAll(testItem1.getNode(), testItem2.getNode());
 	}
 
 }
