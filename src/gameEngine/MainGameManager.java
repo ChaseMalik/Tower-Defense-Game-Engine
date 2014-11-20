@@ -2,12 +2,17 @@ package gameEngine;
 
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import utilities.ErrorPopup;
 
 
-public class MainGameManager implements GameManager {
+public class MainGameManager {
 
     private static final double ONE_SECOND_IN_NANO = 1000000000.0;
     private static final int FPS = 30;
@@ -25,7 +30,23 @@ public class MainGameManager implements GameManager {
     private double myLastUpdateTime;
     private double myLastRenderTime;
     
-    public MainGameManager () {
+    private Map<Class<? extends BaseActor>, BaseActor> myAvailableActors;
+    
+    private static final int ENEMY_INDEX = 0;
+    private static final int PROJECTILE_INDEX = 1;
+    private static final int TOWER_INDEX = 2;
+    
+    private Group myTowerGroup;
+    private Group myProjectileGroup;
+    private Group myEnemyGroup;    
+    private double levelDuration;
+    
+    private static final String INVALID_TOWER_ERROR = "Invalid Tower";
+    
+    private BaseLevel myCurrentLevel;
+    private List<BaseActor> myTowersToAdd;
+    
+    public MainGameManager (Group engineGroup) {
         myIsRunning = new AtomicBoolean(false);
         readyToPlay = new AtomicBoolean(false);
         myPauseRequested = new AtomicBoolean(false);
@@ -37,43 +58,58 @@ public class MainGameManager implements GameManager {
 
         myLastUpdateTime = System.nanoTime();
         myLastRenderTime = System.nanoTime();
+        
+        myTowerGroup = new Group();
+        myProjectileGroup = new Group();
+        myEnemyGroup = new Group();
+        
+        addToGroup(engineGroup, myTowerGroup);
+        addToGroup(engineGroup, myProjectileGroup);
+        addToGroup(engineGroup, myEnemyGroup);
     }
 
+    private void addToGroup(Group group, Node node){
+        group.getChildren().add(node);
+    }
+    
+    public void fastForward() {
+        //TODO: change 
+        speedUp(4);
+    }
+    
+    public void revertToNormalSpeed(){
+        speedUp(1);
+    }
+    
     public void speedUp (int magnitude) {
         myUpdateSpeed.set(magnitude);
     }
 
-    @Override
     public void loadState (String fileName) {
     }
 
-    @Override
     public void saveState (String fileName) {
     }
 
-    @Override
     public void initializeGame (String fileName) {
-
-    }
-
-    @Override
-    public void pause () {
-        myPauseRequested.set(true);
-    }
-
-    public void resume () {
-        myPauseRequested.set(false);
-    }
-
-    public synchronized void createActor (Class<? extends BaseActor> actorType, double x, double y) {
         
     }
 
-    private synchronized void addNewActors () {
-        
+    public synchronized boolean addTower (String identifier, double x, double y) {
+        BaseActor tower = myCurrentLevel.createTower(identifier, x, y);
+        if(tower == null){
+            return false;
+        }
+        myTowersToAdd.add(tower);   
+        return false;
     }
 
-    @Override
+    private void createNewActor(Class<? extends BaseActor> actorType){
+        BaseActor exampleActor = myAvailableActors.get(actorType);
+        BaseActor newActor = exampleActor.copy();
+        //newActor.setX
+    }
+    
     public void start () {
         if (readyToPlay.get()) {
             myIsRunning.set(true);
@@ -89,6 +125,14 @@ public class MainGameManager implements GameManager {
         }
     }
 
+    public void pause () {
+        myPauseRequested.set(true);
+    }
+
+    public void resume () {
+        myPauseRequested.set(false);
+    }
+    
     private void gameLoop () {
         while (myIsRunning.get()) {
             double now = System.nanoTime();
@@ -140,20 +184,28 @@ public class MainGameManager implements GameManager {
     }
 
     private void update () {
-        addNewActors();
-
+        //addNewActors();
+        
+        updateActors(myEnemyGroup);
+        updateActors(myProjectileGroup);
+        updateActors(myTowerGroup);
     }
 
+    private void updateActors(Group group){
+        List<Node> children = group.getChildren();
+        for(Node child : children){
+            BaseActor actor = (BaseActor)child;
+            actor.update();
+        }
+    }
     private void render () {
 
     }
 
-    @Override
     public void quit () {
         myIsRunning.set(false);
     }
 
-    @Override
     public synchronized void loadLevel (BaseLevel level) {
         readyToPlay.set(false);
         while (!myIsPaused.get()) {
@@ -164,7 +216,11 @@ public class MainGameManager implements GameManager {
                 // Probably fine
             }
         }
+        myTowerGroup.getChildren().clear();
+        myProjectileGroup.getChildren().clear();
+        myEnemyGroup.getChildren().clear();
         
+        //load
         readyToPlay.set(true);
     }
 }
