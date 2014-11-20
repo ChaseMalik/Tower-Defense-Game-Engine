@@ -22,6 +22,8 @@ public class Store implements GuiItem {
 
     private Dimension2D buttonSize;
     private Dimension2D imageSize;
+    
+    private List<StoreItem> storeItemList;
 
     @Override
     public void initialize (Dimension2D containerSize) {
@@ -48,9 +50,12 @@ public class Store implements GuiItem {
     }
 
     public void fillStore(List<StoreItem> storeItems) {
+        storeItemList = storeItems;
+        myTilePane.getChildren().clear();
         for (StoreItem item:storeItems) {
             addStoreItem(item);
         }
+        refreshStore();
     }
 
     private void addStoreItem(StoreItem storeItem) {
@@ -63,6 +68,18 @@ public class Store implements GuiItem {
 
         button.setGraphic(storeItem.getImageView());
         myTilePane.getChildren().add(button);
+    }
+    
+    public void refreshStore() {
+        for (int k=0;k<storeItemList.size();k++) {
+            if (storeItemList.get(k).availableBinding().getValue()) {
+                Button button = (Button) myTilePane.getChildren().get(k);
+                button.setDisable(false);
+            } else {
+                Button button = (Button) myTilePane.getChildren().get(k);
+                button.setDisable(true);
+            }
+        }
     }
 
     @Override

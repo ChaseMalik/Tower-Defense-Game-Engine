@@ -7,4 +7,5 @@ import gamePlayer.guiItems.store.StoreItem;
 public interface StoreListener {
     public void registerStore(Store store);
     public void fillStore(List<StoreItem> storeItems);
+    public void refreshStore();
 }

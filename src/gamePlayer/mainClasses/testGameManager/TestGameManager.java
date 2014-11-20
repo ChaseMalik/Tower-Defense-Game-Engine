@@ -26,10 +26,10 @@ public class TestGameManager {
     
     public void run() {
         testLoadingGuiHUD();
-        testFillingGuiStore();
+        testGuiStore();
     }
     
-    private void testFillingGuiStore () {
+    private void testGuiStore () {
         Image blackTurret = new Image("gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png");
         Image brownTurret = new Image("gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png");
         Image charcoalTurret = new Image("gamePlayer/mainClasses/testGameManager/storeItemImages/charcoalTurret.png");
@@ -51,9 +51,15 @@ public class TestGameManager {
         itemList.add(new StoreItem(2,new ImageView(charcoalTurret),"charcoalTurret",charcoalTurretAvail));
         itemList.add(new StoreItem(3,new ImageView(greenTurret),"greenTurret",greenTurretAvail));     
         itemList.add(new StoreItem(4,new ImageView(purpleTurret),"purpleTurret",purpleTurretAvail));
-        itemList.add(new StoreItem(5,new ImageView(steelTurret),"steelTurret",steelTurretAvail));       
- 
+        itemList.add(new StoreItem(5,new ImageView(steelTurret),"steelTurret",steelTurretAvail));   
+   
         myGuiManager.fillStore(itemList);
+        
+        //change availabilities and refresh display
+        greenTurretAvail.set(false);
+        purpleTurretAvail.set(false);
+        steelTurretAvail.set(false);
+        myGuiManager.refreshStore();
     }
 
     private void testLoadingGuiHUD() {

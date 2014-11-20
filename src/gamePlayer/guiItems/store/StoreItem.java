@@ -10,13 +10,13 @@ public class StoreItem {
     private int ID;
     private ImageView imageView;
     private String description;
-    private BooleanBinding available;
+    private BooleanBinding availableBinding;
     
     public StoreItem(int ID,ImageView imageView,String description, BooleanProperty available) {
         this.ID = ID;
         this.imageView = imageView;
         this.description = description;
-        this.available = Bindings.and(new SimpleBooleanProperty(true),available);
+        this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
     
     public int getID () {
@@ -29,8 +29,8 @@ public class StoreItem {
         return description;
     }
 
-    public BooleanBinding isAvailable () {
-        return available;
+    public BooleanBinding availableBinding () {
+        return availableBinding;
     }
 
     public void setID (int iD) {

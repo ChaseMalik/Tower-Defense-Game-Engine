@@ -112,4 +112,9 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
     public void fillStore (List<StoreItem> storeItems) {
         myStore.fillStore(storeItems);
     }
+
+    @Override
+    public void refreshStore () {
+        myStore.refreshStore();
+    }
 }
