@@ -4,15 +4,16 @@ import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.store.Store;
+import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
-import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.testGameManager.TestGameManager;
 import java.io.File;
 import java.util.List;
 import javafx.scene.Group;
@@ -33,14 +34,14 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
     
     private Stage myStage;
-    private DummyGameManager myGameManager;
+    private TestGameManager myGameManager;
     private Group myRoot;
     
     //handles to GuiItems
     private Store myStore;
     private HUD myHUD;
     
-    public GuiManager(Stage stage, DummyGameManager manager) {
+    public GuiManager(Stage stage, TestGameManager manager) {
         myGameManager = manager;
         myStage = stage;
         GuiConstants.GUI_MANAGER = this;
@@ -105,5 +106,10 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
     @Override
     public void registerStore (Store store) {
         myStore = store;
+    }
+
+    @Override
+    public void fillStore (List<StoreItem> storeItems) {
+        myStore.fillStore(storeItems);
     }
 }

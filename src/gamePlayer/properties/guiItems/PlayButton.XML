@@ -6,7 +6,7 @@
 		<element>1</element>
 	</SizeRatio>
 	
-	<!-- Ratio to button size -->
+	<!-- Image ratio to button size -->
 	<ImageRatio>
 		<element>0.8</element>
 		<element>0.8</element>
