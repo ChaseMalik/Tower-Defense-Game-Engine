@@ -20,6 +20,7 @@ import javafx.scene.control.MenuBar;
 public class VoogaMenuBar implements GuiItem {
     private XMLParser myParser;
     private MenuBar myMenuBar;
+    private Dimension2D myMenuBarSize;
 
     @Override
     public void initialize (Dimension2D containerSize) {
@@ -27,8 +28,11 @@ public class VoogaMenuBar implements GuiItem {
 
         myMenuBar = new MenuBar();
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        myMenuBar.setPrefSize(sizeRatio.getWidth()*containerSize.getWidth(), 
+        myMenuBarSize = new Dimension2D(sizeRatio.getWidth()*containerSize.getWidth(), 
                               sizeRatio.getHeight()*containerSize.getHeight());
+        
+        myMenuBar.setMinSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
+        myMenuBar.setPrefSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
         initializeMenus();
     }
 

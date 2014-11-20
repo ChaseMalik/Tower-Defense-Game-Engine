@@ -29,8 +29,11 @@ public class HUD implements GuiItem {
 
         myTableView = new TableView<GameStats>();
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
+        
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
+        
+        myTableView.setMinSize(mySize.getWidth(),mySize.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
         myTableView.getStyleClass().add("HUD");
         

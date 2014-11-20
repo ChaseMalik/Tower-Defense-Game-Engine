@@ -44,6 +44,7 @@ public abstract class ControlDockButton implements GuiItem {
         imageSize = new Dimension2D(imageRatio.getWidth()*buttonSize.getWidth(),
                                     imageRatio.getHeight()*buttonSize.getHeight());
 
+        myButton.setMinSize(buttonSize.getWidth(), buttonSize.getHeight());
         myButton.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
         myImageView.setFitHeight(imageSize.getHeight());
         myImageView.setFitWidth(imageSize.getWidth());

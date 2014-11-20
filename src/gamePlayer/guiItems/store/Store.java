@@ -23,6 +23,7 @@ public class Store implements GuiItem {
         myPaneSize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                              containerSize.getHeight()*sizeRatio.getHeight());
         
+        myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
         
