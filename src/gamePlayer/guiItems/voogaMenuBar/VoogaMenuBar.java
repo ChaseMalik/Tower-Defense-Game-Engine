@@ -33,6 +33,7 @@ public class VoogaMenuBar implements GuiItem {
         
         myMenuBar.setMinSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
         myMenuBar.setPrefSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
+        myMenuBar.getStyleClass().add("VoogaMenuBar");
         initializeMenus();
     }
 

@@ -11,24 +11,24 @@
 
 }
 
+.ControlDockButton {
+
+}
+
+.GameWorld {
+    
+}
+
 .HUD {
     -fx-padding: 0 0 0 0;
     -fx-border-width: 1;
 }
 
-.HUD: hover {
-    
-}
-
-.GameWorld: hover {
-    
-}
-
-.ControlDockButton {
-
-}
-
 .Store {
+
+}
+
+.VoogaMenuBar {
 
 }
 
