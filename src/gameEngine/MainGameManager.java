@@ -2,8 +2,10 @@ package gameEngine;
 
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import utilities.ErrorPopup;
 
 
@@ -77,11 +79,7 @@ public class MainGameManager implements GameManager {
     public void start () {
         if (readyToPlay.get()) {
             myIsRunning.set(true);
-            Thread gameLoop = new Thread() {
-                public void run () {
-                    gameLoop();
-                }
-            };
+            Thread gameLoop = new Thread(() -> gameLoop());
             gameLoop.start();
         }
         else {

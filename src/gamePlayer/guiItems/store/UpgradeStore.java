@@ -52,8 +52,9 @@ public class UpgradeStore implements GuiItem {
         myUpgrade2Parser = new XMLParser(new File("./src/spriteResources/upgradeStreams/"+myTowerID+"Upgrade2Stream.XML"));
         
 		root = new VBox();
-		root.setMinWidth(containerSize.getWidth());
-		root.setMinHeight(containerSize.getHeight());
+		//root.setMinWidth(containerSize.getWidth());
+		//root.setMinHeight(containerSize.getHeight());
+		root.setPrefSize(containerSize.getWidth(), containerSize.getHeight()*0.5);
 		root.alignmentProperty().setValue(Pos.TOP_CENTER);
 		root.getStyleClass().add("store-pane");
 		root.setSpacing(myStoreParser.getDoubleValuesFromTag("VPadding").get(0));

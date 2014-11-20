@@ -1,9 +1,7 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

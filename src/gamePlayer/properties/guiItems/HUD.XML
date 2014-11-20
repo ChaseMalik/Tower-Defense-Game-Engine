@@ -3,13 +3,13 @@
 <StatsBoardProperties>
 
  	<SizeRatio>
-		<element>0.60</element>
-		<element>0.3</element>
+		<element>1</element>
+		<element>0.5</element>
 	</SizeRatio>
 	
 	
     <ColumnWidth>
-		 <element>0.46</element>
+		 <element>0.5</element>
     </ColumnWidth>
     
     <StyleSheet>

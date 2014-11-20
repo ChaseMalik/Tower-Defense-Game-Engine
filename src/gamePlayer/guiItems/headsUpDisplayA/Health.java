@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.HUD;
+package gamePlayer.guiItems.headsUpDisplayA;
 
 import java.io.File;
 

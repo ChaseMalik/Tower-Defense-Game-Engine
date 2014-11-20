@@ -19,7 +19,7 @@ public class BottomItemPlaceholder extends Pane implements GuiItem {
 
     @Override
     public void initialize (Dimension2D containerSize) {
-        this.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
+        this.setPrefSize(containerSize.getWidth()*0.7, containerSize.getHeight());
         this.setStyle("-fx-background-color: blue;");
     }
 }

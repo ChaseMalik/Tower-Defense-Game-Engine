@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.HUD;
+package gamePlayer.guiItems.headsUpDisplayB;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,6 +13,7 @@ import javafx.beans.property.StringProperty;
  */
 public class GameStats {
     private StringProperty gameStat;
+    
     public void setGameStat(String value) {
         gameStatProperty().set(value); 
     }
