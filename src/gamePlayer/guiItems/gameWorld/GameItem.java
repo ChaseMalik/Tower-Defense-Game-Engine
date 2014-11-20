@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 public class GameItem {
 	
 	protected int myID;
-	protected DoubleProperty X, Y;
+	protected DoubleProperty X, Y, rotation;
 	protected ImageView myImageView;
 	protected Group myGroup;
 	private GameItemListener myListener;
@@ -21,6 +21,7 @@ public class GameItem {
 		myImageView = imageView;
 		X = new SimpleDoubleProperty(loc.getX());
 		Y = new SimpleDoubleProperty(loc.getY());
+		rotation = new SimpleDoubleProperty(0);
 		init();
 	}
 	
@@ -35,8 +36,9 @@ public class GameItem {
 	protected void init() {
 		
 		myGroup = new Group();
-		myGroup.setTranslateX(X.get());
-		myGroup.setTranslateY(Y.get());
+		myGroup.translateXProperty().bind(X);
+		myGroup.translateYProperty().bind(Y);
+		myGroup.rotateProperty().bind(rotation);
 				
 		myImageView.setLayoutX(-myImageView.getImage().getWidth()/2.);
 		myImageView.setLayoutY(-myImageView.getImage().getHeight()/2.);

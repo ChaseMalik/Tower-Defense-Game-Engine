@@ -37,7 +37,6 @@ public class SelectableGameItem extends GameItem {
 		mySelectCircle.setOpacity(opacity);
 		mySelectCircle.visibleProperty().bind(selectedProperty);
 		
-		
 		Node tmp = myGroup.getChildren().remove(0);
 		myGroup.getChildren().addAll(mySelectCircle, tmp);
 	}
