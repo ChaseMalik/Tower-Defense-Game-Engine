@@ -11,6 +11,7 @@
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.voogaMenuBar.VoogaMenuBar</element>
+	    
 	</Items>
 	
 </ContainerProperties>

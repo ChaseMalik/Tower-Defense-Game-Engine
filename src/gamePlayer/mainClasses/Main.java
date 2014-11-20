@@ -1,6 +1,6 @@
 package gamePlayer.mainClasses;
 
-import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
+import gamePlayer.mainClasses.testGameManager.TestGameManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start (Stage stage) throws Exception {
         //builder will set up the application using the stage and given properties
-        DummyGameManager manager = new DummyGameManager(stage);
+        TestGameManager manager = new TestGameManager(stage);
         manager.run();
     }
 }

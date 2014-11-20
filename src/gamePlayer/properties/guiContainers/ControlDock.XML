@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ControlDockProperties>
+	<SizeRatio>
+		<element>1</element>
+		<element>0.15</element>
+	</SizeRatio>
+
+    <Items>
+        <element>gamePlayer.guiItems.controlDockButtons.buttons.PlayButton</element>
+        <element>gamePlayer.guiItems.controlDockButtons.buttons.SpeedButton</element>
+    </Items>
+
+</ControlDockProperties>

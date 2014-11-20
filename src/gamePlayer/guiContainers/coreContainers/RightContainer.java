@@ -26,6 +26,8 @@ public class RightContainer extends VBox implements GuiContainer {
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         Dimension2D mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                            containerSize.getHeight()*sizeRatio.getHeight());
+        
+        this.setMinSize(mySize.getWidth(),mySize.getHeight());
         this.setPrefSize(mySize.getWidth(),mySize.getHeight());
         
         //add contained GUI elements

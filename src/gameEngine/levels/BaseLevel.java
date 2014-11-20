@@ -1,9 +1,15 @@
 package gameEngine.levels;
 
-public class BaseLevel {
+import gameEngine.actors.BaseActor;
+import java.util.HashMap;
+import java.util.Map;
 
-    public BaseLevel() {
-        
+public class BaseLevel {
+    
+    private Map<BaseActor, Integer> numEnemiesMap = new HashMap<BaseActor, Integer>();
+    
+    public Map<BaseActor, Integer> getMap() {
+        return numEnemiesMap;
     }
     
 }

@@ -1,0 +1,35 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<StoreProperties>
+
+	<HeaderTitle>
+		<element>Store</element>
+	</HeaderTitle>
+	
+	<HeightRatio>
+		<element>0.1</element>
+		<element>0.7</element>
+	</HeightRatio>
+
+ 	<Columns>
+		<element>2</element>
+	</Columns>
+	
+    <VPadding>
+		 <element>10</element>
+    </VPadding>
+    
+    <HPadding>
+		 <element>10</element>
+    </HPadding>
+    
+    <InventoryList>
+    	<element>Turret</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    	<element>LockedItem</element>
+    </InventoryList>
+
+</StoreProperties>

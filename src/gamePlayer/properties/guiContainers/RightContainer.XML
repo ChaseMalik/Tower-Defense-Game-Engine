@@ -5,13 +5,14 @@
     <!--width and height size ratios to window size-->
  	<SizeRatio>
 		<element>0.2</element>
-		<element>0.75</element>
+		<element>0.95</element>
 	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-	    <element>gamePlayer.guiItems.headsUpDisplayB.HUD</element>
+	    <element>gamePlayer.guiItems.headsUpDisplay.HUD</element>
 	    <element>gamePlayer.guiItems.store.Store</element>
+	    <element>gamePlayer.guiContainers.secondaryContainers.ControlDock</element>
 	</Items>
 	
 </ContainerProperties>

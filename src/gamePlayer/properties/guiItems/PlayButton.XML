@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GoButtonProperties>
+    <SizeRatio>
+		<element>0.5</element>
+		<element>1</element>
+	</SizeRatio>
+	
+	<!-- Image ratio to button size -->
+	<ImageRatio>
+		<element>0.8</element>
+		<element>0.8</element>
+	</ImageRatio>
+	
+	<PlayImage>
+	    <element>gamePlayer/playerImages/play.png</element>
+	</PlayImage>
+	
+	<PauseImage>
+	    <element>gamePlayer/playerImages/pause.png</element>
+	</PauseImage>
+
+
+</GoButtonProperties>

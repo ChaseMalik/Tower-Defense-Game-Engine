@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.TowerPlaceListener;
+import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 
@@ -21,7 +21,7 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 public class GameWorld implements GuiItem {
 	
 	Pane myMap;
-	TowerPlaceListener myListener;
+	GameWorldListener myListener;
 
 	public GameWorld() {
 		myMap = new Pane();
@@ -30,14 +30,16 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
+	        myMap.setMinSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
-		myMap.setOnMouseClicked(event -> placeTower(event));
+		//myMap.setOnMouseClicked(event -> placeTower(event));
 	}
 
+	/*
 	private void placeTower(MouseEvent mouseEvent) {
 		myListener.placeTower(mouseEvent.getX(), mouseEvent.getY(), "DEFAULT TOWER");
-	}
+	}*/
 
 	@Override
 	public Node getNode() {

@@ -1,6 +1,8 @@
 package gamePlayer.guiItemsListeners;
 
-import gamePlayer.guiItems.headsUpDisplayB.HUD;
+import java.util.List;
+import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.HUD;
 
 /**
  * Listener interface for StatsBoardListener GuiItem
@@ -8,5 +10,6 @@ import gamePlayer.guiItems.headsUpDisplayB.HUD;
  *
  */
 public interface HUDListener {
-    public void registerStatsBoard(HUD statsBoard);
+    public void setGameStats(List<GameStats> stats);
+    public void registerStatsBoard(HUD hud);
 }

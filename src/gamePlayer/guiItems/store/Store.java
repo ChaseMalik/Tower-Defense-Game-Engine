@@ -1,136 +1,93 @@
 package gamePlayer.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.SelectTowerListener;
+import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 import java.util.List;
-
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.TilePane;
+import sun.security.krb5.internal.PAEncTSEnc;
 import utilities.XMLParsing.XMLParser;
 
-/**
- * 
- * Store GUI with all the possible towers you can buy. 
- * To add a new tower:
- * 		(1) Create a new Properties File named <TowerName>.properties in the spriteResources.towers package
- * 		(2) Add the <TowerName> to the Inventory List in the StoreProperties XML file in the gamePlayer.properties.guiItems package
- * 		(3) Create an Image for the Cell to be displayed in the store with a picture of the tower, its name, and its cost
- * 		(4) Put the image file in the main voogasalad directory (outside of src)
- * 
- * @author brianbolze
- */
-public class Store implements GuiItem, SelectTowerListener {
-	
+public class Store implements GuiItem {
+    private TilePane myTilePane;
     private XMLParser myParser;
-    private Node myHeader;
-    private VBox myContainer;
-	private GridPane myGridPane;
-	private ScrollPane myScrollPane;
-	private Dimension2D myContentSize, myCellSize;
-	private int myNumColumns;
+    private Dimension2D myPaneSize;
+    private StoreListener myListener = GuiConstants.GUI_MANAGER;
 
-	private static Store myReference = null;
+    private Dimension2D buttonSize;
+    private Dimension2D imageSize;
+    
+    private List<StoreItem> storeItemList;
 
-    public static Store getInstance() {
-        if (myReference==null) {
-            myReference = new Store();
-        }
-        return myReference;
-    }
-	
-	@Override
-	public void initialize(Dimension2D containerSize) {
-		
+    @Override
+    public void initialize (Dimension2D containerSize) {
+        myTilePane = new TilePane();
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
-		myContainer = new VBox();
-		
-		double contentHeightRatio = Double.parseDouble(myParser.getValuesFromTag("HeightRatio").get(1));
-		myContentSize = new Dimension2D(containerSize.getWidth(), containerSize.getHeight()*contentHeightRatio);
-		
-        buildHeader();
-        buildInventoryContainer();
-		buildInventoryItems();
+        Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
+        myPaneSize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
+                                     containerSize.getHeight()*sizeRatio.getHeight());
 
-		myScrollPane = new ScrollPane();
-		myScrollPane.setContent(myGridPane);
-		myScrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		myScrollPane.setMinHeight(myContentSize.getHeight());
-		myScrollPane.setMaxHeight(myContentSize.getHeight());
-		myScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		
-		myContainer.getChildren().addAll(myHeader, myScrollPane);
-		
-		GuiConstants.GUI_MANAGER.registerTowerListener(this);
-		
-	}
+        Dimension2D buttonRatio = myParser.getDimension("ButtonSize");
+        
+        buttonSize = new Dimension2D(myPaneSize.getWidth()*buttonRatio.getWidth(),
+                                     myPaneSize.getWidth()*buttonRatio.getWidth());
+        
+        Dimension2D imageRatio = myParser.getDimension("ImageSize");
+        imageSize =  new Dimension2D(buttonSize.getWidth()*imageRatio.getWidth(),
+                                     buttonSize.getHeight()*imageRatio.getHeight());
 
-	@Override
-	public Node getNode() {
-		return myContainer;
-	}
-	
-	@Override
-	public void selectTower(String towerID) {
-		myContainer.getChildren().remove(1);
-		UpgradeStore store = new UpgradeStore(towerID);
-		store.initialize(myContentSize);
-		myContainer.getChildren().add(1, store.getNode());
-	}
-	
-	@Override
-	public void deselectTower() {
-		myContainer.getChildren().remove(1);
-		myContainer.getChildren().add(1, myScrollPane);
-	}
-	
-	private void buildHeader() {
-		Label storeLabel = new Label();
-		storeLabel.setText(myParser.getValuesFromTag("HeaderTitle").get(0));
-		storeLabel.alignmentProperty().set(Pos.CENTER);
-		double headerHeightRatio = Double.parseDouble(myParser.getValuesFromTag("HeightRatio").get(0));
-		storeLabel.setMinWidth(myContentSize.getWidth());
-		storeLabel.setMinHeight(myContentSize.getHeight()*headerHeightRatio);
-		myHeader = storeLabel;
-		myHeader.getStyleClass().add("header-2");
-	}
-	
-	private void buildInventoryContainer() {
-		myNumColumns = myParser.getIntegerValuesFromTag("Columns").get(0);
+        myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
+        myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
+        myTilePane.getStyleClass().add("Store");
 
-		myGridPane = new GridPane();
-		myGridPane.setVgap(myParser.getDoubleValuesFromTag("VPadding").get(0)/myNumColumns);
-		myGridPane.setHgap(myParser.getDoubleValuesFromTag("HPadding").get(0)/myNumColumns);
-		myGridPane.setMaxWidth(myContentSize.getWidth());
-		myGridPane.getStyleClass().add("store-pane");
-		
-		double iconSize = myContentSize.getWidth()/myNumColumns - myGridPane.getHgap();
-		myCellSize = new Dimension2D(iconSize, iconSize); //Square Icons
-		
-	}
-	
-	private void buildInventoryItems() {
-		List<String> inventoryList = myParser.getValuesFromTag("InventoryList");
-		int col = 0;
-		int row = 0;
-		for (String itemName:inventoryList) {
-			GuiItem cell = new StoreItemCell(itemName);
-			cell.initialize(myCellSize);
-			myGridPane.add(cell.getNode(), col, row);
-			col++;
-			if (col == myNumColumns) {
-				col = 0;
-				row++;
-			}
-		}
-	}
-	
+        myListener.registerStore(this);
+    }
+
+    public void fillStore(List<StoreItem> storeItems) {
+        storeItemList = storeItems;
+        myTilePane.getChildren().clear();
+        for (StoreItem item:storeItems) {
+            addStoreItem(item);
+        }
+        refreshStore();
+    }
+
+    private void addStoreItem(StoreItem storeItem) {
+        Button button = new Button();
+        button.setMinSize(buttonSize.getWidth(), buttonSize.getHeight());
+        button.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
+
+        storeItem.getImageView().setFitHeight(imageSize.getHeight());
+        storeItem.getImageView().setFitWidth(imageSize.getWidth());
+
+        button.setGraphic(storeItem.getImageView());
+        myTilePane.getChildren().add(button);
+    }
+    
+    public void refreshStore() {
+        for (int k=0;k<storeItemList.size();k++) {
+            if (storeItemList.get(k).availableBinding().getValue()) {
+                Button button = (Button) myTilePane.getChildren().get(k);
+                button.setDisable(false);
+            } else {
+                Button button = (Button) myTilePane.getChildren().get(k);
+                button.setDisable(true);
+            }
+        }
+    }
+
+    @Override
+    public Node getNode () {
+        ScrollPane pane = new ScrollPane();
+        pane.setContent(myTilePane);
+        pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        pane.setHbarPolicy(ScrollBarPolicy.NEVER);
+        return pane;
+    }
 }

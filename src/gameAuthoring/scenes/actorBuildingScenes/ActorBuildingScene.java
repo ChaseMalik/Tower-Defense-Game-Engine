@@ -92,7 +92,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void setupFileMenu () {
-        FileMenu menu = new FileMenu();
+        BuildingSceneMenu menu = new BuildingSceneMenu();
         menu.addObserver(this);
         myPane.setTop(menu.getNode());
     }
@@ -192,7 +192,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
                 new ErrorPopup(FILE_NOT_FOUND_ERROR_MSG);
             } 
         }
-        else if(obs instanceof FileMenu) {
+        else if(obs instanceof BuildingSceneMenu) {
             finishBuildingActors();
         }
     }

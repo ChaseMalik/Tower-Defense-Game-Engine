@@ -1,19 +1,15 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<StatsBoardProperties>
+<HUDProperties>
 
  	<SizeRatio>
 		<element>1</element>
-		<element>0.5</element>
+		<element>0.2</element>
 	</SizeRatio>
 	
 	
     <ColumnWidth>
 		 <element>0.5</element>
     </ColumnWidth>
-    
-    <StyleSheet>
-         <element>/gamePlayer/styleSheets/statsBoard.css</element>
-    </StyleSheet>
 
-</StatsBoardProperties>
+</HUDProperties>
