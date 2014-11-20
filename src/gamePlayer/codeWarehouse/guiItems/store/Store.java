@@ -67,7 +67,7 @@ public class Store implements GuiItem, SelectTowerListener {
 		
 		myContainer.getChildren().addAll(myHeader, myScrollPane);
 		
-		GuiConstants.GUI_MANAGER.registerTowerListener(this);
+		//GuiConstants.GUI_MANAGER.registerTowerListener(this);
 		
 	}
 

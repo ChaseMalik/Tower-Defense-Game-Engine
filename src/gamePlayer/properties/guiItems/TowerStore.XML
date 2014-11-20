@@ -1,15 +1,14 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<StatsBoardProperties>
+<TowerStoreProperties>
 
  	<SizeRatio>
 		<element>1</element>
-		<element>0.2</element>
+		<element>0.65</element>
 	</SizeRatio>
-	
 	
     <ColumnWidth>
 		 <element>0.5</element>
     </ColumnWidth>
 
-</StatsBoardProperties>
+</TowerStoreProperties>

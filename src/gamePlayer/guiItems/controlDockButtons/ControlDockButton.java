@@ -18,7 +18,12 @@ public abstract class ControlDockButton implements GuiItem {
     protected Dimension2D buttonSize;
     protected Dimension2D imageSize;
 
-    
+    @Override
+    public void initialize(Dimension2D containerSize) {
+        myImageView = new ImageView();
+        myButton = new Button();
+        myButton.getStyleClass().add("ControlDockButton");
+    }
     
     protected void setImageviewImage(String path){
         try {

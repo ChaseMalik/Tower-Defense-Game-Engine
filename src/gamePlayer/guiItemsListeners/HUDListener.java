@@ -1,6 +1,6 @@
 package gamePlayer.guiItemsListeners;
 
-import gamePlayer.guiItems.headsUpDisplayB.HUD;
+import gamePlayer.guiItems.headsUpDisplay.HUD;
 
 /**
  * Listener interface for StatsBoardListener GuiItem

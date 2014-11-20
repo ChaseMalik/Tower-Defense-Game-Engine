@@ -14,7 +14,7 @@ public class StoreItemCell implements GuiItem {
 
 	private String myName;
 	private ImageView myImage;
-	private StoreListener myListener = 	GuiConstants.GUI_MANAGER;
+	//private StoreListener myListener = 	GuiConstants.GUI_MANAGER;
 
 	public StoreItemCell(String name) {
 		myName = name;
@@ -56,7 +56,7 @@ public class StoreItemCell implements GuiItem {
 
 	private void buyItem() {
 		if (myName.equals("LockedItem")) return;
-		myListener.buyItem(myName);
+		//myListener.buyItem(myName);
 	}
 
 }

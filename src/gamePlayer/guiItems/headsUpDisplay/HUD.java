@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.headsUpDisplayB;
+package gamePlayer.guiItems.headsUpDisplay;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;

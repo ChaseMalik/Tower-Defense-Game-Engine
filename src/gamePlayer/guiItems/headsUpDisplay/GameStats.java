@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.headsUpDisplayB;
+package gamePlayer.guiItems.headsUpDisplay;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.headsUpDisplayA;
+package gamePlayer.codeWarehouse.guiItems.headsUpDisplayA;
 
 import java.io.File;
 
@@ -22,7 +22,7 @@ public class Health extends VBox implements GuiItem {
 	private ImageView myHeart;
 	private ProgressBar myHealthBar;
 	
-	private HealthListener myListener = GuiConstants.GUI_MANAGER;
+	//private HealthListener myListener = GuiConstants.GUI_MANAGER;
 
 	private DoubleProperty healthRemaining;
 
@@ -71,7 +71,7 @@ private void makeHealthBar() {
 	healthRemaining = myHealthBar.progressProperty();
 	myHealthBar.setProgress(1);
 	myHealthBar.setPrefWidth(imageSize.getWidth());
-	myListener.bindHealth(healthRemaining);
+	//myListener.bindHealth(healthRemaining);
 }
 
 }

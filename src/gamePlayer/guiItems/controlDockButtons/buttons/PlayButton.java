@@ -23,15 +23,13 @@ public class PlayButton extends ControlDockButton {
 
     @Override
     public void initialize(Dimension2D containerSize) {
+        super.initialize(containerSize);
         myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
-        myImageView = new ImageView();
-        myButton = new Button();
 
         playImage = myParser.getValuesFromTag("PlayImage").get(0);
         pauseImage = myParser.getValuesFromTag("PauseImage").get(0);
-
+        
         setUpSizing (containerSize);
-
         myButton.setOnAction(event -> play());
         setImageviewImage(playImage);
         myButton.setGraphic(myImageView);

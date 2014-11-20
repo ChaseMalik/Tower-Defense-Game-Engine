@@ -1,6 +1,6 @@
 package gamePlayer.mainClasses.dummyGameManager;
 
-import gamePlayer.guiItems.headsUpDisplayB.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.mainClasses.GuiManager;
 import java.util.ArrayList;
 import java.util.List;

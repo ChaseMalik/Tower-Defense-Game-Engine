@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.headsUpDisplayA;
+package gamePlayer.codeWarehouse.guiItems.headsUpDisplayA;
 
 public class LevelCounter {
 

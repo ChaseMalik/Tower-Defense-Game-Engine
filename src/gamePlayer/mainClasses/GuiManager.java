@@ -2,26 +2,27 @@ package gamePlayer.mainClasses;
 
 import gameEngine.MainGameManager;
 import gamePlayer.codeWarehouse.SelectTowerListener;
-import gamePlayer.codeWarehouse.StoreListener;
-import gamePlayer.codeWarehouse.TowerPlaceListener;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
-import gamePlayer.guiItems.headsUpDisplayB.GameStats;
-import gamePlayer.guiItems.headsUpDisplayB.HUD;
+import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.HUD;
+import gamePlayer.guiItems.store.Store;
+import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
-import gamePlayer.guiItemsListeners.HealthListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
+import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
-import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+
+
 
 /**
  * Class controls all GUI items and MUST implement ALL of the interfaces in the
@@ -32,8 +33,7 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-StoreListener, PlayButtonListener, HealthListener, SelectTowerListener, TowerPlaceListener,
-SpeedButtonListener
+PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -45,6 +45,9 @@ SpeedButtonListener
 
     private MainGameManager myGameManager;
 
+    //handles to GuiItems
+    private Store myStore;
+    
     public GuiManager(Stage stage, DummyGameManager manager) {
         myEngineGroup = new Group();
         //myGameManager = new MainGameManager(this, myEngineGroup);
@@ -75,25 +78,11 @@ SpeedButtonListener
         myStatsBoard.setGameStats(stats);
     }
 
-    @Override
-    public void buyItem(String itemID) {
-
-        // TODO : Check to make sure I have enough money
-        System.out.println("Buy Item: " + itemID);
-
-        TowerPlacer.getInstance().placeItem(itemID, myRoot);
-    }
-
     public void addItem(String itemID, Dimension2D location) {
         System.out.println("Add Item: " + itemID);
         // For testing purposes...
         mySelectTowerListener.selectTower(itemID);
 
-    }
-
-    @Override
-    public void registerTowerListener(SelectTowerListener listener) {
-        mySelectTowerListener = listener;
     }
 
     @Override
@@ -107,16 +96,6 @@ SpeedButtonListener
         //myGameManager.resume();
         System.out.println("Play\n");
     }
-/*
-    @Override
-    public void fastforward() {
-        //myGameManager.speedUp();
-    }
-*/
-    @Override
-    public void bindHealth(DoubleProperty healthRemaining) {
-        //myGameManager.getHealthProperty();
-    }
 
     @Override
     public void changeTheme() {
@@ -125,24 +104,6 @@ SpeedButtonListener
             myStage.getScene().getStylesheets().clear();
             myStage.getScene().getStylesheets().add("file:"+file.getAbsolutePath());
         }
-    }
-
-    @Override
-    public void selectTower (String towerID) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deselectTower () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void placeTower (double x, double y, String towerName) {
-        //myGameManager.makeTower(x, y, towerName);
-        System.out.println(x + " " + y);
     }
 
     @Override
@@ -155,4 +116,8 @@ SpeedButtonListener
         System.out.println("Fast forward\n");
     }
 
+    @Override
+    public void registerStore (Store store) {
+        myStore = store;
+    }
 }
