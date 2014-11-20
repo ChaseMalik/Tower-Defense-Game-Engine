@@ -5,17 +5,18 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
-public class FileMenu extends Observable {
+public class BuildingSceneMenu extends Observable {
     
-    private MenuBar myFileMenu;
+    private MenuBar myMenuBar;
+    private Menu myFileMenu;
     
-    public FileMenu() {
-        myFileMenu = new MenuBar();
-        Menu menu = new Menu("File");
+    public BuildingSceneMenu() {
+        myMenuBar = new MenuBar();
+        myFileMenu = new Menu("File");
         MenuItem finishedBuildingItem = new MenuItem("Finished");
         finishedBuildingItem.setOnAction(event->handleClick());
-        menu.getItems().add(finishedBuildingItem);
-        myFileMenu.getMenus().add(menu);
+        myFileMenu.getItems().add(finishedBuildingItem);
+        myMenuBar.getMenus().add(myFileMenu);
     }
 
     private void handleClick () {
@@ -24,6 +25,10 @@ public class FileMenu extends Observable {
     }
 
     public MenuBar getNode () {
-        return myFileMenu;
+        return myMenuBar;
+    }
+
+    public void addMenuItemToFileMenu (MenuItem item) {
+        myFileMenu.getItems().add(item);        
     }
 }
