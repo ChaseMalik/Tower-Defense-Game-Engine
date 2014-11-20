@@ -16,7 +16,10 @@
 }
 
 .GameWorld {
-    
+    -fx-background-image: url('file:./src/gameAuthoring/Resources/DefaultMapImages/Map1.jpg');
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
 }
 
 .HUD {

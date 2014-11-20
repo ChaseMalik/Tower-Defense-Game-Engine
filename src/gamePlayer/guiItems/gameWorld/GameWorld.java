@@ -32,12 +32,12 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-	        myMap.setMinSize(containerSize.getWidth(), containerSize.getHeight());
+	    myMap.setMinSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
 		//myMap.setOnMouseClicked(event -> placeTower(event));
 
-		addTestGameItem();
+		addTestGameItems();
 	}
 
 	/*
@@ -50,11 +50,15 @@ public class GameWorld implements GuiItem {
 		return myMap;
 	}
 	
+	public void setBackground(String imagePath) {
+		myMap.setStyle("-fx-background-image: URL('file:"+imagePath+"');");
+	}
+	
 	public void addEngineGroup(Group myEngineGroup){
 		myMap.getChildren().add(myEngineGroup);
 	}
 	
-	private void addTestGameItem() {
+	private void addTestGameItems() {
 		ImageView imageView1 = new ImageView();
 		String path1 = "gamePlayer/turretImages/Turret_2_1.png";
 		imageView1.setImage(new Image(path1, 60, 60, false, false));
