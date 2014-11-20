@@ -1,13 +1,15 @@
 package gamePlayer.guiItems.gameWorld;
 
-import javafx.geometry.Dimension2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -34,6 +36,8 @@ public class GameWorld implements GuiItem {
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
 		//myMap.setOnMouseClicked(event -> placeTower(event));
+
+		addTestGameItem();
 	}
 
 	/*
@@ -48,6 +52,14 @@ public class GameWorld implements GuiItem {
 	
 	public void addEngineGroup(Group myEngineGroup){
 		myMap.getChildren().add(myEngineGroup);
+	}
+	
+	private void addTestGameItem() {
+		ImageView imageView = new ImageView();
+		String path = "gamePlayer/turretImages/Turret_2_1.png";
+		imageView.setImage(new Image(path, 40, 40, false, false));
+		SelectableGameItem testItem = new SelectableGameItem(1, new Point2D(100,100), imageView);
+		myMap.getChildren().add(testItem.getNode());
 	}
 
 }
