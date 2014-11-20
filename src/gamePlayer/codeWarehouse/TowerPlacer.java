@@ -1,4 +1,4 @@
-package gamePlayer.guiFeatures;
+package gamePlayer.codeWarehouse;
 
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
@@ -61,7 +61,7 @@ public class TowerPlacer {
         rootNode.setOnMouseReleased(null);
         node.setVisible(false);
 
-        GuiConstants.GUI_MANAGER.addItem(itemID, new Dimension2D(X,Y));
+        //GuiConstants.GUI_MANAGER.addItem(itemID, new Dimension2D(X,Y));
     }
 
     private boolean validPlacement(double X, double Y) {

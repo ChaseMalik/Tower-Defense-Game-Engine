@@ -1,9 +1,6 @@
 package gamePlayer.mainClasses;
 
-import gameEngine.MainGameManager;
-import gamePlayer.codeWarehouse.SelectTowerListener;
 import gamePlayer.guiFeatures.FileLoader;
-import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.store.Store;
@@ -18,11 +15,8 @@ import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
-import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.stage.Stage;
-
-
 
 /**
  * Class controls all GUI items and MUST implement ALL of the interfaces in the
@@ -37,20 +31,17 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+    
     private Stage myStage;
-    private SelectTowerListener mySelectTowerListener;
-    private HUD myStatsBoard;
+    private DummyGameManager myGameManager;
     private Group myRoot;
-    private Group myEngineGroup;
-
-    private MainGameManager myGameManager;
-
+    
     //handles to GuiItems
     private Store myStore;
+    private HUD myHUD;
     
     public GuiManager(Stage stage, DummyGameManager manager) {
-        myEngineGroup = new Group();
-        //myGameManager = new MainGameManager(this, myEngineGroup);
+        myGameManager = manager;
         myStage = stage;
         GuiConstants.GUI_MANAGER = this;
         myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
@@ -66,23 +57,18 @@ PlayButtonListener, SpeedButtonListener, StoreListener, GameWorldListener
 
     @Override
     public void saveGame() {
-        myGameManager.saveState("sampleFileName"+Math.random()*1000);
+        //myGameManager.saveState("sampleFileName"+Math.random()*1000);l
+        System.out.println("Saved game\n");
     }
 
     @Override
-    public void registerStatsBoard(HUD statsBoard) {
-        myStatsBoard = statsBoard;
+    public void registerStatsBoard(HUD hud) {
+        myHUD = hud;
     }
-
+    
+    @Override
     public void setGameStats(List<GameStats> stats) {
-        myStatsBoard.setGameStats(stats);
-    }
-
-    public void addItem(String itemID, Dimension2D location) {
-        System.out.println("Add Item: " + itemID);
-        // For testing purposes...
-        mySelectTowerListener.selectTower(itemID);
-
+        myHUD.setGameStats(stats);
     }
 
     @Override
