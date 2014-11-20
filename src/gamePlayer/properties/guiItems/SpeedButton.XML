@@ -13,7 +13,7 @@
 	</ImageRatio>
 	
 	<FastForwardImage>
-	    <element>gamePlayer/playerImages/fastForward.png</element>
+	    <element>gamePlayer/playerImages/play.png</element>
 	</FastForwardImage>
 	
 	<SlowDownImage>

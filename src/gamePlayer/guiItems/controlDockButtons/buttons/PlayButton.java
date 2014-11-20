@@ -9,11 +9,11 @@ package gamePlayer.guiItems.controlDockButtons.buttons;
 import gamePlayer.guiItems.controlDockButtons.ControlDockButton;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import utilities.XMLParsing.XMLParser;
 
 public class PlayButton extends ControlDockButton {
@@ -31,18 +31,16 @@ public class PlayButton extends ControlDockButton {
         
         setUpSizing (containerSize);
         myButton.setOnAction(event -> play());
-        setImageviewImage(playImage);
+        setupImageViews(playImage, pauseImage);
         myButton.setGraphic(myImageView);
     }
 
     private void play(){
-        setImageviewImage(pauseImage);
         myButton.setOnAction(event -> pause());
         myListener.play();
     }
 
     private void pause(){
-        setImageviewImage(playImage);
         myButton.setOnAction(event -> play());
         myListener.pause();
     }

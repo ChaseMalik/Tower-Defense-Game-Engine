@@ -20,7 +20,7 @@ public class ActorCell extends ListCell<BaseActor> {
     @Override
     public void updateItem(BaseActor item, boolean empty) {
         super.updateItem(item, empty);
-        if(item != null && !empty) {
+        if(item != null) {
             VBox actorCellContainer = new VBox(5);
             actorCellContainer.setAlignment(Pos.CENTER);
             Label actorNameLabel = new Label(item.toString());
@@ -29,6 +29,9 @@ public class ActorCell extends ListCell<BaseActor> {
             actorImgView.setFitHeight(myFitHeight);
             actorCellContainer.getChildren().addAll(actorImgView, actorNameLabel);    
             setGraphic(actorCellContainer);
+        }
+        else {
+            setGraphic(new Label(""));
         }
     }
 }

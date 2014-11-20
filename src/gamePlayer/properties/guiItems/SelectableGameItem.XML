@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SelectableGameItemProperties>
+
+	<CircleRadius>
+		<element>50</element>
+	</CircleRadius>
+	
+	<CircleOpacity>
+		<element>0.5</element>
+	</CircleOpacity>
+	
+	<CircleColor>
+		<element>#DEDEDE</element>
+	</CircleColor>
+
+</SelectableGameItemProperties>

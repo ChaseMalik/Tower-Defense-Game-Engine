@@ -1,15 +1,14 @@
 package gamePlayer.guiItems.controlDockButtons.buttons;
 
 import gamePlayer.guiItems.controlDockButtons.ControlDockButton;
-import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
-import utilities.XMLParsing.XMLParser;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
+import utilities.XMLParsing.XMLParser;
 
 public class SpeedButton extends ControlDockButton {
     private String ffImage;
@@ -26,18 +25,16 @@ public class SpeedButton extends ControlDockButton {
 
         setUpSizing (containerSize);
         myButton.setOnAction(event -> fastForward());
-        setImageviewImage(ffImage);
+        setupImageViews(ffImage, slowImage);
         myButton.setGraphic(myImageView);
     }
 
     private void fastForward() {
-        setImageviewImage(slowImage);
         myListener.fastForward();
         myButton.setOnAction(event-> normalSpeed());
     }
     
     private void normalSpeed() {
-        setImageviewImage(ffImage);
         myListener.normalSpeed();
         myButton.setOnAction(event->fastForward());
     }

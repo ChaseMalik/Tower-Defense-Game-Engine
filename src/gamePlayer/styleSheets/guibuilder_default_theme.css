@@ -16,7 +16,10 @@
 }
 
 .GameWorld {
-    
+    -fx-background-image: url('file:./src/gameAuthoring/Resources/DefaultMapImages/Map1.jpg');
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
 }
 
 .HUD {
@@ -24,6 +27,14 @@
     -fx-border-width: 1;
 }
 
+.HUD-hover {
+    
+}
+
+.GameWorld-hover {
+    
+}
+   
 .Store {
 
 }
@@ -41,4 +52,16 @@
 
 .store-pane {
 	-fx-background-color: rgb(140,140,140);
+}
+
+#range-button {
+	-fx-background-color: rgb(102,178,255);
+}
+
+#sell-button {
+	-fx-background-color: rgb(255,51,51);
+}
+
+#damage-button {
+	-fx-background-color: rgb(102,255,102);
 }

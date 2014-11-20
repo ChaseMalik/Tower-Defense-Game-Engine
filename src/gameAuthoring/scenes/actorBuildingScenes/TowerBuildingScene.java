@@ -21,24 +21,23 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/TowerBehaviors.xml";
 
     private List<BaseActor> myCreatedEnemies;
+    private EnemySelectionDisplay myEnemySelectionView;
     
     public TowerBuildingScene (BorderPane root, List<BaseActor> enemies, 
                                List<BackendRoute> enemyRoutes) {
         super(root, enemyRoutes, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myCreatedEnemies = enemies;
-        setupRightScreen();
     }
-
-    private void setupRightScreen () {
-        Pane dragAndDrop = (Pane) myPane.getRight();
-        myPane.getChildren().remove(dragAndDrop);
-        VBox rightContainer = new VBox();
-        EnemySelectionDisplay enemiesView = new EnemySelectionDisplay(myCreatedEnemies);
-        myDragAndDrop.getPane().setPrefHeight(DRAG_AND_DROP_HEIGHT);
-        enemiesView.setPrefHeight(ENEMY_DISPLAY_HEIGHT);
-        enemiesView.setOrientation(Orientation.HORIZONTAL); 
-        enemiesView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        rightContainer.getChildren().addAll(dragAndDrop, enemiesView);
+    
+    @Override
+    protected void configureAndDisplayRightPane (Pane rightPane) {
+        VBox rightContainer = new  VBox();
+        myEnemySelectionView = new EnemySelectionDisplay(myCreatedEnemies);
+        rightPane.setPrefHeight(DRAG_AND_DROP_HEIGHT);
+        myEnemySelectionView.setPrefHeight(ENEMY_DISPLAY_HEIGHT);
+        myEnemySelectionView.setOrientation(Orientation.HORIZONTAL); 
+        myEnemySelectionView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        rightContainer.getChildren().addAll(rightPane, myEnemySelectionView);
         myPane.setRight(rightContainer);
     }
 }
