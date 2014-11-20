@@ -37,7 +37,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private static final String CLASS_ROUTE_TO_BUILDERS = "gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.";
     private static final String FILE_NOT_FOUND_ERROR_MSG = "Image file representing actor could not be found";
-    private static final int DRAG_AND_DROP_WIDTH = 560;
+    protected static final int DRAG_AND_DROP_WIDTH = 560;
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
@@ -136,7 +136,6 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myActors.add(new BaseActor(iBehaviorMap,
                                    myActorImage,
                                    myActorNameField.getText()));
-        System.out.println(myActors.size());
     }
 
     private boolean enemyNameIsUnique () {
@@ -176,17 +175,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         if(obs instanceof DragAndDropFilePane ){
             try {
                 myActorImage = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, true, false);    
-                ImageView imageView = new ImageView(myActorImage);
-                imageView.setScaleX(1.5);
-                imageView.setScaleY(1.5);
-                imageView.setLayoutX(220);
-                imageView.setLayoutY(220);
-                Pane rightPane = new Pane();
-                rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
-                rightPane.getChildren().add(imageView);
-                rightPane.setStyle("-fx-background-color: white;");
-                myPane.getChildren().remove(myDragAndDrop);
-                myPane.setRight(rightPane);
+                showActorImage();
             }
             catch (FileNotFoundException e) {
                 new ErrorPopup(FILE_NOT_FOUND_ERROR_MSG);
@@ -196,7 +185,25 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
             finishBuildingActors();
         }
     }
+
+    public void showActorImage () {
+        ImageView imageView = new ImageView(myActorImage);
+        imageView.setScaleX(1.5);
+        imageView.setScaleY(1.5);
+        imageView.setLayoutX(220);
+        imageView.setLayoutY(220);        
+        Pane rightPane = new Pane();
+        rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
+        rightPane.getChildren().add(imageView);
+        rightPane.setStyle("-fx-background-color: white;");
+        myPane.getChildren().remove(myDragAndDrop);
+        configureAndDisplayRightPane(rightPane);
+    }
     
+    protected void configureAndDisplayRightPane (Pane rightPane) {
+        myPane.setRight(rightPane);
+    }
+
     public void finishBuildingActors() {
         this.setChanged();
         this.notifyObservers(myActors);
