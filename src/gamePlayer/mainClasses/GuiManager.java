@@ -4,14 +4,14 @@ import gameEngine.MainGameManager;
 import gamePlayer.codeWarehouse.SelectTowerListener;
 import gamePlayer.codeWarehouse.StoreListener;
 import gamePlayer.codeWarehouse.TowerPlaceListener;
-import gamePlayer.guiContainers.secondaryContainers.ControlDock;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.headsUpDisplayB.GameStats;
 import gamePlayer.guiItems.headsUpDisplayB.HUD;
-import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.HealthListener;
+import gamePlayer.guiItemsListeners.PlayButtonListener;
+import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.dummyGameManager.DummyGameManager;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
@@ -32,7 +32,8 @@ import javafx.stage.Stage;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-StoreListener, PlayButtonListener, HealthListener, SelectTowerListener, TowerPlaceListener
+StoreListener, PlayButtonListener, HealthListener, SelectTowerListener, TowerPlaceListener,
+SpeedButtonListener
 {
 
     private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -142,6 +143,16 @@ StoreListener, PlayButtonListener, HealthListener, SelectTowerListener, TowerPla
     public void placeTower (double x, double y, String towerName) {
         //myGameManager.makeTower(x, y, towerName);
         System.out.println(x + " " + y);
+    }
+
+    @Override
+    public void normalSpeed () {
+        System.out.println("Normal speed\n");
+    }
+
+    @Override
+    public void fastForward () {
+        System.out.println("Fast forward\n");
     }
 
 }

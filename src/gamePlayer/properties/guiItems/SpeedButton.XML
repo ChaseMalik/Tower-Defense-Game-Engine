@@ -12,13 +12,12 @@
 		<element>0.8</element>
 	</ImageRatio>
 	
-	<PlayImage>
-	    <element>gamePlayer/playerImages/play.png</element>
-	</PlayImage>
+	<FastForwardImage>
+	    <element>gamePlayer/playerImages/fastForward.png</element>
+	</FastForwardImage>
 	
-	<PauseImage>
-	    <element>gamePlayer/playerImages/pause.png</element>
-	</PauseImage>
-
+	<SlowDownImage>
+	    <element>gamePlayer/playerImages/slowDown.png</element>
+	</SlowDownImage>
 
 </GoButtonProperties>
