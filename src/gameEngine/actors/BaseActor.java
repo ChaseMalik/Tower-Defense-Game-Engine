@@ -20,19 +20,19 @@ import javafx.scene.image.ImageView;
 public class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
-    protected ImageView myNode;
+    protected transient ImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
+    protected String myImageName;
 
     public BaseActor () {
 
     }
 
-    public BaseActor (Map<String, IBehavior> behaviors, Image image, String name, double range) {
+    public BaseActor (Map<String, IBehavior> behaviors, String imageName, String name, double range) {
         myName = name;
         myBehaviors = behaviors;
-        myNode.setImage(image);
-        myNode.setVisible(false);
+        myImageName = imageName;
         myRange = range;
     }
 
@@ -47,6 +47,9 @@ public class BaseActor extends Observable {
 
     }
 
+    private void makeNode(){
+        myNode = new ImageView(myImageName);
+    }
     /**
      * Copies the current actor to create another one
      * This is used when creating x amount of enemies of the same type on a specific level
@@ -59,7 +62,7 @@ public class BaseActor extends Observable {
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        return new BaseActor(clonedBehaviors, myNode.getImage(), myName,myRange);
+        return new BaseActor(clonedBehaviors, myImageName, myName,myRange);
     }
 
     public IBehavior getBehavior (String s) {

@@ -6,7 +6,10 @@ import javafx.scene.image.Image;
 
 public class BaseEnemy extends BaseActor {
     
-    public BaseEnemy (Map<String, IBehavior> behaviors, Image image, String name, double range) {
+    private BaseProjectile myProjectile;
+
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, BaseProjectile projectile) {
         super(behaviors, image, name, range);
+        myProjectile = projectile;
     }
 }

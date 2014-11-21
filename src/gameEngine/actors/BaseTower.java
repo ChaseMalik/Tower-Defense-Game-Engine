@@ -9,7 +9,7 @@ public class BaseTower extends BaseActor {
     private BaseTower myUpgrade;
     private BaseProjectile myProjectile;
     
-    public BaseTower(Map<String,IBehavior> behaviors, Image image, String name, double range, BaseTower upgrade, BaseProjectile projectile){
+    public BaseTower(Map<String,IBehavior> behaviors, String image, String name, double range, BaseTower upgrade, BaseProjectile projectile){
         super(behaviors,image,name, range);
         myUpgrade = upgrade;
         myProjectile = projectile;
