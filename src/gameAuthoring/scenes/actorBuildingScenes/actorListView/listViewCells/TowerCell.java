@@ -7,14 +7,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class ActorCell extends ListCell<BaseActor> {
-
-    private double myFitWidth;
-    private double myFitHeight;
+public class TowerCell extends ListCell<BaseActor> {
     
-    public ActorCell(double width, double height) {
-        myFitWidth = width;
-        myFitHeight = height;
+    public TowerCell() {
+
     }
 
     @Override
@@ -31,7 +27,7 @@ public class ActorCell extends ListCell<BaseActor> {
             setGraphic(actorCellContainer);
         }
         else {
-            setGraphic(new Label(""));
+            setGraphic(null);
         }
     }
 }

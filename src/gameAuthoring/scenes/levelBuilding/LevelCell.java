@@ -1,6 +1,5 @@
 package gameAuthoring.scenes.levelBuilding;
 
-import gameAuthoring.mainclasses.AuthorController;
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
 
@@ -14,7 +13,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -32,9 +30,9 @@ public class LevelCell extends ListCell<BaseLevel> {
     @Override
     public void updateItem(BaseLevel item, boolean empty) {
         super.updateItem(item, empty);
-        if(item != null && !empty) {
+        if(item != null) {
             this.setAlignment(Pos.CENTER);
-            VBox levelContainer = new VBox(10);         
+            VBox levelContainer = new VBox(10);   
             HBox enemiesContainer = new HBox(WIDTH_BTW_ENEMIES);
             for(int i = 0; i < myEnemies.size(); i++) {
                 VBox enemyBox = new VBox(5);
@@ -47,12 +45,16 @@ public class LevelCell extends ListCell<BaseLevel> {
             levelContainer.getChildren().addAll(createLevelLabelAndTimeDisplay(), enemiesContainer);
             setGraphic(levelContainer);
         }
+        else {
+            setGraphic(null);
+        }
     }
     
     private BorderPane createLevelLabelAndTimeDisplay(){
     	BorderPane labelAndTime = new BorderPane();
     	HBox timeAndSeconds = new HBox(10);
     	Label levelLabel = new Label("Level " + this.getIndex() +1);
+        levelLabel.getStyleClass().add("levelLabel");
     	
     	TextField levelTime = new TextField();
     	levelTime.setPrefWidth(50);
@@ -68,7 +70,7 @@ public class LevelCell extends ListCell<BaseLevel> {
     
 
     private ImageView buildImageView (BaseActor enemy) {
-        ImageView enemyImg = new ImageView(enemy.getImage());
+        ImageView enemyImg = new ImageView(enemy.getNode().getImage());
         enemyImg.setFitHeight(FIT_SIZE);
         enemyImg.setFitWidth(FIT_SIZE);
         return enemyImg;

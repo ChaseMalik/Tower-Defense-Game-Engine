@@ -2,6 +2,7 @@ package gameEngine.actors.behaviors;
 
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
@@ -53,7 +54,8 @@ public class LinearMovement extends BaseMovementBehavior {
 
     }
 
-    private void move (BaseActor actor, VisibilityPoint point) {
+    private void move (BaseActor a, VisibilityPoint point) {
+        ImageView actor = a.getNode();
         actor.setVisible(point.isVisible());
         actor.setX(point.getPoint().getX());
         actor.setY(point.getPoint().getY());
