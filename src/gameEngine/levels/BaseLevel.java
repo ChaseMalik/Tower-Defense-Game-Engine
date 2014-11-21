@@ -21,7 +21,7 @@ public class BaseLevel {
         if(prototypeTower == null || validateTower(prototypeTower, x, y)){
             return null;
         }        
-        BaseTower tower = prototypeTower.copy();
+        BaseTower tower = (BaseTower)prototypeTower.copy();
         tower.getNode().setX(x);
         tower.getNode().setY(y);
         return tower;
