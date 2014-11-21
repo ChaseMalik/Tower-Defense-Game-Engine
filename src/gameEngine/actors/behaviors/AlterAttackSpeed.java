@@ -21,7 +21,7 @@ public class AlterAttackSpeed extends AlterAttack {
     }
 
     @Override
-    protected void changeParam (NewAttack attack) {
+    protected void changeParam (BaseAttack attack) {
     //    attack.setAttackSpeed((int) (attack.getAttackSpeed() * myTotalChange));
     }
 

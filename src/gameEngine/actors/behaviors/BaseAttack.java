@@ -10,14 +10,18 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.RealActor;
-
-public abstract class NewAttack implements IBehavior {
+/**
+ * Represents the basic attack behavior, where projectile(s) to be fired
+ * @author Chase Malik, Timesh Patel
+ *
+ */
+public abstract class BaseAttack implements IBehavior {
 
     protected int myAttackSpeed;
     protected int myCooldown;
     protected final static int READY_TO_SHOOT = 0;
     
-    public NewAttack(int attackSpeed){
+    public BaseAttack(int attackSpeed){
         myAttackSpeed = attackSpeed;
         myCooldown = READY_TO_SHOOT;
     }
