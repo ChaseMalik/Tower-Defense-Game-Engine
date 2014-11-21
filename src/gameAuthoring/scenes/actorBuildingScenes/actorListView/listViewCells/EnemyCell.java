@@ -24,7 +24,7 @@ public class EnemyCell extends ListCell<BaseActor> {
             VBox actorCellContainer = new VBox(5);
             actorCellContainer.setAlignment(Pos.CENTER);
             Label actorNameLabel = new Label(item.toString());
-            ImageView actorImgView = new ImageView(item.getImage()); 
+            ImageView actorImgView = new ImageView(item.getNode().getImage()); 
             actorImgView.setFitWidth(myFitWidth);
             actorImgView.setFitHeight(myFitHeight);
             actorCellContainer.getChildren().addAll(actorImgView, actorNameLabel);    

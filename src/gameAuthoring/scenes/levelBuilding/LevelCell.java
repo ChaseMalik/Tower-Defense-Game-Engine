@@ -50,7 +50,7 @@ public class LevelCell extends ListCell<BaseLevel> {
     }
 
     private ImageView buildImageView (BaseActor enemy) {
-        ImageView enemyImg = new ImageView(enemy.getImage());
+        ImageView enemyImg = new ImageView(enemy.getNode().getImage());
         enemyImg.setFitHeight(FIT_SIZE);
         enemyImg.setFitWidth(FIT_SIZE);
         return enemyImg;

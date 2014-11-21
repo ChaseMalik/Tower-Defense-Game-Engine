@@ -4,6 +4,7 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseTower;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
 import java.util.Map;
@@ -56,8 +57,11 @@ public class TowerBuildingScene extends ActorBuildingScene {
     
     @Override
     protected void makeNewActor (Map<String, IBehavior> iBehaviorMap) {
-        myActors.add(new BaseActor(iBehaviorMap,
+        myActors.add(new BaseTower(iBehaviorMap,
                                    myActorImage,
-                                   myActorNameField.getText()));       
+                                   myActorNameField.getText(),
+                                   10,
+                                   null,
+                                   null));       
     }
 }
