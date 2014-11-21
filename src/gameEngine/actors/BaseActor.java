@@ -62,7 +62,9 @@ public class BaseActor extends Observable {
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        return new BaseActor(clonedBehaviors, myImageName, myName,myRange);
+        BaseActor a = new BaseActor(clonedBehaviors, myImageName, myName,myRange);
+        a.makeNode();
+        return a;
     }
 
     public IBehavior getBehavior (String s) {
