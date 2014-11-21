@@ -27,10 +27,11 @@ public class LevelCell extends ListCell<BaseLevel> {
     @Override
     public void updateItem(BaseLevel item, boolean empty) {
         super.updateItem(item, empty);
-        if(item != null && !empty) {
+        if(item != null) {
             this.setAlignment(Pos.CENTER);
             VBox levelContainer = new VBox(10);
-            Label levelLabel = new Label("Level " + this.getIndex() + 1);
+            Label levelLabel = new Label("Level " + (this.getIndex()+1));
+            levelLabel.getStyleClass().add("levelLabel");
             HBox enemiesContainer = new HBox(WIDTH_BTW_ENEMIES);
             for(int i = 0; i < myEnemies.size(); i++) {
                 VBox enemyBox = new VBox(5);
@@ -42,6 +43,9 @@ public class LevelCell extends ListCell<BaseLevel> {
             }
             levelContainer.getChildren().addAll(levelLabel, enemiesContainer);
             setGraphic(levelContainer);
+        }
+        else {
+            setGraphic(null);
         }
     }
 

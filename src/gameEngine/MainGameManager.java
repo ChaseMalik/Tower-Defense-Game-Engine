@@ -2,11 +2,9 @@ package gameEngine;
 
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import utilities.ErrorPopup;
+import utilities.errorPopup.ErrorPopup;
 
 
 public class MainGameManager implements GameManager {
