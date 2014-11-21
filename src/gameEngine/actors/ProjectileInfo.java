@@ -1,5 +1,6 @@
 package gameEngine.actors;
 
+import java.util.Set;
 import javafx.scene.image.Image;
 
 /**
@@ -12,8 +13,9 @@ public class ProjectileInfo {
     protected double mySpeed;
     protected double myDamage;
     protected Image myImage;
+    protected Set<String> myHittableEnemies;
     
-    public ProjectileInfo(double speed, double damage, Image image){
+    public ProjectileInfo(double speed, double damage, Image image, Set<String> hittableEnemies){
         mySpeed=speed;
         myDamage=damage;
         myImage=image;
@@ -41,6 +43,10 @@ public class ProjectileInfo {
 
     public void setMyImage (Image myImage) {
         this.myImage = myImage;
+    }
+    
+    public Set<String> getHittableEnemies(){
+        return myHittableEnemies;
     }
     
 }

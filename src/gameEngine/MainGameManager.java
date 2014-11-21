@@ -1,15 +1,19 @@
 package gameEngine;
 
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseProjectile;
+import gameEngine.actors.BaseTower;
 import gameEngine.levels.BaseLevel;
-
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import utilities.ErrorPopup;
 
 
-public class MainGameManager implements GameManager {
+public class MainGameManager implements GameManager, Observer {
 
     private static final double ONE_SECOND_IN_NANO = 1000000000.0;
     private static final int FPS = 30;
@@ -26,6 +30,10 @@ public class MainGameManager implements GameManager {
 
     private double myLastUpdateTime;
     private double myLastRenderTime;
+    
+    private List<BaseEnemy> myEnemies;
+    private List<BaseTower> myTowers;
+    private List<BaseProjectile> myProjectiles;
     
     public MainGameManager () {
         myIsRunning = new AtomicBoolean(false);
@@ -73,6 +81,17 @@ public class MainGameManager implements GameManager {
 
     private synchronized void addNewActors () {
         
+    }
+    
+    private void addEnemy(BaseEnemy e){
+        myEnemies.add(e);
+    }
+    private void addTower(BaseTower t){
+        t.addObserver(this);
+        myTowers.add(t);
+    }
+    private void addProjectile(BaseProjectile p){
+        myProjectiles.add(p);
     }
 
     @Override
@@ -164,5 +183,13 @@ public class MainGameManager implements GameManager {
         }
         
         readyToPlay.set(true);
+    }
+
+    @Override
+    public void update (Observable arg0, Object projectile) {
+        if(projectile instanceof BaseProjectile){
+            addProjectile((BaseProjectile) projectile);
+        }
+        
     }
 }

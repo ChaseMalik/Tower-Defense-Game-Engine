@@ -6,10 +6,16 @@ import java.util.Map;
 
 public class BaseLevel {
     
-    private Map<BaseActor, Integer> numEnemiesMap = new HashMap<BaseActor, Integer>();
+    private Map<BaseActor, Integer> myEnemiesMap = new HashMap<BaseActor, Integer>();
+    private int myLength;
+    
     
     public Map<BaseActor, Integer> getMap() {
-        return numEnemiesMap;
+        return myEnemiesMap;
+    }
+    
+    public void setLength(int i){
+        myLength = i;
     }
     
 }
