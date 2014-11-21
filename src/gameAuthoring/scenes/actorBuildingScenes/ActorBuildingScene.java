@@ -29,8 +29,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.DragAndDropFilePane;
-import utilities.ErrorPopup;
 import utilities.XMLParsing.XMLParser;
+import utilities.errorPopup.ErrorPopup;
 import utilities.reflection.Reflection;
 
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
@@ -49,10 +49,12 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     protected List<BehaviorBuilder> myBehaviorBuilders;
     private String myActorImageDirectory;
     private List<BackendRoute> myRoutes;
+    private String myTitle;
 
     public ActorBuildingScene (BorderPane root, List<BackendRoute> routes, String title, 
                                String behaviorXMLFileLocation, String actorImageDirectory) {
         super(root, title);
+        myTitle = title;
         myRoutes = routes;
         myActorImageDirectory = actorImageDirectory;
         setupBehaviorBuilders(behaviorXMLFileLocation);
@@ -60,6 +62,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         initializeActorsAndBuildActorDisplay();
         createCenterDisplay();  
         setupDragAndDropForActorImage();
+        myActorNameField.requestFocus();
     }
 
     private void setupBehaviorBuilders (String behaviorXMLFileLocation) {
@@ -101,7 +104,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         VBox centerOptionsBox = new VBox(25);
         Label title = new Label(super.getTitle() + " Behaviors.");
         title.getStyleClass().add("behaviorsTitle");
-        centerOptionsBox.getChildren().addAll(title, createEnemyNameTextField());
+        centerOptionsBox.getChildren().addAll(title, createActorNameTextField());
         centerOptionsBox.setPadding(new Insets(10));
         for(BehaviorBuilder builder:myBehaviorBuilders){
             centerOptionsBox.getChildren().add(builder.getContainer());
@@ -110,9 +113,9 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myPane.setCenter(centerOptionsBox);
     }
 
-    private VBox createEnemyNameTextField () {
+    private VBox createActorNameTextField () {
         VBox box = new VBox(5);
-        Label label = new Label("Enemy Name");
+        Label label = new Label(myTitle.concat(" Name"));
         myActorNameField = new TextField();
         box.getChildren().addAll(label, myActorNameField);
         return box;
@@ -126,22 +129,18 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void handleSaveButtonClicked () {
         Map<String, IBehavior> iBehaviorMap = buildIBehaviorMap();
-        if(fieldsAreValidForEnemyCreation(iBehaviorMap) && enemyNameIsUnique()){
-            makeNewEnemy(iBehaviorMap);
+        if(fieldsAreValidForActiveCreation(iBehaviorMap) && actorNameIsUnique()){
+            makeNewActor(iBehaviorMap);
             clearFields();
         }
     }
 
-    private void makeNewEnemy (Map<String, IBehavior> iBehaviorMap) {
-        myActors.add(new BaseActor(iBehaviorMap,
-                                   myActorImage,
-                                   myActorNameField.getText()));
-    }
+    protected abstract void makeNewActor (Map<String, IBehavior> iBehaviorMap);
 
-    private boolean enemyNameIsUnique () {
+    private boolean actorNameIsUnique () {
         return myActors
                 .stream()
-                .filter(enemy -> enemy.toString().equalsIgnoreCase(myActorNameField.getText()))
+                .filter(actor -> actor.toString().equalsIgnoreCase(myActorNameField.getText()))
                 .count() == 0;
     }
 
@@ -155,7 +154,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myActorImage = null;
     }
 
-    private boolean fieldsAreValidForEnemyCreation (Map<String, IBehavior> iBehaviorMap) {
+    private boolean fieldsAreValidForActiveCreation (Map<String, IBehavior> iBehaviorMap) {
         return myActorImage != null && 
                 !iBehaviorMap.isEmpty() &&
                 !myActorNameField.getText().isEmpty();

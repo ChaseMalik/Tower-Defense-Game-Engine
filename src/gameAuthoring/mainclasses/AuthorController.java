@@ -9,16 +9,18 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseActor;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.errorPopup.ErrorPopup;
 
 public class AuthorController extends Application implements Observer {
 
+    private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
+    private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 600;
 
@@ -38,11 +40,11 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-//        showPathBuildingScene();
-        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        routes.add(new BackendRoute());
-        myBackendRoutes = routes;
-        showEnemyBuildingScene();
+        showPathBuildingScene();
+//        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+//        routes.add(new BackendRoute());
+//        myBackendRoutes = routes;
+//        showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
@@ -90,11 +92,29 @@ public class AuthorController extends Application implements Observer {
         }
         else if(ob.equals(myEnemyBuildingScene)) {
             myEnemies = (List<BaseActor>) value;
-            showTowerBuildingScene();
+            if(notEnoughEnemies()) {
+                new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
+            }
+            else {
+                showTowerBuildingScene();
+            }
         }
         else if(ob.equals(myTowerBuildingScene)) {
             myTowers = (List<BaseActor>) value;
-            showLevelBuildingScene();
+            if(notEnoughTowers()) {
+                new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
+            }
+            else {
+                showLevelBuildingScene();
+            }
         }       
+    }
+
+    private boolean notEnoughTowers () {
+        return myTowers.size() < 1;
+    }
+
+    private boolean notEnoughEnemies () {
+        return myEnemies.size() < 1;
     }
 }

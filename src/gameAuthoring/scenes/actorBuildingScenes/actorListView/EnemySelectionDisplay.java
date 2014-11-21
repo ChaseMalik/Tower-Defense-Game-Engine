@@ -1,6 +1,6 @@
 package gameAuthoring.scenes.actorBuildingScenes.actorListView;
 
-import gameAuthoring.scenes.actorBuildingScenes.actorListView.listViewCells.ActorCell;
+import gameAuthoring.scenes.actorBuildingScenes.actorListView.listViewCells.EnemyCell;
 import gameEngine.actors.BaseActor;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -23,7 +23,7 @@ public class EnemySelectionDisplay extends ListView<BaseActor> {
                        ListCell<BaseActor>>() {
             @Override 
             public ListCell<BaseActor> call(ListView<BaseActor> list) {
-                return new ActorCell(ENEMY_WIDTH, ENEMY_HEIGHT);
+                return new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
             }
         });
     }

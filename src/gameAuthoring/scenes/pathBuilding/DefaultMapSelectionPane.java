@@ -1,18 +1,16 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import gameAuthoring.mainclasses.AuthorController;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Observable;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import utilities.ErrorPopup;
+import utilities.errorPopup.ErrorPopup;
 
 public class DefaultMapSelectionPane extends Observable {
 

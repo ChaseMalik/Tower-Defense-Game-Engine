@@ -26,7 +26,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import utilities.ErrorPopup;
+import utilities.errorPopup.ErrorPopup;
 
 public class PathBuildingScene extends BuildingScene implements Observer {
 

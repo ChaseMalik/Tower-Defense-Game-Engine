@@ -6,20 +6,15 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.levels.BaseLevel;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import utilities.ErrorPopup;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import utilities.errorPopup.ErrorPopup;
 
-import utilities.ErrorPopup;
 
 
 public class MainGameManager implements Observer {
