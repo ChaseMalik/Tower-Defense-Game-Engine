@@ -1,8 +1,11 @@
 package gameAuthoring.scenes.levelBuilding;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
+
 import java.util.List;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -10,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -29,8 +34,7 @@ public class LevelCell extends ListCell<BaseLevel> {
         super.updateItem(item, empty);
         if(item != null && !empty) {
             this.setAlignment(Pos.CENTER);
-            VBox levelContainer = new VBox(10);
-            Label levelLabel = new Label("Level " + this.getIndex() + 1);
+            VBox levelContainer = new VBox(10);         
             HBox enemiesContainer = new HBox(WIDTH_BTW_ENEMIES);
             for(int i = 0; i < myEnemies.size(); i++) {
                 VBox enemyBox = new VBox(5);
@@ -40,10 +44,28 @@ public class LevelCell extends ListCell<BaseLevel> {
                 enemyBox.getChildren().addAll(new Label(enemy.toString()), enemyImg, numTextField);
                 enemiesContainer.getChildren().add(enemyBox);                
             }
-            levelContainer.getChildren().addAll(levelLabel, enemiesContainer);
+            levelContainer.getChildren().addAll(createLevelLabelAndTimeDisplay(), enemiesContainer);
             setGraphic(levelContainer);
         }
     }
+    
+    private BorderPane createLevelLabelAndTimeDisplay(){
+    	BorderPane labelAndTime = new BorderPane();
+    	HBox timeAndSeconds = new HBox(10);
+    	Label levelLabel = new Label("Level " + this.getIndex() +1);
+    	
+    	TextField levelTime = new TextField();
+    	levelTime.setPrefWidth(50);
+    	Label secondsLabel = new Label("seconds");
+    	timeAndSeconds.getChildren().addAll(levelTime, secondsLabel);
+    	
+    	labelAndTime.setRight(timeAndSeconds);
+    	labelAndTime.setLeft(levelLabel);
+    	
+    	return labelAndTime;
+    }
+
+    
 
     private ImageView buildImageView (BaseActor enemy) {
         ImageView enemyImg = new ImageView(enemy.getImage());
