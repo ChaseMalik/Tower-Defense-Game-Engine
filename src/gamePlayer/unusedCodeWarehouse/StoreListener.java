@@ -1,4 +1,4 @@
-package gamePlayer.codeWarehouse;
+package gamePlayer.unusedCodeWarehouse;
 
 public interface StoreListener {
     public void buyItem (String itemID);

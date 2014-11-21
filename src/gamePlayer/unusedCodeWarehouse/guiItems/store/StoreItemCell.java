@@ -1,8 +1,8 @@
-package gamePlayer.codeWarehouse.guiItems.store;
+package gamePlayer.unusedCodeWarehouse.guiItems.store;
 
-import gamePlayer.codeWarehouse.StoreListener;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.unusedCodeWarehouse.StoreListener;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;

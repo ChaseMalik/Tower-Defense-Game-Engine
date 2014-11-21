@@ -1,4 +1,4 @@
-package gamePlayer.codeWarehouse.guiItems.gameWorldZoom;
+package gamePlayer.unusedCodeWarehouse.guiItems.gameWorldZoom;
 
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;

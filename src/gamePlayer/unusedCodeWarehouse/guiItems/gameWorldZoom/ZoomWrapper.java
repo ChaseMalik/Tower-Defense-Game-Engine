@@ -1,4 +1,4 @@
-package gamePlayer.codeWarehouse.guiItems.gameWorldZoom;
+package gamePlayer.unusedCodeWarehouse.guiItems.gameWorldZoom;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
