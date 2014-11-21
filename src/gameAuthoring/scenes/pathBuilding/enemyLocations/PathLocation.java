@@ -4,6 +4,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * Common code from PathEndingLocation and PathStartingLocation
+ * @author Austin Kyker
+ *
+ */
 public class PathLocation extends Circle {
     
     private static final int RADIUS = 25;

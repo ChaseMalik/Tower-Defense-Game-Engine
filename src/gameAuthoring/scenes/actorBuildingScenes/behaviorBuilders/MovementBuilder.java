@@ -6,6 +6,11 @@ import java.util.List;
 import javafx.scene.control.Slider;
 import utilities.reflection.Reflection;
 
+/**
+ * Defines the components necessary to create a movement behavior object for the actor.
+ * @author Austin Kyker
+ *
+ */
 public class MovementBuilder extends BehaviorBuilder {
 
     private static final String MOVEMENT = "movement";

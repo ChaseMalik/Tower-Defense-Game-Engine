@@ -9,6 +9,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
+/**
+ * Represents the ListView in the TowerBuildingScene that allows the user
+ * to specify which enemies a tower can shoot.
+ * @author Austin Kyker
+ *
+ */
 public class EnemySelectionDisplay extends ListView<BaseActor> {
 
     private static final int ENEMY_WIDTH = 70;

@@ -15,6 +15,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
+/**
+ * Allows the user to build a new level.
+ * @author Austin Kyker
+ *
+ */
 public class LevelBuildingScene extends BuildingScene implements Observer {
     
     private static final String TITLE = "Level";
@@ -27,8 +32,7 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
         super(root, TITLE);
         myEnemies = enemies;
         setupMenu();     
-        setupLevelListView();
-        
+        setupLevelListView();    
     }
 
     private void setupLevelListView () {

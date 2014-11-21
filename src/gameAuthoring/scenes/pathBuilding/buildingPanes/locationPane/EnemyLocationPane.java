@@ -10,6 +10,13 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 
+/**
+ * Represent a node representing an enemy location. Also defines a pane that
+ * allows the user to clear the locations as well as to continue to the next
+ * scene.
+ * @author Austin Kyker
+ *
+ */
 public abstract class EnemyLocationPane extends BuildingPane {
 
     private static final int CONTAINER_PADDING = 15;

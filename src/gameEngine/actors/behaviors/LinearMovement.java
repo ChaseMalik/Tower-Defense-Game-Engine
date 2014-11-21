@@ -1,6 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import java.util.List;
+import java.util.Set;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -64,6 +65,12 @@ public class LinearMovement extends BaseMovementBehavior {
     @Override
     public IBehavior copy () {
         return new LinearMovement(myOptions, mySpeed);
+    }
+
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

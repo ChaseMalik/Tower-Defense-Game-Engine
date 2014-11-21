@@ -17,6 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Scene to build a new tower.
+ * @author Austin Kyker
+ *
+ */
 public class TowerBuildingScene extends ActorBuildingScene {
     
     private static final double ENEMY_DISPLAY_HEIGHT = 110;
@@ -36,6 +41,11 @@ public class TowerBuildingScene extends ActorBuildingScene {
         myCreatedEnemies = enemies;
     }
     
+    /**
+     * Adds to the bottom of the right pane, a list view all of all possible enemies
+     * so the user can select the enemies that the tower can attack. Enemies that
+     * are not selected will be immune to the projectiles of the tower.
+     */
     @Override
     protected void configureAndDisplayRightPane (Pane rightPane) {
         VBox rightContainer = new  VBox();

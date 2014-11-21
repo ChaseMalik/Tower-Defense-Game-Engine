@@ -10,6 +10,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.util.Callback;
 
+/**
+ * Displays the actors (enemies or towers) that have already been created and will
+ * be used in the game in a ListView.
+ * @author Austin Kyker
+ *
+ */
 public class CreatedActorsDisplay extends ListView<BaseActor> {
 
     private static final int ENEMY_WIDTH = 150;

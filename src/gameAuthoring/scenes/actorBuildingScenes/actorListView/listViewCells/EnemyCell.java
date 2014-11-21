@@ -7,6 +7,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents an enemy displayed in a list view. The size of the image
+ * of the enemy displayed can be modified by the input parameters to the
+ * constructor.
+ * @author Austin Kyker
+ *
+ */
 public class EnemyCell extends ListCell<BaseActor> {
 
     private double myFitWidth;

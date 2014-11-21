@@ -4,6 +4,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+/**
+ * Defines a line that can be drawn on the screen.
+ * @author Austin Kyker
+ *
+ */
 public class PathLine extends Line implements PathComponent {
     
     public PathLine() {
