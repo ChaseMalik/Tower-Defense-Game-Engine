@@ -86,10 +86,10 @@ public class BaseActor extends Observable {
     public double getRange() {
         return myRange;
     }
-    public List<BaseEnemy> getEnemiesInRange(){
+    public List<BaseActor> getEnemiesInRange(){
         return myInfo.getEnemiesInRange();
     }
-    public List<BaseTower> getTowersInRange(){
+    public List<BaseActor> getTowersInRange(){
         return myInfo.getTowersInRange();
     }
 }

@@ -4,19 +4,19 @@ import java.util.List;
 
 public class InfoObject {
 
-    private List<BaseEnemy> myEnemiesInRange;
-    private List<BaseTower> myTowersInRange;
+    private List<BaseActor> myEnemiesInRange;
+    private List<BaseActor> myTowersInRange;
     
-    public InfoObject(List<BaseEnemy> enemies, List<BaseTower> towers){
+    public InfoObject(List<BaseActor> enemies, List<BaseActor> towers){
         myEnemiesInRange = enemies;
         myTowersInRange = towers;
     }
 
-    public List<BaseEnemy> getEnemiesInRange () {
+    public List<BaseActor> getEnemiesInRange () {
         return myEnemiesInRange;
     }
 
-    public List<BaseTower> getTowersInRange () {
+    public List<BaseActor> getTowersInRange () {
         return myTowersInRange;
     }
 
