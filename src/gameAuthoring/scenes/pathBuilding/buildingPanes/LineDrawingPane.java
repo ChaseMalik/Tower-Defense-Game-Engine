@@ -6,6 +6,13 @@ import javafx.scene.input.MouseEvent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 
+/**
+ * Defines the pane where the user can draw lines and the click-listener
+ * to actually create these lines. Click once to define the starting location of the line
+ * and click again to define the ending location of the line.
+ * @author Austin Kyker
+ *
+ */
 public class LineDrawingPane extends BuildingPane {
     
     private static final double MIN_LINE_LENGTH = 30;

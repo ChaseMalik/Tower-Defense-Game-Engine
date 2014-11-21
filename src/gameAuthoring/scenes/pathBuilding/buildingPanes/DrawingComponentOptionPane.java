@@ -11,7 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import utilities.errorPopup.ErrorPopup;
 
-
+/**
+ * Represents the pane on the right side of the PathBuildingScene that has the different
+ * types of drawing options. Clicking on these options switches out the BuildingPanes.
+ * @author Austin Kyker
+ *
+ */
 public class DrawingComponentOptionPane extends VBox {
 
     private static final String DRAWING_OPTIONS_IMG_DIR = 

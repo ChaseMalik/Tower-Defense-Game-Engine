@@ -1,7 +1,6 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
-import gameEngine.actors.ProjectileInfo;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.actors.behaviors.NullBehavior;
 import java.io.File;
@@ -16,6 +15,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import utilities.reflection.Reflection;
 
+/**
+ * Defines the components necessary to create a attack behavior object for the actor.
+ * @author Austin Kyker
+ *
+ */
 public class AttackBuilder extends BehaviorBuilder implements Observer {
 
     private static final String ATTACK = "attack";
@@ -75,8 +79,7 @@ public class AttackBuilder extends BehaviorBuilder implements Observer {
         double range = myRangeSlider.getValue();
         String className = "gameEngine.actors.behaviors." + typeOfAttack;
         return new IBehaviorKeyValuePair(ATTACK, 
-                (IBehavior) Reflection.createInstance(className, speed, range, 
-                                                      new ProjectileInfo(10, 10, null)));
+                (IBehavior) Reflection.createInstance(className, speed, range, null));
        }
 
     @Override

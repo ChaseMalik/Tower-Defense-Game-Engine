@@ -7,6 +7,15 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
+/**
+ * This BuildingPane is important. In the PathBuildingScene it defines
+ * a unique functionality or option. For instance, one option might be line drawing
+ * and another might be selection mode. In each of these cases, these panes
+ * act different and must implement their own on-click action. Notice that of the panes
+ * share a common group so that what is on the screen even when the panes switch.
+ * @author Austin Kyker
+ *
+ */
 public class BuildingPane extends Pane {
 
     public static final double DRAW_SCREEN_WIDTH_RATIO = .7;

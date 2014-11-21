@@ -28,6 +28,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import utilities.errorPopup.ErrorPopup;
 
+/**
+ * This class allows the user to build a path from a starting location to an 
+ * ending location. The scene manages the different BuildingPanes that allow
+ * the user different on-click functionality.
+ * @author Austin Kyker
+ *
+ */
 public class PathBuildingScene extends BuildingScene implements Observer {
 
     public static final int BUILDING_OPTIONS_PADDING = 10;
@@ -91,6 +98,11 @@ public class PathBuildingScene extends BuildingScene implements Observer {
         }
     }
 
+    /**
+     * Shows all of the path building options. The options are line drawing, curve drawing,
+     * selection, and finished which will check to see if the path is connected, and if it is,
+     * will proceed to the next scene (enemy building)
+     */
     private void createPathBuildingOptions () {
         VBox pathBuildingOptions = new VBox(BUILDING_OPTIONS_PADDING);
         pathBuildingOptions.setPadding(new Insets(BUILDING_OPTIONS_PADDING));
@@ -174,6 +186,10 @@ public class PathBuildingScene extends BuildingScene implements Observer {
         nextPane.refreshScreen();
     }
 
+    /**
+     * Responds to a background image being added. If there are no problems with the added
+     * image, the starting location selection scene is shown.
+     */
     @Override
     public void update(Observable o, Object arg) {
         if(o.equals(myDefaultMapSelectionPane)){

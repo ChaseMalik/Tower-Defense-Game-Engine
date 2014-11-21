@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Scene to build a new enemy.
+ * @author Austin Kyker
+ *
+ */
 public class EnemyBuildingScene extends ActorBuildingScene {
 
     private static final String TITLE = "Enemy";

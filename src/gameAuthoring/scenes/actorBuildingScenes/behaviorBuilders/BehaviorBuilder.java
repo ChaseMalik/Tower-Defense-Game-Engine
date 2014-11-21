@@ -7,6 +7,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
+/**
+ * A class representing JavaFX components used to build a behavior that will be
+ * added to an actors list of behaviors. When a new type of behavior (like attack or movement)
+ * is added, a new behavior builder class should be constructed title "BehaviorType"Builder.
+ * In the behavior xml file (there is one for towers and one for enemies), the different kinds
+ * of this type of behavior should be listed. This class will automatically create a comboBox
+ * with all of these options. It is your job to create the sliders and other components you need
+ * to get all the information to actually make the behavior object. This behavior creation is
+ * done in the buildBehavior method which all subclasses must use. To get some good examples, 
+ * see MovementBuilder and AttackBuilder.
+ * @author Austin Kyker
+ *
+ */
 public abstract class BehaviorBuilder {
     
     private static final int COMBO_BOX_WIDTH = 200;

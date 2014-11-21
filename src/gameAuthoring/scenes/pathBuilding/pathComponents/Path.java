@@ -10,6 +10,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+/**
+ * Holds all of the routes and all of the logic to connect disconnected routes together, 
+ * to add new routes, and to create forks.
+ * @author Austin Kyker
+ *
+ */
 public class Path implements Iterable<PathRoute> {
 
     private static final double CONNECT_THRESHOLD = 40;
@@ -30,13 +36,23 @@ public class Path implements Iterable<PathRoute> {
         myEndingLocations = new ArrayList<PathEndingLocation>();
     }
 
+    /**
+     * First tries to add a component to a starting location and if this fails,
+     * the method tries to add the component to another pre-existing route. Otherwise
+     * it starts its own new route.
+     * @param componentToAdd
+     */
     public void addComponentToPath(PathComponent componentToAdd) {
-        createNewConnectedComponent(componentToAdd);
+        createNewRoute(componentToAdd);
         if(!componentAddedToStartingLocation(componentToAdd)){
             attemptToConnectRoutes(componentToAdd);
         }
     }
 
+    /**
+     * Checks to see if a starting location is close to the starting point of the component.
+     * If so, it connects the component to the starting point.
+     */
     private boolean componentAddedToStartingLocation (PathComponent componentToAdd) {
         for(PathStartingLocation startingLoc:myStartingLocations){
             Point2D centerOfStartingLoc = 
@@ -50,6 +66,10 @@ public class Path implements Iterable<PathRoute> {
         return false;
     }
 
+    /**
+     * Checks to see if the ending point of the component added is close to an ending location.
+     * If so, the component is connected to the end point.
+     */
     public boolean tryToAddConnectComponentToEndingLocation (PathComponent componentToAdd) {
         for(PathEndingLocation endingLoc:myEndingLocations){
             Point2D centerCircle = new Point2D(endingLoc.getCenterX(), endingLoc.getCenterY());
@@ -62,6 +82,13 @@ public class Path implements Iterable<PathRoute> {
         return false;
     }
 
+    /**
+     * Tries to connect two routes together. Not only checks to see if the end of one route
+     * can be connected to the beginning of another route and vice versa, but also checks to
+     * see if a fork can be made. In the case of the fork the components in the pre-existing route
+     * above the fork are copied and added to the head of the added component. This way two routes
+     * are generated and they each have seperate components rather than sharing components.
+     */
     public boolean attemptToConnectRoutes (PathComponent comp) {
         PathRoute connectedComponent1 = 
                 getRouteContaining(comp);        
@@ -105,6 +132,12 @@ public class Path implements Iterable<PathRoute> {
         }     
     }
 
+    /**
+     * Simply connects the ending point of connectedComponent1 to the starting point of 
+     * connectedComponent2
+     * @param connectedComponent1
+     * @param connectedComponent2
+     */
     protected void connectRoutes (PathRoute connectedComponent1,
                                     PathRoute connectedComponent2) {
         connectedComponent2.getFirst().setStartingPoint(connectedComponent1.getLast().getEndingPoint());
@@ -116,7 +149,7 @@ public class Path implements Iterable<PathRoute> {
         return pointNearestCircle.distance(centerCircle) < INSIDE_STARTING_LOC_THRESHOLD;
     }
 
-    private void createNewConnectedComponent (PathComponent componentToAdd) {
+    private void createNewRoute (PathComponent componentToAdd) {
         PathRoute newConnectedComponent = new PathRoute();
         newConnectedComponent.add(componentToAdd);
         myPath.add(newConnectedComponent);
@@ -126,6 +159,10 @@ public class Path implements Iterable<PathRoute> {
         return last.getEndingPoint().distance(componentToAdd.getStartingPoint()) < CONNECT_THRESHOLD;
     }
 
+    /**
+     * Moves the entire route. This function is called in selection mode when the user picks up
+     * a route and drags it across screen.
+     */
     public void moveConnectedComponent (PathComponent draggedComponent, double deltaX, double deltaY) {
         PathRoute connectedComponent = 
                 getRouteContaining(draggedComponent);
@@ -194,6 +231,11 @@ public class Path implements Iterable<PathRoute> {
         return !myEndingLocations.isEmpty();
     }
 
+    /**
+     * Handles the selection of components in selection mode. Ensures that the route
+     * that is clicked on is selected (green). If it was already selected, then it is
+     * deselected.
+     */
     public void handleComponentSelection (PathComponent componentClickedOn) {
         if(isComponentInPreviouslySelectedComponent(componentClickedOn)){
             deselectSelectedConnectedComponent();
@@ -211,6 +253,10 @@ public class Path implements Iterable<PathRoute> {
         }
     }
 
+    /**
+     * Ensures that the starting and ending location nodes are in front
+     * of the path component nodes to make it more aesthetically pleasing.
+     */
     private void ensureLocationsAreInFront () {
         for(PathStartingLocation loc:myStartingLocations){
             bringComponentToFrontOfGroup(loc);
@@ -222,8 +268,7 @@ public class Path implements Iterable<PathRoute> {
 
     private void bringComponentToFrontOfGroup (Node comp) {
         myGroup.getChildren().remove(comp);
-        myGroup.getChildren().add((Node) comp);
-        
+        myGroup.getChildren().add((Node) comp);  
     }
 
     private boolean isComponentInPreviouslySelectedComponent (PathComponent componentClickedOn) {

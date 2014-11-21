@@ -17,6 +17,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.errorPopup.ErrorPopup;
 
+/**
+ * The purpose of this class is to manage the different scenes (path building and author
+ * creation). The class also will hold the enemies, towers, and level objects which
+ * it will write to JSON files at the end of the authoring process.
+ * @author Austin Kyker
+ *
+ */
 public class AuthorController extends Application implements Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";

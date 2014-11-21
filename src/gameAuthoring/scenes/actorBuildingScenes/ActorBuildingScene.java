@@ -33,6 +33,17 @@ import utilities.XMLParsing.XMLParser;
 import utilities.errorPopup.ErrorPopup;
 import utilities.reflection.Reflection;
 
+/**
+ * Class that is extended by EnemyBuildingScene and TowerBuildingScene. Creates a
+ * ListView of the created actors on the left side of the screen so that the user can easily
+ * create, edit, and remove them. Builds of the BehaviorBuilder components into a pane in the center
+ * of the screen. These JavaFX components allow the user the ability to specify the information that
+ * is needed to build the behavior objects that is necessary to ultimately build an actor.
+ * Finally a drag and drop file pane on the right side of the screen allows the user to input
+ * an image for the actor.
+ * @author Austin Kyker
+ *
+ */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
     private static final String CLASS_ROUTE_TO_BUILDERS = "gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.";

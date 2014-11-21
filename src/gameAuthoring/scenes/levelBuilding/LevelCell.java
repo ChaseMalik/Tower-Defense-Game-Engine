@@ -2,9 +2,7 @@ package gameAuthoring.scenes.levelBuilding;
 
 import gameEngine.actors.BaseActor;
 import gameEngine.levels.BaseLevel;
-
 import java.util.List;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -16,6 +14,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * A cell in the ListView of levels in the LevelBuildingScene that allows the 
+ * user to enter the information needed to create a level data object.
+ * @author Austin Kyker
+ *
+ */
 public class LevelCell extends ListCell<BaseLevel> {
 
     private static final double FIT_SIZE = 80;
@@ -76,6 +80,9 @@ public class LevelCell extends ListCell<BaseLevel> {
         return enemyImg;
     }
 
+    /**
+     * This text field only allows numbers to be typed.
+     */
     private TextField buildTextField (BaseLevel level, BaseActor enemy) {
         TextField numTextField = new TextField();
         numTextField.textProperty().addListener(new ChangeListener<String>() {
