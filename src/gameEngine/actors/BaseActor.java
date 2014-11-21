@@ -1,10 +1,13 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -24,6 +27,7 @@ public class BaseActor extends Observable {
     protected InfoObject myInfo;
     protected double myRange;
     protected String myImageName;
+    private Set<Class<? extends BaseActor>> myTypes;
 
     public BaseActor () {
 
@@ -34,6 +38,10 @@ public class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImageName = imageName;
         myRange = range;
+        myTypes=new HashSet<>();
+        for(String s:behaviors.keySet()){
+            myTypes.addAll(behaviors.get(s).getType());
+        }
     }
 
     /**
@@ -95,4 +103,8 @@ public class BaseActor extends Observable {
     public List<BaseActor> getTowersInRange(){
         return myInfo.getTowersInRange();
     }
+   public Collection<Class<? extends BaseActor>> getTypes(){
+        return myTypes;
+   }
 }
+ 
