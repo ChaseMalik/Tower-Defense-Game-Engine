@@ -1,6 +1,7 @@
 package gameAuthoring.mainclasses;
 
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.GSONWritingScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
@@ -38,10 +39,12 @@ public class AuthorController extends Application implements Observer {
     private TowerBuildingScene myTowerBuildingScene;
     private PathBuildingScene myPathBuildingScene;
     private LevelBuildingScene myLevelBuildingScene;
+    private GSONWritingScene myGSONWritingScene;
+    
     private List<BackendRoute> myBackendRoutes;
     private List<BaseEnemy> myEnemies;
     private List<TowerUpgradeGroup> myTowers;
-    private List<BaseLevel> levels;
+    private List<BaseLevel> myLevels;
 
     private Stage myStage;
 
@@ -52,10 +55,11 @@ public class AuthorController extends Application implements Observer {
         myStage = stage;
         buildScenes();
 //        showPathBuildingScene();
-        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        routes.add(new BackendRoute());
-        myBackendRoutes = routes;
-        showEnemyBuildingScene();
+//        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+//        routes.add(new BackendRoute());
+//        myBackendRoutes = routes;
+//        showEnemyBuildingScene();
+        showGSONWritingScene();
         configureAndDisplayStage();
     }
 
@@ -120,8 +124,15 @@ public class AuthorController extends Application implements Observer {
             }
         }  
         else if(ob.equals(myLevelBuildingScene)) {
-            
+            myLevels = (List<BaseLevel>) value;
+            showGSONWritingScene();
         }
+    }
+
+    private void showGSONWritingScene () {
+        myGSONWritingScene = new GSONWritingScene(new BorderPane());
+        myStage.setScene(myGSONWritingScene);
+        myStage.setTitle("Writing Game");        
     }
 
     private boolean notEnoughTowers () {
