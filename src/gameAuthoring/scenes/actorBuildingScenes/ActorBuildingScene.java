@@ -149,7 +149,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 //                .count() == 0;
     }
 
-    private void clearFields() {
+    protected void clearFields() {
         myActorNameField.clear();
         myPane.getChildren().remove(myPane.getRight());
         myPane.setRight(myDragAndDrop.getPane());

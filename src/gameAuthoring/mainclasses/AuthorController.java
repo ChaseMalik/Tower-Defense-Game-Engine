@@ -9,8 +9,8 @@ import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
-import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
+import gameEngine.levels.BaseLevel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -41,6 +41,7 @@ public class AuthorController extends Application implements Observer {
     private List<BackendRoute> myBackendRoutes;
     private List<BaseEnemy> myEnemies;
     private List<TowerUpgradeGroup> myTowers;
+    private List<BaseLevel> levels;
 
     private Stage myStage;
 
@@ -117,7 +118,10 @@ public class AuthorController extends Application implements Observer {
             else {
                 showLevelBuildingScene();
             }
-        }       
+        }  
+        else if(ob.equals(myLevelBuildingScene)) {
+            
+        }
     }
 
     private boolean notEnoughTowers () {

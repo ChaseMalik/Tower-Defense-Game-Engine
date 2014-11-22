@@ -10,7 +10,6 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import utilities.StringToImageViewConverter;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -40,6 +39,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private List<TowerUpgradeGroup> myTowerUpgradeGroups;
     private EnemySelectionDisplay myEnemySelectionView;
     private TilePane myTilePane;
+    private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
 
     public TowerBuildingScene (BorderPane root, List<BaseEnemy> enemies, 
                                List<BackendRoute> enemyRoutes) {
@@ -78,8 +78,14 @@ public class TowerBuildingScene extends ActorBuildingScene {
     @Override
     protected void makeNewActor (Map<String, IBehavior> iBehaviorMap) {
         BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, myActorNameField.getText(), 10, null, null);
-        TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
-        myTowerUpgradeGroups.add(group);   
+        if(myCurrentlySelectedTowerGroup == null) {
+            TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
+            myTowerUpgradeGroups.add(group);  
+        } 
+        else {
+            myCurrentlySelectedTowerGroup.addTower(tower);
+            myCurrentlySelectedTowerGroup = null;
+        }
         redrawTowerDisplay();
     }
 
@@ -87,10 +93,20 @@ public class TowerBuildingScene extends ActorBuildingScene {
         myTilePane.getChildren().clear();
         for(int i = 0; i < myTowerUpgradeGroups.size(); i++) {
             List<ImageView> upgradeGroupViews = myTowerUpgradeGroups.get(i).fetchImageViews();
+            int towersInGroup = myTowerUpgradeGroups.get(i).getNumTowersInGroup();
+            final int index = i;
             for(int j = 0; j < upgradeGroupViews.size(); j++) {
                 myTilePane.getChildren().add(upgradeGroupViews.get(j));
+                if(j >= towersInGroup) {
+                    upgradeGroupViews.get(j).setOnMouseClicked(event->handleAddUpgrade(myTowerUpgradeGroups.get(index)));
+                }
             }
         }        
+    }
+
+    private void handleAddUpgrade (TowerUpgradeGroup groupSelected) {
+        myCurrentlySelectedTowerGroup = groupSelected;
+        clearFields();
     }
 
     @Override

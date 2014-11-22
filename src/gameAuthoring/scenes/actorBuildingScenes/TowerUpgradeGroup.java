@@ -36,6 +36,10 @@ public class TowerUpgradeGroup implements Iterable<BaseTower> {
     public Iterator<BaseTower> iterator () {
         return myTowerGroup.iterator();
     }
+    
+    public int getNumTowersInGroup() {
+        return myTowerGroup.size();
+    }
 
     public List<ImageView> fetchImageViews () {
         List<ImageView> imageViews = new ArrayList<ImageView>();

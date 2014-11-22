@@ -30,7 +30,7 @@ public class BaseActor extends Observable {
     protected transient ImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
-    protected String myImageName;
+    protected String myImagePath;
     private Set<Class<? extends BaseActor>> myTypes;
 
     public BaseActor () {
@@ -40,7 +40,7 @@ public class BaseActor extends Observable {
     public BaseActor (Map<String, IBehavior> behaviors, String imageName, String name, double range) {
         myName = name;
         myBehaviors = behaviors;
-        myImageName = imageName;
+        myImagePath = imageName;
         myRange = range;
         myTypes=new HashSet<>();
         for(String s:behaviors.keySet()){
@@ -65,7 +65,7 @@ public class BaseActor extends Observable {
     private void makeNode(){
         Image actorImg;
         try {
-            actorImg = new Image(new FileInputStream(new File(myImageName)), ActorBuildingScene.ACTOR_IMG_WIDTH, 
+            actorImg = new Image(new FileInputStream(new File(myImagePath)), ActorBuildingScene.ACTOR_IMG_WIDTH, 
                                  ActorBuildingScene.ACTOR_IMG_WIDTH, true, false);
             myNode = new ImageView(actorImg);
         }
@@ -86,7 +86,7 @@ public class BaseActor extends Observable {
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        BaseActor a = new BaseActor(clonedBehaviors, myImageName, myName,myRange);
+        BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName,myRange);
         a.makeNode();
         return a;
     }
@@ -110,6 +110,10 @@ public class BaseActor extends Observable {
 
     public ImageView getNode(){
         return myNode;
+    }
+    
+    public String getImagePath() {
+        return myImagePath;
     }
 
     public double getRange() {
