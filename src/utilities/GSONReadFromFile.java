@@ -32,7 +32,7 @@ public class GSONReadFromFile {
 			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
 			enemyList = gson.fromJson(br, listType );	
 		} catch(IOException e){
-			new ErrorPopup("File to store actors could not be found.");
+			new ErrorPopup("File" +fileName+ ".json could not be found.");
 		}		
 		return enemyList;		
 	}
@@ -42,7 +42,7 @@ public class GSONReadFromFile {
 			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
 			towerList = gson.fromJson(br, listType );	
 		} catch(IOException e){
-			new ErrorPopup("File to store actors could not be found.");
+			new ErrorPopup("File" +fileName+ ".json could not be found.");
 		}		
 		return towerList;		
 	}
@@ -52,7 +52,7 @@ public class GSONReadFromFile {
 			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
 			actorList = gson.fromJson(br, listType );	
 		} catch(IOException e){	
-			new ErrorPopup("File to store actors could not be found.");
+			new ErrorPopup("File" +fileName+ ".json could not be found.");
 		}	
 		return actorList;
 	}
