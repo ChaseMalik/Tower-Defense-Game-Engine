@@ -15,6 +15,7 @@ import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.testGameManager.TestGameManager;
+import gamePlayer.towerUpgrade.UpgradeListener;
 
 import java.io.File;
 import java.util.List;
@@ -32,7 +33,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener {
+		GameWorldListener, GameItemListener, UpgradeListener {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -130,5 +131,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		 * type of menu down the road...)
 		 */
 		System.out.println(itemID);
+	}
+
+	@Override
+	public void upgradeTower(Class newTower, double x, double y) {
+		
 	}
 }

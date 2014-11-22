@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.Set;
 import gameEngine.actors.BaseActor;
 
 /**
@@ -22,5 +23,7 @@ public interface IBehavior {
      * @return copy of the behavior
      */
     public IBehavior copy ();
+
+    public Set<Class<? extends BaseActor>> getType ();
     
 }

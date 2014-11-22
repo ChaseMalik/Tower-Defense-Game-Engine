@@ -1,0 +1,44 @@
+package gameEngine.actors.behaviors;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
+import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseProjectile;
+import gameEngine.actors.RealActor;
+/**
+ * Represents the basic attack behavior, where projectile(s) to be fired
+ * @author Chase Malik, Timesh Patel
+ *
+ */
+public abstract class BaseAttack implements IBehavior {
+
+    protected int myAttackSpeed;
+    protected int myCooldown;
+    protected final static int READY_TO_SHOOT = 0;
+    
+    public BaseAttack(int attackSpeed){
+        myAttackSpeed = attackSpeed;
+        myCooldown = READY_TO_SHOOT;
+    }
+
+    protected boolean readyToShoot(){
+        return myCooldown == READY_TO_SHOOT;
+    }
+    
+    protected void shootActorFromActor(BaseActor target, BaseActor actor){
+        RealActor shooter=(RealActor) actor;
+        BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
+        List<BackendRoute> list = Arrays.asList(route);
+        LinearMovement move=new LinearMovement(list, shooter.getProjectile().getMySpeed()); 
+        BaseProjectile projectile=new BaseProjectile(move); 
+        List<BaseActor> pList=new ArrayList<>();
+        pList.add(projectile);
+        shooter.spawnProjectile(pList);
+        myCooldown=myAttackSpeed;
+    }
+}

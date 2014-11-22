@@ -1,36 +1,53 @@
 package gameAuthoring.mainclasses;
 
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.GSONWritingScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
+import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.LevelBuildingScene;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
-import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
+/**
+ * The purpose of this class is to manage the different scenes (path building and author
+ * creation). The class also will hold the enemies, towers, and level objects which
+ * it will write to JSON files at the end of the authoring process.
+ * @author Austin Kyker
+ *
+ */
 public class AuthorController extends Application implements Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
+    private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 600;
+    private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
 
     private EnemyBuildingScene myEnemyBuildingScene;
     private TowerBuildingScene myTowerBuildingScene;
     private PathBuildingScene myPathBuildingScene;
     private LevelBuildingScene myLevelBuildingScene;
+    private GSONWritingScene myGSONWritingScene;
+    
     private List<BackendRoute> myBackendRoutes;
-    private List<BaseActor> myEnemies;
-    private List<BaseActor> myTowers;
+    private List<BaseEnemy> myEnemies;
+    private List<TowerUpgradeGroup> myTowerGroups;
+    private List<BaseLevel> myLevels;
 
     private Stage myStage;
 
@@ -45,6 +62,7 @@ public class AuthorController extends Application implements Observer {
 //        routes.add(new BackendRoute());
 //        myBackendRoutes = routes;
 //        showEnemyBuildingScene();
+//        showGSONWritingScene();
         configureAndDisplayStage();
     }
 
@@ -91,7 +109,7 @@ public class AuthorController extends Application implements Observer {
             showEnemyBuildingScene();
         }
         else if(ob.equals(myEnemyBuildingScene)) {
-            myEnemies = (List<BaseActor>) value;
+            myEnemies = (List<BaseEnemy>) value;
             if(notEnoughEnemies()) {
                 new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
             }
@@ -100,18 +118,29 @@ public class AuthorController extends Application implements Observer {
             }
         }
         else if(ob.equals(myTowerBuildingScene)) {
-            myTowers = (List<BaseActor>) value;
+            myTowerGroups = (List<TowerUpgradeGroup>) value;
             if(notEnoughTowers()) {
                 new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
             }
             else {
                 showLevelBuildingScene();
             }
-        }       
+        }  
+        else if(ob.equals(myLevelBuildingScene)) {
+            myLevels = (List<BaseLevel>) value;
+            showGSONWritingScene();
+        }
+    }
+
+    private void showGSONWritingScene () {
+        myGSONWritingScene = new GSONWritingScene(new BorderPane());
+        myStage.setScene(myGSONWritingScene);
+        myStage.setTitle("Writing Game"); 
+        GSON_WRITER.writeGameFile(myEnemies, myTowerGroups, myLevels, myBackendRoutes, GAME_DIR);
     }
 
     private boolean notEnoughTowers () {
-        return myTowers.size() < 1;
+        return myTowerGroups.size() < 1;
     }
 
     private boolean notEnoughEnemies () {

@@ -5,6 +5,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+/**
+ * A menu to allow the user to go to the next scene.
+ * @author Austin Kyker
+ *
+ */
 public class BuildingSceneMenu extends Observable {
     
     private MenuBar myMenuBar;

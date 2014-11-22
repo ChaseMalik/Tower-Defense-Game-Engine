@@ -21,4 +21,13 @@ public class BaseProjectile extends BaseActor{
         behaviors.put(MOVEMENT,move);
         myBehaviors=behaviors;
     }
+
+    public double getMySpeed () {
+        // TODO Auto-generated method stub
+        return ((BaseMovementBehavior)myBehaviors.get(MOVEMENT)).getSpeed();
+    }
+    public void setMove(BaseMovementBehavior move){
+        myBehaviors.put(MOVEMENT, move);
+    }
+
 }

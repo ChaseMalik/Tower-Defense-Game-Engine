@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.Set;
 import gameEngine.actors.BaseActor;
 
 /**
@@ -18,6 +19,12 @@ public class NullBehavior implements IBehavior {
     @Override
     public IBehavior copy () {
         return new NullBehavior();
+    }
+
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -5,6 +5,13 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.PathCurve;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Defines the pane where the user can draw curves and the click-listener
+ * to actually create these curves. Click once to define the starting location of the curve,
+ * twice to define the ending location of the curve, and twice more to define the control points.
+ * @author Austin Kyker
+ *
+ */
 public class CurveDrawingPane extends BuildingPane {
 
     private static final int MIN_CURVE_LENGTH = 60;

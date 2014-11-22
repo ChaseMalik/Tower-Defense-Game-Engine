@@ -1,10 +1,17 @@
 package gameEngine.actors;
 
+import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
 import gameEngine.actors.behaviors.IBehavior;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -23,7 +30,8 @@ public class BaseActor extends Observable {
     protected transient ImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
-    protected String myImageName;
+    protected String myImagePath;
+    private Set<Class<? extends BaseActor>> myTypes;
 
     public BaseActor () {
 
@@ -32,8 +40,15 @@ public class BaseActor extends Observable {
     public BaseActor (Map<String, IBehavior> behaviors, String imageName, String name, double range) {
         myName = name;
         myBehaviors = behaviors;
-        myImageName = imageName;
+        myImagePath = imageName;
         myRange = range;
+        myTypes=new HashSet<>();
+        for(String s:behaviors.keySet()){
+            if(behaviors.get(s).getType() != null){
+                myTypes.addAll(behaviors.get(s).getType());
+            }
+        }
+        makeNode();
     }
 
     /**
@@ -48,7 +63,16 @@ public class BaseActor extends Observable {
     }
 
     private void makeNode(){
-        myNode = new ImageView(myImageName);
+        Image actorImg;
+        try {
+            actorImg = new Image(new FileInputStream(new File(myImagePath)), ActorBuildingScene.ACTOR_IMG_WIDTH, 
+                                 ActorBuildingScene.ACTOR_IMG_WIDTH, true, false);
+            myNode = new ImageView(actorImg);
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     /**
      * Copies the current actor to create another one
@@ -62,7 +86,7 @@ public class BaseActor extends Observable {
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        BaseActor a = new BaseActor(clonedBehaviors, myImageName, myName,myRange);
+        BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName,myRange);
         a.makeNode();
         return a;
     }
@@ -88,6 +112,10 @@ public class BaseActor extends Observable {
         return myNode;
     }
     
+    public String getImagePath() {
+        return myImagePath;
+    }
+
     public double getRange() {
         return myRange;
     }
@@ -97,4 +125,8 @@ public class BaseActor extends Observable {
     public List<BaseActor> getTowersInRange(){
         return myInfo.getTowersInRange();
     }
+    public Collection<Class<? extends BaseActor>> getTypes(){
+        return myTypes;
+    }
 }
+

@@ -10,6 +10,12 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Represents the pane where the user can drag and drop a file to act as the background
+ * for the game. Uses the DragAndDropFilePane utility.
+ * @author Austin Kyker
+ *
+ */
 public class PathBackgroundSelectionPane extends BuildingPane implements Observer {
 
     private DragAndDropFilePane myDragAndDropPane;

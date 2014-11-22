@@ -15,11 +15,9 @@ import gameEngine.actors.BaseActor;
  */
 public abstract class AlterAttack implements IBehavior {
     protected double myTotalChange;
-    protected double myRange;
 
-    public AlterAttack (double totalChange, double range) {
+    public AlterAttack (double totalChange) {
         myTotalChange = totalChange;
-        myRange = range;
     }
 
     /**
@@ -30,19 +28,19 @@ public abstract class AlterAttack implements IBehavior {
      */
     @Override
     public void execute (BaseActor actor) {
-        Circle bounds = new Circle(myRange);
-        bounds.setCenterX(actor.getX());
-        bounds.setCenterY(actor.getY());
-
-        Group actorsGroup = (Group) actor.getParent();
-
-        for (Node n : actorsGroup.getChildren()) {
-            BaseActor a = (BaseActor) n;
-            if (!a.equals(actor) && bounds.intersects(n.getBoundsInLocal())) {
-                BaseAttackBehavior attack = (BaseAttackBehavior) a.getBehavior("attack");
-                changeParam(attack);
-            }
-        }
+//        Circle bounds = new Circle(myRange);
+//        bounds.setCenterX(actor.getX());
+//        bounds.setCenterY(actor.getY());
+//
+//        Group actorsGroup = (Group) actor.getParent();
+//
+//        for (Node n : actorsGroup.getChildren()) {
+//            BaseActor a = (BaseActor) n;
+//            if (!a.equals(actor) && bounds.intersects(n.getBoundsInLocal())) {
+//                BaseAttackBehavior attack = (BaseAttackBehavior) a.getBehavior("attack");
+//                changeParam(attack);
+//            }
+//        }
     }
 
     /**
@@ -51,5 +49,5 @@ public abstract class AlterAttack implements IBehavior {
      * 
      * @param attack behavior to be modified
      */
-    protected abstract void changeParam (BaseAttackBehavior attack);
+    protected abstract void changeParam (BaseAttack attack);
 }
