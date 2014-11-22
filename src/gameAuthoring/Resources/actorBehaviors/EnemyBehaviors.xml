@@ -3,6 +3,6 @@
 		<element>LinearMovement</element>
 	</movement>
 	 <attack>
-		<element>SingleAttack</element>
+		<element>CloseAttack</element>
 	</attack>
 </behaviors>

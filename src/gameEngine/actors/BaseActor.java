@@ -1,6 +1,10 @@
 package gameEngine.actors;
 
+import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
 import gameEngine.actors.behaviors.IBehavior;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,8 +44,11 @@ public class BaseActor extends Observable {
         myRange = range;
         myTypes=new HashSet<>();
         for(String s:behaviors.keySet()){
-            myTypes.addAll(behaviors.get(s).getType());
+            if(behaviors.get(s).getType() != null){
+                myTypes.addAll(behaviors.get(s).getType());
+            }
         }
+        makeNode();
     }
 
     /**
@@ -56,7 +63,16 @@ public class BaseActor extends Observable {
     }
 
     private void makeNode(){
-        myNode = new ImageView(myImageName);
+        Image actorImg;
+        try {
+            actorImg = new Image(new FileInputStream(new File(myImageName)), ActorBuildingScene.ACTOR_IMG_WIDTH, 
+                                 ActorBuildingScene.ACTOR_IMG_WIDTH, true, false);
+            myNode = new ImageView(actorImg);
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     /**
      * Copies the current actor to create another one
@@ -95,7 +111,7 @@ public class BaseActor extends Observable {
     public ImageView getNode(){
         return myNode;
     }
-    
+
     public double getRange() {
         return myRange;
     }
@@ -105,8 +121,8 @@ public class BaseActor extends Observable {
     public List<BaseActor> getTowersInRange(){
         return myInfo.getTowersInRange();
     }
-   public Collection<Class<? extends BaseActor>> getTypes(){
+    public Collection<Class<? extends BaseActor>> getTypes(){
         return myTypes;
-   }
+    }
 }
- 
+

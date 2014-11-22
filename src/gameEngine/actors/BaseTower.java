@@ -2,7 +2,6 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.Map;
-import javafx.scene.image.Image;
 
 public class BaseTower extends RealActor {
 

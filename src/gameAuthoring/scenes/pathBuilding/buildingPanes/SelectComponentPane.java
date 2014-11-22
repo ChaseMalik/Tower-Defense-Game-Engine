@@ -11,7 +11,7 @@ import javafx.scene.shape.Shape;
  * Allows the user to select a route by clicking on PathComponents.
  * When the user clicks on a component, the component becomes green and the user
  * can drag it to a new spot if it is not connected to a starting or ending location
- * or the user can remove it.
+ * or the user can remove it. 
  * @author Austin Kyker
  *
  */

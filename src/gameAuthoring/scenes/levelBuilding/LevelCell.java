@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.levelBuilding;
 
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
@@ -25,9 +26,9 @@ public class LevelCell extends ListCell<BaseLevel> {
     private static final double FIT_SIZE = 80;
     private static final int WIDTH_BTW_ENEMIES = 15;
 
-    private List<BaseActor> myEnemies;
+    private List<BaseEnemy> myEnemies;
 
-    public LevelCell(List<BaseActor> enemies) {
+    public LevelCell(List<BaseEnemy> enemies) {
         myEnemies = enemies;
     }
 

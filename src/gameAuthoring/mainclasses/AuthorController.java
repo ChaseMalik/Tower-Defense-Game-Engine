@@ -3,12 +3,15 @@ package gameAuthoring.mainclasses;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
+import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.LevelBuildingScene;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -36,8 +39,8 @@ public class AuthorController extends Application implements Observer {
     private PathBuildingScene myPathBuildingScene;
     private LevelBuildingScene myLevelBuildingScene;
     private List<BackendRoute> myBackendRoutes;
-    private List<BaseActor> myEnemies;
-    private List<BaseActor> myTowers;
+    private List<BaseEnemy> myEnemies;
+    private List<TowerUpgradeGroup> myTowers;
 
     private Stage myStage;
 
@@ -47,11 +50,11 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        showPathBuildingScene();
-//        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-//        routes.add(new BackendRoute());
-//        myBackendRoutes = routes;
-//        showEnemyBuildingScene();
+//        showPathBuildingScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutes = routes;
+        showEnemyBuildingScene();
         configureAndDisplayStage();
     }
 
@@ -98,7 +101,7 @@ public class AuthorController extends Application implements Observer {
             showEnemyBuildingScene();
         }
         else if(ob.equals(myEnemyBuildingScene)) {
-            myEnemies = (List<BaseActor>) value;
+            myEnemies = (List<BaseEnemy>) value;
             if(notEnoughEnemies()) {
                 new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
             }
@@ -107,7 +110,7 @@ public class AuthorController extends Application implements Observer {
             }
         }
         else if(ob.equals(myTowerBuildingScene)) {
-            myTowers = (List<BaseActor>) value;
+            myTowers = (List<TowerUpgradeGroup>) value;
             if(notEnoughTowers()) {
                 new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
             }

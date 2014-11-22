@@ -1,7 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes.actorListView;
 
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.listViewCells.EnemyCell;
-import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
@@ -16,26 +16,26 @@ import javafx.util.Callback;
  * @author Austin Kyker
  *
  */
-public class CreatedActorsDisplay extends ListView<BaseActor> {
+public class CreatedEnemiesDisplay extends ListView<BaseEnemy> {
 
     private static final int ENEMY_WIDTH = 150;
     private static final int ENEMY_HEIGHT = 150;
-    private ObservableList<BaseActor> myActors;
+    private ObservableList<BaseEnemy> myActors;
 
-    public CreatedActorsDisplay(List<BaseActor> actors) {
+    public CreatedEnemiesDisplay(List<BaseEnemy> myEnemies) {
         this.setPrefWidth(ENEMY_WIDTH);
-        myActors = (ObservableList<BaseActor>) actors;
+        myActors = (ObservableList<BaseEnemy>) myEnemies;
         setItems(myActors);
-        setCellFactory(new Callback<ListView<BaseActor>, 
-                       ListCell<BaseActor>>() {
+        setCellFactory(new Callback<ListView<BaseEnemy>, 
+                       ListCell<BaseEnemy>>() {
             @Override 
-            public ListCell<BaseActor> call(ListView<BaseActor> list) {
-                EnemyCell actorCell = new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
+            public ListCell<BaseEnemy> call(ListView<BaseEnemy> list) {
+                EnemyCell enemyCell = new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
                 MenuItem delete = new MenuItem("Delete Actor");
-                delete.setOnAction(event->myActors.remove(actorCell.getItem()));
+                delete.setOnAction(event->myActors.remove(enemyCell.getItem()));
                 ContextMenu contextMenu = new ContextMenu(delete);
-                actorCell.setContextMenu(contextMenu);
-                return actorCell;
+                enemyCell.setContextMenu(contextMenu);
+                return enemyCell;
             }
         });
     }
