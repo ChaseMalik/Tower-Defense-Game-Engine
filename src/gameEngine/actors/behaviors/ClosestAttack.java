@@ -6,10 +6,15 @@ import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
+/**
+ * Example of BaseAttack, where the actor shoots at the nearest opposing actor
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
+public class ClosestAttack extends BaseAttack {
 
-public class CloseAttack extends NewAttack {
-
-    public CloseAttack (int attackSpeed) {
+    public ClosestAttack (int attackSpeed) {
         super(attackSpeed);
     }
 

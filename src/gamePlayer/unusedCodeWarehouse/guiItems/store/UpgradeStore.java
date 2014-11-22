@@ -1,4 +1,4 @@
-package gamePlayer.codeWarehouse.guiItems.store;
+package gamePlayer.unusedCodeWarehouse.guiItems.store;
 
 import gamePlayer.guiItems.GuiItem;
 

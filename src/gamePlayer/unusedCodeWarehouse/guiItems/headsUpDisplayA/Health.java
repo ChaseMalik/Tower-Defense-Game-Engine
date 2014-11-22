@@ -1,4 +1,4 @@
-package gamePlayer.codeWarehouse.guiItems.headsUpDisplayA;
+package gamePlayer.unusedCodeWarehouse.guiItems.headsUpDisplayA;
 
 import java.io.File;
 

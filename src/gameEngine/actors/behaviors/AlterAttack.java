@@ -49,5 +49,5 @@ public abstract class AlterAttack implements IBehavior {
      * 
      * @param attack behavior to be modified
      */
-    protected abstract void changeParam (NewAttack attack);
+    protected abstract void changeParam (BaseAttack attack);
 }
