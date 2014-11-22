@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
-public class GSONReadFromFile {
+public class GSONFileReader {
 
 	Gson gson = new Gson();
 	Type listType;
@@ -23,7 +23,7 @@ public class GSONReadFromFile {
 	private List<BaseTower> towerList;
 	private List<BaseActor> actorList;
 
-	public GSONReadFromFile(){
+	public GSONFileReader(){
 		listType = new TypeToken<List<BaseEnemy>>() {}.getType();
 	}
 

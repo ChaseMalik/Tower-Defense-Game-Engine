@@ -19,6 +19,7 @@ import java.util.Observer;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
 /**
@@ -32,8 +33,10 @@ public class AuthorController extends Application implements Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
+    private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 600;
+    private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
 
     private EnemyBuildingScene myEnemyBuildingScene;
     private TowerBuildingScene myTowerBuildingScene;
@@ -43,7 +46,7 @@ public class AuthorController extends Application implements Observer {
     
     private List<BackendRoute> myBackendRoutes;
     private List<BaseEnemy> myEnemies;
-    private List<TowerUpgradeGroup> myTowers;
+    private List<TowerUpgradeGroup> myTowerGroups;
     private List<BaseLevel> myLevels;
 
     private Stage myStage;
@@ -54,12 +57,12 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-//        showPathBuildingScene();
+        showPathBuildingScene();
 //        List<BackendRoute> routes = new ArrayList<BackendRoute>();
 //        routes.add(new BackendRoute());
 //        myBackendRoutes = routes;
 //        showEnemyBuildingScene();
-        showGSONWritingScene();
+//        showGSONWritingScene();
         configureAndDisplayStage();
     }
 
@@ -115,7 +118,7 @@ public class AuthorController extends Application implements Observer {
             }
         }
         else if(ob.equals(myTowerBuildingScene)) {
-            myTowers = (List<TowerUpgradeGroup>) value;
+            myTowerGroups = (List<TowerUpgradeGroup>) value;
             if(notEnoughTowers()) {
                 new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
             }
@@ -132,11 +135,12 @@ public class AuthorController extends Application implements Observer {
     private void showGSONWritingScene () {
         myGSONWritingScene = new GSONWritingScene(new BorderPane());
         myStage.setScene(myGSONWritingScene);
-        myStage.setTitle("Writing Game");        
+        myStage.setTitle("Writing Game"); 
+        GSON_WRITER.writeGameFile(myEnemies, myTowerGroups, myLevels, myBackendRoutes, GAME_DIR);
     }
 
     private boolean notEnoughTowers () {
-        return myTowers.size() < 1;
+        return myTowerGroups.size() < 1;
     }
 
     private boolean notEnoughEnemies () {
