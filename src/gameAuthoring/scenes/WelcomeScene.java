@@ -15,6 +15,7 @@ public class WelcomeScene {
 	
 	private Scene myScene;
 	public VBox myVBox;
+	public TextField nameTextField;
 	
 	public WelcomeScene(){
 		Group root = new Group();		
@@ -43,11 +44,13 @@ public class WelcomeScene {
 	private void createNameOption(){		
 		HBox nameOptionHBox = new HBox(15);
 		Label nameLabel = new Label("Name of Game: ");
-		TextField nameTextField = new TextField();
+		nameTextField = new TextField();
 		nameOptionHBox.getChildren().addAll(nameLabel, nameTextField);	
 		nameOptionHBox.setAlignment(Pos.CENTER);
 		myVBox.getChildren().add(nameOptionHBox);
 	}
+
+	
 
 
 	public Scene getScene(){

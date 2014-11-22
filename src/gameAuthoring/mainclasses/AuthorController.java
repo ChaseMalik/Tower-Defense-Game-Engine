@@ -20,7 +20,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
@@ -110,9 +115,27 @@ public class AuthorController extends Application implements Observer {
 
 	private void showWelcomeScene(){
 		myWelcomeScene = new WelcomeScene();
+		createStartButton();
 		myStage.setScene(myWelcomeScene.getScene());
 	}
+	
+	private void createStartButton(){
+		Button startButton = new Button("Start Building!");
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				showPathBuildingScene();
+				System.out.println(myWelcomeScene.nameTextField.getText());			
+			}
+			
+		});
+		HBox startButtonHBox = new HBox();
+		startButtonHBox.setAlignment(Pos.CENTER);
+		startButtonHBox.getChildren().add(startButton);
 		
+		myWelcomeScene.myVBox.getChildren().add(startButtonHBox);
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
