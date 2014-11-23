@@ -1,5 +1,6 @@
 package gamePlayer.mainClasses;
 
+import gameEngine.SingleThreadedEngineManager;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -28,7 +29,7 @@ import javafx.stage.Stage;
  * guiItemsListeners package The game engine accesses GUI resources through this
  * class
  * 
- * @author allankiplagat
+ * @author allankiplagat, Greg Lyons
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
@@ -38,7 +39,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
 	private Stage myStage;
-	private TestGameManager myGameManager;
+	//private SingleThreadedEngineManager myEngineManager;
+	private TestGameManager myEngineManager;
 	private Group myRoot;
 
 	// handles to GuiItems
@@ -46,11 +48,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private HUD myHUD;
 
 	public GuiManager(Stage stage, TestGameManager manager) {
-		myGameManager = manager;
+		myEngineManager = manager;
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 	}
+	/*
+	@Override
+	public void startGame(String directoryPath){
+		//myEngineManager.initializeGame(directoryPath)
+	}*/
+
 
 	@Override
 	public void loadGame() {
@@ -62,8 +70,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void saveGame() {
-		// myGameManager.saveState("sampleFileName"+Math.random()*1000);l
-		System.out.println("Saved game\n");
+		//myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
 	}
 
 	@Override
@@ -78,14 +85,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void pause() {
-		// myGameManager.pause();
-		System.out.println("Pause\n");
+		//myEngineManager.pause();
 	}
 
 	@Override
 	public void play() {
-		// myGameManager.resume();
-		System.out.println("Play\n");
+		//myEngineManager.resume();
 	}
 
 	@Override
@@ -101,12 +106,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void normalSpeed() {
-		System.out.println("Normal speed\n");
+		//myEngineManager.changeRunSpeed(1.0);
 	}
 
 	@Override
 	public void fastForward() {
-		System.out.println("Fast forward\n");
+		//myEngineManager.changeRunSpeed(3.0);
 	}
 
 	@Override
@@ -126,11 +131,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void selectItem(int itemID) {
-		/*
-		 * TODO : Open upgrade menu for that item (could possibly be a different
-		 * type of menu down the road...)
-		 */
-		System.out.println(itemID);
+		
 	}
 
 	@Override
