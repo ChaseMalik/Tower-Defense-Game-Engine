@@ -70,7 +70,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for(String behaviorType:allBehaviorTypes){
             List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
-            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, new SliderInfo("speed", 0, 5)));
+            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser.getSliderInfo(behaviorType)));
         }
     }
 
