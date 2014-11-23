@@ -5,11 +5,8 @@ import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +16,12 @@ import java.util.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import utilities.DragAndDropFilePane;
+import utilities.SliderContainer;
+import utilities.DragAndDropFilePanes.DragAndDropFilePane;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -41,6 +37,7 @@ import utilities.XMLParsing.XMLParser;
  */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
+    private static final int CENTER_DISPLAY_WIDTH = 230;
     protected static final String ADD_TOWER_IMG_PATH = "./src/gameAuthoring/Resources/otherImages/addTower.png";
     protected static final int DRAG_AND_DROP_WIDTH = 560;
     public static final int ACTOR_IMG_HEIGHT = 150;
@@ -50,6 +47,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     protected TextField myActorNameField;
     protected String myActorImgPath;
     protected List<BehaviorBuilder> myBehaviorBuilders;
+    protected SliderContainer myRangeSliderContainer;
     private String myActorImageDirectory;
     private String myTitle;
 
@@ -87,24 +85,27 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     protected abstract void initializeActorsAndBuildActorDisplay ();
-    
 
     private void setupFileMenu () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
+        MenuItem saveItem = new MenuItem("Save " + myTitle);
+        saveItem.setOnAction(event->attemptToSaveActor());
+        menu.addMenuItemToFileMenu(saveItem);
         menu.addObserver(this);
         myPane.setTop(menu.getNode());
     }
 
     private void createCenterDisplay() {
         VBox centerOptionsBox = new VBox(25);
+        centerOptionsBox.setPrefWidth(CENTER_DISPLAY_WIDTH);
         Label title = new Label(super.getTitle() + " Behaviors.");
         title.getStyleClass().add("behaviorsTitle");
-        centerOptionsBox.getChildren().addAll(title, createActorNameTextField());
+        myRangeSliderContainer = new SliderContainer("range", 0, 100);
+        centerOptionsBox.getChildren().addAll(title, createActorNameTextField(), myRangeSliderContainer);
         centerOptionsBox.setPadding(new Insets(10));
         for(BehaviorBuilder builder:myBehaviorBuilders){
             centerOptionsBox.getChildren().add(builder.getContainer());
-        }
-        centerOptionsBox.getChildren().add(createSaveButton()); 
+        } 
         myPane.setCenter(centerOptionsBox);
     }
 
@@ -116,13 +117,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         return box;
     }
 
-    private Button createSaveButton(){
-        Button saveButton = new Button("Save");
-        saveButton.setOnAction(event->handleSaveButtonClicked());
-        return saveButton;              
-    }
-
-    private void handleSaveButtonClicked () {
+    private void attemptToSaveActor () {
         Map<String, IBehavior> iBehaviorMap = buildIBehaviorMap();
         if(fieldsAreValidForActiveCreation(iBehaviorMap)){
             makeNewActor(iBehaviorMap);
@@ -139,6 +134,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             builder.reset();
         }
+        myDragAndDrop.reset();
         myActorImgPath = "";
     }
 
@@ -160,41 +156,15 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     @Override
     public void update (Observable obs, Object arg1) {
         if(obs instanceof DragAndDropFilePane ){
-            myActorImgPath = ((File) arg1).getAbsolutePath();   
-            showActorImage();
+            myActorImgPath = (String) arg1;   
+            configureAndDisplayRightPane();
         }
         else if(obs instanceof BuildingSceneMenu) {
             finishBuildingActors();
         }
     }
 
-    public void showActorImage () {
-        ImageView imageView;
-        try {
-            FileInputStream actorImgFileStream = new FileInputStream(new File(myActorImgPath));
-            Image actorImg = new Image(actorImgFileStream, ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, 
-                                       true, false);
-            imageView = new ImageView(actorImg);
-            imageView.setScaleX(1.5);
-            imageView.setScaleY(1.5);
-            imageView.setLayoutX(220);
-            imageView.setLayoutY(220);        
-            Pane rightPane = new Pane();
-            rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
-            rightPane.getChildren().add(imageView);
-            rightPane.setStyle("-fx-background-color: white;");
-            myPane.getChildren().remove(myDragAndDrop);
-            configureAndDisplayRightPane(rightPane);
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }  
-    }
-
-    protected void configureAndDisplayRightPane (Pane rightPane) {
-        myPane.setRight(rightPane);
-    }
+    protected abstract void configureAndDisplayRightPane();
 
     protected abstract void finishBuildingActors();
 }

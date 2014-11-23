@@ -22,6 +22,7 @@ public class EnemySelectionDisplay extends ListView<BaseEnemy> {
     private ObservableList<BaseEnemy> myEnemies;
 
     public EnemySelectionDisplay(List<BaseEnemy> enemies) {
+        setStyle("-fx-background-insets: 0;");
         myEnemies = (ObservableList<BaseEnemy>) enemies;
         this.setOrientation(Orientation.HORIZONTAL);
         setItems(myEnemies);
@@ -29,7 +30,8 @@ public class EnemySelectionDisplay extends ListView<BaseEnemy> {
                        ListCell<BaseEnemy>>() {
             @Override 
             public ListCell<BaseEnemy> call(ListView<BaseEnemy> list) {
-                return new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
+                EnemyCell cell = new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
+                return cell;
             }
         });
     }

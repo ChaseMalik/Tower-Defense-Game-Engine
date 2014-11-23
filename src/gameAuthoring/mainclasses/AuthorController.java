@@ -36,7 +36,7 @@ public class AuthorController extends Application implements Observer {
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
-    public static final double SCREEN_HEIGHT = 600;
+    public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
 
     private EnemyBuildingScene myEnemyBuildingScene;
