@@ -1,12 +1,10 @@
 package gameEngine.actors.behaviors;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
+import java.util.List;
+import javafx.geometry.Point2D;
 /**
  * Example of BaseAttack, where the actor shoots at the nearest opposing actor
  * 

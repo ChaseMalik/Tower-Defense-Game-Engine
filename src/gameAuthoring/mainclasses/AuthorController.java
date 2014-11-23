@@ -13,6 +13,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -59,13 +60,13 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        //  showPathBuildingScene();
-        showWelcomeScene();
-        //        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        //        routes.add(new BackendRoute());
-        //        myBackendRoutes = routes;
-        //        showEnemyBuildingScene();
-        //        showGSONWritingScene();
+//          showPathBuildingScene();
+//                showWelcomeScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutes = routes;
+        showEnemyBuildingScene();
+//        showGSONWritingScene();
         configureAndDisplayStage();
 
     }
@@ -91,7 +92,7 @@ public class AuthorController extends Application implements Observer {
     }
 
     public void showTowerBuildingScene() {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies, myBackendRoutes);
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies);
         setSceneAndTitle(myTowerBuildingScene);
     }
 

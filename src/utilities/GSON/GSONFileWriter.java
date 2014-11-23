@@ -20,6 +20,7 @@ public class GSONFileWriter {
                                List<BaseLevel> levels,
                                List<BackendRoute> backendRoutes,
                                String directory) {
+        System.out.println(directory);
         writeToFile("enemies", gson.toJson(enemies), directory);
         writeToFile("towers", gson.toJson(towerGroups), directory);
         writeToFile("levels", gson.toJson(levels), directory);    
