@@ -134,7 +134,9 @@ public abstract class BaseActor extends Observable {
     public List<BaseActor> getTowersInRange () {
         return myInfo.getTowersInRange();
     }
-
+    public InfoObject getInfoObject(){
+        return myInfo;
+    }
     public Collection<Class<? extends BaseActor>> getTypes () {
         return myTypes;
     }

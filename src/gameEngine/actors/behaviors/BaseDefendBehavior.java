@@ -17,10 +17,11 @@ import java.util.Set;
 public abstract class BaseDefendBehavior implements IBehavior {
 
     protected double myHealth;
-
+    protected double myInitialHealth;
     
     BaseDefendBehavior (double health) {
-        health = myHealth;
+        myHealth = health;
+        myInitialHealth=health;
     }
     public double getHealth(){
         return myHealth;

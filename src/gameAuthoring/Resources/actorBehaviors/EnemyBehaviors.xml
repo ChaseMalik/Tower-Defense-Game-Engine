@@ -4,5 +4,9 @@
 	</movement>
 	 <attack>
 		<element>ClosestRangeAttack</element>
+		<element>FarthestEnemyRangeAttack</element>
 	</attack>
+	<defend>
+		<element>SimpleDefense</element>
+	</defend>
 </behaviors>

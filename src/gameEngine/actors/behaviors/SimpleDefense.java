@@ -9,13 +9,16 @@ public class SimpleDefense extends BaseDefendBehavior{
 
     @Override
     public void execute (BaseActor actor) {
-        // TODO Auto-generated method stub
-        
+        for(BaseActor a: actor.getInfoObject().getProjectilesInRange()){
+            myHealth--;
+            a.died();
+            if(myHealth==0)
+                actor.died();
+        }
     }
 
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
-        return null;
+        return new SimpleDefense(myInitialHealth);
     }
 }

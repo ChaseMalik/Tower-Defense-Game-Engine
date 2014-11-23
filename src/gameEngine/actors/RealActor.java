@@ -20,7 +20,7 @@ public abstract class RealActor extends BaseActor{
     public ProjectileInfo getProjectile(){
         return myProjectile;
     }
-    public void spawnProjectile(List<BaseActor> projectile){
+    public void spawnProjectile(BaseActor projectile){
         setChanged();
         notifyObservers(projectile);
     }
