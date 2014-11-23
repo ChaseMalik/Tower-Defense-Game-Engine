@@ -13,9 +13,9 @@ import gameEngine.actors.BaseTower;
  * @author Chase Malik, Timesh Patel
  *
  */
-public class ClosestAttack extends BaseAttack {
+public class ClosestRangeAttack extends RangeAttack {
 
-    public ClosestAttack (int attackSpeed) {
+    public ClosestRangeAttack (int attackSpeed) {
         super(attackSpeed);
     }
 
@@ -34,10 +34,10 @@ public class ClosestAttack extends BaseAttack {
 
     private List<BaseActor> getShootableActors (BaseActor actor) {
         if(actor instanceof BaseEnemy){
-            return actor.getEnemiesInRange();
+            return actor.getTowersInRange();
         }
         else if(actor instanceof BaseTower){
-            return actor.getTowersInRange();
+            return actor.getEnemiesInRange();
         }
         return null;
         

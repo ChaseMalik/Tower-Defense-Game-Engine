@@ -11,6 +11,9 @@ import gameEngine.actors.BaseActor;
  */
 public class NullBehavior implements IBehavior {
 
+    public NullBehavior(double n){
+        
+    }
     @Override
     public void execute (BaseActor actor) {
         // nothing
@@ -18,7 +21,7 @@ public class NullBehavior implements IBehavior {
 
     @Override
     public IBehavior copy () {
-        return new NullBehavior();
+        return new NullBehavior(0);
     }
 
     @Override

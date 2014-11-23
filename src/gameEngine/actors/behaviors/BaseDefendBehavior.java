@@ -1,6 +1,9 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseProjectile;
+import gameEngine.actors.BaseTower;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +34,8 @@ public abstract class BaseDefendBehavior implements IBehavior {
     @Override
     public Set<Class<? extends BaseActor>> getType () {
         // TODO Auto-generated method stub
-        return null;
+        Set<Class<? extends BaseActor>> a= new HashSet<Class<? extends BaseActor>>();
+        a.add(BaseProjectile.class);
+        return a;
     }
 }
