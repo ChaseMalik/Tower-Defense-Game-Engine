@@ -1,18 +1,18 @@
-package utilities;
+package utilities.DragAndDropFilePanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Observable;
-import utilities.errorPopup.ErrorPopup;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import utilities.StringToImageViewConverter;
+import utilities.errorPopup.ErrorPopup;
 
 /**
  * This utility allows for the creation of drag and drop file panes. Simply specify the extensions of files
@@ -25,8 +25,10 @@ public class DragAndDropFilePane extends Observable {
     
     private String[] myValidExtensions;
     private String myFileDestination;
-    private Pane myPane;
+    private Pane myContainer;
+    private Pane myDragAndDropPane;
     private File myFile;
+    private ImageView myImageView;
 
     /**
      * @param validExtensions The extensions you will accept for the drag and dropped file. Ex: [.jpg, .png]
@@ -35,19 +37,21 @@ public class DragAndDropFilePane extends Observable {
     public DragAndDropFilePane(double width, double height, String[] validExtensions, String fileDestination) {
         myValidExtensions = validExtensions;
         myFileDestination = fileDestination;
-        myPane = new Pane();
-        myPane.setPrefSize(width, height);
-        myPane.setOnDragOver(event->handleDragOver(event));
-        myPane.setOnDragExited(event->handleDragExit(event));
-        myPane.setOnDragDropped(event->handleFileDrop(event));
+        myContainer = new Pane();
+        myDragAndDropPane = new Pane();
+        myDragAndDropPane.setPrefSize(width, height);
+        myDragAndDropPane.setOnDragOver(event->handleDragOver(event));
+        myDragAndDropPane.setOnDragExited(event->handleDragExit(event));
+        myDragAndDropPane.setOnDragDropped(event->handleFileDrop(event));
         showInstructionLabel(width, height);
+        myContainer.getChildren().add(myDragAndDropPane);
     }
 
     private void showInstructionLabel (double width, double height) {
         Label label = new Label("Drag and Drop Map Image");
         label.setLayoutX(width/2 - 70);
         label.setLayoutY(height/2-20);
-        myPane.getChildren().add(label);
+        myDragAndDropPane.getChildren().add(label);
     }
 
     private void handleFileDrop (DragEvent event) {
@@ -61,10 +65,9 @@ public class DragAndDropFilePane extends Observable {
                     if(fileName.toLowerCase().contains(extension)){
                         File targetFile = new File(myFileDestination + file.getName().toString());
                         try {
-                            myFile = file;
                             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-                            this.setChanged();
-                            this.notifyObservers(myFile);
+                            myFile = targetFile;
+                            drawImage();
                         }
                         catch (IOException e) {
                             new ErrorPopup("Invalid file");
@@ -80,8 +83,18 @@ public class DragAndDropFilePane extends Observable {
 
 
 
+    private void drawImage () {
+        myContainer.getChildren().remove(myDragAndDropPane);
+        myImageView = StringToImageViewConverter.getImageView(myDragAndDropPane.getWidth(), 
+                                                                      myDragAndDropPane.getHeight(), 
+                                                                      myFile.getAbsolutePath());
+        myContainer.getChildren().add(myImageView); 
+        this.setChanged();
+        this.notifyObservers(myFile.getAbsolutePath());               
+    }
+
     private void handleDragExit (DragEvent event) {
-        myPane.setStyle("-fx-background-color: white;");
+        myDragAndDropPane.setStyle("-fx-background-color: white;");
         event.consume();
     }
 
@@ -90,7 +103,7 @@ public class DragAndDropFilePane extends Observable {
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);
-            myPane.setStyle("-fx-background-color: lightgreen");
+            myDragAndDropPane.setStyle("-fx-background-color: lightgreen");
         }
         else {
             event.consume();
@@ -98,17 +111,28 @@ public class DragAndDropFilePane extends Observable {
     }
 
     public Pane getPane () {
-        return myPane;
+        return myContainer;
     }
 
-    public FileInputStream getImageStream () {
-        FileInputStream stream = null;
-        try {
-            stream = new FileInputStream(myFile);
-        }
-        catch (FileNotFoundException e) {
-            new ErrorPopup("File was not found");
-        }
-        return stream;
+    public ImageView getImageView () {
+        return myImageView;
+    }
+    
+    public String getImagePath () {
+        return myFile.getAbsolutePath();
+    }
+
+    public void setHeight (double height) {
+        myImageView.setPreserveRatio(true);
+        myImageView.setFitHeight(height);
+        myImageView.autosize();
+        myContainer.setPrefHeight(height);
+        
+    }
+
+    public void reset () {
+        myContainer.getChildren().clear();
+        myContainer.getChildren().add(myDragAndDropPane);
+        
     }
 }

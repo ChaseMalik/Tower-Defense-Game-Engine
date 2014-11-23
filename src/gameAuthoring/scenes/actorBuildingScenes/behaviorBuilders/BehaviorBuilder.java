@@ -4,8 +4,8 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import utilities.SliderContainer;
 import utilities.reflection.Reflection;
 
 /**
@@ -23,13 +23,11 @@ import utilities.reflection.Reflection;
  */
 public class BehaviorBuilder {
     
-    private static final int NUM_TICKS = 5;
-
     private static final int COMBO_BOX_WIDTH = 200;
     
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
-    protected Slider mySlider;
+    private SliderContainer mySliderContainer;
     protected SliderInfo mySliderInfo;
     private String myBehaviorType;
     private List<String> myBehaviorOptions;
@@ -37,26 +35,15 @@ public class BehaviorBuilder {
     public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, SliderInfo sliderInfo) {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
-        mySlider = new Slider();
         mySliderInfo = sliderInfo;
         createCenterDisplay();
-        setupSlider();
-        myContainer.getChildren().addAll(new Label(sliderInfo.getMyInfo()), mySlider);
-    }
-    
-    private void setupSlider () {
-        mySlider.setMax(mySliderInfo.getMyMax());
-        mySlider.setValue(mySliderInfo.getMyMin());
-        mySlider.setMajorTickUnit((mySliderInfo.getMyMax() - mySliderInfo.getMyMin())/NUM_TICKS);
-        mySlider.setShowTickLabels(true);
-        mySlider.setShowTickMarks(true);
-        mySlider.setMinorTickCount(0);
-        mySlider.snapToTicksProperty().set(true);
+        mySliderContainer = new SliderContainer(sliderInfo);
+        myContainer.getChildren().add(mySliderContainer);
     }
 
     public IBehaviorKeyValuePair buildBehavior() {
         String behaviorSelected = myComboBox.getValue();
-        double sliderValue = mySlider.getValue();
+        double sliderValue = mySliderContainer.getSliderValue();
         String className = "gameEngine.actors.behaviors." + behaviorSelected;
         return new IBehaviorKeyValuePair(myBehaviorType,
                                         (IBehavior) Reflection.createInstance(className, sliderValue));  
@@ -88,6 +75,6 @@ public class BehaviorBuilder {
 
     public void reset () {
         myComboBox.setValue(null);
-        setupSlider();
+        mySliderContainer.resetSlider();
     }
 }

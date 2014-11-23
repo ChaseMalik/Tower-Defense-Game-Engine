@@ -8,24 +8,31 @@ public class ProjectileInfo {
 
     private String myImage;
     private BaseMovementBehavior myMovement;
-    private List<IBehavior> onHitEffects;
-    private List<String> myTypes;
+    private List<IBehavior> myOnHitEffects;
+    private List<String> myEnemyTypes;
     
     public ProjectileInfo(String image, BaseMovementBehavior move, List<IBehavior> list, List<String> types){
         myImage = image;
         myMovement=move;
-        myTypes=types;
+        myOnHitEffects=list;
+        myEnemyTypes=types;
+
     }
 
-    public double getSpeed () {
-        return mySpeed;
-    }
+ 
     
     public String getImage () {
         return myImage;
     }
+    
     public List<IBehavior> getOnHit(){
-        return onHitEffects;
+        return myOnHitEffects;
     }
-    public 
+    
+    public List<String> getEnemiesTypes(){
+        return myEnemyTypes;
+    }
+    public BaseMovementBehavior getMove(){
+        return myMovement;
+    }
 }

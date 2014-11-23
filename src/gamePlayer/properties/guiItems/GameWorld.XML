@@ -1,0 +1,10 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+
+<GameWorldProperties>
+
+ 	<SizeRatio>
+		<element>1</element>
+		<element>1</element>
+	</SizeRatio>
+
+</GameWorldProperties>

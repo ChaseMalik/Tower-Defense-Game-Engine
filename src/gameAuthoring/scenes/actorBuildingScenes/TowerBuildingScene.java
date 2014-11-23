@@ -1,6 +1,5 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
-import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
@@ -15,7 +14,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
@@ -27,14 +25,14 @@ import javafx.scene.layout.VBox;
 public class TowerBuildingScene extends ActorBuildingScene {
 
     private static final double ENEMY_DISPLAY_HEIGHT = 110;
-    private static final double DRAG_AND_DROP_HEIGHT = 
-            AuthorController.SCREEN_HEIGHT - (10 + ENEMY_DISPLAY_HEIGHT);
+    private static final double DRAG_AND_DROP_HEIGHT = 380;
     private static final String TITLE = "Tower";
     private static final String IMG_DIR = "./src/gameAuthoring/Resources/towerImages/";
     private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
 
     private List<BaseEnemy> myCreatedEnemies;
     private List<BaseEnemy> myEnemiesTowerCanShoot;
+    private ProjectilePane myProjectilePane;
     private List<TowerUpgradeGroup> myTowerUpgradeGroups;
     private EnemySelectionDisplay myEnemySelectionView;
     private TilePane myTilePane;
@@ -51,12 +49,15 @@ public class TowerBuildingScene extends ActorBuildingScene {
      * are not selected will be immune to the projectiles of the tower.
      */
     @Override
-    protected void configureAndDisplayRightPane (Pane rightPane) {
-        VBox rightContainer = new  VBox();
-        rightPane.setPrefHeight(DRAG_AND_DROP_HEIGHT);
+    protected void configureAndDisplayRightPane () {
+        VBox container = new  VBox();
+        myProjectilePane = new ProjectilePane();
+        myDragAndDrop.setHeight(DRAG_AND_DROP_HEIGHT);
         setupEnemyTowerCanShootSelection();
-        rightContainer.getChildren().addAll(rightPane, myEnemySelectionView);
-        myPane.setRight(rightContainer);
+        container.getChildren().addAll(myProjectilePane.getNode(), 
+                                       myDragAndDrop.getPane(), 
+                                       myEnemySelectionView);
+        myPane.setRight(container);
     }
 
     private void setupEnemyTowerCanShootSelection () {
@@ -74,7 +75,10 @@ public class TowerBuildingScene extends ActorBuildingScene {
 
     @Override
     protected void makeNewActor (Map<String, IBehavior> iBehaviorMap) {
-        BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, myActorNameField.getText(), 10, null);
+        BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, 
+                                        myActorNameField.getText(), 
+                                        myRangeSliderContainer.getSliderValue(), 
+                                        myProjectilePane.makeProjectileInfo(myEnemiesTowerCanShoot));
         if(myCurrentlySelectedTowerGroup == null) {
             TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
             myTowerUpgradeGroups.add(group);  

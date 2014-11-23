@@ -34,6 +34,6 @@ public class BuildingSceneMenu extends Observable {
     }
 
     public void addMenuItemToFileMenu (MenuItem item) {
-        myFileMenu.getItems().add(item);        
+        myFileMenu.getItems().add(0, item);        
     }
 }

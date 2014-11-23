@@ -2,5 +2,7 @@
 
 <UpgradeProperties>
 	<SizeRatio>
+		<element>1</element>
+		<element>1</element>
 	</SizeRatio>
 </UpgradeProperties>
