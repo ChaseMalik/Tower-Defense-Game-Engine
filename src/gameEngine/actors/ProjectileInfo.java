@@ -7,11 +7,11 @@ import java.util.List;
 public class ProjectileInfo {
 
     private String myImage;
-    private BaseMovementBehavior myMovement;
+    private IBehavior myMovement;
     private List<IBehavior> myOnHitEffects;
     private List<String> myEnemyTypes;
     
-    public ProjectileInfo(String image, BaseMovementBehavior move, List<IBehavior> list, List<String> types){
+    public ProjectileInfo(String image, IBehavior move, List<IBehavior> list, List<String> types){
         myImage = image;
         myMovement=move;
         myOnHitEffects=list;
@@ -33,6 +33,9 @@ public class ProjectileInfo {
         return myEnemyTypes;
     }
     public BaseMovementBehavior getMove(){
-        return myMovement;
+        return (BaseMovementBehavior)myMovement;
+    }
+    public ProjectileInfo copy(){
+        return new ProjectileInfo(myImage,myMovement.copy(), myOnHitEffects,myEnemyTypes);
     }
 }

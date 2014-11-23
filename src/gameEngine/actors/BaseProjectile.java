@@ -18,21 +18,21 @@ public class BaseProjectile extends BaseActor{
     public static final String MOVEMENT = "movement";
     private ProjectileInfo myInfo;
     public BaseProjectile (ProjectileInfo info) {
-        
+        myImagePath=info.getImage();
         makeNode();
+        myNode.setVisible(false);
         Map<String, IBehavior> behaviors=new HashMap<>();
-   //     behaviors.put(MOVEMENT,move);
+        behaviors.put(MOVEMENT,myInfo.getMove());
         myBehaviors=behaviors;
     }
 
-    public double getMySpeed () {
-        // TODO Auto-generated method stub
-        return ((BaseMovementBehavior)myBehaviors.get(MOVEMENT)).getSpeed();
-    }
+
     public void setMove(BaseMovementBehavior move){
         myBehaviors.put(MOVEMENT, move);
     }
-   
+    public ProjectileInfo getInfo(){
+        return myInfo;
+    }
     @Override
     public Node getRange () {
         // TODO Auto-generated method stub
