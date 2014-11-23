@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import utilities.GSON.GSONFileReader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -53,6 +54,7 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
+	private GSONFileReader myFileReader;
 	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
@@ -66,6 +68,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myTimeline.play();
 		myCurrentLevelIndex = 0;
 		myNodeToTower = new HashMap<>();
+		myFileReader = new GSONFileReader();
 	}
 
 	public void fastForward() {
@@ -136,9 +139,9 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void gameUpdate() {
-		updateTowers();
-		updateEnemies();
-		updateProjectile();
+		updateActors(myTowerGroup);
+		updateActors(myEnemyGroup);
+		updateActors(myProjectileGroup);
 		addEnemies();
 		if(myEnemyGroup.getChildren().size() <= 0) {
 			onLevelEnd();
@@ -160,47 +163,18 @@ public class SingleThreadedEngineManager implements Observer {
 		}
 	}
 	
-	private void updateTowers() {
-		for (BaseTower tower : myTowerGroup) {
-			InfoObject requiredInfo = getRequiredInformation(tower);
-			tower.update(requiredInfo);
+	private void updateActors(Iterable<? extends BaseActor> actorGroup) {
+		for (BaseActor actor : actorGroup) {
+			InfoObject requiredInfo = getRequiredInformation(actor);
+			actor.update(requiredInfo);
 		}
-	}
-
-	private void updateEnemies() {
-		for (BaseEnemy enemy : myEnemyGroup) {
-			InfoObject requiredInfo = getRequiredInformation(enemy);
-			enemy.update(requiredInfo);
-		}
-	}
-
-	private void updateProjectile() {
-		for (BaseProjectile projectile : myProjectileGroup) {
-			InfoObject requiredInfo = getRequiredInformation(projectile);
-			projectile.update(requiredInfo);
-			projectileHitDetection(projectile);
-		}
-	}
-
-	private void projectileHitDetection(BaseProjectile projectile) {
-		for (BaseEnemy enemy : myEnemyGroup) {
-			if (isCollided(projectile, enemy)) {
-				// Do stuff
-			}
-		}
-	}
-
-	private boolean isCollided(BaseActor actor, BaseActor otherActor) {
-		Node actorNode = actor.getNode();
-		Node otherNode = otherActor.getNode();
-		return actorNode.isVisible() && otherNode.isVisible()
-				&& actorNode.intersects(otherNode.getBoundsInLocal());
 	}
 
 	private InfoObject getRequiredInformation(BaseActor actor) {
 		Collection<Class<? extends BaseActor>> infoTypes = actor.getTypes();
 		List<BaseActor> enemyList = new ArrayList<>();
 		List<BaseActor> towerList = new ArrayList<>();
+		List<BaseActor> projectileList=new ArrayList<>();
 		for (Class<? extends BaseActor> infoType : infoTypes) {
 			if (BaseEnemy.class.isAssignableFrom(infoType)) {
 				enemyList = myEnemyGroup.getActorsInRange(actor);
@@ -208,8 +182,11 @@ public class SingleThreadedEngineManager implements Observer {
 			if (BaseTower.class.isAssignableFrom(infoType)) {
 				towerList = myTowerGroup.getActorsInRange(actor);
 			}
+			if (BaseProjectile.class.isAssignableFrom(infoType)){
+			        projectileList= myProjectileGroup.getActorsInRange(actor);
+			}
 		}
-		return new InfoObject(enemyList, towerList);
+		return new InfoObject(enemyList, towerList, projectileList);
 	}
 
 	public void pause() {
@@ -237,7 +214,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	public void loadTowers(String towerFile) {
-		List<TowerUpgradeGroup> availableTowers = null;
+		List<TowerUpgradeGroup> availableTowers = null; //= myFileReader.readTowerFromFile(towerFile);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
 			TowerInfoObject prevInfoObject = null;
 			for (BaseTower tower : towerGroup) {
@@ -259,6 +236,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void loadLevelFile(String levelFile) {
+		//myFileReader.readLevel(levelFile);
 		myLevels = new ArrayList<>();
 		
 	}
