@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Set;
 import utilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,7 +28,7 @@ import javafx.scene.image.ImageView;
  * @author Chase Malik, Timesh Patel
  *
  */
-public class BaseActor extends Observable {
+public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient ImageView myNode;
@@ -67,7 +68,7 @@ public class BaseActor extends Observable {
 
     }
 
-    private void makeNode () {
+    protected void makeNode () {
         myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
                                                          ActorBuildingScene.ACTOR_IMG_WIDTH,
                                                          myImagePath);
@@ -80,12 +81,6 @@ public class BaseActor extends Observable {
      * 
      * @return
      */
-    public BaseActor copy () {
-        Map<String, IBehavior> clonedBehaviors = copyBehaviors();
-        BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
-        myNode.setVisible(false);
-        return a;
-    }
 
     protected Map<String, IBehavior> copyBehaviors () {
         Map<String, IBehavior> clonedBehaviors = new HashMap<>();
@@ -126,7 +121,9 @@ public class BaseActor extends Observable {
         return myImagePath;
     }
 
-    public double getRange () {
+    public abstract Node getRange ();
+    
+    public double getRangeProperty(){
         return myRange;
     }
 
