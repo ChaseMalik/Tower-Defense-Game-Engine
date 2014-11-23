@@ -81,14 +81,19 @@ public class BaseActor extends Observable {
      * @return
      */
     public BaseActor copy () {
-        Map<String, IBehavior> clonedBehaviors = new HashMap<>();
-        for (String s : myBehaviors.keySet()) {
-            clonedBehaviors.put(s, myBehaviors.get(s).copy());
-        }
+        Map<String, IBehavior> clonedBehaviors = copyBehaviors();
         BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
         a.makeNode();
         myNode.setVisible(false);
         return a;
+    }
+
+    protected Map<String, IBehavior> copyBehaviors () {
+        Map<String, IBehavior> clonedBehaviors = new HashMap<>();
+        for (String s : myBehaviors.keySet()) {
+            clonedBehaviors.put(s, myBehaviors.get(s).copy());
+        }
+        return clonedBehaviors;
     }
 
     public IBehavior getBehavior (String s) {
