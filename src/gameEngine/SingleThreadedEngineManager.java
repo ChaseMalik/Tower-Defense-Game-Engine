@@ -118,7 +118,7 @@ public class SingleThreadedEngineManager implements Observer {
     private void projectileHitDetection(BaseProjectile projectile) {
         for(BaseEnemy enemy : myEnemyGroup) {
             if(isCollided(projectile, enemy)) {
-                
+                //Do stuff
             }
         }
     }
