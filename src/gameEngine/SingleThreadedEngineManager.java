@@ -146,6 +146,9 @@ public class SingleThreadedEngineManager implements Observer {
 		if(myEnemyGroup.getChildren().size() <= 0) {
 			onLevelEnd();
 		}
+		myTowerGroup.clearAndExecuteRemoveBuffer();
+		myEnemyGroup.clearAndExecuteRemoveBuffer();
+		myProjectileGroup.clearAndExecuteRemoveBuffer();
 	}
 
 	private void onLevelEnd() {
@@ -163,10 +166,15 @@ public class SingleThreadedEngineManager implements Observer {
 		}
 	}
 	
-	private void updateActors(Iterable<? extends BaseActor> actorGroup) {
+	private void updateActors(RangeRestrictedCollection<? extends BaseActor> actorGroup) {
 		for (BaseActor actor : actorGroup) {
-			InfoObject requiredInfo = getRequiredInformation(actor);
-			actor.update(requiredInfo);
+			if(actor.isDead()){
+				actorGroup.addActorToRemoveBuffer(actor);
+			}
+			else {
+				InfoObject requiredInfo = getRequiredInformation(actor);
+				actor.update(requiredInfo);
+			}	
 		}
 	}
 
