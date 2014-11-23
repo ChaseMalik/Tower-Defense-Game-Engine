@@ -35,7 +35,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
         myEnemies.add(new BaseEnemy(iBehaviorMap,
                                     myActorImgPath,
                                     myActorNameField.getText(), 
-                                    5,
+                                    myRangeSliderContainer.getSliderValue(),
                                     myEnemyRoutes));       
     }
 
@@ -51,4 +51,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
         this.setChanged();
         this.notifyObservers(myEnemies);
     }
+
+    @Override
+    protected void configureAndDisplayRightPane () {}
 }

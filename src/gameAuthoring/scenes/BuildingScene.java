@@ -14,7 +14,7 @@ public abstract class BuildingScene extends Observable {
 
     public BuildingScene (BorderPane root, String title) {
         myPane = root;
-        myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+        myScene = new Scene(root);
         myTitle = title;
         myScene.getStylesheets().add(getStyleSheetFileName()); 
     }

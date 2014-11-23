@@ -5,13 +5,17 @@ import java.util.List;
 
 public class ProjectileInfo {
 
-    String myImage;
-    double mySpeed;
-    List<IBehavior> onHitEffects;
+    private String myImage;
+    private double mySpeed;
+    private List<IBehavior> myOnHitEffects;
+    private List<BaseEnemy> myEnemiesCanDamage;   
     
-    public ProjectileInfo(String image, double speed, List<IBehavior> list){
+    public ProjectileInfo(String image, double speed, List<BaseEnemy> enemiesCanDamage, 
+                          List<IBehavior> onHitEffects){
         myImage = image;
         mySpeed = speed;
+        myEnemiesCanDamage = enemiesCanDamage;
+        myOnHitEffects = onHitEffects;
     }
 
     public double getSpeed () {
@@ -21,7 +25,12 @@ public class ProjectileInfo {
     public String getImage () {
         return myImage;
     }
+    
     public List<IBehavior> getOnHit(){
-        return onHitEffects;
+        return myOnHitEffects;
+    }
+    
+    public List<BaseEnemy> getEnemiesCanDamage(){
+        return myEnemiesCanDamage;
     }
 }
