@@ -40,8 +40,8 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     @Override
     protected void initializeActorsAndBuildActorDisplay () {
         myEnemies = FXCollections.observableArrayList();
-        myCreatedActorDisplay = new CreatedEnemiesDisplay(myEnemies);
-        myPane.setLeft(myCreatedActorDisplay);        
+        CreatedEnemiesDisplay enemyDisplay = new CreatedEnemiesDisplay(myEnemies);
+        myPane.setLeft(enemyDisplay);        
     }
     
     @Override

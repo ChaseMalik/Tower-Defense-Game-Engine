@@ -13,6 +13,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -60,12 +61,12 @@ public class AuthorController extends Application implements Observer {
         myStage = stage;
         buildScenes();
         //  showPathBuildingScene();
-        showWelcomeScene();
-        //        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        //        routes.add(new BackendRoute());
-        //        myBackendRoutes = routes;
-        //        showEnemyBuildingScene();
-        //        showGSONWritingScene();
+        //        showWelcomeScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutes = routes;
+        showEnemyBuildingScene();
+//        showGSONWritingScene();
         configureAndDisplayStage();
 
     }

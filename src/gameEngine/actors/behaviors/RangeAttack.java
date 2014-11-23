@@ -11,9 +11,8 @@ import javafx.geometry.Point2D;
 
 public abstract class RangeAttack extends BaseAttack{
 
-    public RangeAttack (int attackSpeed) {
+    public RangeAttack (double attackSpeed) {
         super(attackSpeed);
-        // TODO Auto-generated constructor stub
     }
     
     protected void shootActorFromActor(BaseActor target, BaseActor actor){

@@ -4,7 +4,9 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
+import gameEngine.actors.RealActor;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +29,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.DragAndDropFilePane;
 import utilities.XMLParsing.XMLParser;
-import utilities.reflection.Reflection;
 
 /**
  * Class that is extended by EnemyBuildingScene and TowerBuildingScene. Creates a
@@ -42,13 +43,11 @@ import utilities.reflection.Reflection;
  */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
-    private static final String CLASS_ROUTE_TO_BUILDERS = "gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.";
     protected static final String ADD_TOWER_IMG_PATH = "./src/gameAuthoring/Resources/otherImages/addTower.png";
     protected static final int DRAG_AND_DROP_WIDTH = 560;
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
-    protected ListView myCreatedActorDisplay;
     protected DragAndDropFilePane myDragAndDrop;
     protected TextField myActorNameField;
     protected String myActorImgPath;
@@ -77,17 +76,14 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for(String behaviorType:allBehaviorTypes){
             List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
-            myBehaviorBuilders.add((BehaviorBuilder) Reflection.createInstance(CLASS_ROUTE_TO_BUILDERS + capitalize(behaviorType) + "Builder", myRoutes, behaviorOptions));
+            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, myRoutes, behaviorOptions, new SliderInfo("speed", 0, 5)));
         }
-    }
-
-    private String capitalize (String behaviorType) {
-        return behaviorType.substring(0, 1).toUpperCase().concat(behaviorType.substring(1));
     }
 
     private void setupDragAndDropForActorImage () {
         myDragAndDrop = 
-                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, new String[]{".jpg", ".jpeg", ".png"}, 
+                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, 
+                                        new String[]{".jpg", ".jpeg", ".png"}, 
                                         myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
@@ -132,22 +128,13 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void handleSaveButtonClicked () {
         Map<String, IBehavior> iBehaviorMap = buildIBehaviorMap();
-        if(fieldsAreValidForActiveCreation(iBehaviorMap) && actorNameIsUnique()){
+        if(fieldsAreValidForActiveCreation(iBehaviorMap)){
             makeNewActor(iBehaviorMap);
             clearFields();
         }
     }
 
     protected abstract void makeNewActor (Map<String, IBehavior> iBehaviorMap);
-
-    private boolean actorNameIsUnique () {
-        //TODO
-        return true;
-//        return myActors
-//                .stream()
-//                .filter(actor -> actor.toString().equalsIgnoreCase(myActorNameField.getText()))
-//                .count() == 0;
-    }
 
     protected void clearFields() {
         myActorNameField.clear();
