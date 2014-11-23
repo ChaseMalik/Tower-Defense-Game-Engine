@@ -10,6 +10,7 @@ import gameEngine.levels.BaseLevel;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,8 @@ public class SingleThreadedEngineManager implements Observer {
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
 	
+	private Map<Integer, BaseTower> myIdToTower;
+	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
 		myPauseRequested = new AtomicBoolean(false);
@@ -61,6 +64,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myTimeline = createTimeline();
 		myTimeline.play();
 		myCurrentLevelIndex = 0;
+		myIdToTower = new HashMap<>();
 	}
 
 	public void fastForward() {
@@ -75,7 +79,11 @@ public class SingleThreadedEngineManager implements Observer {
 		myUpdateRate = magnitude;
 	}
 
-	public boolean addTower(String identifier, double x, double y) {
+	public void removeTower(Node node) {
+		
+	}
+	
+	public Node addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
     	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
     	if(towerValidity){
@@ -85,8 +93,9 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setY(y);
         	newTowerNode.setVisible(true);
         	myTowerGroup.add(newTower);
+        	return newTowerNode;
     	}
-    	return towerValidity;
+    	return null;
     }
 
 	private Timeline createTimeline() {

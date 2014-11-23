@@ -85,11 +85,11 @@ public class GuiBuilder {
         RightContainer right = new RightContainer(); 
         right.initialize(windowSize); pane.setRight(right);
 
-        BottomContainer bottom = new BottomContainer(); 
-        bottom.initialize(windowSize); pane.setBottom(bottom);
-
         CenterContainer center = new CenterContainer(); 
         center.initialize(windowSize); pane.setCenter(center); 
+        
+        BottomContainer bottom = new BottomContainer(); 
+        bottom.initialize(windowSize); pane.setBottom(bottom);
 
         return pane;
     }

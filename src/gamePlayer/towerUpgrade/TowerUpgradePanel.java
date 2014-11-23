@@ -22,18 +22,6 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private Button mySellButton;
 	
 	private UpgradeListener myListener;
-
-	public TowerUpgradePanel() {
-		super();
-		myListener = GuiConstants.GUI_MANAGER;
-		myIcon = new ImageView();
-		myName = new Text();
-		upgrade1Button = new Button();
-		upgrade2Button = new Button();
-		mySellButton = new Button();
-		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, upgrade2Button, mySellButton);
-		this.getChildren().add(myButtonBox);
-	}
 	
 	public void setCurrentTower(TowerUpgradeInfo current){
 		myIcon.setImage(new Image(current.getImagePath()));
@@ -53,6 +41,19 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		this.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
+		
+		myListener = GuiConstants.GUI_MANAGER;
+		myIcon = new ImageView();
+		myName = new Text();
+		upgrade1Button = new Button();
+		upgrade1Button.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
+		upgrade2Button = new Button();
+		upgrade2Button.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
+		mySellButton = new Button();
+		mySellButton.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
+		myButtonBox = new HBox();
+		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, upgrade2Button, mySellButton);
+		this.getChildren().add(myButtonBox);
 	}
 
 	@Override

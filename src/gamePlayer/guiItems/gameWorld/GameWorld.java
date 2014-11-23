@@ -32,7 +32,6 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-	    myMap.setMinSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
 		//myMap.setOnMouseClicked(event -> placeTower(event));
