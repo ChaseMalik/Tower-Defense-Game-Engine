@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javafx.geometry.Point2D;
@@ -12,9 +13,9 @@ import gameEngine.actors.BaseTower;
  * @author Chase Malik, Timesh Patel
  *
  */
-public class ClosestAttack extends BaseAttack {
+public class ClosestRangeAttack extends RangeAttack {
 
-    public ClosestAttack (int attackSpeed) {
+    public ClosestRangeAttack (int attackSpeed) {
         super(attackSpeed);
     }
 
@@ -33,10 +34,10 @@ public class ClosestAttack extends BaseAttack {
 
     private List<BaseActor> getShootableActors (BaseActor actor) {
         if(actor instanceof BaseEnemy){
-            return actor.getEnemiesInRange();
+            return actor.getTowersInRange();
         }
         else if(actor instanceof BaseTower){
-            return actor.getTowersInRange();
+            return actor.getEnemiesInRange();
         }
         return null;
         
@@ -62,10 +63,6 @@ public class ClosestAttack extends BaseAttack {
         return null;
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
 }

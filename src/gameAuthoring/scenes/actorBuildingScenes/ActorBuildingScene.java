@@ -2,11 +2,9 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
-import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedActorsDisplay;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
-import gameEngine.actors.BaseActor;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,11 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +27,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import utilities.DragAndDropFilePane;
 import utilities.XMLParsing.XMLParser;
-import utilities.errorPopup.ErrorPopup;
 import utilities.reflection.Reflection;
 
 /**
@@ -47,16 +43,15 @@ import utilities.reflection.Reflection;
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
     private static final String CLASS_ROUTE_TO_BUILDERS = "gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.";
-    private static final String FILE_NOT_FOUND_ERROR_MSG = "Image file representing actor could not be found";
+    protected static final String ADD_TOWER_IMG_PATH = "./src/gameAuthoring/Resources/otherImages/addTower.png";
     protected static final int DRAG_AND_DROP_WIDTH = 560;
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
-    protected ObservableList<BaseActor> myActors;
-    protected CreatedActorsDisplay myCreatedActorDisplay;
+    protected ListView myCreatedActorDisplay;
     protected DragAndDropFilePane myDragAndDrop;
     protected TextField myActorNameField;
-    protected Image myActorImage;
+    protected String myActorImgPath;
     protected List<BehaviorBuilder> myBehaviorBuilders;
     private String myActorImageDirectory;
     private List<BackendRoute> myRoutes;
@@ -99,11 +94,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         myPane.setRight(myDragAndDrop.getPane());
     }
 
-    private void initializeActorsAndBuildActorDisplay () {
-        myActors = FXCollections.observableArrayList();
-        myCreatedActorDisplay = new CreatedActorsDisplay(myActors);
-        myPane.setLeft(myCreatedActorDisplay);
-    }
+    protected abstract void initializeActorsAndBuildActorDisplay ();
+    
 
     private void setupFileMenu () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
@@ -149,24 +141,26 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     protected abstract void makeNewActor (Map<String, IBehavior> iBehaviorMap);
 
     private boolean actorNameIsUnique () {
-        return myActors
-                .stream()
-                .filter(actor -> actor.toString().equalsIgnoreCase(myActorNameField.getText()))
-                .count() == 0;
+        //TODO
+        return true;
+//        return myActors
+//                .stream()
+//                .filter(actor -> actor.toString().equalsIgnoreCase(myActorNameField.getText()))
+//                .count() == 0;
     }
 
-    private void clearFields() {
+    protected void clearFields() {
         myActorNameField.clear();
         myPane.getChildren().remove(myPane.getRight());
         myPane.setRight(myDragAndDrop.getPane());
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             builder.reset();
         }
-        myActorImage = null;
+        myActorImgPath = "";
     }
 
     private boolean fieldsAreValidForActiveCreation (Map<String, IBehavior> iBehaviorMap) {
-        return myActorImage != null && 
+        return !myActorImgPath.isEmpty() && 
                 !iBehaviorMap.isEmpty() &&
                 !myActorNameField.getText().isEmpty();
     }
@@ -183,13 +177,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     @Override
     public void update (Observable obs, Object arg1) {
         if(obs instanceof DragAndDropFilePane ){
-            try {
-                myActorImage = new Image(new FileInputStream((File) arg1), ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, true, false);    
-                showActorImage();
-            }
-            catch (FileNotFoundException e) {
-                new ErrorPopup(FILE_NOT_FOUND_ERROR_MSG);
-            } 
+            myActorImgPath = ((File) arg1).getAbsolutePath();   
+            showActorImage();
         }
         else if(obs instanceof BuildingSceneMenu) {
             finishBuildingActors();
@@ -197,27 +186,34 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     public void showActorImage () {
-        ImageView imageView = new ImageView(myActorImage);
-        imageView.setScaleX(1.5);
-        imageView.setScaleY(1.5);
-        imageView.setLayoutX(220);
-        imageView.setLayoutY(220);        
-        Pane rightPane = new Pane();
-        rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
-        rightPane.getChildren().add(imageView);
-        rightPane.setStyle("-fx-background-color: white;");
-        myPane.getChildren().remove(myDragAndDrop);
-        configureAndDisplayRightPane(rightPane);
+        ImageView imageView;
+        try {
+            FileInputStream actorImgFileStream = new FileInputStream(new File(myActorImgPath));
+            Image actorImg = new Image(actorImgFileStream, ACTOR_IMG_WIDTH, ACTOR_IMG_HEIGHT, 
+                                       true, false);
+            imageView = new ImageView(actorImg);
+            imageView.setScaleX(1.5);
+            imageView.setScaleY(1.5);
+            imageView.setLayoutX(220);
+            imageView.setLayoutY(220);        
+            Pane rightPane = new Pane();
+            rightPane.setPrefWidth(DRAG_AND_DROP_WIDTH);
+            rightPane.getChildren().add(imageView);
+            rightPane.setStyle("-fx-background-color: white;");
+            myPane.getChildren().remove(myDragAndDrop);
+            configureAndDisplayRightPane(rightPane);
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }  
     }
-    
+
     protected void configureAndDisplayRightPane (Pane rightPane) {
         myPane.setRight(rightPane);
     }
 
-    public void finishBuildingActors() {
-        this.setChanged();
-        this.notifyObservers(myActors);
-    }
+    protected abstract void finishBuildingActors();
 }
 
 

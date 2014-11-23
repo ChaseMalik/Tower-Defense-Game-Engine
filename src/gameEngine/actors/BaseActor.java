@@ -1,6 +1,11 @@
 package gameEngine.actors;
 
+import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
+import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.IBehavior;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import utilities.StringToImageViewConverter;
+import utilities.errorPopup.ErrorPopup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -26,8 +33,10 @@ public class BaseActor extends Observable {
     protected transient ImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
-    protected String myImageName;
+    protected String myImagePath;
     private Set<Class<? extends BaseActor>> myTypes;
+    private Set<BaseEffectBehavior> myEffects;
+    private boolean myIsRemovable;
 
     public BaseActor () {
 
@@ -36,12 +45,15 @@ public class BaseActor extends Observable {
     public BaseActor (Map<String, IBehavior> behaviors, String imageName, String name, double range) {
         myName = name;
         myBehaviors = behaviors;
-        myImageName = imageName;
+        myImagePath = imageName;
         myRange = range;
-        myTypes=new HashSet<>();
-        for(String s:behaviors.keySet()){
-            myTypes.addAll(behaviors.get(s).getType());
+        myTypes = new HashSet<>();
+        for (String s : behaviors.keySet()) {
+            if (behaviors.get(s).getType() != null) {
+                myTypes.addAll(behaviors.get(s).getType());
+            }
         }
+        makeNode();
     }
 
     /**
@@ -55,9 +67,12 @@ public class BaseActor extends Observable {
 
     }
 
-    private void makeNode(){
-        myNode = new ImageView(myImageName);
+    private void makeNode () {
+        myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
+                                                         ActorBuildingScene.ACTOR_IMG_WIDTH,
+                                                         myImagePath);
     }
+
     /**
      * Copies the current actor to create another one
      * This is used when creating x amount of enemies of the same type on a specific level
@@ -70,13 +85,20 @@ public class BaseActor extends Observable {
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        BaseActor a = new BaseActor(clonedBehaviors, myImageName, myName,myRange);
+        BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
         a.makeNode();
+        myNode.setVisible(false);
         return a;
     }
 
     public IBehavior getBehavior (String s) {
         return myBehaviors.get(s);
+    }
+
+    public void addEffect (BaseEffectBehavior effect) {
+        if (myEffects.add(effect)) {
+            effect.performEffect(this);
+        }
     }
 
     @Override
@@ -92,21 +114,38 @@ public class BaseActor extends Observable {
         return myNode.getY();
     }
 
-    public ImageView getNode(){
+    public ImageView getNode () {
         return myNode;
     }
-    
-    public double getRange() {
+
+    public String getImagePath () {
+        return myImagePath;
+    }
+
+    public double getRange () {
         return myRange;
     }
-    public List<BaseActor> getEnemiesInRange(){
+
+    public List<BaseActor> getEnemiesInRange () {
         return myInfo.getEnemiesInRange();
     }
-    public List<BaseActor> getTowersInRange(){
+
+    public List<BaseActor> getTowersInRange () {
         return myInfo.getTowersInRange();
     }
-   public Collection<Class<? extends BaseActor>> getTypes(){
+
+    public Collection<Class<? extends BaseActor>> getTypes () {
         return myTypes;
-   }
+    }
+
+    public void setRange (double d) {
+        myRange = d;
+    }
+    
+    public void died() {
+        myIsRemovable = true;
+    }
+    public boolean isDead(){
+        return myIsRemovable;
+    }
 }
- 

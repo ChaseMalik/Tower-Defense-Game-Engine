@@ -1,20 +1,25 @@
 package gameAuthoring.mainclasses;
 
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.GSONWritingScene;
+import gameAuthoring.scenes.WelcomeScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
+import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.LevelBuildingScene;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
-import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.levels.BaseLevel;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
 /**
@@ -28,16 +33,23 @@ public class AuthorController extends Application implements Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
+    private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 600;
+    private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
 
     private EnemyBuildingScene myEnemyBuildingScene;
     private TowerBuildingScene myTowerBuildingScene;
     private PathBuildingScene myPathBuildingScene;
     private LevelBuildingScene myLevelBuildingScene;
+    private GSONWritingScene myGSONWritingScene;
+    private WelcomeScene myWelcomeScene;
+
     private List<BackendRoute> myBackendRoutes;
-    private List<BaseActor> myEnemies;
-    private List<BaseActor> myTowers;
+    private List<BaseEnemy> myEnemies;
+    private List<TowerUpgradeGroup> myTowerGroups;
+    private List<BaseLevel> myLevels;
+    private String myGameName;
 
     private Stage myStage;
 
@@ -47,12 +59,15 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        showPathBuildingScene();
-//        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-//        routes.add(new BackendRoute());
-//        myBackendRoutes = routes;
-//        showEnemyBuildingScene();
+        //  showPathBuildingScene();
+        showWelcomeScene();
+        //        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        //        routes.add(new BackendRoute());
+        //        myBackendRoutes = routes;
+        //        showEnemyBuildingScene();
+        //        showGSONWritingScene();
         configureAndDisplayStage();
+
     }
 
     private void configureAndDisplayStage () {
@@ -64,6 +79,7 @@ public class AuthorController extends Application implements Observer {
         myPathBuildingScene = new PathBuildingScene(new BorderPane());
         myPathBuildingScene.addObserver(this);
     }
+
 
     public void showPathBuildingScene() {
         setSceneAndTitle(myPathBuildingScene);
@@ -90,15 +106,26 @@ public class AuthorController extends Application implements Observer {
         myStage.setTitle(scene.getTitle().concat(" Building"));
     }
 
+    private void showWelcomeScene(){
+        myWelcomeScene = new WelcomeScene();
+        myWelcomeScene.addObserver(this);
+        myStage.setScene(myWelcomeScene.getScene());
+    }
+
+
     @SuppressWarnings("unchecked")
     @Override
     public void update (Observable ob, Object value) {
-        if(ob.equals(myPathBuildingScene)){
+        if(ob.equals(myWelcomeScene)) {
+            myGameName = (String) value;
+            showPathBuildingScene();
+        }
+        else if(ob.equals(myPathBuildingScene)){
             myBackendRoutes = BackendRoutesGenerator.getBackendRoutes((Path) value);
             showEnemyBuildingScene();
         }
         else if(ob.equals(myEnemyBuildingScene)) {
-            myEnemies = (List<BaseActor>) value;
+            myEnemies = (List<BaseEnemy>) value;
             if(notEnoughEnemies()) {
                 new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
             }
@@ -107,18 +134,29 @@ public class AuthorController extends Application implements Observer {
             }
         }
         else if(ob.equals(myTowerBuildingScene)) {
-            myTowers = (List<BaseActor>) value;
+            myTowerGroups = (List<TowerUpgradeGroup>) value;
             if(notEnoughTowers()) {
                 new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
             }
             else {
                 showLevelBuildingScene();
             }
-        }       
+        }  
+        else if(ob.equals(myLevelBuildingScene)) {
+            myLevels = (List<BaseLevel>) value;
+            showGSONWritingScene();
+        }
+    }
+
+    private void showGSONWritingScene () {
+        myGSONWritingScene = new GSONWritingScene(new BorderPane());
+        myStage.setScene(myGSONWritingScene);
+        myStage.setTitle("Writing Game"); 
+        GSON_WRITER.writeGameFile(myEnemies, myTowerGroups, myLevels, myBackendRoutes, GAME_DIR + myGameName + "/");
     }
 
     private boolean notEnoughTowers () {
-        return myTowers.size() < 1;
+        return myTowerGroups.size() < 1;
     }
 
     private boolean notEnoughEnemies () {

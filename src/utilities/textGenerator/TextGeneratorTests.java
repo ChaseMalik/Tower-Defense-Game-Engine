@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TextGeneratorTests {
     //Set the path for the text generator properties file to be used. 
     //Write your own properties file since it is implementation-specific
-    private static final String propertiesPath =  "./src/Utilities/textGenerator/SampleGeneratorProperties.XML";
+    private static final String propertiesPath =  "./src/utilities/textGenerator/SampleGeneratorProperties.XML";
     
     private static TextGenerator generator;
     private void resetGenerator() {

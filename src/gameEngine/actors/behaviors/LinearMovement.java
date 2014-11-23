@@ -19,19 +19,17 @@ import gameEngine.actors.BaseActor;
 public class LinearMovement extends BaseMovementBehavior {
     private int myIndex = 0;
 
-    public LinearMovement (List<BackendRoute> routeOptions, double speed) {
-        super(routeOptions, speed);
+    public LinearMovement (double speed) {
+        super(speed);
     }
-
+    public LinearMovement(double speed, BackendRoute route){
+        super(speed,route);
+    }
     @Override
     public void execute (BaseActor actor) {
         if (myIndex == 0) {
             move(actor, myRoute.get(myIndex));
             myIndex++;
-            return;
-        }
-        if (myIndex == myRoute.size()) {
-            // TODO handle this
             return;
         }
         Point2D current = new Point2D(actor.getX(), actor.getY());
@@ -41,14 +39,14 @@ public class LinearMovement extends BaseMovementBehavior {
         while (distance > destination.distance(current)) {
             myIndex++;
             if (myIndex == myRoute.size()) {
-                // TODO Handle this
+                actor.died();
                 return;
             }
             distance -= destination.distance(current);
             current = new Point2D(destination.getX(), destination.getY());
             destination = myRoute.get(myIndex).getPoint();
         }
-
+        myRemainingDistance-=mySpeed;
         Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
         Point2D answer = current.add(vector);
         move(actor, new VisibilityPoint(myRoute.get(myIndex).isVisible(), answer));
@@ -64,13 +62,9 @@ public class LinearMovement extends BaseMovementBehavior {
 
     @Override
     public IBehavior copy () {
-        return new LinearMovement(myOptions, mySpeed);
+        return new LinearMovement(mySpeed);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
 }
