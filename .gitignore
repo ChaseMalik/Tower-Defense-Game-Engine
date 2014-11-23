@@ -11,10 +11,5 @@
 +.settings/
 +.loadpath
 
-/src/gameAuthoring/Resources/enemyImages/*
-/src/gameAuthoring/Resources/towerImages/*
-/src/gameAuthoring/Resources/otherImages/*
-/src/gameAuthoring/Resources/projectileImages/*
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
