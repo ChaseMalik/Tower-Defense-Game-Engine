@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javafx.geometry.Point2D;
@@ -57,10 +58,6 @@ public class CloseAttack extends NewAttack {
         return null;
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
 }

@@ -1,6 +1,8 @@
 package gameEngine.actors.behaviors;
 
+import gameEngine.actors.BaseActor;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -14,7 +16,7 @@ public abstract class BaseDefendBehavior implements IBehavior {
     protected double myHealth;
     protected List<String> myHarmfulBullets;
 
-    // TODO change harmfulBullets to table
+    
     BaseDefendBehavior (double health, List<String> harmfulBullets) {
         health = myHealth;
         myHarmfulBullets = harmfulBullets;
@@ -25,5 +27,10 @@ public abstract class BaseDefendBehavior implements IBehavior {
     
     public List<String> getHarmfulBullets(){
         return myHarmfulBullets;
+    }
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

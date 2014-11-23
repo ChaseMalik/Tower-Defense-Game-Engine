@@ -67,10 +67,6 @@ public class LinearMovement extends BaseMovementBehavior {
         return new LinearMovement(myOptions, mySpeed);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
 }

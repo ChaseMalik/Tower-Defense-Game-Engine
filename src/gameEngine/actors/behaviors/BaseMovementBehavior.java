@@ -2,8 +2,10 @@ package gameEngine.actors.behaviors;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import gameEngine.actors.BaseActor;
 
 
 /**
@@ -27,5 +29,10 @@ public abstract class BaseMovementBehavior implements IBehavior {
 
     public double getSpeed () {
         return mySpeed;
+    }
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

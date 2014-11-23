@@ -2,7 +2,9 @@ package gameEngine.actors.behaviors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -36,5 +38,18 @@ public abstract class NewAttack implements IBehavior {
         pList.add(projectile);
         shooter.spawnProjectile(pList);
         myCooldown=myAttackSpeed;
+    }
+
+    public void setAttackSpeed (int i) {
+        // TODO Auto-generated method stub
+        myAttackSpeed=i;
+        
+    }
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        // TODO Auto-generated method stub
+        Set a= new HashSet<Class<? extends BaseActor>>();
+        
+        return a;
     }
 }
