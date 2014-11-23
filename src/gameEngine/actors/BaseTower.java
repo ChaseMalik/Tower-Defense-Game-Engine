@@ -8,7 +8,7 @@ public class BaseTower extends RealActor {
     private BaseTower myUpgrade;
 
     
-    public BaseTower(Map<String,IBehavior> behaviors, String image, String name, double range, BaseTower upgrade, BaseProjectile projectile){
+    public BaseTower(Map<String,IBehavior> behaviors, String image, String name, double range, BaseTower upgrade, ProjectileInfo projectile){
         super(behaviors,image,name, range,projectile);
         myUpgrade = upgrade;
     }

@@ -34,7 +34,7 @@ public abstract class BaseAttack implements IBehavior {
         RealActor shooter=(RealActor) actor;
         BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
         List<BackendRoute> list = Arrays.asList(route);
-        LinearMovement move=new LinearMovement(list, shooter.getProjectile().getMySpeed()); 
+        LinearMovement move=new LinearMovement(list, shooter.getProjectile().getSpeed()); 
         BaseProjectile projectile=new BaseProjectile(move); 
         List<BaseActor> pList=new ArrayList<>();
         pList.add(projectile);
