@@ -31,11 +31,10 @@ public class BehaviorTester {
     @Test
     public void testMovementBehaviorSimple () {
         BackendRoute route = new BackendRoute(new Point2D(0, 0), new Point2D(-3, 4));
-        myOptions = Arrays.asList(route);
 
         Map<String, IBehavior> movement = new HashMap<String, IBehavior>() {
             {
-                put(null, new LinearMovement(myOptions, 2.5));
+                put(null, new LinearMovement(2.5,route));
             }
         };
 
@@ -48,42 +47,15 @@ public class BehaviorTester {
     @Test
     public void testMovementBehaviorSimple2 () {
         BackendRoute route = new BackendRoute(new Point2D(0, 0), new Point2D(10, 10));
-        myOptions = Arrays.asList(route);
         Map<String, IBehavior> movement = new HashMap<String, IBehavior>() {
             {
-                put(null, new LinearMovement(myOptions, Math.sqrt(18)));
+                put(null, new LinearMovement(Math.sqrt(18),route));
             }
         };
         BaseActor actor = createActor(movement);
         actor.update(null);
         updateAndCheck(actor, 3, 3);
         updateAndCheck(actor, 6, 6);
-    }
-
-    @Test
-    public void testMovementClone () {
-        Map<String, IBehavior> movement = new HashMap<String, IBehavior>() {
-            {
-                put(null, new LinearMovement(myOptions, 2.5));
-            }
-        };
-
-        BaseActor actor = createActor(movement);
-        actor.update(null);
-        actor.update(null);
-        List<BaseActor> clones = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            clones.add(actor.copy());
-        }
-        boolean answer = false;
-        for (BaseActor a : clones) {
-            a.update(null);
-            a.update(null);
-            if (a.getX() != actor.getX()) {
-                answer = true;
-            }
-        }
-        assertEquals(true, answer);
     }
 
     private BaseActor createActor(Map<String,IBehavior> move){
