@@ -5,9 +5,9 @@ import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.RealActor;
 
-public class FarthestRangeAttack extends RangeAttack{
+public class FarthestEnemyRangeAttack extends RangeAttack{
 
-    public FarthestRangeAttack (int attackSpeed) {
+    public FarthestEnemyRangeAttack (double attackSpeed) {
         super(attackSpeed);
         // TODO Auto-generated constructor stub
     }
@@ -15,11 +15,18 @@ public class FarthestRangeAttack extends RangeAttack{
     @Override
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
+        if(!readyToShoot()){
+            myCooldown--;
+            return;
+        }
         RealActor shooter=(RealActor)actor;
         BaseActor shootable=getFarthestActor(shooter, actor.getEnemiesInRange());
+        if(shootable.equals(null))
+            return;
         shootActorFromActor(shootable, actor);
     }
     private BaseActor getFarthestActor(BaseActor actor, List<BaseActor> enemies) {
+        
         BaseActor close = null;
         double distance = Integer.MAX_VALUE;
         for(BaseActor e: enemies){
@@ -34,7 +41,7 @@ public class FarthestRangeAttack extends RangeAttack{
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return null;
+        return new FarthestEnemyRangeAttack(myAttackSpeed);
     }
     
 
