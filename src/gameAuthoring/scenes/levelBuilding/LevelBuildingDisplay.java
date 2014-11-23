@@ -84,7 +84,7 @@ public class LevelBuildingDisplay extends VBox {
     /**
      * This text field only allows numbers to be typed.
      */
-    private TextField buildTextField (BaseLevel level, BaseActor enemy) {
+    private TextField buildTextField (BaseLevel level, BaseEnemy enemy) {
         TextField numTextField = new TextField();
         numTextField.setPrefWidth(TEXT_FIELD_WIDTH);
         numTextField.textProperty().addListener(new ChangeListener<String>() {
@@ -93,7 +93,7 @@ public class LevelBuildingDisplay extends VBox {
                                 String oldValue, String newValue) {
                 try {
                     int numOfEnemyType = Integer.parseInt(newValue);
-                    level.getMap().put(enemy, numOfEnemyType);
+                    level.getEnemyMap().put(enemy, numOfEnemyType);
                 } catch (NumberFormatException e) {
                     if(numTextField.getText().isEmpty()) {
                         numTextField.setText("");
