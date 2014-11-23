@@ -1,6 +1,8 @@
 package gamePlayer.mainClasses;
 
+import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
+import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -20,6 +22,7 @@ import gamePlayer.towerUpgrade.UpgradeListener;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.Group;
 import javafx.stage.Stage;
@@ -39,25 +42,38 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
 	private Stage myStage;
-	//private SingleThreadedEngineManager myEngineManager;
-	private TestGameManager myEngineManager;
+	private SingleThreadedEngineManager myEngineManager;
 	private Group myRoot;
 
 	// handles to GuiItems
 	private Store myStore;
 	private HUD myHUD;
+	private Map<String, TowerInfoObject> towerMap;
 
-	public GuiManager(Stage stage, TestGameManager manager) {
-		myEngineManager = manager;
+	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
+		Group engineGroup = new Group();
+		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 	}
-	/*
-	@Override
-	public void startGame(String directoryPath){
-		//myEngineManager.initializeGame(directoryPath)
-	}*/
+	
+	private void startGame(String directoryPath){
+		myEngineManager.initializeGame(directoryPath);
+		myEngineManager.getAllTowerTypeInformation();
+		makeMap();
+	}
+	
+	private void makeMap(){
+		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
+			towerMap.put(info.getName(), info);
+			TowerInfoObject next = info.getMyUpgrade();
+			while(!(next instanceof NullTowerInfoObject)){
+				towerMap.put(next.getName(), next);
+				next = next.getMyUpgrade();
+			}
+		}
+	}
 
 
 	@Override
@@ -65,6 +81,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		File file = FileLoader.getInstance().load(myStage);
 		if (file != null) {
 			System.out.println(file.getAbsolutePath() + "\n");
+			startGame(file.getAbsolutePath());
 		}
 	}
 
@@ -85,12 +102,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void pause() {
-		//myEngineManager.pause();
+		myEngineManager.pause();
 	}
 
 	@Override
 	public void play() {
-		//myEngineManager.resume();
+		myEngineManager.resume();
 	}
 
 	@Override
@@ -106,12 +123,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void normalSpeed() {
-		//myEngineManager.changeRunSpeed(1.0);
+		myEngineManager.changeRunSpeed(1.0);
 	}
 
 	@Override
 	public void fastForward() {
-		//myEngineManager.changeRunSpeed(3.0);
+		myEngineManager.changeRunSpeed(3.0);
 	}
 
 	@Override
