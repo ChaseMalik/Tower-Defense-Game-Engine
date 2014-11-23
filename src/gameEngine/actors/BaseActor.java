@@ -83,7 +83,6 @@ public class BaseActor extends Observable {
     public BaseActor copy () {
         Map<String, IBehavior> clonedBehaviors = copyBehaviors();
         BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
-        a.makeNode();
         myNode.setVisible(false);
         return a;
     }
