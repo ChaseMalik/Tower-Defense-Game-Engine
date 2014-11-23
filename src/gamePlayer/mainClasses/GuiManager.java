@@ -21,10 +21,15 @@ import gamePlayer.mainClasses.testGameManager.TestGameManager;
 import gamePlayer.towerUpgrade.UpgradeListener;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -137,7 +142,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void fillStore(List<StoreItem> storeItems) {
+	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
+		List<StoreItem> storeItems = new ArrayList<StoreItem>();
+		for (TowerInfoObject info: towersAvailable) {
+			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
+			storeItems.add(newItem);
+		}
 		myStore.fillStore(storeItems);
 	}
 
