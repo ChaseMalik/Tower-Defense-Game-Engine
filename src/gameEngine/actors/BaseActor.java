@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import utilities.errorPopup.ErrorPopup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -34,6 +35,7 @@ public class BaseActor extends Observable {
     protected String myImagePath;
     private Set<Class<? extends BaseActor>> myTypes;
     private Set<BaseEffectBehavior> myEffects;
+    private boolean myIsRemovable;
 
     public BaseActor () {
 
@@ -74,8 +76,7 @@ public class BaseActor extends Observable {
             myNode = new ImageView(actorImg);
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            new ErrorPopup(String.format("%s not found", myImagePath));
         }
     }
 
@@ -145,5 +146,12 @@ public class BaseActor extends Observable {
 
     public void setRange (double d) {
         myRange = d;
+    }
+    
+    public void died() {
+        myIsRemovable = true;
+    }
+    public boolean isDead(){
+        return myIsRemovable;
     }
 }

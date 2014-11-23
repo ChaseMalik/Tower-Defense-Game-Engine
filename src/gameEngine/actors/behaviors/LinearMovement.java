@@ -31,8 +31,7 @@ public class LinearMovement extends BaseMovementBehavior {
             return;
         }
         if (myIndex == myRoute.size()) {
-            // TODO handle this
-            return;
+            actor.died();
         }
         Point2D current = new Point2D(actor.getX(), actor.getY());
         Point2D destination = myRoute.get(myIndex).getPoint();
