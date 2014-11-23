@@ -10,8 +10,8 @@ import org.junit.Test;
 
 public class XMLParserTest {
     
-    private static final String TEST_FILE_1 = "./src/Utilities/XMLParsing/testXMLFiles/test1.xml";
-    private static final String TEST_FILE_2 = "./src/Utilities/XMLParsing/testXMLFiles/test2.xml";
+    private static final String TEST_FILE_1 = "./src/utilities/XMLParsing/testXMLFiles/test1.xml";
+    private static final String TEST_FILE_2 = "./src/utilities/XMLParsing/testXMLFiles/test2.xml";
     private XMLParser myParameterExtractionXMLParser;
     private XMLParser myBehaviorExtractionXMLParser;
     

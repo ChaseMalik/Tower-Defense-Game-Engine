@@ -26,4 +26,5 @@ public interface IBehavior {
 
     public Set<Class<? extends BaseActor>> getType ();
     
+    public String toString();
 }
