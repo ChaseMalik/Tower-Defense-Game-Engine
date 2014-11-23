@@ -1,8 +1,12 @@
 package gameEngine.actors.behaviors;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseTower;
 import gameEngine.actors.RealActor;
 
 public class FarthestEnemyRangeAttack extends RangeAttack{
@@ -37,5 +41,10 @@ public class FarthestEnemyRangeAttack extends RangeAttack{
         return new FarthestEnemyRangeAttack(myAttackSpeed);
     }
     
-
+    @Override
+    public Set<Class<? extends BaseActor>> getType () {
+        Set<Class<? extends BaseActor>> a= new HashSet<Class<? extends BaseActor>>();
+        a.add(BaseEnemy.class);
+        return a;
+    }
 }
