@@ -15,7 +15,7 @@ import gameEngine.actors.BaseTower;
  */
 public class ClosestRangeAttack extends RangeAttack {
 
-    public ClosestRangeAttack (int attackSpeed) {
+    public ClosestRangeAttack (double attackSpeed) {
         super(attackSpeed);
     }
 
@@ -59,10 +59,7 @@ public class ClosestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
-        return null;
+        return new ClosestRangeAttack(myAttackSpeed);
     }
-
-
 
 }
