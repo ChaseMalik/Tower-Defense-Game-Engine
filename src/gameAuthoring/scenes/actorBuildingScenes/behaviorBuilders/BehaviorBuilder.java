@@ -1,13 +1,12 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
-import utilities.reflection.Reflection;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import utilities.reflection.Reflection;
 
 /**
  * A class representing JavaFX components used to build a behavior that will be
@@ -30,17 +29,14 @@ public class BehaviorBuilder {
     
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
-    protected List<BackendRoute> myRoutes;
     protected Slider mySlider;
     protected SliderInfo mySliderInfo;
     private String myBehaviorType;
     private List<String> myBehaviorOptions;
     
-    public BehaviorBuilder(String behaviorType, List<BackendRoute> routes, 
-                           List<String> behaviorOptions, SliderInfo sliderInfo) {
+    public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, SliderInfo sliderInfo) {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
-        myRoutes = routes;
         mySlider = new Slider();
         mySliderInfo = sliderInfo;
         createCenterDisplay();
@@ -60,10 +56,10 @@ public class BehaviorBuilder {
 
     public IBehaviorKeyValuePair buildBehavior() {
         String behaviorSelected = myComboBox.getValue();
-        double speed = mySlider.getValue();
+        double sliderValue = mySlider.getValue();
         String className = "gameEngine.actors.behaviors." + behaviorSelected;
         return new IBehaviorKeyValuePair(myBehaviorType,
-                                        (IBehavior) Reflection.createInstance(className, myRoutes, speed));  
+                                        (IBehavior) Reflection.createInstance(className, sliderValue));  
     }
     
     public void createCenterDisplay() {

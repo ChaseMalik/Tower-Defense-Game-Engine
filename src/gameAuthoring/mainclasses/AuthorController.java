@@ -60,8 +60,8 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        //  showPathBuildingScene();
-        //        showWelcomeScene();
+//          showPathBuildingScene();
+//                showWelcomeScene();
         List<BackendRoute> routes = new ArrayList<BackendRoute>();
         routes.add(new BackendRoute());
         myBackendRoutes = routes;
@@ -92,7 +92,7 @@ public class AuthorController extends Application implements Observer {
     }
 
     public void showTowerBuildingScene() {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies, myBackendRoutes);
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies);
         setSceneAndTitle(myTowerBuildingScene);
     }
 

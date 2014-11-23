@@ -6,7 +6,6 @@ import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
-import gameEngine.actors.RealActor;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +19,6 @@ import java.util.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,14 +51,12 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     protected String myActorImgPath;
     protected List<BehaviorBuilder> myBehaviorBuilders;
     private String myActorImageDirectory;
-    private List<BackendRoute> myRoutes;
     private String myTitle;
 
-    public ActorBuildingScene (BorderPane root, List<BackendRoute> routes, String title, 
-                               String behaviorXMLFileLocation, String actorImageDirectory) {
+    public ActorBuildingScene (BorderPane root, String title, String behaviorXMLFileLocation, 
+                               String actorImageDirectory) {
         super(root, title);
         myTitle = title;
-        myRoutes = routes;
         myActorImageDirectory = actorImageDirectory;
         setupBehaviorBuilders(behaviorXMLFileLocation);
         setupFileMenu();
@@ -76,7 +72,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for(String behaviorType:allBehaviorTypes){
             List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
-            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, myRoutes, behaviorOptions, new SliderInfo("speed", 0, 5)));
+            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, new SliderInfo("speed", 0, 5)));
         }
     }
 

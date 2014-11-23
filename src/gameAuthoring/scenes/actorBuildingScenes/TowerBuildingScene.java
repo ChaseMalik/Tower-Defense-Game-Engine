@@ -2,7 +2,6 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
@@ -41,9 +40,8 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private TilePane myTilePane;
     private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
 
-    public TowerBuildingScene (BorderPane root, List<BaseEnemy> enemies, 
-                               List<BackendRoute> enemyRoutes) {
-        super(root, enemyRoutes, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
+    public TowerBuildingScene (BorderPane root, List<BaseEnemy> enemies) {
+        super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myCreatedEnemies = enemies;
     }
 
@@ -70,14 +68,13 @@ public class TowerBuildingScene extends ActorBuildingScene {
             @Override
             public void onChanged(ListChangeListener.Change<? extends BaseActor> change) {
                 myEnemiesTowerCanShoot = myEnemySelectionView.getSelectionModel().getSelectedItems();
-                System.out.println(myEnemiesTowerCanShoot.size());
             }
         });
     }
 
     @Override
     protected void makeNewActor (Map<String, IBehavior> iBehaviorMap) {
-        BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, myActorNameField.getText(), 10, null, null);
+        BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, myActorNameField.getText(), 10, null);
         if(myCurrentlySelectedTowerGroup == null) {
             TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
             myTowerUpgradeGroups.add(group);  

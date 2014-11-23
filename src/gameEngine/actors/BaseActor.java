@@ -34,7 +34,7 @@ public class BaseActor extends Observable {
     protected InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
-    private Set<Class<? extends BaseActor>> myTypes;
+    private transient Set<Class<? extends BaseActor>> myTypes;
     private Set<BaseEffectBehavior> myEffects;
     private boolean myIsRemovable;
 

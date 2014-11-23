@@ -22,9 +22,11 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/actorBehaviors/EnemyBehaviors.xml";
 
     private List<BaseEnemy> myEnemies;
+    private List<BackendRoute> myEnemyRoutes;
 
     public EnemyBuildingScene (BorderPane root, List<BackendRoute> enemyRoutes) {
-        super(root, enemyRoutes, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
+        super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
+        myEnemyRoutes = enemyRoutes;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
                                     myActorImgPath,
                                     myActorNameField.getText(), 
                                     5,
-                                    null));       
+                                    myEnemyRoutes));       
     }
 
     @Override
