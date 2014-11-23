@@ -19,10 +19,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
     protected List<BackendRoute> myOptions;
-
     public BaseMovementBehavior (List<BackendRoute> routeOptions, double speed) {
         myOptions = routeOptions;
-        int index = new Random().nextInt(myOptions.size()); // should declare new random elsewhere
+        int index = new Random().nextInt(myOptions.size()); // should declare new utilities elsewhere
         myRoute = routeOptions.get(index).getPoints();
         mySpeed = speed;
     }

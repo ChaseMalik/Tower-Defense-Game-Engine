@@ -4,7 +4,7 @@
 
     <!-- Set the bundles path to the location of the language properties files -->
     <BundlesPath>
-      <element>Utilities.textGenerator.languages/LanguagesBundle</element>
+      <element>utilities.textGenerator.languages/LanguagesBundle</element>
     </BundlesPath>
 
     <!-- List the codes of the language properties files here -->

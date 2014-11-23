@@ -23,7 +23,7 @@ public abstract class BaseAttack implements IBehavior {
     protected double myAttackSpeed;
     protected int myCooldown;
     protected final static int READY_TO_SHOOT = 0;
-    
+    private final static String myName="attack";
     public BaseAttack(double attackSpeed){
         myAttackSpeed = attackSpeed;
         myCooldown = READY_TO_SHOOT;
@@ -46,5 +46,8 @@ public abstract class BaseAttack implements IBehavior {
         a.add(BaseTower.class);
         a.add(BaseEnemy.class);
         return a;
+    }
+    public String toString(){
+        return myName;
     }
 }
