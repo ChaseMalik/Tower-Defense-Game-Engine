@@ -5,7 +5,7 @@ import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Group;
-import utilities.DragAndDropFilePanes.DragAndDropFilePane;
+import utilities.DragAndDropFilePanes.DragAndDropImagePane;
 
 /**
  * Represents the pane where the user can drag and drop a file to act as the background
@@ -15,16 +15,15 @@ import utilities.DragAndDropFilePanes.DragAndDropFilePane;
  */
 public class PathBackgroundSelectionPane extends BuildingPane implements Observer {
 
-    private DragAndDropFilePane myDragAndDropPane;
+    private DragAndDropImagePane myDragAndDropPane;
     private PathBuildingScene myPathBuildingScene;
 
     public PathBackgroundSelectionPane (Group group, PathBuildingScene pathBuildingScene) {
         super(group);
         myPathBuildingScene = pathBuildingScene;
-        String[] validExtensions = new String[]{".jpg", ".png", ".jpeg"};
         String fileDestinationDir = "./PathBackgrounds/";
-        myDragAndDropPane = new DragAndDropFilePane(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT, 
-                                                    validExtensions, fileDestinationDir);
+        myDragAndDropPane = new DragAndDropImagePane(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT, 
+                                                    fileDestinationDir);
 
         myDragAndDropPane.addObserver(this);
         this.getChildren().add(myDragAndDropPane.getPane());

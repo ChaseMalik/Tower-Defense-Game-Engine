@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -22,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import utilities.SliderContainer;
 import utilities.DragAndDropFilePanes.DragAndDropFilePane;
+import utilities.DragAndDropFilePanes.DragAndDropImagePane;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -43,7 +43,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
-    protected DragAndDropFilePane myDragAndDrop;
+    protected DragAndDropImagePane myDragAndDrop;
     protected TextField myActorNameField;
     protected String myActorImgPath;
     protected List<BehaviorBuilder> myBehaviorBuilders;
@@ -76,8 +76,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void setupDragAndDropForActorImage () {
         myDragAndDrop = 
-                new DragAndDropFilePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT, 
-                                        new String[]{".jpg", ".jpeg", ".png"}, 
+                new DragAndDropImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,  
                                         myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");

@@ -21,14 +21,13 @@ import utilities.errorPopup.ErrorPopup;
  * @author Austin Kyker
  *
  */
-public class DragAndDropFilePane extends Observable {
+public abstract class DragAndDropFilePane extends Observable {
     
     private String[] myValidExtensions;
     private String myFileDestination;
-    private Pane myContainer;
-    private Pane myDragAndDropPane;
-    private File myFile;
-    private ImageView myImageView;
+    protected Pane myContainer;
+    protected Pane myDragAndDropPane;
+    protected File myFile;
 
     /**
      * @param validExtensions The extensions you will accept for the drag and dropped file. Ex: [.jpg, .png]
@@ -67,7 +66,7 @@ public class DragAndDropFilePane extends Observable {
                         try {
                             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
                             myFile = targetFile;
-                            drawImage();
+                            actOnFile();
                         }
                         catch (IOException e) {
                             new ErrorPopup("Invalid file");
@@ -82,16 +81,8 @@ public class DragAndDropFilePane extends Observable {
     }
 
 
-
-    private void drawImage () {
-        myContainer.getChildren().remove(myDragAndDropPane);
-        myImageView = StringToImageViewConverter.getImageView(myDragAndDropPane.getWidth(), 
-                                                                      myDragAndDropPane.getHeight(), 
-                                                                      myFile.getAbsolutePath());
-        myContainer.getChildren().add(myImageView); 
-        this.setChanged();
-        this.notifyObservers(myFile.getAbsolutePath());               
-    }
+    
+    protected abstract void actOnFile ();
 
     private void handleDragExit (DragEvent event) {
         myDragAndDropPane.setStyle("-fx-background-color: white;");
@@ -112,22 +103,6 @@ public class DragAndDropFilePane extends Observable {
 
     public Pane getPane () {
         return myContainer;
-    }
-
-    public ImageView getImageView () {
-        return myImageView;
-    }
-    
-    public String getImagePath () {
-        return myFile.getAbsolutePath();
-    }
-
-    public void setHeight (double height) {
-        myImageView.setPreserveRatio(true);
-        myImageView.setFitHeight(height);
-        myImageView.autosize();
-        myContainer.setPrefHeight(height);
-        
     }
 
     public void reset () {
