@@ -13,20 +13,9 @@ public class BaseLevel {
     private int myDurationSeconds;
     private Map<String, BaseActor> myPrototypeTowers;
     
-    private boolean validateTower(BaseActor tower, double x, double y){
+    public boolean validateTower(BaseActor tower, double x, double y){
         //TODO: change
         return true;
-    }
-    
-    public BaseTower createTower(String identifier, double x, double y){
-        BaseActor prototypeTower = myPrototypeTowers.get(identifier);
-        if(prototypeTower == null || validateTower(prototypeTower, x, y)){
-            return null;
-        }        
-        BaseTower tower = (BaseTower)prototypeTower.copy();
-        tower.getNode().setX(x);
-        tower.getNode().setY(y);
-        return tower;
     }
     
     public Map<BaseEnemy, Integer> getEnemyMap() {
