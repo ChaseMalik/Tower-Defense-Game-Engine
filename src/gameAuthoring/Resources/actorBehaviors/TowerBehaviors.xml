@@ -6,4 +6,7 @@
 		<element>ClosestRangeAttack</element>
 		<element>FarthestEnemyRangeAttack</element>
 	</attack>
+	 <effect sliderName="multiplier" sliderMin="0" sliderMax="2">
+		<element>TowerRangeEffect</element>
+	</effect>
 </behaviors>

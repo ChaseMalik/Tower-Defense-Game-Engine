@@ -2,9 +2,6 @@
  	<movement sliderName="speed" sliderMin="0" sliderMax="5">
 		<element>LinearMovement</element>
 	</movement>
-	 <attack sliderName="speed" sliderMin="0" sliderMax="5">
-		<element>ClosestRangeAttack</element>
-	</attack>
 	<defend sliderName="health" sliderMin="1" sliderMax="4">
 		<element>SimpleDefense</element>
 	</defend>
