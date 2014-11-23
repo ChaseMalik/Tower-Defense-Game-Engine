@@ -1,8 +1,0 @@
-<behaviors>
- 	<movement>
-		<element>LinearMovement</element>
-	</movement>
-	 <attack>
-		<element>SingleAttack</element>
-	</attack>
-</behaviors>

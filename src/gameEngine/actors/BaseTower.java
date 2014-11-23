@@ -2,14 +2,13 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.Map;
-import javafx.scene.image.Image;
 
 public class BaseTower extends RealActor {
 
     private BaseTower myUpgrade;
 
     
-    public BaseTower(Map<String,IBehavior> behaviors, String image, String name, double range, BaseTower upgrade, BaseProjectile projectile){
+    public BaseTower(Map<String,IBehavior> behaviors, String image, String name, double range, BaseTower upgrade, ProjectileInfo projectile){
         super(behaviors,image,name, range,projectile);
         myUpgrade = upgrade;
     }

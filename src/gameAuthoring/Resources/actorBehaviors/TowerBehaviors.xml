@@ -1,0 +1,8 @@
+<behaviors>
+ 	<movement>
+		<element>LinearMovement</element>
+	</movement>
+	 <attack>
+		<element>ClosestAttack</element>
+	</attack>
+</behaviors>

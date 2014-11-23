@@ -1,7 +1,5 @@
 package utilities;
 
-
-
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
@@ -48,7 +46,7 @@ public class GSONWriteToFile {
 			writer.write(json);
 			writer.close();				
 		}catch(IOException e){
-			new ErrorPopup("File to store actors could not be found.");
+			new ErrorPopup("Was not able to write file "+fileName+".json");
 		}
 	}
 }

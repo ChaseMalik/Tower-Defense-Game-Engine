@@ -7,6 +7,11 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Allows the user to place starting locations on the screen.
+ * @author Austin Kyker
+ *
+ */
 public class EnemyStartingLocationsPane extends EnemyLocationPane {
     
     private static final String LABEL_TEXT = "Click to add a Start Location";

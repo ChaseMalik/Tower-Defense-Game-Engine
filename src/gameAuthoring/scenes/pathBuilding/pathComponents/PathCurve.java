@@ -4,6 +4,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 
+/**
+ * Defines a curve that can be drawn on the screen.
+ * @author Austin Kyker
+ *
+ */
 public class PathCurve extends CubicCurve implements PathComponent {
 
     private boolean isEndPointSet;

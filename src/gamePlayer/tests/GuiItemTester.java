@@ -1,6 +1,6 @@
 package gamePlayer.tests;
 
-import gamePlayer.codeWarehouse.guiItems.store.StoreItemCell;
+import gamePlayer.unusedCodeWarehouse.guiItems.store.StoreItemCell;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;

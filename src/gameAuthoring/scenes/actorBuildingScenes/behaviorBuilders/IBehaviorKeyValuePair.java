@@ -2,6 +2,11 @@ package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import gameEngine.actors.behaviors.IBehavior;
 
+/**
+ * Wrapper for key value pair in Behavior map that is necessary to create an actor.
+ * @author Austin Kyker
+ *
+ */
 public class IBehaviorKeyValuePair {
     private IBehavior myIBehavior;
     private String myTypeOfBehavior;

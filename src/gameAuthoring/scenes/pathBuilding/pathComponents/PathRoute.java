@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Defines a route that has a starting location and an ending location as well
+ * as a list of path components that connect these locations.
+ * @author Austin Kyker
+ *
+ */
 public class PathRoute implements Iterable<PathComponent> {
     private PathStartingLocation myStartingLocation;
     private PathEndingLocation myEndingLocation;
