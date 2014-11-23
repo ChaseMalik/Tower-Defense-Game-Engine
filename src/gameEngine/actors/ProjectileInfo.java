@@ -5,9 +5,9 @@ import java.util.List;
 
 public class ProjectileInfo {
 
-    String myImage;
-    double mySpeed;
-    List<IBehavior> onHitEffects;
+    private String myImage;
+    private double mySpeed;
+    private List<IBehavior> onHitEffects;
     
     public ProjectileInfo(String image, double speed, List<IBehavior> list){
         myImage = image;
