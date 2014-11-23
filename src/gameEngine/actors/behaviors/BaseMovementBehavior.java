@@ -20,17 +20,15 @@ public abstract class BaseMovementBehavior implements IBehavior {
     
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
-    protected List<BackendRoute> myOptions;
     protected double myRemainingDistance;
 
-    public BaseMovementBehavior (List<BackendRoute> routeOptions, double speed) {
-        myOptions = routeOptions;
-        int index = RANDOM.nextInt(myOptions.size());
-        myRoute = routeOptions.get(index).getPoints();
-        myRemainingDistance = calculateTotalDistance(myRoute);
+    public BaseMovementBehavior (double speed) {
         mySpeed = speed;
     }
-
+    public BaseMovementBehavior (double speed, BackendRoute route) {
+        mySpeed = speed;
+        myRoute=route.getPoints();
+    }
     private double calculateTotalDistance (List<VisibilityPoint> route) {
         double distance = 0;
         for(int i = 0; i<route.size()-1;i++){
@@ -46,7 +44,10 @@ public abstract class BaseMovementBehavior implements IBehavior {
     public double getRemainingDistance(){
         return myRemainingDistance;
     }
-    
+    public void setRoute(BackendRoute route){
+        myRoute=route.getPoints();
+        myRemainingDistance = calculateTotalDistance(myRoute);
+    }
     @Override
     public Set<Class<? extends BaseActor>> getType () {
         return null;

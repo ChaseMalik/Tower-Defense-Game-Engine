@@ -24,9 +24,9 @@ public class FarthestRangeAttack extends RangeAttack{
         double distance = Integer.MAX_VALUE;
         for(BaseActor e: enemies){
            BaseMovementBehavior m= (BaseMovementBehavior)e.getBehavior("movement");
-           if(m.getRemainingDistance<distance){
+           if(m.getRemainingDistance()<distance){
                close=e;
-               distance=m.getRemainingDistance;
+               distance=m.getRemainingDistance();
            }
         }
         return close;

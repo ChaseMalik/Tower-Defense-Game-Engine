@@ -18,8 +18,7 @@ public abstract class RangeAttack extends BaseAttack{
     protected void shootActorFromActor(BaseActor target, BaseActor actor){
         RealActor shooter=(RealActor) actor;
         BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
-        List<BackendRoute> list = Arrays.asList(route);
-        LinearMovement move=new LinearMovement(list, shooter.getProjectile().getSpeed()); 
+        LinearMovement move=new LinearMovement(shooter.getProjectile().getSpeed(), route); 
         BaseProjectile projectile=new BaseProjectile(move); 
         List<BaseActor> pList=new ArrayList<>();
         pList.add(projectile);
