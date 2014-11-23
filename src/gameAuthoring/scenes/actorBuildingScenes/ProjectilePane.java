@@ -2,9 +2,11 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.ProjectileInfo;
+import gameEngine.actors.behaviors.LinearMovement;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -42,8 +44,13 @@ public class ProjectilePane extends Observable implements Observer {
     }
     
     public ProjectileInfo makeProjectileInfo(List<BaseEnemy> enemiesCanDamage) {
-        return new ProjectileInfo(myDropImgPane.getImagePath(), 
-                                  mySliderContainer.getSliderValue(), 
-                                  enemiesCanDamage, null);
+        List<String> enemyStrings = enemiesCanDamage
+                .stream()
+                .map(enemy->enemy.toString())
+                .collect(Collectors.toList());
+        return new ProjectileInfo(myDropImgPane.getImagePath(),
+                                  new LinearMovement(5),
+                                  null,
+                                  enemyStrings);
     }
 }

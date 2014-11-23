@@ -10,10 +10,12 @@ public class SimpleDefense extends BaseDefendBehavior{
     @Override
     public void execute (BaseActor actor) {
         for(BaseActor a: actor.getInfoObject().getProjectilesInRange()){
+            if(actor.getNode().intersects(a.getRange().getBoundsInLocal())){
             myHealth--;
             a.died();
             if(myHealth==0)
                 actor.died();
+        }
         }
     }
 

@@ -32,20 +32,17 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group implem
     }
     
     public List<BaseActor> getActorsInRange(BaseActor actor) {
-        double x = actor.getX();
-        double y = actor.getY();
-        double range = actor.getRange();
-        Node actorNode = actor.getNode();
-        Circle rangeBounds = new Circle(x, y, range);
+        Node actorNode = actor.getRange();
         ArrayList<BaseActor> actorsInRange = new ArrayList<>();
         for(T otherActor : myActorsList) {
             Node otherActorNode = otherActor.getNode();
-            if (!actorNode.equals(otherActor) && rangeBounds.intersects(otherActorNode.getBoundsInLocal())) {
+            if (!actorNode.equals(otherActor) && actorNode.intersects(otherActorNode.getBoundsInLocal())) {
                 actorsInRange.add(otherActor);
             }
         }
         return actorsInRange;
     }
+    
 
     @Override
     public Iterator<T> iterator () {

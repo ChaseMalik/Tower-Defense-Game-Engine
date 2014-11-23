@@ -1,8 +1,12 @@
 <behaviors>
- 	<movement>
+ 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
 		<element>LinearMovement</element>
 	</movement>
-	 <attack>
+	 <attack sliderName="speed" sliderMin="0" sliderMax="5">
 		<element>ClosestRangeAttack</element>
+		<element>FarthestEnemyRangeAttack</element>
 	</attack>
+	 <effect sliderName="multiplier" sliderMin="0" sliderMax="2">
+		<element>TowerRangeEffect</element>
+	</effect>
 </behaviors>
