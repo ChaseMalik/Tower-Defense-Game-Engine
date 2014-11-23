@@ -20,6 +20,7 @@ public class GameItem {
 	protected DoubleProperty X, Y, rotation;
 	protected ImageView myImageView;
 	protected Group myGroup;
+	protected Node myNode;
 
 	public GameItem(int ID, Point2D loc, ImageView imageView) {
 		myID = ID;

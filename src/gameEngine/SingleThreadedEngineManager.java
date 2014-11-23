@@ -51,7 +51,8 @@ public class SingleThreadedEngineManager implements Observer {
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
 	
-	private Map<Integer, BaseTower> myIdToTower;
+	private Map<Node, BaseTower> myNodeToTower;
+	private Collection<TowerInfoObject> myTowerInformation;
 	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
@@ -64,7 +65,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myTimeline = createTimeline();
 		myTimeline.play();
 		myCurrentLevelIndex = 0;
-		myIdToTower = new HashMap<>();
+		myNodeToTower = new HashMap<>();
 	}
 
 	public void fastForward() {
@@ -79,8 +80,15 @@ public class SingleThreadedEngineManager implements Observer {
 		myUpdateRate = magnitude;
 	}
 
+	public String getTowerName(Node node) {
+		BaseTower tower = myNodeToTower.get(node);
+		return tower == null ? null : tower.toString();
+	}
+	
 	public void removeTower(Node node) {
-		
+		BaseTower tower = myNodeToTower.get(node);
+		myNodeToTower.remove(node);
+		myTowerGroup.remove(tower);
 	}
 	
 	public Node addTower(String identifier, double x, double y) {
@@ -93,6 +101,7 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setY(y);
         	newTowerNode.setVisible(true);
         	myTowerGroup.add(newTower);
+        	myNodeToTower.put(newTowerNode, newTower);
         	return newTowerNode;
     	}
     	return null;
@@ -211,7 +220,16 @@ public class SingleThreadedEngineManager implements Observer {
 		myPauseRequested.set(false);
 	}
 
-	public void initializeGame(String towerFile, String levelFile) {
+	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
+		if(!myReadyToPlay.get()) {
+			return null;
+		}
+		return myTowerInformation;
+	}
+	
+	public void initializeGame(String directory) {
+		String towerFile = null; 
+		String levelFile = null;
 		myReadyToPlay.set(false);
 		loadTowers(towerFile);
 		loadLevelFile(levelFile);
@@ -221,9 +239,21 @@ public class SingleThreadedEngineManager implements Observer {
 	public void loadTowers(String towerFile) {
 		List<TowerUpgradeGroup> availableTowers = null;
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
+			TowerInfoObject prevInfoObject = null;
 			for (BaseTower tower : towerGroup) {
 				String towerName = tower.toString();
 				myPrototypeTowerMap.put(towerName, tower);
+				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), 0);
+				if(prevInfoObject != null) {
+					prevInfoObject.setNextTower(currentInfoObject);
+				}
+				else{
+					myTowerInformation.add(currentInfoObject);
+				}
+				prevInfoObject = currentInfoObject;
+			}
+			if(prevInfoObject != null) {
+				prevInfoObject.setNextTower(new NullTowerInfoObject());
 			}
 		}
 	}

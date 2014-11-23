@@ -2,12 +2,13 @@ package gamePlayer.guiFeatures;
 
 import java.io.File;
 
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 
 /**
- * Class loads files
+ * Class loads directories
  * @author allankiplagat
  *
  */
@@ -24,12 +25,12 @@ public class FileLoader  {
     }
     
     /**
-     * @param stage the stage that file loading is associated with
+     * @param stage the stage that directory loading is associated with
      * @return
      */
     public File load(Window stage) {
-        FileChooser chooser = new FileChooser();
-        return chooser.showOpenDialog(stage);
+        DirectoryChooser chooser = new DirectoryChooser();
+        return chooser.showDialog(stage);
     }
     
     /**
