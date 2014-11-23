@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import utilities.GSON.GSONFileReader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -53,6 +54,7 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
+	private GSONFileReader myFileReader;
 	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
@@ -66,6 +68,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myTimeline.play();
 		myCurrentLevelIndex = 0;
 		myNodeToTower = new HashMap<>();
+		myFileReader = new GSONFileReader();
 	}
 
 	public void fastForward() {
@@ -241,7 +244,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	public void loadTowers(String towerFile) {
-		List<TowerUpgradeGroup> availableTowers = null;
+		List<TowerUpgradeGroup> availableTowers = null; //= myFileReader.readTowerFromFile(towerFile);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
 			TowerInfoObject prevInfoObject = null;
 			for (BaseTower tower : towerGroup) {
@@ -263,6 +266,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void loadLevelFile(String levelFile) {
+		//myFileReader.readLevel(levelFile);
 		myLevels = new ArrayList<>();
 		
 	}
