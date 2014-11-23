@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import utilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,17 +68,9 @@ public class BaseActor extends Observable {
     }
 
     private void makeNode () {
-        Image actorImg;
-        try {
-            actorImg =
-                    new Image(new FileInputStream(new File(myImagePath)),
-                              ActorBuildingScene.ACTOR_IMG_WIDTH,
-                              ActorBuildingScene.ACTOR_IMG_WIDTH, true, false);
-            myNode = new ImageView(actorImg);
-        }
-        catch (FileNotFoundException e) {
-            new ErrorPopup(String.format("%s not found", myImagePath));
-        }
+        myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
+                                                         ActorBuildingScene.ACTOR_IMG_WIDTH,
+                                                         myImagePath);
     }
 
     /**
@@ -94,6 +87,7 @@ public class BaseActor extends Observable {
         }
         BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
         a.makeNode();
+        myNode.setVisible(false);
         return a;
     }
 

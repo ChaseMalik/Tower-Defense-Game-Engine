@@ -30,9 +30,6 @@ public class LinearMovement extends BaseMovementBehavior {
             myIndex++;
             return;
         }
-        if (myIndex == myRoute.size()) {
-            actor.died();
-        }
         Point2D current = new Point2D(actor.getX(), actor.getY());
         Point2D destination = myRoute.get(myIndex).getPoint();
         double distance = mySpeed;
@@ -40,7 +37,7 @@ public class LinearMovement extends BaseMovementBehavior {
         while (distance > destination.distance(current)) {
             myIndex++;
             if (myIndex == myRoute.size()) {
-                // TODO Handle this
+                actor.died();
                 return;
             }
             distance -= destination.distance(current);

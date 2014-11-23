@@ -39,9 +39,9 @@ public class BehaviorTester {
             }
         };
 
-        BaseActor actor = new BaseActor(movement, null,null);
+        BaseActor actor = createActor(movement);
         updateAndCheck(actor, 0, 0);
-        actor.update();
+        actor.update(null);
         updateAndCheck(actor, -3, 4);
     }
 
@@ -54,8 +54,8 @@ public class BehaviorTester {
                 put(null, new LinearMovement(myOptions, Math.sqrt(18)));
             }
         };
-        BaseActor actor = new BaseActor((movement), null,null);
-        actor.update();
+        BaseActor actor = createActor(movement);
+        actor.update(null);
         updateAndCheck(actor, 3, 3);
         updateAndCheck(actor, 6, 6);
     }
@@ -68,17 +68,17 @@ public class BehaviorTester {
             }
         };
 
-        BaseActor actor = new BaseActor(movement, null,null);
-        actor.update();
-        actor.update();
+        BaseActor actor = createActor(movement);
+        actor.update(null);
+        actor.update(null);
         List<BaseActor> clones = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             clones.add(actor.copy());
         }
         boolean answer = false;
         for (BaseActor a : clones) {
-            a.update();
-            a.update();
+            a.update(null);
+            a.update(null);
             if (a.getX() != actor.getX()) {
                 answer = true;
             }
@@ -86,8 +86,12 @@ public class BehaviorTester {
         assertEquals(true, answer);
     }
 
+    private BaseActor createActor(Map<String,IBehavior> move){
+        return new BaseActor(move,"./src/gameAuthoring/Resources/towerImages/bowser.jpg", null, 0);
+    }
+    
     private void updateAndCheck (BaseActor actor, double x, double y) {
-        actor.update();
+        actor.update(null);
         assertEquals(x, actor.getX(), EPSILON);
         assertEquals(y, actor.getY(), EPSILON);
     }
