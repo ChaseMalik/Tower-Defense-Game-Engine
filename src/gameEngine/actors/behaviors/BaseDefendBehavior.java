@@ -17,20 +17,16 @@ import java.util.Set;
 public abstract class BaseDefendBehavior implements IBehavior {
 
     protected double myHealth;
-    protected List<String> myHarmfulBullets;
 
     
-    BaseDefendBehavior (double health, List<String> harmfulBullets) {
+    BaseDefendBehavior (double health) {
         health = myHealth;
-        myHarmfulBullets = harmfulBullets;
     }
     public double getHealth(){
         return myHealth;
     }
     
-    public List<String> getHarmfulBullets(){
-        return myHarmfulBullets;
-    }
+
     @Override
     public Set<Class<? extends BaseActor>> getType () {
         // TODO Auto-generated method stub

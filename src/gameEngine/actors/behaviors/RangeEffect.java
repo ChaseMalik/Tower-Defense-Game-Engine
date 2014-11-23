@@ -10,6 +10,6 @@ public abstract class RangeEffect extends BaseEffectBehavior {
 
     @Override
     public void performEffect (BaseActor a) {
-        a.setRange(a.getRange() * myChange);
+        a.setRange(a.getRangeProperty()* myChange);
     }
 }

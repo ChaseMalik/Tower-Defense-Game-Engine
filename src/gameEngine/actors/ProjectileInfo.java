@@ -1,26 +1,25 @@
 package gameEngine.actors;
 
+import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
 
 public class ProjectileInfo {
 
     private String myImage;
-    private double mySpeed;
+    private BaseMovementBehavior myMovement;
     private List<IBehavior> myOnHitEffects;
-    private List<BaseEnemy> myEnemiesCanDamage;   
+    private List<String> myEnemyTypes;
     
-    public ProjectileInfo(String image, double speed, List<BaseEnemy> enemiesCanDamage, 
-                          List<IBehavior> onHitEffects){
+    public ProjectileInfo(String image, BaseMovementBehavior move, List<IBehavior> list, List<String> types){
         myImage = image;
-        mySpeed = speed;
-        myEnemiesCanDamage = enemiesCanDamage;
-        myOnHitEffects = onHitEffects;
+        myMovement=move;
+        myOnHitEffects=list;
+        myEnemyTypes=types;
+
     }
 
-    public double getSpeed () {
-        return mySpeed;
-    }
+ 
     
     public String getImage () {
         return myImage;
@@ -30,7 +29,10 @@ public class ProjectileInfo {
         return myOnHitEffects;
     }
     
-    public List<BaseEnemy> getEnemiesCanDamage(){
-        return myEnemiesCanDamage;
+    public List<String> getEnemiesTypes(){
+        return myEnemyTypes;
+    }
+    public BaseMovementBehavior getMove(){
+        return myMovement;
     }
 }
