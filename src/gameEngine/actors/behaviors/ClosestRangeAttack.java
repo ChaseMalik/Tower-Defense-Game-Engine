@@ -20,11 +20,7 @@ public class ClosestRangeAttack extends RangeAttack {
     }
 
     @Override
-    public void execute (BaseActor actor) {
-        if(!readyToShoot()){
-            myCooldown--;
-            return;
-        }
+    public void performAttack (BaseActor actor) {
         List<BaseActor> shootable = getShootableActors(actor);
         if(shootable.equals(null))
             return;

@@ -9,24 +9,18 @@ public class FarthestEnemyRangeAttack extends RangeAttack{
 
     public FarthestEnemyRangeAttack (double attackSpeed) {
         super(attackSpeed);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
-    public void execute (BaseActor actor) {
-        // TODO Auto-generated method stub
-        if(!readyToShoot()){
-            myCooldown--;
-            return;
-        }
+    public void performAttack (BaseActor actor) {
         RealActor shooter=(RealActor)actor;
         BaseActor shootable=getFarthestActor(shooter, actor.getEnemiesInRange());
         if(shootable.equals(null))
             return;
         shootActorFromActor(shootable, actor);
     }
-    private BaseActor getFarthestActor(BaseActor actor, List<BaseActor> enemies) {
-        
+    
+    private BaseActor getFarthestActor(BaseActor actor, List<BaseActor> enemies) {   
         BaseActor close = null;
         double distance = Integer.MAX_VALUE;
         for(BaseActor e: enemies){
@@ -40,7 +34,6 @@ public class FarthestEnemyRangeAttack extends RangeAttack{
     }
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
         return new FarthestEnemyRangeAttack(myAttackSpeed);
     }
     
