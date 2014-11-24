@@ -4,6 +4,7 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.store.Store;
@@ -18,6 +19,7 @@ import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.testGameManager.TestGameManager;
+import gamePlayer.towerUpgrade.TowerUpgradePanel;
 import gamePlayer.towerUpgrade.UpgradeListener;
 
 import java.io.File;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -53,20 +56,24 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	// handles to GuiItems
 	private Store myStore;
 	private HUD myHUD;
+	private GameWorld myGameWorld;
+	private TowerUpgradePanel myUpgradePanel;
 	private Map<String, TowerInfoObject> towerMap;
 
 	public GuiManager(Stage stage) {
 		myStage = stage;
-		GuiConstants.GUI_MANAGER = this;
-		Group engineGroup = new Group();
-		myEngineManager = new SingleThreadedEngineManager(engineGroup);
+		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
+		testHUD();
 	}
 	
 	private void startGame(String directoryPath){
 		myEngineManager.initializeGame(directoryPath);
 		myEngineManager.getAllTowerTypeInformation();
 		makeMap();
+		Group engineGroup = new Group();
+		myEngineManager = new SingleThreadedEngineManager(engineGroup);
+		myGameWorld.addEngineGroup(engineGroup);
 	}
 	
 	private void makeMap(){
@@ -79,7 +86,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			}
 		}
 	}
-
 
 	@Override
 	public void loadGame() {
@@ -98,6 +104,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void registerStatsBoard(HUD hud) {
 		myHUD = hud;
+	}
+	
+	@Override
+	public void registerGameWorld(GameWorld world){
+		myGameWorld = world;
 	}
 
 	@Override
@@ -164,5 +175,35 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void upgradeTower(Class newTower, double x, double y) {
 		
+	}
+	
+	private void testHUD() {
+		List<GameStats> gameStats;
+        GameStats level = new GameStats();
+        level.setGameStat("Level");
+        level.setStatValue(1);
+        
+        GameStats score = new GameStats();
+        score.setGameStat("Score");
+        score.setStatValue(0);
+        
+        GameStats health = new GameStats();
+        health.setGameStat("Health");
+        health.setStatValue(100);
+        
+        gameStats = new ArrayList<GameStats>();
+        gameStats.add(level); gameStats.add(score); gameStats.add(health);
+        this.setGameStats(gameStats);
+        
+        //update game stats
+        gameStats.get(1).setStatValue(50);
+        gameStats.get(2).setStatValue(50);
+    }
+
+	@Override
+	public void makeTower(double x, double y) {
+		String currentType = "DEFAULT";
+		Node towerNode = myEngineManager.addTower(currentType, x, y);
+		towerNode.setOnMouseClicked();
 	}
 }
