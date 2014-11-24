@@ -115,7 +115,6 @@ public class AuthorController extends Application implements Observer {
             gameName = (String) value;
             gameDir = "./Games/" + gameName + "/";
             File dir = new File(gameDir);
-
             dir.mkdir();
             showPathBuildingScene();
         }
