@@ -1,7 +1,7 @@
 package gamePlayer.mainClasses.guiBuilder;
 
-import gamePlayer.mainClasses.GuiManager;
-import gamePlayer.mainClasses.WelcomeManager;
+import gamePlayer.mainClasses.managers.GuiManager;
+import gamePlayer.mainClasses.managers.WelcomeManager;
 import utilities.textGenerator.TextGenerator;
 
 /**

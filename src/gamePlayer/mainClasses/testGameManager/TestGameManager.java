@@ -2,9 +2,11 @@ package gamePlayer.mainClasses.testGameManager;
 
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.store.StoreItem;
-import gamePlayer.mainClasses.GuiManager;
+import gamePlayer.mainClasses.managers.GuiManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;

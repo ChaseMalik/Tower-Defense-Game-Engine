@@ -3,15 +3,16 @@ package gamePlayer.guiItems.store;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 import java.util.List;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.TilePane;
-import sun.security.krb5.internal.PAEncTSEnc;
 import utilities.XMLParsing.XMLParser;
 
 public class Store implements GuiItem {
@@ -28,7 +29,8 @@ public class Store implements GuiItem {
     @Override
     public void initialize (Dimension2D containerSize) {
         myTilePane = new TilePane();
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
+        String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         myPaneSize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
                                      containerSize.getHeight()*sizeRatio.getHeight());

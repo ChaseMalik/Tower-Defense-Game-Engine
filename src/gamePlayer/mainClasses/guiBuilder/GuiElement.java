@@ -1,4 +1,4 @@
-package gamePlayer.mainClasses;
+package gamePlayer.mainClasses.guiBuilder;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;

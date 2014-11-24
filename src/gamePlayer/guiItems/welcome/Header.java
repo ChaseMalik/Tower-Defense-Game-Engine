@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.welcome;
 
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 
@@ -22,8 +23,10 @@ public class Header implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		mySize = containerSize;
-		myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
-		setupPane();
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
+        
+        setupPane();
 		setupImage();
 	}
 

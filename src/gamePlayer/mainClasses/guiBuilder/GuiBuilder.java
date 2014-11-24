@@ -18,84 +18,102 @@ import utilities.XMLParsing.XMLParser;
 import utilities.textGenerator.TextGenerator;
 
 /**
- * Class builds a GUI recursively by calling 'initialize' on core GuiElements, 
+ * Class builds a GUI recursively by calling 'initialize' on core GuiElements,
  * which in turn call 'initialize' on the elements they host and so on
+ * 
  * @author allankiplagat, Brian Bolze
  *
  */
 public class GuiBuilder {
-	
+
 	private static GuiBuilder myReference;
-    private XMLParser myParser;
-    
-    private GuiBuilder() {}
+	private XMLParser myParser;
 
-    /**
-     * Returns an instance of a GuiBuilder that can build a GUI 
-     * @param propertiesPath path to the GuiBuilder's XML properties file
-     */
-    public static GuiBuilder getInstance() {
-        if (myReference == null) {
-        	myReference = new GuiBuilder();
-        }
-        return myReference;
-    }
+	private GuiBuilder() {
+	}
 
-    /**
-     * Constructs a GUI. IMPORTANT: Before calling this method, set the appropriate 
-     * GUI_MANAGER constant in GuiConstants
-     * @param stage the stage in which to construct the GUI
-     */
-    public Group build (Stage stage, String propertiesPath) {
-        //set constants
-    	myParser = new XMLParser(new File(propertiesPath));
-    	GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag("GuiElementPropertiesPath").get(0);
-        GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
-        Dimension2D windowSize = myParser.getDimension("GuiSize");
-        
-        Group group = new Group();
-        group.setAutoSizeChildren(true);
-        group.getChildren().add(initializeCoreContainers(windowSize));
+	/**
+	 * Returns an instance of a GuiBuilder that can build a GUI
+	 * 
+	 * @param propertiesPath
+	 *            path to the GuiBuilder's XML properties file
+	 */
+	public static GuiBuilder getInstance() {
+		if (myReference == null) {
+			myReference = new GuiBuilder();
+		}
+		return myReference;
+	}
 
-        Scene scene = new Scene(group, windowSize.getWidth(), windowSize.getHeight());
-        setStyleSheet(scene);
-        stage.setScene(scene);
-        stage.setTitle(GuiConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
+	/**
+	 * Constructs a GUI. IMPORTANT: Before calling this method, set the
+	 * appropriate GUI_MANAGER constant in GuiConstants
+	 * 
+	 * @param stage
+	 *            the stage in which to construct the GUI
+	 */
+	public Group build(Stage stage, String propertiesPath) {
+		// set constants
+		myParser = new XMLParser(new File(propertiesPath));
+		GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag(
+				"GuiElementPropertiesPath").get(0);
+		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
+				"TextGeneratorPropertiesPath").get(0));
+		Dimension2D windowSize = myParser.getDimension("GuiSize");
+				
+		Group group = new Group();
+		group.setAutoSizeChildren(true);
+		group.getChildren().add(initializeCoreContainers(windowSize));
 
-        //for now, no re-sizing window dynamically until dynamic window resizing algorithm is written
-        stage.setResizable(false);
-        stage.show();
-        
-        return group;
-    }
+		Scene scene = new Scene(group, windowSize.getWidth(),
+				windowSize.getHeight());
+		setStyleSheet(scene);
+		stage.setScene(scene);
+		stage.setTitle(GuiConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
 
-    private void setStyleSheet(Scene scene) {
-        if (!myParser.getValuesFromTag("GuiStyleSheet").isEmpty()) {
-            String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet").get(0);
-            scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
-        }
-    }
+		// for now, no re-sizing window dynamically until dynamic window
+		// resizing algorithm is written
+		stage.setResizable(false);
+		stage.show();
 
-    private Node initializeCoreContainers(Dimension2D windowSize) {
-        BorderPane pane = new BorderPane();
+		return group;
+	}
 
-        pane.setPrefSize(windowSize.getWidth(), windowSize.getHeight());
+	private void setStyleSheet(Scene scene) {
+		if (!myParser.getValuesFromTag("GuiStyleSheet").isEmpty()) {
+			String styleSheetPath = myParser.getValuesFromTag("GuiStyleSheet")
+					.get(0);
+			scene.getStylesheets().add(
+					this.getClass().getResource(styleSheetPath)
+							.toExternalForm());
+		}
+	}
 
-        TopContainer top = new TopContainer(); 
-        top.initialize(windowSize); pane.setTop(top);
+	private Node initializeCoreContainers(Dimension2D windowSize) {
+		BorderPane pane = new BorderPane();
 
-        LeftContainer left = new LeftContainer(); 
-        left.initialize(windowSize); pane.setLeft(left);
+		pane.setPrefSize(windowSize.getWidth(), windowSize.getHeight());
 
-        RightContainer right = new RightContainer(); 
-        right.initialize(windowSize); pane.setRight(right);
+		TopContainer top = new TopContainer();
+		top.initialize(windowSize);
+		pane.setTop(top);
 
-        CenterContainer center = new CenterContainer(); 
-        center.initialize(windowSize); pane.setCenter(center); 
-        
-        BottomContainer bottom = new BottomContainer(); 
-        bottom.initialize(windowSize); pane.setBottom(bottom);
+		LeftContainer left = new LeftContainer();
+		left.initialize(windowSize);
+		pane.setLeft(left);
 
-        return pane;
-    }
+		RightContainer right = new RightContainer();
+		right.initialize(windowSize);
+		pane.setRight(right);
+
+		CenterContainer center = new CenterContainer();
+		center.initialize(windowSize);
+		pane.setCenter(center);
+
+		BottomContainer bottom = new BottomContainer();
+		bottom.initialize(windowSize);
+		pane.setBottom(bottom);
+
+		return pane;
+	}
 }

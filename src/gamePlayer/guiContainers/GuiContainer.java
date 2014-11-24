@@ -1,7 +1,6 @@
 package gamePlayer.guiContainers;
 
-import gamePlayer.mainClasses.GuiElement;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiElement;
 
 
 /**
@@ -11,5 +10,5 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
  *
  */
 public interface GuiContainer extends GuiElement {
-    public static final String myPropertiesPath =  GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + "guiContainers/";   
+    public String myPropertiesPath =  "guiContainers/";   
 }

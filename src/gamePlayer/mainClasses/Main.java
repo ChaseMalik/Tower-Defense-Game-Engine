@@ -1,5 +1,7 @@
 package gamePlayer.mainClasses;
 
+import gamePlayer.mainClasses.managers.GuiManager;
+import gamePlayer.mainClasses.managers.WelcomeManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,13 +20,9 @@ public class Main extends Application {
     public void start (Stage stage) throws Exception {
         //builder will set up the application using the stage and given properties
     	
-    	//WelcomeManager welcomeManager = new WelcomeManager(stage);
-    	//welcomeManager.init();
-    	GuiManager manager = new GuiManager(stage);
-    	manager.init();
-    	/*
-    	
-        TestGameManager manager = new TestGameManager(stage);
-        manager.run();*/
+    	WelcomeManager welcomeManager = new WelcomeManager(stage);
+    	new GuiManager(stage);
+    	welcomeManager.init();
+
     }
 }

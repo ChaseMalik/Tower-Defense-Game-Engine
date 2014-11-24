@@ -2,8 +2,10 @@ package gamePlayer.guiItems.headsUpDisplay;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Dimension2D;
@@ -25,8 +27,9 @@ public class HUD implements GuiItem {
     
     @Override
     public void initialize (Dimension2D containerSize) {
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML")); 
-
+    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
+        
         myTableView = new TableView<GameStats>();
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         
