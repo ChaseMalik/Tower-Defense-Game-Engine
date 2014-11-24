@@ -1,5 +1,6 @@
 package gamePlayer.guiItems.store;
 
+import utilities.StringToImageViewConverter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -16,7 +17,8 @@ public class StoreItem {
     
     public StoreItem(String name, String imagePath, BooleanProperty available) {
         this.name = name;
-        this.imageView = new ImageView(new Image(imagePath));
+        System.out.println(imagePath);
+        this.imageView = StringToImageViewConverter.getImageView(100, 100, imagePath);
         this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
     
