@@ -23,6 +23,9 @@ public class ClosestRangeAttack extends RangeAttack {
         if(shootable==null)
             return;
         BaseActor enemy = getClosestActor(actor, shootable);
+        if(enemy==null){
+            return;
+        }
         shootActorFromActor(enemy, actor);
     }
 
@@ -43,7 +46,7 @@ public class ClosestRangeAttack extends RangeAttack {
         double distance = Integer.MAX_VALUE;
         for(BaseActor e: enemies){
             Point2D point = new Point2D(e.getX(), e.getY());
-            if(distance < current.distance(point)){
+            if(distance > current.distance(point)){
                 close = e;
                 distance = current.distance(point);
             }
