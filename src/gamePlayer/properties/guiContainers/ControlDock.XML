@@ -3,11 +3,10 @@
 <ControlDockProperties>
 	<SizeRatio>
 		<element>1</element>
-		<element>0.15</element>
+		<element>0.2</element>
 	</SizeRatio>
 
     <Items>
-        <element>gamePlayer.guiItems.controlDockButtons.buttons.PlayButton</element>
         <element>gamePlayer.guiItems.controlDockButtons.buttons.SpeedButton</element>
     </Items>
 

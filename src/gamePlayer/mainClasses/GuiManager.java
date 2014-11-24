@@ -8,12 +8,14 @@ import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
+import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
 import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
+import gamePlayer.guiItemsListeners.MessageDisplayListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.StoreListener;
@@ -47,7 +49,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener {
+		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -60,6 +62,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private HUD myHUD;
 	private GameWorld myGameWorld;
 	private TowerUpgradePanel myUpgradePanel;
+	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 
 	public GuiManager(Stage stage) {
@@ -237,10 +240,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		c.setFill(Color.BLACK);
 	}
 	
-	
-
 	@Override
 	public void placeTower(String towerName) {
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap());
+	}
+
+	@Override
+	public void registerMessageDisplayListener(MessageDisplay display) {
+		myMessageDisplay = display;
+	}
+
+	@Override
+	public void displayMessage(String message) {
+		myMessageDisplay.showMessage(message);
+	}
+
+	@Override
+	public void clearMessageDisplay() {
+		myMessageDisplay.clear();		
 	}
 }
