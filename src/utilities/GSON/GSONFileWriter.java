@@ -1,5 +1,6 @@
 package utilities.GSON;
 
+import gameAuthoring.mainclasses.LevelDataWrapper;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseEnemy;
@@ -19,8 +20,9 @@ public class GSONFileWriter {
                                List<BaseLevel> levels,
                                String directory) {
 
+        
         writeToFile("towers", gson.toJson(towerGroups), directory);
-        writeToFile("levels", gson.toJson(levels), directory);    
+        writeToFile("levels", gson.toJson(new LevelDataWrapper(levels)), directory);    
     }
 
     public void writeToFile(String fileName, String json, String directory) {

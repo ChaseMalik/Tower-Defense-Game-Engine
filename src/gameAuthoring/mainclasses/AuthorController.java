@@ -20,6 +20,7 @@ import java.util.Observer;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
@@ -121,6 +122,7 @@ public class AuthorController extends Application implements Observer {
             gameName = (String) value;
             gameDir = "./Games/" + gameName + "/";
             File dir = new File(gameDir);
+            
             dir.mkdir();
             showPathBuildingScene();
         }
@@ -156,7 +158,9 @@ public class AuthorController extends Application implements Observer {
         myGSONWritingScene = new GSONWritingScene(new BorderPane());
         myStage.setScene(myGSONWritingScene);
         myStage.setTitle("Writing Game"); 
-        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir);
+        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir); 
+        GSONFileReader reader = new GSONFileReader();
+        List<BaseLevel> list = reader.readLevelfromFile("levels", gameDir);
     }
 
     private boolean notEnoughTowers () {

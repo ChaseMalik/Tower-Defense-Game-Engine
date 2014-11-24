@@ -1,11 +1,8 @@
 package gameAuthoring.scenes.levelBuilding;
 
-import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
-import java.util.ArrayList;
 import java.util.List;
-import utilities.StringToImageViewConverter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -15,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import utilities.StringToImageViewConverter;
 
 public class LevelBuildingDisplay extends VBox {
     

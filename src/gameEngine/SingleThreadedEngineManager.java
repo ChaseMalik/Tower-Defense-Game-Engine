@@ -83,18 +83,18 @@ public class SingleThreadedEngineManager implements Observer {
 		myUpdateRate = magnitude;
 	}
 
-	public String getTowerName(Node node) {
+	public String getTowerName(ImageView node) {
 		BaseTower tower = myNodeToTower.get(node);
 		return tower == null ? null : tower.toString();
 	}
 	
-	public void removeTower(Node node) {
+	public void removeTower(ImageView node) {
 		BaseTower tower = myNodeToTower.get(node);
 		myNodeToTower.remove(node);
 		myTowerGroup.remove(tower);
 	}
 	
-	public Node addTower(String identifier, double x, double y) {
+	public ImageView addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
     	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
     	if(towerValidity){
@@ -213,8 +213,8 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	public void initializeGame(String directory) {
-		String towerFile = null; 
-		String levelFile = null;
+		String towerFile = directory + "levels.json"; 
+		String levelFile = directory + "tower.json";
 		myReadyToPlay.set(false);
 		loadTowers(towerFile);
 		loadLevelFile(levelFile);
