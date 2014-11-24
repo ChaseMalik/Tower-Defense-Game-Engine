@@ -23,7 +23,9 @@ public class BaseEnemy extends RealActor {
     
     public BaseActor copy(){
         Map<String, IBehavior> cBehaviors=copyBehaviors();
-        return new BaseEnemy(cBehaviors, myImagePath, myName, myRange, myProjectile, myRoutes);
+        BaseEnemy e = new BaseEnemy(cBehaviors, myImagePath, myName, myRange, myProjectile, myRoutes);
+        e.getNode().setVisible(false);
+        return e;
     }
     @Override
     protected int[] getSize () {
