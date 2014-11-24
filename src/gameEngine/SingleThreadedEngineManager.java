@@ -67,7 +67,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemiesToAdd = new LinkedList<>();
 		myTimeline = createTimeline();
 		myTimeline.play();
-		myCurrentLevelIndex = 0;
+		myCurrentLevelIndex = -1;
 		myNodeToTower = new HashMap<>();
 		myFileReader = new GSONFileReader();
 	}
@@ -214,16 +214,16 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	public void initializeGame(String directory) {
-		String towerFile = directory + "levels.json"; 
-		String levelFile = directory + "tower.json";
+		String correctedDirectory = directory += "\\";
 		myReadyToPlay.set(false);
-		loadTowers(towerFile);
-		loadLevelFile(levelFile);
+		loadTowers(correctedDirectory);
+		loadLevelFile(correctedDirectory);
 		myReadyToPlay.set(true);
+		loadNextLevel();
 	}
 
-	public void loadTowers(String towerFile) {
-		List<TowerUpgradeGroup> availableTowers = null; //= myFileReader.readTowerFromFile(towerFile);
+	public void loadTowers(String directory) {
+		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
 			TowerInfoObject prevInfoObject = null;
 			for (BaseTower tower : towerGroup) {
@@ -244,10 +244,8 @@ public class SingleThreadedEngineManager implements Observer {
 		}
 	}
 
-	private void loadLevelFile(String levelFile) {
-		//myFileReader.readLevel(levelFile);
-		myLevels = new ArrayList<>();
-		
+	private void loadLevelFile(String directory) {
+		myLevels = myFileReader.readLevelsFromGameDirectory(directory);		
 	}
 
 	private void loadNextLevel() {
