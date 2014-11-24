@@ -63,19 +63,11 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        //          showPathBuildingScene();
-        //                showWelcomeScene();
-        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        routes.add(new BackendRoute());
-        myBackendRoutes = routes;
-        showEnemyBuildingScene();
-        //        showGSONWritingScene();
+        showWelcomeScene();
         configureAndDisplayStage();
-
     }
 
     private void configureAndDisplayStage () {
-        myStage.setResizable(false);
         myStage.show(); 
     }
 
