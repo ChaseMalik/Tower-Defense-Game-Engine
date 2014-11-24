@@ -8,6 +8,7 @@ import gameEngine.levels.BaseLevel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
 
@@ -20,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
 public class GSONFileReader {
 
 	Gson gson = new Gson();
-	private List<TowerUpgradeGroup> towerList;
+	private ArrayList<TowerUpgradeGroup> towerList;
 	private List<BaseLevel> levelList;
 
 	public GSONFileReader(){
@@ -41,15 +42,16 @@ public class GSONFileReader {
 	
 	public List<BaseLevel> readLevelfromFile(String fileName, String directory){
 		try{		
-			BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));	
-			levelList = gson.fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType() );	
+			BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));
+			
+			
+			levelList = gson.fromJson(br.toString(), new TypeToken<List<BaseLevel>>() {}.getType() );	
 		} catch(IOException e){
 			new ErrorPopup("File" +fileName+ ".json could not be found.");
 		}		
 		
 		return levelList;
 	}
-	
 	
 	
 	
