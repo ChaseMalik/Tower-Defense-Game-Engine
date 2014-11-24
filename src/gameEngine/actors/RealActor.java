@@ -11,10 +11,12 @@ public abstract class RealActor extends BaseActor{
     public RealActor(Map<String,IBehavior> behaviors, String image, String name, double range){
         super(behaviors,image,name, range);
         myProjectile=null;
+        myNode.setVisible(false);
     }    
     public RealActor(Map<String,IBehavior> behaviors, String image, String name, double range, ProjectileInfo projectile){
         super(behaviors,image,name, range);
         myProjectile=projectile;
+        myNode.setVisible(false);
     }
     
     public ProjectileInfo getProjectile(){

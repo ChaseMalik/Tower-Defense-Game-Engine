@@ -16,7 +16,6 @@ public abstract class RangeAttack extends BaseAttack{
     }
     
     protected void shootActorFromActor(BaseActor target, BaseActor actor){
-        System.out.println("shot");
         RealActor shooter=(RealActor) actor;
         BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
         BaseProjectile projectile=new BaseProjectile(shooter.getProjectile().copy());

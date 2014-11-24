@@ -26,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class SingleThreadedEngineManager implements Observer {
@@ -54,9 +55,8 @@ public class SingleThreadedEngineManager implements Observer {
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	private GSONFileReader myFileReader;
-	private Group myMainGroup;
 	
-	public SingleThreadedEngineManager(Group engineGroup) {
+	public SingleThreadedEngineManager(Pane engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
 		myPauseRequested = new AtomicBoolean(false);
 		myEnemyGroup = new RangeRestrictedCollection<>();
@@ -73,7 +73,6 @@ public class SingleThreadedEngineManager implements Observer {
 		myNodeToTower = new HashMap<>();
 		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
-		myMainGroup = engineGroup;
 		myUpdateRate = 1.0;
 	}
 
