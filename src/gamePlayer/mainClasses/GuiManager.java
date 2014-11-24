@@ -149,7 +149,6 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
     public void play() {
         if (!gameRunning) return;
         myEngineManager.resume();
-        System.out.println("Play");
     }
 
     @Override
