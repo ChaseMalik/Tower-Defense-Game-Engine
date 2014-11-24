@@ -48,6 +48,10 @@
 
 }
 
+.Header {
+	-fx-background-color: rgb(190,200,210);
+}
+
 .header-2 {
 	-fx-font-size: 18pt;
 	-fx-font-family: Arial;

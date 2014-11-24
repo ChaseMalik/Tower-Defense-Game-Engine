@@ -7,7 +7,7 @@
 	</ImageScale>
 	
 	<Image>
-	    <element>gamePlayer/turretImages/Turret_1_1.png</element>
+	    <element>gamePlayer/playerImages/Logo.png</element>
 	</Image>
 
 </HeaderProperties>
