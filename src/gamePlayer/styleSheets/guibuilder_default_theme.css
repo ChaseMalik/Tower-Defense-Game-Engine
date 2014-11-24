@@ -67,6 +67,11 @@
 	-fx-background-color: rgb(102,178,255);
 }
 
+#New-Game {
+	-fx-background-color: rgb(255,51,51);
+	-fx-background-image: url('file:./src/gamePlayer/playerImages/NewGame.png');
+}
+
 #sell-button {
 	-fx-background-color: rgb(255,51,51);
 }

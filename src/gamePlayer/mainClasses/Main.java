@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 /**
  * Class launches the application
  * @author allankiplagat, Brian Bolze
- *
  */
 public class Main extends Application {
     
@@ -19,7 +18,6 @@ public class Main extends Application {
     @Override
     public void start (Stage stage) throws Exception {
         //builder will set up the application using the stage and given properties
-    	
     	WelcomeManager welcomeManager = new WelcomeManager(stage);
     	new GuiManager(stage);
     	welcomeManager.init();
