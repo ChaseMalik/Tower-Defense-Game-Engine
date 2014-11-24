@@ -21,12 +21,8 @@ public class Main extends Application {
         //builder will set up the application using the stage and given properties
     	
     	WelcomeManager welcomeManager = new WelcomeManager(stage);
-    	GuiManager manager = new GuiManager(stage);
+    	new GuiManager(stage);
     	welcomeManager.init();
-    	//manager.init();
-    	/*
-    	
-        TestGameManager manager = new TestGameManager(stage);
-        manager.run();*/
+
     }
 }

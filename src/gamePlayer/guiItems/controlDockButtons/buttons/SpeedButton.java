@@ -26,7 +26,7 @@ public class SpeedButton extends ControlDockButton {
 
         setUpSizing (containerSize);
         myButton.setOnAction(event -> fastForward());
-        setupImageViews(ffImage, slowImage);
+        setupImageViews(slowImage, ffImage);
         myButton.setGraphic(myImageView);
     }
 
