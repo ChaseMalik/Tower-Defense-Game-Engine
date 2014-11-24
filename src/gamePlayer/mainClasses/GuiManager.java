@@ -4,15 +4,18 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
+import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
 import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
+import gamePlayer.guiItemsListeners.MessageDisplayListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.StoreListener;
@@ -20,7 +23,6 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-import gamePlayer.mainClasses.testGameManager.TestGameManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,11 +30,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -45,7 +49,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener {
+		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -58,24 +62,24 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private HUD myHUD;
 	private GameWorld myGameWorld;
 	private TowerUpgradePanel myUpgradePanel;
+	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
-		testHUD();
-		gameRunning = false;
+		gameRunning = true;
 	}
 	
 	private void startGame(String directoryPath){
 		myEngineManager.initializeGame(directoryPath);
-		myEngineManager.getAllTowerTypeInformation();
 		makeMap();
+		testHUD();
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
-		gameRunning = true;
+		gameRunning = false;
 	}
 	
 	private void makeMap(){
@@ -93,7 +97,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void loadGame() {
 		File file = FileLoader.getInstance().load(myStage);
 		if (file != null) {
-			System.out.println(file.getAbsolutePath() + "\n");
 			startGame(file.getAbsolutePath());
 		}
 	}
@@ -166,10 +169,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
+		
 		for (TowerInfoObject info: towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
+		
+		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
+        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
+        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
+        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
+        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
+        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));
+		
 		myStore.fillStore(storeItems);
 	}
 
@@ -184,7 +196,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(Node n) {
+	public void upgradeTower(ImageView imageView, String upgradeName) {
+		if (!gameRunning) return;
+		double x = imageView.getX();
+		double y = imageView.getY();
+		myEngineManager.removeTower(imageView);
 		
 	}
 	
@@ -211,12 +227,36 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
         gameStats.get(2).setStatValue(50);
     }
 
-	@Override
-	public void makeTower(double x, double y) {
+	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
-		String currentType = "DEFAULT";
-		Node towerNode = myEngineManager.addTower(currentType, x, y);
-		String towerName = myEngineManager.getTowerName(towerNode);
-		towerNode.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerNode));
+		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		//String towerName = myEngineManager.getTowerName(towerImageView);
+		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
+		
+		Circle c = new Circle();
+		c.setCenterX(x);
+		c.setCenterY(y);
+		c.setRadius(30);
+		c.setFill(Color.BLACK);
+	}
+	
+	@Override
+	public void placeTower(String towerName) {
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap());
+	}
+
+	@Override
+	public void registerMessageDisplayListener(MessageDisplay display) {
+		myMessageDisplay = display;
+	}
+
+	@Override
+	public void displayMessage(String message) {
+		myMessageDisplay.showMessage(message);
+	}
+
+	@Override
+	public void clearMessageDisplay() {
+		myMessageDisplay.clear();		
 	}
 }

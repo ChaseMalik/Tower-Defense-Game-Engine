@@ -4,8 +4,8 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>1</element>
-		<element>0.2</element>
+		<element>0.6</element>
+		<element>0.15</element>
 	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
@@ -14,6 +14,7 @@
 		<!--<element>gamePlayer.guiItems.placeholders.BottomItemPlaceholder</element>-->
 		<!--<element>gamePlayer.guiItems.goButton.GoButton</element>-->
 		<element>gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel</element>
+		<element>gamePlayer.guiItems.messageDisplay.MessageDisplay</element>
 	</Items>
 	
 </ContainerProperties>

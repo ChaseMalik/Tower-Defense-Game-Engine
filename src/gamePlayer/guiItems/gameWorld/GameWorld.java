@@ -4,11 +4,8 @@ import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -35,18 +32,16 @@ public class GameWorld implements GuiItem {
 	public void initialize(Dimension2D containerSize) {
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
-		myMap.setOnMouseClicked(event -> placeTower(event));
 		myListener.registerGameWorld(this);
 		addTestGameItems();
 	}
 
-	
-	private void placeTower(MouseEvent mouseEvent) {
-		myListener.makeTower(mouseEvent.getX(), mouseEvent.getY());
-	}
-
 	@Override
 	public Node getNode() {
+		return myMap;
+	}
+	
+	public Pane getMap() {
 		return myMap;
 	}
 	

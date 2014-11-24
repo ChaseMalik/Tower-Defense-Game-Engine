@@ -1,28 +1,31 @@
 package utilities.GSON;
 
-import gameAuthoring.mainclasses.LevelDataWrapper;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
-import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import utilities.IBehaviorClassAdapter;
 import utilities.errorPopup.ErrorPopup;
-import com.google.gson.Gson;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 public class GSONFileWriter {
 
-    private Gson gson = new Gson();
+    private GsonBuilder gson = new GsonBuilder();
 
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
                                String directory) {
 
-        
-        writeToFile("towers", gson.toJson(towerGroups), directory);
-        writeToFile("levels", gson.toJson(new LevelDataWrapper(levels)), directory);    
+    	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+        writeToFile("towers", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() ), directory);
+        writeToFile("levels", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()), directory);    
     }
 
     public void writeToFile(String fileName, String json, String directory) {
@@ -32,8 +35,10 @@ public class GSONFileWriter {
             writer.write(json);
             writer.close();				
         }catch(IOException e) {
-            e.printStackTrace();
             new ErrorPopup("File to store actors could not be found.");
         }
     }
+    
+
+    
 }
