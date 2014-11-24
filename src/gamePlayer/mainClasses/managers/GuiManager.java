@@ -73,7 +73,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 	
 	private void startGame(String directoryPath){
-	    Group engineGroup = new Group();
 	           /*
 	           Circle c = new Circle();
 	                c.setCenterX(50);
@@ -81,12 +80,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	                c.setRadius(30);
 	                c.setFill(Color.BLACK);
 	                engineGroup.getChildren().add(c);*/
-	    myEngineManager = new SingleThreadedEngineManager(myRoot);
+	    myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		makeMap();
 		testHUD();
 		//myRoot.getChildren().add(engineGroup);
-		myGameWorld.addEngineGroup(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
 		gameRunning = true;
 	}

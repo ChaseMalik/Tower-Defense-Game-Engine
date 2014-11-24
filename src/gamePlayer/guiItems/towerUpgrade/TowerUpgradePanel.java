@@ -1,5 +1,6 @@
 package gamePlayer.guiItems.towerUpgrade;
 
+import utilities.StringToImageViewConverter;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
@@ -26,7 +27,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private UpgradeListener myListener;
 	
 	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView){
-		myIcon.setImage(new Image(current.getImageLocation()));
+		myIcon = StringToImageViewConverter.getImageView(75, 75, current.getImageLocation());
 		myName.setText(current.getName());
 		myUpgradeName = current.getMyUpgrade().getName();
 		upgrade1Button.setText("Upgrade to:" + "\n" + myUpgradeName);
