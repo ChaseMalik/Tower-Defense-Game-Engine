@@ -66,8 +66,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
-		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 		gameRunning = false;
+	}
+	
+	public void init() {
+		myRoot = GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
 	}
 	
 	private void startGame(String directoryPath){
