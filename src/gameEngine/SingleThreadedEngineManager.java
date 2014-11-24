@@ -26,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class SingleThreadedEngineManager implements Observer {
@@ -54,9 +55,8 @@ public class SingleThreadedEngineManager implements Observer {
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	private GSONFileReader myFileReader;
-	private Group myMainGroup;
 	
-	public SingleThreadedEngineManager(Group engineGroup) {
+	public SingleThreadedEngineManager(Pane engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
 		myPauseRequested = new AtomicBoolean(false);
 		myEnemyGroup = new RangeRestrictedCollection<>();
@@ -73,7 +73,6 @@ public class SingleThreadedEngineManager implements Observer {
 		myNodeToTower = new HashMap<>();
 		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
-		myMainGroup = engineGroup;
 		myUpdateRate = 1.0;
 	}
 
@@ -151,10 +150,10 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void gameUpdate() {
+	        addEnemies();
 		updateActors(myTowerGroup);
 		updateActors(myEnemyGroup);
-		updateActors(myProjectileGroup);
-		addEnemies();
+		updateActors(myProjectileGroup);		
 		duration--;
 	//	System.out.println(myEnemyGroup.getChildren().size());
 		if(myEnemyGroup.getChildren().size() <= 0) {
@@ -166,9 +165,10 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void onLevelEnd() {
-		myReadyToPlay.set(false);
+		myTimeline.pause();
+		myProjectileGroup.getChildren().clear();
 		loadNextLevel();
-		myReadyToPlay.set(true);
+		//myReadyToPlay.set(true);
 	}
 	
 	private void addEnemies() {
@@ -265,9 +265,7 @@ public class SingleThreadedEngineManager implements Observer {
 
 	private void loadNextLevel() {
 		myCurrentLevelIndex += 1;
-		if(myCurrentLevelIndex >= myLevels.size()){
-		    pause();
-		}else{
+		if(myCurrentLevelIndex < myLevels.size()) {
 		    loadLevel(myLevels.get(myCurrentLevelIndex));
 		}
 	}
