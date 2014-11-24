@@ -1,25 +1,32 @@
 package gameEngine.levels;
 
+import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseLevel {
 
-    private Map<BaseEnemy, Integer> myEnemiesToCountMap = new HashMap<BaseEnemy, Integer>();
+    private List<EnemyCountPair> myEnemyCountPairs = new ArrayList<EnemyCountPair>();
     private int myDurationSeconds;
-    private Map<String, BaseActor> myPrototypeTowers;
     
     public boolean validateTower(BaseActor tower, double x, double y){
         //TODO: change
         return true;
     }
     
-    public Map<BaseEnemy, Integer> getEnemyMap() {
-        return myEnemiesToCountMap;
+    public void addEnemyCountPair(EnemyCountPair pair) {
+        for(EnemyCountPair p:myEnemyCountPairs) {
+            if(p.getMyEnemy().equals(pair.getMyEnemy())) {
+                p.setMyCount(pair.getMyNumEnemies());
+                return;
+            }
+        }
+        myEnemyCountPairs.add(pair);
+    }
+    
+    public List<EnemyCountPair> getEnemyCountPairs() {
+        return myEnemyCountPairs;
     }
     
     public void setDuration(int i){

@@ -163,7 +163,7 @@ public class AuthorController extends Application implements Observer {
         List<TowerUpgradeGroup> list = reader.readTowerFromFile("towers", gameDir);
         System.out.println(list.size());
         List<BaseLevel> list2 = reader.readLevelfromFile("levels", gameDir);
-        System.out.println(list2.get(0).getEnemyMap().toString());
+        System.out.println(list2.size());
     }
 
     private boolean notEnoughTowers () {

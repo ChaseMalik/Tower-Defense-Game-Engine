@@ -91,7 +91,7 @@ public class LevelBuildingDisplay extends VBox {
                                 String oldValue, String newValue) {
                 try {
                     int numOfEnemyType = Integer.parseInt(newValue);
-                    level.getEnemyMap().put(enemy, numOfEnemyType);
+                    level.addEnemyCountPair(new EnemyCountPair(numOfEnemyType, enemy));
                 } catch (NumberFormatException e) {
                     if(numTextField.getText().isEmpty()) {
                         numTextField.setText("");
