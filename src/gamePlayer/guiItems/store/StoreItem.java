@@ -4,23 +4,27 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StoreItem {
     private int ID;
+    private String name;
     private ImageView imageView;
     private String description;
     private BooleanBinding availableBinding;
     
-    public StoreItem(int ID,ImageView imageView,String description, BooleanProperty available) {
-        this.ID = ID;
-        this.imageView = imageView;
-        this.description = description;
+    public StoreItem(String name, String imagePath, BooleanProperty available) {
+        this.name = name;
+        this.imageView = new ImageView(new Image(imagePath));
         this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
     
     public int getID () {
         return ID;
+    }
+    public String getName(){
+    	return name;
     }
     public ImageView getImageView () {
         return imageView;

@@ -21,9 +21,8 @@ public class PathBackgroundSelectionPane extends BuildingPane implements Observe
     public PathBackgroundSelectionPane (Group group, PathBuildingScene pathBuildingScene) {
         super(group);
         myPathBuildingScene = pathBuildingScene;
-        String fileDestinationDir = "./PathBackgrounds/";
         myDragAndDropPane = new DragAndDropImagePane(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT, 
-                                                    fileDestinationDir);
+                                                     AuthorController.gameDir);
 
         myDragAndDropPane.addObserver(this);
         this.getChildren().add(myDragAndDropPane.getPane());

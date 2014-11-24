@@ -1,6 +1,8 @@
-package gamePlayer.towerUpgrade;
+package gamePlayer.guiItems.towerUpgrade;
 
+import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
@@ -16,25 +18,21 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private HBox myButtonBox;
 	private ImageView myIcon;
 	private Text myName;
-	private Button upgrade1Button;
-	private Button upgrade2Button;
-	private Button mySellButton;
+	private Button upgrade1Button, upgrade2Button, mySellButton;
+	private Node myTowerNode;
 	
 	private UpgradeListener myListener;
 	
-	public void setCurrentTower(TowerUpgradeInfo current){
-		myIcon.setImage(new Image(current.getImagePath()));
+	public void setCurrentTower(TowerInfoObject current, Node towerNode){
+		myIcon.setImage(new Image(current.getImageLocation()));
 		myName.setText(current.getName());
-		upgrade1Button.setText(current.getLabel1());
-		upgrade2Button.setText(current.getLabel2());
-		mySellButton.setText("Sell for $"+current.getPrice());
-		
-		upgrade1Button.setOnAction(event -> doUpgrade(current.getTower1(), current.getX(), current.getY()));
-		upgrade2Button.setOnAction(event -> doUpgrade(current.getTower2(), current.getX(), current.getY()));
+		upgrade1Button.setText("Upgrade to" + current.getMyUpgrade().getName());
+		upgrade1Button.setOnAction(event -> doUpgrade());
+		myTowerNode = towerNode;
 	}
 	
-	private void doUpgrade(Class newTower, double x, double y){
-		
+	private void doUpgrade(){
+		myListener.upgradeTower(myTowerNode);
 	}
 
 	@Override
@@ -51,13 +49,10 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, upgrade2Button, mySellButton);
 		getChildren().add(myButtonBox);
 		upgrade1Button.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
-		upgrade2Button = new Button();
-		upgrade2Button.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
-		mySellButton = new Button();
-		mySellButton.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
 		myButtonBox = new HBox();
-		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, upgrade2Button, mySellButton);
+		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button);
 		this.getChildren().add(myButtonBox);
+		myListener.registerUpgradePanel(this);
 	}
 
 	@Override

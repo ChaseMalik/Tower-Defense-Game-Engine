@@ -34,10 +34,12 @@ public class AuthorController extends Application implements Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
-    private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
     public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
+    public static String gameDir;
+    
+    private String gameName;
 
     private EnemyBuildingScene myEnemyBuildingScene;
     private TowerBuildingScene myTowerBuildingScene;
@@ -50,7 +52,6 @@ public class AuthorController extends Application implements Observer {
     private List<BaseEnemy> myEnemies;
     private List<TowerUpgradeGroup> myTowerGroups;
     private List<BaseLevel> myLevels;
-    private String myGameName;
 
     private Stage myStage;
 
@@ -113,12 +114,14 @@ public class AuthorController extends Application implements Observer {
         myStage.setScene(myWelcomeScene.getScene());
     }
 
-
     @SuppressWarnings("unchecked")
     @Override
     public void update (Observable ob, Object value) {
         if(ob.equals(myWelcomeScene)) {
-            myGameName = (String) value;
+            gameName = (String) value;
+            gameDir = "./Games/" + gameName + "/";
+            File dir = new File(gameDir);
+            dir.mkdir();
             showPathBuildingScene();
         }
         else if(ob.equals(myPathBuildingScene)){
@@ -153,10 +156,7 @@ public class AuthorController extends Application implements Observer {
         myGSONWritingScene = new GSONWritingScene(new BorderPane());
         myStage.setScene(myGSONWritingScene);
         myStage.setTitle("Writing Game"); 
-        File gameDir = new File(GAME_DIR + myGameName);
-        gameDir.mkdir();
-        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, GAME_DIR + myGameName + "/");
-        
+        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir);
     }
 
     private boolean notEnoughTowers () {
