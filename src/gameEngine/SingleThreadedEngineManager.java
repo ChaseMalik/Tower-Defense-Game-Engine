@@ -166,7 +166,7 @@ public class SingleThreadedEngineManager implements Observer {
 
 	private void onLevelEnd() {
 		myTimeline.pause();
-		myProjectileGroup.getChildren().clear();
+		myProjectileGroup.clear();
 		loadNextLevel();
 		//myReadyToPlay.set(true);
 	}
@@ -229,6 +229,9 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	public void initializeGame(String directory) {
+	        myTowerGroup.clear();
+	        myEnemyGroup.clear();
+	        myProjectileGroup.clear();
 		String correctedDirectory = directory += "/";
 		myReadyToPlay.set(false);
 		loadTowers(correctedDirectory);

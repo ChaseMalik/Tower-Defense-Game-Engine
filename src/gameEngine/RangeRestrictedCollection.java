@@ -27,7 +27,15 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 	    myActorsToRemove = new ArrayList<>();
 		myActorsList = new ArrayList<>();
 	}
-
+	
+	public void clear() {
+	    for(T actor : myActorsList){
+	       Node node = actor.getNode();
+	       getChildren().remove(node);
+	    }
+	    myActorsList.clear();
+	    myActorsToRemove.clear();
+	}
 	public void remove(T actor) {
 		myActorsList.remove(actor);
 		getChildren().remove(actor.getNode());
