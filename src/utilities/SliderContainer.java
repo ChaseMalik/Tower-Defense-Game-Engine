@@ -31,7 +31,7 @@ public class SliderContainer extends VBox {
     
     public void resetSlider() {
         mySlider.setMax(mySliderInfo.getMyMax());
-        mySlider.setValue(mySliderInfo.getMyMin());
+        mySlider.setMin(mySliderInfo.getMyMin());
         mySlider.setMajorTickUnit((mySliderInfo.getMyMax() - mySliderInfo.getMyMin())/NUM_TICKS);
         mySlider.setShowTickLabels(true);
         mySlider.setShowTickMarks(true);

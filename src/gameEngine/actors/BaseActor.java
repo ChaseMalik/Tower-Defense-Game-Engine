@@ -51,6 +51,7 @@ public abstract class BaseActor extends Observable {
         myRange = range;
         myDebuffs=new ArrayList<>();
         myTypes = new HashSet<>();
+        myIsRemovable = false;
         for (String s : behaviors.keySet()) {
             if (behaviors.get(s).getType() != null) {
                 myTypes.addAll(behaviors.get(s).getType());
@@ -79,10 +80,12 @@ public abstract class BaseActor extends Observable {
         myDebuffs.remove(debuff);
     }
     protected void makeNode () {
-        myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
-                                                         ActorBuildingScene.ACTOR_IMG_WIDTH,
+        int[] array = getSize();
+        myNode = StringToImageViewConverter.getImageView(array[0],
+                                                         array[1],
                                                          myImagePath);
     }
+    protected abstract int[] getSize();
 
     /**
      * Copies the current actor to create another one

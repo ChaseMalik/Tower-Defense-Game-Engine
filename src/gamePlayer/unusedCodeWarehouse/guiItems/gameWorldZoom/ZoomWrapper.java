@@ -53,7 +53,17 @@ public class ZoomWrapper extends ScrollPane {
 			X_TRANS.set(xfactor);
 		if ((yD > 1.05 && yfactor < 100) || (yD < -1.05 && yfactor > -100))
 			Y_TRANS.set(yfactor);
+		reposition();
 
+	}
+	
+	private void reposition() {
+		if (ZOOM.get() <= 1)
+			return;
+		if (X_TRANS.get() < 0) //Too Far Left
+			X_TRANS.set(0);
+//		if (X_TRANS.get() > myGroup.getScaleX()*myGroup.getTranslateX()) //Too far right
+//			X_TRANS.set(myGroup.)g;
 	}
 
 }

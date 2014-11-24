@@ -1,7 +1,8 @@
 package gamePlayer.mainClasses.guiBuilder;
 
-import utilities.textGenerator.TextGenerator;
 import gamePlayer.mainClasses.GuiManager;
+import gamePlayer.mainClasses.WelcomeManager;
+import utilities.textGenerator.TextGenerator;
 
 /**
  * Class holds GUI constants that GUI elements refer to during initialization and GamePlay
@@ -10,5 +11,7 @@ import gamePlayer.mainClasses.GuiManager;
  */
 public class GuiConstants {
     public static GuiManager GUI_MANAGER;
+    public static WelcomeManager WELCOME_MANAGER;
     public static TextGenerator TEXT_GEN;
+    public static String GUI_ELEMENT_PROPERTIES_PATH;
 }
