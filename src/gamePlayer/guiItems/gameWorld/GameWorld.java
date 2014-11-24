@@ -4,11 +4,8 @@ import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -41,6 +38,10 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public Node getNode() {
+		return myMap;
+	}
+	
+	public Pane getMap() {
 		return myMap;
 	}
 	
