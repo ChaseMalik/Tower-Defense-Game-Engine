@@ -1,5 +1,6 @@
 package gamePlayer.mainClasses;
 
+import gameEngine.SingleThreadedEngineManager;
 import gamePlayer.mainClasses.testGameManager.TestGameManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -18,7 +19,12 @@ public class Main extends Application {
     @Override
     public void start (Stage stage) throws Exception {
         //builder will set up the application using the stage and given properties
+    	
+    	GuiManager manager = new GuiManager(stage);
+    	
+    	/*
+    	
         TestGameManager manager = new TestGameManager(stage);
-        manager.run();
+        manager.run();*/
     }
 }

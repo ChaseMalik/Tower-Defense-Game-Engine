@@ -40,7 +40,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
     public double getSpeed () {
         return mySpeed;
     }
-    
+    public void setSpeed(double speed){
+        mySpeed=speed;
+    }
     public double getRemainingDistance(){
         return myRemainingDistance;
     }
