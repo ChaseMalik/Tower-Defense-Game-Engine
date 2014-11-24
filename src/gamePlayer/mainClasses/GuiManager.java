@@ -9,18 +9,18 @@ import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
+import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
 import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.StoreListener;
+import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.testGameManager.TestGameManager;
-import gamePlayer.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.towerUpgrade.UpgradeListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -110,6 +110,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void registerGameWorld(GameWorld world){
 		myGameWorld = world;
 	}
+	
+	@Override
+	public void registerUpgradePanel(TowerUpgradePanel upgradePanel){
+		myUpgradePanel = upgradePanel;
+	}
 
 	@Override
 	public void setGameStats(List<GameStats> stats) {
@@ -173,7 +178,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(Class newTower, double x, double y) {
+	public void upgradeTower(Node n) {
 		
 	}
 	
@@ -204,6 +209,5 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void makeTower(double x, double y) {
 		String currentType = "DEFAULT";
 		Node towerNode = myEngineManager.addTower(currentType, x, y);
-		towerNode.setOnMouseClicked();
 	}
 }
