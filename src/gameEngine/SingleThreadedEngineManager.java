@@ -8,7 +8,6 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +18,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import utilities.GSON.GSONFileReader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -44,7 +42,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private RangeRestrictedCollection<BaseTower> myTowerGroup;
 	private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
 	private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
-
+	private double duration;
 	private List<BaseLevel> myLevels;
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
@@ -113,6 +111,7 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setVisible(true);
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
+        	newTower.addObserver(this);
         	return newTowerNode;
     	}
     	return null;
@@ -123,20 +122,24 @@ public class SingleThreadedEngineManager implements Observer {
 			@Override
 			public void handle(ActionEvent event) {
 				if ( myReadyToPlay.get()) {
-					double now = System.nanoTime();
-					double adjustedUpdateInterval = FRAME_DURATION
-							/ myUpdateRate;
-					double updateTimeDifference = now - myLastUpdateTime;
-					while (updateTimeDifference > adjustedUpdateInterval) {
-						double updateStart = System.nanoTime();
-						gameUpdate();
-						double updateEnd = System.nanoTime();
-						double updateDuration = updateEnd - updateStart;
-						double updateDurationCeiling = Math.max(updateDuration,
-								adjustedUpdateInterval);
-						myLastUpdateTime += updateDurationCeiling;
-						updateTimeDifference -= updateDurationCeiling;
-					}
+//					double now = System.nanoTime();
+//					double adjustedUpdateInterval = FRAME_DURATION
+//							/ myUpdateRate;
+//					double updateTimeDifference = now - myLastUpdateTime;
+//					int updateCount= 0;
+//					while (updateTimeDifference > adjustedUpdateInterval) {
+//					    updateCount += 1;
+//						double updateStart = System.nanoTime();
+//						gameUpdate();
+//						double updateEnd = System.nanoTime();
+//						double updateDuration = updateEnd - updateStart;
+//						double updateDurationCeiling = Math.max(updateDuration,
+//								adjustedUpdateInterval);
+//						myLastUpdateTime += updateDurationCeiling;
+//						updateTimeDifference -= updateDurationCeiling;
+//					}
+//					System.out.println("updateCount "+updateCount);
+				        gameUpdate();
 				}
 			}
 		};
@@ -152,6 +155,8 @@ public class SingleThreadedEngineManager implements Observer {
 		updateActors(myEnemyGroup);
 		updateActors(myProjectileGroup);
 		addEnemies();
+		duration--;
+	//	System.out.println(myEnemyGroup.getChildren().size());
 		if(myEnemyGroup.getChildren().size() <= 0) {
 			onLevelEnd();
 		}
@@ -167,8 +172,8 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	private void addEnemies() {
-		double duration = 0;
-		while(duration < FRAME_DURATION) {
+		
+		if(duration <= 0) {
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
 			myEnemyGroup.add(enemy);
@@ -260,7 +265,17 @@ public class SingleThreadedEngineManager implements Observer {
 
 	private void loadNextLevel() {
 		myCurrentLevelIndex += 1;
-		loadLevel(myLevels.get(myCurrentLevelIndex));
+		if(myCurrentLevelIndex >= myLevels.size()){
+		   try {
+            this.wait();
+        }
+        catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+		}else{
+		    loadLevel(myLevels.get(myCurrentLevelIndex));
+		}
 	}
 	
 	private void loadLevel(BaseLevel level) {
@@ -273,7 +288,7 @@ public class SingleThreadedEngineManager implements Observer {
 				myEnemiesToAdd.add(newEnemy);
 			}		
 		}
-		myIntervalBetweenEnemies = levelDuration*ONE_SECOND_IN_MILLIS/myEnemiesToAdd.size();
+		myIntervalBetweenEnemies = levelDuration*FPS/myEnemiesToAdd.size();
 		myCurrentLevel = level;
 	}
 	

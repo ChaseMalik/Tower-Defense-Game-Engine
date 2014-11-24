@@ -15,6 +15,7 @@ public class TowerRangeEffect extends RangeEffect {
     @Override
     public void execute (BaseActor actor) {
        for(BaseActor a :actor.getTowersInRange()){
+           
            a.addEffect(this);
        }
     }

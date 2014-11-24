@@ -13,6 +13,7 @@ public class SimpleDefense extends BaseDefendBehavior{
             if(actor.getNode().intersects(a.getRange().getBoundsInLocal())){
             myHealth--;
             a.died();
+            System.out.println(" i got shot");
             if(myHealth<=0)
                 actor.died();
         }

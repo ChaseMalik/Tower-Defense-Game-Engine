@@ -2,7 +2,9 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import javafx.scene.Node;
 
@@ -18,11 +20,15 @@ public class BaseProjectile extends BaseActor{
     public static final String MOVEMENT = "movement";
     private ProjectileInfo myInfo;
     public BaseProjectile (ProjectileInfo info) {
+        myInfo=info;
         myImagePath=info.getImage();
+        myTypes=new HashSet<>();
+        myDebuffs=new ArrayList<>();
+        myEffects=new HashSet<>();
         makeNode();
         myNode.setVisible(false);
         Map<String, IBehavior> behaviors=new HashMap<>();
-        behaviors.put(MOVEMENT,myInfo.getMove());
+        behaviors.put(MOVEMENT,info.getMove());
         myBehaviors=behaviors;
     }
     @Override

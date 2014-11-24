@@ -20,7 +20,7 @@ public class StrongestEnemyRangeAttack extends RangeAttack {
     public void performAttack (BaseActor actor) {
         RealActor shooter = (RealActor)actor;
         BaseActor shootable = getStrongestActor(shooter, actor.getEnemiesInRange());
-        if (shootable.equals(null))
+        if (shootable==null)
             return;
         shootActorFromActor(shootable, actor);
     }
