@@ -13,7 +13,7 @@
 		<!--<element>gamePlayer.guiItems.HUD.Health</element>-->
 		<!--<element>gamePlayer.guiItems.placeholders.BottomItemPlaceholder</element>-->
 		<!--<element>gamePlayer.guiItems.goButton.GoButton</element>-->
-		<element>gamePlayer.towerUpgrade.TowerUpgradePanel</element>
+		<element>gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel</element>
 	</Items>
 	
 </ContainerProperties>

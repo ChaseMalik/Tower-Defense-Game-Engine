@@ -21,7 +21,7 @@ public class TestGameManager {
     private List<GameStats> gameStats;
     
     public TestGameManager(Stage stage) {
-        myGuiManager = new GuiManager(stage,this);     
+       // myGuiManager = new GuiManager(stage,this);     
     }
     
     public void run() {
@@ -46,14 +46,14 @@ public class TestGameManager {
         BooleanProperty steelTurretAvail = new SimpleBooleanProperty(true);
         
         List<StoreItem> itemList = new ArrayList<StoreItem>();
-        itemList.add(new StoreItem(0,new ImageView(blackTurret),"blackTurret",blackTurretAvail));
+       /* itemList.add(new StoreItem(0,new ImageView(blackTurret),"blackTurret",blackTurretAvail));
         itemList.add(new StoreItem(1,new ImageView(brownTurret),"brownTurret",brownTurretAvail));
         itemList.add(new StoreItem(2,new ImageView(charcoalTurret),"charcoalTurret",charcoalTurretAvail));
         itemList.add(new StoreItem(3,new ImageView(greenTurret),"greenTurret",greenTurretAvail));     
         itemList.add(new StoreItem(4,new ImageView(purpleTurret),"purpleTurret",purpleTurretAvail));
-        itemList.add(new StoreItem(5,new ImageView(steelTurret),"steelTurret",steelTurretAvail));   
+        itemList.add(new StoreItem(5,new ImageView(steelTurret),"steelTurret",steelTurretAvail));   */
    
-        myGuiManager.fillStore(itemList);
+       // myGuiManager.fillStore(itemList);
         
         //change availabilities and refresh display
         greenTurretAvail.set(false);

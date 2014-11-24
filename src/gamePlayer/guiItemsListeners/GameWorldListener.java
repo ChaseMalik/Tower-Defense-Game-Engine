@@ -1,5 +1,9 @@
 package gamePlayer.guiItemsListeners;
 
-public interface GameWorldListener {
+import gamePlayer.guiItems.gameWorld.GameWorld;
 
+public interface GameWorldListener {
+	public void makeTower(double x, double y);
+
+	void registerGameWorld(GameWorld world);
 }
