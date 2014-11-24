@@ -28,8 +28,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -64,7 +66,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
-		gameRunning = false;
+		gameRunning = true;
 	}
 	
 	private void startGame(String directoryPath){
@@ -74,7 +76,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
-		gameRunning = true;
+		gameRunning = false;
 	}
 	
 	private void makeMap(){
@@ -164,10 +166,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
+		
 		for (TowerInfoObject info: towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
+		
+		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
+        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
+        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
+        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
+        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
+        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));
+		
 		myStore.fillStore(storeItems);
 	}
 
