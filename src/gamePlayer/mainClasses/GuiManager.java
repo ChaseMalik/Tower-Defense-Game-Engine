@@ -52,8 +52,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private Stage myStage;
 	private SingleThreadedEngineManager myEngineManager;
 	private Group myRoot;
+	private boolean gameRunning;
 
-	// handles to GuiItems
 	private Store myStore;
 	private HUD myHUD;
 	private GameWorld myGameWorld;
@@ -65,6 +65,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
 		testHUD();
+		gameRunning = false;
 	}
 	
 	private void startGame(String directoryPath){
@@ -74,6 +75,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
+		gameRunning = true;
 	}
 	
 	private void makeMap(){
@@ -123,11 +125,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void pause() {
+		if (!gameRunning) return;
 		myEngineManager.pause();
 	}
 
 	@Override
 	public void play() {
+		if (!gameRunning) return;
 		myEngineManager.resume();
 	}
 
@@ -144,11 +148,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void normalSpeed() {
+		if (!gameRunning) return;
 		myEngineManager.changeRunSpeed(1.0);
 	}
 
 	@Override
 	public void fastForward() {
+		if (!gameRunning) return;
 		myEngineManager.changeRunSpeed(3.0);
 	}
 
@@ -207,7 +213,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void makeTower(double x, double y) {
+		if (!gameRunning) return;
 		String currentType = "DEFAULT";
 		Node towerNode = myEngineManager.addTower(currentType, x, y);
+		String towerName = myEngineManager.getTowerName(towerNode);
+		towerNode.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerNode));
 	}
 }
