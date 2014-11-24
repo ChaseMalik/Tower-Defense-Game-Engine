@@ -19,21 +19,23 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private HBox myButtonBox;
 	private ImageView myIcon;
 	private Text myName;
+	private String myUpgradeName;
 	private Button upgrade1Button;
-	private Node myTowerNode;
+	private ImageView myTowerImageView;
 	
 	private UpgradeListener myListener;
 	
-	public void setCurrentTower(TowerInfoObject current, Node towerNode){
+	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView){
 		myIcon.setImage(new Image(current.getImageLocation()));
 		myName.setText(current.getName());
-		upgrade1Button.setText("Upgrade to" + current.getMyUpgrade().getName());
+		myUpgradeName = current.getMyUpgrade().getName();
+		upgrade1Button.setText("Upgrade to" + myUpgradeName);
 		upgrade1Button.setOnAction(event -> doUpgrade());
-		myTowerNode = towerNode;
+		myTowerImageView = towerImageView;
 	}
 	
 	private void doUpgrade(){
-		myListener.upgradeTower(myTowerNode);
+		myListener.upgradeTower(myTowerImageView, myUpgradeName);
 	}
 
 	@Override

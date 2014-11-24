@@ -33,6 +33,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -64,14 +66,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
-		testHUD();
 		gameRunning = false;
 	}
 	
 	private void startGame(String directoryPath){
 		myEngineManager.initializeGame(directoryPath);
-		myEngineManager.getAllTowerTypeInformation();
 		makeMap();
+		testHUD();
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
@@ -93,7 +94,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void loadGame() {
 		File file = FileLoader.getInstance().load(myStage);
 		if (file != null) {
-			System.out.println(file.getAbsolutePath() + "\n");
 			startGame(file.getAbsolutePath());
 		}
 	}
@@ -184,7 +184,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(Node n) {
+	public void upgradeTower(ImageView imageView, String upgradeName) {
+		if (!gameRunning) return;
+		double x = imageView.getX();
+		double y = imageView.getY();
+		myEngineManager.removeTower(imageView);
 		
 	}
 	
@@ -215,8 +219,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void makeTower(double x, double y) {
 		if (!gameRunning) return;
 		String currentType = "DEFAULT";
-		Node towerNode = myEngineManager.addTower(currentType, x, y);
-		String towerName = myEngineManager.getTowerName(towerNode);
-		towerNode.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerNode));
+		ImageView towerImageView = myEngineManager.addTower(currentType, x, y);
+		String towerName = myEngineManager.getTowerName(towerImageView);
+		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
+		Circle c = new Circle();
+		c.setCenterX(x);
+		c.setCenterY(y);
+		c.setRadius(30);
+		c.setFill(Color.BLACK);
 	}
 }
