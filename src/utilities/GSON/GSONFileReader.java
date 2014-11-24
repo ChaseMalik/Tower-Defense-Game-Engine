@@ -1,7 +1,9 @@
 package utilities.GSON;
+import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
+import gameEngine.levels.BaseLevel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,42 +20,39 @@ import com.google.gson.reflect.TypeToken;
 public class GSONFileReader {
 
 	Gson gson = new Gson();
-	Type listType;
-	private List<BaseEnemy> enemyList;
-	private List<BaseTower> towerList;
-	private List<BaseActor> actorList;
+	private List<TowerUpgradeGroup> towerList;
+	private List<BaseLevel> levelList;
 
 	public GSONFileReader(){
-		listType = new TypeToken<List<BaseEnemy>>() {}.getType();
-	}
 
-	public List<BaseEnemy> readEnemyFromFile(String fileName){
-		try{		
-			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
-			enemyList = gson.fromJson(br, listType );	
-		} catch(IOException e){
-			new ErrorPopup("File" +fileName+ ".json could not be found.");
-		}		
-		return enemyList;		
+		
 	}
-
-	public List<BaseTower> readTowerFromFile(String fileName){
+	
+	public List<TowerUpgradeGroup> readTowerFromFile(String fileName, String directory){
 		try{		
-			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
-			towerList = gson.fromJson(br, listType );	
+			BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));	
+			towerList = gson.fromJson(br, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() );	
 		} catch(IOException e){
 			new ErrorPopup("File" +fileName+ ".json could not be found.");
 		}		
 		return towerList;		
 	}
-
-	public List<BaseActor> readActorFromFile(String fileName){
+	
+	
+	public List<BaseLevel> readLevelfromFile(String fileName, String directory){
 		try{		
-			BufferedReader br = new BufferedReader( new FileReader("src/Files/" +fileName+"json"));	
-			actorList = gson.fromJson(br, listType );	
-		} catch(IOException e){	
+			BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));	
+			levelList = gson.fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType() );	
+		} catch(IOException e){
 			new ErrorPopup("File" +fileName+ ".json could not be found.");
-		}	
-		return actorList;
+		}		
+		
+		return levelList;
 	}
+	
+	
+	
+	
+
+
 }

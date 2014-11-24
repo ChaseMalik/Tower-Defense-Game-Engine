@@ -156,7 +156,7 @@ public class AuthorController extends Application implements Observer {
         myGSONWritingScene = new GSONWritingScene(new BorderPane());
         myStage.setScene(myGSONWritingScene);
         myStage.setTitle("Writing Game"); 
-        GSON_WRITER.writeGameFile(myEnemies, myTowerGroups, myLevels, myBackendRoutes, gameDir);
+        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir);
     }
 
     private boolean notEnoughTowers () {
