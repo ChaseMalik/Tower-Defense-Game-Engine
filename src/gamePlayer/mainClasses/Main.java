@@ -18,8 +18,8 @@ public class Main extends Application {
     public void start (Stage stage) throws Exception {
         //builder will set up the application using the stage and given properties
     	
-//    	WelcomeManager welcomeManager = new WelcomeManager(stage);
-//    	welcomeManager.init();
+    	//WelcomeManager welcomeManager = new WelcomeManager(stage);
+    	//welcomeManager.init();
     	GuiManager manager = new GuiManager(stage);
     	manager.init();
     	/*

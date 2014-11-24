@@ -1,5 +1,6 @@
 package gamePlayer.guiItems.towerUpgrade;
 
+import gameEngine.NullTowerInfoObject;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
@@ -28,7 +29,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myIcon.setImage(new Image(current.getImageLocation()));
 		myName.setText(current.getName());
 		myUpgradeName = current.getMyUpgrade().getName();
-		upgrade1Button.setText("Upgrade to" + myUpgradeName);
+		upgrade1Button.setText("Upgrade to:" + "\n" + myUpgradeName);
 		upgrade1Button.setOnAction(event -> doUpgrade());
 		myTowerImageView = towerImageView;
 	}
@@ -43,6 +44,8 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		
 		myListener = GuiConstants.GUI_MANAGER;
 		myIcon = new ImageView();
+		myIcon.setFitHeight(containerSize.getHeight());
+		myIcon.setFitWidth(containerSize.getHeight());
 		myName = new Text();
 		upgrade1Button = new Button();
 		upgrade1Button.setPrefSize(containerSize.getWidth()/3.0, containerSize.getHeight());
@@ -50,6 +53,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button);
 		this.getChildren().add(myButtonBox);
 		myListener.registerUpgradePanel(this);
+		setCurrentTower(new NullTowerInfoObject(), null);
 	}
 
 	@Override

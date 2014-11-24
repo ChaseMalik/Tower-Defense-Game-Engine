@@ -18,10 +18,10 @@ public class DragAndDropImagePane extends DragAndDropFilePane {
         myContainer.getChildren().remove(myDragAndDropPane);
         myImageView = StringToImageViewConverter.getImageView(myDragAndDropPane.getWidth(), 
                                                                       myDragAndDropPane.getHeight(), 
-                                                                      myFile.getAbsolutePath());
+                                                                      myFile.getPath());
         myContainer.getChildren().add(myImageView); 
         this.setChanged();
-        this.notifyObservers(myFile.getAbsolutePath());       
+        this.notifyObservers(myFile.getPath());       
     }
     
     public ImageView getImageView () {
@@ -29,7 +29,7 @@ public class DragAndDropImagePane extends DragAndDropFilePane {
     }
     
     public String getImagePath () {
-        return myFile.getAbsolutePath();
+        return myFile.getPath();
     }
 
     public void setHeight (double height) {

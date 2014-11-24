@@ -229,7 +229,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	public void initializeGame(String directory) {
-		String correctedDirectory = directory += "\\";
+		String correctedDirectory = directory += "/";
 		myReadyToPlay.set(false);
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
@@ -266,13 +266,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private void loadNextLevel() {
 		myCurrentLevelIndex += 1;
 		if(myCurrentLevelIndex >= myLevels.size()){
-		   try {
-            this.wait();
-        }
-        catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
+		    pause();
 		}else{
 		    loadLevel(myLevels.get(myCurrentLevelIndex));
 		}
