@@ -1,6 +1,6 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<GuiBuilderProperties>
+<WelcomeBuilderProperties>
 
     <!--window width and height -->
  	<GuiSize>
@@ -14,11 +14,11 @@
 	</TextGeneratorPropertiesPath>
 	
 	<GuiElementPropertiesPath>
-		<element>./src/gamePlayer/properties/</element>
+		<element>./src/gamePlayer/properties/welcome/</element>
 	</GuiElementPropertiesPath>
 	
 	<GuiStyleSheet>
 	    <element>/gamePlayer/styleSheets/guibuilder_default_theme.css</element> 
 	</GuiStyleSheet>
 	
-</GuiBuilderProperties>
+</WelcomeBuilderProperties>

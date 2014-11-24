@@ -69,6 +69,25 @@ public class LevelBuildingDisplay extends VBox {
         levelInfoBox.setPadding(new Insets(15));
         HBox timeAndSeconds = new HBox(10);
         TextField levelTime = new TextField();
+        //TODO
+        
+        levelTime.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                try {
+                    level.setDuration(Integer.parseInt(levelTime.getText()));
+                } catch (NumberFormatException e) {
+                    if(levelTime.getText().isEmpty()) {
+                        levelTime.setText("");
+                    }
+                    else {
+                        levelTime.setText(oldValue);
+                    }
+                }
+            }
+        });
+        //TODO
         levelTime.setPrefWidth(TEXT_FIELD_WIDTH);
         Label secondsLabel = new Label("seconds");
         timeAndSeconds.getChildren().addAll(levelTime, secondsLabel);

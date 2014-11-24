@@ -20,22 +20,25 @@ import utilities.textGenerator.TextGenerator;
 /**
  * Class builds a GUI recursively by calling 'initialize' on core GuiElements, 
  * which in turn call 'initialize' on the elements they host and so on
- * @author allankiplagat
+ * @author allankiplagat, Brian Bolze
  *
  */
 public class GuiBuilder {
+	
+	private static GuiBuilder myReference;
     private XMLParser myParser;
-
-    private GuiBuilder(String propertiesPath) {
-        myParser = new XMLParser(new File(propertiesPath)); 
-    }
+    
+    private GuiBuilder() {}
 
     /**
      * Returns an instance of a GuiBuilder that can build a GUI 
      * @param propertiesPath path to the GuiBuilder's XML properties file
      */
-    public static GuiBuilder getInstance(String propertiesPath) {
-        return new GuiBuilder(propertiesPath);
+    public static GuiBuilder getInstance() {
+        if (myReference == null) {
+        	myReference = new GuiBuilder();
+        }
+        return myReference;
     }
 
     /**
@@ -43,8 +46,10 @@ public class GuiBuilder {
      * GUI_MANAGER constant in GuiConstants
      * @param stage the stage in which to construct the GUI
      */
-    public Group build (Stage stage) {
+    public Group build (Stage stage, String propertiesPath) {
         //set constants
+    	myParser = new XMLParser(new File(propertiesPath));
+    	GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag("GuiElementPropertiesPath").get(0);
         GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         Dimension2D windowSize = myParser.getDimension("GuiSize");
         

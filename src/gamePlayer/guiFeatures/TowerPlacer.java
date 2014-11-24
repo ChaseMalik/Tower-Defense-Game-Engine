@@ -32,7 +32,7 @@ public class TowerPlacer {
     public void placeItem(String itemID, Pane rootNode) {
 
         Circle dragCircle = new Circle(50, Color.RED);
-        dragCircle.setOpacity(0.1);
+        dragCircle.setOpacity(0.5);
 
         // TODO : Add the image of the tower to be added to the dragged object
         rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY()));

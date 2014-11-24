@@ -4,7 +4,7 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>0.6</element>
+		<element>0.4</element>
 		<element>0.15</element>
 	</SizeRatio>
 	

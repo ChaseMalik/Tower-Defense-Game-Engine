@@ -24,13 +24,13 @@ public class GSONFileWriter {
                                String directory) {
 
     	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
-        writeToFile("towers", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() ), directory);
-        writeToFile("levels", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()), directory);    
+        writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
+        writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));    
     }
 
-    public void writeToFile(String fileName, String json, String directory) {
+    public void writeToFile(String fileName, String json) {
         try{
-            File file = new File(directory + fileName +".json");
+            File file = new File(fileName);
             FileWriter writer = new FileWriter(file);
             writer.write(json);
             writer.close();				
