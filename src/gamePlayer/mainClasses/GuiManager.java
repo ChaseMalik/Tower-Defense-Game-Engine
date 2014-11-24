@@ -27,6 +27,7 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
-		gameRunning = true;
+		gameRunning = false;
+		fillStore(new HashSet<TowerInfoObject>());
 	}
 	
 	private void startGame(String directoryPath){
@@ -79,7 +81,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
-		gameRunning = false;
+		gameRunning = true;
 	}
 	
 	private void makeMap(){
@@ -136,6 +138,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void play() {
 		if (!gameRunning) return;
 		myEngineManager.resume();
+		System.out.println("Play");
 	}
 
 	@Override
@@ -191,11 +194,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void selectItem(int itemID) {
-		
-	}
-
-	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
 		if (!gameRunning) return;
 		double x = imageView.getX();
@@ -232,12 +230,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
-		
+		/*
 		Circle c = new Circle();
 		c.setCenterX(x);
 		c.setCenterY(y);
 		c.setRadius(30);
 		c.setFill(Color.BLACK);
+		c.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(null,null));
+		myGameWorld.getMap().getChildren().add(c);*/
 	}
 	
 	@Override
@@ -258,5 +258,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void clearMessageDisplay() {
 		myMessageDisplay.clear();		
+	}
+
+	@Override
+	public void selectItem(int itemID) {
+		
 	}
 }
