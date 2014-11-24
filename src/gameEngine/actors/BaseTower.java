@@ -13,6 +13,10 @@ public class BaseTower extends RealActor {
                       ProjectileInfo projectile) {
         super(behaviors, image, name, range, projectile);
     }
+    @Override
+    protected int[] getSize () {
+        return new int[]{75,75};
+    }
 
     @Override
     public BaseActor copy () {
