@@ -1,4 +1,4 @@
-package gamePlayer.unusedCodeWarehouse;
+package gamePlayer.guiFeatures;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -12,6 +12,8 @@ import javafx.scene.shape.Circle;
  */
 
 public class TowerPlacer {
+	
+	//private TowerPlacerListener myListener = (GuiConstants.GameManager?????)
 
     private static TowerPlacer myReference = null;
 
@@ -26,16 +28,18 @@ public class TowerPlacer {
      * Drags an item and attempts to place it on the map
      * 
      * @param rootNode : The Node to attach the mouseListener to
-     * @param itemID : Needs to be the Name of the properties file in the spriteResources folder
+     * @param itemID : The unique integer identifier of the item (tower) to be placed
      */
-    public void placeItem(String itemID, Group rootNode) {
+    public void placeItem(int itemID, Group rootNode) {
 
         Circle dragCircle = new Circle(50, Color.RED);
         dragCircle.setOpacity(0.1);
 
+        // TODO : Add the image of the tower to be added to the dragged object
         rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY()));
         rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), itemID, rootNode));
         rootNode.getChildren().add(dragCircle);
+        
     }
 
     private void drag(Circle node, double X, double Y) {
@@ -48,9 +52,10 @@ public class TowerPlacer {
         }
     }
 
-    private void drop(Circle node, double X, double Y, String itemID, Group rootNode) {
+    private void drop(Circle node, double X, double Y, int itemID, Group rootNode) {
 
-        if (!validPlacement(X,Y)) {
+        if (!validPlacement(X,Y)) { //pass this off to myListener
+        	// TODO : Make this an alert message
             System.out.println("Invalid placement");
             return;
         }
@@ -59,11 +64,12 @@ public class TowerPlacer {
         rootNode.setOnMouseReleased(null);
         node.setVisible(false);
 
-        //GuiConstants.GUI_MANAGER.addItem(itemID, new Dimension2D(X,Y));
+        //myListener.addTower(itemID, new Dimension2D(X,Y));
     }
 
     private boolean validPlacement(double X, double Y) {
         // TODO: Add the real logic 
+    	// return myListener.validPlacement(X,Y) // -- have the GameWorld do this??
         return (X < 250 && X > 50 && Y < 250 && Y > 50);
     }
 

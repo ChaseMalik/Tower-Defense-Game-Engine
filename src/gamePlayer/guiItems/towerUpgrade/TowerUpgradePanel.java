@@ -1,18 +1,17 @@
 package gamePlayer.guiItems.towerUpgrade;
 
+import gameEngine.TowerInfoObject;
+import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.UpgradeListener;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import gameEngine.TowerInfoObject;
-import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.UpgradeListener;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 public class TowerUpgradePanel extends Pane implements GuiItem {
 	
@@ -40,7 +39,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		this.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
+		setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		
 		myListener = GuiConstants.GUI_MANAGER;
 		myIcon = new ImageView();
