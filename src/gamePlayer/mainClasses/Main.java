@@ -1,7 +1,5 @@
 package gamePlayer.mainClasses;
 
-import gameEngine.SingleThreadedEngineManager;
-import gamePlayer.mainClasses.testGameManager.TestGameManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
