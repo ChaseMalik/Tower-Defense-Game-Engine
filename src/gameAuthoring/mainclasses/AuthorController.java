@@ -151,11 +151,6 @@ public class AuthorController extends Application implements Observer {
         myStage.setScene(myGSONWritingScene);
         myStage.setTitle("Writing Game"); 
         GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir); 
-        GSONFileReader reader = new GSONFileReader();
-        List<TowerUpgradeGroup> list = reader.readTowersFromGameDirectory(gameDir);
-        System.out.println(list.size());
-        List<BaseLevel> list2 = reader.readLevelsFromGameDirectory(gameDir);
-        System.out.println(list2.size());
     }
 
     private boolean notEnoughTowers () {
