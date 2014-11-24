@@ -4,7 +4,6 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
-import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.util.ArrayList;

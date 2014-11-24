@@ -33,6 +33,7 @@ public class GSONFileWriter {
             writer.write(json);
             writer.close();				
         }catch(IOException e) {
+            e.printStackTrace();
             new ErrorPopup("File to store actors could not be found.");
         }
     }
