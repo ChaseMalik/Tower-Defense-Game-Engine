@@ -151,10 +151,10 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void gameUpdate() {
+	        addEnemies();
 		updateActors(myTowerGroup);
 		updateActors(myEnemyGroup);
-		updateActors(myProjectileGroup);
-		addEnemies();
+		updateActors(myProjectileGroup);		
 		duration--;
 	//	System.out.println(myEnemyGroup.getChildren().size());
 		if(myEnemyGroup.getChildren().size() <= 0) {
@@ -166,9 +166,10 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void onLevelEnd() {
-		myReadyToPlay.set(false);
+		myTimeline.pause();
+		myProjectileGroup.getChildren().clear();
 		loadNextLevel();
-		myReadyToPlay.set(true);
+		//myReadyToPlay.set(true);
 	}
 	
 	private void addEnemies() {
@@ -265,9 +266,7 @@ public class SingleThreadedEngineManager implements Observer {
 
 	private void loadNextLevel() {
 		myCurrentLevelIndex += 1;
-		if(myCurrentLevelIndex >= myLevels.size()){
-		    pause();
-		}else{
+		if(myCurrentLevelIndex < myLevels.size()) {
 		    loadLevel(myLevels.get(myCurrentLevelIndex));
 		}
 	}
