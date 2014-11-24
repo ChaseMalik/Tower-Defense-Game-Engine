@@ -27,11 +27,14 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -67,6 +70,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		gameRunning = false;
+		fillStore(new HashSet<TowerInfoObject>());
 	}
 	
 	public void init() {
@@ -137,6 +141,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void play() {
 		if (!gameRunning) return;
 		myEngineManager.resume();
+		System.out.println("Play");
 	}
 
 	@Override
@@ -170,21 +175,25 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
+		
 		for (TowerInfoObject info: towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
+		
+		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
+        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
+        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
+        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
+        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
+        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));
+		
 		myStore.fillStore(storeItems);
 	}
 
 	@Override
 	public void refreshStore() {
 		myStore.refreshStore();
-	}
-
-	@Override
-	public void selectItem(int itemID) {
-		
 	}
 
 	@Override
@@ -224,12 +233,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
-		
+		/*
 		Circle c = new Circle();
 		c.setCenterX(x);
 		c.setCenterY(y);
 		c.setRadius(30);
 		c.setFill(Color.BLACK);
+		c.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(null,null));
+		myGameWorld.getMap().getChildren().add(c);*/
 	}
 	
 	@Override
@@ -250,5 +261,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void clearMessageDisplay() {
 		myMessageDisplay.clear();		
+	}
+
+	@Override
+	public void selectItem(int itemID) {
+		
 	}
 }

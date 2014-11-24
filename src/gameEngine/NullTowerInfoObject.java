@@ -3,7 +3,7 @@ package gameEngine;
 public class NullTowerInfoObject extends TowerInfoObject{
 
 	public NullTowerInfoObject() {
-		super("", "", 0);
+		super("No upgrade available", "/gamePlayer/playerImages/nullupgrade.png", 0);
 	}
 
 }
