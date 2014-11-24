@@ -31,7 +31,7 @@ public class GameWorld implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
-		myMap.getStyleClass().add("GameWorld");
+		//myMap.getStyleClass().add("GameWorld");
 		myListener.registerGameWorld(this);
 		addTestGameItems();
 	}
