@@ -8,9 +8,11 @@ import gameEngine.levels.BaseLevel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.List;
 import java.lang.reflect.Type;
 import utilities.errorPopup.ErrorPopup;
@@ -19,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 
 public class GSONFileReader {
+
 
     Gson gson = new Gson();
     private List<TowerUpgradeGroup> towerList;
