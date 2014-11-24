@@ -1,6 +1,7 @@
 package gameEngine;
 
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
+import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
@@ -256,9 +257,10 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	private void loadLevel(BaseLevel level) {
 		int levelDuration = level.getDuration();
-		Map<BaseEnemy, Integer> enemyMap = level.getEnemyMap();
-		for(BaseEnemy enemy : enemyMap.keySet()){
-			for(int count = 0; count < enemyMap.get(enemy); count ++){
+		Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
+		for(EnemyCountPair enemyPair : enemies){
+			BaseEnemy enemy = enemyPair.getMyEnemy();
+			for(int count = 0; count < enemyPair.getMyNumEnemies(); count ++){
 				BaseEnemy newEnemy = (BaseEnemy)enemy.copy();
 				myEnemiesToAdd.add(newEnemy);
 			}		
