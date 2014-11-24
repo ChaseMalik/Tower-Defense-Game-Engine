@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ButtonPaneProperties>
+
+	<Padding>
+		<element>20</element>
+	</Padding>
+
+	<ButtonSizeRatio>
+		<element>0.7</element>
+		<element>0.4</element>
+	</ButtonSizeRatio>
+	
+	<ButtonNames>
+	    <element>New Game</element>
+	    <element>Load Game</element>
+	</ButtonNames>
+
+</ButtonPaneProperties>
