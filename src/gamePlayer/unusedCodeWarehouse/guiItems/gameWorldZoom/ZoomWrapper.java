@@ -30,6 +30,9 @@ public class ZoomWrapper extends ScrollPane {
 
 	private void bound(Bounds bounds) {
 		setClip(new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight()));
+		setPrefViewportWidth(bounds.getWidth());
+		setPrefViewportHeight(bounds.getHeight());
+		setFitToWidth(true);
 	}
 	
 	private void zoom(ZoomEvent event) {
@@ -44,11 +47,11 @@ public class ZoomWrapper extends ScrollPane {
 		event.consume();
 		double xD = event.getDeltaX();
 		double yD = event.getDeltaY();
-		double xfactor = ZOOM.get() * (X_TRANS.get() + xD);
-		double yfactor = ZOOM.get() * (Y_TRANS.get() + yD);
-		if ((xD > 1.1 && xfactor < 10) || (xD < -1.1 && xfactor > -10))
+		double xfactor = X_TRANS.get() + xD / (ZOOM.get()/10);
+		double yfactor = Y_TRANS.get() + yD / (ZOOM.get()/10);
+		if ((xD > 1.05 && xfactor < 100) || (xD < -1.05 && xfactor > -100))
 			X_TRANS.set(xfactor);
-		if ((yD > 1.1 && yfactor < 10) || (yD < -1.1 && yfactor > -10))
+		if ((yD > 1.05 && yfactor < 100) || (yD < -1.05 && yfactor > -100))
 			Y_TRANS.set(yfactor);
 
 	}

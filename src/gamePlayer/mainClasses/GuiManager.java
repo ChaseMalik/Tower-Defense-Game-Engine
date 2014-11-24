@@ -4,6 +4,7 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -20,7 +21,6 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-import gamePlayer.mainClasses.testGameManager.TestGameManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ import java.util.Map;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -64,14 +64,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		myRoot = GuiBuilder.getInstance(guiBuilderPropertiesPath).build(stage);
-		testHUD();
 		gameRunning = false;
 	}
 	
 	private void startGame(String directoryPath){
 		myEngineManager.initializeGame(directoryPath);
-		myEngineManager.getAllTowerTypeInformation();
 		makeMap();
+		testHUD();
 		Group engineGroup = new Group();
 		myEngineManager = new SingleThreadedEngineManager(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
@@ -93,7 +92,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void loadGame() {
 		File file = FileLoader.getInstance().load(myStage);
 		if (file != null) {
-			System.out.println(file.getAbsolutePath() + "\n");
 			startGame(file.getAbsolutePath());
 		}
 	}
@@ -184,7 +182,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(Node n) {
+	public void upgradeTower(ImageView imageView, String upgradeName) {
+		if (!gameRunning) return;
+		double x = imageView.getX();
+		double y = imageView.getY();
+		myEngineManager.removeTower(imageView);
 		
 	}
 	
@@ -211,12 +213,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
         gameStats.get(2).setStatValue(50);
     }
 
-	@Override
-	public void makeTower(double x, double y) {
+	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
-		String currentType = "DEFAULT";
-		Node towerNode = myEngineManager.addTower(currentType, x, y);
-		String towerName = myEngineManager.getTowerName(towerNode);
-		towerNode.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerNode));
+		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		//String towerName = myEngineManager.getTowerName(towerImageView);
+		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
+		
+		Circle c = new Circle();
+		c.setCenterX(x);
+		c.setCenterY(y);
+		c.setRadius(30);
+		c.setFill(Color.BLACK);
+	}
+	
+	
+
+	@Override
+	public void placeTower(String towerName) {
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap());
 	}
 }
