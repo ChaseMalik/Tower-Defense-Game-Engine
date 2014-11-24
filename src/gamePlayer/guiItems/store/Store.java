@@ -68,6 +68,7 @@ public class Store implements GuiItem {
 
         button.setGraphic(storeItem.getImageView());
         myTilePane.getChildren().add(button);
+        button.setOnAction(event -> myListener.placeTower(storeItem.getName()));
     }
     
     public void refreshStore() {

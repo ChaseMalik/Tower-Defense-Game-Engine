@@ -4,6 +4,7 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -215,17 +216,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
         gameStats.get(2).setStatValue(50);
     }
 
-	@Override
-	public void makeTower(double x, double y) {
+	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
-		String currentType = "DEFAULT";
-		ImageView towerImageView = myEngineManager.addTower(currentType, x, y);
-		String towerName = myEngineManager.getTowerName(towerImageView);
+		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
+		
 		Circle c = new Circle();
 		c.setCenterX(x);
 		c.setCenterY(y);
 		c.setRadius(30);
 		c.setFill(Color.BLACK);
+	}
+	
+	
+
+	@Override
+	public void placeTower(String towerName) {
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getPane());
 	}
 }

@@ -35,14 +35,8 @@ public class GameWorld implements GuiItem {
 	public void initialize(Dimension2D containerSize) {
 		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
 		myMap.getStyleClass().add("GameWorld");
-		myMap.setOnMouseClicked(event -> placeTower(event));
 		myListener.registerGameWorld(this);
 		addTestGameItems();
-	}
-
-	
-	private void placeTower(MouseEvent mouseEvent) {
-		myListener.makeTower(mouseEvent.getX(), mouseEvent.getY());
 	}
 
 	@Override
