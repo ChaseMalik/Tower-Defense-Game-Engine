@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Set;
 import utilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,14 +28,14 @@ import javafx.scene.image.ImageView;
  * @author Chase Malik, Timesh Patel
  *
  */
-public class BaseActor extends Observable {
+public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient ImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
-    private Set<Class<? extends BaseActor>> myTypes;
+    private transient Set<Class<? extends BaseActor>> myTypes;
     private Set<BaseEffectBehavior> myEffects;
     private boolean myIsRemovable;
 
@@ -67,7 +68,7 @@ public class BaseActor extends Observable {
 
     }
 
-    private void makeNode () {
+    protected void makeNode () {
         myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
                                                          ActorBuildingScene.ACTOR_IMG_WIDTH,
                                                          myImagePath);
@@ -80,15 +81,13 @@ public class BaseActor extends Observable {
      * 
      * @return
      */
-    public BaseActor copy () {
+
+    protected Map<String, IBehavior> copyBehaviors () {
         Map<String, IBehavior> clonedBehaviors = new HashMap<>();
         for (String s : myBehaviors.keySet()) {
             clonedBehaviors.put(s, myBehaviors.get(s).copy());
         }
-        BaseActor a = new BaseActor(clonedBehaviors, myImagePath, myName, myRange);
-        a.makeNode();
-        myNode.setVisible(false);
-        return a;
+        return clonedBehaviors;
     }
 
     public IBehavior getBehavior (String s) {
@@ -122,7 +121,9 @@ public class BaseActor extends Observable {
         return myImagePath;
     }
 
-    public double getRange () {
+    public abstract Node getRange ();
+    
+    public double getRangeProperty(){
         return myRange;
     }
 
@@ -133,7 +134,9 @@ public class BaseActor extends Observable {
     public List<BaseActor> getTowersInRange () {
         return myInfo.getTowersInRange();
     }
-
+    public InfoObject getInfoObject(){
+        return myInfo;
+    }
     public Collection<Class<? extends BaseActor>> getTypes () {
         return myTypes;
     }

@@ -11,19 +11,16 @@ import javafx.geometry.Point2D;
 
 public abstract class RangeAttack extends BaseAttack{
 
-    public RangeAttack (int attackSpeed) {
+    public RangeAttack (double attackSpeed) {
         super(attackSpeed);
-        // TODO Auto-generated constructor stub
     }
     
     protected void shootActorFromActor(BaseActor target, BaseActor actor){
         RealActor shooter=(RealActor) actor;
         BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
-        LinearMovement move=new LinearMovement(shooter.getProjectile().getSpeed(), route); 
-        BaseProjectile projectile=new BaseProjectile(move); 
-        List<BaseActor> pList=new ArrayList<>();
-        pList.add(projectile);
-        shooter.spawnProjectile(pList);
+        BaseProjectile projectile=new BaseProjectile(shooter.getProjectile().copy());
+        projectile.getInfo().getMove().setRoute(route);
+        shooter.spawnProjectile(projectile);
         myCooldown=(int)myAttackSpeed;
     }
 }

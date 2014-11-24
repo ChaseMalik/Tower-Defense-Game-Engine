@@ -45,7 +45,7 @@ public abstract class BaseMovementBehavior implements IBehavior {
         return myRemainingDistance;
     }
     public void setRoute(BackendRoute route){
-        myRoute=route.getPoints();
+        myRoute = route.getPoints();
         myRemainingDistance = calculateTotalDistance(myRoute);
     }
     @Override

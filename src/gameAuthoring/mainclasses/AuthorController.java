@@ -13,6 +13,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -35,7 +36,7 @@ public class AuthorController extends Application implements Observer {
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     private static final String GAME_DIR = "./Games/";
     public static final double SCREEN_WIDTH = 1000;
-    public static final double SCREEN_HEIGHT = 600;
+    public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
 
     private EnemyBuildingScene myEnemyBuildingScene;
@@ -59,13 +60,13 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-        //  showPathBuildingScene();
-        showWelcomeScene();
-        //        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-        //        routes.add(new BackendRoute());
-        //        myBackendRoutes = routes;
-        //        showEnemyBuildingScene();
-        //        showGSONWritingScene();
+//          showPathBuildingScene();
+//                showWelcomeScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutes = routes;
+        showEnemyBuildingScene();
+//        showGSONWritingScene();
         configureAndDisplayStage();
 
     }
@@ -91,7 +92,7 @@ public class AuthorController extends Application implements Observer {
     }
 
     public void showTowerBuildingScene() {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies, myBackendRoutes);
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), myEnemies);
         setSceneAndTitle(myTowerBuildingScene);
     }
 

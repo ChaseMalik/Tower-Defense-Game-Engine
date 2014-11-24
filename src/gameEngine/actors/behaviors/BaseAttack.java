@@ -33,6 +33,16 @@ public abstract class BaseAttack implements IBehavior {
         return myCooldown == READY_TO_SHOOT;
     }
     
+    @Override
+    public void execute(BaseActor actor){
+        if(!readyToShoot()){
+            myCooldown--;
+            return;
+        }
+        performAttack(actor);
+    }
+    
+    protected abstract void performAttack (BaseActor actor);
 
     public void setAttackSpeed (int i) {
         // TODO Auto-generated method stub

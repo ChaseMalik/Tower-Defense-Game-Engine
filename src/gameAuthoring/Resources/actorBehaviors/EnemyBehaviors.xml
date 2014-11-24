@@ -1,8 +1,8 @@
 <behaviors>
- 	<movement>
+ 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
 		<element>LinearMovement</element>
 	</movement>
-	 <attack>
-		<element>ClosestAttack</element>
-	</attack>
+	<defend sliderName="health" sliderMin="1" sliderMax="4">
+		<element>SimpleDefense</element>
+	</defend>
 </behaviors>

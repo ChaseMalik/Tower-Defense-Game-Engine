@@ -10,6 +10,7 @@ import gameEngine.levels.BaseLevel;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import utilities.GSON.GSONFileReader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -50,6 +52,10 @@ public class SingleThreadedEngineManager implements Observer {
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
 	
+	private Map<Node, BaseTower> myNodeToTower;
+	private Collection<TowerInfoObject> myTowerInformation;
+	private GSONFileReader myFileReader;
+	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
 		myPauseRequested = new AtomicBoolean(false);
@@ -61,6 +67,8 @@ public class SingleThreadedEngineManager implements Observer {
 		myTimeline = createTimeline();
 		myTimeline.play();
 		myCurrentLevelIndex = 0;
+		myNodeToTower = new HashMap<>();
+		myFileReader = new GSONFileReader();
 	}
 
 	public void fastForward() {
@@ -75,7 +83,18 @@ public class SingleThreadedEngineManager implements Observer {
 		myUpdateRate = magnitude;
 	}
 
-	public boolean addTower(String identifier, double x, double y) {
+	public String getTowerName(Node node) {
+		BaseTower tower = myNodeToTower.get(node);
+		return tower == null ? null : tower.toString();
+	}
+	
+	public void removeTower(Node node) {
+		BaseTower tower = myNodeToTower.get(node);
+		myNodeToTower.remove(node);
+		myTowerGroup.remove(tower);
+	}
+	
+	public Node addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
     	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
     	if(towerValidity){
@@ -85,8 +104,10 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setY(y);
         	newTowerNode.setVisible(true);
         	myTowerGroup.add(newTower);
+        	myNodeToTower.put(newTowerNode, newTower);
+        	return newTowerNode;
     	}
-    	return towerValidity;
+    	return null;
     }
 
 	private Timeline createTimeline() {
@@ -118,13 +139,16 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void gameUpdate() {
-		updateTowers();
-		updateEnemies();
-		updateProjectile();
+		updateActors(myTowerGroup);
+		updateActors(myEnemyGroup);
+		updateActors(myProjectileGroup);
 		addEnemies();
 		if(myEnemyGroup.getChildren().size() <= 0) {
 			onLevelEnd();
 		}
+		myTowerGroup.clearAndExecuteRemoveBuffer();
+		myEnemyGroup.clearAndExecuteRemoveBuffer();
+		myProjectileGroup.clearAndExecuteRemoveBuffer();
 	}
 
 	private void onLevelEnd() {
@@ -142,47 +166,23 @@ public class SingleThreadedEngineManager implements Observer {
 		}
 	}
 	
-	private void updateTowers() {
-		for (BaseTower tower : myTowerGroup) {
-			InfoObject requiredInfo = getRequiredInformation(tower);
-			tower.update(requiredInfo);
-		}
-	}
-
-	private void updateEnemies() {
-		for (BaseEnemy enemy : myEnemyGroup) {
-			InfoObject requiredInfo = getRequiredInformation(enemy);
-			enemy.update(requiredInfo);
-		}
-	}
-
-	private void updateProjectile() {
-		for (BaseProjectile projectile : myProjectileGroup) {
-			InfoObject requiredInfo = getRequiredInformation(projectile);
-			projectile.update(requiredInfo);
-			projectileHitDetection(projectile);
-		}
-	}
-
-	private void projectileHitDetection(BaseProjectile projectile) {
-		for (BaseEnemy enemy : myEnemyGroup) {
-			if (isCollided(projectile, enemy)) {
-				// Do stuff
+	private void updateActors(RangeRestrictedCollection<? extends BaseActor> actorGroup) {
+		for (BaseActor actor : actorGroup) {
+			if(actor.isDead()){
+				actorGroup.addActorToRemoveBuffer(actor);
 			}
+			else {
+				InfoObject requiredInfo = getRequiredInformation(actor);
+				actor.update(requiredInfo);
+			}	
 		}
-	}
-
-	private boolean isCollided(BaseActor actor, BaseActor otherActor) {
-		Node actorNode = actor.getNode();
-		Node otherNode = otherActor.getNode();
-		return actorNode.isVisible() && otherNode.isVisible()
-				&& actorNode.intersects(otherNode.getBoundsInLocal());
 	}
 
 	private InfoObject getRequiredInformation(BaseActor actor) {
 		Collection<Class<? extends BaseActor>> infoTypes = actor.getTypes();
 		List<BaseActor> enemyList = new ArrayList<>();
 		List<BaseActor> towerList = new ArrayList<>();
+		List<BaseActor> projectileList=new ArrayList<>();
 		for (Class<? extends BaseActor> infoType : infoTypes) {
 			if (BaseEnemy.class.isAssignableFrom(infoType)) {
 				enemyList = myEnemyGroup.getActorsInRange(actor);
@@ -190,8 +190,11 @@ public class SingleThreadedEngineManager implements Observer {
 			if (BaseTower.class.isAssignableFrom(infoType)) {
 				towerList = myTowerGroup.getActorsInRange(actor);
 			}
+			if (BaseProjectile.class.isAssignableFrom(infoType)){
+			        projectileList= myProjectileGroup.getActorsInRange(actor);
+			}
 		}
-		return new InfoObject(enemyList, towerList);
+		return new InfoObject(enemyList, towerList, projectileList);
 	}
 
 	public void pause() {
@@ -202,7 +205,16 @@ public class SingleThreadedEngineManager implements Observer {
 		myPauseRequested.set(false);
 	}
 
-	public void initializeGame(String towerFile, String levelFile) {
+	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
+		if(!myReadyToPlay.get()) {
+			return null;
+		}
+		return myTowerInformation;
+	}
+	
+	public void initializeGame(String directory) {
+		String towerFile = null; 
+		String levelFile = null;
 		myReadyToPlay.set(false);
 		loadTowers(towerFile);
 		loadLevelFile(levelFile);
@@ -210,16 +222,29 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	public void loadTowers(String towerFile) {
-		List<TowerUpgradeGroup> availableTowers = null;
+		List<TowerUpgradeGroup> availableTowers = null; //= myFileReader.readTowerFromFile(towerFile);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
+			TowerInfoObject prevInfoObject = null;
 			for (BaseTower tower : towerGroup) {
 				String towerName = tower.toString();
 				myPrototypeTowerMap.put(towerName, tower);
+				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), 0);
+				if(prevInfoObject != null) {
+					prevInfoObject.setNextTower(currentInfoObject);
+				}
+				else{
+					myTowerInformation.add(currentInfoObject);
+				}
+				prevInfoObject = currentInfoObject;
+			}
+			if(prevInfoObject != null) {
+				prevInfoObject.setNextTower(new NullTowerInfoObject());
 			}
 		}
 	}
 
 	private void loadLevelFile(String levelFile) {
+		//myFileReader.readLevel(levelFile);
 		myLevels = new ArrayList<>();
 		
 	}

@@ -9,5 +9,5 @@ package gamePlayer.guiItemsListeners;
 
 public interface PlayButtonListener {	
 	public void pause();
-	public void play();		
+	public void play();	
 }

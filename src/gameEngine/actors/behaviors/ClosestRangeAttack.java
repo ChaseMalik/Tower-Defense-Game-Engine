@@ -1,12 +1,10 @@
 package gameEngine.actors.behaviors;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
+import java.util.List;
+import javafx.geometry.Point2D;
 /**
  * Example of BaseAttack, where the actor shoots at the nearest opposing actor
  * 
@@ -15,16 +13,12 @@ import gameEngine.actors.BaseTower;
  */
 public class ClosestRangeAttack extends RangeAttack {
 
-    public ClosestRangeAttack (int attackSpeed) {
+    public ClosestRangeAttack (double attackSpeed) {
         super(attackSpeed);
     }
 
     @Override
-    public void execute (BaseActor actor) {
-        if(!readyToShoot()){
-            myCooldown--;
-            return;
-        }
+    public void performAttack (BaseActor actor) {
         List<BaseActor> shootable = getShootableActors(actor);
         if(shootable.equals(null))
             return;
@@ -59,10 +53,7 @@ public class ClosestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
-        return null;
+        return new ClosestRangeAttack(myAttackSpeed);
     }
-
-
 
 }

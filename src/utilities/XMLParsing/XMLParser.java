@@ -1,5 +1,6 @@
 package utilities.XMLParsing;
 
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +25,9 @@ import org.xml.sax.SAXException;
  */
 public class XMLParser {
 
+    private static final String SLIDER_NAME = "sliderName";
+    private static final String SLIDER_MIN = "sliderMin";
+    private static final String SLIDER_MAX = "sliderMax";
     private Document myDocument;
 
     public XMLParser(File file)  {
@@ -70,6 +74,14 @@ public class XMLParser {
         return allBehaviorTypes;
     }
     
+    public SliderInfo getSliderInfo (String behaviorType) {
+        Element tag =  (Element) myDocument.getElementsByTagName(behaviorType).item(0);
+        String sliderName = tag.getAttribute(SLIDER_NAME);
+        double sliderMin = Double.parseDouble(tag.getAttribute(SLIDER_MIN));
+        double sliderMax = Double.parseDouble(tag.getAttribute(SLIDER_MAX));
+        return new SliderInfo(sliderName, sliderMin, sliderMax);
+    }
+    
 
     public List<Integer> getIntegerValuesFromTag(String tagName) {
         return getValuesFromTag(tagName)
@@ -84,6 +96,5 @@ public class XMLParser {
     public Dimension2D getDimension(String tagName) {
         List<Double> dimensionList = getDoubleValuesFromTag(tagName);
         return new Dimension2D(dimensionList.get(0),dimensionList.get(1));
-    }
-    
+    }    
 }
