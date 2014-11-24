@@ -1,8 +1,10 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.ProjectileInfo;
 import gameEngine.actors.behaviors.LinearMovement;
+import java.io.File;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,12 +18,14 @@ import utilities.DragAndDropFilePanes.DragAndDropImagePane;
 
 public class ProjectilePane extends Observable implements Observer {
     
-    private static final String PROJECTILE_IMG_DIR = "./src/gameAuthoring/Resources/projectileImages/";
+    private static final String PROJECTILE_IMG_DIR = AuthorController.gameDir + "projectileImages/";
     private SliderContainer mySliderContainer;
     private HBox myContainer;
     private DragAndDropImagePane myDropImgPane;
     
     public ProjectilePane() {
+        File dir = new File(PROJECTILE_IMG_DIR);
+        dir.mkdir();
         myContainer = new HBox(20);
         myContainer.setPadding(new Insets(10));
         mySliderContainer = new SliderContainer("speed", 0, 5);

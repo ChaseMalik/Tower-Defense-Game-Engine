@@ -55,6 +55,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         super(root, title);
         myTitle = title;
         myActorImageDirectory = actorImageDirectory;
+        File imgDir = new File(myActorImageDirectory);
+        imgDir.mkdir();
         setupBehaviorBuilders(behaviorXMLFileLocation);
         setupFileMenu();
         initializeActorsAndBuildActorDisplay();
