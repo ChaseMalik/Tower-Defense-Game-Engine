@@ -1,6 +1,7 @@
 package gamePlayer.guiItems.welcome;
 
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 
@@ -20,7 +21,8 @@ public class ButtonPane implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		mySize = containerSize;
-		myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
 		setupPane();
 		setupButtons();
 	}
@@ -52,7 +54,12 @@ public class ButtonPane implements GuiItem {
 		Button button = new Button(name);
 		button.setMinSize(buttonSize.getWidth(), buttonSize.getHeight());
 		button.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
+		button.setOnAction(event -> doStuff(name));
 		myPane.getChildren().add(button);
+	}
+	
+	private void doStuff(String name) {
+		GuiConstants.WELCOME_MANAGER.newGame();
 	}
 
 }

@@ -18,8 +18,9 @@ public class SpeedButton extends ControlDockButton {
     @Override
     public void initialize (Dimension2D containerSize) {
         super.initialize(containerSize);
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
-
+        String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
+        
         ffImage = myParser.getValuesFromTag("FastForwardImage").get(0);
         slowImage = myParser.getValuesFromTag("SlowDownImage").get(0);
 

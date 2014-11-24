@@ -1,5 +1,7 @@
 package gamePlayer.mainClasses;
 
+import gamePlayer.mainClasses.managers.GuiManager;
+import gamePlayer.mainClasses.managers.WelcomeManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,9 +21,9 @@ public class Main extends Application {
         //builder will set up the application using the stage and given properties
     	
     	WelcomeManager welcomeManager = new WelcomeManager(stage);
+    	GuiManager manager = new GuiManager(stage);
     	welcomeManager.init();
-//    	GuiManager manager = new GuiManager(stage);
-//    	manager.init();
+    	//manager.init();
     	/*
     	
         TestGameManager manager = new TestGameManager(stage);

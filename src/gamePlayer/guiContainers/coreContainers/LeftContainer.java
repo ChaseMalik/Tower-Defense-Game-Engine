@@ -1,9 +1,12 @@
 package gamePlayer.guiContainers.coreContainers;
 
 import gamePlayer.guiContainers.GuiContainer;
-import gamePlayer.mainClasses.GuiElement;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiElement;
+
 import java.io.File;
 import java.util.List;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -20,7 +23,8 @@ public class LeftContainer extends VBox implements GuiContainer {
 
     @Override
     public void initialize (Dimension2D containerSize) {
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
         
         //set component size
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");

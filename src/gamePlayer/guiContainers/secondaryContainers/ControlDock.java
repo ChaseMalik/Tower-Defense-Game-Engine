@@ -1,9 +1,12 @@
 package gamePlayer.guiContainers.secondaryContainers;
 
+import gamePlayer.guiContainers.GuiContainer;
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiElement;
+
 import java.io.File;
 import java.util.List;
-import gamePlayer.guiContainers.GuiContainer;
-import gamePlayer.mainClasses.GuiElement;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.TilePane;
@@ -15,7 +18,8 @@ public class ControlDock extends TilePane implements GuiContainer {
 
     @Override
     public void initialize (Dimension2D containerSize) {
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+        myParser = new XMLParser(new File(propertiesPath)); 
         
         //set component size
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
