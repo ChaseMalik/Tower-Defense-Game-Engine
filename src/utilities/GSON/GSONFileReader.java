@@ -29,9 +29,9 @@ public class GSONFileReader {
     	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
     }
 
-    public List<TowerUpgradeGroup> readTowerFromFile(String fileName, String directory){
+    public List<TowerUpgradeGroup> readTowerFromFile(String fileName){
         try{		
-            BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));	
+            BufferedReader br = new BufferedReader( new FileReader(fileName+".json"));	
             towerList = gson.create().fromJson(br, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() );	
         } catch(IOException e){
             new ErrorPopup("File" +fileName+ ".json could not be found.");
@@ -40,9 +40,9 @@ public class GSONFileReader {
     }
 
 
-    public List<BaseLevel> readLevelfromFile(String fileName, String directory){
+    public List<BaseLevel> readLevelfromFile(String fileName){
         try{		
-            BufferedReader br = new BufferedReader( new FileReader(directory +fileName+".json"));        
+            BufferedReader br = new BufferedReader( new FileReader(fileName+".json"));        
             levelList = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());  
         } catch(IOException e){
             new ErrorPopup("File" +fileName+ ".json could not be found.");

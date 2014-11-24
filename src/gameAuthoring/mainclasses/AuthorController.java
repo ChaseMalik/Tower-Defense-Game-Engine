@@ -14,6 +14,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,7 +40,7 @@ public class AuthorController extends Application implements Observer {
     public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
     public static String gameDir;
-    
+
     private String gameName;
 
     private EnemyBuildingScene myEnemyBuildingScene;
@@ -62,13 +63,13 @@ public class AuthorController extends Application implements Observer {
     public void start (Stage stage) throws Exception {
         myStage = stage;
         buildScenes();
-//          showPathBuildingScene();
-                showWelcomeScene();
-//        List<BackendRoute> routes = new ArrayList<BackendRoute>();
-//        routes.add(new BackendRoute());
-//        myBackendRoutes = routes;
-//        showEnemyBuildingScene();
-//        showGSONWritingScene();
+        //          showPathBuildingScene();
+        //                showWelcomeScene();
+        List<BackendRoute> routes = new ArrayList<BackendRoute>();
+        routes.add(new BackendRoute());
+        myBackendRoutes = routes;
+        showEnemyBuildingScene();
+        //        showGSONWritingScene();
         configureAndDisplayStage();
 
     }
@@ -122,7 +123,7 @@ public class AuthorController extends Application implements Observer {
             gameName = (String) value;
             gameDir = "./Games/" + gameName + "/";
             File dir = new File(gameDir);
-            
+
             dir.mkdir();
             showPathBuildingScene();
         }
@@ -160,9 +161,9 @@ public class AuthorController extends Application implements Observer {
         myStage.setTitle("Writing Game"); 
         GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir); 
         GSONFileReader reader = new GSONFileReader();
-        List<TowerUpgradeGroup> list = reader.readTowerFromFile("towers", gameDir);
+        List<TowerUpgradeGroup> list = reader.readTowerFromFile(gameDir + "towers");
         System.out.println(list.size());
-        List<BaseLevel> list2 = reader.readLevelfromFile("levels", gameDir);
+        List<BaseLevel> list2 = reader.readLevelfromFile(gameDir + "levels");
         System.out.println(list2.size());
     }
 
