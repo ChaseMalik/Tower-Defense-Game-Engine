@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedEnemiesDisplay;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseEnemy;
@@ -18,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 public class EnemyBuildingScene extends ActorBuildingScene {
 
     private static final String TITLE = "Enemy";
-    private static final String IMG_DIR = "./src/gameAuthoring/Resources/enemyImages/";
+    private static final String IMG_DIR = AuthorController.gameDir + "/enemyImages/";
     private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/actorBehaviors/EnemyBehaviors.xml";
 
     private List<BaseEnemy> myEnemies;
@@ -27,6 +28,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     public EnemyBuildingScene (BorderPane root, List<BackendRoute> enemyRoutes) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myEnemyRoutes = enemyRoutes;
+        
     }
 
     @Override
