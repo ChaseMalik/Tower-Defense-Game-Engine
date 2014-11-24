@@ -1,5 +1,7 @@
 package gamePlayer.guiItems.gameWorld;
 
+import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -30,7 +32,7 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		myMap.setPrefSize(containerSize.getWidth(), containerSize.getHeight());
+		myMap.resize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
 		myMap.getStyleClass().add("GameWorld");
 		myListener.registerGameWorld(this);
 		addTestGameItems();

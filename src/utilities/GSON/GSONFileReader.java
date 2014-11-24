@@ -26,7 +26,6 @@ public class GSONFileReader {
     }
 
     public List<TowerUpgradeGroup> readTowersFromGameDirectory(String gameDir){
-    	System.out.println(gameDir);
         try{		
             BufferedReader br = new BufferedReader(new FileReader(gameDir + "towers.json"));	
             towerList = gson.create().fromJson(br, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() );	

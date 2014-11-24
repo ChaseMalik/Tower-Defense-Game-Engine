@@ -17,7 +17,6 @@ public class StoreItem {
     
     public StoreItem(String name, String imagePath, BooleanProperty available) {
         this.name = name;
-        System.out.println(imagePath);
         this.imageView = StringToImageViewConverter.getImageView(100, 100, imagePath);
         this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
