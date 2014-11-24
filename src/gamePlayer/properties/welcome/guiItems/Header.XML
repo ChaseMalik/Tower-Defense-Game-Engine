@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HeaderProperties>
+
+	<ImageScale>
+		<element>0.8</element>
+	</ImageScale>
+	
+	<Image>
+	    <element>gamePlayer/turretImages/Turret_1_1.png</element>
+	</Image>
+
+</HeaderProperties>

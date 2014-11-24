@@ -34,10 +34,7 @@ import java.util.Map;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -70,11 +67,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;	
 		gameRunning = false;
-		fillStore(new HashSet<TowerInfoObject>());
 	}
 	
 	public void init() {
 		myRoot = GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
+		fillStore(new HashSet<TowerInfoObject>());
 	}
 	
 	private void startGame(String directoryPath){

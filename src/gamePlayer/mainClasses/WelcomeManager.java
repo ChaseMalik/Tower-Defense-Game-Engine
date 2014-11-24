@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 
 public class WelcomeManager {
 	
-	// TODO Create this file
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/welcome/WelcomeBuilderProperties.XML";
 
 	private Stage myStage;
