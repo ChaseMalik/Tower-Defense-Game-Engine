@@ -20,7 +20,6 @@ public class StringToImageViewConverter {
         ImageView imgView = new ImageView();
         try {
             Image image;
-            System.out.println(path);
             image = new Image(new FileInputStream(new File(path.replace("\\", "/"))), width, height, true, false);
             imgView.setImage(image);
         }
