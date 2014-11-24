@@ -224,7 +224,8 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 	
 	public void initializeGame(String directory) {
-		String correctedDirectory = directory += "\\";
+		//String correctedDirectory = directory += "\\";
+		String correctedDirectory = directory+= "/";
 		myReadyToPlay.set(false);
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
