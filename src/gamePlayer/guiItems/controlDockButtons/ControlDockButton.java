@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import utilities.XMLParsing.XMLParser;
 
 public abstract class ControlDockButton implements GuiItem {
+	
 	protected XMLParser myParser;
 	protected ImageView myImageView;
 	protected ToggleButton myButton;
