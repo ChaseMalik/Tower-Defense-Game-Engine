@@ -1,5 +1,7 @@
 package gamePlayer.mainClasses.managers;
 
+import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
@@ -73,19 +75,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 	
 	private void startGame(String directoryPath){
-	           /*
-	           Circle c = new Circle();
-	                c.setCenterX(50);
-	                c.setCenterY(50);
-	                c.setRadius(30);
-	                c.setFill(Color.BLACK);
-	                engineGroup.getChildren().add(c);*/
 	    myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		makeMap();
 		testHUD();
 		//myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
+		myGameWorld.getMap().getStyleClass().add("GameWorld");
+		System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
 		gameRunning = true;
 	}
 	
@@ -205,7 +202,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		double x = imageView.getX();
 		double y = imageView.getY();
 		myEngineManager.removeTower(imageView);
-		
+		//myEngineManager.addTower(upgradeName, x, y);
 	}
 	
 	private void testHUD() {
@@ -236,14 +233,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
-		/*
-		Circle c = new Circle();
-		c.setCenterX(x);
-		c.setCenterY(y);
-		c.setRadius(30);
-		c.setFill(Color.BLACK);
-		c.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(null,null));
-		myGameWorld.getMap().getChildren().add(c);*/
 	}
 	
 	@Override
@@ -269,5 +258,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void selectItem(int itemID) {
 		
+	}
+
+	@Override
+	public void sellTower(ImageView myTowerImageView) {
+		myEngineManager.removeTower(myTowerImageView);
+		//TODO: Cost stuff
 	}
 }

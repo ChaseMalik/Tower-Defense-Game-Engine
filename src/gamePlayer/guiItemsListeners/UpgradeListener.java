@@ -7,4 +7,5 @@ public interface UpgradeListener {
 
 	public void upgradeTower(ImageView myTowerImageView, String upgradeName);
 	public void registerUpgradePanel(TowerUpgradePanel upgradePanel);
+	public void sellTower(ImageView myTowerImageView);
 }

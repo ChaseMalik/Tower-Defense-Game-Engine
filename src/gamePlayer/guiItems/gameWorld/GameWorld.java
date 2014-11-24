@@ -33,7 +33,6 @@ public class GameWorld implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		myMap.resize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
-		myMap.getStyleClass().add("GameWorld");
 		myListener.registerGameWorld(this);
 		addTestGameItems();
 	}

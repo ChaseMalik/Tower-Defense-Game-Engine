@@ -13,7 +13,7 @@ public class MessageDisplay implements GuiItem {
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		mySize = containerSize;
+		mySize = new Dimension2D(containerSize.getWidth()*0.22, containerSize.getHeight());
 		textField = new TextField();
 		textField.setPrefSize(mySize.getWidth(), mySize.getHeight());
 		textField.getStyleClass().add("MessageDisplay");

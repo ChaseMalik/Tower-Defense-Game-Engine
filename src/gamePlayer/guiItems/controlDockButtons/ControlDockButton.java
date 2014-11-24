@@ -34,10 +34,13 @@ public abstract class ControlDockButton implements GuiItem {
 		} catch (NullPointerException npe) {
 			ExceptionHandler.getInstance().handle(npe);
 		}
+		myImageView.setImage(image2);
+		/*
 		myImageView.imageProperty().bind(
 				Bindings.when(myButton.selectedProperty())
 						.then(image1)
 						.otherwise(image2));
+		*/
 	}
 
 	protected void setUpSizing(Dimension2D containerSize) {
