@@ -27,9 +27,9 @@ public class LevelBuildingDisplay extends VBox {
     private List<BaseLevel> myLevels;
     private List<BaseEnemy> myEnemies;
     
-    public LevelBuildingDisplay(List<BaseEnemy> enemies) {
+    public LevelBuildingDisplay(List<BaseEnemy> enemies, List<BaseLevel> levels) {
         myEnemies = enemies;
-        myLevels = new ArrayList<BaseLevel>();
+        myLevels = levels;
     }
     
     public void addLevel(BaseLevel level) {
