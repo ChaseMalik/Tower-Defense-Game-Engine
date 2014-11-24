@@ -4,9 +4,11 @@ import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
@@ -27,12 +29,13 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     public LevelBuildingScene (BorderPane root, List<BaseEnemy> enemies) {
         super(root, TITLE);
         myEnemies = enemies;
+        myLevels = FXCollections.observableArrayList();
         createMenuAndAddNewLevelOption();     
         setupLevelDisplay();    
     }
 
     private void setupLevelDisplay () {
-        myLevelsDisplay = new LevelBuildingDisplay(myEnemies);
+        myLevelsDisplay = new LevelBuildingDisplay(myEnemies, myLevels);
         myLevelsDisplay.addLevel(new BaseLevel());
         myPane.setCenter(myLevelsDisplay);        
     }

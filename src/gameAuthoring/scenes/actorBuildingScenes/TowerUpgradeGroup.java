@@ -31,7 +31,7 @@ public class TowerUpgradeGroup implements Iterable<BaseTower> {
         }
         return false;
     }
-
+    
     @Override
     public Iterator<BaseTower> iterator () {
         return myTowerGroup.iterator();

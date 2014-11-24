@@ -1,7 +1,6 @@
 package gameAuthoring.scenes;
 
 import java.util.Observable;
-import gameAuthoring.mainclasses.AuthorController;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -20,7 +19,6 @@ public abstract class BuildingScene extends Observable {
     }
     
     private String getStyleSheetFileName () {
-        System.out.println(myTitle.concat("building").toLowerCase().concat(".css"));
         return STYLESHEET_PACKAGE + myTitle.concat("building").toLowerCase().concat(".css");
     }
 
