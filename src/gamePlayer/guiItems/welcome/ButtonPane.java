@@ -58,10 +58,12 @@ public class ButtonPane implements GuiItem {
 	}
 	
 	private void makeButton(String name) {
+		
 		Button button = new Button(name);
 		button.setMinSize(buttonSize.getWidth(), buttonSize.getHeight());
 		button.setPrefSize(buttonSize.getWidth(), buttonSize.getHeight());
 		button.setOnAction(event -> doStuff(name));
+		
 		myPane.getChildren().add(button);
 	}
 	
