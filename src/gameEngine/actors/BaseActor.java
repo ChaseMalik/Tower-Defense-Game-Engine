@@ -36,10 +36,10 @@ public abstract class BaseActor extends Observable {
     protected InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
-    private transient Set<Class<? extends BaseActor>> myTypes;
-    private Set<BaseEffectBehavior> myEffects;
+    protected transient Set<Class<? extends BaseActor>> myTypes;
+    protected Set<BaseEffectBehavior> myEffects;
     private boolean myIsRemovable;
-    private List<IBehavior> myDebuffs;
+    protected List<IBehavior> myDebuffs;
     public BaseActor () {
 
     }
@@ -50,6 +50,7 @@ public abstract class BaseActor extends Observable {
         myImagePath = imageName;
         myRange = range;
         myDebuffs=new ArrayList<>();
+        myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
         for (String s : behaviors.keySet()) {

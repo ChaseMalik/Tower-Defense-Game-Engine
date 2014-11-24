@@ -20,7 +20,7 @@ public class ClosestRangeAttack extends RangeAttack {
     @Override
     public void performAttack (BaseActor actor) {
         List<BaseActor> shootable = getShootableActors(actor);
-        if(shootable.equals(null))
+        if(shootable==null)
             return;
         BaseActor enemy = getClosestActor(actor, shootable);
         shootActorFromActor(enemy, actor);

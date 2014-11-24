@@ -19,7 +19,7 @@ public class FarthestEnemyRangeAttack extends RangeAttack{
     public void performAttack (BaseActor actor) {
         RealActor shooter=(RealActor)actor;
         BaseActor shootable=getFarthestActor(shooter, actor.getEnemiesInRange());
-        if(shootable.equals(null))
+        if(null==shootable)
             return;
         shootActorFromActor(shootable, actor);
     }
