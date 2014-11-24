@@ -27,16 +27,16 @@ public class TowerPlacer {
      * Drags an item and attempts to place it on the map
      * 
      * @param rootNode : The Node to attach the mouseListener to
-     * @param towerID : The unique identifier of the item (tower) to be placed
+     * @param itemID : The unique identifier of the item (tower) to be placed
      */
-    public void placeItem(String towerID, Pane rootNode) {
+    public void placeItem(String itemID, Pane rootNode) {
 
         Circle dragCircle = new Circle(50, Color.RED);
         dragCircle.setOpacity(0.1);
 
         // TODO : Add the image of the tower to be added to the dragged object
         rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY()));
-        rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), towerID, rootNode));
+        rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), itemID, rootNode));
         rootNode.getChildren().add(dragCircle);
         
     }
@@ -54,8 +54,7 @@ public class TowerPlacer {
     private void drop(Circle node, double X, double Y, String towerID, Node rootNode) {
 
         if (!validPlacement(X,Y)) {
-        	// TODO : Make this an alert message
-            System.out.println("Invalid placement");
+            GuiConstants.GUI_MANAGER.displayMessage("Invalid placement");
             return;
         }
 
