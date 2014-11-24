@@ -6,6 +6,7 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public abstract class BaseActor extends Observable {
     private transient Set<Class<? extends BaseActor>> myTypes;
     private Set<BaseEffectBehavior> myEffects;
     private boolean myIsRemovable;
-
+    private List<IBehavior> myDebuffs;
     public BaseActor () {
 
     }
@@ -48,6 +49,7 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
+        myDebuffs=new ArrayList<>();
         myTypes = new HashSet<>();
         for (String s : behaviors.keySet()) {
             if (behaviors.get(s).getType() != null) {
@@ -62,12 +64,20 @@ public abstract class BaseActor extends Observable {
      */
     public void update (InfoObject info) {
         myInfo = info;
+        for(IBehavior debuff: myDebuffs){
+            debuff.execute(this);
+        }
         for (String s : myBehaviors.keySet()) {
             myBehaviors.get(s).execute(this);
         }
 
     }
-
+    public void addDebuff(IBehavior debuff){
+        myDebuffs.add(debuff);
+    }
+    public void removeDebuff(IBehavior debuff){
+        myDebuffs.remove(debuff);
+    }
     protected void makeNode () {
         myNode = StringToImageViewConverter.getImageView(ActorBuildingScene.ACTOR_IMG_WIDTH,
                                                          ActorBuildingScene.ACTOR_IMG_WIDTH,
