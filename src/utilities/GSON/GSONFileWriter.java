@@ -18,7 +18,7 @@ public class GSONFileWriter {
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
                                String directory) {
-        System.out.println(directory);
+
         writeToFile("towers", gson.toJson(towerGroups), directory);
         writeToFile("levels", gson.toJson(levels), directory);    
     }
@@ -30,6 +30,7 @@ public class GSONFileWriter {
             writer.write(json);
             writer.close();				
         }catch(IOException e) {
+            e.printStackTrace();
             new ErrorPopup("File to store actors could not be found.");
         }
     }
