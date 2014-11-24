@@ -24,6 +24,7 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 	}
 
 	public RangeRestrictedCollection() {
+	    myActorsToRemove = new ArrayList<>();
 		myActorsList = new ArrayList<>();
 	}
 
@@ -33,8 +34,10 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 	}
 
 	public void add(T actor) {
-		myActorsList.add(actor);
-		getChildren().add(actor.getNode());
+	        if(actor != null){
+	            myActorsList.add(actor);
+	            getChildren().add(actor.getNode());
+	        }		
 	}
 
 	public List<BaseActor> getActorsInRange(BaseActor actor) {
@@ -63,17 +66,19 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 	}
 
 	public boolean addActorToRemoveBuffer(BaseActor actor) {
-		boolean canBeRemoved;
-		try{
-			canBeRemoved = myActorsList.contains(actor);
-			if(canBeRemoved){
-				T castedActor = (T) actor;
-				myActorsToRemove.add(castedActor);
-			}	
-		}
-		catch(ClassCastException | NullPointerException ex) {
-			canBeRemoved = false;
-		}
+	    boolean canBeRemoved = false;
+	        if(actor != null){	            
+	                try{
+	                        canBeRemoved = myActorsList.contains(actor);
+	                        if(canBeRemoved){
+	                                T castedActor = (T) actor;
+	                                myActorsToRemove.add(castedActor);
+	                        }       
+	                }
+	                catch(ClassCastException | NullPointerException ex) {
+	                        canBeRemoved = false;
+	                }
+	        }		
 		return canBeRemoved;
 	}
 

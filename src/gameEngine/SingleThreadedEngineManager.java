@@ -56,20 +56,27 @@ public class SingleThreadedEngineManager implements Observer {
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	private GSONFileReader myFileReader;
+	private Group myMainGroup;
 	
 	public SingleThreadedEngineManager(Group engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
 		myPauseRequested = new AtomicBoolean(false);
+		myEnemyGroup = new RangeRestrictedCollection<>();
 		myTowerGroup = new RangeRestrictedCollection<>();
 		myProjectileGroup = new RangeRestrictedCollection<>();
-		engineGroup.getChildren();
-
+		engineGroup.getChildren().add(myTowerGroup);
+		engineGroup.getChildren().add(myProjectileGroup);
+		engineGroup.getChildren().add(myEnemyGroup);
+		myTowerInformation = new ArrayList<>();
 		myEnemiesToAdd = new LinkedList<>();
 		myTimeline = createTimeline();
-		myTimeline.play();
+		//myTimeline.play();
 		myCurrentLevelIndex = -1;
 		myNodeToTower = new HashMap<>();
+		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
+		myMainGroup = engineGroup;
+		myUpdateRate = 1.0;
 	}
 
 	public void fastForward() {
@@ -115,7 +122,7 @@ public class SingleThreadedEngineManager implements Observer {
 		EventHandler<ActionEvent> frameEvent = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (!myPauseRequested.get() && myReadyToPlay.get()) {
+				if ( myReadyToPlay.get()) {
 					double now = System.nanoTime();
 					double adjustedUpdateInterval = FRAME_DURATION
 							/ myUpdateRate;
@@ -136,6 +143,7 @@ public class SingleThreadedEngineManager implements Observer {
 		KeyFrame keyFrame = new KeyFrame(Duration.millis(FRAME_DURATION),
 				frameEvent);
 		Timeline timeline = new Timeline(FPS, keyFrame);
+		timeline.setCycleCount(Timeline.INDEFINITE);
 		return timeline;
 	}
 
@@ -199,11 +207,13 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	public void pause() {
-		myPauseRequested.set(true);
+		//myPauseRequested.set(true);
+	    myTimeline.pause();
 	}
 
 	public void resume() {
-		myPauseRequested.set(false);
+		//myPauseRequested.set(false);
+	    myTimeline.play();
 	}
 
 	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
@@ -264,6 +274,7 @@ public class SingleThreadedEngineManager implements Observer {
 			}		
 		}
 		myIntervalBetweenEnemies = levelDuration*ONE_SECOND_IN_MILLIS/myEnemiesToAdd.size();
+		myCurrentLevel = level;
 	}
 	
 	@Override

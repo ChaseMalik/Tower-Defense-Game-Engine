@@ -25,4 +25,8 @@ public class BaseEnemy extends RealActor {
         Map<String, IBehavior> cBehaviors=copyBehaviors();
         return new BaseEnemy(cBehaviors, myImagePath, myName, myRange, myProjectile, myRoutes);
     }
+    @Override
+    protected int[] getSize () {
+        return new int[]{50,50};
+    }
 }

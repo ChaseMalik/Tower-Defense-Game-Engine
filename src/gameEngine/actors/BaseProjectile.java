@@ -25,7 +25,10 @@ public class BaseProjectile extends BaseActor{
         behaviors.put(MOVEMENT,myInfo.getMove());
         myBehaviors=behaviors;
     }
-
+    @Override
+    protected int[] getSize () {
+        return new int[]{10,10};
+    }
 
     public void setMove(BaseMovementBehavior move){
         myBehaviors.put(MOVEMENT, move);

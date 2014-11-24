@@ -23,14 +23,13 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
@@ -71,20 +70,30 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	public void init() {
 		myRoot = GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
-		fillStore(new HashSet<TowerInfoObject>());
+		
 	}
 	
 	private void startGame(String directoryPath){
+	    Group engineGroup = new Group();
+	           /*
+	           Circle c = new Circle();
+	                c.setCenterX(50);
+	                c.setCenterY(50);
+	                c.setRadius(30);
+	                c.setFill(Color.BLACK);
+	                engineGroup.getChildren().add(c);*/
+	    myEngineManager = new SingleThreadedEngineManager(myRoot);
 		myEngineManager.initializeGame(directoryPath);
 		makeMap();
 		testHUD();
-		Group engineGroup = new Group();
-		myEngineManager = new SingleThreadedEngineManager(engineGroup);
+		//myRoot.getChildren().add(engineGroup);
 		myGameWorld.addEngineGroup(engineGroup);
+		fillStore(myEngineManager.getAllTowerTypeInformation());
 		gameRunning = true;
 	}
 	
 	private void makeMap(){
+	    towerMap = new HashMap<String, TowerInfoObject>();
 		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
 			towerMap.put(info.getName(), info);
 			TowerInfoObject next = info.getMyUpgrade();
@@ -155,13 +164,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void normalSpeed() {
 		if (!gameRunning) return;
-		myEngineManager.changeRunSpeed(1.0);
+		//myEngineManager.changeRunSpeed(1.0);
+		play();
 	}
 
 	@Override
 	public void fastForward() {
 		if (!gameRunning) return;
-		myEngineManager.changeRunSpeed(3.0);
+		//myEngineManager.changeRunSpeed(3.0);
+		play();
 	}
 
 	@Override
@@ -172,18 +183,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
-		
 		for (TowerInfoObject info: towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
-		
+		/*
 		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
         String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
         BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
         BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
         storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
-        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));
+        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));*/
 		
 		myStore.fillStore(storeItems);
 	}
