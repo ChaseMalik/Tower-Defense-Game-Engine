@@ -9,6 +9,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 
@@ -17,6 +18,7 @@ public class ButtonPane implements GuiItem {
 	private XMLParser myParser;
 	private VBox myPane;
 	private Dimension2D mySize, buttonSize;
+	private ProgressIndicator indicator;
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
@@ -50,6 +52,11 @@ public class ButtonPane implements GuiItem {
 		}
 	}
 	
+	private void addProgressIndicator() {
+		indicator = new ProgressIndicator();
+		myPane.getChildren().add(indicator);
+	}
+	
 	private void makeButton(String name) {
 		Button button = new Button(name);
 		button.setMinSize(buttonSize.getWidth(), buttonSize.getHeight());
@@ -59,6 +66,7 @@ public class ButtonPane implements GuiItem {
 	}
 	
 	private void doStuff(String name) {
+		addProgressIndicator();
 		GuiConstants.WELCOME_MANAGER.newGame();
 	}
 
