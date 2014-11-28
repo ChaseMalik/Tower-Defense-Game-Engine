@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import utilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 
 /**
@@ -20,9 +22,10 @@ import utilities.errorPopup.ErrorPopup;
  * @author Austin Kyker
  *
  */
-public class DefaultMapSelectionPane extends Observable {
+public class DefaultMapSelectionPane {
 
-    private static final String DEFAULT_MAP_IMAGES_DIR = "./src/gameAuthoring/Resources/DefaultMapImages/";
+    private static final String DEFAULT_MAP_IMAGES_DIR = 
+            "./src/gameAuthoring/Resources/DefaultMapImages/";
     public static final Double SCREEN_WIDTH_RATIO = 0.15;
     public static final Double PANE_WIDTH = AuthorController.SCREEN_WIDTH*SCREEN_WIDTH_RATIO;
     private static final Double IMAGE_WIDTH = PANE_WIDTH-40;
@@ -32,10 +35,12 @@ public class DefaultMapSelectionPane extends Observable {
 
     private ScrollPane myScrollPane;
     private VBox myImageDisplayVBox;
+    private BackgroundBuilding myPathBackgroundBuildingController;
 
 
 
-    public DefaultMapSelectionPane(){
+    public DefaultMapSelectionPane(BackgroundBuilding controller){
+        myPathBackgroundBuildingController = controller;
         myScrollPane = new ScrollPane();
         myScrollPane.setPrefWidth(PANE_WIDTH);
         File mapDirectory = new File(DEFAULT_MAP_IMAGES_DIR);
@@ -46,22 +51,18 @@ public class DefaultMapSelectionPane extends Observable {
         myImageDisplayVBox.setPadding(new Insets(IMAGE_PADDING));
 
         for(File f:defaultMapImages){
-            ImageView imgView = new ImageView();
-            try {
-                imgView.setImage(new Image(new FileInputStream(f), IMAGE_WIDTH, IMAGE_HEIGHT, false,true) );
-                imgView.setOnMouseClicked(event -> handleImageClick(f));
-                myImageDisplayVBox.getChildren().add(imgView);
-            } catch (FileNotFoundException e) {
-                new ErrorPopup("Image File Not Found");
-            }				
+            ImageView imgView = StringToImageViewConverter.getImageView(IMAGE_WIDTH, 
+                                                                        IMAGE_HEIGHT, 
+                                                                        f.getPath());
+            imgView.setOnMouseClicked(event -> handleImageClick(f));
+            myImageDisplayVBox.getChildren().add(imgView);		
         }
 
         myScrollPane.setContent(myImageDisplayVBox);		
     }
 
     private void handleImageClick(File fileCorrespondingToMapSelected) {
-        this.setChanged();
-        this.notifyObservers(fileCorrespondingToMapSelected);
+        myPathBackgroundBuildingController.setBackground(fileCorrespondingToMapSelected.getPath());
     }
 
     public ScrollPane getDefaultMapsScrollPane(){

@@ -22,7 +22,7 @@ import utilities.errorPopup.ErrorPopup;
  *
  */
 public abstract class DragAndDropFilePane extends Observable {
-    
+
     private String[] myValidExtensions;
     private String myFileDestination;
     protected Pane myContainer;
@@ -59,7 +59,7 @@ public abstract class DragAndDropFilePane extends Observable {
         if (db.hasFiles()) {
             success = true;
             for (File file : db.getFiles()) {
-                String fileName = file.toPath().toString();
+                String fileName = file.getPath();
                 for(String extension:myValidExtensions){
                     if(fileName.toLowerCase().contains(extension)){
                         File targetFile = new File(myFileDestination + file.getName().toString());
@@ -80,8 +80,6 @@ public abstract class DragAndDropFilePane extends Observable {
         event.consume();
     }
 
-
-    
     protected abstract void actOnFile ();
 
     private void handleDragExit (DragEvent event) {
@@ -108,6 +106,6 @@ public abstract class DragAndDropFilePane extends Observable {
     public void reset () {
         myContainer.getChildren().clear();
         myContainer.getChildren().add(myDragAndDropPane);
-        
+
     }
 }

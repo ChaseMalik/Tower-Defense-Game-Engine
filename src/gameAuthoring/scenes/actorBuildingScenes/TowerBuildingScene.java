@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
@@ -29,19 +30,20 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private static final double DRAG_AND_DROP_HEIGHT = 380;
     private static final String TITLE = "Tower";
     private static final String IMG_DIR = AuthorController.gameDir + "/towerImages/";
-    private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
+    private static final String BEHAVIOR_XML_LOC = 
+            "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
 
-    private List<BaseEnemy> myCreatedEnemies;
     private List<BaseEnemy> myEnemiesTowerCanShoot;
     private ProjectilePane myProjectilePane;
     private List<TowerUpgradeGroup> myTowerUpgradeGroups;
     private EnemySelectionDisplay myEnemySelectionView;
     private TilePane myTilePane;
     private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
+    private TowerConfiguring myTowerConfiguringController;
 
-    public TowerBuildingScene (BorderPane root, List<BaseEnemy> enemies) {
+    public TowerBuildingScene (BorderPane root, TowerConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
-        myCreatedEnemies = enemies;
+        myTowerConfiguringController = controller;
     }
 
     /**
@@ -62,7 +64,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     }
 
     private void setupEnemyTowerCanShootSelection () {
-        myEnemySelectionView = new EnemySelectionDisplay(myCreatedEnemies);
+        myEnemySelectionView = new EnemySelectionDisplay(myTowerConfiguringController.fetchEnemies());
         myEnemySelectionView.setPrefHeight(ENEMY_DISPLAY_HEIGHT);
         myEnemySelectionView.setOrientation(Orientation.HORIZONTAL); 
         myEnemySelectionView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -112,9 +114,8 @@ public class TowerBuildingScene extends ActorBuildingScene {
     }
 
     @Override
-    protected void finishBuildingActors() {        
-        this.setChanged();
-        this.notifyObservers(myTowerUpgradeGroups);
+    protected void finishBuildingActors() {    
+        myTowerConfiguringController.configureTowers(myTowerUpgradeGroups);
     }
 
     @Override

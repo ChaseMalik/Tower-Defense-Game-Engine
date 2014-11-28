@@ -1,6 +1,7 @@
 package gameAuthoring.scenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
 import java.util.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,14 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class WelcomeScene extends Observable {
+public class WelcomeScene {
 
     private static final String WELCOME_MSG = "Welcome to our Authoring Environment";
     private Scene myScene;
     private VBox myVBox;
     private TextField nameTextField;
+    private GameDirectoryBuilding myGameDirectoryController;
 
-    public WelcomeScene(){
+    public WelcomeScene(GameDirectoryBuilding controller){
+        myGameDirectoryController = controller;
         Group root = new Group();		
         myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
         myVBox = new VBox(20);
@@ -54,9 +57,9 @@ public class WelcomeScene extends Observable {
     }
     
     private void handleButtonClick () {
-        if(!nameTextField.getText().isEmpty()) {
-            WelcomeScene.this.setChanged();
-            WelcomeScene.this.notifyObservers(nameTextField.getText());
+        String gameNameText = nameTextField.getText();
+        if(!gameNameText.isEmpty()) {
+            myGameDirectoryController.makeDirectory(gameNameText);
         }
     }
 

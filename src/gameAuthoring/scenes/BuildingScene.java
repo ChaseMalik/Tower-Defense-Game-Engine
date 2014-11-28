@@ -1,10 +1,9 @@
 package gameAuthoring.scenes;
 
-import java.util.Observable;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public abstract class BuildingScene extends Observable {
+public abstract class BuildingScene {
     
     public static final String STYLESHEET_PACKAGE = "./gameAuthoring/Stylesheets/";
     private Scene myScene;

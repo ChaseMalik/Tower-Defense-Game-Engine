@@ -2,6 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedEnemiesDisplay;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseEnemy;
@@ -23,11 +24,11 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     private static final String BEHAVIOR_XML_LOC = "./src/gameAuthoring/Resources/actorBehaviors/EnemyBehaviors.xml";
 
     private List<BaseEnemy> myEnemies;
-    private List<BackendRoute> myEnemyRoutes;
+    private EnemyConfiguring myEnemyConfiguringController;
 
-    public EnemyBuildingScene (BorderPane root, List<BackendRoute> enemyRoutes) {
+    public EnemyBuildingScene (BorderPane root, EnemyConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
-        myEnemyRoutes = enemyRoutes;
+        myEnemyConfiguringController = controller;
         
     }
 
@@ -38,7 +39,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
                                     myActorImgPath,
                                     myActorNameField.getText(), 
                                     myRangeSliderContainer.getSliderValue(),
-                                    myEnemyRoutes));       
+                                    myEnemyConfiguringController.fetchEnemyRoutes()));       
     }
 
     @Override
@@ -49,9 +50,8 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     }
     
     @Override
-    protected void finishBuildingActors() {        
-        this.setChanged();
-        this.notifyObservers(myEnemies);
+    protected void finishBuildingActors() {
+        myEnemyConfiguringController.configureEnemies(myEnemies);
     }
 
     @Override

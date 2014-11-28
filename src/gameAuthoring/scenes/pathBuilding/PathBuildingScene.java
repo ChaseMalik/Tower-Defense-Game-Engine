@@ -1,7 +1,10 @@
 package gameAuthoring.scenes.pathBuilding;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.CurveDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.DrawingComponentOptionPane;
@@ -13,19 +16,17 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyStartin
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import utilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 
 /**
@@ -35,7 +36,7 @@ import utilities.errorPopup.ErrorPopup;
  * @author Austin Kyker
  *
  */
-public class PathBuildingScene extends BuildingScene implements Observer {
+public class PathBuildingScene extends BuildingScene implements BackgroundBuilding {
 
     public static final int BUILDING_OPTIONS_PADDING = 10;
     private static final String TITLE = "Path";
@@ -61,10 +62,12 @@ public class PathBuildingScene extends BuildingScene implements Observer {
     private VBox mySelectComponentOptionPane;
     private VBox myFinishedPathBuildingOptionPane;
     private DefaultMapSelectionPane myDefaultMapSelectionPane;
+    private PathConfiguring myPathConfiguringController;
 
 
-    public PathBuildingScene (BorderPane root) {
+    public PathBuildingScene (BorderPane root, PathConfiguring controller) {
         super(root, TITLE);
+        myPathConfiguringController = controller;
         myPane = root;
         myGroup = new Group();
         myPath = new Path(myGroup);
@@ -76,8 +79,7 @@ public class PathBuildingScene extends BuildingScene implements Observer {
     }
 
     private void createAndDisplayDefaultMapSelectionPane() {
-        myDefaultMapSelectionPane = new DefaultMapSelectionPane();
-        myDefaultMapSelectionPane.addObserver(this);
+        myDefaultMapSelectionPane = new DefaultMapSelectionPane((BackgroundBuilding) this);
         myPane.setLeft(myDefaultMapSelectionPane.getDefaultMapsScrollPane());
     }
 
@@ -127,8 +129,7 @@ public class PathBuildingScene extends BuildingScene implements Observer {
 
     private void handleFinishButtonClick () {
         if(myPath.isCompletedAndRoutesVerified()) {
-            this.setChanged();
-            this.notifyObservers(myPath);
+            myPathConfiguringController.configurePath(myPath);
         }
     }
 
@@ -145,14 +146,14 @@ public class PathBuildingScene extends BuildingScene implements Observer {
             setCurrentBuildingPane(pane);
         }
     }
-    
+
     public void proceedToLineDrawerModeIfLocationsVerified () {
         if(myPath.endingLocationsConfiguredCorrectly()){
             myLinePathOptionPane.getStyleClass().add("selected");
             setCurrentBuildingPane(myLineDrawingPane);
         }
     }
-   
+
     private void deselectOptionsComponents() {
         myLinePathOptionPane.getStyleClass().remove("selected");
         myCurvePathOptionPane.getStyleClass().remove("selected");
@@ -186,25 +187,22 @@ public class PathBuildingScene extends BuildingScene implements Observer {
         nextPane.refreshScreen();
     }
 
-    /**
-     * Responds to a background image being added. If there are no problems with the added
-     * image, the starting location selection scene is shown.
-     */
     @Override
-    public void update(Observable o, Object arg) {
-        if(o.equals(myDefaultMapSelectionPane)){
-            if(isCurrentPane(myBackgroundSelectionPane)){
-                try {
-                    ImageView imageView = new ImageView();
-                    Image image = new Image(new FileInputStream((File) arg), BuildingPane.DRAW_SCREEN_WIDTH, 
-                                            AuthorController.SCREEN_HEIGHT, false, true);
-                    imageView.setImage(image);
-                    myGroup.getChildren().add(imageView);   
-                    proceedToStartLocationSelection();
-                } catch (FileNotFoundException e) {
-                    new ErrorPopup("Image file could not be found.");
-                }
-            }
+    public void setBackground (String imageFileName) {
+        try {
+            ImageView imageView = StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH, 
+                                                                          AuthorController.SCREEN_HEIGHT, 
+                                                                          imageFileName);
+            myGroup.getChildren().add(imageView); 
+            File file = new File(imageFileName);
+            File backgroundDir = new File(AuthorController.gameDir + "background");
+            backgroundDir.mkdir();
+            File targetFile = new File(backgroundDir.getPath() + "/" + (new File(imageFileName)).getName());
+            Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
         }
+        catch (IOException e) {
+            new ErrorPopup("Background file could not be copied.");
+        }       
+        proceedToStartLocationSelection();      
     }
 }

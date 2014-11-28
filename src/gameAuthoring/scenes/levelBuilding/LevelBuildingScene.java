@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.levelBuilding;
 
+import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import gameEngine.actors.BaseEnemy;
@@ -22,20 +23,21 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     
     private static final String TITLE = "Level";
     
-    private List<BaseEnemy> myEnemies;
     private ObservableList<BaseLevel>  myLevels;
     private LevelBuildingDisplay myLevelsDisplay;
+    private LevelConfiguring myLevelConfiguringController;
 
-    public LevelBuildingScene (BorderPane root, List<BaseEnemy> enemies) {
+    public LevelBuildingScene (BorderPane root, LevelConfiguring controller) {
         super(root, TITLE);
-        myEnemies = enemies;
+        myLevelConfiguringController = controller;
         myLevels = FXCollections.observableArrayList();
         createMenuAndAddNewLevelOption();     
         setupLevelDisplay();    
     }
 
     private void setupLevelDisplay () {
-        myLevelsDisplay = new LevelBuildingDisplay(myEnemies, myLevels);
+        myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies(),
+                                                   myLevels);
         myLevelsDisplay.addLevel(new BaseLevel());
         myPane.setCenter(myLevelsDisplay);        
     }
@@ -51,7 +53,6 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     @Override
     public void update (Observable arg0, Object arg1) {
-        this.setChanged();
-        this.notifyObservers(myLevels);    
+        myLevelConfiguringController.configureLevels(myLevels);    
     }
 }
