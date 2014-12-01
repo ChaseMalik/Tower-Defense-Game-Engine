@@ -4,7 +4,9 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurve;
 
 /**
@@ -16,19 +18,21 @@ public class PathCurve extends CubicCurve implements PathComponent {
 
     private static final double NUM_INNER_POINTS = 15.0;
     private boolean isEndPointSet;
-    private boolean isControlPoint1Set;
-    private boolean isControlPoint2Set;
-
-    public PathCurve(double initialX, double initialY) {
-        this.setStartingPoint(new Point2D(initialX, initialY));
-        this.setEndingPoint(new Point2D(initialX, initialY));
-        isEndPointSet = false;
-        isControlPoint1Set = false;
-        isControlPoint2Set = false;
-        calculateAndSetControlPoints();
+    private Circle myControlPoint1Setter;
+    private Circle myControlPoint2Setter;
+    
+    public PathCurve() {
         this.setStrokeWidth(20);
         this.setStroke(Color.BLACK);
         this.setFill(null);
+    }
+
+    public PathCurve(double initialX, double initialY) {
+        this();
+        this.setStartingPoint(new Point2D(initialX, initialY));
+        this.setEndingPoint(new Point2D(initialX, initialY));
+        isEndPointSet = false;
+        calculateAndSetControlPoints();
     }
 
     public boolean isEndPointSet() {
@@ -37,15 +41,6 @@ public class PathCurve extends CubicCurve implements PathComponent {
 
     public void endPointIsSet() {
         isEndPointSet = true;
-    }
-
-
-    public boolean isControlPoint1Set() {
-        return isControlPoint1Set;
-    }
-
-    public boolean isControlPoint2Set() {
-        return isControlPoint2Set;
     }
 
     @Override
@@ -88,28 +83,21 @@ public class PathCurve extends CubicCurve implements PathComponent {
 
     @Override
     public PathComponent deepCopy () {
-        // TODO Auto-generated method stub
-        return null;
+        PathCurve copy = new PathCurve();
+        copy.setStartingPoint(this.getStartingPoint());
+        copy.setEndingPoint(this.getEndingPoint());
+        copy.setControlPoint1(this.getControlX1(), this.getControlY1());
+        copy.setControlPoint2(this.getControlX2(), this.getControlY2());
+        return copy;
     }
-
+    
+    public void setControlPointSetters(Circle setter1, Circle setter2) {
+        myControlPoint1Setter = setter1;
+        myControlPoint2Setter = setter2;
+    }
 
     public double getLength () {
         return getEndingPoint().distance(getStartingPoint());
-    }
-
-
-    public boolean isNoControlPointSet () {
-        return !(isControlPoint1Set() || isControlPoint2Set());
-    }
-
-    public void finalizeControlPoint1(double x, double y){
-        setControlPoint1(x, y);
-        this.isControlPoint1Set = true;
-    }
-
-    public void finalizeControlPoint2(double x, double y){
-        setControlPoint2(x, y);
-        this.isControlPoint2Set = true;
     }
 
     public void setControlPoint1 (double x, double y) {
@@ -155,5 +143,14 @@ public class PathCurve extends CubicCurve implements PathComponent {
                     ));
         }
         return innerPoints;
+    }
+
+    /**
+     * When this component gets deleted, the control point setters are deleted as well from
+     * the group.
+     */
+    @Override
+    public Node[] getCorrespondingNodesToDelete () {
+        return new Node[] { this, myControlPoint1Setter, myControlPoint2Setter };
     }
 }

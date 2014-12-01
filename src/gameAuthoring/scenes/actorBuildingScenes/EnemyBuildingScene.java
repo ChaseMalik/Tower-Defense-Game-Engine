@@ -4,7 +4,6 @@ package gameAuthoring.scenes.actorBuildingScenes;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedEnemiesDisplay;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;

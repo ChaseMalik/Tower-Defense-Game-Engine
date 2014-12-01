@@ -36,7 +36,7 @@ public class BuildingPane extends Pane {
         myGroup.getChildren().add(component);
         refreshScreen();
     }
-    
+
     public void drawPathComponent(Node component) {
         myGroup.getChildren().add(1, component);
         refreshScreen();
@@ -52,7 +52,8 @@ public class BuildingPane extends Pane {
     }
 
     public void removeConnectedComponentFromScreen (List<PathComponent> deletedComponent) {
-        myGroup.getChildren().removeAll(deletedComponent);
-        
+        for(PathComponent comp:deletedComponent) {
+            myGroup.getChildren().removeAll(comp.getCorrespondingNodesToDelete());
+        }
     }
 }
