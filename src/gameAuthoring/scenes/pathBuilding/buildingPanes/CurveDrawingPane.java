@@ -111,4 +111,14 @@ public class CurveDrawingPane extends BuildingPane {
         myControlPointSetters.add(controlPointSetter);
         return controlPointSetter;
     }
+    
+    @Override
+    public void executeEnterFunction() {
+        myGroup.getChildren().addAll(myControlPointSetters);
+    }
+    
+    @Override
+    public void executeExitFunction() {
+        myGroup.getChildren().removeAll(myControlPointSetters);
+    }
 }

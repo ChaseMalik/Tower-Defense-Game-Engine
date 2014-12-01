@@ -185,7 +185,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     }
 
     public void setCurrentBuildingPane(BuildingPane nextPane) {
+        if(myCurrentBuildingPane != null) {
+            myCurrentBuildingPane.executeExitFunction();
+        }
         myCurrentBuildingPane = nextPane;
+        nextPane.executeEnterFunction();
         myPane.getChildren().remove(myPane.getCenter());
         myPane.setCenter(nextPane);
         nextPane.refreshScreen();

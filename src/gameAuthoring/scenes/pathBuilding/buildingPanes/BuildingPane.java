@@ -56,4 +56,17 @@ public class BuildingPane extends Pane {
             myGroup.getChildren().removeAll(comp.getCorrespondingNodesToDelete());
         }
     }
+    
+    /**
+     * Executed when a new building pane is selected and the currently selected pane
+     * will no longer be selected. Default function is to do nothing.
+     * Overridden in CurveDrawingPane.
+     */
+    public void executeExitFunction () {}
+
+    /**
+     * Executed when building pane is selected and becomes currently selected pane. Default
+     * function is to do nothing. Overridden in CurveDrawingPane.
+     */
+    public void executeEnterFunction () {}
 }
