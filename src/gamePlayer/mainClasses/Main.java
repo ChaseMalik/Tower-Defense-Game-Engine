@@ -21,6 +21,5 @@ public class Main extends Application {
     	WelcomeManager welcomeManager = new WelcomeManager(stage);
     	new GuiManager(stage);
     	welcomeManager.init();
-
     }
 }

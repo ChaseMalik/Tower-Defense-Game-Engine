@@ -52,11 +52,22 @@
 	-fx-background-color: rgb(190,200,210);
 }
 
+.Button-Pane {
+	-fx-background-color: rgb(170,190,210);
+}
+
 .header-2 {
 	-fx-font-size: 18pt;
 	-fx-font-family: Arial;
 	-fx-text-fill: rgb(255,255,255);
 	-fx-background-color: rgb(96, 96, 96);	
+}
+
+.ClickAnywherePane {
+	-fx-font-size: 24pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: rgb(255,255,255);
+	-fx-background-color: rgb(170,190,210);
 }
 
 .store-pane {

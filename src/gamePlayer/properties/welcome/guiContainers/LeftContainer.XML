@@ -4,13 +4,13 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>1</element>
-		<element>0.7</element>
+		<element>0</element> <!-- Width -->
+		<element>0.7</element> <!-- Height -->
 	</SizeRatio>
 	
 		<!--items contained within this container (added via reflection)-->
 	<Items>
-	    <element>gamePlayer.guiItems.welcome.ButtonPane</element>
+	    <!--  <element>gamePlayer.guiItems.welcome.ButtonPane</element>  -->
 	</Items>
 	
 </ContainerProperties>

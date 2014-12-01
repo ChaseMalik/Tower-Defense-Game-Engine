@@ -4,7 +4,7 @@
 */
 
 .root{
-    -fx-font-size: 16pt;
+    -fx-font-size: 10pt;
     -fx-font-family: Arial;
     -fx-base: rgb(132, 145, 47);
     -fx-background: rgb(225, 228, 203);
@@ -29,4 +29,11 @@
 	-fx-font-family: Arial;
 	-fx-font-color: rgb(0,0,0);
 	-fx-background: rgb(96, 96, 96);	
+}
+
+.GameWorld {
+    -fx-background-image: url('file:./src/gameAuthoring/Resources/DefaultMapImages/Map1.jpg');
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
 }
