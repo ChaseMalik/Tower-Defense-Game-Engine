@@ -18,10 +18,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import utilities.SliderContainer;
-import utilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
-import utilities.DragAndDropFilePanes.DragAndDropFilePane;
-import utilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.SliderContainer;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropFilePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
 import utilities.XMLParsing.XMLParser;
 
 /**

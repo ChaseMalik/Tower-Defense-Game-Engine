@@ -1,4 +1,4 @@
-package utilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes;
 
 import java.io.File;
 

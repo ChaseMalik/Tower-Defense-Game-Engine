@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-import utilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import javafx.scene.Node;
 import javafx.scene.image.Image;

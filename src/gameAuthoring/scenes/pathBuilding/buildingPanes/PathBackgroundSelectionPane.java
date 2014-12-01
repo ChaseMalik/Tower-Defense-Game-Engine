@@ -4,8 +4,8 @@ import gameAuthoring.mainclasses.AuthorController;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Group;
-import utilities.DragAndDropFilePanes.DragAndDropImagePane;
-import utilities.DragAndDropFilePanes.DragAndDropNoCopyImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropNoCopyImagePane;
 
 /**
  * Represents the pane where the user can drag and drop a file to act as the background
