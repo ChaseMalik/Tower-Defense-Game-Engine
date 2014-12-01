@@ -24,7 +24,7 @@ public class BackendRoute {
         myPoints = new ArrayList<VisibilityPoint>();
     }
     
-    //Used for non-path TD games and also on the backend to calculate
+    //Used for non-path TD games and also on the back-end to calculate
     //the routes of the bullets.
     public BackendRoute(Point2D start, Point2D end) {
         this();
@@ -40,6 +40,7 @@ public class BackendRoute {
     private void setUpBackendRouteFromFrontEndRoute (PathRoute route) {
         for(PathComponent component:route) {
             myPoints.add(new VisibilityPoint(true, component.getStartingPoint()));
+            myPoints.addAll(component.getInnerPointsRepresentingComponent());
         }       
         myPoints.add(new VisibilityPoint(true, route.getLast().getEndingPoint()));
     }

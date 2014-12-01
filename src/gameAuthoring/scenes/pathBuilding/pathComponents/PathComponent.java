@@ -1,5 +1,7 @@
 package gameAuthoring.scenes.pathBuilding.pathComponents;
 
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import java.util.List;
 import javafx.geometry.Point2D;
 
 /**
@@ -17,4 +19,5 @@ public interface PathComponent {
     void select ();
     void deselect ();
     PathComponent deepCopy();
+    List<VisibilityPoint> getInnerPointsRepresentingComponent();
 }

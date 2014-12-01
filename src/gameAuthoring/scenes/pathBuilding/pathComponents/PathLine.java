@@ -1,5 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.pathComponents;
 
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -75,5 +78,16 @@ public class PathLine extends Line implements PathComponent {
         copy.setStroke(this.getStroke());
         copy.setStrokeWidth(this.getStrokeWidth());
         return copy;
+    }
+
+    /**
+     * When converting a JavaFX line to a set of points for an enemy to follow,
+     * you simply need to include the starting and ending points and no "inner"
+     * points. The enemy will simply travel from the starting location to ending
+     * location on a linear path.
+     */
+    @Override
+    public List<VisibilityPoint> getInnerPointsRepresentingComponent () {
+        return new ArrayList<VisibilityPoint>();
     }
 }

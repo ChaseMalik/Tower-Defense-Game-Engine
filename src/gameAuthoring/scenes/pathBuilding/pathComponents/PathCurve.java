@@ -1,5 +1,8 @@
 package gameAuthoring.scenes.pathBuilding.pathComponents;
 
+import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
@@ -11,6 +14,7 @@ import javafx.scene.shape.CubicCurve;
  */
 public class PathCurve extends CubicCurve implements PathComponent {
 
+    private static final double NUM_INNER_POINTS = 15.0;
     private boolean isEndPointSet;
     private boolean isControlPoint1Set;
     private boolean isControlPoint2Set;
@@ -102,12 +106,12 @@ public class PathCurve extends CubicCurve implements PathComponent {
         setControlPoint1(x, y);
         this.isControlPoint1Set = true;
     }
-    
+
     public void finalizeControlPoint2(double x, double y){
         setControlPoint2(x, y);
         this.isControlPoint2Set = true;
     }
-    
+
     public void setControlPoint1 (double x, double y) {
         this.setControlX1(x);
         this.setControlY1(y);      
@@ -116,7 +120,7 @@ public class PathCurve extends CubicCurve implements PathComponent {
     public void setControlPoint2 (double x, double y){ 
         this.setControlX2(x);
         this.setControlY2(y);      
-     }
+    }
 
     public void calculateAndSetControlPoints() {
         Point2D curveMidPoint = this.getStartingPoint().midpoint(this.getEndingPoint());
@@ -124,5 +128,32 @@ public class PathCurve extends CubicCurve implements PathComponent {
         this.setControlPoint1(controlPoint1Loc.getX(), controlPoint1Loc.getY());
         Point2D controlPoint2Loc = curveMidPoint.midpoint(this.getEndingPoint());
         this.setControlPoint2(controlPoint2Loc.getX(), controlPoint2Loc.getY());        
+    }
+
+    private Point2D getControlPoint1() {
+        return new Point2D(this.getControlX1(), this.getControlY1());
+    }
+
+    private Point2D getControlPoint2() {
+        return new Point2D(this.getControlX2(), this.getControlY2());
+    }
+
+    /**
+     * Uses the formula for the Bezier Curve to calculate several points on the curve.
+     * The back-end route needs these points in order to route the enemy from the starting
+     * location to the ending location.
+     */
+    @Override
+    public List<VisibilityPoint> getInnerPointsRepresentingComponent () {
+        List<VisibilityPoint> innerPoints = new ArrayList<VisibilityPoint>();
+        for(double t = 1/NUM_INNER_POINTS; t < 1; t = t + 1/NUM_INNER_POINTS) {
+            innerPoints.add(new VisibilityPoint(true,
+                                                this.getStartingPoint().multiply(Math.pow((1-t),3))
+                                                .add(getControlPoint1().multiply(3*Math.pow(1-t, 2)*t))
+                                                .add(getControlPoint2().multiply(3*(1-t)*Math.pow(t,2)))
+                                                .add(this.getEndingPoint().multiply(Math.pow(t, 3)))
+                    ));
+        }
+        return innerPoints;
     }
 }
