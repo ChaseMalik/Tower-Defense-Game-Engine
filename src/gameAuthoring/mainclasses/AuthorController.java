@@ -1,5 +1,6 @@
 package gameAuthoring.mainclasses;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
 import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
@@ -13,19 +14,18 @@ import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.LevelBuildingScene;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import javafx.application.Application;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import utilities.StringToImageViewConverter;
 import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
@@ -41,7 +41,7 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
-    public static final double SCREEN_WIDTH = 1000;
+    public static final double SCREEN_WIDTH = 1100;
     public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
     public static String gameDir;
@@ -59,6 +59,7 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
     private List<BaseLevel> myLevels;
 
     private Stage myStage;
+    private String myBackgroundImageFileName;
 
     public static void main(String[] args) { launch(args); }
 
@@ -108,6 +109,20 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
         myStage.setScene(myGSONWritingScene);
         myStage.setTitle("Writing Game"); 
         GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir); 
+        writeBackgroundImageToGameDir();
+    }
+
+    private void writeBackgroundImageToGameDir () {
+        try {
+            File file = new File(myBackgroundImageFileName);
+            File backgroundDir = new File(AuthorController.gameDir + "background");
+            backgroundDir.mkdir();
+            File targetFile = new File(backgroundDir.getPath() + "/" + (new File(myBackgroundImageFileName)).getName());
+            Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            new ErrorPopup("Background image could not be written to the game file");
+        }
     }
 
     @Override
@@ -168,5 +183,10 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
     @Override
     public List<BackendRoute> fetchEnemyRoutes () {
         return myBackendRoutes;
+    }
+
+    @Override
+    public void setBackground (String imageFileName) {
+        myBackgroundImageFileName = imageFileName;       
     }
 }

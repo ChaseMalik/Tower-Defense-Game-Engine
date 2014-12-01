@@ -1,6 +1,5 @@
 package gameAuthoring.scenes.pathBuilding;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
@@ -15,9 +14,6 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyEndingL
 import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyStartingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -27,7 +23,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import utilities.StringToImageViewConverter;
-import utilities.errorPopup.ErrorPopup;
 
 /**
  * This class allows the user to build a path from a starting location to an 
@@ -38,12 +33,10 @@ import utilities.errorPopup.ErrorPopup;
  */
 public class PathBuildingScene extends BuildingScene implements BackgroundBuilding {
 
+    private static final String SELECTED_CSS_CLASS = "selected";
     public static final int BUILDING_OPTIONS_PADDING = 10;
+    public static final double SIDE_PANE_WIDTH = ((AuthorController.SCREEN_WIDTH-BuildingPane.DRAW_SCREEN_WIDTH)/2);
     private static final String TITLE = "Path";
-    public static final double PATH_BUILDING_OPTIONS_WIDTH_RATIO = 
-            1 - BuildingPane.DRAW_SCREEN_WIDTH_RATIO - DefaultMapSelectionPane.SCREEN_WIDTH_RATIO;
-    public static final double PATH_BUILDING_OPTIONS_WIDTH = 
-            AuthorController.SCREEN_WIDTH * PATH_BUILDING_OPTIONS_WIDTH_RATIO;
 
     private Path  myPath;
     private BorderPane myPane;
@@ -61,6 +54,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private VBox myCurvePathOptionPane;   
     private VBox mySelectComponentOptionPane;
     private VBox myFinishedPathBuildingOptionPane;
+    private VBox myResetBuildOptionPane;
     private DefaultMapSelectionPane myDefaultMapSelectionPane;
     private PathConfiguring myPathConfiguringController;
 
@@ -108,8 +102,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private void createPathBuildingOptions () {
         VBox pathBuildingOptions = new VBox(BUILDING_OPTIONS_PADDING);
         pathBuildingOptions.setPadding(new Insets(BUILDING_OPTIONS_PADDING));
-        pathBuildingOptions.setPrefWidth(PATH_BUILDING_OPTIONS_WIDTH);
+        pathBuildingOptions.setPrefWidth(SIDE_PANE_WIDTH);
         myPane.setRight(pathBuildingOptions);
+
+        myResetBuildOptionPane = new DrawingComponentOptionPane("Reset");
+        myResetBuildOptionPane.setOnMouseReleased(event->resetBuild());
 
         myLinePathOptionPane = new DrawingComponentOptionPane("Line");
         myLinePathOptionPane.setOnMouseReleased(event->setCurrentDrawingPane(myLineDrawingPane));
@@ -123,8 +120,14 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myFinishedPathBuildingOptionPane = new DrawingComponentOptionPane("Finished");
         myFinishedPathBuildingOptionPane.setOnMouseReleased(event->handleFinishButtonClick());
 
-        pathBuildingOptions.getChildren().addAll(myLinePathOptionPane, myCurvePathOptionPane,
+        pathBuildingOptions.getChildren().addAll(myResetBuildOptionPane, myLinePathOptionPane, myCurvePathOptionPane,
                                                  mySelectComponentOptionPane, myFinishedPathBuildingOptionPane);
+    }
+
+    private void resetBuild () {
+        myPath.resetPath();
+        setCurrentBuildingPane(myBackgroundSelectionPane);        
+        deselectOptionsComponents();
     }
 
     private void handleFinishButtonClick () {
@@ -149,15 +152,16 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     public void proceedToLineDrawerModeIfLocationsVerified () {
         if(myPath.endingLocationsConfiguredCorrectly()){
-            myLinePathOptionPane.getStyleClass().add("selected");
+            myLinePathOptionPane.getStyleClass().add(SELECTED_CSS_CLASS);
             setCurrentBuildingPane(myLineDrawingPane);
         }
     }
 
     private void deselectOptionsComponents() {
-        myLinePathOptionPane.getStyleClass().remove("selected");
-        myCurvePathOptionPane.getStyleClass().remove("selected");
-        mySelectComponentOptionPane.getStyleClass().remove("selected");
+        myResetBuildOptionPane.getStyleClass().remove(SELECTED_CSS_CLASS);
+        myLinePathOptionPane.getStyleClass().remove(SELECTED_CSS_CLASS);
+        myCurvePathOptionPane.getStyleClass().remove(SELECTED_CSS_CLASS);
+        mySelectComponentOptionPane.getStyleClass().remove(SELECTED_CSS_CLASS);
     }
 
     private boolean canDrawPathComponents() {
@@ -189,20 +193,12 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     @Override
     public void setBackground (String imageFileName) {
-        try {
-            ImageView imageView = StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH, 
-                                                                          AuthorController.SCREEN_HEIGHT, 
-                                                                          imageFileName);
-            myGroup.getChildren().add(imageView); 
-            File file = new File(imageFileName);
-            File backgroundDir = new File(AuthorController.gameDir + "background");
-            backgroundDir.mkdir();
-            File targetFile = new File(backgroundDir.getPath() + "/" + (new File(imageFileName)).getName());
-            Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            new ErrorPopup("Background file could not be copied.");
-        }       
+        ImageView imageView = 
+                StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH, 
+                                                        AuthorController.SCREEN_HEIGHT, 
+                                                        imageFileName);
+        myGroup.getChildren().add(imageView); 
+        myPathConfiguringController.setBackground(imageFileName);     
         proceedToStartLocationSelection();      
     }
 }

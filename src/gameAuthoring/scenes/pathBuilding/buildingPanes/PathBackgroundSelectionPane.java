@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Group;
 import utilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.DragAndDropFilePanes.DragAndDropNoCopyImagePane;
 
 /**
  * Represents the pane where the user can drag and drop a file to act as the background
@@ -20,9 +21,8 @@ public class PathBackgroundSelectionPane extends BuildingPane implements Observe
     public PathBackgroundSelectionPane (Group group, BackgroundBuilding controller) {
         super(group);
         myBackgroundBuildingController = controller;
-        myDragAndDropPane = new DragAndDropImagePane(BuildingPane.DRAW_SCREEN_WIDTH, 
-                                                     AuthorController.SCREEN_HEIGHT, 
-                                                     AuthorController.gameDir);
+        myDragAndDropPane = new DragAndDropNoCopyImagePane(BuildingPane.DRAW_SCREEN_WIDTH, 
+                                                           AuthorController.SCREEN_HEIGHT);
         myDragAndDropPane.addObserver(this);
         this.getChildren().add(myDragAndDropPane.getPane());
     }

@@ -21,9 +21,8 @@ public class DrawingComponentOptionPane extends VBox {
 
     private static final String DRAWING_OPTIONS_IMG_DIR = 
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
-    private static final double OPTIONS_IMAGE_WIDTH = 
-            PathBuildingScene.PATH_BUILDING_OPTIONS_WIDTH - 3*PathBuildingScene.BUILDING_OPTIONS_PADDING;
-    private static final int OPTIONS_IMAGE_HEIGHT = 103;
+    private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 20;
+    private static final int OPTIONS_IMAGE_HEIGHT = 73;
 
     public DrawingComponentOptionPane(String componentName){
         setupOptionsBoxGraphicallyAndDisplayLabel(componentName);
@@ -38,6 +37,7 @@ public class DrawingComponentOptionPane extends VBox {
             new ErrorPopup("No file found representing " + componentName + " image.");
         }
         this.setOnMouseClicked(event->selectPane());
+        this.getStyleClass().add("border");
     }
 
 

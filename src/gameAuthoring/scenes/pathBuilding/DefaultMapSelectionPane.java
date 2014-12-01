@@ -3,16 +3,11 @@ package gameAuthoring.scenes.pathBuilding;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Observable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import utilities.StringToImageViewConverter;
-import utilities.errorPopup.ErrorPopup;
 
 /**
  * A pane of default maps that the user can select as their background. This pane
@@ -26,11 +21,10 @@ public class DefaultMapSelectionPane {
 
     private static final String DEFAULT_MAP_IMAGES_DIR = 
             "./src/gameAuthoring/Resources/DefaultMapImages/";
-    public static final Double SCREEN_WIDTH_RATIO = 0.15;
-    public static final Double PANE_WIDTH = AuthorController.SCREEN_WIDTH*SCREEN_WIDTH_RATIO;
-    private static final Double IMAGE_WIDTH = PANE_WIDTH-40;
-    private static final Double IMAGE_HEIGHT = 80.0;
-    private static final Double IMAGE_PADDING = 10.0;
+    private static final double IMAGE_PADDING = 10.0;
+    private static final double IMAGE_WIDTH = 120.0;
+    private static final double IMAGE_HEIGHT = 80.0;
+    private static final double SCROLLPANE_WIDTH = IMAGE_WIDTH + 2*IMAGE_PADDING + 10;
 
 
     private ScrollPane myScrollPane;
@@ -42,7 +36,8 @@ public class DefaultMapSelectionPane {
     public DefaultMapSelectionPane(BackgroundBuilding controller){
         myPathBackgroundBuildingController = controller;
         myScrollPane = new ScrollPane();
-        myScrollPane.setPrefWidth(PANE_WIDTH);
+        myScrollPane.setMaxHeight(AuthorController.SCREEN_HEIGHT);
+        myScrollPane.setPrefWidth(PathBuildingScene.SIDE_PANE_WIDTH);
         File mapDirectory = new File(DEFAULT_MAP_IMAGES_DIR);
 
         File[] defaultMapImages = mapDirectory.listFiles();
@@ -58,7 +53,8 @@ public class DefaultMapSelectionPane {
             myImageDisplayVBox.getChildren().add(imgView);		
         }
 
-        myScrollPane.setContent(myImageDisplayVBox);		
+        myScrollPane.setContent(myImageDisplayVBox);
+        myScrollPane.setPrefWidth(SCROLLPANE_WIDTH);
     }
 
     private void handleImageClick(File fileCorrespondingToMapSelected) {

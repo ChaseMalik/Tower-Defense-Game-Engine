@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import utilities.SliderContainer;
+import utilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
 import utilities.DragAndDropFilePanes.DragAndDropFilePane;
 import utilities.DragAndDropFilePanes.DragAndDropImagePane;
 import utilities.XMLParsing.XMLParser;
@@ -77,7 +78,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void setupDragAndDropForActorImage () {
         myDragAndDrop = 
-                new DragAndDropImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,  
+                new DragAndDropCopyImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,  
                                         myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");

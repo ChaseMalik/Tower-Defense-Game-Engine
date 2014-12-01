@@ -1,18 +1,12 @@
 package utilities.DragAndDropFilePanes;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Observable;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
-import utilities.StringToImageViewConverter;
-import utilities.errorPopup.ErrorPopup;
 
 /**
  * This utility allows for the creation of drag and drop file panes. Simply specify the extensions of files
@@ -24,7 +18,6 @@ import utilities.errorPopup.ErrorPopup;
 public abstract class DragAndDropFilePane extends Observable {
 
     private String[] myValidExtensions;
-    private String myFileDestination;
     protected Pane myContainer;
     protected Pane myDragAndDropPane;
     protected File myFile;
@@ -33,9 +26,8 @@ public abstract class DragAndDropFilePane extends Observable {
      * @param validExtensions The extensions you will accept for the drag and dropped file. Ex: [.jpg, .png]
      * @param fileDestination where you want the file dragged and dropped to be saved.
      */
-    public DragAndDropFilePane(double width, double height, String[] validExtensions, String fileDestination) {
+    public DragAndDropFilePane(double width, double height, String[] validExtensions) {
         myValidExtensions = validExtensions;
-        myFileDestination = fileDestination;
         myContainer = new Pane();
         myDragAndDropPane = new Pane();
         myDragAndDropPane.setPrefSize(width, height);
@@ -62,15 +54,7 @@ public abstract class DragAndDropFilePane extends Observable {
                 String fileName = file.getPath();
                 for(String extension:myValidExtensions){
                     if(fileName.toLowerCase().contains(extension)){
-                        File targetFile = new File(myFileDestination + file.getName().toString());
-                        try {
-                            Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-                            myFile = targetFile;
-                            actOnFile();
-                        }
-                        catch (IOException e) {
-                            new ErrorPopup("Invalid file");
-                        }
+                        actOnFile(file);
                         break;
                     }
                 }
@@ -80,7 +64,7 @@ public abstract class DragAndDropFilePane extends Observable {
         event.consume();
     }
 
-    protected abstract void actOnFile ();
+    protected abstract void actOnFile (File file);
 
     private void handleDragExit (DragEvent event) {
         myDragAndDropPane.setStyle("-fx-background-color: white;");

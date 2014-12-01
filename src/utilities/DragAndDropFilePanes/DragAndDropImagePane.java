@@ -1,27 +1,17 @@
 package utilities.DragAndDropFilePanes;
 
-import javafx.scene.image.ImageView;
+import java.io.File;
 import utilities.StringToImageViewConverter;
+import javafx.scene.image.ImageView;
 
-public class DragAndDropImagePane extends DragAndDropFilePane {
+public abstract class DragAndDropImagePane extends DragAndDropFilePane {
     
-    private ImageView myImageView;
+    protected ImageView myImageView;
+    protected File myFile;
 
     public DragAndDropImagePane (double width,
-                                 double height,
-                                 String fileDestination) {
-        super(width, height, new String[] {".jpeg", ".jpg", ".png"}, fileDestination);
-    }
-
-    @Override
-    protected void actOnFile () {
-        myContainer.getChildren().remove(myDragAndDropPane);
-        myImageView = StringToImageViewConverter.getImageView(myDragAndDropPane.getWidth(), 
-                                                                      myDragAndDropPane.getHeight(), 
-                                                                      myFile.getPath());
-        myContainer.getChildren().add(myImageView); 
-        this.setChanged();
-        this.notifyObservers(myFile.getPath());       
+                                 double height) {
+        super(width, height, new String[] {".jpeg", ".jpg", ".png"});
     }
     
     public ImageView getImageView () {
@@ -36,7 +26,16 @@ public class DragAndDropImagePane extends DragAndDropFilePane {
         myImageView.setPreserveRatio(true);
         myImageView.setFitHeight(height);
         myImageView.autosize();
-        myContainer.setPrefHeight(height);
-        
+        myContainer.setPrefHeight(height);       
+    }
+    
+    public void displayImage() {
+        myContainer.getChildren().remove(myDragAndDropPane);
+        myImageView = StringToImageViewConverter.getImageView(myDragAndDropPane.getWidth(), 
+                                                                      myDragAndDropPane.getHeight(), 
+                                                                      myFile.getPath());
+        myContainer.getChildren().add(myImageView); 
+        this.setChanged();
+        this.notifyObservers(myFile.getPath());
     }
 }

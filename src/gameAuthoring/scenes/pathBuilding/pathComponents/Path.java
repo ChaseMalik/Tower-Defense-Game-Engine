@@ -345,5 +345,12 @@ public class Path implements Iterable<PathRoute> {
             }
         }
         return true;
+    }
+
+    public void resetPath () {
+        myPath.clear();
+        myGroup.getChildren().clear();
+        clearEnemyEndingLocations();
+        clearEnemyStartingLocations();
     }    
 }

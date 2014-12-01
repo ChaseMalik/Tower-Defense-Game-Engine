@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import utilities.SliderContainer;
+import utilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
 import utilities.DragAndDropFilePanes.DragAndDropImagePane;
 
 public class ProjectilePane extends Observable implements Observer {
@@ -33,7 +34,7 @@ public class ProjectilePane extends Observable implements Observer {
         title.setStyle("-fx-font-size: 18px");
         VBox leftBox = new VBox(10);
         leftBox.getChildren().addAll(title, mySliderContainer);
-        myDropImgPane = new DragAndDropImagePane(200, 100, PROJECTILE_IMG_DIR);
+        myDropImgPane = new DragAndDropCopyImagePane(200, 100, PROJECTILE_IMG_DIR);
         myDropImgPane.getPane().setStyle("-fx-background-color: white; -fx-border: 2px; -fx-border-color: gray; -fx-border-radius: 5px");
         myContainer.getChildren().addAll(leftBox, myDropImgPane.getPane());
     }
