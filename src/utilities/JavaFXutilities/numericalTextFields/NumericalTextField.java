@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities;
+package utilities.JavaFXutilities.numericalTextFields;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,6 +27,13 @@ public class NumericalTextField extends TextField {
     }
 
     public int getNumber () {
+        if(this.getText().isEmpty()) {
+            return -1;
+        }
         return Integer.parseInt(this.getText());
+    }
+
+    public boolean isValueEntered () {
+        return getNumber() > 0;
     }  
 }

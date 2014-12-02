@@ -1,23 +1,15 @@
 package utilities.GSON;
 
-import static org.junit.Assert.*;
-
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.ProjectileInfo;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.actors.behaviors.LinearMovement;
-import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Test;
+import com.google.gson.Gson;
 
 public class GSONTester {
 	
@@ -37,9 +29,9 @@ public class GSONTester {
 		
 		ProjectileInfo info = new ProjectileInfo(IMAGE_PATH, new LinearMovement(5), null,new ArrayList<String>());
 		
-		BaseTower tower1 = new BaseTower(map, IMAGE_PATH,"b", 1.0, info);
-		BaseTower tower2 = new BaseTower(map, IMAGE_PATH, "d", 2.0, info);
-		BaseTower tower3 = new BaseTower(map, IMAGE_PATH, "d", 2.0, info);
+		BaseTower tower1 = new BaseTower(map, IMAGE_PATH,"b", 1.0, 200, 200, info);
+		BaseTower tower2 = new BaseTower(map, IMAGE_PATH, "d", 2.0, 200, 200, info);
+		BaseTower tower3 = new BaseTower(map, IMAGE_PATH, "d", 2.0, 200, 200, info);
 		
 		TowerUpgradeGroup group1 = new TowerUpgradeGroup(tower1);
 		group1.addTower(tower2);

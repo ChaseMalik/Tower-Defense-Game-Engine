@@ -1,19 +1,16 @@
 package gameEngine.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseTower;
-import gameEngine.actors.RealActor;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.actors.behaviors.LinearMovement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,7 +58,7 @@ public class BehaviorTester {
     }
 
     private BaseActor createActor(Map<String,IBehavior> move){
-        return new BaseTower(move,"./src/gameAuthoring/Resources/towerImages/bowser.jpg", null, 0,null);
+        return new BaseTower(move,"./src/gameAuthoring/Resources/towerImages/bowser.jpg", null, 0, 0, 0, null);
     }
     
     private void updateAndCheck (BaseActor actor, double x, double y) {
