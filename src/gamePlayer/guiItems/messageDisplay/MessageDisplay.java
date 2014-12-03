@@ -6,6 +6,10 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
+/**
+ * 
+ * @author brianbolze
+ */
 public class MessageDisplay implements GuiItem {
 
 	private Dimension2D mySize;
@@ -30,8 +34,10 @@ public class MessageDisplay implements GuiItem {
 		textField.clear();
 	}
 	
-	public void showMessage(String message) {
+	public void showMessage(String message, boolean error) {
 		textField.setText(message);
+		if (error) textField.setStyle("-fx-text-fill: Red;");
+		else textField.setStyle("-fx-text-fill: Black;");
 	}
 
 }

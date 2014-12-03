@@ -246,8 +246,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void displayMessage(String message) {
-		myMessageDisplay.showMessage(message);
+	public void displayMessage(String message, boolean error) {
+		myMessageDisplay.showMessage(message, error);
 	}
 
 	@Override
