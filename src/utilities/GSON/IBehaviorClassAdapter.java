@@ -1,4 +1,4 @@
-package utilities;
+package utilities.GSON;
 
 
 import gameEngine.actors.behaviors.IBehavior;

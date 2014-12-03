@@ -36,7 +36,7 @@ public class BuildingPane extends Pane {
         myGroup.getChildren().add(component);
         refreshScreen();
     }
-    
+
     public void drawPathComponent(Node component) {
         myGroup.getChildren().add(1, component);
         refreshScreen();
@@ -52,7 +52,21 @@ public class BuildingPane extends Pane {
     }
 
     public void removeConnectedComponentFromScreen (List<PathComponent> deletedComponent) {
-        myGroup.getChildren().removeAll(deletedComponent);
-        
+        for(PathComponent comp:deletedComponent) {
+            myGroup.getChildren().removeAll(comp.getCorrespondingNodesToDelete());
+        }
     }
+    
+    /**
+     * Executed when a new building pane is selected and the currently selected pane
+     * will no longer be selected. Default function is to do nothing.
+     * Overridden in CurveDrawingPane.
+     */
+    public void executeExitFunction () {}
+
+    /**
+     * Executed when building pane is selected and becomes currently selected pane. Default
+     * function is to do nothing. Overridden in CurveDrawingPane.
+     */
+    public void executeEnterFunction () {}
 }

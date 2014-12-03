@@ -17,11 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import utilities.SliderContainer;
-import utilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
-import utilities.DragAndDropFilePanes.DragAndDropFilePane;
-import utilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.SliderContainer;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropFilePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -79,13 +80,15 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     private void setupDragAndDropForActorImage () {
         myDragAndDrop = 
                 new DragAndDropCopyImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,  
-                                        myActorImageDirectory);
+                                             myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
         myPane.setRight(myDragAndDrop.getPane());
     }
 
     protected abstract void initializeActorsAndBuildActorDisplay ();
+
+    protected abstract HBox addRequiredNumericalTextFields();
 
     private void setupFileMenu () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
@@ -102,7 +105,9 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         Label title = new Label(super.getTitle() + " Behaviors.");
         title.getStyleClass().add("behaviorsTitle");
         myRangeSliderContainer = new SliderContainer("range", 0, 100);
-        centerOptionsBox.getChildren().addAll(title, createActorNameTextField(), myRangeSliderContainer);
+        centerOptionsBox.getChildren().addAll(title, createActorNameTextField(), 
+                                              addRequiredNumericalTextFields(), 
+                                              myRangeSliderContainer);
         centerOptionsBox.setPadding(new Insets(10));
         for(BehaviorBuilder builder:myBehaviorBuilders){
             centerOptionsBox.getChildren().add(builder.getContainer());
@@ -135,15 +140,21 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             builder.reset();
         }
+        clearActorSpecificFields();
         myDragAndDrop.reset();
         myActorImgPath = "";
     }
 
+    protected abstract void clearActorSpecificFields ();
+
     private boolean fieldsAreValidForActiveCreation (Map<String, IBehavior> iBehaviorMap) {
         return !myActorImgPath.isEmpty() && 
                 !iBehaviorMap.isEmpty() &&
-                !myActorNameField.getText().isEmpty();
+                !myActorNameField.getText().isEmpty() &&
+                actorSpecificFieldsValid();
     }
+
+    protected abstract boolean actorSpecificFieldsValid ();
 
     private Map<String, IBehavior> buildIBehaviorMap () {
         Map<String, IBehavior> iBehaviorMap = new HashMap<String, IBehavior>();

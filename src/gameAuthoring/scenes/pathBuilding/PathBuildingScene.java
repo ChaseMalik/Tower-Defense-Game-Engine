@@ -22,7 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import utilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.StringToImageViewConverter;
 
 /**
  * This class allows the user to build a path from a starting location to an 
@@ -185,7 +185,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     }
 
     public void setCurrentBuildingPane(BuildingPane nextPane) {
+        if(myCurrentBuildingPane != null) {
+            myCurrentBuildingPane.executeExitFunction();
+        }
         myCurrentBuildingPane = nextPane;
+        nextPane.executeEnterFunction();
         myPane.getChildren().remove(myPane.getCenter());
         myPane.setCenter(nextPane);
         nextPane.refreshScreen();

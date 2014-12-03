@@ -2,7 +2,6 @@ package gameAuthoring.scenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
-import java.util.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;

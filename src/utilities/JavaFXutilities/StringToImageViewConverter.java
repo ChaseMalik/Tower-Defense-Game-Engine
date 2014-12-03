@@ -1,4 +1,4 @@
-package utilities;
+package utilities.JavaFXutilities;
 
 import java.io.File;
 import java.io.FileInputStream;

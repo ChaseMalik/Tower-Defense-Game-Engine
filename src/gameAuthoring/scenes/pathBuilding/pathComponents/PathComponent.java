@@ -3,6 +3,7 @@ package gameAuthoring.scenes.pathBuilding.pathComponents;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 
 /**
  * An interface that defines the behaviors of drawn component. Implemented
@@ -20,4 +21,5 @@ public interface PathComponent {
     void deselect ();
     PathComponent deepCopy();
     List<VisibilityPoint> getInnerPointsRepresentingComponent();
+    Node[] getCorrespondingNodesToDelete ();
 }

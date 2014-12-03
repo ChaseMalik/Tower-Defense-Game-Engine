@@ -1,4 +1,4 @@
-package utilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;

@@ -1,8 +1,7 @@
 package gamePlayer.guiItems.towerUpgrade;
 
 import java.io.File;
-
-import utilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.StringToImageViewConverter;
 import utilities.XMLParsing.XMLParser;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.TowerInfoObject;

@@ -4,6 +4,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -89,5 +90,10 @@ public class PathLine extends Line implements PathComponent {
     @Override
     public List<VisibilityPoint> getInnerPointsRepresentingComponent () {
         return new ArrayList<VisibilityPoint>();
+    }
+
+    @Override
+    public Node[] getCorrespondingNodesToDelete () {
+        return new Node[] { this };
     }
 }

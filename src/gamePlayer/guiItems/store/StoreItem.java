@@ -1,6 +1,6 @@
 package gamePlayer.guiItems.store;
 
-import utilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.StringToImageViewConverter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;

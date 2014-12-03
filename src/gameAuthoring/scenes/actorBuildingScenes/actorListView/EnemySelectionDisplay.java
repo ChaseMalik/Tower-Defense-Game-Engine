@@ -26,6 +26,7 @@ public class EnemySelectionDisplay extends ListView<BaseEnemy> {
         myEnemies = (ObservableList<BaseEnemy>) enemies;
         this.setOrientation(Orientation.HORIZONTAL);
         setItems(myEnemies);
+        getSelectionModel().selectAll();
         setCellFactory(new Callback<ListView<BaseEnemy>, 
                        ListCell<BaseEnemy>>() {
             @Override 

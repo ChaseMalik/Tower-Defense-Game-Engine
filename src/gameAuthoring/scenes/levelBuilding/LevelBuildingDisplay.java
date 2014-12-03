@@ -2,126 +2,38 @@ package gameAuthoring.scenes.levelBuilding;
 
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import java.util.stream.Collectors;
 import javafx.scene.layout.VBox;
-import utilities.StringToImageViewConverter;
 
 public class LevelBuildingDisplay extends VBox {
-    
-    private static final String LVL_CONTAINER_CLASS = "levelContainer";
-    private static final int SPACE_BTW_LEVEL_INFO_AND_ENEMIES = 50;
-    private static final int TEXT_FIELD_WIDTH = 50;
-    private static final double FIT_SIZE = 80;
-    private static final int GENERAL_PADDING = 10;
-    
-    private List<BaseLevel> myLevels;
+
     private List<BaseEnemy> myEnemies;
-    
-    public LevelBuildingDisplay(List<BaseEnemy> enemies, List<BaseLevel> levels) {
+    private List<LevelDisplayCell> myLevelCells;
+
+    public LevelBuildingDisplay(List<BaseEnemy> enemies) {
         myEnemies = enemies;
-        myLevels = levels;
-    }
-    
-    public void addLevel(BaseLevel level) {
-        myLevels.add(level);
-        makeNewLevelContainer(level);
+        myLevelCells = new ArrayList<LevelDisplayCell>();
+        addLevel();
     }
 
-    private void makeNewLevelContainer (BaseLevel level) {
-        HBox container = new HBox(SPACE_BTW_LEVEL_INFO_AND_ENEMIES);
-        container.setPadding(new Insets(GENERAL_PADDING));
-        container.getStyleClass().add(LVL_CONTAINER_CLASS);
-        VBox levelInfoBox = createLevelInfoBox(level);        
-        HBox enemiesBox = createEnemiesBox(level);
-        container.getChildren().addAll(levelInfoBox, enemiesBox);  
-        this.getChildren().add(container);
+    public void addLevel() {
+        int numLevels = myLevelCells.size();
+        LevelDisplayCell cell = new LevelDisplayCell(myEnemies, numLevels);
+        myLevelCells.add(cell);
+        this.getChildren().add(cell);
     }
 
-    private HBox createEnemiesBox (BaseLevel level) {
-        HBox enemiesBox = new HBox(GENERAL_PADDING);
-        for(BaseEnemy enemy:myEnemies) {
-            VBox enemyBox = new VBox(5);
-            enemyBox.setAlignment(Pos.CENTER);
-            Label enemyNameLabel = new Label(enemy.toString());
-            ImageView enemyImg = 
-                    StringToImageViewConverter.getImageView(FIT_SIZE, 
-                                                            FIT_SIZE, 
-                                                            enemy.getImagePath());
-            enemyImg.setFitHeight(FIT_SIZE);
-            enemyImg.setFitWidth(FIT_SIZE);         
-            enemyBox.getChildren().addAll(enemyNameLabel, enemyImg, 
-                                          buildTextField(level, enemy));
-            enemiesBox.getChildren().add(enemyBox);
-        }
-        return enemiesBox;
+    public boolean isAllUserInputIsValid () {
+        return myLevelCells.stream().filter(cell -> cell.isUserInputValid()).count() > 0;
     }
 
-    private VBox createLevelInfoBox (BaseLevel level) {
-        VBox levelInfoBox = new VBox(10);
-        levelInfoBox.setPadding(new Insets(15));
-        HBox timeAndSeconds = new HBox(10);
-        TextField levelTime = new TextField();
-        //TODO
-        
-        levelTime.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-                try {
-                    level.setDuration(Integer.parseInt(levelTime.getText()));
-                } catch (NumberFormatException e) {
-                    if(levelTime.getText().isEmpty()) {
-                        levelTime.setText("");
-                    }
-                    else {
-                        levelTime.setText(oldValue);
-                    }
-                }
-            }
-        });
-        //TODO
-        levelTime.setPrefWidth(TEXT_FIELD_WIDTH);
-        Label secondsLabel = new Label("seconds");
-        timeAndSeconds.getChildren().addAll(levelTime, secondsLabel);
-        Label levelLabel = new Label("Level " + (myLevels.indexOf(level)+1));
-        levelLabel.getStyleClass().add("levelLabel");
-        levelInfoBox.getChildren().addAll(levelLabel,
-                                          timeAndSeconds);
-        return levelInfoBox;
+    public List<BaseLevel> transformToLevels () {
+        List<BaseLevel> levels = new ArrayList<BaseLevel>();
+        levels = myLevelCells.stream()
+                .map(cell -> cell.generateLevel())
+                .collect(Collectors.toList());
+        return levels;
     }
-    
-    /**
-     * This text field only allows numbers to be typed.
-     */
-    private TextField buildTextField (BaseLevel level, BaseEnemy enemy) {
-        TextField numTextField = new TextField();
-        numTextField.setPrefWidth(TEXT_FIELD_WIDTH);
-        numTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-                try {
-                    int numOfEnemyType = Integer.parseInt(newValue);
-                    level.addEnemyCountPair(new EnemyCountPair(numOfEnemyType, enemy));
-                } catch (NumberFormatException e) {
-                    if(numTextField.getText().isEmpty()) {
-                        numTextField.setText("");
-                    }
-                    else {
-                        numTextField.setText(oldValue);
-                    }
-                }
-            }
-        });
-        return numTextField;
-    }
-   
 }

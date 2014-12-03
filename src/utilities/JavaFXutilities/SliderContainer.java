@@ -1,4 +1,4 @@
-package utilities;
+package utilities.JavaFXutilities;
 
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import javafx.scene.control.Label;

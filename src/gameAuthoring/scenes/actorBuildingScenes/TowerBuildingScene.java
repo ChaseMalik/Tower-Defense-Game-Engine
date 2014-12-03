@@ -10,12 +10,14 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import utilities.JavaFXutilities.numericalTextFields.LabeledNumericalTextField;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
@@ -32,6 +34,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private static final String IMG_DIR = AuthorController.gameDir + "/towerImages/";
     private static final String BEHAVIOR_XML_LOC = 
             "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
+    private static final double FIELD_WIDTH = 50;
 
     private List<BaseEnemy> myEnemiesTowerCanShoot;
     private ProjectilePane myProjectilePane;
@@ -40,6 +43,8 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private TilePane myTilePane;
     private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
     private TowerConfiguring myTowerConfiguringController;
+    private LabeledNumericalTextField myBuildCostField;
+    private LabeledNumericalTextField mySellValueField;
 
     public TowerBuildingScene (BorderPane root, TowerConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
@@ -81,6 +86,8 @@ public class TowerBuildingScene extends ActorBuildingScene {
         BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, 
                                         myActorNameField.getText(), 
                                         myRangeSliderContainer.getSliderValue(), 
+                                        myBuildCostField.getNumberEntered(),
+                                        mySellValueField.getNumberEntered(),
                                         myProjectilePane.makeProjectileInfo(myEnemiesTowerCanShoot));
         if(myCurrentlySelectedTowerGroup == null) {
             TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
@@ -130,5 +137,25 @@ public class TowerBuildingScene extends ActorBuildingScene {
         myTilePane.setStyle("-fx-background-color: DAE6F3;"); 
         redrawTowerDisplay();
         myPane.setLeft(myTilePane);
+    }
+
+    @Override
+    protected HBox addRequiredNumericalTextFields () {
+        HBox fieldsContainer = new HBox(10);
+        myBuildCostField = new LabeledNumericalTextField("Cost", FIELD_WIDTH);
+        mySellValueField = new LabeledNumericalTextField("Sell", FIELD_WIDTH);
+        fieldsContainer.getChildren().addAll(myBuildCostField, mySellValueField);
+        return fieldsContainer;
+    }
+
+    @Override
+    public boolean actorSpecificFieldsValid () {
+        return myBuildCostField.isValueEntered() && mySellValueField.isValueEntered();
+    }
+
+    @Override
+    protected void clearActorSpecificFields () {
+        myBuildCostField.clearField();
+        mySellValueField.clearField();       
     }
 }
