@@ -1,8 +1,12 @@
 package chatroom;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class Server {
 
