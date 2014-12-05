@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import utilities.GSON.GSONFileReader;
+import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -104,9 +105,9 @@ public class SingleThreadedEngineManager implements Observer {
     	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
     	if(towerValidity){
     		BaseTower newTower = (BaseTower)prototypeTower.copy();
-        	ImageView newTowerNode = newTower.getNode();
-        	newTowerNode.setX(x);
-        	newTowerNode.setY(y);
+        	CenteredImageView newTowerNode = newTower.getNode();
+        	newTowerNode.setXCenter(x);
+        	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);

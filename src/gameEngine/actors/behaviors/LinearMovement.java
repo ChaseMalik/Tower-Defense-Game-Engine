@@ -2,6 +2,7 @@ package gameEngine.actors.behaviors;
 
 import java.util.List;
 import java.util.Set;
+import utilities.JavaFXutilities.CenteredImageView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -54,10 +55,10 @@ public class LinearMovement extends BaseMovementBehavior {
     }
 
     private void move (BaseActor a, VisibilityPoint point) {
-        ImageView actor = a.getNode();
+        CenteredImageView actor = a.getNode();
         actor.setVisible(point.isVisible());
-        actor.setX(point.getPoint().getX());
-        actor.setY(point.getPoint().getY());
+        actor.setXCenter(point.getPoint().getX());
+        actor.setYCenter(point.getPoint().getY());
     }
 
     @Override

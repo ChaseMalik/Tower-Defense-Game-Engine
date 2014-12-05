@@ -16,12 +16,14 @@ import javafx.scene.image.ImageView;
  */
 public class StringToImageViewConverter {
     
-    public static ImageView getImageView(double width, double height, String path) {
-        ImageView imgView = new ImageView();
+    public static CenteredImageView getImageView(double width, double height, String path) {
+        CenteredImageView imgView = new CenteredImageView();
         try {
             Image image;
             image = new Image(new FileInputStream(new File(path.replace("\\", "/"))), width, height, false, false);
             imgView.setImage(image);
+            imgView.setFitWidth(width);
+            imgView.setFitHeight(height);
         }
         catch (FileNotFoundException e) {
             new ErrorPopup("File " + path + " could not be loaded.");
