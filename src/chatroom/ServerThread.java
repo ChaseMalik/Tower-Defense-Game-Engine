@@ -1,47 +1,45 @@
 package chatroom;
 
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
 public class ServerThread extends Thread {
 
-    private Server server;
-    private Socket socket;
+    // Server for spawning threads
+    private Server myServer;
+    // Socket connected to the client
+    private Socket mySocket;
 
     public ServerThread (Server server, Socket socket) {
-        this.server = server;
-        this.socket = socket;
+        this.myServer = server;
+        this.mySocket = socket;
 
         start();
     }
 
-    // This runs in a separate thread when start() is called in the
-    // constructor.
-    public void run() {
+    // Runs in a separate thread when start() is called in the constructor
+    public void run () {
         try {
-            // DataInputStream for communication; the client
-            // is using a DataOutputStream to write to us
-            DataInputStream din = new DataInputStream(socket.getInputStream());
 
-            // Perpetual loop for reading messages and transmitting them to all clients through the server
+            // DataInputStream used for receiving what the client writes
+            DataInputStream myDataIn = new DataInputStream(mySocket.getInputStream());
+
+            // Infinite loop for reading in messages for the server to send to all clients
             while (true) {
-                String message = din.readUTF();
+                String message = myDataIn.readUTF();
                 System.out.println("Sending " + message);
-                server.sendToAll(message);
+                myServer.sendToAll(message);
             }
         }
-        catch (EOFException e) {
+        catch (EOFException ex) {
             System.out.println("EOFException occurred in ServerThread.java");
         }
-        catch (IOException e) {
+        catch (IOException ex) {
             System.out.println("IOException occurred in ServerThread.java");
         }
         finally {
-            // Remove any closed connections
-            server.removeConnection(socket);
+            // Removes any closed connections
+            myServer.removeConnection(mySocket);
         }
     }
-
 }

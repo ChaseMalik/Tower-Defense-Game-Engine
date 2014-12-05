@@ -1,74 +1,78 @@
 package chatroom;
 
-import java.awt.BorderLayout;
-import java.awt.TextArea;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
 
-//import javafx.scene.control.TextArea;
-//import javafx.scene.control.TextField;
+public class Client extends Panel implements Runnable {
 
-//import javafx.event.ActionEvent;
-
-public class Client {
+    /**
+     * Generated serial version ID
+     */
+    private static final long serialVersionUID = -1649877892361198998L;
 
     // Components for the visual display of the chat windows
-    private TextField tf = new TextField();
-    private TextArea ta = new TextArea();
-    // The socket connecting us to the server
-    private Socket socket;
-    // The streams we communicate to the server; these come
-    // from the socket
-    private DataOutputStream dout;
-    private DataInputStream din;
+    private TextField myTextField = new TextField();
+    private TextArea myTextArea = new TextArea();
 
-    // Constructor
+    // Socket connected to the server
+    private Socket mySocket;
+
+    // Streams from the socket that communicate to the server
+    private DataOutputStream myDataOut;
+    private DataInputStream myDataIn;
+
     public Client (String host, int port) {
-        // Set up the screen
+
         setLayout(new BorderLayout());
-        add("North", tf);
-        add("Center", ta);
-        // We want to receive messages when someone types a line
-        // and hits return, using an anonymous class as
-        // a callback
-        tf.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                processMessage(e.getActionCommand());
+        add("My text field", myTextField);
+        add("My text area", myTextArea);
+
+        // Receives messages when a user types a line and hits return
+        myTextField.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent e) {
+                sendUserMessageToServer(e.getActionCommand());
             }
         });
 
-        // Connect to the server
+        // Connects to the server
         try {
-            // Initiate the connection
-            socket = new Socket(host, port);
-            // We got a connection! Tell the world
-            System.out.println("connected to " + socket);
-            // Let's grab the streams and create DataInput/Output streams
-            // from them
-            din = new DataInputStream(socket.getInputStream());
-            dout = new DataOutputStream(socket.getOutputStream());
-            // Start a background thread for receiving messages
+            mySocket = new Socket(host, port);
+            System.out.println("connected to " + mySocket);
+
+            myDataIn = new DataInputStream(mySocket.getInputStream());
+            myDataOut = new DataOutputStream(mySocket.getOutputStream());
+
+            // Starts background threads for receiving messages
             new Thread(this).start();
         }
-        catch (IOException e) {
+        catch (IOException ex) {
             System.out.println("IOException occurred in Client.java");
         }
     }
 
-    // Sends messages typed by the user to the server
-    private void processMessage (String message) {
+    // Sends user messages to the server
+    private void sendUserMessageToServer (String message) {
         try {
-            dout.writeUTF(message);
-            tf.setText("");
+            myDataOut.writeUTF(message);
+            myTextField.setText("");
         }
-        catch (IOException e) {
-            System.out.println("IOException occurred in Client.java (processMessage)");
+        catch (IOException ex) {
+            System.out.println(ex);
         }
     }
 
+    // Runs on background threads to display messages from other windows
+    public void run () {
+        try {
+            while (true) {
+                String message = myDataIn.readUTF();
+                myTextArea.append(message + "\n");
+            }
+        }
+        catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
 }
