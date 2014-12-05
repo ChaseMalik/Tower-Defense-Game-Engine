@@ -172,6 +172,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void onLevelEnd() {
+	        duration = 0; //TODO bad code, but problem with multiple levels
 		myTimeline.pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
