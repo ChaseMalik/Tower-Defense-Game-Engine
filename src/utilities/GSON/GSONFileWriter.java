@@ -17,15 +17,17 @@ public class GSONFileWriter {
 
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
-                               String directory,
-                               boolean[][] validLocations) {
+                               String directory) {
 
     	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
         writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
         writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));
-        writeToFile(directory + "locations.json", gson.create().toJson(validLocations, validLocations.getClass()));
     }
-
+    
+    public void writeTowerRegions(String directory, boolean[][] validRegions){
+        writeToFile(directory + "locations.json", gson.create().toJson(validRegions, validRegions.getClass()));
+    }
+    
     public void writeToFile(String fileName, String json) {
         try{
             File file = new File(fileName);
