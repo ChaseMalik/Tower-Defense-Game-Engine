@@ -5,9 +5,8 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.RealActor;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Comparator;
+import java.util.Optional;
 import javafx.geometry.Point2D;
 
 
@@ -26,14 +25,26 @@ public abstract class RangeAttack extends BaseAttack {
         Point2D targetLoc = new Point2D(target.getX(), target.getY());
         Point2D unitVector = targetLoc.subtract(shooterLoc).normalize();
         double heading = getOrientation(unitVector);
-        BackendRoute route = new BackendRoute(shooterLoc, shooterLoc.add(unitVector.multiply(BuildingPane.DRAW_SCREEN_WIDTH * DISTANCE_FACTOR)));
+        BackendRoute route =
+                new BackendRoute(shooterLoc, shooterLoc.add(unitVector
+                        .multiply(BuildingPane.DRAW_SCREEN_WIDTH * DISTANCE_FACTOR)));
         BaseProjectile projectile = new BaseProjectile(shooter.getProjectile().copy());
         projectile.getInfo().getMove().setRoute(route);
         shooter.spawnProjectile(projectile);
         shooter.getNode().setRotate(heading);
         projectile.getNode().setRotate(heading);
-        myCooldown = (int) myAttackSpeed;
     }
+
+    @Override
+    protected void performAttack (BaseActor actor) {
+        Optional<BaseActor> target =
+                actor.getEnemiesInRange().stream().min(defineComparison(actor));
+        if (target.isPresent()) {
+            shootActorFromActor(target.get(), actor);
+        }
+    }
+
+    protected abstract Comparator<BaseActor> defineComparison (BaseActor actor);
 
     private double getOrientation (Point2D dif) {
         return Math.toDegrees(Math.atan2(dif.getY(), dif.getX())) + IMAGE_ANGLE_OFFSET;
