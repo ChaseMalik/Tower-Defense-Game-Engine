@@ -50,7 +50,7 @@ public class GSONFileReader {
     public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
             BufferedReader br = new BufferedReader(new FileReader(gameDir + "locations.json"));        
-            locations = gson.create().fromJson(br, locations.getClass());  
+            locations = gson.create().fromJson(br, new boolean[0][0].getClass());  
         } catch(IOException e){
             new ErrorPopup("File" + gameDir + "locations.json could not be found.");
         }               
