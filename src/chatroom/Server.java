@@ -9,8 +9,8 @@ import java.util.Hashtable;
 
 public class Server {
 
-    private ServerSocket socket;
-    private Dictionary outputStreams = new Hashtable();
+    private ServerSocket mySocket;
+    private Dictionary myOutputStreams = new Hashtable();
 
     // Constructor and socket acceptor that listens
     public Server (int port) throws IOException {
@@ -18,15 +18,17 @@ public class Server {
     }
 
     private void listen (int port) throws IOException {
-        socket = new ServerSocket(port);
-        System.out.println("Listening on " + socket);
+        mySocket = new ServerSocket(port);
+        System.out.println("Listening on " + mySocket);
 
         // Perpetual socket acceptance
         while (true) {
-            Socket s = socket.accept();
+            Socket s = mySocket.accept();
             System.out.println("Connection from " + s);
+
+            // DataOutputStream writes data to the other side
             DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-            outputStreams.put(s, dout);
+            myOutputStreams.put(s, dout);
             new ServerThread(this, s);
         }
     }
@@ -34,6 +36,16 @@ public class Server {
     static public void main (String args[]) throws Exception {
         int port = Integer.parseInt(args[0]);
         new Server(port);
+    }
+
+    public void removeConnection (Socket socket) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void sendToAll (String message) {
+        // TODO Auto-generated method stub
+
     }
 
 }
