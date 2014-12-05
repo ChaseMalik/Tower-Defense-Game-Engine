@@ -102,7 +102,7 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	public ImageView addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
-    	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
+    	boolean towerValidity = prototypeTower != null && validateTower(prototypeTower, x, y);
     	if(towerValidity){
     		BaseTower newTower = (BaseTower)prototypeTower.copy();
         	CenteredImageView newTowerNode = newTower.getNode();
@@ -237,11 +237,22 @@ public class SingleThreadedEngineManager implements Observer {
 		myReadyToPlay.set(false);
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
+		loadLocations(correctedDirectory);
 		myReadyToPlay.set(true);
 		loadNextLevel();
 	}
 
-	public void loadTowers(String directory) {
+	private void loadLocations (String dir) {
+	    boolean[][] validRegions = myFileReader.readTowerRegionsFromGameDirectory(dir);
+	    
+	    
+    }
+	public boolean validateTower(BaseActor tower, double x, double y){
+	        //TODO: change
+	        return true;
+	    }
+
+    public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
 			TowerInfoObject prevInfoObject = null;

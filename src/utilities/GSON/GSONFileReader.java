@@ -47,7 +47,7 @@ public class GSONFileReader {
         return levelList;
     }
     
-    public boolean[][] readValidLocationsFromGameDirectory(String gameDir){
+    public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
             BufferedReader br = new BufferedReader(new FileReader(gameDir + "locations.json"));        
             locations = gson.create().fromJson(br, locations.getClass());  

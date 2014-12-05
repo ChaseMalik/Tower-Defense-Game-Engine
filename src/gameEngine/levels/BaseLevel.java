@@ -10,11 +10,6 @@ public class BaseLevel {
     private List<EnemyCountPair> myEnemyCountPairs = new ArrayList<EnemyCountPair>();
     private int myDurationSeconds;
     
-    public boolean validateTower(BaseActor tower, double x, double y){
-        //TODO: change
-        return true;
-    }
-    
     public void addEnemyCountPair(EnemyCountPair pair) {
         for(EnemyCountPair p:myEnemyCountPairs) {
             if(p.getMyEnemy().equals(pair.getMyEnemy())) {
