@@ -3,7 +3,10 @@ package gameEngine.actors.behaviors;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import org.omg.CORBA.Current;
 import javafx.geometry.Point2D;
 /**
  * Example of BaseAttack, where the actor shoots at the nearest opposing actor
@@ -19,14 +22,13 @@ public class ClosestRangeAttack extends RangeAttack {
 
     @Override
     public void performAttack (BaseActor actor) {
-        List<BaseActor> shootable = getShootableActors(actor);
-        if(shootable==null)
-            return;
-        BaseActor enemy = getClosestActor(actor, shootable);
-        if(enemy==null){
-            return;
+        Point2D current = new Point2D(actor.getX(), actor.getY());
+        Comparator<BaseActor> byClosest = (BaseActor a1, BaseActor a2) -> Double
+                .compare(current.distance(a1.getX(),a1.getY()), current.distance(a2.getX(),a2.getY()));
+        Optional<BaseActor>shootable = getShootableActors(actor).stream().sorted(byClosest).findFirst();
+        if(shootable.isPresent()){
+            shootActorFromActor(shootable.get(),actor);
         }
-        shootActorFromActor(enemy, actor);
     }
 
     private List<BaseActor> getShootableActors (BaseActor actor) {
@@ -38,20 +40,6 @@ public class ClosestRangeAttack extends RangeAttack {
         }
         return null;
         
-    }
-
-    private BaseActor getClosestActor (BaseActor actor, List<BaseActor> enemies) {
-        Point2D current = new Point2D(actor.getX(), actor.getY());
-        BaseActor close = null;
-        double distance = Integer.MAX_VALUE;
-        for(BaseActor e: enemies){
-            Point2D point = new Point2D(e.getX(), e.getY());
-            if(distance > current.distance(point)){
-                close = e;
-                distance = current.distance(point);
-            }
-        }
-        return close;
     }
 
     @Override

@@ -1,7 +1,9 @@
 package gameEngine.actors.behaviors;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
@@ -17,25 +19,15 @@ public class FarthestEnemyRangeAttack extends RangeAttack{
 
     @Override
     public void performAttack (BaseActor actor) {
-        RealActor shooter=(RealActor)actor;
-        BaseActor shootable=getFarthestActor(shooter, actor.getEnemiesInRange());
-        if(null==shootable)
-            return;
-        shootActorFromActor(shootable, actor);
+        Comparator<BaseActor> byFarthest = (BaseActor a1, BaseActor a2) -> Double
+                .compare(((BaseMovementBehavior) (a1.getBehavior("movement"))).getRemainingDistance(),
+                         ((BaseMovementBehavior) (a2.getBehavior("movement"))).getRemainingDistance());
+        Optional<BaseActor>target = actor.getEnemiesInRange().stream().sorted(byFarthest).findFirst();
+        if(target.isPresent()){
+            shootActorFromActor(target.get(),actor);
+        }
     }
     
-    private BaseActor getFarthestActor(BaseActor actor, List<BaseActor> enemies) {   
-        BaseActor close = null;
-        double distance = Integer.MAX_VALUE;
-        for(BaseActor e: enemies){
-           BaseMovementBehavior m= (BaseMovementBehavior)e.getBehavior("movement");
-           if(m.getRemainingDistance()<distance){
-               close=e;
-               distance=m.getRemainingDistance();
-           }
-        }
-        return close;
-    }
     @Override
     public IBehavior copy () {
         return new FarthestEnemyRangeAttack(myAttackSpeed);
