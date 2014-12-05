@@ -1,7 +1,10 @@
 package gameEngine;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
@@ -27,6 +30,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -48,6 +52,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private List<BaseLevel> myLevels;
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
+	private GridPane myValidRegions;
 	
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
@@ -63,6 +68,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemyGroup = new RangeRestrictedCollection<>();
 		myTowerGroup = new RangeRestrictedCollection<>();
 		myProjectileGroup = new RangeRestrictedCollection<>();
+		myValidRegions = new GridPane();
 		engineGroup.getChildren().add(myTowerGroup);
 		engineGroup.getChildren().add(myProjectileGroup);
 		engineGroup.getChildren().add(myEnemyGroup);
@@ -244,12 +250,24 @@ public class SingleThreadedEngineManager implements Observer {
 
 	private void loadLocations (String dir) {
 	    boolean[][] validRegions = myFileReader.readTowerRegionsFromGameDirectory(dir);
+	    myValidRegions = new GridPane();
+	    myValidRegions.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+	    for(int row = 0; row<validRegions.length;row++){
+	        for(int col = 0; col<validRegions[0].length; col++){
+	            if(validRegions[row][col]){
+	                Tile tile = new Tile(row,col);
+	                tile.setVisible(false);
+	                myValidRegions.add(tile, col, row);
+	            }
+	            
+	        }
+	    }
 	    
 	    
     }
 	public boolean validateTower(BaseActor tower, double x, double y){
-	        //TODO: change
-	        return true;
+	        return myValidRegions.getChildren().stream()
+	        .filter(node -> node.contains(x, y)).count()>0;
 	    }
 
     public void loadTowers(String directory) {
