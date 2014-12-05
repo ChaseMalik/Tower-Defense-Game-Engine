@@ -1,8 +1,9 @@
 package chatroom;
 
-import java.applet.Applet;
+import java.applet.*;
 import java.awt.LayoutManager;
 
+//import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 
 public class ClientApplet extends Applet {
@@ -12,10 +13,12 @@ public class ClientApplet extends Applet {
      */
     private static final long serialVersionUID = 5484563350299263809L;
 
-    public void initialize () {
+    public void init() {
         String host = getParameter("host");
         int port = Integer.parseInt(getParameter("port"));
-        setLayout((LayoutManager)new BorderPane());
+//        setLayout(new BorderLayout());
+//        setLayout(new Border());
+        setLayout((LayoutManager) new BorderPane());
         add("Center", new Client(host, port));
     }
 }
