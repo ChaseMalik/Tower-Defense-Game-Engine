@@ -153,4 +153,9 @@ public class PathCurve extends CubicCurve implements PathComponent {
     public Node[] getCorrespondingNodesToDelete () {
         return new Node[] { this, myControlPoint1Setter, myControlPoint2Setter };
     }
+
+    @Override
+    public Node getNode () {
+        return this;
+    }
 }

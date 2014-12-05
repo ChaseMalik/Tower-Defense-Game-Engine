@@ -19,6 +19,7 @@ public interface PathComponent {
     void translate(double deltaX, double deltaY);
     void select ();
     void deselect ();
+    Node getNode();
     PathComponent deepCopy();
     List<VisibilityPoint> getInnerPointsRepresentingComponent();
     Node[] getCorrespondingNodesToDelete ();

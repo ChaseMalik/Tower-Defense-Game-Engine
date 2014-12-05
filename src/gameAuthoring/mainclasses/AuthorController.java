@@ -189,4 +189,10 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
     public void setBackground (String imageFileName) {
         myBackgroundImageFileName = imageFileName;       
     }
+
+    @Override
+    public void setTowerRegions (boolean[][] backendTowerRegions) {
+        GSONFileWriter writer = new GSONFileWriter();
+        writer.writeTowerRegions(gameDir, backendTowerRegions);       
+    }
 }

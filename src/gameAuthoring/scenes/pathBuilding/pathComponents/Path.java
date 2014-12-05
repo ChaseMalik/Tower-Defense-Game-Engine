@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.pathBuilding.pathComponents;
 
+import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
@@ -352,5 +353,11 @@ public class Path implements Iterable<PathRoute> {
         myGroup.getChildren().clear();
         clearEnemyEndingLocations();
         clearEnemyStartingLocations();
+    }
+
+    public boolean intersects (Tile tile) {
+        return this.getAllPathComponents().stream()
+        .filter(comp->comp.getNode().intersects(tile.getBoundsInLocal()))
+        .count() > 0;
     }    
 }
