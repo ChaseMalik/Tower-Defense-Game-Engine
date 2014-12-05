@@ -7,24 +7,24 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 
 
-public class StrongestEnemyRangeAttack extends RangeAttack {
+public class FarthestRangeAttack extends RangeAttack {
 
-    public static final String DEFEND = "defend";
-
-    public StrongestEnemyRangeAttack (double attackSpeed) {
+    public FarthestRangeAttack (double attackSpeed) {
         super(attackSpeed);
     }
 
     @Override
     public Comparator<BaseActor> defineComparison (BaseActor a) {
         return (BaseActor a1, BaseActor a2) -> Double
-                .compare(((BaseDefendBehavior) (a2.getBehavior(DEFEND))).getHealth(),
-                         ((BaseDefendBehavior) (a1.getBehavior(DEFEND))).getHealth());
+                .compare(((BaseMovementBehavior) (a1.getBehavior("movement")))
+                        .getRemainingDistance(),
+                         ((BaseMovementBehavior) (a2.getBehavior("movement")))
+                                 .getRemainingDistance());
     }
 
     @Override
     public IBehavior copy () {
-        return new StrongestEnemyRangeAttack(myAttackSpeed);
+        return new FarthestRangeAttack(myAttackSpeed);
     }
 
     @Override
