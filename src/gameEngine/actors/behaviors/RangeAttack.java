@@ -17,10 +17,20 @@ public abstract class RangeAttack extends BaseAttack{
     
     protected void shootActorFromActor(BaseActor target, BaseActor actor){
         RealActor shooter=(RealActor) actor;
-        BackendRoute route=new BackendRoute(new Point2D(shooter.getX(), shooter.getY()), new Point2D(target.getX(),(target.getY()))); 
+        Point2D shooterLoc = new Point2D(shooter.getX(), shooter.getY());
+        Point2D targetLoc = new Point2D(target.getX(),target.getY());
+        BackendRoute route=new BackendRoute(shooterLoc, targetLoc); 
         BaseProjectile projectile=new BaseProjectile(shooter.getProjectile().copy());
         projectile.getInfo().getMove().setRoute(route);
         shooter.spawnProjectile(projectile);
+        double heading = getOrientation(shooterLoc,targetLoc);
+        shooter.getNode().setRotate(-heading);
+        projectile.getNode().setRotate(-heading);
         myCooldown=(int)myAttackSpeed;
+    }
+
+    private double getOrientation (Point2D shooter, Point2D target) {
+        Point2D dif = shooter.subtract(target).normalize();
+        return Math.toDegrees(Math.atan2(dif.getX(), dif.getY())) + 180;
     }
 }

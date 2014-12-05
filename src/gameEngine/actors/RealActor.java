@@ -24,7 +24,7 @@ public abstract class RealActor extends BaseActor {
         notifyObservers(projectile);
     }
     public Node getRange(){
-        return new Circle(myNode.getX(),myNode.getY(),myRange);
+        return new Circle(myNode.getXCenter(),myNode.getYCenter(),myRange);
     }
     
     /**

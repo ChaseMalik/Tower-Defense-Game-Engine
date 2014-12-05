@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+import utilities.JavaFXutilities.CenteredImageView;
 import utilities.JavaFXutilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import javafx.scene.Node;
@@ -32,7 +33,7 @@ import javafx.scene.image.ImageView;
 public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
-    protected transient ImageView myNode;
+    protected transient CenteredImageView myNode;
     protected InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
@@ -120,14 +121,14 @@ public abstract class BaseActor extends Observable {
     }
 
     public double getX () {
-        return myNode.getX();
+        return myNode.getXCenter();
     }
 
     public double getY () {
-        return myNode.getY();
+        return myNode.getYCenter();
     }
 
-    public ImageView getNode () {
+    public CenteredImageView getNode () {
         return myNode;
     }
 
