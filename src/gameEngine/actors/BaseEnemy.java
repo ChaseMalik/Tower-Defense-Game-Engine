@@ -9,27 +9,27 @@ import java.util.Map;
 public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
-    private int myDamage;
+    private int myBounty;
     
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, ProjectileInfo projectile, List<BackendRoute> route) {
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, ProjectileInfo projectile, List<BackendRoute> route) {
         super(behaviors, image, name, range,projectile);
         //REPEATED CODE
         myRoutes = route;
-        myDamage = damage;
+        myBounty = bounty;
         ((BaseMovementBehavior)behaviors.get("movement")).setRoute((route.get((int)(Math.random()*route.size()))));
     }
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, List<BackendRoute> route) {
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, List<BackendRoute> route) {
         super(behaviors, image, name, range);
         //REPEATED CODE
         myRoutes=route;
-        myDamage = damage;
+        myBounty = bounty;
         ((BaseMovementBehavior)behaviors.get("movement")).setRoute((route.get((int)(Math.random()*route.size()))));
     }
     
     @Override
     public BaseActor copy(){
         Map<String, IBehavior> cBehaviors=copyBehaviors();
-        BaseEnemy e = new BaseEnemy(cBehaviors, myImagePath, myName, myRange, myDamage, myProjectile, myRoutes);
+        BaseEnemy e = new BaseEnemy(cBehaviors, myImagePath, myName, myRange, myBounty, myProjectile, myRoutes);
         e.getNode().setVisible(false);
         return e;
     }
@@ -37,5 +37,8 @@ public class BaseEnemy extends RealActor {
     @Override
     protected int[] getSize () {
         return new int[]{50,50};
+    }
+    public int getBounty(){
+        return myBounty;
     }
 }
