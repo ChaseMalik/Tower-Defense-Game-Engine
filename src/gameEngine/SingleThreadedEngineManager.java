@@ -274,7 +274,7 @@ public class SingleThreadedEngineManager implements Observer {
 			for (BaseTower tower : towerGroup) {
 				String towerName = tower.toString();
 				myPrototypeTowerMap.put(towerName, tower);
-				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), 0);
+				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), tower.getBuyCost(), tower.getSellCost(), tower.getRangeProperty());
 				if(prevInfoObject != null) {
 					prevInfoObject.setNextTower(currentInfoObject);
 				}
