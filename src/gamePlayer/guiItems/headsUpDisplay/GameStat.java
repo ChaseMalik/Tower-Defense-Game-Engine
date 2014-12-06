@@ -1,6 +1,8 @@
 package gamePlayer.guiItems.headsUpDisplay;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -11,7 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author allankiplagat
  *
  */
-public class GameStats {
+public class GameStat {
     private StringProperty gameStat;
     
     public void setGameStat(String value) {
@@ -27,17 +29,17 @@ public class GameStats {
         return gameStat; 
     }
 
-    private IntegerProperty statValue;
-    public void setStatValue(Integer value) { 
+    private DoubleProperty statValue;
+    public void setStatValue(double value) { 
         statValueProperty().set(value); 
     }
 
-    public int getStatValue() { 
+    public double getStatValue() { 
         return statValueProperty().get(); 
     }
     
-    public IntegerProperty statValueProperty() { 
-        if (statValue == null) statValue = new SimpleIntegerProperty(this, "statValue");
+    public DoubleProperty statValueProperty() { 
+        if (statValue == null) statValue = new SimpleDoubleProperty(this, "statValue");
         return statValue; 
     }
 }
