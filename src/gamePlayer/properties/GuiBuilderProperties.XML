@@ -5,8 +5,12 @@
     <!--window width and height -->
  	<GuiSize>
 		<element>900</element>
-		<element>750</element>
+		<element>650</element>
 	</GuiSize>
+	
+	<ContainerSizeRatios>
+		<element></element> <!-- Left -->
+	</ContainerSizeRatios>
 	
 	<!-- specifies properties path to be passed to the text generator object used by the guibuilder -->
 	<TextGeneratorPropertiesPath>

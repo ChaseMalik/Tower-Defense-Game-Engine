@@ -30,8 +30,7 @@ public class GameWorld implements GuiItem {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		myMap.resize(BuildingPane.DRAW_SCREEN_WIDTH,
-				AuthorController.SCREEN_HEIGHT);
+		myMap.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
 		myListener.registerGameWorld(this);
 	}
 
