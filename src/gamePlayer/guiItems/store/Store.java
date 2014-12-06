@@ -1,7 +1,7 @@
 package gamePlayer.guiItems.store;
 
+import gamePlayer.Listeners.StoreListener;
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;

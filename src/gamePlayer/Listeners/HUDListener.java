@@ -1,4 +1,4 @@
-package gamePlayer.guiItemsListeners;
+package gamePlayer.Listeners;
 
 import java.util.List;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;

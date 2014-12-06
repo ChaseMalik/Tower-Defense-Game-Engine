@@ -1,4 +1,4 @@
-package gamePlayer.guiItemsListeners;
+package gamePlayer.Listeners;
 
 
 /**

@@ -1,6 +1,6 @@
 package gamePlayer.guiItems.gameWorld;
 
-import gamePlayer.guiItemsListeners.GameItemListener;
+import gamePlayer.Listeners.GameItemListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
