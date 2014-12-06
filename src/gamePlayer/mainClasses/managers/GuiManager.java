@@ -21,6 +21,7 @@ import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
+import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -51,7 +52,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
+		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, SpeedSliderListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -265,8 +266,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void displayMessage(String message) {
-		myMessageDisplay.showMessage(message);
+	public void displayMessage(String message, boolean error) {
+		myMessageDisplay.showMessage(message, error);
 	}
 
 	@Override
@@ -283,5 +284,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
 		myEngineManager.removeTower(myTowerImageView);
 		myGameWorld.getMap().getChildren().remove(indicator);
+	}
+
+	@Override
+	public void updateSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * For Tower Placing
+	 */
+	public boolean validPlacement(double x, double y) {
+		return myEngineManager.validateTower(x, y);
 	}
 }

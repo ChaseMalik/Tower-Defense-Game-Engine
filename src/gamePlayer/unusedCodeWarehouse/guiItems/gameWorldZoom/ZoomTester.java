@@ -33,7 +33,7 @@ public class ZoomTester extends Application {
 	
 	private void buildContent() {
 		ImageView imageView1 = new ImageView();
-		String path1 = "file:./src/gameAuthoring/Resources/DefaultMapImages/Map1.jpg";
+		String path1 = "file:./src/gamePlayer/unusedCodeWarehouse/spriteResources/Hulk.jpg";
 		imageView1.setImage(new Image(path1, mySize.getWidth(), mySize.getHeight(), false, false));
 		myContent = new Group(imageView1);
 	}

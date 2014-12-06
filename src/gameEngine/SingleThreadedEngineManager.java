@@ -11,6 +11,7 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,18 +22,18 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
-import utilities.GSON.GSONFileReader;
-import utilities.JavaFXutilities.CenteredImageView;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import utilities.GSON.GSONFileReader;
+import utilities.JavaFXutilities.CenteredImageView;
 
 public class SingleThreadedEngineManager implements Observer {
 
@@ -262,6 +263,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    
 	    
     }
+	
 	public boolean validateTower(double x, double y){
 	        return myValidRegions.getChildren().stream()
 	        .filter(node -> node.contains(x, y)).count()>0;

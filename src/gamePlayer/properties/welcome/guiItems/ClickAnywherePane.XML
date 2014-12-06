@@ -2,6 +2,10 @@
 
 <ClickAnywherePaneProperties>
 	
+	<Padding>
+		<element>20</element>
+	</Padding>
+	
 	<LabelText>
 	    <element>Click anywhere to start game</element>
 	</LabelText>

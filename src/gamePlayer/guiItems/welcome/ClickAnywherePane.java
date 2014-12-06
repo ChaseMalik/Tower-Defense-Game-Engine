@@ -18,6 +18,11 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * 
+ * @author brianbolze
+ */
+
 public class ClickAnywherePane implements GuiItem {
 
 	private XMLParser myParser;
@@ -47,6 +52,7 @@ public class ClickAnywherePane implements GuiItem {
 		myPane = new VBox();
 		myPane.setPrefSize(mySize.getWidth(), mySize.getHeight());
 		myPane.setAlignment(Pos.CENTER);
+		myPane.setSpacing(myParser.getDoubleValuesFromTag("Padding").get(0));
 		myPane.getStyleClass().add("ClickAnywherePane");
 	}
 	

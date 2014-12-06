@@ -1,7 +1,9 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
+
 import java.util.Map;
+
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 
@@ -23,7 +25,7 @@ public abstract class RealActor extends BaseActor {
         setChanged();
         notifyObservers(projectile);
     }
-    public Node getRange(){
+    public Node getRange() {
         return new Circle(myNode.getXCenter(),myNode.getYCenter(),myRange);
     }
     

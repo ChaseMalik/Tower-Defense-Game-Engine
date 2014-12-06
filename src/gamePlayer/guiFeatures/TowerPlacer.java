@@ -54,7 +54,7 @@ public class TowerPlacer {
     private void drop(Circle node, double X, double Y, String towerID, Node rootNode) {
 
         if (!validPlacement(X,Y)) {
-            GuiConstants.GUI_MANAGER.displayMessage("Invalid placement");
+            GuiConstants.GUI_MANAGER.displayMessage("Invalid placement", true);
             return;
         }
 
@@ -66,9 +66,7 @@ public class TowerPlacer {
     }
 
     private boolean validPlacement(double X, double Y) {
-        // TODO: Add the real logic 
-    	// return myListener.validPlacement(X,Y) // -- have the GameWorld do this??
-        return true;
+    	return GuiConstants.GUI_MANAGER.validPlacement(X,Y); 
     }
     
 }
