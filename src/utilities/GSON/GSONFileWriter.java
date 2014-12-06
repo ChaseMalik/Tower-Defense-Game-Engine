@@ -24,7 +24,7 @@ public class GSONFileWriter {
     public GSONFileWriter(){
         gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
     }
-    
+
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
                                String directory) {
@@ -32,11 +32,11 @@ public class GSONFileWriter {
         writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
         writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));
     }
-    
+
     public void writeTowerRegions(String directory, boolean[][] validRegions){
         writeToFile(directory + "locations.json", gson.create().toJson(validRegions, validRegions.getClass()));
     }
-    
+
     public void writeToFile(String fileName, String json) {
         try{
             File file = new File(fileName);
@@ -47,24 +47,20 @@ public class GSONFileWriter {
             new ErrorPopup("File to store actors could not be found.");
         }
     }
-    
+
     public String convertActorsToJson(List<BaseTower> towerList){
 
         gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
-    	List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
-    	List<BaseTower> list = new ArrayList<BaseTower>();
-    	//while(towerList.hasNext()){
-    	for(BaseTower tower: towerList){
-    	    //BaseTower tower = towerList.next();
-    		//DataWrapper dw = new DataWrapper(tower, tower.getNode().getX(), tower.getNode().getY());
-   		list.add(tower);
-    		//wrappedTowerList.add(dw);  		 		
-    	}
-    	//return gson.create().toJson(a,BaseActor.class);
-    	return gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType());
-    	
-    }
-    
+        List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
+        for(BaseTower tower: towerList){
+            DataWrapper dw = new DataWrapper((BaseTower) tower.copy(), tower.getNode().getX(), tower.getNode().getY());
+            wrappedTowerList.add(dw);  		 		
+        }
+        //return gson.create().toJson(a,BaseActor.class);
+        return gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType());
 
-    
+    }
+
+
+
 }

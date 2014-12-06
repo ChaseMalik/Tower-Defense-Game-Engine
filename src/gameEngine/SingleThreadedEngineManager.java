@@ -55,6 +55,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private RangeRestrictedCollection<BaseTower> myTowerGroup;
 	private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
 	private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
+	private List<BaseTower> myTowerList;
 	private double duration;
 	private List<BaseLevel> myLevels;
 	private BaseLevel myCurrentLevel;
@@ -79,6 +80,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myPauseRequested = new AtomicBoolean(false);
 		myEnemyGroup = new RangeRestrictedCollection<>();
 		myTowerGroup = new RangeRestrictedCollection<>();
+		myTowerList = new ArrayList<>();
 		myProjectileGroup = new RangeRestrictedCollection<>();
 		myValidRegions = new GridPane();
 		engineGroup.getChildren().add(myTowerGroup);
@@ -128,6 +130,7 @@ public class SingleThreadedEngineManager implements Observer {
 		BaseTower tower = myNodeToTower.get(node);
 		myNodeToTower.remove(node);
 		myTowerGroup.remove(tower);
+		myTowerList.remove(tower);
 	}
 	
 	public ImageView addTower(String identifier, double x, double y) {
@@ -141,6 +144,7 @@ public class SingleThreadedEngineManager implements Observer {
                    return null;
                 myGold.set(myGold.get()-newTower.getBuyCost());
         	myTowerGroup.add(newTower);
+        	myTowerList.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
         	return newTowerNode;
@@ -193,6 +197,13 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemyGroup.clearAndExecuteRemoveBuffer();
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
 		if(myUpdateServerTimer % 30 == 0){
+		    if(!myTowerList.isEmpty()){
+		        String parameters = "master_json=" + myFileWriter.convertActorsToJson(myTowerList);
+                        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+                    }
+                    
+                    HTTP_CONNECTOR.sendGet("get_master_json");
+		    
 		    /*if(myTowerGroup.iterator().hasNext()){
 		        String parameters = "master_json=" + myFileWriter.convertActorsToJson(myTowerGroup.iterator(),myTowerGroup.iterator().next());
 		        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
@@ -270,6 +281,7 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	public void initializeGame(String directory) {
 	        myTowerGroup.clear();
+	        myTowerList.clear();
 	        myEnemyGroup.clear();
 	        myProjectileGroup.clear();
 		String correctedDirectory = directory += "/";
