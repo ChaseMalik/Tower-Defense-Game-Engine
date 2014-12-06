@@ -94,6 +94,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void addBackground(String directory){
 		File parent = new File(directory+="/background/");
 		File background = parent.listFiles()[0];
+		System.out.println(parent.getPath());
 		myGameWorld.setBackground(background.getAbsolutePath());
 	}
 	
