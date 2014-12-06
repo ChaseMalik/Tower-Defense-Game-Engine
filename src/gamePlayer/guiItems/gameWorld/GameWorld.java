@@ -34,7 +34,6 @@ public class GameWorld implements GuiItem {
 	public void initialize(Dimension2D containerSize) {
 		myMap.resize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
 		myListener.registerGameWorld(this);
-		addTestGameItems();
 	}
 
 	@Override
@@ -47,25 +46,11 @@ public class GameWorld implements GuiItem {
 	}
 	
 	public void setBackground(String imagePath) {
-		myMap.setStyle("-fx-background-image: URL('file:"+imagePath+"');");
+		myMap.setStyle("-fx-background-image: url('file:"+imagePath+"');");
 	}
 	
 	public void addEngineGroup(Group myEngineGroup){
 		myMap.getChildren().add(myEngineGroup);
-	}
-	
-	private void addTestGameItems() {
-		/*
-		ImageView imageView1 = new ImageView();
-		String path1 = "gamePlayer/turretImages/Turret_2_1.png";
-		imageView1.setImage(new Image(path1, 60, 60, false, false));
-		SelectableGameItem testItem1 = new SelectableGameItem(1, new Point2D(250,250), imageView1);
-		
-		ImageView imageView2 = new ImageView();
-		String path2 = "gamePlayer/turretImages/Turret_3_2.png";
-		imageView2.setImage(new Image(path2, 40, 40, false, false));
-		SelectableGameItem testItem2 = new SelectableGameItem(15, new Point2D(100,100), imageView2);
-		myMap.getChildren().addAll(testItem1.getNode(), testItem2.getNode());*/
 	}
 
 }

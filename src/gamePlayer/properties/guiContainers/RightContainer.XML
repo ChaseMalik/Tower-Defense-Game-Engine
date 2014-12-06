@@ -12,7 +12,7 @@
 	<Items>
 	    <element>gamePlayer.guiItems.headsUpDisplay.HUD</element>
 	    <element>gamePlayer.guiItems.store.Store</element>
-	     <element>gamePlayer.guiContainers.secondaryContainers.ControlDock</element>
+	    <element>gamePlayer.guiContainers.secondaryContainers.ControlDock</element>
 	</Items>
 	
 </ContainerProperties>
