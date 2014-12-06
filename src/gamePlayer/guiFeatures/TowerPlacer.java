@@ -66,9 +66,7 @@ public class TowerPlacer {
     }
 
     private boolean validPlacement(double X, double Y) {
-        // TODO: Add the real logic 
-    	// return myListener.validPlacement(X,Y) // -- have the GameWorld do this??
-        return true;
+    	return GuiConstants.GUI_MANAGER.validPlacement(X,Y); 
     }
     
 }

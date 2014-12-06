@@ -12,6 +12,7 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.PathBackgroundSelectionPa
 import gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyEndingLocationsPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane.EnemyStartingLocationsPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.TowerRegionsPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import java.util.List;
@@ -35,7 +36,8 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     private static final String SELECTED_CSS_CLASS = "selected";
     public static final int BUILDING_OPTIONS_PADDING = 10;
-    public static final double SIDE_PANE_WIDTH = ((AuthorController.SCREEN_WIDTH-BuildingPane.DRAW_SCREEN_WIDTH)/2);
+    public static final double SIDE_PANE_WIDTH = 
+            ((AuthorController.SCREEN_WIDTH-BuildingPane.DRAW_SCREEN_WIDTH)/2);
     private static final String TITLE = "Path";
 
     private Path  myPath;
@@ -48,6 +50,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private LineDrawingPane myLineDrawingPane;
     private CurveDrawingPane myCurveDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
+    private TowerRegionsPane myTowerRegionsPane;
     private BuildingPane myCurrentBuildingPane;
 
     private VBox myLinePathOptionPane;
@@ -57,6 +60,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private VBox myResetBuildOptionPane;
     private DefaultMapSelectionPane myDefaultMapSelectionPane;
     private PathConfiguring myPathConfiguringController;
+    private DrawingComponentOptionPane myTowerRegionSelectionPane;
 
 
     public PathBuildingScene (BorderPane root, PathConfiguring controller) {
@@ -84,6 +88,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myLineDrawingPane = new LineDrawingPane(myGroup, myPath);
         myCurveDrawingPane = new CurveDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
+        myTowerRegionsPane = new TowerRegionsPane(myGroup, myPath);
     }
 
     private void handleKeyPress (KeyEvent event) {
@@ -116,12 +121,15 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
         mySelectComponentOptionPane = new DrawingComponentOptionPane("Selection");
         mySelectComponentOptionPane.setOnMouseReleased(event->setSelectionMode());
+        
+        myTowerRegionSelectionPane = new DrawingComponentOptionPane("Regions");
+        myTowerRegionSelectionPane.setOnMouseReleased(event->setCurrentDrawingPane(myTowerRegionsPane));
 
         myFinishedPathBuildingOptionPane = new DrawingComponentOptionPane("Finished");
         myFinishedPathBuildingOptionPane.setOnMouseReleased(event->handleFinishButtonClick());
 
         pathBuildingOptions.getChildren().addAll(myResetBuildOptionPane, myLinePathOptionPane, myCurvePathOptionPane,
-                                                 mySelectComponentOptionPane, myFinishedPathBuildingOptionPane);
+                                                 mySelectComponentOptionPane, myTowerRegionSelectionPane, myFinishedPathBuildingOptionPane);
     }
 
     private void resetBuild () {
@@ -132,6 +140,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     private void handleFinishButtonClick () {
         if(myPath.isCompletedAndRoutesVerified()) {
+            myPathConfiguringController.setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
             myPathConfiguringController.configurePath(myPath);
         }
     }

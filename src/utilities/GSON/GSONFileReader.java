@@ -1,12 +1,18 @@
 package utilities.GSON;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseTower;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 import utilities.errorPopup.ErrorPopup;
+
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +24,9 @@ public class GSONFileReader {
 	GsonBuilder gson;
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
+    private boolean[][] locations;
+    private List<DataWrapper> wrappedEnemies;
+    private List<DataWrapper> wrappedTowers;
 
     public GSONFileReader(){
     	gson = new GsonBuilder();
@@ -44,5 +53,69 @@ public class GSONFileReader {
         }		
 
         return levelList;
+    }
+    
+   
+    public List<BaseEnemy> readEnemies(String gameDir){
+    	
+    	List<BaseEnemy> enemyList = new ArrayList<BaseEnemy>();
+    	try{
+    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedEnemies.json"));
+    		wrappedEnemies = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
+    	}catch(IOException e){
+    		new ErrorPopup("File" + gameDir + ".");
+    	}
+    	
+	
+    	for(DataWrapper enemy:wrappedEnemies){
+    		
+    		BaseEnemy newEnemy = (BaseEnemy)enemy.getActor();
+    		
+    		newEnemy.makeNode(enemy.getPoint());
+    		enemyList.add(newEnemy); 		
+    		
+    	}
+    	
+    	return enemyList;
+    }
+    
+    
+    
+    public List<BaseTower> readTower(String gameDir){
+    	
+    	List<BaseTower> towerList = new ArrayList<BaseTower>();
+    	try{
+    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedTowers.json"));
+    		wrappedTowers = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
+    	}catch(IOException e){
+    		new ErrorPopup("File" + gameDir + ".");
+    	}
+    	
+	
+    	for(DataWrapper tower:wrappedTowers){
+    		
+    		BaseTower newTower = (BaseTower)tower.getActor();
+    		
+    		newTower.makeNode(tower.getPoint());
+    		towerList.add(newTower); 		
+    		
+    	}
+    	
+    	return towerList;
+    }
+    
+    
+    
+    
+    
+    public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(gameDir + "locations.json"));        
+            locations = gson.create().fromJson(br, new boolean[0][0].getClass());  
+        } catch(IOException e){
+            new ErrorPopup("File" + gameDir + "locations.json could not be found.");
+        }               
+
+        return locations;
     }
 }

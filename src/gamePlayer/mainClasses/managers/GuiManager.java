@@ -1,7 +1,5 @@
 package gamePlayer.mainClasses.managers;
 
-import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
@@ -23,6 +21,7 @@ import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
+import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
@@ -48,7 +47,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
+		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, SpeedSliderListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -77,16 +76,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void startGame(String directoryPath){
 	    myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
-		makeMap();
+		addBackground(directoryPath);
+		makeTowerMap();
 		testHUD();
 		//myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		myGameWorld.getMap().getStyleClass().add("GameWorld");
-		System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
+		//myGameWorld.getMap().getStyleClass().add("GameWorld");
+		//System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
 		gameRunning = true;
 	}
 	
-	private void makeMap(){
+	private void addBackground(String directory){
+		File parent = new File(directory+="/background/");
+		File background = parent.listFiles()[0];
+		myGameWorld.setBackground(background.getAbsolutePath());
+	}
+	
+	private void makeTowerMap(){
 	    towerMap = new HashMap<String, TowerInfoObject>();
 		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
 			towerMap.put(info.getName(), info);
@@ -184,14 +190,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
-		/*
-		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
-        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
-        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
-        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
-        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
-        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));*/
-		
 		myStore.fillStore(storeItems);
 	}
 
@@ -235,6 +233,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		if(towerImageView == null)
+		    return;
 		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
 	}
@@ -268,5 +268,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void sellTower(ImageView myTowerImageView) {
 		myEngineManager.removeTower(myTowerImageView);
 		//TODO: Cost stuff
+	}
+
+	@Override
+	public void updateSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * For Tower Placing
+	 */
+	public boolean validPlacement(double x, double y) {
+		return myEngineManager.validateTower(x, y);
 	}
 }

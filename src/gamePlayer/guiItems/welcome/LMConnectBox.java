@@ -22,6 +22,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * 
+ * @author brianbolze
+ */
 public class LMConnectBox implements GuiItem {
 
 	private XMLParser myParser;
