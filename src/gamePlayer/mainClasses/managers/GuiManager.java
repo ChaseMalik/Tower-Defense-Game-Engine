@@ -55,6 +55,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, SpeedSliderListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
 
 	private Stage myStage;
 	private SingleThreadedEngineManager myEngineManager;
@@ -204,10 +206,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
 		if (!gameRunning) return;
-		double x = imageView.getX();
-		double y = imageView.getY();
-		myEngineManager.removeTower(imageView);
-		//myEngineManager.addTower(upgradeName, x, y);
+		if (upgradeName.equals(NO_UPGRADE)){ 
+			displayMessage(upgradeName, true);
+			return;
+		}
+		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
+		if (newTower == null) displayMessage(NO_GOLD, true);
+		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
+		selectTower(upgradeName, newTower);
 	}
 	
 	private void testHUD() {
@@ -236,8 +242,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
-		if(towerImageView == null)
+		if(towerImageView == null) {
+			displayMessage(NO_GOLD, true);
 		    return;
+		}
 		towerImageView.setOnMouseClicked(event -> selectTower(towerName, towerImageView));
 	}
 	
@@ -261,7 +269,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	@Override
 	public void placeTower(String towerName) {
-		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap());
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(), towerMap.get(towerName).getRange());
 	}
 
 	@Override
@@ -286,7 +294,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
-		myEngineManager.removeTower(myTowerImageView);
+		myEngineManager.sellTower(myTowerImageView);
 		myGameWorld.getMap().getChildren().remove(indicator);
 	}
 

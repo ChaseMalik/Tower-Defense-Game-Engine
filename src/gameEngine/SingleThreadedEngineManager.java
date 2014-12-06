@@ -59,7 +59,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
 	private GridPane myValidRegions;
-	
+	private int myGold;
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
@@ -94,6 +94,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myFileReader = new GSONFileReader();
 		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1.0;
+		myGold=10000;
 		myUpdateServerTimer = 0;
 	}
 
@@ -128,9 +129,9 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                if(validateTower(x,y))
-                    System.out.println("valid location");
-                else{System.out.println("not valid location");}
+                if(!checkGold(newTower))
+                   return null;
+                myGold-=newTower.getBuyCost();
         	myTowerGroup.add(newTower);
         	myTowerList.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
@@ -306,6 +307,9 @@ public class SingleThreadedEngineManager implements Observer {
 	private boolean listCollidesWith(List<Node> list, double x, double y){
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
 	}
+	public boolean checkGold(BaseTower tower){
+	    return tower.getBuyCost()<=myGold;
+	 }
 
     public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
@@ -359,18 +363,20 @@ public class SingleThreadedEngineManager implements Observer {
 		if (o instanceof BaseActor && arg != null) {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
-			} else if (arg instanceof BaseEnemy) {
-				myEnemyGroup.add((BaseEnemy) arg);
+			} else if (o instanceof BaseEnemy) {
+				myGold+=((Integer)arg).intValue();
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
 		}
 	}
-	public ImageView upgrade(Node n,String name){
-	    BaseTower tower=myNodeToTower.get(n);
-	    myTowerGroup.remove(tower);
-	    myTowerList.remove(tower);
+	public ImageView upgrade(ImageView n,String name){
+	    removeTower(n);
 	    return addTower(name,((ImageView) n).getX(),((ImageView) n).getY());
 	    
+	}
+	public void sellTower(ImageView n){
+	    myGold+=myNodeToTower.get(n).getSellCost();
+	    removeTower(n);
 	}
 }

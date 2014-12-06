@@ -28,7 +28,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private Button sellButton;
 	private ImageView myTowerImageView;
 	private XMLParser myParser;
-	private TowerIndicator myIndicator;
+	private TowerIndicator activeIndicator;
 	
 	private UpgradeListener myListener;
 	
@@ -41,11 +41,11 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		sellButton.setText("Sell tower");
 		sellButton.setOnAction(event -> sell());
 		myTowerImageView = towerImageView;
-		myIndicator = indicator;
+		activeIndicator = indicator;
 	}
 	
 	private void sell(){
-		myListener.sellTower(myTowerImageView, myIndicator);
+		myListener.sellTower(myTowerImageView, activeIndicator);
 	}
 	
 	private void doUpgrade(){
