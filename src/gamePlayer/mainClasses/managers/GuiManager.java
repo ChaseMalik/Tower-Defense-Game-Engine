@@ -8,7 +8,7 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
-import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
@@ -140,7 +140,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void setGameStats(List<GameStats> stats) {
+	public void setGameStats(List<GameStat> stats) {
 		myHUD.setGameStats(stats);
 	}
 
@@ -211,20 +211,20 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 	
 	private void testHUD() {
-		List<GameStats> gameStats;
-        GameStats level = new GameStats();
+		List<GameStat> gameStats;
+        GameStat level = new GameStat();
         level.setGameStat("Level");
         level.setStatValue(1);
         
-        GameStats score = new GameStats();
-        score.setGameStat("Score");
+        GameStat score = new GameStat();
+        score.setGameStat("Gold");
         score.setStatValue(0);
         
-        GameStats health = new GameStats();
+        GameStat health = new GameStat();
         health.setGameStat("Health");
         health.setStatValue(100);
         
-        gameStats = new ArrayList<GameStats>();
+        gameStats = new ArrayList<GameStat>();
         gameStats.add(level); gameStats.add(score); gameStats.add(health);
         this.setGameStats(gameStats);
         
