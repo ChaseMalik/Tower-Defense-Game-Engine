@@ -231,6 +231,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		if(towerImageView == null)
+		    return;
 		//String towerName = myEngineManager.getTowerName(towerImageView);
 		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
 	}

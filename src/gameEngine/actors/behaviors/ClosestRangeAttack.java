@@ -1,10 +1,10 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
-import java.util.List;
+import java.util.Comparator;
 import javafx.geometry.Point2D;
+
+
 /**
  * Example of BaseAttack, where the actor shoots at the nearest opposing actor
  * 
@@ -18,40 +18,11 @@ public class ClosestRangeAttack extends RangeAttack {
     }
 
     @Override
-    public void performAttack (BaseActor actor) {
-        List<BaseActor> shootable = getShootableActors(actor);
-        if(shootable==null)
-            return;
-        BaseActor enemy = getClosestActor(actor, shootable);
-        if(enemy==null){
-            return;
-        }
-        shootActorFromActor(enemy, actor);
-    }
-
-    private List<BaseActor> getShootableActors (BaseActor actor) {
-        if(actor instanceof BaseEnemy){
-            return actor.getTowersInRange();
-        }
-        else if(actor instanceof BaseTower){
-            return actor.getEnemiesInRange();
-        }
-        return null;
-        
-    }
-
-    private BaseActor getClosestActor (BaseActor actor, List<BaseActor> enemies) {
+    public Comparator<BaseActor> defineComparison (BaseActor actor) {
         Point2D current = new Point2D(actor.getX(), actor.getY());
-        BaseActor close = null;
-        double distance = Integer.MAX_VALUE;
-        for(BaseActor e: enemies){
-            Point2D point = new Point2D(e.getX(), e.getY());
-            if(distance > current.distance(point)){
-                close = e;
-                distance = current.distance(point);
-            }
-        }
-        return close;
+        return (BaseActor a1, BaseActor a2) -> Double
+                .compare(current.distance(a1.getX(), a1.getY()),
+                         current.distance(a2.getX(), a2.getY()));
     }
 
     @Override

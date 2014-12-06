@@ -21,9 +21,13 @@ public class GSONFileWriter {
 
     	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
         writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
-        writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));    
+        writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));
     }
-
+    
+    public void writeTowerRegions(String directory, boolean[][] validRegions){
+        writeToFile(directory + "locations.json", gson.create().toJson(validRegions, validRegions.getClass()));
+    }
+    
     public void writeToFile(String fileName, String json) {
         try{
             File file = new File(fileName);

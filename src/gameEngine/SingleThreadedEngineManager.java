@@ -1,7 +1,10 @@
 package gameEngine;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
@@ -27,6 +30,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -48,6 +52,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private List<BaseLevel> myLevels;
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
+	private GridPane myValidRegions;
 	
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
@@ -63,6 +68,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemyGroup = new RangeRestrictedCollection<>();
 		myTowerGroup = new RangeRestrictedCollection<>();
 		myProjectileGroup = new RangeRestrictedCollection<>();
+		myValidRegions = new GridPane();
 		engineGroup.getChildren().add(myTowerGroup);
 		engineGroup.getChildren().add(myProjectileGroup);
 		engineGroup.getChildren().add(myEnemyGroup);
@@ -102,7 +108,7 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	public ImageView addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
-    	boolean towerValidity = prototypeTower != null && myCurrentLevel.validateTower(prototypeTower, x, y);
+    	boolean towerValidity = prototypeTower != null && validateTower(prototypeTower, x, y);
     	if(towerValidity){
     		BaseTower newTower = (BaseTower)prototypeTower.copy();
         	CenteredImageView newTowerNode = newTower.getNode();
@@ -166,6 +172,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void onLevelEnd() {
+	        duration = 0; //TODO bad code, but problem with multiple levels
 		myTimeline.pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
@@ -237,11 +244,34 @@ public class SingleThreadedEngineManager implements Observer {
 		myReadyToPlay.set(false);
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
+		loadLocations(correctedDirectory);
 		myReadyToPlay.set(true);
 		loadNextLevel();
 	}
 
-	public void loadTowers(String directory) {
+	private void loadLocations (String dir) {
+	    boolean[][] validRegions = myFileReader.readTowerRegionsFromGameDirectory(dir);
+	    myValidRegions = new GridPane();
+	    myValidRegions.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+	    for(int row = 0; row<validRegions.length;row++){
+	        for(int col = 0; col<validRegions[0].length; col++){
+	            if(validRegions[row][col]){
+	                Tile tile = new Tile(row,col);
+	                tile.setVisible(false);
+	                myValidRegions.add(tile, col, row);
+	            }
+	            
+	        }
+	    }
+	    
+	    
+    }
+	public boolean validateTower(BaseActor tower, double x, double y){
+	        return myValidRegions.getChildren().stream()
+	        .filter(node -> node.contains(x, y)).count()>0;
+	    }
+
+    public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
 		for (TowerUpgradeGroup towerGroup : availableTowers) {
 			TowerInfoObject prevInfoObject = null;

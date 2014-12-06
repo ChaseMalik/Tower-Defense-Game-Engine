@@ -18,6 +18,7 @@ public class GSONFileReader {
 	GsonBuilder gson;
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
+    private boolean[][] locations;
 
     public GSONFileReader(){
     	gson = new GsonBuilder();
@@ -44,5 +45,16 @@ public class GSONFileReader {
         }		
 
         return levelList;
+    }
+    
+    public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(gameDir + "locations.json"));        
+            locations = gson.create().fromJson(br, new boolean[0][0].getClass());  
+        } catch(IOException e){
+            new ErrorPopup("File" + gameDir + "locations.json could not be found.");
+        }               
+
+        return locations;
     }
 }
