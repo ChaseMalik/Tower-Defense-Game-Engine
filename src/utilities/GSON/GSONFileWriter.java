@@ -48,16 +48,8 @@ public class GSONFileWriter {
         }
     }
 
-    public String convertActorsToJson(List<BaseTower> towerList){
-
-        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
-        List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
-        for(BaseTower tower: towerList){
-            DataWrapper dw = new DataWrapper((BaseTower) tower.copy(), tower.getNode().getX(), tower.getNode().getY());
-            wrappedTowerList.add(dw);  		 		
-        }
-        //return gson.create().toJson(a,BaseActor.class);
-        return gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType());
+    public String convertWrappersToJson(Iterable<DataWrapper> wrapper){
+        return gson.create().toJson(wrapper,new TypeToken<List<DataWrapper>>() {}.getType());
 
     }
 

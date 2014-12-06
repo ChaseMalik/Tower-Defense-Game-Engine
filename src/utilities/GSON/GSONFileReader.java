@@ -54,54 +54,12 @@ public class GSONFileReader {
 
         return levelList;
     }
+       
+    public List<DataWrapper> readWrappers(String towers){
+    	
+    	return gson.create().fromJson(towers, new TypeToken<List<DataWrapper>>() {}.getType());
     
-   
-    public List<BaseEnemy> readEnemies(String gameDir){
-    	
-    	List<BaseEnemy> enemyList = new ArrayList<BaseEnemy>();
-    	try{
-    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedEnemies.json"));
-    		wrappedEnemies = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
-    	}catch(IOException e){
-    		new ErrorPopup("File" + gameDir + ".");
-    	}
-    	
-	
-    	for(DataWrapper enemy:wrappedEnemies){
-    		
-    		BaseEnemy newEnemy = (BaseEnemy)enemy.getActor();
-    		
-    		newEnemy.makeNode(enemy.getPoint());
-    		enemyList.add(newEnemy); 		
-    		
-    	}
-    	
-    	return enemyList;
     }
-    
-    
-    
-    public List<BaseTower> readTower(String towers){
-    	
-    	List<BaseTower> towerList = new ArrayList<BaseTower>();
-    	wrappedTowers = gson.create().fromJson(towers, new TypeToken<List<BaseLevel>>() {}.getType());
-    	
-	
-    	for(DataWrapper tower:wrappedTowers){
-    		
-    		BaseTower newTower = (BaseTower)tower.getActor();
-    		
-    		newTower.makeNode(tower.getPoint());
-    		towerList.add(newTower); 		
-    		
-    	}
-    	
-    	return towerList;
-    }
-    
-    
-    
-    
     
     public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
