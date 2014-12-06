@@ -21,11 +21,14 @@ public class GSONFileWriter {
 
     private GsonBuilder gson = new GsonBuilder();
 
+    public GSONFileWriter(){
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+    }
+    
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
                                String directory) {
-
-    	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
         writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
         writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));
     }
@@ -45,17 +48,19 @@ public class GSONFileWriter {
         }
     }
     
-    public String convertActorsToJson(Iterator<BaseTower> towerList){
-    	
+    public String convertActorsToJson(List<BaseTower> towerList){
+
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
     	List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
-    	
-    	while(towerList.hasNext()){
-    	    BaseTower tower = towerList.next();
-    		DataWrapper dw = new DataWrapper(tower, tower.getNode().getX(), tower.getNode().getY());
-   		
-    		wrappedTowerList.add(dw);  		 		
+    	List<BaseTower> list = new ArrayList<BaseTower>();
+    	//while(towerList.hasNext()){
+    	for(BaseTower tower: towerList){
+    	    //BaseTower tower = towerList.next();
+    		//DataWrapper dw = new DataWrapper(tower, tower.getNode().getX(), tower.getNode().getY());
+   		list.add(tower);
+    		//wrappedTowerList.add(dw);  		 		
     	}
-    	
+    	//return gson.create().toJson(a,BaseActor.class);
     	return gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType());
     	
     }
