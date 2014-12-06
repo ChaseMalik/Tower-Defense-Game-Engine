@@ -25,7 +25,7 @@ public class Client extends Panel implements Runnable {
     private static final String CONNECTED_TO_MY_SOCKET_MESSAGE = "connected to ";
     private static final String EMPTY_STRING = "";
     private static final String NEWLINE = "\n";
-    private static final String IO_EXCEPTION_MESSAGE = "IOException occurred in Client.java";
+    private static final String IO_EXCEPTION_MESSAGE = "IOException in Client.java";
 
     /**
      * Generated serial version ID
