@@ -227,6 +227,9 @@ public class SingleThreadedEngineManager implements Observer {
 		if(duration <= 0) {
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
+			if(enemy==null)
+			    return;
+			enemy.addObserver(this);
 			myEnemyGroup.add(enemy);
 		}
 	}
@@ -375,7 +378,7 @@ public class SingleThreadedEngineManager implements Observer {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
 			} else if (o instanceof BaseEnemy) {
-				myGold.set((Double)arg+myGold.get());
+				myGold.set(((Double)arg).doubleValue()+myGold.get());
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
