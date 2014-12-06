@@ -94,7 +94,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void addBackground(String directory){
 		File parent = new File(directory+="/background/");
 		File background = parent.listFiles()[0];
-		System.out.println(parent.getPath());
 		myGameWorld.setBackground(background.getAbsolutePath());
 	}
 	
@@ -247,7 +246,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, indicator);
 		myGameWorld.getMap().getChildren().add(indicator);
 		tower.setOnMouseClicked(event -> deselectTower(indicator, tower, towerName));
-		indicator.toBack();
+		tower.getParent().toFront();
 	}
 	
 	private void deselectTower(TowerIndicator indicator, ImageView tower, String towerName) {
