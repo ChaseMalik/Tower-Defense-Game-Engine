@@ -337,4 +337,10 @@ public class SingleThreadedEngineManager implements Observer {
 			}
 		}
 	}
+	public ImageView upgrade(Node n,String name){
+	    BaseTower tower=myNodeToTower.get(n);
+	    myTowerGroup.remove(tower);
+	    return addTower(name,((ImageView) n).getX(),((ImageView) n).getY());
+	    
+	}
 }
