@@ -12,7 +12,6 @@ public class DragAndDropNoCopyImagePane extends DragAndDropImagePane {
     protected void actOnFile (File file) {
         myFile = file;
         displayImage();
-        
     }
 
 }

@@ -1,16 +1,18 @@
 package utilities.JavaFXutilities.DragAndDropFilePanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+
 import utilities.errorPopup.ErrorPopup;
 
-public class DragAndDropCopyImagePane extends DragAndDropImagePane {
+public class DragAndDropCopyAudioPane extends DragAndDropAudioPane {
 
     private String myFileDestination;
 
-    public DragAndDropCopyImagePane (double width, double height, String fileDestination) {
+    public DragAndDropCopyAudioPane (double width, double height, String fileDestination) {
         super(width, height);
         myFileDestination = fileDestination;
     }
@@ -21,10 +23,11 @@ public class DragAndDropCopyImagePane extends DragAndDropImagePane {
         myFile = targetFile;
         try {
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-            displayImage();
+//            playAudio();
+            System.out.println("play audio");
         }
         catch (IOException e) {
-            new ErrorPopup("Image file could not be copied.");
+            new ErrorPopup("Audio file could not be played.");
         }       
     }
 }
