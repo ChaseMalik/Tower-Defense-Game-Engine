@@ -11,7 +11,6 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,6 +23,7 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 import utilities.GSON.GSONFileReader;
+import utilities.GSON.GSONFileWriter;
 import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -37,6 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
 import utilities.JavaFXutilities.CenteredImageView;
+import utilities.networking.HTTPConnection;
 
 public class SingleThreadedEngineManager implements Observer {
 
@@ -65,6 +66,11 @@ public class SingleThreadedEngineManager implements Observer {
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	private GSONFileReader myFileReader;
+	private GSONFileWriter myFileWriter;
+	
+	private int myUpdateServerTimer;
+	private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
+	private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
 	
 	public SingleThreadedEngineManager(Pane engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
@@ -84,8 +90,10 @@ public class SingleThreadedEngineManager implements Observer {
 		myNodeToTower = new HashMap<>();
 		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
+		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1.0;
 		myGold=100;
+		myUpdateServerTimer = 0;
 	}
 
 	public void fastForward() {
@@ -173,6 +181,15 @@ public class SingleThreadedEngineManager implements Observer {
 		myTowerGroup.clearAndExecuteRemoveBuffer();
 		myEnemyGroup.clearAndExecuteRemoveBuffer();
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
+		if(myUpdateServerTimer % 30 == 0){
+		    /*if(myTowerGroup.iterator().hasNext()){
+		        String parameters = "master_json=" + myFileWriter.convertActorsToJson(myTowerGroup.iterator(),myTowerGroup.iterator().next());
+		        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+		    }
+		    
+		    HTTP_CONNECTOR.sendGet("get_master_json");*/
+		}
+		myUpdateServerTimer++;
 	}
 
 	private void onLevelEnd() {

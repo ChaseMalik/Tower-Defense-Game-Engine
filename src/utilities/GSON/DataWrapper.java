@@ -2,19 +2,19 @@ package utilities.GSON;
 
 import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
 
 
 
 public class DataWrapper {
 	
-	private Point2D myPoint;
+	private double myX;
+	private double myY;
 	private BaseActor myActor;
 
-	public DataWrapper(BaseActor actor, Point2D point){
+	public DataWrapper(BaseActor actor, double x, double y){
 		myActor = actor;
-		myPoint = point;
+		myX = x;
+		myY = y;
 	}
 	
 	
@@ -25,7 +25,7 @@ public class DataWrapper {
 	
 	
 	public Point2D getPoint(){
-		return myPoint;	
+		return new Point2D(myX, myY);	
 	}
 
 }
