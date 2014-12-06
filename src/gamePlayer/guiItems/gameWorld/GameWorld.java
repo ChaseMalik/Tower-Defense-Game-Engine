@@ -44,7 +44,7 @@ public class GameWorld implements GuiItem {
 	}
 
 	public void setBackground(String imagePath) {
-		myMap.setStyle("-fx-background-image: URL('file:" + imagePath + "');");
+		myMap.setStyle("-fx-background-image: url('file:" + imagePath + "');");
 	}
 
 	public void addEngineGroup(Group myEngineGroup) {
