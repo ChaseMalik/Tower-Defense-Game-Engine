@@ -81,15 +81,10 @@ public class GSONFileReader {
     
     
     
-    public List<BaseTower> readTower(String gameDir){
+    public List<BaseTower> readTower(String towers){
     	
     	List<BaseTower> towerList = new ArrayList<BaseTower>();
-    	try{
-    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedTowers.json"));
-    		wrappedTowers = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
-    	}catch(IOException e){
-    		new ErrorPopup("File" + gameDir + ".");
-    	}
+    	wrappedTowers = gson.create().fromJson(towers, new TypeToken<List<BaseLevel>>() {}.getType());
     	
 	
     	for(DataWrapper tower:wrappedTowers){
