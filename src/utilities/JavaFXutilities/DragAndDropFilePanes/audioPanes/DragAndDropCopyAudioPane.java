@@ -11,6 +11,7 @@ import utilities.errorPopup.ErrorPopup;
 
 public class DragAndDropCopyAudioPane extends DragAndDropFilePane {
 
+    private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Audio file could not be added.";
     private String myFileDestination;
 
     public DragAndDropCopyAudioPane (double width, double height, String fileDestination) {
@@ -26,7 +27,7 @@ public class DragAndDropCopyAudioPane extends DragAndDropFilePane {
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
         }
         catch (IOException e) {
-            new ErrorPopup("Audio file could not be added.");
+            new ErrorPopup(ERROR_WHILE_ADDING_AUDIO_FILE);
         }       
     }
 }
