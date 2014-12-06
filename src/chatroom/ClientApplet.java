@@ -7,21 +7,11 @@ import javafx.scene.layout.BorderPane;
 
 /**
  * @author $cotty $haw
- *
- * The Command Factory uses reflection to hide implementation details
- * and creates the commands from the user's inputs using a key-value
- * system.
  * 
- * It is static because our createCommand method is recursive, so we
- * need to avoid passing the factory to the individual commands.
+ * Our ClientApplet is currently set up as an applet and is available
+ * on a Web page. It can easily be changed into a stand-alone app and
+ * maintain the ability to run its own process, like our Server.
  * 
- * Listener class
- * While-Accept loop
- * Per-Thread class
- * While-Read/Write loop (Server side)
- * Removing dead connections
- * Client class
- * While-Read/Write loop (Client side)
  */
 public class ClientApplet extends Applet {
 

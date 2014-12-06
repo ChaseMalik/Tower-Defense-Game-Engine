@@ -14,8 +14,14 @@ import java.net.Socket;
 /**
  * @author $cotty $haw
  * 
- * Client class
- * While-Read/Write loop (Client side)
+ * Our Client class has a text entry field that lets us type messages
+ * and a text display window that shows messages from other users. We
+ * also have a background thread for receiving messages. Our infinite
+ * loop here has the same purpose as the one in our Server: read in a
+ * message from another user, process it, and perhaps write something
+ * back to the server as a response. Most importantly, the GUI visual
+ * is created in this class.
+ * 
  */
 public class Client extends Panel implements Runnable {
 
