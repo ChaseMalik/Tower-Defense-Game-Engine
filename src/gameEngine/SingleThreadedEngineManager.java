@@ -126,7 +126,7 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                if(!validateTower(newTower,x,y))
+                if(!checkGold(newTower))
                    return null;
                 myGold-=newTower.getBuyCost();
         	myTowerGroup.add(newTower);
@@ -288,13 +288,16 @@ public class SingleThreadedEngineManager implements Observer {
 	    
     }
 	
-	public boolean validateTower(BaseTower tower,double x, double y){
+	public boolean validateTower(double x, double y){
 	    return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) && 
-            listCollidesWith(myValidRegions.getChildren(), x, y) && tower.getBuyCost()<=myGold;
+            listCollidesWith(myValidRegions.getChildren(), x, y);
 	    }
 	private boolean listCollidesWith(List<Node> list, double x, double y){
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
 	}
+	public boolean checkGold(BaseTower tower){
+	    return tower.getBuyCost()<=myGold;
+	 }
 
     public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
