@@ -51,7 +51,7 @@ public class GSONFileWriter {
     	
     	while(towerList.hasNext()){
     	    BaseTower tower = towerList.next();
-    		DataWrapper dw = new DataWrapper(tower, new Point2D(tower.getNode().getX(), tower.getNode().getY()));
+    		DataWrapper dw = new DataWrapper(tower, tower.getNode().getX(), tower.getNode().getY());
    		
     		wrappedTowerList.add(dw);  		 		
     	}
