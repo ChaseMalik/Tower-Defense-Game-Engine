@@ -28,10 +28,11 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private Button sellButton;
 	private ImageView myTowerImageView;
 	private XMLParser myParser;
+	private TowerIndicator myIndicator;
 	
 	private UpgradeListener myListener;
 	
-	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView){
+	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView, TowerIndicator indicator){
 		myIcon.setImage(StringToImageViewConverter.getImageView(75, 75, current.getImageLocation()).getImage());
 		myName.setText(current.getName());
 		myUpgradeName = current.getMyUpgrade().getName();
@@ -40,10 +41,11 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		sellButton.setText("Sell tower");
 		sellButton.setOnAction(event -> sell());
 		myTowerImageView = towerImageView;
+		myIndicator = indicator;
 	}
 	
 	private void sell(){
-		myListener.sellTower(myTowerImageView);
+		myListener.sellTower(myTowerImageView, myIndicator);
 	}
 	
 	private void doUpgrade(){
@@ -72,7 +74,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, sellButton);
 		this.getChildren().add(myButtonBox);
 		myListener.registerUpgradePanel(this);
-		setCurrentTower(new NullTowerInfoObject(), null);
+		setCurrentTower(new NullTowerInfoObject(), null, null);
 	}
 
 	@Override

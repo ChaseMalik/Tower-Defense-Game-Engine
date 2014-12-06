@@ -14,7 +14,7 @@ import utilities.XMLParsing.XMLParser;
 public class SpeedSlider extends ControlDockSlider {
 //    private String ffImage;
 //    private String slowImage;
-    private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
+    //private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
 
     @Override
     public void initialize (Dimension2D containerSize) {
@@ -25,7 +25,7 @@ public class SpeedSlider extends ControlDockSlider {
 //        slowImage = myParser.getValuesFromTag("SlowDownImage").get(0);
 
         setUpSizing (containerSize);
-        mySlider.setNodeOrientation(event -> updateSpeed());
+        //mySlider.setNodeOrientation(event -> updateSpeed());
 //        setupImageViews(ffImage, slowImage);
 //        mySlider.setGraphic(myImageView);
     }
