@@ -5,7 +5,6 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Shape;
 
 /**
  * Allows the user to select a route by clicking on PathComponents.

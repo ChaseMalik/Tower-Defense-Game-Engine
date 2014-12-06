@@ -17,14 +17,14 @@ import utilities.errorPopup.ErrorPopup;
  * @author Austin Kyker
  *
  */
-public class DrawingComponentOptionPane extends VBox {
+public class BuildingOptionPane extends VBox {
 
     private static final String DRAWING_OPTIONS_IMG_DIR = 
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
     private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 38;
     private static final int OPTIONS_IMAGE_HEIGHT = 52;
 
-    public DrawingComponentOptionPane(String componentName){
+    public BuildingOptionPane(String componentName){
         setupOptionsBoxGraphicallyAndDisplayLabel(componentName);
         try {
             ImageView imageView = new ImageView();
@@ -36,12 +36,11 @@ public class DrawingComponentOptionPane extends VBox {
         catch (FileNotFoundException e) {
             new ErrorPopup("No file found representing " + componentName + " image.");
         }
-        this.setOnMouseClicked(event->selectPane());
         this.getStyleClass().add("border");
     }
 
 
-    private void selectPane () {
+    public void selectPane () {
         if(!this.getStyleClass().contains("selected")){
             this.getStyleClass().add("selected");
         }

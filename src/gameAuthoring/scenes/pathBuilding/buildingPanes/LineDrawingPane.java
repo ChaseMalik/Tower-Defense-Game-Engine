@@ -1,11 +1,10 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
-import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
-import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 
 /**
  * Defines the pane where the user can draw lines and the click-listener
