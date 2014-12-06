@@ -1,13 +1,6 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
-<GuiBuilderProperties>
-
-    <!--window width and height -->
- 	<GuiSize>
-		<element>900</element>
-		<element>650</element>
-	</GuiSize>
-	
+<GuiBuilderProperties>	
 	<ContainerSizeRatios>
 		<element></element> <!-- Left -->
 	</ContainerSizeRatios>
