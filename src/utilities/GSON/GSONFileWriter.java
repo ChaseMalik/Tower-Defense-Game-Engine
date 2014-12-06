@@ -6,16 +6,14 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import javafx.geometry.Point2D;
 import utilities.errorPopup.ErrorPopup;
-
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,11 +21,14 @@ public class GSONFileWriter {
 
     private GsonBuilder gson = new GsonBuilder();
 
+    public GSONFileWriter(){
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+    }
+    
     public void writeGameFile (List<TowerUpgradeGroup> towerGroups,
                                List<BaseLevel> levels,
                                String directory) {
-
-    	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
         writeToFile(directory + "towers.json", gson.create().toJson(towerGroups, new TypeToken<List<TowerUpgradeGroup>>() {}.getType()));
         writeToFile(directory + "levels.json", gson.create().toJson(levels, new TypeToken<List<BaseLevel>>() {}.getType()));
     }
@@ -47,26 +48,21 @@ public class GSONFileWriter {
         }
     }
     
-    public void convertActorsToJson(String directory, List<BaseTower> towerList, List<BaseEnemy> enemyList){
-    	
+    public String convertActorsToJson(List<BaseTower> towerList){
+
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
     	List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
-    	List<DataWrapper> wrappedEnemyList = new ArrayList<DataWrapper>();
-    	
+    	List<BaseTower> list = new ArrayList<BaseTower>();
+    	//while(towerList.hasNext()){
     	for(BaseTower tower: towerList){
-    		DataWrapper dw = new DataWrapper(tower, new Point2D(tower.getNode().getX(), tower.getNode().getY()));
-   		
-    		wrappedTowerList.add(dw);  		 		
+    	    //BaseTower tower = towerList.next();
+    		//DataWrapper dw = new DataWrapper(tower, tower.getNode().getX(), tower.getNode().getY());
+   		list.add(tower);
+    		//wrappedTowerList.add(dw);  		 		
     	}
+    	//return gson.create().toJson(a,BaseActor.class);
+    	return gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType());
     	
-    	
-    	for(BaseEnemy enemy:enemyList){
-    		DataWrapper dw = new DataWrapper(enemy, new Point2D(enemy.getNode().getX(), enemy.getNode().getY()));    		
-    		wrappedEnemyList.add(dw);
-    	}
-    	
-    	writeToFile(directory + "wrappedTowers.json", gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType()));
-    	writeToFile(directory + "wrappedEnemies.json", gson.create().toJson(wrappedEnemyList,new TypeToken<List<DataWrapper>>() {}.getType()));
- 	
     }
     
 

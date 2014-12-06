@@ -8,6 +8,18 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * @author $cotty $haw
+ *
+ * Our Server is our listener class. It uses a Socket object that has
+ * two Streams: one for reading data in and one for writing data out.
+ * The Server also needs enumeration and synchronization to avoid any
+ * errors caused by other threads if they try to call sendToAll() and
+ * removeConnection(). Also, we listen to ports to accept connections
+ * and to return new Socket objects. This lets us get connections one
+ * at a time if any are incoming.
+ * 
+ */
 public class Server {
 
     // ServerSocket for accepting new connections
@@ -44,7 +56,7 @@ public class Server {
     }
 
     // Sends a message to all clients (utility routine)
-    void sendToAll (String message) {
+    protected void sendToAll (String message) {
 
         // Synchronization to prevent errors if another thread calls removeConnection()
         synchronized (myOutputStreams) {
@@ -65,7 +77,8 @@ public class Server {
     }
 
     // Remove a socket and its corresponding output stream if the client's connection is closed
-    void removeConnection (Socket s) {
+    protected void removeConnection (Socket s) {
+
         // Synchronization to prevent errors if another thread calls sendToAll()
         synchronized (myOutputStreams) {
             System.out.println("Removing connection to " + s);
@@ -81,7 +94,7 @@ public class Server {
         }
     }
 
-    public static void main (String[] args) throws Exception {
+    protected static void main (String[] args) throws Exception {
         int port = Integer.parseInt(args[0]);
         new Server(port);
     }
