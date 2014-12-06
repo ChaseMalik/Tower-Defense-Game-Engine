@@ -194,11 +194,11 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemyGroup.clearAndExecuteRemoveBuffer();
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
 		if(myUpdateServerTimer % 150 == 0){
-		    getAndCreateNewTowers();
 		    if(myTowerGroup.iterator().hasNext()){
 		        String parameters = "master_json=" + convertTowersToString();
 		        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
 		    }
+                    getAndCreateNewTowers();
 		}
 		myUpdateServerTimer++;
 	}
