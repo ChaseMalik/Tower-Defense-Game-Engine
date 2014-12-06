@@ -89,7 +89,7 @@ public abstract class BaseActor extends Observable {
                                                          myImagePath);
     }
     
-    protected void makeNode (Point2D point) {
+    public void makeNode (Point2D point) {
         int[] array = getSize();
         myNode = StringToImageViewConverter.getImageView(array[0],
                                                          array[1],
