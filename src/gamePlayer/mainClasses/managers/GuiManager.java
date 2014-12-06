@@ -269,7 +269,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	@Override
 	public void placeTower(String towerName) {
-		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap());
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(), towerMap.get(towerName).getRange());
 	}
 
 	@Override
