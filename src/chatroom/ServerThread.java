@@ -11,19 +11,9 @@ import java.net.Socket;
  * Our ServerThread is our per-thread class. Multithreading allows us
  * to respond as quickly as we can to every user by creating a thread
  * for each connection. This class also removes any closed connection
- * to prevent exceptions, lag, and the overuse of memory. 
- * to The Command Factory uses reflection to hide implementation details
- * and creates the commands from the user's inputs using a key-value
- * system.
+ * to prevent exceptions, lag, and the overuse of memory. We also try
+ * to read incoming messages for the server to write to every client.
  * 
- * It is static because our createCommand method is recursive, so we
- * need to avoid passing the factory to the individual commands.
- * 
- * Per-Thread class
- * While-Read/Write loop (Server side)
- * Removing dead connections
- * Client class
- * While-Read/Write loop (Client side)
  */
 public class ServerThread extends Thread {
 

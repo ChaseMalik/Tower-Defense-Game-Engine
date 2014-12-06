@@ -13,19 +13,7 @@ import java.net.Socket;
 
 /**
  * @author $cotty $haw
- *
- * The Command Factory uses reflection to hide implementation details
- * and creates the commands from the user's inputs using a key-value
- * system.
  * 
- * It is static because our createCommand method is recursive, so we
- * need to avoid passing the factory to the individual commands.
- * 
- * Listener class
- * While-Accept loop
- * Per-Thread class
- * While-Read/Write loop (Server side)
- * Removing dead connections
  * Client class
  * While-Read/Write loop (Client side)
  */
