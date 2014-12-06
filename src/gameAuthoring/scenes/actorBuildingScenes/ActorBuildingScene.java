@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import utilities.JavaFXutilities.SliderContainer;
 import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
 import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropFilePane;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropAudioPane;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -44,7 +44,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
-    protected DragAndDropImagePane myDragAndDrop;
+    protected DragAndDropAudioPane myDragAndDrop;
     protected TextField myActorNameField;
     protected String myActorImgPath;
     protected List<BehaviorBuilder> myBehaviorBuilders;

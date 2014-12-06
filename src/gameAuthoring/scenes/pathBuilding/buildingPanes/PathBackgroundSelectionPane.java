@@ -4,7 +4,7 @@ import gameAuthoring.mainclasses.AuthorController;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Group;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropAudioPane;
 import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropNoCopyImagePane;
 
 /**
@@ -15,7 +15,7 @@ import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropNoCopyImagePane
  */
 public class PathBackgroundSelectionPane extends BuildingPane implements Observer {
 
-    private DragAndDropImagePane myDragAndDropPane;
+    private DragAndDropAudioPane myDragAndDropPane;
     private BackgroundBuilding myBackgroundBuildingController;
 
     public PathBackgroundSelectionPane (Group group, BackgroundBuilding controller) {
