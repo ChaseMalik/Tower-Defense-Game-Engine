@@ -1,9 +1,7 @@
 package gameEngine.actors;
 
 import gameEngine.actors.behaviors.IBehavior;
-
 import java.util.Map;
-
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 
@@ -17,7 +15,21 @@ public abstract class RealActor extends BaseActor {
         super(behaviors,image,name, range);
         myProjectile=projectile;
     }
-    
+    @Override
+    public void update(InfoObject info){
+        myInfo = info;
+        for(String s: myDebuffs.keySet()){
+            myDebuffs.get(s).execute(this);
+        }
+        for (String s : myBehaviors.keySet()) {
+            myBehaviors.get(s).execute(this);
+        }
+        for(IBehavior debuff: myDebuffsToRemove){
+            myDebuffs.remove(debuff.toString());
+        }
+        myDebuffsToRemove.clear();
+        
+    }
     public ProjectileInfo getProjectile(){
         return myProjectile;
     }
