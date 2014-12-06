@@ -21,8 +21,8 @@ public class DrawingComponentOptionPane extends VBox {
 
     private static final String DRAWING_OPTIONS_IMG_DIR = 
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
-    private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 20;
-    private static final int OPTIONS_IMAGE_HEIGHT = 73;
+    private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 38;
+    private static final int OPTIONS_IMAGE_HEIGHT = 52;
 
     public DrawingComponentOptionPane(String componentName){
         setupOptionsBoxGraphicallyAndDisplayLabel(componentName);

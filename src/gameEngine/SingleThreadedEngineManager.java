@@ -22,9 +22,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import java.util.stream.Stream;
+import utilities.GSON.GSONFileReader;
+import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -114,6 +117,9 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
+                if(validateTower(x,y))
+                    System.out.println("valid location");
+                else{System.out.println("not valid location");}
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
@@ -265,9 +271,12 @@ public class SingleThreadedEngineManager implements Observer {
     }
 	
 	public boolean validateTower(double x, double y){
-	        return myValidRegions.getChildren().stream()
-	        .filter(node -> node.contains(x, y)).count()>0;
+	    return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) && 
+            listCollidesWith(myValidRegions.getChildren(), x, y);
 	    }
+	private boolean listCollidesWith(List<Node> list, double x, double y){
+	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
+	}
 
     public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);

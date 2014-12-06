@@ -28,8 +28,10 @@ public class CenterContainer extends BorderPane implements GuiContainer {
         
         //set component size
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        Dimension2D mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
-                                             containerSize.getHeight()*sizeRatio.getHeight());
+        //Dimension2D mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
+        //                                     containerSize.getHeight()*sizeRatio.getHeight());
+       
+        Dimension2D mySize = new Dimension2D(GuiConstants.CENTER_CONTAINER_WIDTH,GuiConstants.CENTER_CONTAINER_HEIGHT);
         
         this.setMinSize(mySize.getWidth(),mySize.getHeight());
         this.setPrefSize(mySize.getWidth(),mySize.getHeight());

@@ -44,7 +44,7 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     public static final double SCREEN_WIDTH = 1100;
-    public static final double SCREEN_HEIGHT = 550; //620
+    public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
     public static String gameDir;
 
