@@ -222,21 +222,21 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
         level.setGameStat("Level");
         level.setStatValue(1);
         
-        GameStat score = new GameStat();
-        score.setGameStat("Gold");
-        score.setStatValue(0);
+        GameStat gold = new GameStat();
+        gold.setGameStat("Gold");
+        gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
         
         GameStat health = new GameStat();
         health.setGameStat("Health");
         health.setStatValue(100);
         
         gameStats = new ArrayList<GameStat>();
-        gameStats.add(level); gameStats.add(score); gameStats.add(health);
+        gameStats.add(level); gameStats.add(gold); gameStats.add(health);
         this.setGameStats(gameStats);
         
         //update game stats
-        gameStats.get(1).setStatValue(50);
-        gameStats.get(2).setStatValue(50);
+       // gameStats.get(1).setStatValue(50);
+      //  gameStats.get(2).setStatValue(50);
     }
 	
 	public void makeTower(String towerName, double x, double y) {
