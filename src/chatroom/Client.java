@@ -11,6 +11,24 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * @author $cotty $haw
+ *
+ * The Command Factory uses reflection to hide implementation details
+ * and creates the commands from the user's inputs using a key-value
+ * system.
+ * 
+ * It is static because our createCommand method is recursive, so we
+ * need to avoid passing the factory to the individual commands.
+ * 
+ * Listener class
+ * While-Accept loop
+ * Per-Thread class
+ * While-Read/Write loop (Server side)
+ * Removing dead connections
+ * Client class
+ * While-Read/Write loop (Client side)
+ */
 public class Client extends Panel implements Runnable {
 
     /**
@@ -29,7 +47,7 @@ public class Client extends Panel implements Runnable {
     private DataOutputStream myDataOut;
     private DataInputStream myDataIn;
 
-    public Client (String host, int port) {
+    protected Client (String host, int port) {
 
         setLayout(new BorderLayout());
         add("My text field", myTextField);
