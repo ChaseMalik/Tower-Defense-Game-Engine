@@ -26,12 +26,6 @@ public class TopContainer extends HBox implements GuiContainer {
     	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         
-        //set component size
-        Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        
-        //Dimension2D mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
-        //                                     containerSize.getHeight()*sizeRatio.getHeight());
-        
         Dimension2D mySize = new Dimension2D(GuiConstants.TOP_CONTAINER_WIDTH,GuiConstants.TOP_CONTAINER_HEIGHT);
         
         this.setMinSize(mySize.getWidth(),mySize.getHeight());
