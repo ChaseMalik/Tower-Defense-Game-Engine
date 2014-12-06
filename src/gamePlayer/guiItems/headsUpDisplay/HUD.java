@@ -22,7 +22,7 @@ import utilities.XMLParsing.XMLParser;
  */
 public class HUD implements GuiItem {
     private XMLParser myParser;
-    private TableView<GameStats> myTableView;
+    private TableView<GameStat> myTableView;
     private Dimension2D mySize;
     
     @Override
@@ -30,7 +30,7 @@ public class HUD implements GuiItem {
     	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         
-        myTableView = new TableView<GameStats>();
+        myTableView = new TableView<GameStat>();
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         
         mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
@@ -46,19 +46,19 @@ public class HUD implements GuiItem {
     /**
      * @param stats the list of GameStats objects to be displayed
      */
-    public void setGameStats(List<GameStats> stats) {
+    public void setGameStats(List<GameStat> stats) {
         List<Double> colSizeRatio = myParser.getDoubleValuesFromTag("ColumnWidth");
         
         //convert list into observable list
-        ObservableList<GameStats> statsList = FXCollections.observableArrayList(stats);
+        ObservableList<GameStat> statsList = FXCollections.observableArrayList(stats);
         myTableView.setItems(statsList);
         
-        TableColumn<GameStats,String> statCol = new TableColumn<GameStats,String>("Stat");
+        TableColumn<GameStat,String> statCol = new TableColumn<GameStat,String>("Stat");
         statCol.setCellValueFactory(new PropertyValueFactory("gameStat"));
         statCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
         statCol.setResizable(false);
         
-        TableColumn<GameStats,String> valueCol = new TableColumn<GameStats,String>("Value");
+        TableColumn<GameStat,String> valueCol = new TableColumn<GameStat,String>("Value");
         valueCol.setCellValueFactory(new PropertyValueFactory("statValue"));
         valueCol.setPrefWidth(mySize.getWidth()*colSizeRatio.get(0));
         valueCol.setResizable(false);
