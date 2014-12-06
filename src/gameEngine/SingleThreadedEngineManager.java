@@ -108,8 +108,6 @@ public class SingleThreadedEngineManager implements Observer {
 	
 	public ImageView addTower(String identifier, double x, double y) {
     	BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
-    	boolean towerValidity = prototypeTower != null && validateTower(prototypeTower, x, y);
-    	if(towerValidity){
     		BaseTower newTower = (BaseTower)prototypeTower.copy();
         	CenteredImageView newTowerNode = newTower.getNode();
         	newTowerNode.setXCenter(x);
@@ -119,8 +117,6 @@ public class SingleThreadedEngineManager implements Observer {
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
         	return newTowerNode;
-    	}
-    	return null;
     }
 
 	private Timeline createTimeline() {
@@ -172,6 +168,7 @@ public class SingleThreadedEngineManager implements Observer {
 	}
 
 	private void onLevelEnd() {
+	        duration = 0; //TODO bad code, but problem with multiple levels
 		myTimeline.pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
@@ -265,7 +262,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    
 	    
     }
-	public boolean validateTower(BaseActor tower, double x, double y){
+	public boolean validateTower(double x, double y){
 	        return myValidRegions.getChildren().stream()
 	        .filter(node -> node.contains(x, y)).count()>0;
 	    }
@@ -277,7 +274,7 @@ public class SingleThreadedEngineManager implements Observer {
 			for (BaseTower tower : towerGroup) {
 				String towerName = tower.toString();
 				myPrototypeTowerMap.put(towerName, tower);
-				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), 0);
+				TowerInfoObject currentInfoObject = new TowerInfoObject(towerName, tower.getImagePath(), tower.getBuyCost(), tower.getSellCost(), tower.getRangeProperty());
 				if(prevInfoObject != null) {
 					prevInfoObject.setNextTower(currentInfoObject);
 				}

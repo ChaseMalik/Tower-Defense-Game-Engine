@@ -17,6 +17,7 @@ import java.util.Set;
 import utilities.JavaFXutilities.CenteredImageView;
 import utilities.JavaFXutilities.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -87,6 +88,16 @@ public abstract class BaseActor extends Observable {
                                                          array[1],
                                                          myImagePath);
     }
+    
+    protected void makeNode (Point2D point) {
+        int[] array = getSize();
+        myNode = StringToImageViewConverter.getImageView(array[0],
+                                                         array[1],
+                                                         myImagePath);
+        myNode.setXCenter(point.getX());
+        myNode.setYCenter(point.getY());
+    }
+    
     protected abstract int[] getSize();
 
     /**
