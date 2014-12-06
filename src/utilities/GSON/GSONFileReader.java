@@ -39,15 +39,7 @@ public class GSONFileReader {
             towerList = gson.create().fromJson(br, new TypeToken<List<TowerUpgradeGroup>>() {}.getType() );	
         } catch(IOException e){
             new ErrorPopup("File" + gameDir + "towers.json could not be found.");
-        }	
-        List<BaseTower> list = new ArrayList<>();
-        for(TowerUpgradeGroup g:towerList){
-            for(BaseTower t: g){
-                list.add(t);
-            }
-        }
-        GSONFileWriter g = new GSONFileWriter();
-        g.convertActorsToJson(list);
+        }		
         return towerList;		
     }
 
