@@ -1,12 +1,17 @@
 package utilities.GSON;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
+import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 import utilities.errorPopup.ErrorPopup;
+
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,6 +24,8 @@ public class GSONFileReader {
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
     private boolean[][] locations;
+    private List<DataWrapper> wrappedEnemies;
+    private List<DataWrapper> wrappedTowers;
 
     public GSONFileReader(){
     	gson = new GsonBuilder();
@@ -46,6 +53,34 @@ public class GSONFileReader {
 
         return levelList;
     }
+    
+   
+    public List<BaseEnemy> readEnemies(String gameDir){
+    	
+    	List<BaseEnemy> enemyList = new ArrayList<BaseEnemy>();
+    	try{
+    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedTowers.json"));
+    		wrappedEnemies = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
+    	}catch(IOException e){
+    		new ErrorPopup("File" + gameDir + ".");
+    	}
+    	
+    	
+    	
+    	for(DataWrapper enemy:wrappedEnemies){
+    		
+    		BaseEnemy newEnemy = (BaseEnemy)enemy.getActor();
+    		
+    		//newEnemy.makeNode(enemy.getPoint());
+    		enemyList.add(newEnemy); 		
+    		
+    	}
+    	
+    	
+    	
+    	return enemyList;
+    }
+    
     
     public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
