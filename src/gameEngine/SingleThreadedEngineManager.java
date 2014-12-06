@@ -92,7 +92,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myFileReader = new GSONFileReader();
 		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1.0;
-		myGold=100;
+		myGold=10000;
 		myUpdateServerTimer = 0;
 	}
 
