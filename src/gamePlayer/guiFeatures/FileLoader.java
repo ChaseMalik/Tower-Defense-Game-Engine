@@ -30,6 +30,7 @@ public class FileLoader  {
      */
     public File load(Window stage) {
         DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(new File("./Games/"));
         return chooser.showDialog(stage);
     }
     

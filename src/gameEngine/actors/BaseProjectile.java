@@ -23,7 +23,7 @@ public class BaseProjectile extends BaseActor{
         myInfo=info;
         myImagePath=info.getImage();
         myTypes=new HashSet<>();
-        myDebuffs=new ArrayList<>();
+  
         myEffects=new HashSet<>();
         makeNode();
         myNode.setVisible(false);

@@ -2,12 +2,6 @@
 
 <ContainerProperties>
 
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>0.78</element> <!-- Width -->
-		<element>0.65</element> <!-- Height -->
-	</SizeRatio>
-	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.gameWorld.GameWorld</element>

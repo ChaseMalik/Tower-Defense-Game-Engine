@@ -1,6 +1,6 @@
 package gamePlayer.mainClasses.testGameManager;
 
-import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.mainClasses.managers.GuiManager;
 
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  */
 public class TestGameManager {
     private GuiManager myGuiManager;
-    private List<GameStats> gameStats;
+    private List<GameStat> gameStats;
     
     public TestGameManager(Stage stage) {
        // myGuiManager = new GuiManager(stage,this);     
@@ -65,19 +65,19 @@ public class TestGameManager {
     }
 
     private void testLoadingGuiHUD() {
-        GameStats level = new GameStats();
+        GameStat level = new GameStat();
         level.setGameStat("Level");
         level.setStatValue(1);
         
-        GameStats score = new GameStats();
+        GameStat score = new GameStat();
         score.setGameStat("Score");
         score.setStatValue(0);
         
-        GameStats health = new GameStats();
+        GameStat health = new GameStat();
         health.setGameStat("Health");
         health.setStatValue(100);
         
-        gameStats = new ArrayList<GameStats>();
+        gameStats = new ArrayList<GameStat>();
         gameStats.add(level); gameStats.add(score); gameStats.add(health);
         myGuiManager.setGameStats(gameStats);
         
