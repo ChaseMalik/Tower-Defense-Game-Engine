@@ -57,7 +57,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
 	private GridPane myValidRegions;
-	
+	private int myGold;
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
@@ -85,6 +85,7 @@ public class SingleThreadedEngineManager implements Observer {
 		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
 		myUpdateRate = 1.0;
+		myGold=100;
 	}
 
 	public void fastForward() {
@@ -117,9 +118,9 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                if(validateTower(x,y))
-                    System.out.println("valid location");
-                else{System.out.println("not valid location");}
+                if(!validateTower(newTower,x,y))
+                   return null;
+                myGold-=newTower.getBuyCost();
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
@@ -270,9 +271,9 @@ public class SingleThreadedEngineManager implements Observer {
 	    
     }
 	
-	public boolean validateTower(double x, double y){
+	public boolean validateTower(BaseTower tower,double x, double y){
 	    return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) && 
-            listCollidesWith(myValidRegions.getChildren(), x, y);
+            listCollidesWith(myValidRegions.getChildren(), x, y) && tower.getBuyCost()<=myGold;
 	    }
 	private boolean listCollidesWith(List<Node> list, double x, double y){
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
@@ -337,10 +338,13 @@ public class SingleThreadedEngineManager implements Observer {
 			}
 		}
 	}
-	public ImageView upgrade(Node n,String name){
-	    BaseTower tower=myNodeToTower.get(n);
-	    myTowerGroup.remove(tower);
+	public ImageView upgrade(ImageView n,String name){
+	    removeTower(n);
 	    return addTower(name,((ImageView) n).getX(),((ImageView) n).getY());
 	    
+	}
+	public void sellTower(ImageView n){
+	    myGold+=myNodeToTower.get(n).getSellCost();
+	    removeTower(n);
 	}
 }
