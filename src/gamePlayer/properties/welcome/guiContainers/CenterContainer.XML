@@ -5,7 +5,7 @@
     <!--width and height size ratios to window size-->
  	<SizeRatio>
 		<element>1</element> <!-- Width -->
-		<element>0.7</element> <!-- Height -->
+		<element>0.55</element> <!-- Height -->
 	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->

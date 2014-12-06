@@ -9,7 +9,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -20,7 +20,7 @@ import utilities.XMLParsing.XMLParser;
 public class ButtonPane implements GuiItem {
 
 	private XMLParser myParser;
-	private VBox myPane;
+	private HBox myPane;
 	private Dimension2D mySize; //, buttonSize;
 	
 	@Override
@@ -38,7 +38,7 @@ public class ButtonPane implements GuiItem {
 	}
 	
 	private void setupPane() {
-		myPane = new VBox();
+		myPane = new HBox();
 		myPane.setMinSize(mySize.getWidth(), mySize.getHeight());
 		myPane.setAlignment(Pos.CENTER);
 		int padding = myParser.getIntegerValuesFromTag("Padding").get(0);
