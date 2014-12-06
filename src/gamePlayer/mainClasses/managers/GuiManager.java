@@ -27,7 +27,6 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,8 +34,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import utilities.JavaFXutilities.CenteredImageView;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -206,12 +205,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
 		if (!gameRunning) return;
-		if (upgradeName.equals(NO_UPGRADE)){ 
+		if (upgradeName.equals(NO_UPGRADE) || myEngineManager.checkGold(towerMap.get(upgradeName))){ 
 			displayMessage(upgradeName, true);
 			return;
 		}
+		DoubleProperty gold=myEngineManager.myGold();
+		myEngineManager.setMyGold(gold.get()+towerMap.get(upgradeName).getBuyCost());
 		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
-		if (newTower == null) displayMessage(NO_GOLD, true);
+		//if (newTower == null) displayMessage(NO_GOLD, true);
 		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
 		selectTower(upgradeName, newTower);
 	}
@@ -241,11 +242,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
+                if (myEngineManager.checkGold(towerMap.get(towerName))){ 
+                    displayMessage(towerName, true);
+                    return;
+            }
+            DoubleProperty gold=myEngineManager.myGold();
+            myEngineManager.setMyGold(gold.get()+towerMap.get(towerName).getBuyCost());		
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
-		if(towerImageView == null) {
-			displayMessage(NO_GOLD, true);
-		    return;
-		}
+//		if(towerImageView == null) {
+//			displayMessage(NO_GOLD, true);
+//		    return;
+//		}
 		towerImageView.setOnMouseClicked(event -> selectTower(towerName, towerImageView));
 	}
 	

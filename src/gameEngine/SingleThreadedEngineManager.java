@@ -138,8 +138,6 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                if(!checkGold(newTower))
-                   return null;
                 myGold.set(myGold.get()-newTower.getBuyCost());
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
@@ -194,8 +192,9 @@ public class SingleThreadedEngineManager implements Observer {
 		myEnemyGroup.clearAndExecuteRemoveBuffer();
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
 		if(myUpdateServerTimer % 150 == 0){
-		    if(myTowerGroup.iterator().hasNext()){
+		    if(!myTowerGroup.getChildren().isEmpty()){
 		        String parameters = "master_json=" + convertTowersToString();
+		        System.out.println(myTowerGroup.getChildren().size());
 		        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
 		    }
                     getAndCreateNewTowers();
@@ -217,6 +216,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    for(DataWrapper wrapper: list){
 	        addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
 	    }
+	    System.out.println(myTowerGroup.getChildren().size());
 	}
 
 	private void onLevelEnd() {
@@ -325,8 +325,8 @@ public class SingleThreadedEngineManager implements Observer {
 	private boolean listCollidesWith(List<Node> list, double x, double y){
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
 	}
-	public boolean checkGold(BaseTower tower){
-	    return tower.getBuyCost()<=myGold.get();
+	public boolean checkGold(TowerInfoObject towerInfoObject){
+	    return towerInfoObject.getBuyCost()<=myGold.get();
 	 }
 
     public void loadTowers(String directory) {
