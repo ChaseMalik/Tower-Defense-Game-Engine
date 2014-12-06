@@ -1,3 +1,11 @@
+<WelcomeScreenProperties>
+
 <StyleSheet>
 	    <element>/gamePlayer/styleSheets/welcomescreen_theme.css</element> 
 </StyleSheet>
+
+<BackgroundImage>
+    <element>gamePlayer/playerImages/castle.jpg</element>
+</BackgroundImage>
+
+</WelcomeScreenProperties>

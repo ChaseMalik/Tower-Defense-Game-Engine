@@ -1,13 +1,14 @@
 package gamePlayer.mainClasses.welcomeScreen;
 
-import java.io.File;
-import utilities.XMLParsing.XMLParser;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.managers.GuiManager;
-import gamePlayer.mainClasses.welcomeScreen.screens.MainSplashScreen;
+import gamePlayer.mainClasses.welcomeScreen.screens.WelcomeScreen;
+import java.io.File;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import utilities.XMLParsing.XMLParser;
 
 public class WelcomeScreenManager {
     
@@ -19,6 +20,7 @@ public class WelcomeScreenManager {
             init(stage);
             //startGame(stage);
     }
+       
     
     private void startGame(Stage stage) {
         new GuiManager(stage);
@@ -30,18 +32,19 @@ public class WelcomeScreenManager {
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
     
         String styleSheetPath = myParser.getValuesFromTag("StyleSheet").get(0);
-        scene.getStylesheets().clear();
         scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
         
-        loadMainSplashScreen(group);
+        initializeWelcomeScreen(group);
         
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
 
-    private void loadMainSplashScreen (Group group) {
-        MainSplashScreen mainScreen = new MainSplashScreen();
-        group.getChildren().add(mainScreen);
+    private void initializeWelcomeScreen (Group group) {
+        WelcomeScreen welcomeScreen = new WelcomeScreen();
+        welcomeScreen.setBackgroundImage(myParser.getValuesFromTag("BackgroundImage").get(0));
+        welcomeScreen.setCenterContent(new Circle(0,100,100));
+        group.getChildren().add(welcomeScreen);
     }
 }
