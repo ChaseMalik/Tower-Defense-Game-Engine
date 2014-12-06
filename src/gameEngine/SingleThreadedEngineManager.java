@@ -138,7 +138,6 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                myGold.set(myGold.get()-newTower.getBuyCost());
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);

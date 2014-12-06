@@ -205,12 +205,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
 		if (!gameRunning) return;
-		if (upgradeName.equals(NO_UPGRADE) || myEngineManager.checkGold(towerMap.get(upgradeName))){ 
+		if (upgradeName.equals(NO_UPGRADE) && !myEngineManager.checkGold(towerMap.get(upgradeName))){ 
 			displayMessage(upgradeName, true);
 			return;
 		}
 		DoubleProperty gold=myEngineManager.myGold();
-		myEngineManager.setMyGold(gold.get()+towerMap.get(upgradeName).getBuyCost());
+		myEngineManager.setMyGold(gold.get()-towerMap.get(upgradeName).getBuyCost());
 		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
 		//if (newTower == null) displayMessage(NO_GOLD, true);
 		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
@@ -242,12 +242,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
-                if (myEngineManager.checkGold(towerMap.get(towerName))){ 
+                if (!myEngineManager.checkGold(towerMap.get(towerName))){ 
                     displayMessage(towerName, true);
                     return;
             }
             DoubleProperty gold=myEngineManager.myGold();
-            myEngineManager.setMyGold(gold.get()+towerMap.get(towerName).getBuyCost());		
+            myEngineManager.setMyGold(gold.get()-towerMap.get(towerName).getBuyCost());		
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 //		if(towerImageView == null) {
 //			displayMessage(NO_GOLD, true);
