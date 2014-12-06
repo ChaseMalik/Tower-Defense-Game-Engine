@@ -25,15 +25,20 @@ import javafx.scene.layout.BorderPane;
  */
 public class ClientApplet extends Applet {
 
+    // String constants
+    private static final String HOST_NAME = "host";
+    private static final String PORT_NUMBER = "port";
+    private static final String ADD_MESSAGE = "Center";
+
     /**
      * Generated serial version ID
      */
     private static final long serialVersionUID = 5484563350299263809L;
 
     protected void initialize () {
-        String host = getParameter("host");
-        int port = Integer.parseInt(getParameter("port"));
+        String host = getParameter(HOST_NAME);
+        int port = Integer.parseInt(getParameter(PORT_NUMBER));
         setLayout((LayoutManager)new BorderPane());
-        add("Center", new Client(host, port));
+        add(ADD_MESSAGE, new Client(host, port));
     }
 }
