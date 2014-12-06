@@ -1,13 +1,21 @@
 package utilities.GSON;
 
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
+import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseTower;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javafx.geometry.Point2D;
 import utilities.errorPopup.ErrorPopup;
+
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,6 +45,28 @@ public class GSONFileWriter {
         }catch(IOException e) {
             new ErrorPopup("File to store actors could not be found.");
         }
+    }
+    
+    public void convertActorsToJson(String directory, List<BaseTower> towerList, List<BaseEnemy> enemyList){
+    	
+    	List<DataWrapper> wrappedTowerList = new ArrayList<DataWrapper>();
+    	List<DataWrapper> wrappedEnemyList = new ArrayList<DataWrapper>();
+    	
+    	for(BaseTower tower: towerList){
+    		DataWrapper dw = new DataWrapper(tower, new Point2D(tower.getNode().getX(), tower.getNode().getY()));
+   		
+    		wrappedTowerList.add(dw);  		 		
+    	}
+    	
+    	
+    	for(BaseEnemy enemy:enemyList){
+    		DataWrapper dw = new DataWrapper(enemy, new Point2D(enemy.getNode().getX(), enemy.getNode().getY()));    		
+    		wrappedEnemyList.add(dw);
+    	}
+    	
+    	writeToFile(directory + "wrappedTowers.json", gson.create().toJson(wrappedTowerList,new TypeToken<List<DataWrapper>>() {}.getType()));
+    	writeToFile(directory + "wrappedEnemies.json", gson.create().toJson(wrappedEnemyList,new TypeToken<List<DataWrapper>>() {}.getType()));
+ 	
     }
     
 

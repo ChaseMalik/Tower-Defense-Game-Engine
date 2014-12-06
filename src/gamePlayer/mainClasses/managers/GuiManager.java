@@ -28,6 +28,7 @@ import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -78,16 +79,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void startGame(String directoryPath){
 	    myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
-		makeMap();
+		addBackground(directoryPath);
+		makeTowerMap();
 		testHUD();
 		//myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		myGameWorld.getMap().getStyleClass().add("GameWorld");
-		System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
+		//myGameWorld.getMap().getStyleClass().add("GameWorld");
+		//System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
 		gameRunning = true;
 	}
 	
-	private void makeMap(){
+	private void addBackground(String directory){
+		File parent = new File(directory+="/background/");
+		File background = parent.listFiles()[0];
+		myGameWorld.setBackground(background.getAbsolutePath());
+	}
+	
+	private void makeTowerMap(){
 	    towerMap = new HashMap<String, TowerInfoObject>();
 		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
 			towerMap.put(info.getName(), info);
@@ -181,14 +189,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
-		/*
-		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
-        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
-        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
-        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
-        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
-        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));*/
-		
 		myStore.fillStore(storeItems);
 	}
 
