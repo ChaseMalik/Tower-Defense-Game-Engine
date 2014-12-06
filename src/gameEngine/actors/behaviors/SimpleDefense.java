@@ -19,8 +19,12 @@ public class SimpleDefense extends BaseDefendBehavior{
             }
             myHealth--;
             a.died();
-            if(myHealth<=0)
+            if(myHealth<=0){
                 actor.died();
+                actor.hasChanged();
+                //TODO add enemy cost
+                actor.notifyObservers(new Integer(10));
+            }
         }
         }
     }

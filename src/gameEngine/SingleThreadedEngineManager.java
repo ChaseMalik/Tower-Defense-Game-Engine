@@ -331,8 +331,8 @@ public class SingleThreadedEngineManager implements Observer {
 		if (o instanceof BaseActor && arg != null) {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
-			} else if (arg instanceof BaseEnemy) {
-				myEnemyGroup.add((BaseEnemy) arg);
+			} else if (o instanceof BaseEnemy) {
+				myGold+=((Integer)arg).intValue();
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
