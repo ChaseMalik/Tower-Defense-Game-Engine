@@ -57,6 +57,11 @@ public class TowerRegionsPane extends BuildingPane {
     @SuppressWarnings("static-access")
     private void generateBackendGrid () {
         myBackendGrid = new boolean[NUM_ROWS][NUM_COLS];
+        for(int row = 0; row < NUM_ROWS; row++){
+            for(int col = 0; col < NUM_COLS; col++){
+                myBackendGrid[row][col] = true;
+            }
+        }
         for(Node n:myPane.getChildren()) {
             myBackendGrid[myPane.getRowIndex(n)][myPane.getColumnIndex(n)] = 
                     !((Tile) n).isSelected();

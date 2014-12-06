@@ -7,7 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 /**
  * A pane of default maps that the user can select as their background. This pane

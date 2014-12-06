@@ -2,7 +2,7 @@ package gameEngine.actors.behaviors;
 
 import java.util.List;
 import java.util.Set;
-import utilities.JavaFXutilities.CenteredImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;

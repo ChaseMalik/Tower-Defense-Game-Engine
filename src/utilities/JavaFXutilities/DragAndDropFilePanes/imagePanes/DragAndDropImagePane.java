@@ -1,7 +1,7 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
 import java.io.File;
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import javafx.scene.image.ImageView;
 
 public abstract class DragAndDropImagePane extends DragAndDropFilePane {

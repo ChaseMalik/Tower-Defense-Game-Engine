@@ -5,7 +5,7 @@ import gameEngine.levels.BaseLevel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
-import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -39,7 +38,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
-import utilities.JavaFXutilities.CenteredImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
 

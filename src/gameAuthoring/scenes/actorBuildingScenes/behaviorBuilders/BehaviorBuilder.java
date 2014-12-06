@@ -5,7 +5,7 @@ import java.util.List;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import utilities.JavaFXutilities.SliderContainer;
+import utilities.JavaFXutilities.slider.SliderContainer;
 import utilities.reflection.Reflection;
 
 /**

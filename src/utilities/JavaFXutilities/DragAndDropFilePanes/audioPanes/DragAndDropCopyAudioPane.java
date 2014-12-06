@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 

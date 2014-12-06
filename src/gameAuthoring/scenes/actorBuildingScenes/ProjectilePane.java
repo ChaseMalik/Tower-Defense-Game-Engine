@@ -13,16 +13,16 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import utilities.JavaFXutilities.SliderContainer;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropAudioPane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropCopyImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.slider.SliderContainer;
 
 public class ProjectilePane extends Observable implements Observer {
     
     private static final String PROJECTILE_IMG_DIR = AuthorController.gameDir + "projectileImages/";
     private SliderContainer mySliderContainer;
     private HBox myContainer;
-    private DragAndDropAudioPane myDropImgPane;
+    private DragAndDropImagePane myDropImgPane;
     
     public ProjectilePane() {
         File dir = new File(PROJECTILE_IMG_DIR);
@@ -53,7 +53,7 @@ public class ProjectilePane extends Observable implements Observer {
                 .stream()
                 .map(enemy->enemy.toString())
                 .collect(Collectors.toList());
-        return new ProjectileInfo(myDropImgPane.getAudioPath(),
+        return new ProjectileInfo(myDropImgPane.getImagePath(),
                                   new LinearMovement(5),
                                   null,
                                   enemyStrings);

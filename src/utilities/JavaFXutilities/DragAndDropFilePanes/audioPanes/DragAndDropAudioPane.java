@@ -1,8 +1,8 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes;
 
 import java.io.File;
-
-import utilities.JavaFXutilities.StringToAudioClipConverter;
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropFilePane;
+import utilities.audio.StringToAudioClipConverter;
 import javafx.scene.Node;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.AudioTrack;

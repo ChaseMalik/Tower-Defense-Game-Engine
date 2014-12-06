@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 /**
  * Utility class that easily allows for the creation of error popups in a new window.
