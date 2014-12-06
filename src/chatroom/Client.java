@@ -13,23 +13,25 @@ import java.net.Socket;
 
 /**
  * @author $cotty $haw
- *
- * The Command Factory uses reflection to hide implementation details
- * and creates the commands from the user's inputs using a key-value
- * system.
  * 
- * It is static because our createCommand method is recursive, so we
- * need to avoid passing the factory to the individual commands.
+ * Our Client class has a text entry field that lets us type messages
+ * and a text display window that shows messages from other users. We
+ * also have a background thread for receiving messages. Our infinite
+ * loop here has the same purpose as the one in our Server: read in a
+ * message from another user, process it, and perhaps write something
+ * back to the server as a response. Most importantly, the GUI visual
+ * is created in this class.
  * 
- * Listener class
- * While-Accept loop
- * Per-Thread class
- * While-Read/Write loop (Server side)
- * Removing dead connections
- * Client class
- * While-Read/Write loop (Client side)
  */
 public class Client extends Panel implements Runnable {
+
+    // String constants
+    private static final String MY_TEXT_FIELD_MESSAGE = "My text field";
+    private static final String MY_TEXT_AREA_MESSAGE = "My text area";
+    private static final String CONNECTED_TO_MY_SOCKET_MESSAGE = "connected to ";
+    private static final String EMPTY_STRING = "";
+    private static final String NEWLINE = "\n";
+    private static final String IO_EXCEPTION_MESSAGE = "IOException in Client.java";
 
     /**
      * Generated serial version ID
@@ -50,8 +52,8 @@ public class Client extends Panel implements Runnable {
     protected Client (String host, int port) {
 
         setLayout(new BorderLayout());
-        add("My text field", myTextField);
-        add("My text area", myTextArea);
+        add(MY_TEXT_FIELD_MESSAGE, myTextField);
+        add(MY_TEXT_AREA_MESSAGE, myTextArea);
 
         // Receives messages when a user types a line and hits return
         myTextField.addActionListener(new ActionListener() {
@@ -63,7 +65,7 @@ public class Client extends Panel implements Runnable {
         // Connects to the server
         try {
             mySocket = new Socket(host, port);
-            System.out.println("connected to " + mySocket);
+            System.out.println(CONNECTED_TO_MY_SOCKET_MESSAGE + mySocket);
 
             myDataIn = new DataInputStream(mySocket.getInputStream());
             myDataOut = new DataOutputStream(mySocket.getOutputStream());
@@ -72,7 +74,7 @@ public class Client extends Panel implements Runnable {
             new Thread(this).start();
         }
         catch (IOException ex) {
-            System.out.println("IOException occurred in Client.java");
+            System.out.println(IO_EXCEPTION_MESSAGE);
         }
     }
 
@@ -80,7 +82,7 @@ public class Client extends Panel implements Runnable {
     private void sendUserMessageToServer (String message) {
         try {
             myDataOut.writeUTF(message);
-            myTextField.setText("");
+            myTextField.setText(EMPTY_STRING);
         }
         catch (IOException ex) {
             System.out.println(ex);
@@ -92,11 +94,11 @@ public class Client extends Panel implements Runnable {
         try {
             while (true) {
                 String message = myDataIn.readUTF();
-                myTextArea.append(message + "\n");
+                myTextArea.append(message + NEWLINE);
             }
         }
         catch (IOException ex) {
-            System.out.println(ex);
+            System.out.println(IO_EXCEPTION_MESSAGE);
         }
     }
 }

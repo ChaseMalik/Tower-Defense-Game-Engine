@@ -28,6 +28,8 @@ import utilities.GSON.GSONFileWriter;
 import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -59,7 +61,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
 	private GridPane myValidRegions;
-	private int myGold;
+	private SimpleDoubleProperty myGold;
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
@@ -93,10 +95,19 @@ public class SingleThreadedEngineManager implements Observer {
 		myFileReader = new GSONFileReader();
 		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1.0;
-		myGold=10000;
+		myGold=new SimpleDoubleProperty();
+		myGold.set(10000);
 		myUpdateServerTimer = 0;
 	}
-
+	public double getMyGold(){
+	    return myGold.get();
+	}
+	public DoubleProperty myGold(){
+	    return myGold;
+	}
+	public void setMyGold(double value){
+	    myGold.set(value);
+	}
 	public void fastForward() {
 		changeRunSpeed(4);
 	}
@@ -129,7 +140,7 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setVisible(true);
                 if(!checkGold(newTower))
                    return null;
-                myGold-=newTower.getBuyCost();
+                myGold.set(myGold.get()-newTower.getBuyCost());
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
@@ -221,6 +232,9 @@ public class SingleThreadedEngineManager implements Observer {
 		if(duration <= 0) {
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
+			if(enemy==null)
+			    return;
+			enemy.addObserver(this);
 			myEnemyGroup.add(enemy);
 		}
 	}
@@ -312,7 +326,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
 	}
 	public boolean checkGold(BaseTower tower){
-	    return tower.getBuyCost()<=myGold;
+	    return tower.getBuyCost()<=myGold.get();
 	 }
 
     public void loadTowers(String directory) {
@@ -368,7 +382,7 @@ public class SingleThreadedEngineManager implements Observer {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
 			} else if (o instanceof BaseEnemy) {
-				myGold+=((Integer)arg).intValue();
+				myGold.set(((Double)arg).doubleValue()+myGold.get());
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
@@ -380,7 +394,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    
 	}
 	public void sellTower(ImageView n){
-	    myGold+=myNodeToTower.get(n).getSellCost();
+	    myGold.set(myNodeToTower.get(n).getSellCost()+myGold.get());
 	    removeTower(n);
 	}
 }
