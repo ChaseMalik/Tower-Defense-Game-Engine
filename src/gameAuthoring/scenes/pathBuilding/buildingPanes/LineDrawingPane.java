@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathLine;
 
 /**
@@ -36,6 +37,11 @@ public class LineDrawingPane extends BuildingPane {
             }     
         });
     }
+    
+    private void removeListeners() {
+        this.setOnMousePressed(null);
+        this.setOnMouseMoved(null);
+    }
 
     private void stretchLineToEndAtCurrentMousePosition (MouseEvent event) {
         if(myLineBeingCreated != null){
@@ -59,5 +65,15 @@ public class LineDrawingPane extends BuildingPane {
             }
             myLineBeingCreated = null;
         }
+    }
+    
+    @Override
+    public void executeEnterFunction() {
+        addListeners();
+    }
+
+    @Override
+    public void executeExitFunction() {
+        removeListeners();
     }
 }

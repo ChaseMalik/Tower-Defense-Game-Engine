@@ -11,7 +11,6 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,10 +22,14 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
+import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
+import utilities.GSON.GSONFileWriter;
 import utilities.JavaFXutilities.CenteredImageView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,6 +40,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
 import utilities.JavaFXutilities.CenteredImageView;
+import utilities.networking.HTTPConnection;
 
 public class SingleThreadedEngineManager implements Observer {
 
@@ -57,7 +61,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private BaseLevel myCurrentLevel;
 	private int myCurrentLevelIndex;
 	private GridPane myValidRegions;
-	
+	private SimpleDoubleProperty myGold;
 	private Map<String, BaseTower> myPrototypeTowerMap;
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
@@ -65,6 +69,11 @@ public class SingleThreadedEngineManager implements Observer {
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	private GSONFileReader myFileReader;
+	private GSONFileWriter myFileWriter;
+	
+	private int myUpdateServerTimer;
+	private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
+	private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
 	
 	public SingleThreadedEngineManager(Pane engineGroup) {
 		myReadyToPlay = new AtomicBoolean(false);
@@ -84,9 +93,21 @@ public class SingleThreadedEngineManager implements Observer {
 		myNodeToTower = new HashMap<>();
 		myPrototypeTowerMap = new HashMap<>();
 		myFileReader = new GSONFileReader();
+		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1.0;
+		myGold=new SimpleDoubleProperty();
+		myGold.set(10000);
+		myUpdateServerTimer = 0;
 	}
-
+	public double getMyGold(){
+	    return myGold.get();
+	}
+	public DoubleProperty myGold(){
+	    return myGold;
+	}
+	public void setMyGold(double value){
+	    myGold.set(value);
+	}
 	public void fastForward() {
 		changeRunSpeed(4);
 	}
@@ -117,9 +138,6 @@ public class SingleThreadedEngineManager implements Observer {
         	newTowerNode.setXCenter(x);
         	newTowerNode.setYCenter(y);
         	newTowerNode.setVisible(true);
-                if(validateTower(x,y))
-                    System.out.println("valid location");
-                else{System.out.println("not valid location");}
         	myTowerGroup.add(newTower);
         	myNodeToTower.put(newTowerNode, newTower);
         	newTower.addObserver(this);
@@ -172,6 +190,32 @@ public class SingleThreadedEngineManager implements Observer {
 		myTowerGroup.clearAndExecuteRemoveBuffer();
 		myEnemyGroup.clearAndExecuteRemoveBuffer();
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
+		if(myUpdateServerTimer % 150 == 0){
+		    if(!myTowerGroup.getChildren().isEmpty()){
+		        String parameters = "master_json=" + convertTowersToString();
+		        System.out.println(myTowerGroup.getChildren().size());
+		        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+		    }
+                    getAndCreateNewTowers();
+		}
+		myUpdateServerTimer++;
+	}
+	
+	private String convertTowersToString(){
+	    List<DataWrapper> wrapper = new ArrayList<>();
+	    for(BaseTower tower: myTowerGroup){
+	        wrapper.add(new DataWrapper(tower));
+	    }
+	    return myFileWriter.convertWrappersToJson(wrapper);
+	}
+	
+	private void getAndCreateNewTowers(){
+	    List<DataWrapper> list = myFileReader.readWrappers(HTTP_CONNECTOR.sendGet("get_master_json"));
+	    myTowerGroup.clear();
+	    for(DataWrapper wrapper: list){
+	        addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
+	    }
+	    System.out.println(myTowerGroup.getChildren().size());
 	}
 
 	private void onLevelEnd() {
@@ -187,6 +231,9 @@ public class SingleThreadedEngineManager implements Observer {
 		if(duration <= 0) {
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
+			if(enemy==null)
+			    return;
+			enemy.addObserver(this);
 			myEnemyGroup.add(enemy);
 		}
 	}
@@ -277,6 +324,9 @@ public class SingleThreadedEngineManager implements Observer {
 	private boolean listCollidesWith(List<Node> list, double x, double y){
 	    return list.stream().filter(node -> node.contains(x,y)).count()>0;
 	}
+	public boolean checkGold(TowerInfoObject towerInfoObject){
+	    return towerInfoObject.getBuyCost()<=myGold.get();
+	 }
 
     public void loadTowers(String directory) {
 		List<TowerUpgradeGroup> availableTowers = myFileReader.readTowersFromGameDirectory(directory);
@@ -330,17 +380,20 @@ public class SingleThreadedEngineManager implements Observer {
 		if (o instanceof BaseActor && arg != null) {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
-			} else if (arg instanceof BaseEnemy) {
-				myEnemyGroup.add((BaseEnemy) arg);
+			} else if (o instanceof BaseEnemy) {
+				myGold.set(((Double)arg).doubleValue()+myGold.get());
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
 		}
 	}
-	public ImageView upgrade(Node n,String name){
-	    BaseTower tower=myNodeToTower.get(n);
-	    myTowerGroup.remove(tower);
+	public ImageView upgrade(ImageView n,String name){
+	    removeTower(n);
 	    return addTower(name,((ImageView) n).getX(),((ImageView) n).getY());
 	    
+	}
+	public void sellTower(ImageView n){
+	    myGold.set(myNodeToTower.get(n).getSellCost()+myGold.get());
+	    removeTower(n);
 	}
 }

@@ -1,6 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 
 public class SimpleDefense extends BaseDefendBehavior{
@@ -19,8 +20,12 @@ public class SimpleDefense extends BaseDefendBehavior{
             }
             myHealth--;
             a.died();
-            if(myHealth<=0)
+            if(myHealth<=0){
+                actor.change();
+                //TODO add enemy cost
+                actor.notifyObservers(new Double(((BaseEnemy)actor).getBounty()));
                 actor.died();
+            }
         }
         }
     }
