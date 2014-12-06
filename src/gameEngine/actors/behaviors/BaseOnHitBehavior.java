@@ -7,6 +7,7 @@ public abstract class BaseOnHitBehavior implements IBehavior{
     double myDuration;
     double myInitialDuration;
     double myMultiplier;
+    protected String myString;
     public BaseOnHitBehavior(double duration, double multiplier){
         myDuration=duration;
         myInitialDuration=duration;
@@ -14,11 +15,16 @@ public abstract class BaseOnHitBehavior implements IBehavior{
     }
 
 
-
+    public abstract void undo(BaseActor actor);    
+    
     @Override
     public Set<Class<? extends BaseActor>> getType () {
         // TODO Auto-generated method stub
         return null;
+    }
+    @Override
+    public String toString(){
+        return myString;
     }
 
 }

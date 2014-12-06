@@ -2,6 +2,7 @@ package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
+import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +42,8 @@ public abstract class BaseActor extends Observable {
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected Set<BaseEffectBehavior> myEffects;
     private boolean myIsRemovable;
-    protected List<IBehavior> myDebuffs;
+    protected HashMap<String,IBehavior> myDebuffs;
+    protected Set<IBehavior> myDebuffsToRemove;
     public BaseActor () {
 
     }
@@ -51,7 +53,8 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
-        myDebuffs=new ArrayList<>();
+        myDebuffs=new HashMap<>();
+        myDebuffsToRemove=new HashSet<>();
         myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
@@ -68,19 +71,20 @@ public abstract class BaseActor extends Observable {
      */
     public void update (InfoObject info) {
         myInfo = info;
-        for(IBehavior debuff: myDebuffs){
-            debuff.execute(this);
-        }
+
         for (String s : myBehaviors.keySet()) {
             myBehaviors.get(s).execute(this);
         }
 
     }
     public void addDebuff(IBehavior debuff){
-        myDebuffs.add(debuff);
+        if(myDebuffs.containsKey(debuff.toString())){
+        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).undo(this);
+        }
+        myDebuffs.put(debuff.toString(), debuff);
     }
     public void removeDebuff(IBehavior debuff){
-        myDebuffs.remove(debuff);
+        myDebuffsToRemove.add(debuff);
     }
     protected void makeNode () {
         int[] array = getSize();
