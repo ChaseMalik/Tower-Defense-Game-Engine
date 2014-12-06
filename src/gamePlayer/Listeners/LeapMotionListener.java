@@ -38,6 +38,7 @@ public class LeapMotionListener extends Listener {
 		// c.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
 		//Tell manager to change panes
 		setupTimers();
+		GuiConstants.WELCOME_MANAGER.LMConnected();
 	}
 
 	@Override

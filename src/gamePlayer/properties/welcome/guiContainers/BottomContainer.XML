@@ -10,7 +10,7 @@
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-		<element>gamePlayer.guiItems.welcome.LMConnectBox</element>
+		<element>gamePlayer.guiItems.welcome.LMConnector</element>
 	</Items>
 	
 </ContainerProperties>
