@@ -94,8 +94,12 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private void handleKeyPress (KeyEvent event) {
         if(event.getCode() == KeyCode.DELETE){
             List<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
-            if(deletedComponent != null)
-                myCurrentBuildingPane.removeConnectedComponentFromScreen(deletedComponent);
+            if(deletedComponent != null) {
+                for(PathComponent comp:deletedComponent) {
+                    myGroup.getChildren().remove(comp);
+                    myGroup.getChildren().removeAll(comp.getExtraNodes());
+                }
+            }
         }
     }
 
@@ -120,8 +124,8 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myCurvePathOptionPane.setOnMouseReleased(event->setCurrentDrawingPane(myCurveDrawingPane));
 
         mySelectComponentOptionPane = new DrawingComponentOptionPane("Selection");
-        mySelectComponentOptionPane.setOnMouseReleased(event->setSelectionMode());
-        
+        mySelectComponentOptionPane.setOnMouseReleased(event->setCurrentDrawingPane(mySelectionComponentPane));
+
         myTowerRegionSelectionPane = new DrawingComponentOptionPane("Regions");
         myTowerRegionSelectionPane.setOnMouseReleased(event->setCurrentDrawingPane(myTowerRegionsPane));
 
@@ -142,13 +146,6 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         if(myPath.isCompletedAndRoutesVerified()) {
             myPathConfiguringController.setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
             myPathConfiguringController.configurePath(myPath);
-        }
-    }
-
-    private void setSelectionMode () {
-        if(!isCurrentPane(mySelectionComponentPane) && canDrawPathComponents()) {
-            mySelectionComponentPane.addListenersToComponents();
-            setCurrentDrawingPane(mySelectionComponentPane);
         }
     }
 
