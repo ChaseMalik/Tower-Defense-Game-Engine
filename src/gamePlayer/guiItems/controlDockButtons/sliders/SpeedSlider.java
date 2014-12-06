@@ -1,6 +1,5 @@
 package gamePlayer.guiItems.controlDockButtons.sliders;
 
-import gamePlayer.guiItems.controlDockButtons.ControlDockButton;
 import gamePlayer.guiItems.controlDockButtons.ControlDockSlider;
 import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
