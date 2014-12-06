@@ -6,14 +6,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropFilePane;
 import utilities.errorPopup.ErrorPopup;
 
-public class DragAndDropCopyAudioPane extends DragAndDropAudioPane {
+public class DragAndDropCopyAudioPane extends DragAndDropFilePane {
 
     private String myFileDestination;
 
     public DragAndDropCopyAudioPane (double width, double height, String fileDestination) {
-        super(width, height);
+        super(width, height, new String[] {".mp3", ".mp4"});
         myFileDestination = fileDestination;
     }
 
@@ -23,11 +24,9 @@ public class DragAndDropCopyAudioPane extends DragAndDropAudioPane {
         myFile = targetFile;
         try {
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-//            playAudio();
-            System.out.println("play audio");
         }
         catch (IOException e) {
-            new ErrorPopup("Audio file could not be played.");
+            new ErrorPopup("Audio file could not be added.");
         }       
     }
 }
