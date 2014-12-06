@@ -110,6 +110,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void saveGame() {
 		//myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
 	}
+	
+	public boolean gameRunning() {
+		return gameRunning;
+	}
 
 	@Override
 	public void registerStatsBoard(HUD hud) {
