@@ -2,7 +2,6 @@ package gamePlayer.guiItems.controlDockButtons;
 
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;

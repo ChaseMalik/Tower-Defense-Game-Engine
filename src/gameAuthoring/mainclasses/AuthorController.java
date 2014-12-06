@@ -19,10 +19,12 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -42,7 +44,7 @@ PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     public static final double SCREEN_WIDTH = 1100;
-    public static final double SCREEN_HEIGHT = 620;
+    public static final double SCREEN_HEIGHT = 550; //620
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
     public static String gameDir;
 

@@ -1,11 +1,9 @@
 package gamePlayer.guiItemsListeners;
 
-import java.util.Collection;
-import java.util.List;
-
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.store.Store;
-import gamePlayer.guiItems.store.StoreItem;
+
+import java.util.Collection;
 
 public interface StoreListener {
     public void registerStore(Store store);

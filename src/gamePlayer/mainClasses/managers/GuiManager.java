@@ -13,6 +13,7 @@ import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
+import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
 import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
@@ -20,6 +21,7 @@ import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
+import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
@@ -27,12 +29,14 @@ import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import utilities.JavaFXutilities.CenteredImageView;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -48,7 +52,7 @@ import javafx.stage.Stage;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener {
+		GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, SpeedSliderListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -77,16 +81,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void startGame(String directoryPath){
 	    myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
-		makeMap();
+		addBackground(directoryPath);
+		makeTowerMap();
 		testHUD();
 		//myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		myGameWorld.getMap().getStyleClass().add("GameWorld");
-		System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
+		//myGameWorld.getMap().getStyleClass().add("GameWorld");
+		//System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
 		gameRunning = true;
 	}
 	
-	private void makeMap(){
+	private void addBackground(String directory){
+		File parent = new File(directory+="/background/");
+		File background = parent.listFiles()[0];
+		myGameWorld.setBackground(background.getAbsolutePath());
+	}
+	
+	private void makeTowerMap(){
 	    towerMap = new HashMap<String, TowerInfoObject>();
 		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
 			towerMap.put(info.getName(), info);
@@ -180,14 +191,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
-		/*
-		String blackPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/blackTurret.png";
-        String brownPath = "gamePlayer/mainClasses/testGameManager/storeItemImages/brownTurret.png";  
-        BooleanProperty blackTurretAvail = new SimpleBooleanProperty(true);
-        BooleanProperty brownTurretAvail = new SimpleBooleanProperty(true);
-        storeItems.add(new StoreItem("blackTurret",blackPath,blackTurretAvail));
-        storeItems.add(new StoreItem("brownTurret",brownPath,brownTurretAvail));*/
-		
 		myStore.fillStore(storeItems);
 	}
 
@@ -227,14 +230,29 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
         gameStats.get(1).setStatValue(50);
         gameStats.get(2).setStatValue(50);
     }
-
+	
 	public void makeTower(String towerName, double x, double y) {
 		if (!gameRunning) return;
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 		if(towerImageView == null)
 		    return;
-		//String towerName = myEngineManager.getTowerName(towerImageView);
-		towerImageView.setOnMouseClicked(event -> myUpgradePanel.setCurrentTower(towerMap.get(towerName), towerImageView));
+		towerImageView.setOnMouseClicked(event -> selectTower(towerName, towerImageView));
+	}
+	
+	private void selectTower(String towerName, ImageView tower){
+		CenteredImageView centered = (CenteredImageView)tower;
+		double radius = towerMap.get(towerName).getRange();
+		TowerIndicator indicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
+		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, indicator);
+		myGameWorld.getMap().getChildren().add(indicator);
+		tower.setOnMouseClicked(event -> deselectTower(indicator, tower, towerName));
+		indicator.toBack();
+	}
+	
+	private void deselectTower(TowerIndicator indicator, ImageView tower, String towerName) {
+		myGameWorld.getMap().getChildren().remove(indicator);
+		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
 	
 	@Override
@@ -248,8 +266,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void displayMessage(String message) {
-		myMessageDisplay.showMessage(message);
+	public void displayMessage(String message, boolean error) {
+		myMessageDisplay.showMessage(message, error);
 	}
 
 	@Override
@@ -263,8 +281,21 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void sellTower(ImageView myTowerImageView) {
+	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
 		myEngineManager.removeTower(myTowerImageView);
-		//TODO: Cost stuff
+		myGameWorld.getMap().getChildren().remove(indicator);
+	}
+
+	@Override
+	public void updateSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * For Tower Placing
+	 */
+	public boolean validPlacement(double x, double y) {
+		return myEngineManager.validateTower(x, y);
 	}
 }

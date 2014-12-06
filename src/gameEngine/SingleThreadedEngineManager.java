@@ -11,6 +11,7 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,12 +30,13 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import utilities.GSON.GSONFileReader;
+import utilities.JavaFXutilities.CenteredImageView;
 
 public class SingleThreadedEngineManager implements Observer {
 
@@ -267,6 +269,7 @@ public class SingleThreadedEngineManager implements Observer {
 	    
 	    
     }
+	
 	public boolean validateTower(double x, double y){
 	    return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) && 
             listCollidesWith(myValidRegions.getChildren(), x, y);

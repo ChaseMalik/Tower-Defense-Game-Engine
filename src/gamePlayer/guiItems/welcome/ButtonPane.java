@@ -9,16 +9,19 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
+
+/**
+ * 
+ * @author brianbolze
+ */
 
 public class ButtonPane implements GuiItem {
 
 	private XMLParser myParser;
 	private VBox myPane;
-	private Dimension2D mySize, buttonSize;
-	private ProgressIndicator indicator;
+	private Dimension2D mySize; //, buttonSize;
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
@@ -44,18 +47,13 @@ public class ButtonPane implements GuiItem {
 	}
 	
 	private void setupButtons() {
-		Dimension2D buttonRatio = myParser.getDimension("ButtonSizeRatio");
-		buttonSize = new Dimension2D(buttonRatio.getWidth()
-				* mySize.getWidth(), buttonRatio.getHeight()
-				* mySize.getHeight());
+//		Dimension2D buttonRatio = myParser.getDimension("ButtonSizeRatio");
+//		buttonSize = new Dimension2D(buttonRatio.getWidth()
+//				* mySize.getWidth(), buttonRatio.getHeight()
+//				* mySize.getHeight());
 		for (String s : myParser.getValuesFromTag("ButtonNames")) {
 			makeButton(s);
 		}
-	}
-	
-	private void addProgressIndicator() {
-		indicator = new ProgressIndicator();
-		myPane.getChildren().add(indicator);
 	}
 	
 	private void makeButton(String name) {
@@ -69,7 +67,6 @@ public class ButtonPane implements GuiItem {
 	}
 	
 	private void doStuff(String name) {
-		addProgressIndicator();
 		GuiConstants.WELCOME_MANAGER.newGame();
 	}
 

@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import utilities.XMLParsing.XMLParser;
 
+/**
+ * @author brianbolze
+ */
 public class SelectableGameItem extends GameItem {
 	
 	private XMLParser myParser;
