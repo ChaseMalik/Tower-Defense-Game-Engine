@@ -8,7 +8,7 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
-import gamePlayer.guiItems.headsUpDisplay.GameStats;
+import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.messageDisplay.MessageDisplay;
 import gamePlayer.guiItems.store.Store;
@@ -59,6 +59,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private Stage myStage;
 	private SingleThreadedEngineManager myEngineManager;
 	private Group myRoot;
+	private TowerIndicator activeIndicator;
+	private ImageView activeTower;
 	private boolean gameRunning;
 
 	private Store myStore;
@@ -94,7 +96,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void addBackground(String directory){
 		File parent = new File(directory+="/background/");
 		File background = parent.listFiles()[0];
-		System.out.println(parent.getPath());
 		myGameWorld.setBackground(background.getAbsolutePath());
 	}
 	
@@ -139,7 +140,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void setGameStats(List<GameStats> stats) {
+	public void setGameStats(List<GameStat> stats) {
 		myHUD.setGameStats(stats);
 	}
 
@@ -210,20 +211,20 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 	
 	private void testHUD() {
-		List<GameStats> gameStats;
-        GameStats level = new GameStats();
+		List<GameStat> gameStats;
+        GameStat level = new GameStat();
         level.setGameStat("Level");
         level.setStatValue(1);
         
-        GameStats score = new GameStats();
-        score.setGameStat("Score");
+        GameStat score = new GameStat();
+        score.setGameStat("Gold");
         score.setStatValue(0);
         
-        GameStats health = new GameStats();
+        GameStat health = new GameStat();
         health.setGameStat("Health");
         health.setStatValue(100);
         
-        gameStats = new ArrayList<GameStats>();
+        gameStats = new ArrayList<GameStat>();
         gameStats.add(level); gameStats.add(score); gameStats.add(health);
         this.setGameStats(gameStats);
         
@@ -243,17 +244,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void selectTower(String towerName, ImageView tower){
 		CenteredImageView centered = (CenteredImageView)tower;
 		double radius = towerMap.get(towerName).getRange();
-		TowerIndicator indicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
-		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, indicator);
-		myGameWorld.getMap().getChildren().add(indicator);
-		tower.setOnMouseClicked(event -> deselectTower(indicator, tower, towerName));
-		indicator.toBack();
+		deselectTower(activeIndicator, activeTower, myEngineManager.getTowerName(activeTower));
+		activeIndicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
+		activeTower = tower;
+		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, activeIndicator);
+		myGameWorld.getMap().getChildren().add(activeIndicator);
+		tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower, towerName));
+		tower.getParent().toFront();
 	}
 	
 	private void deselectTower(TowerIndicator indicator, ImageView tower, String towerName) {
 		myGameWorld.getMap().getChildren().remove(indicator);
 		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
-		tower.setOnMouseClicked(event -> selectTower(towerName, tower));
+		if (tower != null) tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
 	
 	@Override

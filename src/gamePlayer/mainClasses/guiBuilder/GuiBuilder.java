@@ -59,7 +59,10 @@ public class GuiBuilder {
 				"GuiElementPropertiesPath").get(0);
 		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
 				"TextGeneratorPropertiesPath").get(0));
-		Dimension2D windowSize = myParser.getDimension("GuiSize");
+		
+		//Dimension2D windowSize = myParser.getDimension("GuiSize");
+		
+		Dimension2D windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 				
 		Group group = new Group();
 		group.setAutoSizeChildren(true);
