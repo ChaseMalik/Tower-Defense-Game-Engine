@@ -93,12 +93,7 @@ public class PathLine extends Line implements PathComponent {
     }
 
     @Override
-    public Node[] getCorrespondingNodesToDelete () {
-        return new Node[] { this };
-    }
-
-    @Override
-    public Node getNode () {
-        return this;
+    public List<Node> getExtraNodes () {
+        return new ArrayList<Node>();
     }
 }

@@ -3,9 +3,11 @@ package gameAuthoring.scenes.pathBuilding.buildingPanes;
 import java.util.ArrayList;
 import java.util.List;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
+import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathCurve;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -19,24 +21,28 @@ import javafx.scene.shape.Circle;
  */
 public class CurveDrawingPane extends BuildingPane {
 
-    private static final int CONTROL_POINT_SETTER_RADIUS = 8;
+    private static final int CONTROL_POINT_SETTER_RADIUS = 10;
     private static final int MIN_CURVE_LENGTH = 60;
     private PathCurve myCurveBeingCreated;
     private Path myPath;
     private Group myGroup;
-    private List<Circle> myControlPointSetters;
+    private List<Node> myControlPointSetters;
 
     public CurveDrawingPane(Group group, Path path){
         super(group);
         myPath = path; 
         myGroup = group;
-        myControlPointSetters = new ArrayList<Circle>();
-        addListeners();
+        myControlPointSetters = new ArrayList<Node>();
     }
 
     private void addListeners () {
         this.setOnMousePressed(event->handleBuildScreenClick(event));
         this.setOnMouseMoved(event->stretchLineToEndAtCurrentMousePosition(event));
+    }
+    
+    private void removeListeners() {
+        this.setOnMousePressed(null);
+        this.setOnMouseMoved(null);
     }
 
     private void stretchLineToEndAtCurrentMousePosition (MouseEvent event) {
@@ -72,14 +78,10 @@ public class CurveDrawingPane extends BuildingPane {
     }
 
     private boolean clickedOnControlPoint (MouseEvent event) {
-        for(Circle c:myControlPointSetters) {
-            Point2D setterCenter = new Point2D(c.getCenterX(), c.getCenterY());
-            Point2D clickLoc = new Point2D(event.getX(), event.getY());
-            if(setterCenter.distance(clickLoc) < CONTROL_POINT_SETTER_RADIUS) {
-                return true;
-            }
-        }
-        return false;
+        Point2D mouseClickPoint = new Point2D(event.getX(), event.getY());
+        return myControlPointSetters.stream()
+                .filter(node -> node.contains(mouseClickPoint))
+                .count() > 0;
     }
 
     private void addControlPointSetters (PathCurve tempCurve) {
@@ -111,14 +113,20 @@ public class CurveDrawingPane extends BuildingPane {
         myControlPointSetters.add(controlPointSetter);
         return controlPointSetter;
     }
-    
+
     @Override
     public void executeEnterFunction() {
+        addListeners();
+        for(PathComponent comp:myPath.getAllPathComponents()) {
+            myControlPointSetters.addAll(comp.getExtraNodes());
+        }
         myGroup.getChildren().addAll(myControlPointSetters);
     }
-    
+
     @Override
     public void executeExitFunction() {
         myGroup.getChildren().removeAll(myControlPointSetters);
+        myControlPointSetters.clear();
+        removeListeners();
     }
 }

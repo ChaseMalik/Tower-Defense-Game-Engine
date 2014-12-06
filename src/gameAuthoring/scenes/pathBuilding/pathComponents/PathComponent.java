@@ -4,6 +4,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.shape.Shape;
 
 /**
  * An interface that defines the behaviors of drawn component. Implemented
@@ -19,8 +20,15 @@ public interface PathComponent {
     void translate(double deltaX, double deltaY);
     void select ();
     void deselect ();
-    Node getNode();
     PathComponent deepCopy();
     List<VisibilityPoint> getInnerPointsRepresentingComponent();
-    Node[] getCorrespondingNodesToDelete ();
+    /**
+     * Extra nodes that should be deleted corresponding to a path component
+     * These nodes include control points for curves.
+     */
+    List<Node> getExtraNodes ();
+    
+    default Node getNode() {
+        return (Shape) this;
+    }
 }

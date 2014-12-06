@@ -31,9 +31,17 @@ public class SelectComponentPane extends BuildingPane {
             addSelectionListeners(component);
         }
     }
+    
+    public void removeListenerFromComponents() {
+        for(PathComponent component:myPath.getAllPathComponents()){
+            component.getNode().setOnMousePressed(null);
+            component.getNode().setOnMouseDragged(null);
+            component.getNode().setOnMouseReleased(null);
+        }
+    }
 
     private void addSelectionListeners(PathComponent component){
-        ((Shape) component).setOnMousePressed(new EventHandler<MouseEvent>(){
+        component.getNode().setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
                 mouseX = event.getSceneX();
@@ -41,7 +49,7 @@ public class SelectComponentPane extends BuildingPane {
             }
 
         });
-        ((Shape) component).setOnMouseDragged(new EventHandler<MouseEvent>(){
+        component.getNode().setOnMouseDragged(new EventHandler<MouseEvent>(){
             @Override
             public void handle (MouseEvent event) {
                 double deltaX = event.getSceneX() - mouseX;
@@ -51,11 +59,22 @@ public class SelectComponentPane extends BuildingPane {
                 mouseY = event.getSceneY(); 
             }                      
         });        
-        ((Shape) component).setOnMouseReleased(event->handleSelectionAndTryToConnectComponents(component));
+        component.getNode().setOnMouseReleased(event->handleSelectionAndTryToConnectComponents(component));
     }
 
     private void handleSelectionAndTryToConnectComponents (PathComponent component) {
         myPath.attemptToConnectRoutes(component);
         myPath.handleComponentSelection(component);
+    }
+    
+    
+    @Override
+    public void executeEnterFunction() {
+        addListenersToComponents();
+    }
+
+    @Override
+    public void executeExitFunction() {
+        removeListenerFromComponents();
     }
 }
