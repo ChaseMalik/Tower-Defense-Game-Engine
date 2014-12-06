@@ -59,6 +59,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private Stage myStage;
 	private SingleThreadedEngineManager myEngineManager;
 	private Group myRoot;
+	private TowerIndicator activeIndicator;
+	private ImageView activeTower;
 	private boolean gameRunning;
 
 	private Store myStore;
@@ -242,17 +244,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void selectTower(String towerName, ImageView tower){
 		CenteredImageView centered = (CenteredImageView)tower;
 		double radius = towerMap.get(towerName).getRange();
-		TowerIndicator indicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
-		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, indicator);
-		myGameWorld.getMap().getChildren().add(indicator);
-		tower.setOnMouseClicked(event -> deselectTower(indicator, tower, towerName));
-		indicator.toBack();
+		deselectTower(activeIndicator, activeTower, myEngineManager.getTowerName(activeTower));
+		activeIndicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
+		activeTower = tower;
+		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, activeIndicator);
+		myGameWorld.getMap().getChildren().add(activeIndicator);
+		tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower, towerName));
+		tower.getParent().toFront();
 	}
 	
 	private void deselectTower(TowerIndicator indicator, ImageView tower, String towerName) {
 		myGameWorld.getMap().getChildren().remove(indicator);
 		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
-		tower.setOnMouseClicked(event -> selectTower(towerName, tower));
+		if (tower != null) tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
 	
 	@Override
