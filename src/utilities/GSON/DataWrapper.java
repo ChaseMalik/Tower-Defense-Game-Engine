@@ -1,20 +1,29 @@
 package utilities.GSON;
 
+import javafx.geometry.Point2D;
+import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseTower;
 
 
-
 public class DataWrapper {
-	
-	private double myX;
-	private double myY;
-	private BaseTower myActor;
 
-	public DataWrapper(BaseTower actor, double x, double y){
-		myActor = actor;
-		myX = x;
-		myY = y;
-	}
-	
+    private String myName;
+    private double myX;
+    private double myY;
 
+    public DataWrapper (BaseActor actor) {
+        myName = actor.toString();
+        myX = actor.getX();
+        myY = actor.getY();
+    }
+    public String getName(){
+        return myName;
+    }
+    public double getX(){
+        return myX;
+    }
+    
+    public double getY(){
+        return myY;
+    }
 }
