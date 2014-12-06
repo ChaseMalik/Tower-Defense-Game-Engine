@@ -45,6 +45,7 @@ public class LMConnector implements GuiItem {
 		setupPane();
 		setupLabel();
 		setupButton();
+		GuiConstants.WELCOME_MANAGER.registerLMConnector(this);
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class LMConnector implements GuiItem {
 		return root;
 	}
 	
-	public void devicedConnected(boolean connected) {
+	public void deviceConnected(boolean connected) {
 		connectedProperty.set(connected);
 	}
 	

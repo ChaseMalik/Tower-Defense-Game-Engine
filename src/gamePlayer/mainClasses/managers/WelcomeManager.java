@@ -2,7 +2,9 @@ package gamePlayer.mainClasses.managers;
 
 import gamePlayer.Listeners.LMConnectorListener;
 import gamePlayer.Listeners.LeapMotionListener;
+import gamePlayer.Listeners.NavigatorListener;
 import gamePlayer.guiItems.welcome.LMConnector;
+import gamePlayer.guiItems.welcome.WelcomeNavigator;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.stage.Stage;
@@ -10,13 +12,14 @@ import javafx.stage.Stage;
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Listener;
 
-public class WelcomeManager implements LMConnectorListener {
+public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 
 	public static Controller LMController;
 	public static Listener LMListener;
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/welcome/WelcomeBuilderProperties.XML";
 	
 	private LMConnector leapConnector;
+	private WelcomeNavigator navigator;
 
 	private Stage myStage;
 
@@ -44,15 +47,21 @@ public class WelcomeManager implements LMConnectorListener {
 			return;
 		}
 		// TODO : Setup more LeapMotion stuff 
-		
+		LMConnected();
 	}
 	
 	public void LMConnected() {
-		leapConnector.devicedConnected(true);
+		leapConnector.deviceConnected(true);
+		navigator.deviceConnected(true);
 	}
 
 	public void newGame() {
 		GuiConstants.GUI_MANAGER.init();
+	}
+
+	@Override
+	public void registerWelcomeNavigator(WelcomeNavigator navigator) {
+		this.navigator = navigator;
 	}
 
 }
