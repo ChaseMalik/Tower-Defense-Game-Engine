@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,7 @@ class VideoPlayer extends BorderPane {
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
     private Slider myTimeSlider;
+    private Label myTimeLabel;
     private Duration myDuration;
     private final boolean replayVideo = true;
     private boolean stopVideo = false;
@@ -50,6 +52,12 @@ class VideoPlayer extends BorderPane {
         myTimeSlider.setMinWidth(50);
         myTimeSlider.setMaxWidth(Double.MAX_VALUE);
         myMediaBar.getChildren().add(myTimeSlider);
+        
+        myTimeLabel = new Label();
+        myTimeLabel.setText("囧");
+        myTimeLabel.setPrefWidth(150);
+        myTimeLabel.setMinWidth(50);
+        myMediaBar.getChildren().add(myTimeLabel);
 
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
         defineMediaPlayerBehavior(mediaPlayer, playButton);
