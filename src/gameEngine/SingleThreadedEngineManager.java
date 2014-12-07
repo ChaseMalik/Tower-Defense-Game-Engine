@@ -221,6 +221,9 @@ public class SingleThreadedEngineManager implements Observer {
     private void getTowersFromServer () {
         List<DataWrapper> listFromServer =
                 myFileReader.readWrappers(HTTP_CONNECTOR.sendGet("get_master_json"));
+        if(listFromServer == null){
+            return;
+        }
         for(BaseTower tower: myTowerGroup){
             if(!listFromServer.contains(new DataWrapper(tower))){
                 System.out.println("removing tower " + tower.toString() + " at " + tower.getX() + "," + tower.getY());
