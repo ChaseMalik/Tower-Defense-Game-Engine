@@ -96,31 +96,33 @@ public class GameStartManager {
 
         GuiManager manager = new GuiManager(myStage);
         manager.prepareMultiPlayerGame(directoryPath);
-        
+
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager,timeline)));
         timeline.play();
     }
 
-    private void pollEngineForMultiPlayerReadiness(GuiManager manager) {
+    private void pollEngineForMultiPlayerReadiness(GuiManager manager,Timeline timeline) {
         if (manager.multiPlayerGameIsReady()) {
-             manager.startMultiPlayerGame();
+            timeline.stop();
+            manager.startMultiPlayerGame();
         }
     }
 
 
-        private ImageView getImageFromPath(String imagePath,double width,double height) {
-            Image image = new Image(imagePath,width,height,false,true);
-            return new ImageView(image);
-        }
+    private ImageView getImageFromPath(String imagePath,double width,double height) {
+        Image image = new Image(imagePath,width,height,false,true);
+        return new ImageView(image);
+    }
 
-        public void startGame (File file) {
-            String filePath = file.getAbsolutePath();
-            if (filePath.contains(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY)) {
-                startSinglePlayerGame(file.getPath());
-            } else if (filePath.contains(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY)) {
-                startMultiPlayerGame(file.getPath());
-            }
+    public void startGame (File file) {
+        String filePath = file.getAbsolutePath();
+        System.out.println(file.getPath());
+        if (filePath.contains(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY)) {
+            startSinglePlayerGame(file.getPath());
+        } else if (filePath.contains(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY)) {
+            startMultiPlayerGame(file.getPath());
         }
     }
+}
