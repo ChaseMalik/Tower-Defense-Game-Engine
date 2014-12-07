@@ -37,7 +37,7 @@ public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient CenteredImageView myNode;
-    protected InfoObject myInfo;
+    protected transient InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;

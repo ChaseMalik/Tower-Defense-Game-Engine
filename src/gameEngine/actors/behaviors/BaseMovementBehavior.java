@@ -3,6 +3,8 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import javafx.geometry.Point2D;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
@@ -16,7 +18,6 @@ import gameEngine.actors.BaseActor;
  */
 public abstract class BaseMovementBehavior implements IBehavior {
 
-    public static final Random RANDOM = new Random();
     protected String myString;
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
@@ -53,6 +54,11 @@ public abstract class BaseMovementBehavior implements IBehavior {
     }
     public String toString(){
         return myString;
+    }
+    protected void move (BaseActor a, Point2D point) {
+        CenteredImageView actor = a.getNode();
+        actor.setXCenter(point.getX());
+        actor.setYCenter(point.getY());
     }
     @Override
     public Set<Class<? extends BaseActor>> getType () {
