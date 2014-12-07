@@ -57,6 +57,8 @@ public class GuiBuilder {
 		myParser = new XMLParser(new File(propertiesPath));
 		GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag(
 				"GuiElementPropertiesPath").get(0);
+		
+		//TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove line below
 		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
 				"TextGeneratorPropertiesPath").get(0));
 		

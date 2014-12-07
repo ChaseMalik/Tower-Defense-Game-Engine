@@ -1,0 +1,21 @@
+.root{
+    -fx-font-size: 10pt;
+    -fx-font-family: Arial;
+}
+
+.button{
+    -fx-font-size: 20pt;
+
+}
+
+.borders{
+
+}
+
+.ControlDockButton {
+
+}
+
+.MainSplashScreen {
+   -fx-background-color: blue
+}
