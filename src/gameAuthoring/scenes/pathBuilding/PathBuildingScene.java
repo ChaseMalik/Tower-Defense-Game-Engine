@@ -232,6 +232,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     @Override
     public void setBackground (String imageFileName) {
+        resetBuild();
         ImageView imageView =
                 StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH,
                                                         AuthorController.SCREEN_HEIGHT,

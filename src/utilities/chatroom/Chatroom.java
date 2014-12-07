@@ -63,12 +63,15 @@ public class Chatroom extends Stage {
     public void setupAndBeginMessageRequests() {
         myRequestTimeline = new Timeline();
         myRequestTimeline.setCycleCount(Animation.INDEFINITE);
-        myRequestTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(2),
+        myRequestTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
                                                           event -> pollServerForMessages()));
         myRequestTimeline.play();
     }
 
-
+    /**
+     * Polls the server for unseen messages. If messages exist, the response string is parsed,
+     * and the messages are displayed to the user in the ScrollPane.
+     */
     private void pollServerForMessages () {
         String messageResponse = HTTP_CONNECTOR.sendGet("get_messages/" + myMessageIndex);
         if(!messageResponse.equals(NO_MSG_RESPONSE)) {
@@ -79,7 +82,6 @@ public class Chatroom extends Stage {
                     myMessages.getChildren().add(new Label(msg));
             }
         }
-
         myScrollPane.setVvalue(1.0);
     }
 
@@ -89,12 +91,14 @@ public class Chatroom extends Stage {
         }
     }
 
-
+    /**
+     * Sends a message to the server.
+     * @param message
+     */
     public void sendMessage(String message) {
         myMessageIndex = Integer.parseInt(HTTP_CONNECTOR.sendPost("post_message", "message=" + message));
         myMessages.getChildren().add(new Label(message));
         myTextField.setText("");
-
         myScrollPane.setVvalue(1.0);
     }
 }
