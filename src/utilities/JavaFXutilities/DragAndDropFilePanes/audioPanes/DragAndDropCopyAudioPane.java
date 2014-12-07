@@ -21,11 +21,11 @@ import utilities.errorPopup.ErrorPopup;
 public class DragAndDropCopyAudioPane extends DragAndDropFilePane {
 
     private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Error adding audio file";
-    private static String[] myAllowedFileExtensions = {".mp3", ".m4a", ".wav", ".caf"};
+    private static final String[] MY_ALLOWED_FILE_EXTENSIONS = {".mp3", ".m4a", ".wav", ".caf"};
     private String myFileDestination;
 
     public DragAndDropCopyAudioPane (double width, double height, String fileDestination) {
-        super(width, height, myAllowedFileExtensions);
+        super(width, height, MY_ALLOWED_FILE_EXTENSIONS);
         myFileDestination = fileDestination;
     }
 
