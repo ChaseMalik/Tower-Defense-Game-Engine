@@ -41,7 +41,7 @@ public abstract class BaseActor extends Observable {
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected Set<BaseEffectBehavior> myEffects;
-    private boolean myIsRemovable;
+    protected boolean myIsRemovable;
     protected HashMap<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
     public BaseActor () {
@@ -175,7 +175,7 @@ public abstract class BaseActor extends Observable {
         myRange = d;
     }
     
-    public void died() {
+    public void died(double flag) {
         myIsRemovable = true;
     }
     public boolean isDead(){

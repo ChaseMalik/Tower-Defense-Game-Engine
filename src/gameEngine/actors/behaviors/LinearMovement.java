@@ -40,7 +40,7 @@ public class LinearMovement extends BaseMovementBehavior {
         while (distance > destination.distance(current)) {
             myIndex++;
             if (myIndex == myRoute.size()) {
-                actor.died();
+                actor.died(-1);
                 return;
             }
             distance -= destination.distance(current);

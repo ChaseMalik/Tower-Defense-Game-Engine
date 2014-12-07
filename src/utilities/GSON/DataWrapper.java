@@ -29,14 +29,15 @@ public class DataWrapper {
     
     @Override
     public boolean equals(Object obj){
-        if(obj instanceof BaseActor){
-            BaseActor actor = (BaseActor)obj;
-            return (actor.toString().equals(myName)) && (actor.getX() == myX) && (actor.getY() == myY);
-        }
-        else if(obj instanceof DataWrapper){
+        if(obj instanceof DataWrapper){
             DataWrapper w = (DataWrapper)obj;
             return (w.getName().equals(this.getName()) && (w.getX() == myX) && w.getY() == myY);
         }
         return false;
+    }
+    
+    @Override
+    public int hashCode(){
+        return (int) (5 * myName.hashCode() + 13 * myX + 19 * myY);
     }
 }
