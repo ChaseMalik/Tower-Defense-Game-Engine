@@ -54,5 +54,11 @@ public class GSONFileWriter {
     }
 
 
-
+    public void writeGameStateToJSon(String directory, GameStateWrapper gsw){
+    	
+    	writeToFile(directory+"gameState.json", gson.create().toJson(gsw));
+    	
+    }
+    
+    
 }
