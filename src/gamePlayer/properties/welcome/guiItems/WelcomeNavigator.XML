@@ -18,8 +18,8 @@
 	</BasicSceneItems>
 	
 	<LMSceneItems>
-		<element>gamePlayer.guiItems.welcome.Header</element>
-		<element>gamePlayer.guiItems.welcome.Header</element>
+		<element>gamePlayer.guiItems.welcome.ClickAnywherePane</element>
+		<element>gamePlayer.guiItems.welcome.ClickAnywherePane</element>
 		<element>gamePlayer.guiItems.welcome.ClickAnywherePane</element>
 	</LMSceneItems>
 
