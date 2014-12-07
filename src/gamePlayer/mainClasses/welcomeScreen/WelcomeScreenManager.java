@@ -2,11 +2,12 @@ package gamePlayer.mainClasses.welcomeScreen;
 
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.managers.GuiManager;
-import gamePlayer.mainClasses.welcomeScreen.options.MultiPlayerOptions;
-import gamePlayer.mainClasses.welcomeScreen.options.PlayerCountOptions;
+import gamePlayer.mainClasses.welcomeScreen.startingOptions.MultiPlayerOptions;
+import gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions;
 import java.io.File;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -52,6 +53,8 @@ public class WelcomeScreenManager {
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGame());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions);
+
+        //welcomeScreen.setBottomContent(new RotatingProgressIndicator());
         
         group.getChildren().add(welcomeScreen);
     }

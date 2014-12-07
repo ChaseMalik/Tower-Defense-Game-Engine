@@ -1,5 +1,6 @@
-package gamePlayer.mainClasses.welcomeScreen;
+package gamePlayer.mainClasses.welcomeScreen.startingOptions;
 
+import gamePlayer.mainClasses.welcomeScreen.WelcomeScreen;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
