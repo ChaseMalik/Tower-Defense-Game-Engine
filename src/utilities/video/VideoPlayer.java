@@ -21,11 +21,15 @@ class VideoPlayer extends BorderPane {
 
     private static final String PLAY_BUTTON_TEXT = "Play";
     private static final String PAUSE_BUTTON_TEXT = "Pause";
+    private static final String TIME_LABEL_TEXT = "Play Time: 308";
+    private static final String VOLUME_LABEL_TEXT = "Volume: ";
 
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
     private Slider myTimeSlider;
     private Label myTimeLabel;
+    private Label myVolumeLabel;
+    private Slider myVolumeSlider;
     private Duration myDuration;
     private final boolean replayVideo = true;
     private boolean stopVideo = false;
@@ -52,12 +56,24 @@ class VideoPlayer extends BorderPane {
         myTimeSlider.setMinWidth(50);
         myTimeSlider.setMaxWidth(Double.MAX_VALUE);
         myMediaBar.getChildren().add(myTimeSlider);
-        
-        myTimeLabel = new Label();
-        myTimeLabel.setText("囧");
+
+        myTimeLabel = new Label(TIME_LABEL_TEXT);
         myTimeLabel.setPrefWidth(150);
         myTimeLabel.setMinWidth(50);
         myMediaBar.getChildren().add(myTimeLabel);
+
+        myVolumeLabel = new Label(VOLUME_LABEL_TEXT);
+        myMediaBar.getChildren().add(myVolumeLabel);
+
+        myVolumeSlider = new Slider();
+        myVolumeSlider.valueProperty().addListener(new InvalidationListener() {
+            public void invalidated (Observable observable) {
+                if (myVolumeSlider.isValueChanging()) {
+                    mediaPlayer.setVolume(myVolumeSlider.getValue() / 100.0);
+                }
+            }
+        });
+        myMediaBar.getChildren().add(myVolumeSlider);
 
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
         defineMediaPlayerBehavior(mediaPlayer, playButton);
