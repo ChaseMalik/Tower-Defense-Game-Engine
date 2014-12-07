@@ -31,8 +31,11 @@ public class SimpleDefense extends BaseDefendBehavior {
 
     private boolean checkType (BaseProjectile p, BaseActor a) {
         // TODO Auto-generated method stub
-        for(String s:p.getInfo().getEnemiesTypes())
-            if(s.equals(a.toString()));
+        
+        for(String s:p.getInfo().getEnemiesTypes()){
+            if(s.equals(a.toString()))
+                return true;
+        }
         return false;
     }
 
