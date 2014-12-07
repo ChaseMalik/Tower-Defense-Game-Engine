@@ -39,7 +39,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private static final int CENTER_DISPLAY_WIDTH = 230;
     protected static final String ADD_TOWER_IMG_PATH = "./src/gameAuthoring/Resources/otherImages/addTower.png";
-    protected static final int DRAG_AND_DROP_WIDTH = 560;
+    protected static final int DRAG_AND_DROP_WIDTH = 650;
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
@@ -100,7 +100,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void createCenterDisplay() {
         VBox centerOptionsBox = new VBox(25);
-        centerOptionsBox.setPrefWidth(CENTER_DISPLAY_WIDTH);
+        centerOptionsBox.setMinWidth(CENTER_DISPLAY_WIDTH);
         Label title = new Label(super.getTitle() + " Behaviors.");
         title.getStyleClass().add("behaviorsTitle");
         myRangeSliderContainer = new SliderContainer("range", 0, 100);
