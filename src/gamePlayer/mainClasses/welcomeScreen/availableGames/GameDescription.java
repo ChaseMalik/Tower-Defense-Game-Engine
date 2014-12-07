@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 public class GameDescription extends Pane {
     public static final double WIDTH = GameChooser.WIDTH;
-    public static final double HEIGHT = GameChooser.HEIGHT/3;
+    public static final double HEIGHT = GameChooser.HEIGHT/2;
     
     public static final double GAME_IMAGE_HEIGHT = 2*HEIGHT/3;
     public static final double GAME_DESCRIPTION_HEIGHT = 2*HEIGHT/3;
