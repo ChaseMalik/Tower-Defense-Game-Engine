@@ -1,10 +1,10 @@
 package gamePlayer.mainClasses.managers;
 
-import gamePlayer.Listeners.LMConnectorListener;
-import gamePlayer.Listeners.NavigatorListener;
+import gamePlayer.guiFeatures.LMConnectorListener;
 import gamePlayer.guiFeatures.LeapMotionListener;
 import gamePlayer.guiItems.welcome.LMConnector;
 import gamePlayer.guiItems.welcome.WelcomeNavigator;
+import gamePlayer.guiItemsListeners.NavigatorListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.stage.Stage;
