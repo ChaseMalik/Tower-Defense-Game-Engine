@@ -1,21 +1,16 @@
 package gamePlayer.mainClasses.managers;
 
-import gamePlayer.guiFeatures.LMConnectorListener;
-import gamePlayer.guiFeatures.LeapMotionListener;
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiItems.welcome.LMConnector;
 import gamePlayer.guiItems.welcome.WelcomeNavigator;
+import gamePlayer.guiItemsListeners.LMConnectorListener;
 import gamePlayer.guiItemsListeners.NavigatorListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.stage.Stage;
 
-import com.leapmotion.leap.Controller;
-import com.leapmotion.leap.Listener;
-
 public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 
-	public static Controller LMController;
-	public static Listener LMListener;
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/welcome/WelcomeBuilderProperties.XML";
 	
 	private LMConnector leapConnector;
@@ -26,6 +21,7 @@ public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 	public WelcomeManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.WELCOME_MANAGER = this;
+		LMController.getInstance().onConnect(event -> LMConnected());
 	}
 
 	public void init() {
@@ -36,26 +32,16 @@ public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 	public void registerLMConnector(LMConnector connector) {
 		leapConnector = connector;
 	}
-
-	public void activateLeapMotion() {
-		try {
-			LMController = new Controller();
-			LMListener = new LeapMotionListener();
-			LMController.addListener(LMListener);
-		} catch (Exception e) {
-			System.out.println("Error connecting Leap Motion");
-			return;
-		}
-		// TODO : Setup more LeapMotion stuff 
-		// LMConnected();
-	}
 	
 	public void LMConnected() {
 		leapConnector.deviceConnected(true);
 		navigator.deviceConnected(true);
+		LMController controller = LMController.getInstance();
+		controller.onSwipeDown(event -> System.out.println("Swipe Down from Welcome Screen!"));
 	}
 
 	public void newGame() {
+		LMController.getInstance().clearAllHandlers();
 		GuiConstants.GUI_MANAGER.init();
 	}
 

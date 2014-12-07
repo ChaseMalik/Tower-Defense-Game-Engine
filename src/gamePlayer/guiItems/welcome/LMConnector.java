@@ -1,5 +1,6 @@
 package gamePlayer.guiItems.welcome;
 
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -57,8 +58,11 @@ public class LMConnector implements GuiItem {
 		connectedProperty.set(connected);
 	}
 	
+	/*
+	 * Called by the button to attempt a device connection
+	 */
 	private void connect() {
-		GuiConstants.WELCOME_MANAGER.activateLeapMotion();
+		LMController.getInstance().activateDevice();
 	}
 	
 	private void setupPane() {

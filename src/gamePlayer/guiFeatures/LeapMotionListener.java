@@ -1,6 +1,5 @@
 package gamePlayer.guiFeatures;
 
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -23,6 +22,7 @@ public class LeapMotionListener extends Listener {
 	private long swipeTimer, circleTimer;
 	private static final long SWIPE_TIME_LIMITER = 500;
 	private static final long CIRCLE_TIME_LIMITER = 1000;
+	private LMController controller = LMController.getInstance();
 
 	public ObservableValue<Point2D> pointProperty() {
 		return point;
@@ -38,7 +38,7 @@ public class LeapMotionListener extends Listener {
 		// c.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
 		//Tell manager to change panes
 		setupTimers();
-		Platform.runLater(() ->GuiConstants.WELCOME_MANAGER.LMConnected());
+		Platform.runLater(() -> controller.connect());
 	}
 
 	@Override
@@ -82,12 +82,9 @@ public class LeapMotionListener extends Listener {
 		circleTimer = System.currentTimeMillis();
 
 		if (circle.pointable().direction().angleTo(circle.normal()) <= Math.PI / 2) { // Clock-wise
-			if (GuiConstants.GUI_MANAGER.gameRunning())
-				Platform.runLater(() -> GuiConstants.GUI_MANAGER.play());
-			else
-				Platform.runLater(() -> GuiConstants.GUI_MANAGER.fastForward());
+			Platform.runLater(() -> controller.circleCW());
 		} else { // Counter-Clockwise
-			Platform.runLater(() -> GuiConstants.GUI_MANAGER.normalSpeed());
+			Platform.runLater(() -> controller.circleCW());
 		}
 	}
 
@@ -105,21 +102,20 @@ public class LeapMotionListener extends Listener {
 		Vector swipeDirection = gesture.direction();
 		double roll = Math.abs(swipeDirection.roll());
 		if (roll < .80) {
-			// Platform.runLater(() -> GuiConstants.GUI_MANAGER.down());
 			System.out.println("Down");
+			Platform.runLater(() -> controller.swipeDown());
 		} else if (roll < 2.50) {
 			if (swipeDirection.roll() > 0) {
-				// Platform.runLater(() -> GuiConstants.GUI_MANAGER.right());
 				System.out.println("Right");
+				Platform.runLater(() -> controller.swipeRight());
 			} else {
-				// Platform.runLater(() -> GuiConstants.GUI_MANAGER.left());
 				System.out.println("Left");
+				Platform.runLater(() -> controller.swipeLeft());
 			}
 		} else {
 			System.out.println("Up");
+			Platform.runLater(() -> controller.swipeUp());
 		}
-
-		// Platform.runLater(() -> Constants.GUI_MANAGER.clearWorld());
 	}
 
 	private void screenTap(Vector tapPosition) {
@@ -127,9 +123,7 @@ public class LeapMotionListener extends Listener {
 				+ "]");
 		tapPosition.setY(Math.min(1, 1 - tapPosition.getY()));
 		tapPosition.setX(Math.min(1, tapPosition.getX()));
-		// Platform.runLater(() ->
-		// Constants.GUI_MANAGER.tapScreen(tapPosition.getX(),
-		// tapPosition.getY()));
+
 		System.out.println("[" + tapPosition.getX() + "," + tapPosition.getY()
 				+ "]");
 	}

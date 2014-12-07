@@ -1,4 +1,4 @@
-package gamePlayer.guiFeatures;
+package gamePlayer.guiItemsListeners;
 
 import gamePlayer.guiItems.welcome.LMConnector;
 

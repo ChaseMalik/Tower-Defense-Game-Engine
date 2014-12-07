@@ -4,6 +4,7 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStats;
@@ -71,6 +72,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	public void init() {
 		myRoot = GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
+		if (LMController.getInstance().deviceIsConnected()) {
+			LMConnected();
+		}
 	}
 	
 	private void startGame(String directoryPath){
@@ -85,24 +89,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		//System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
 		gameRunning = true;
 	}
-	
-	private void addBackground(String directory){
-		File parent = new File(directory+="/background/");
-		File background = parent.listFiles()[0];
-		myGameWorld.setBackground(background.getAbsolutePath());
-	}
-	
-	private void makeTowerMap(){
-	    towerMap = new HashMap<String, TowerInfoObject>();
-		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
-			towerMap.put(info.getName(), info);
-			TowerInfoObject next = info.getMyUpgrade();
-			while(!(next instanceof NullTowerInfoObject)){
-				towerMap.put(next.getName(), next);
-				next = next.getMyUpgrade();
-			}
-		}
-	}
 
 	@Override
 	public void loadGame() {
@@ -115,6 +101,14 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void saveGame() {
 		//myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
+	}
+	
+	public void LMConnected() {
+		LMController controller = LMController.getInstance();
+		System.out.println("Hello");
+		controller.onCircleCW(event -> speedUpOrPlay());
+		controller.onCircleCCW(event -> normalSpeed());
+		controller.onSwipeDown(event -> System.out.println("Swipe Down from Manager!"));
 	}
 	
 	public boolean gameRunning() {
@@ -151,6 +145,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void play() {
 		if (!gameRunning) return;
 		myEngineManager.resume();
+	}
+	
+	private void speedUpOrPlay() {
+		if (gameRunning)
+			play();
+		else
+			fastForward();
 	}
 
 	@Override
@@ -281,5 +282,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	 */
 	public boolean validPlacement(double x, double y) {
 		return myEngineManager.validateTower(x, y);
+	}
+	
+	private void addBackground(String directory){
+		File parent = new File(directory+="/background/");
+		File background = parent.listFiles()[0];
+		myGameWorld.setBackground(background.getAbsolutePath());
+	}
+	
+	private void makeTowerMap(){
+	    towerMap = new HashMap<String, TowerInfoObject>();
+		for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
+			towerMap.put(info.getName(), info);
+			TowerInfoObject next = info.getMyUpgrade();
+			while(!(next instanceof NullTowerInfoObject)){
+				towerMap.put(next.getName(), next);
+				next = next.getMyUpgrade();
+			}
+		}
 	}
 }
