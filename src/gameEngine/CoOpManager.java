@@ -12,7 +12,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
 
     private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
-    private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
+    public static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     
     public CoOpManager (Pane engineGroup) {
         super(engineGroup);
