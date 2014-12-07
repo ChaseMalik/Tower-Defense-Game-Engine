@@ -5,23 +5,69 @@ import java.util.ArrayList;
 import java.util.List;
 import utilities.GSON.DataWrapper;
 import utilities.networking.HTTPConnection;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class CoOpManager extends SingleThreadedEngineManager {
 
 
+    private static final String GET_PLAYERS = "get_num_players";
+    private static final String GET_MASTER_JSON = "get_master_json";
+    private static final String UPDATE_MASTER_JSON = "update_master_json";
+    private static final String MASTER_JSON = "master_json=";
+    private static final String GAME_DIRECTORY = "game_directory=";
+    private static final String MAKE_GAME = "make_game";
     private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
+    private static final String JOIN_GAME = "join_game";
+    private static final int REQUIRED_NUM_PLAYERS = 2;
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
+    private static final int TIMER_END = 30;
     
     public CoOpManager (Pane engineGroup) {
         super(engineGroup);
     }
+    
+    public void startNewGame (String directory) {
+        HTTP_CONNECTOR.sendPost(MAKE_GAME, GAME_DIRECTORY + directory);
+    }
+    
+    public boolean isReady(){
+        return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS,"")) >= REQUIRED_NUM_PLAYERS;
+    }
+    
+    public String joinGame() {       
+        return HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
+    }
+    
+    @Override
+    public void initializeGame (String dir){
+        super.initializeGame(dir);
+        allowTowerPlacement();
+    }
+
+    private void allowTowerPlacement(){
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(TIMER_END);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
+                                                 event -> getTowersFromServer()));
+        timeline.setOnFinished(event -> super.resume());
+        timeline.play();
+    }
+    
+    @Override
+    protected void onLevelEnd(){
+        super.onLevelEnd();
+        allowTowerPlacement();
+    }
 
     private void writeTowersToServer () {
-        String parameters = "master_json=" + convertTowersToString();
-        System.out.println(myTowerGroup.getChildren().size());
-        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+        HTTP_CONNECTOR.sendPost(UPDATE_MASTER_JSON, MASTER_JSON + convertTowersToString());
     }
     
     private String convertTowersToString () {
@@ -34,13 +80,12 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     private void getTowersFromServer () {
         List<DataWrapper> listFromServer =
-                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet("get_master_json"));
+                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet(GET_MASTER_JSON,""));
         if(listFromServer == null){
             return;
         }
         for(BaseTower tower: myTowerGroup){
             if(!listFromServer.contains(new DataWrapper(tower))){
-                System.out.println("removing tower " + tower.toString() + " at " + tower.getX() + "," + tower.getY());
                 myTowerGroup.addActorToRemoveBuffer(tower);
             }
             else{
@@ -48,11 +93,8 @@ public class CoOpManager extends SingleThreadedEngineManager {
             }
         }
         for(DataWrapper wrapper: listFromServer){
-            System.out.println("adding tower " + wrapper.getName() + " at " + wrapper.getX() + "," + wrapper.getY());
-            addTowerFromServer(wrapper);
+            super.addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
         }
-        
-        System.out.println(myTowerGroup.getChildren().size());
     }
     @Override
     public void removeTower (ImageView node) {
@@ -60,6 +102,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
         super.removeTower(node);
         writeTowersToServer();
     }
+    
     @Override
     public ImageView addTower(String name, double x, double y){
         getTowersFromServer();
@@ -67,16 +110,4 @@ public class CoOpManager extends SingleThreadedEngineManager {
         writeTowersToServer();
         return ans;
     }
-
-    private void addTowerFromServer(DataWrapper w){
-        super.addTower(w.getName(), w.getX(), w.getY());
-    }
-    
-    if (myUpdateServerTimer % 150 == 0) {
-        getTowersFromServer();
-    }
-    myUpdateServerTimer++;
-    
-    
-    
 }

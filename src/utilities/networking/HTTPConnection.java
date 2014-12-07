@@ -18,7 +18,7 @@ public class HTTPConnection {
             myServer = serverURL;
         }
         // HTTP GET request
-        public String sendGet(String url) {
+        public String sendGet(String url, String urlParameters) {
  
                 URL obj;
                 int responseCode = 0;
@@ -31,6 +31,13 @@ public class HTTPConnection {
      
                     //add request header
                     con.setRequestProperty("User-Agent", USER_AGENT);
+                    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(urlParameters);
+                    wr.flush();
+                    wr.close();
      
                     responseCode = con.getResponseCode();
                     System.out.println("\nSending 'GET' request to URL : " + url);
@@ -59,7 +66,7 @@ public class HTTPConnection {
         }
  
         // HTTP POST request
-        public void sendPost(String url, String urlParameters){
+        public String sendPost(String url, String urlParameters){
             
                 URL obj;
                 int responseCode = 0;
@@ -96,9 +103,11 @@ public class HTTPConnection {
      
                     //print result
                     System.out.println(response.toString());
+                    return response.toString();
                 }
                 catch (Exception e) {
                     new ErrorPopup("Unsuccesful get request" + responseCode);
+                    return "";
                 }
                 
  
