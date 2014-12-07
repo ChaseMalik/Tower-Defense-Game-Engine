@@ -1,6 +1,5 @@
 package gamePlayer.guiItems.gameWorld;
 
-import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.guiItems.GuiItem;
@@ -11,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 /**
  * 
@@ -46,7 +46,7 @@ public class GameWorld implements GuiItem {
 	}
 
 	public void setBackground(String imagePath) {
-		//myMap.setStyle("-fx-background-image: url('file:" + imagePath + "');");
+		myMap.setStyle("-fx-background-image: url('file:" + imagePath + "');");
 		ImageView background = StringToImageViewConverter.getImageView(myMap.getWidth(), myMap.getHeight(), imagePath);
 		myMap.getChildren().add(background);
 		background.toBack();

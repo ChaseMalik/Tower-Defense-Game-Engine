@@ -70,6 +70,13 @@
 	-fx-background-color: rgb(170,190,210);
 }
 
+.LMConnectBox {
+	-fx-font-size: 10pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: White;
+	-fx-background-color: rgb(170,190,210);
+}
+
 .store-pane {
 	-fx-background-color: rgb(140,140,140);
 }
