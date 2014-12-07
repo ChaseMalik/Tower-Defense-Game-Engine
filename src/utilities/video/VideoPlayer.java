@@ -35,28 +35,14 @@ class VideoPlayer extends BorderPane {
         setBottom(myMediaBar);
 
         final Button playButton = new Button(PLAY_BUTTON_TEXT);
+        definePlayButtonBehaviors(mediaPlayer, playButton);
+        myMediaBar.getChildren().add(playButton);
 
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
-                Status status = mediaPlayer.getStatus();
+        mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
+        defineMediaPlayerBehaviors(mediaPlayer, playButton);
+    }
 
-                if (status == Status.HALTED || status == Status.UNKNOWN) {
-                    return;
-                }
-
-                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                    if (cycleComplete) {
-                        mediaPlayer.seek(mediaPlayer.getStartTime());
-                        cycleComplete = false;
-                    }
-                    mediaPlayer.play();
-                }
-                else {
-                    mediaPlayer.pause();
-                }
-            }
-        });
-
+    private void defineMediaPlayerBehaviors (final MediaPlayer mediaPlayer, final Button playButton) {
         mediaPlayer.setOnPlaying(new Runnable() {
             public void run () {
                 if (stopVideo) {
@@ -75,16 +61,35 @@ class VideoPlayer extends BorderPane {
             }
         });
 
-        myMediaBar.getChildren().add(playButton);
-
-        mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
-
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             public void run () {
                 if (!replayVideo) {
                     playButton.setText(PLAY_BUTTON_TEXT);
                     stopVideo = true;
                     cycleComplete = true;
+                }
+            }
+        });
+    }
+
+    private void definePlayButtonBehaviors (final MediaPlayer mediaPlayer, final Button playButton) {
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle (ActionEvent e) {
+                Status status = mediaPlayer.getStatus();
+
+                if (status == Status.HALTED || status == Status.UNKNOWN) {
+                    return;
+                }
+
+                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+                    if (cycleComplete) {
+                        mediaPlayer.seek(mediaPlayer.getStartTime());
+                        cycleComplete = false;
+                    }
+                    mediaPlayer.play();
+                }
+                else {
+                    mediaPlayer.pause();
                 }
             }
         });
