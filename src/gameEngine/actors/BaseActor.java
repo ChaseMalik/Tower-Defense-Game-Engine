@@ -184,7 +184,4 @@ public abstract class BaseActor extends Observable {
     public boolean isDead(){
         return myIsRemovable;
     }
-    public void change(){
-        this.setChanged();
-    }
 }
