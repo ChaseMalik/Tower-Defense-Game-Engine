@@ -26,4 +26,17 @@ public class DataWrapper {
     public double getY(){
         return myY;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof BaseActor){
+            BaseActor actor = (BaseActor)obj;
+            return (actor.toString().equals(myName)) && (actor.getX() == myX) && (actor.getY() == myY);
+        }
+        else if(obj instanceof DataWrapper){
+            DataWrapper w = (DataWrapper)obj;
+            return (w.getName().equals(this.getName()) && (w.getX() == myX) && w.getY() == myY);
+        }
+        return false;
+    }
 }

@@ -131,7 +131,7 @@ public class SingleThreadedEngineManager implements Observer {
         myTowerGroup.remove(tower);
     }
 
-    public ImageView addTower (String identifier, double x, double y) {
+    public ImageView addTowerHelper (String identifier, double x, double y) {
         BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
         BaseTower newTower = (BaseTower) prototypeTower.copy();
         CenteredImageView newTowerNode = newTower.getNode();
@@ -142,6 +142,9 @@ public class SingleThreadedEngineManager implements Observer {
         myNodeToTower.put(newTowerNode, newTower);
         newTower.addObserver(this);
         return newTowerNode;
+    }
+    private void addTowerFromServer(DataWrapper w){
+        addTowerHelper(w.getName(), w.getX(), w.getY());
     }
 
     private Timeline createTimeline () {
@@ -186,16 +189,20 @@ public class SingleThreadedEngineManager implements Observer {
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
         if (myUpdateServerTimer % 150 == 0) {
-            if (!myTowerGroup.getChildren().isEmpty()) {
-                String parameters = "master_json=" + convertTowersToString();
-                System.out.println(myTowerGroup.getChildren().size());
-                HTTP_CONNECTOR.sendPost("update_master_json", parameters);
-            }
-            getAndCreateNewTowers();
+            getTowersFromServer();
         }
         myUpdateServerTimer++;
     }
 
+    public ImageView addTower(String name, double x, double y){
+        getTowersFromServer();
+        ImageView ans = addTowerHelper(name, x, y);
+        String parameters = "master_json=" + convertTowersToString();
+        System.out.println(myTowerGroup.getChildren().size());
+        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+        return ans;
+    }
+    
     private String convertTowersToString () {
         List<DataWrapper> wrapper = new ArrayList<>();
         for (BaseTower tower : myTowerGroup) {
@@ -204,13 +211,23 @@ public class SingleThreadedEngineManager implements Observer {
         return myFileWriter.convertWrappersToJson(wrapper);
     }
 
-    private void getAndCreateNewTowers () {
-        List<DataWrapper> list =
+    private void getTowersFromServer () {
+        List<DataWrapper> listFromServer =
                 myFileReader.readWrappers(HTTP_CONNECTOR.sendGet("get_master_json"));
-        myTowerGroup.clear();
-        for (DataWrapper wrapper : list) {
-            addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
+        for(BaseTower tower: myTowerGroup){
+            if(!listFromServer.contains(new DataWrapper(tower))){
+                System.out.println("removing tower " + tower.toString() + " at " + tower.getX() + "," + tower.getY());
+                myTowerGroup.addActorToRemoveBuffer(tower);
+            }
+            else{
+                listFromServer.remove(new DataWrapper(tower));
+            }
         }
+        for(DataWrapper wrapper: listFromServer){
+            System.out.println("adding tower " + wrapper.getName() + " at " + wrapper.getX() + "," + wrapper.getY());
+            addTowerFromServer(wrapper);
+        }
+        
         System.out.println(myTowerGroup.getChildren().size());
     }
 
