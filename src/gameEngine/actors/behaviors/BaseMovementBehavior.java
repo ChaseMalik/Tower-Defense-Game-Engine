@@ -17,13 +17,14 @@ import gameEngine.actors.BaseActor;
 public abstract class BaseMovementBehavior implements IBehavior {
 
     public static final Random RANDOM = new Random();
-    
+    protected String myString;
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
     protected double myRemainingDistance;
 
     public BaseMovementBehavior (double speed) {
         mySpeed = speed;
+        myString="movement";
     }
     public BaseMovementBehavior (double speed, BackendRoute route) {
         mySpeed = speed;
@@ -49,6 +50,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
     public void setRoute(BackendRoute route){
         myRoute = route.getPoints();
         myRemainingDistance = calculateTotalDistance(myRoute);
+    }
+    public String toString(){
+        return myString;
     }
     @Override
     public Set<Class<? extends BaseActor>> getType () {
