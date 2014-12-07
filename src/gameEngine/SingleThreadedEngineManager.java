@@ -22,7 +22,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.sun.javafx.geom.Point2D;
 
 import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
@@ -44,348 +47,376 @@ import utilities.GSON.GSONFileReader;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
-
 public class SingleThreadedEngineManager implements Observer {
 
-    private static final int FPS = 30;
-    private static final double ONE_SECOND_IN_MILLIS = 1000.0;
-    private static final double FRAME_DURATION = 1000.0 / 30;
+	private static final int FPS = 30;
+	private static final double ONE_SECOND_IN_MILLIS = 1000.0;
+	private static final double FRAME_DURATION = 1000.0 / 30;
 
-    private double myLastUpdateTime;
-    private Timeline myTimeline;
-    private double myUpdateRate;
-    private AtomicBoolean myReadyToPlay;
-    protected RangeRestrictedCollection<BaseTower> myTowerGroup;
-    private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
-    private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
-    private double duration;
-    private List<BaseLevel> myLevels;
-    private BaseLevel myCurrentLevel;
-    private int myCurrentLevelIndex;
-    private GridPane myValidRegions;
-    private SimpleDoubleProperty myGold;
-    private Map<String, BaseTower> myPrototypeTowerMap;
-    private double myIntervalBetweenEnemies;
-    private Queue<BaseEnemy> myEnemiesToAdd;
-    private SimpleDoubleProperty myHealth;
-    private Map<Node, BaseTower> myNodeToTower;
-    private Collection<TowerInfoObject> myTowerInformation;
-    protected GSONFileReader myFileReader;
-    protected GSONFileWriter myFileWriter;
-    
-    private boolean[][] myTowerLocationByGrid;
-    
-    public SingleThreadedEngineManager (Pane engineGroup) {
-        myReadyToPlay = new AtomicBoolean(false);
-        myEnemyGroup = new RangeRestrictedCollection<>();
-        myTowerGroup = new RangeRestrictedCollection<>();
-        myProjectileGroup = new RangeRestrictedCollection<>();
-        myValidRegions = new GridPane();
-        engineGroup.getChildren().add(myTowerGroup);
-        engineGroup.getChildren().add(myProjectileGroup);
-        engineGroup.getChildren().add(myEnemyGroup);
-        myTowerInformation = new ArrayList<>();
-        myEnemiesToAdd = new LinkedList<>();
-        myTimeline = createTimeline();
-        myCurrentLevelIndex = -1;
-        myNodeToTower = new HashMap<>();
-        myPrototypeTowerMap = new HashMap<>();
-        myFileReader = new GSONFileReader();
-        myFileWriter = new GSONFileWriter();
-        myUpdateRate = 1;
-        myGold = new SimpleDoubleProperty();
-        myGold.set(10000);
-        myHealth= new SimpleDoubleProperty();
-        myLastUpdateTime = -1;
-    }
+	private double myLastUpdateTime;
+	private Timeline myTimeline;
+	private double myUpdateRate;
+	private AtomicBoolean myReadyToPlay;
+	protected RangeRestrictedCollection<BaseTower> myTowerGroup;
+	private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
+	private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
+	private double duration;
+	private List<BaseLevel> myLevels;
+	private BaseLevel myCurrentLevel;
+	private int myCurrentLevelIndex;
+	private GridPane myValidRegions;
+	private SimpleDoubleProperty myGold;
+	private Map<String, BaseTower> myPrototypeTowerMap;
+	private double myIntervalBetweenEnemies;
+	private Queue<BaseEnemy> myEnemiesToAdd;
+	private SimpleDoubleProperty myHealth;
+	private Map<Node, BaseTower> myNodeToTower;
+	private Collection<TowerInfoObject> myTowerInformation;
+	protected GSONFileReader myFileReader;
+	protected GSONFileWriter myFileWriter;
 
-    public double getMyGold () {
-        return myGold.get();
-    }
+	private boolean[][] myTowerLocationByGrid;
+	private GridPane myTowerTiles;
 
-    public DoubleProperty myGold () {
-        return myGold;
-    }
+	private GridPathFinder myPathFinder;
+	
+	public SingleThreadedEngineManager(Pane engineGroup) {
+		myReadyToPlay = new AtomicBoolean(false);
+		myEnemyGroup = new RangeRestrictedCollection<>();
+		myTowerGroup = new RangeRestrictedCollection<>();
+		myProjectileGroup = new RangeRestrictedCollection<>();
+		myValidRegions = new GridPane();
+		engineGroup.getChildren().add(myTowerGroup);
+		engineGroup.getChildren().add(myProjectileGroup);
+		engineGroup.getChildren().add(myEnemyGroup);
+		myTowerInformation = new ArrayList<>();
+		myEnemiesToAdd = new LinkedList<>();
+		myTimeline = createTimeline();
+		myCurrentLevelIndex = -1;
+		myNodeToTower = new HashMap<>();
+		myPrototypeTowerMap = new HashMap<>();
+		myFileReader = new GSONFileReader();
+		myFileWriter = new GSONFileWriter();
+		myUpdateRate = 1;
+		myGold = new SimpleDoubleProperty();
+		myGold.set(10000);
+		myHealth = new SimpleDoubleProperty();
+		myLastUpdateTime = -1;
+		
+		myPathFinder = new GridPathFinder();
+	}
 
-    public void setMyGold (double value) {
-        myGold.set(value);
-    }
+	public double getMyGold() {
+		return myGold.get();
+	}
 
-    public double getMyHealth () {
-        return myHealth.get();
-    }
+	public DoubleProperty myGold() {
+		return myGold;
+	}
 
-    public DoubleProperty myHealth () {
-        return myHealth;
-    }
+	public void setMyGold(double value) {
+		myGold.set(value);
+	}
 
-    public void setMyHealth (double value) {
-        myHealth.set(value);
-    }
-    public void revertToOriginalSpeed () {
-        changeRunSpeed(1);
-    }
+	public double getMyHealth() {
+		return myHealth.get();
+	}
 
-    public void changeRunSpeed (double magnitude) {
-        if(magnitude > 0.0) {
-            myUpdateRate = magnitude;
-        }        
-    }
+	public DoubleProperty myHealth() {
+		return myHealth;
+	}
 
-    public String getTowerName (ImageView node) {
-        BaseTower tower = myNodeToTower.get(node);
-        return tower == null ? null : tower.toString();
-    }
+	public void setMyHealth(double value) {
+		myHealth.set(value);
+	}
 
-    public void removeTower (ImageView node) {
-        BaseTower tower = myNodeToTower.get(node);
-        myNodeToTower.remove(node);
-        myTowerGroup.remove(tower);
-    }
+	public void revertToOriginalSpeed() {
+		changeRunSpeed(1);
+	}
 
-    public ImageView addTower (String identifier, double x, double y) {
-        BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
-        BaseTower newTower = (BaseTower) prototypeTower.copy();
-        CenteredImageView newTowerNode = newTower.getNode();
-        newTowerNode.setXCenter(x);
-        newTowerNode.setYCenter(y);
-        newTowerNode.setVisible(true);
-        myTowerGroup.add(newTower);
-        myNodeToTower.put(newTowerNode, newTower);
-        newTower.addObserver(this);
-        return newTowerNode;
-    }
+	public void changeRunSpeed(double magnitude) {
+		if (magnitude > 0.0) {
+			myUpdateRate = magnitude;
+		}
+	}
 
-    private Timeline createTimeline () {
-        EventHandler<ActionEvent> frameEvent = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                if (myReadyToPlay.get()) {
-                    double frameStart = System.currentTimeMillis();
-                    double adjustedUpdateInterval = FRAME_DURATION / myUpdateRate;
-                    if (myUpdateRate >= 1.0 || frameStart - myLastUpdateTime >= adjustedUpdateInterval) {
-                        myLastUpdateTime = frameStart;
-                        double updatedTime = System.currentTimeMillis();
-                        do {
-                            double updateStart = System.currentTimeMillis();
-                            gameUpdate();
-                            double updateEnd = System.currentTimeMillis();
-                            updatedTime +=
-                                    Math.max(updateEnd - updateStart, adjustedUpdateInterval);
-                        }
-                        while (updatedTime - frameStart < FRAME_DURATION);
-                    }
-                }
-            }
-        };
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(FRAME_DURATION),
-                                         frameEvent);
-        Timeline timeline = new Timeline(FPS, keyFrame);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        return timeline;
-    }
+	public String getTowerName(ImageView node) {
+		BaseTower tower = myNodeToTower.get(node);
+		return tower == null ? null : tower.toString();
+	}
 
-    private void gameUpdate () {
-        addEnemies();
-        updateActors(myTowerGroup);
-        updateActors(myEnemyGroup);
-        updateActors(myProjectileGroup);
-        duration--;
-        if (myEnemyGroup.getChildren().size() <= 0) {
-            onLevelEnd();
-        }
-        myTowerGroup.clearAndExecuteRemoveBuffer();
-        myEnemyGroup.clearAndExecuteRemoveBuffer();
-        myProjectileGroup.clearAndExecuteRemoveBuffer();
-    }
-    
+	public void removeTower(ImageView node) {
+		BaseTower tower = myNodeToTower.get(node);
+		myNodeToTower.remove(node);
+		myTowerGroup.remove(tower);
+	}
 
-    protected void onLevelEnd () {
-        duration = 0; // TODO bad code, but problem with multiple levels
-        myTimeline.pause();
-        myProjectileGroup.clear();
-        loadNextLevel();
-        // myReadyToPlay.set(true);
-    }
+	public ImageView addTower(String identifier, double x, double y) {
+		BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
+		BaseTower newTower = (BaseTower) prototypeTower.copy();
+		CenteredImageView newTowerNode = newTower.getNode();
+		newTowerNode.setXCenter(x);
+		newTowerNode.setYCenter(y);
+		newTowerNode.setVisible(true);
+		myTowerGroup.add(newTower);
+		myNodeToTower.put(newTowerNode, newTower);
 
-    private void addEnemies () {
+		Collection<Node> towerTiles = getIntersectingTowerTileNode(
+				newTowerNode, myTowerTiles.getChildren());
+		for (Node tileNode : towerTiles) {
+			Tile tile = (Tile)tileNode;
+			int row = tile.getRow();
+			int col = tile.getColumn();
+			myTowerLocationByGrid[row][col] = true;
+		}
+		newTower.addObserver(this);
+		return newTowerNode;
+	}
 
-        if (duration <= 0) {
-            duration += myIntervalBetweenEnemies;
-            BaseEnemy enemy = myEnemiesToAdd.poll();
-            if (enemy == null)
-                return;
-            enemy.addObserver(this);
-            myEnemyGroup.add(enemy);
-        }
-    }
+	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
+			Collection<Node> nodeList) {
+		List<Node> towerTiles = nodeList.stream()
+				.filter(node -> node.intersects(towerNode.getBoundsInLocal()))
+				.collect(Collectors.toList());
+		return towerTiles;
+	}
 
-    private void updateActors (RangeRestrictedCollection<? extends BaseActor> actorGroup) {
-        for (BaseActor actor : actorGroup) {
-            if (actor.isDead()) {
-                actorGroup.addActorToRemoveBuffer(actor);
-            }
-            else {
-                InfoObject requiredInfo = getRequiredInformation(actor);
-                actor.update(requiredInfo);
-            }
-        }
-    }
+	private Timeline createTimeline() {
+		EventHandler<ActionEvent> frameEvent = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (myReadyToPlay.get()) {
+					double frameStart = System.currentTimeMillis();
+					double adjustedUpdateInterval = FRAME_DURATION
+							/ myUpdateRate;
+					if (myUpdateRate >= 1.0
+							|| frameStart - myLastUpdateTime >= adjustedUpdateInterval) {
+						myLastUpdateTime = frameStart;
+						double updatedTime = System.currentTimeMillis();
+						do {
+							double updateStart = System.currentTimeMillis();
+							gameUpdate();
+							double updateEnd = System.currentTimeMillis();
+							updatedTime += Math.max(updateEnd - updateStart,
+									adjustedUpdateInterval);
+						} while (updatedTime - frameStart < FRAME_DURATION);
+					}
+				}
+			}
+		};
+		KeyFrame keyFrame = new KeyFrame(Duration.millis(FRAME_DURATION),
+				frameEvent);
+		Timeline timeline = new Timeline(FPS, keyFrame);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		return timeline;
+	}
 
-    private InfoObject getRequiredInformation (BaseActor actor) {
-        Collection<Class<? extends BaseActor>> infoTypes = actor.getTypes();
-        List<BaseActor> enemyList = new ArrayList<>();
-        List<BaseActor> towerList = new ArrayList<>();
-        List<BaseActor> projectileList = new ArrayList<>();
-        for (Class<? extends BaseActor> infoType : infoTypes) {
-            if (BaseEnemy.class.isAssignableFrom(infoType)) {
-                enemyList = myEnemyGroup.getActorsInRange(actor);
-            }
-            if (BaseTower.class.isAssignableFrom(infoType)) {
-                towerList = myTowerGroup.getActorsInRange(actor);
-            }
-            if (BaseProjectile.class.isAssignableFrom(infoType)) {
-                projectileList = myProjectileGroup.getActorsInRange(actor);
-            }
-        }
-        return new InfoObject(enemyList, towerList, projectileList);
-    }
+	private void gameUpdate() {
+		addEnemies();
+		updateActors(myTowerGroup);
+		updateActors(myEnemyGroup);
+		updateActors(myProjectileGroup);
+		duration--;
+		if (myEnemyGroup.getChildren().size() <= 0) {
+			onLevelEnd();
+		}
+		myTowerGroup.clearAndExecuteRemoveBuffer();
+		myEnemyGroup.clearAndExecuteRemoveBuffer();
+		myProjectileGroup.clearAndExecuteRemoveBuffer();
+	}
 
-    public void pause () {
-        myTimeline.pause();
-    }
+	protected void onLevelEnd() {
+		duration = 0; // TODO bad code, but problem with multiple levels
+		myTimeline.pause();
+		myProjectileGroup.clear();
+		loadNextLevel();
+		// myReadyToPlay.set(true);
+	}
 
-    public void resume () {
-        myTimeline.play();
-    }
+	private void addEnemies() {
 
-    public Collection<TowerInfoObject> getAllTowerTypeInformation () {
-        if (!myReadyToPlay.get()) { return null; }
-        return myTowerInformation;
-    }
+		if (duration <= 0) {
+			duration += myIntervalBetweenEnemies;
+			BaseEnemy enemy = myEnemiesToAdd.poll();
+			if (enemy == null)
+				return;
+			enemy.addObserver(this);
+			myEnemyGroup.add(enemy);
+		}
+	}
 
-    public void initializeGame (String directory) {
-        myTowerGroup.clear();
-        myEnemyGroup.clear();
-        myProjectileGroup.clear();
-        String correctedDirectory = directory += "/";
-        myReadyToPlay.set(false);
-        loadTowers(correctedDirectory);
-        loadLevelFile(correctedDirectory);
-        loadLocations(correctedDirectory);
-        myReadyToPlay.set(true);
-        loadNextLevel();
-    }
+	private void updateActors(
+			RangeRestrictedCollection<? extends BaseActor> actorGroup) {
+		for (BaseActor actor : actorGroup) {
+			if (actor.isDead()) {
+				actorGroup.addActorToRemoveBuffer(actor);
+			} else {
+				InfoObject requiredInfo = getRequiredInformation(actor);
+				actor.update(requiredInfo);
+			}
+		}
+	}
 
-    private void loadLocations (String dir) {
-        boolean[][] validRegions = myFileReader.readTowerRegionsFromGameDirectory(dir);
-        myTowerLocationByGrid = new boolean[validRegions.length][validRegions[0].length];
-        myValidRegions = new GridPane();
-        myValidRegions.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
-        for (int row = 0; row < validRegions.length; row++) {
-            for (int col = 0; col < validRegions[0].length; col++) {
-                if (validRegions[row][col]) {
-                    Tile tile = new Tile(row, col);
-                    tile.setVisible(false);
-                    myValidRegions.add(tile, col, row);
-                }
+	private InfoObject getRequiredInformation(BaseActor actor) {
+		Collection<Class<? extends BaseActor>> infoTypes = actor.getTypes();
+		List<BaseActor> enemyList = new ArrayList<>();
+		List<BaseActor> towerList = new ArrayList<>();
+		List<BaseActor> projectileList = new ArrayList<>();
+		for (Class<? extends BaseActor> infoType : infoTypes) {
+			if (BaseEnemy.class.isAssignableFrom(infoType)) {
+				enemyList = myEnemyGroup.getActorsInRange(actor);
+			}
+			if (BaseTower.class.isAssignableFrom(infoType)) {
+				towerList = myTowerGroup.getActorsInRange(actor);
+			}
+			if (BaseProjectile.class.isAssignableFrom(infoType)) {
+				projectileList = myProjectileGroup.getActorsInRange(actor);
+			}
+		}
+		return new InfoObject(enemyList, towerList, projectileList);
+	}
 
-            }
-        }
+	public void pause() {
+		myTimeline.pause();
+	}
 
-    }
-//    buildingpane.drawscreenwidth
-//    AuthorController.ScreenHeight
+	public void resume() {
+		myTimeline.play();
+	}
 
-    public boolean validateTower (double x, double y) {
-        return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) &&
-               listCollidesWith(myValidRegions.getChildren(), x, y);
-    }
+	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
+		if (!myReadyToPlay.get()) {
+			return null;
+		}
+		return myTowerInformation;
+	}
 
-    private boolean listCollidesWith (List<Node> list, double x, double y) {
-        return list.stream().filter(node -> node.contains(x, y)).count() > 0;
-    }
+	public void initializeGame(String directory) {
+		myTowerGroup.clear();
+		myEnemyGroup.clear();
+		myProjectileGroup.clear();
+		String correctedDirectory = directory += "/";
+		myReadyToPlay.set(false);
+		loadTowers(correctedDirectory);
+		loadLevelFile(correctedDirectory);
+		loadLocations(correctedDirectory);
+		myReadyToPlay.set(true);
+		loadNextLevel();
+	}
 
-    public boolean checkGold (TowerInfoObject towerInfoObject) {
-        return towerInfoObject.getBuyCost() <= myGold.get();
-    }
+	private void loadLocations(String dir) {
+		boolean[][] validRegions = myFileReader
+				.readTowerRegionsFromGameDirectory(dir);
+		myTowerLocationByGrid = new boolean[validRegions.length][validRegions[0].length];
+		myValidRegions = createGameSizedGridPane();
+		myTowerTiles = createGameSizedGridPane();
+		for (int row = 0; row < validRegions.length; row++) {
+			for (int col = 0; col < validRegions[0].length; col++) {
+				if (validRegions[row][col]) {
+					Tile tile = new Tile(row, col);
+					tile.setVisible(false);
+					myValidRegions.add(tile, col, row);
+				}
+				Tile towerTile = new Tile(row, col);
+				towerTile.setVisible(false);
+				myTowerTiles.add(towerTile, col, row);
+			}
+		}
+	}
 
-    public void loadTowers (String directory) {
-        List<TowerUpgradeGroup> availableTowers =
-                myFileReader.readTowersFromGameDirectory(directory);
-        for (TowerUpgradeGroup towerGroup : availableTowers) {
-            TowerInfoObject prevInfoObject = null;
-            for (BaseTower tower : towerGroup) {
-                String towerName = tower.toString();
-                myPrototypeTowerMap.put(towerName, tower);
-                TowerInfoObject currentInfoObject =
-                        new TowerInfoObject(towerName, tower.getImagePath(), tower.getBuyCost(),
-                                            tower.getSellCost(), tower.getRangeProperty());
-                if (prevInfoObject != null) {
-                    prevInfoObject.setNextTower(currentInfoObject);
-                }
-                else {
-                    myTowerInformation.add(currentInfoObject);
-                }
-                prevInfoObject = currentInfoObject;
-            }
-            if (prevInfoObject != null) {
-                prevInfoObject.setNextTower(new NullTowerInfoObject());
-            }
-        }
-    }
+	private GridPane createGameSizedGridPane() {
+		GridPane pane = new GridPane();
+		pane.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH,
+				AuthorController.SCREEN_HEIGHT);
+		return pane;
+	}
 
-    private void loadLevelFile (String directory) {
-        myLevels = myFileReader.readLevelsFromGameDirectory(directory);
-    }
+	public boolean validateTower(double x, double y) {
+		return !(listCollidesWith(myTowerGroup.getChildren(), x, y))
+				&& listCollidesWith(myValidRegions.getChildren(), x, y);
+	}
 
-    private void loadNextLevel () {
-        myCurrentLevelIndex += 1;
-        if (myCurrentLevelIndex < myLevels.size()) {
-            loadLevel(myLevels.get(myCurrentLevelIndex));
-        }
-    }
+	private boolean listCollidesWith(List<Node> list, double x, double y) {
+		return list.stream().filter(node -> node.contains(x, y)).count() > 0;
+	}
 
-    private void loadLevel (BaseLevel level) {
-        int levelDuration = level.getDuration();
-        Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
-        for (EnemyCountPair enemyPair : enemies) {
-            BaseEnemy enemy = enemyPair.getMyEnemy();
-            for (int count = 0; count < enemyPair.getMyNumEnemies(); count++) {
-                BaseEnemy newEnemy = (BaseEnemy) enemy.copy();
-                myEnemiesToAdd.add(newEnemy);
-            }
-        }
-        myIntervalBetweenEnemies = levelDuration * FPS / myEnemiesToAdd.size();
-        myCurrentLevel = level;
-    }
+	public boolean checkGold(TowerInfoObject towerInfoObject) {
+		return towerInfoObject.getBuyCost() <= myGold.get();
+	}
 
-    @Override
-    public void update (Observable o, Object arg) {
-        if (o instanceof BaseActor && arg != null) {
-            if (arg instanceof BaseTower) {
-                myTowerGroup.add((BaseTower) arg);
-            }
-            else if (o instanceof BaseEnemy ) {
-                if(((Double)arg).doubleValue()>0)
-                    myGold.set(((Double) arg).doubleValue() + myGold.get());
-                else
-                    myHealth.set(((Double) arg).doubleValue() + myHealth.get());
-            }
-            else if (arg instanceof BaseProjectile) {
-                myProjectileGroup.add((BaseProjectile) arg);
-            }
-        }
-    }
+	public void loadTowers(String directory) {
+		List<TowerUpgradeGroup> availableTowers = myFileReader
+				.readTowersFromGameDirectory(directory);
+		for (TowerUpgradeGroup towerGroup : availableTowers) {
+			TowerInfoObject prevInfoObject = null;
+			for (BaseTower tower : towerGroup) {
+				String towerName = tower.toString();
+				myPrototypeTowerMap.put(towerName, tower);
+				TowerInfoObject currentInfoObject = new TowerInfoObject(
+						towerName, tower.getImagePath(), tower.getBuyCost(),
+						tower.getSellCost(), tower.getRangeProperty());
+				if (prevInfoObject != null) {
+					prevInfoObject.setNextTower(currentInfoObject);
+				} else {
+					myTowerInformation.add(currentInfoObject);
+				}
+				prevInfoObject = currentInfoObject;
+			}
+			if (prevInfoObject != null) {
+				prevInfoObject.setNextTower(new NullTowerInfoObject());
+			}
+		}
+	}
 
-    public ImageView upgrade (ImageView n, String name) {
-        removeTower(n);
-        return addTower(name, ((ImageView) n).getX(), ((ImageView) n).getY());
+	private void loadLevelFile(String directory) {
+		myLevels = myFileReader.readLevelsFromGameDirectory(directory);
+	}
 
-    }
+	private void loadNextLevel() {
+		myCurrentLevelIndex += 1;
+		if (myCurrentLevelIndex < myLevels.size()) {
+			loadLevel(myLevels.get(myCurrentLevelIndex));
+		}
+	}
 
-    public void sellTower (ImageView n) {
-        myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
-        removeTower(n);
-    }
+	private void loadLevel(BaseLevel level) {
+		int levelDuration = level.getDuration();
+		Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
+		for (EnemyCountPair enemyPair : enemies) {
+			BaseEnemy enemy = enemyPair.getMyEnemy();
+			for (int count = 0; count < enemyPair.getMyNumEnemies(); count++) {
+				BaseEnemy newEnemy = (BaseEnemy) enemy.copy();
+				myEnemiesToAdd.add(newEnemy);
+			}
+		}
+		myIntervalBetweenEnemies = levelDuration * FPS / myEnemiesToAdd.size();
+		myCurrentLevel = level;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof BaseActor && arg != null) {
+			if (arg instanceof BaseTower) {
+				myTowerGroup.add((BaseTower) arg);
+			} else if (o instanceof BaseEnemy) {
+				if (((Double) arg).doubleValue() > 0)
+					myGold.set(((Double) arg).doubleValue() + myGold.get());
+				else
+					myHealth.set(((Double) arg).doubleValue() + myHealth.get());
+			} else if (arg instanceof BaseProjectile) {
+				myProjectileGroup.add((BaseProjectile) arg);
+			}
+		}
+	}
+
+	public ImageView upgrade(ImageView n, String name) {
+		removeTower(n);
+		return addTower(name, ((ImageView) n).getX(), ((ImageView) n).getY());
+
+	}
+
+	public void sellTower(ImageView n) {
+		myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
+		removeTower(n);
+	}
 }

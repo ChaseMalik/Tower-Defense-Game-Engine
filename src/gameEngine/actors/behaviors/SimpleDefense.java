@@ -13,26 +13,31 @@ public class SimpleDefense extends BaseDefendBehavior {
     public void execute (BaseActor actor) {
         for (BaseActor b : actor.getInfoObject().getProjectilesInRange()) {
             BaseProjectile a = (BaseProjectile) b;
-            if (actor.getNode().intersects(a.getRange().getBoundsInLocal()) && checkType(a,actor)) {
+            if (actor.getNode().intersects(a.getRange().getBoundsInLocal())) {
+                if(checkTypes(a,actor)){
                 if (a.getInfo().getOnHit() != null) {
                     for (IBehavior e : a.getInfo().getOnHit()) {
                         actor.addDebuff(e.copy());
                     }
                 }
                 myHealth -= a.getInfo().getMyDamage();
-                a.died(1);
                 if (myHealth <= 0) {
                     // TODO add enemy cost
                     actor.died(1);
                 }
+                }
+                a.died(0);
             }
         }
     }
 
-    private boolean checkType (BaseProjectile p, BaseActor a) {
+    private boolean checkTypes (BaseProjectile p, BaseActor a) {
         // TODO Auto-generated method stub
-        for(String s:p.getInfo().getEnemiesTypes())
-            if(s.equals(a.toString()));
+        
+        for(String s:p.getInfo().getEnemiesTypes()){
+            if(s.equals(a.toString()))
+                return true;
+        }
         return false;
     }
 

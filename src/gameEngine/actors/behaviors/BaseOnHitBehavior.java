@@ -13,7 +13,9 @@ public abstract class BaseOnHitBehavior implements IBehavior{
         myInitialDuration=duration;
         myMultiplier=multiplier;
     }
-
+    public BaseOnHitBehavior(double multiplier){
+        this(30.0, multiplier);
+    }
 
     public abstract void undo(BaseActor actor);    
     

@@ -43,19 +43,6 @@ public class GSONTester {
 		
 		//writer.writeToFile("tower", gson.toJson(towerTestList, new TypeToken<List>() {}.getType() ), "./Game/");
 		
-		
-	
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }
