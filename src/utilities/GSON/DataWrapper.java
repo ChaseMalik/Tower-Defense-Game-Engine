@@ -26,4 +26,18 @@ public class DataWrapper {
     public double getY(){
         return myY;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof DataWrapper){
+            DataWrapper w = (DataWrapper)obj;
+            return (w.getName().equals(this.getName()) && (w.getX() == myX) && w.getY() == myY);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode(){
+        return (int) (5 * myName.hashCode() + 13 * myX + 19 * myY);
+    }
 }

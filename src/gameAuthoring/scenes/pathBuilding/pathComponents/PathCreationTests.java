@@ -1,6 +1,5 @@
 package gameAuthoring.scenes.pathBuilding.pathComponents;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -17,7 +16,7 @@ public class PathCreationTests {
     private Path myPath;
 
     @Before
-    public void setup(){
+    public void setup () {
         myPath = new Path(new Group());
     }
 
@@ -48,7 +47,7 @@ public class PathCreationTests {
         myPath.addComponentToPath(pathLine1);
         myPath.addComponentToPath(pathLine2);
         assertEquals(2, myPath.getAllPathComponents().size());
-        assertEquals(1, myPath.getNumRoutes());       
+        assertEquals(1, myPath.getNumRoutes());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class PathCreationTests {
         myPath.addComponentToPath(pathCurve1);
         myPath.addComponentToPath(pathCurve2);
         assertEquals(2, myPath.getAllPathComponents().size());
-        assertEquals(1, myPath.getNumRoutes());       
+        assertEquals(1, myPath.getNumRoutes());
     }
 
     @Test
@@ -72,7 +71,7 @@ public class PathCreationTests {
         myPath.addComponentToPath(pathLine1);
         myPath.addComponentToPath(pathCurve1);
         assertEquals(2, myPath.getAllPathComponents().size());
-        assertEquals(1, myPath.getNumRoutes());       
+        assertEquals(1, myPath.getNumRoutes());
     }
 
     @Test
@@ -87,39 +86,39 @@ public class PathCreationTests {
         myPath.addComponentToPath(pathCurve1);
         myPath.addComponentToPath(curveInNewRoute);
         assertEquals(3, myPath.getAllPathComponents().size());
-        assertEquals(2, myPath.getNumRoutes());       
+        assertEquals(2, myPath.getNumRoutes());
     }
 
     @Test
-    public void StartingLocationsMustExistToBeConfiguredCorrectlyTest() {
+    public void StartingLocationsMustExistToBeConfiguredCorrectlyTest () {
         assertFalse(myPath.startingLocationsConfiguredCorrectly());
         myPath.addStartingLocation(20, 20);
         assertTrue(myPath.startingLocationsConfiguredCorrectly());
     }
 
     @Test
-    public void EndingLocationsMustExistToBeConfiguredCorrectlyTest() {
+    public void EndingLocationsMustExistToBeConfiguredCorrectlyTest () {
         assertFalse(myPath.endingLocationsConfiguredCorrectly());
         myPath.addEndingLocation(20, 20);
         assertTrue(myPath.endingLocationsConfiguredCorrectly());
     }
 
     @Test
-    public void ClearStartingLocationsTest() {
+    public void ClearStartingLocationsTest () {
         myPath.addStartingLocation(20, 20);
         myPath.clearEnemyStartingLocations();
         assertFalse(myPath.startingLocationsConfiguredCorrectly());
     }
 
     @Test
-    public void ClearEndingLocationsTest() {
+    public void ClearEndingLocationsTest () {
         myPath.addEndingLocation(20, 20);
         myPath.clearEnemyEndingLocations();
         assertFalse(myPath.endingLocationsConfiguredCorrectly());
-    }   
+    }
 
     @Test
-    public void ConnectComponentToStartingLocationTest() {
+    public void ConnectComponentToStartingLocationTest () {
         myPath.addStartingLocation(30, 30);
         PathLine pathLine1 = new PathLine(30, 30);
         pathLine1.setEndingPoint(new Point2D(100, 100));
@@ -128,7 +127,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void ConnectComponentToEndingLocationTest() {
+    public void ConnectComponentToEndingLocationTest () {
         myPath.addEndingLocation(100, 100);
         PathLine pathLine1 = new PathLine(30, 30);
         pathLine1.setEndingPoint(new Point2D(100, 100));
@@ -138,7 +137,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void IsLocationCloseToMethodTest() {
+    public void IsLocationCloseToMethodTest () {
         PathStartingLocation loc = new PathStartingLocation(100, 100);
         Point2D closePoint = new Point2D(105, 110);
         Point2D farPoint = new Point2D(250, 250);
@@ -147,7 +146,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void AddingStartingLocationWithNearbyStartLocationTest() {
+    public void AddingStartingLocationWithNearbyStartLocationTest () {
         myPath.addStartingLocation(120, 110);
         assertFalse(myPath.canCreateLocationAtPoint(100, 100));
         myPath.clearEnemyStartingLocations();
@@ -155,7 +154,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void AddingStartingLocationWithNearbyEndingLocationTest() {
+    public void AddingStartingLocationWithNearbyEndingLocationTest () {
         myPath.addEndingLocation(120, 110);
         assertFalse(myPath.canCreateLocationAtPoint(100, 100));
         myPath.clearEnemyEndingLocations();
@@ -163,7 +162,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void GetRouteContainingComponentTest() {
+    public void GetRouteContainingComponentTest () {
         PathLine pathLine1 = new PathLine(30, 30);
         pathLine1.setEndingPoint(new Point2D(100, 100));
         PathLine pathLine2 = new PathLine(300, 0);
@@ -177,7 +176,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void ConnectRoutesTest() {
+    public void ConnectRoutesTest () {
         PathLine pathLine1 = new PathLine(30, 30);
         pathLine1.setEndingPoint(new Point2D(100, 100));
         PathLine pathLine2 = new PathLine(300, 0);
@@ -194,7 +193,7 @@ public class PathCreationTests {
     }
 
     @Test
-    public void AttemptToConnectRoutesNoForkTest() {
+    public void AttemptToConnectRoutesNoForkTest () {
         Point2D connectionBtwRoutes = new Point2D(150, 150);
 
         PathLine lineRoute1 = new PathLine(30, 30);
@@ -211,18 +210,18 @@ public class PathCreationTests {
         myPath.addComponentToPath(lineRoute2);
         myPath.addComponentToPath(curveRoute2);
         assertEquals(2, myPath.getNumRoutes());
-        lineRoute2.setStartingPoint(connectionBtwRoutes);  
+        lineRoute2.setStartingPoint(connectionBtwRoutes);
         assertTrue(myPath.attemptToConnectRoutes(lineRoute2));
-        assertEquals(1, myPath.getNumRoutes());     
+        assertEquals(1, myPath.getNumRoutes());
     }
 
     @Test
-    public void AttemptToConnectRoutesFORKTest() {
+    public void AttemptToConnectRoutesFORKTest () {
         Point2D connectionBtwRoutes = new Point2D(150, 150);
 
         PathLine lineRoute1 = new PathLine(30, 30);
         lineRoute1.setEndingPoint(connectionBtwRoutes);
-        PathCurve curveRoute1 = new PathCurve(connectionBtwRoutes.getX(), 
+        PathCurve curveRoute1 = new PathCurve(connectionBtwRoutes.getX(),
                                               connectionBtwRoutes.getY());
         curveRoute1.setEndingPoint(new Point2D(130, 130));
 
@@ -235,9 +234,9 @@ public class PathCreationTests {
         myPath.addComponentToPath(lineRoute2);
         myPath.addComponentToPath(curveRoute2);
         assertEquals(2, myPath.getNumRoutes());
-        lineRoute2.setStartingPoint(connectionBtwRoutes);  
+        lineRoute2.setStartingPoint(connectionBtwRoutes);
         assertTrue(myPath.attemptToConnectRoutes(lineRoute2));
-        assertEquals(2, myPath.getNumRoutes());     
+        assertEquals(2, myPath.getNumRoutes());
     }
 
 }

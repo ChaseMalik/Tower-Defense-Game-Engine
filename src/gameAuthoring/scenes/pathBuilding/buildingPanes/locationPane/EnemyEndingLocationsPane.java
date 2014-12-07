@@ -7,34 +7,37 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+
 /**
  * Allows the user to place ending locations on the screen.
+ * 
  * @author Austin Kyker
  *
  */
 public class EnemyEndingLocationsPane extends EnemyLocationPane {
-    
+
     private static final String LABEL_TEXT = "Click to add a End Location";
     private static final String SET_BTN_TEXT = "Set End Locations";
     private Button mySaveEndsButton = new Button(SET_BTN_TEXT);
     private PathBuildingScene myPathBuildingScene;
-    
-    public EnemyEndingLocationsPane(Group group, Path path, PathBuildingScene pathBuildingScene){
+
+    public EnemyEndingLocationsPane (Group group, Path path, PathBuildingScene pathBuildingScene) {
         super(group, path);
         myPathBuildingScene = pathBuildingScene;
         createEnemyEndingLocationsSetupComponents();
-        this.setOnMouseClicked(event->addNewEndingLocation(event));
+        this.setOnMouseClicked(event -> addNewEndingLocation(event));
     }
 
     private void createEnemyEndingLocationsSetupComponents () {
         super.createEnemyLocationsSetupComponents(mySaveEndsButton, LABEL_TEXT);
-        mySaveEndsButton.setOnAction(event->myPathBuildingScene.proceedToLineDrawerModeIfLocationsVerified());
-        myClearLocations.setOnAction(event->myPath.clearEnemyEndingLocations());
+        mySaveEndsButton.setOnAction(event -> myPathBuildingScene
+                .proceedToLineDrawerModeIfLocationsVerified());
+        myClearLocations.setOnAction(event -> myPath.clearEnemyEndingLocations());
     }
-    
-    private void addNewEndingLocation(MouseEvent event){
+
+    private void addNewEndingLocation (MouseEvent event) {
         PathEndingLocation createdEndingLoc = myPath.addEndingLocation(event.getX(), event.getY());
-        if(createdEndingLoc != null){
+        if (createdEndingLoc != null) {
             drawLocation(createdEndingLoc);
         }
     }

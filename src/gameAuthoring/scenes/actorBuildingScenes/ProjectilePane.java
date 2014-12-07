@@ -13,9 +13,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import utilities.JavaFXutilities.SliderContainer;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropCopyImagePane;
-import utilities.JavaFXutilities.DragAndDropFilePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropCopyImagePane;
+import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropImagePane;
+import utilities.JavaFXutilities.slider.SliderContainer;
 
 public class ProjectilePane extends Observable implements Observer {
     

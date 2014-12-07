@@ -1,6 +1,6 @@
 package gamePlayer.guiItems.gameWorld;
 
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.guiItems.GuiItem;

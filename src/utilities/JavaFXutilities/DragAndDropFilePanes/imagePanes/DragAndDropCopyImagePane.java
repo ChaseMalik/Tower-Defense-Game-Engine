@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.io.File;
@@ -7,14 +7,14 @@ import java.nio.file.Files;
 import utilities.errorPopup.ErrorPopup;
 
 public class DragAndDropCopyImagePane extends DragAndDropImagePane {
-    
+
     private String myFileDestination;
 
     public DragAndDropCopyImagePane (double width, double height, String fileDestination) {
         super(width, height);
         myFileDestination = fileDestination;
     }
-    
+
     @Override
     protected void actOnFile (File file) {
         File targetFile = new File(myFileDestination + file.getName().toString());  

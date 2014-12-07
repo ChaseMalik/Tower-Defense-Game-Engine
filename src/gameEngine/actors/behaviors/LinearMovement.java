@@ -2,7 +2,7 @@ package gameEngine.actors.behaviors;
 
 import java.util.List;
 import java.util.Set;
-import utilities.JavaFXutilities.CenteredImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
@@ -40,7 +40,7 @@ public class LinearMovement extends BaseMovementBehavior {
         while (distance > destination.distance(current)) {
             myIndex++;
             if (myIndex == myRoute.size()) {
-                actor.died();
+                actor.died(-1);
                 return;
             }
             distance -= destination.distance(current);
@@ -50,7 +50,7 @@ public class LinearMovement extends BaseMovementBehavior {
         myRemainingDistance-=mySpeed;
         Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
         Point2D answer = current.add(vector);
-        move(actor, new VisibilityPoint(myRoute.get(myIndex).isVisible(), answer));
+        move(actor, new VisibilityPoint(myRoute.get(myIndex-1).isVisible(), answer));
 
     }
 

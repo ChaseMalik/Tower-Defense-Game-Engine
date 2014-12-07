@@ -41,4 +41,11 @@ public class BaseEnemy extends RealActor {
     public int getBounty(){
         return myBounty;
     }
+    @Override
+    public void died(double flag){
+        myIsRemovable=true;
+        this.setChanged();
+        this.notifyObservers(new Double(myBounty*flag));
+            
+    }
 }

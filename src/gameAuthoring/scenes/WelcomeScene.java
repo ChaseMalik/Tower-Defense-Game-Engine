@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 public class WelcomeScene {
 
     private static final String WELCOME_MSG = "Welcome to our Authoring Environment";
@@ -20,9 +21,9 @@ public class WelcomeScene {
     private TextField nameTextField;
     private GameDirectoryBuilding myGameDirectoryController;
 
-    public WelcomeScene(GameDirectoryBuilding controller){
+    public WelcomeScene (GameDirectoryBuilding controller) {
         myGameDirectoryController = controller;
-        Group root = new Group();		
+        Group root = new Group();
         myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
         myVBox = new VBox(20);
         myVBox.setPrefWidth(AuthorController.SCREEN_WIDTH);
@@ -33,36 +34,36 @@ public class WelcomeScene {
         createGameNameField();
     }
 
-    private void createWelcomeLabel(){		
+    private void createWelcomeLabel () {
         Label welcomeLabel = new Label(WELCOME_MSG);
         welcomeLabel.setStyle("-fx-font-size: 32px");
-        myVBox.getChildren().add(welcomeLabel);	
+        myVBox.getChildren().add(welcomeLabel);
     }
 
-    private void createGameNameField(){		
+    private void createGameNameField () {
         HBox nameOptionHBox = new HBox(15);
         Label nameLabel = new Label("Name of Game: ");
         nameLabel.setStyle("-fx-font-size: 16px");
         nameTextField = new TextField();
-        nameOptionHBox.getChildren().addAll(nameLabel, nameTextField, createStartButton());	
+        nameOptionHBox.getChildren().addAll(nameLabel, nameTextField, createStartButton());
         nameOptionHBox.setAlignment(Pos.CENTER);
         myVBox.getChildren().add(nameOptionHBox);
     }
-    
-    private Button createStartButton(){
+
+    private Button createStartButton () {
         Button startButton = new Button("Start Building!");
-        startButton.setOnAction(event->handleButtonClick());
+        startButton.setOnAction(event -> handleButtonClick());
         return startButton;
     }
-    
+
     private void handleButtonClick () {
         String gameNameText = nameTextField.getText();
-        if(!gameNameText.isEmpty()) {
+        if (!gameNameText.isEmpty()) {
             myGameDirectoryController.makeDirectory(gameNameText);
         }
     }
 
-    public Scene getScene(){
+    public Scene getScene () {
         return myScene;
     }
 

@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
 import java.io.File;
 
@@ -12,7 +12,6 @@ public class DragAndDropNoCopyImagePane extends DragAndDropImagePane {
     protected void actOnFile (File file) {
         myFile = file;
         displayImage();
-        
     }
 
 }

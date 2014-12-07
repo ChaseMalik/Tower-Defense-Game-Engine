@@ -14,13 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+
 public class GSONWritingScene extends Scene {
-    
+
     protected static final double MAX_LOADING_BAR_WIDTH = 390;
     private Rectangle myLoadingBar;
     private BorderPane myPane;
-    
-    public GSONWritingScene(BorderPane pane) {
+
+    public GSONWritingScene (BorderPane pane) {
         super(pane, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
         myPane = pane;
         Label label = new Label("Your game is being created...");
@@ -37,16 +38,22 @@ public class GSONWritingScene extends Scene {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame loadingBarGrowth = new KeyFrame(Duration.seconds(.05),
-                                           new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                myLoadingBar.setWidth(myLoadingBar.getWidth()+3);
-                if(myLoadingBar.getWidth() > MAX_LOADING_BAR_WIDTH) {
-                    timeline.stop();
-                    ((VBox) myPane.getCenter()).getChildren().remove(myLoadingBar);
-                    ((VBox) myPane.getCenter()).getChildren().add(new Label("Write completed!"));
-                }
-            }
-        });             
+                                                 new EventHandler<ActionEvent>() {
+                                                     public void handle (ActionEvent event) {
+                                                         myLoadingBar.setWidth(myLoadingBar
+                                                                 .getWidth() + 3);
+                                                         if (myLoadingBar.getWidth() > MAX_LOADING_BAR_WIDTH) {
+                                                             timeline.stop();
+                                                             ((VBox) myPane.getCenter())
+                                                                     .getChildren()
+                                                                     .remove(myLoadingBar);
+                                                             ((VBox) myPane.getCenter())
+                                                                     .getChildren()
+                                                                     .add(new Label(
+                                                                                    "Write completed!"));
+                                                         }
+                                                     }
+                                                 });
         timeline.getKeyFrames().add(loadingBarGrowth);
         timeline.play();
     }
