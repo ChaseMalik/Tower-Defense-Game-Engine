@@ -64,7 +64,7 @@ public class Chatroom extends Stage {
     public void setupAndBeginMessageRequests() {
         myRequestTimeline = new Timeline();
         myRequestTimeline.setCycleCount(Animation.INDEFINITE);
-        myRequestTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+        myRequestTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(2),
                                                           event -> pollServerForMessages()));
         myRequestTimeline.play();
     }
