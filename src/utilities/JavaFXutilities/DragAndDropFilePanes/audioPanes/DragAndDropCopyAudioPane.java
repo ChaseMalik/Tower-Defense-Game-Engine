@@ -12,8 +12,6 @@ import utilities.errorPopup.ErrorPopup;
 /**
  * @author $cotty $haw
  *
- * Our Server is our listener class. It uses a Socket object that has
- *
  * Our DragAndDropCopyAudioPane is a utility that accepts audio files
  * with the allowed extensions that the user dragged and dropped into
  * the pane. This class extends Observable, so it can listen for when
