@@ -22,9 +22,10 @@ import utilities.XMLParsing.XMLParser;
 
 public class ProjectilePane extends Observable implements Observer {
     
-    private static final String PROJECTILE_IMG_DIR = AuthorController.gameDir + "projectileImages/";
-    private static final String PROJECTILE_BEHAVIORS_XML = "./src/gameAuthoring/Resources/actorBehaviors/ProjectileBehaviors.xml";
-    private SliderContainer mySliderContainer;
+    private static final String PROJECTILE_IMG_DIR = 
+            AuthorController.gameDir + "projectileImages/";
+    private static final String PROJECTILE_BEHAVIORS_XML = 
+            "./src/gameAuthoring/Resources/actorBehaviors/ProjectileBehaviors.xml";
     private HBox myContainer;
     private DragAndDropImagePane myDropImgPane;
     private ArrayList<BehaviorBuilder> myBehaviorBuilders;
@@ -38,7 +39,8 @@ public class ProjectilePane extends Observable implements Observer {
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for(String behaviorType:allBehaviorTypes){
             List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
-            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser.getSliderInfo(behaviorType)));
+            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, 
+                                                       parser.getSliderInfo(behaviorType)));
         }
         
         myDamageSlider = new SliderContainer("Damage", 1, 5);
@@ -58,7 +60,9 @@ public class ProjectilePane extends Observable implements Observer {
         VBox leftBox = new VBox(10);
         leftBox.getChildren().addAll(title, behaviorBox);
         myDropImgPane = new DragAndDropCopyImagePane(200, 100, PROJECTILE_IMG_DIR);
-        myDropImgPane.getPane().setStyle("-fx-background-color: white; -fx-border: 2px; -fx-border-color: gray; -fx-border-radius: 5px");
+        myDropImgPane.getPane().setStyle("-fx-background-color: white; " +
+                                         "-fx-border: 2px; -fx-border-color: gray; " +
+                                         "-fx-border-radius: 5px");
         myContainer.getChildren().addAll(leftBox, myDropImgPane.getPane());
     }
 

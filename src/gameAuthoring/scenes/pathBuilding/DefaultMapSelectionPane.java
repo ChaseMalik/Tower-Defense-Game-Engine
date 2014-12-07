@@ -24,9 +24,10 @@ public class DefaultMapSelectionPane {
     private static final String DEFAULT_MAP_IMAGES_DIR =
             "./src/gameAuthoring/Resources/DefaultMapImages/";
     private static final double IMAGE_PADDING = 10.0;
-    private static final double IMAGE_WIDTH = 120.0;
-    private static final double IMAGE_HEIGHT = 80.0;
-    private static final double SCROLLPANE_WIDTH = IMAGE_WIDTH + 2 * IMAGE_PADDING + 10;
+    private static final double IMAGE_WIDTH = 95.0;
+    private static final double IMAGE_HEIGHT = 60.0;
+    private static final double SCROLLPANE_WIDTH = 
+            IMAGE_WIDTH + 2 * IMAGE_PADDING + 13;
 
     private ScrollPane myScrollPane;
     private VBox myImageDisplayVBox;
