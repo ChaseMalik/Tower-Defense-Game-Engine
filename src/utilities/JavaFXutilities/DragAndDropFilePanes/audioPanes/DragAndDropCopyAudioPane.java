@@ -17,12 +17,12 @@ import utilities.errorPopup.ErrorPopup;
  * Our DragAndDropCopyAudioPane is a utility that accepts audio files
  * with the allowed extensions that the user dragged and dropped into
  * the pane. This class extends Observable, so it can listen for when
- * audio file drops.
+ * an audio file drops.
  * 
  */
 public class DragAndDropCopyAudioPane extends DragAndDropFilePane {
 
-    private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Audio file could not be added.";
+    private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Error adding audio file";
     private static String[] myAllowedFileExtensions = {".mp3", ".mp4", ".m4a", ".wav", ".caf"};
     private String myFileDestination;
 
