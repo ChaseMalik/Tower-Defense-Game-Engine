@@ -31,11 +31,8 @@ public class VideoPlayerTest extends Application {
         MediaPlayer mediaPlayer = new MediaPlayer(MEDIA);
         mediaPlayer.setAutoPlay(true);
 
-        VideoPlayer videoPlayer = new VideoPlayer();
+        VideoPlayer videoPlayer = new VideoPlayer(mediaPlayer);
         scene.setRoot(videoPlayer);
-
-        VideoController videoController = new VideoController(mediaPlayer);
-        scene.setRoot(videoController);
 
         movieTheater.setScene(scene);
         movieTheater.show();
