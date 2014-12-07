@@ -4,6 +4,7 @@ import gameEngine.actors.BaseTower;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.GSON.DataWrapper;
+import utilities.chatroom.Chatroom;
 import utilities.networking.HTTPConnection;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -14,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class CoOpManager extends SingleThreadedEngineManager {
 
+public class CoOpManager extends SingleThreadedEngineManager {
 
     private static final String GET_PLAYERS = "get_num_players";
     private static final String GET_MASTER_JSON = "get_master_json";
@@ -28,40 +29,48 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final int REQUIRED_NUM_PLAYERS = 2;
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     private static final int TIMER_END = 30;
-    
+    private boolean myTowerPlacement;
+
     public CoOpManager (Pane engineGroup) {
         super(engineGroup);
     }
-    
+
     public void startNewGame (String directory) {
         HTTP_CONNECTOR.sendPost(MAKE_GAME, GAME_DIRECTORY + directory);
     }
-    
-    public boolean isReady(){
+
+    public boolean isReady () {
         return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS)) >= REQUIRED_NUM_PLAYERS;
     }
-    
-    public String joinGame() {       
+
+    public String joinGame () {
         return HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
     }
-    
+
     @Override
-    public void initializeGame (String dir){
+    public void initializeGame (String dir) {
         super.initializeGame(dir);
+        new Chatroom();
         allowTowerPlacement();
     }
 
-    private void allowTowerPlacement(){
+    private void allowTowerPlacement () {
+        myTowerPlacement = true;
         Timeline timeline = new Timeline();
         timeline.setCycleCount(TIMER_END);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
                                                  event -> getTowersFromServer()));
-        timeline.setOnFinished(event -> super.resume());
+        timeline.setOnFinished(event -> startLevel());
         timeline.play();
     }
-    
+
+    private void startLevel () {
+        super.resume();
+        myTowerPlacement = false;
+    }
+
     @Override
-    protected void onLevelEnd(){
+    protected void onLevelEnd () {
         super.onLevelEnd();
         allowTowerPlacement();
     }
@@ -69,7 +78,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private void writeTowersToServer () {
         HTTP_CONNECTOR.sendPost(UPDATE_MASTER_JSON, MASTER_JSON + convertTowersToString());
     }
-    
+
     private String convertTowersToString () {
         List<DataWrapper> wrapper = new ArrayList<>();
         for (BaseTower tower : myTowerGroup) {
@@ -81,33 +90,39 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private void getTowersFromServer () {
         List<DataWrapper> listFromServer =
                 myFileReader.readWrappers(HTTP_CONNECTOR.sendGet(GET_MASTER_JSON));
-        if(listFromServer == null){
-            return;
-        }
-        for(BaseTower tower: myTowerGroup){
-            if(!listFromServer.contains(new DataWrapper(tower))){
+        if (listFromServer == null) { return; }
+        for (BaseTower tower : myTowerGroup) {
+            if (!listFromServer.contains(new DataWrapper(tower))) {
                 myTowerGroup.addActorToRemoveBuffer(tower);
             }
-            else{
+            else {
                 listFromServer.remove(new DataWrapper(tower));
             }
         }
-        for(DataWrapper wrapper: listFromServer){
+        for (DataWrapper wrapper : listFromServer) {
             super.addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
         }
     }
+
     @Override
     public void removeTower (ImageView node) {
-        getTowersFromServer();
-        super.removeTower(node);
-        writeTowersToServer();
+        if (myTowerPlacement) {
+            getTowersFromServer();
+            super.removeTower(node);
+            writeTowersToServer();
+        }
     }
-    
+
     @Override
-    public ImageView addTower(String name, double x, double y){
-        getTowersFromServer();
-        ImageView ans = super.addTower(name, x, y);
-        writeTowersToServer();
-        return ans;
+    public ImageView addTower (String name, double x, double y) {
+        if (myTowerPlacement) {
+            getTowersFromServer();
+            ImageView ans = super.addTower(name, x, y);
+            writeTowersToServer();
+            return ans;
+        }
+        else {
+            return null;
+        }
     }
 }

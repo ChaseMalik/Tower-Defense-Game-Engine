@@ -79,6 +79,8 @@ public class Chatroom extends Stage {
                 myMessages.getChildren().add(new Label(msg));
             }
         }
+
+        myScrollPane.setVvalue(1.0);
     }
 
     private void handleKeyPressed (KeyEvent event) {
@@ -92,5 +94,7 @@ public class Chatroom extends Stage {
         myMessageIndex = Integer.parseInt(HTTP_CONNECTOR.sendPost("post_message", "message=" + message));
         myMessages.getChildren().add(new Label(message));
         myTextField.setText("");
+
+        myScrollPane.setVvalue(1.0);
     }
 }
