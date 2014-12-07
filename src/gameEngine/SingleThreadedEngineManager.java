@@ -10,8 +10,8 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
+import gameEngine.actors.behaviors.updateInterface;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,9 +24,7 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.sun.javafx.geom.Point2D;
-
 import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
@@ -47,7 +45,7 @@ import utilities.GSON.GSONFileReader;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
-public class SingleThreadedEngineManager implements Observer {
+public class SingleThreadedEngineManager implements Observer, updateInterface{
 
 	private static final int FPS = 30;
 	private static final double ONE_SECOND_IN_MILLIS = 1000.0;
@@ -395,18 +393,18 @@ public class SingleThreadedEngineManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof BaseActor && arg != null) {
+            if(arg instanceof updateObject){
+                ((updateObject)arg).update(this);
+            }else if (o instanceof BaseActor && arg != null) {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
-			} else if (o instanceof BaseEnemy) {
-				if (((Double) arg).doubleValue() > 0)
-					myGold.set(((Double) arg).doubleValue() + myGold.get());
-				else
-					myHealth.set(((Double) arg).doubleValue() + myHealth.get());
+			} else if (arg instanceof BaseEnemy) {
+			        myTowerGroup.add((BaseTower) arg);
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
 		}
+
 	}
 
 	public ImageView upgrade(ImageView n, String name) {
