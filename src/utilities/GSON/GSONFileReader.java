@@ -25,8 +25,7 @@ public class GSONFileReader {
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
     private boolean[][] locations;
-    private List<DataWrapper> wrappedEnemies;
-    private List<DataWrapper> wrappedTowers;
+    private GameStateWrapper gameState;
 
     public GSONFileReader(){
     	gson = new GsonBuilder();
@@ -54,59 +53,12 @@ public class GSONFileReader {
 
         return levelList;
     }
+       
+    public List<DataWrapper> readWrappers(String towers){
+    	
+    	return gson.create().fromJson(towers, new TypeToken<List<DataWrapper>>() {}.getType());
     
-   
-    public List<BaseEnemy> readEnemies(String gameDir){
-    	
-    	List<BaseEnemy> enemyList = new ArrayList<BaseEnemy>();
-    	try{
-    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedEnemies.json"));
-    		wrappedEnemies = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
-    	}catch(IOException e){
-    		new ErrorPopup("File" + gameDir + ".");
-    	}
-    	
-	
-    	for(DataWrapper enemy:wrappedEnemies){
-    		
-    		BaseEnemy newEnemy = (BaseEnemy)enemy.getActor();
-    		
-    		newEnemy.makeNode(enemy.getPoint());
-    		enemyList.add(newEnemy); 		
-    		
-    	}
-    	
-    	return enemyList;
     }
-    
-    
-    
-    public List<BaseTower> readTower(String gameDir){
-    	
-    	List<BaseTower> towerList = new ArrayList<BaseTower>();
-    	try{
-    		BufferedReader br = new BufferedReader(new FileReader(gameDir + "wrappedTowers.json"));
-    		wrappedTowers = gson.create().fromJson(br, new TypeToken<List<BaseLevel>>() {}.getType());
-    	}catch(IOException e){
-    		new ErrorPopup("File" + gameDir + ".");
-    	}
-    	
-	
-    	for(DataWrapper tower:wrappedTowers){
-    		
-    		BaseTower newTower = (BaseTower)tower.getActor();
-    		
-    		newTower.makeNode(tower.getPoint());
-    		towerList.add(newTower); 		
-    		
-    	}
-    	
-    	return towerList;
-    }
-    
-    
-    
-    
     
     public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
@@ -118,4 +70,17 @@ public class GSONFileReader {
 
         return locations;
     }
+    
+    public GameStateWrapper readGameStateFromJSon(String directory){
+    	
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(directory + "gameState.json"));   
+            gameState = gson.create().fromJson(br, GameStateWrapper.class);
+        } catch(IOException e){
+            new ErrorPopup("File could not be found.");
+        }   
+    	
+        return gameState;
+    }
+    
 }

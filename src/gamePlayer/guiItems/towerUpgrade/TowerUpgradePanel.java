@@ -1,23 +1,22 @@
 package gamePlayer.guiItems.towerUpgrade;
 
-import java.io.File;
-
-import utilities.JavaFXutilities.StringToImageViewConverter;
-import utilities.XMLParsing.XMLParser;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
+import java.io.File;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.XMLParsing.XMLParser;
 
 public class TowerUpgradePanel extends Pane implements GuiItem {
 	
@@ -29,10 +28,11 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	private Button sellButton;
 	private ImageView myTowerImageView;
 	private XMLParser myParser;
+	private TowerIndicator activeIndicator;
 	
 	private UpgradeListener myListener;
 	
-	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView){
+	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView, TowerIndicator indicator){
 		myIcon.setImage(StringToImageViewConverter.getImageView(75, 75, current.getImageLocation()).getImage());
 		myName.setText(current.getName());
 		myUpgradeName = current.getMyUpgrade().getName();
@@ -41,10 +41,11 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		sellButton.setText("Sell tower");
 		sellButton.setOnAction(event -> sell());
 		myTowerImageView = towerImageView;
+		activeIndicator = indicator;
 	}
 	
 	private void sell(){
-		myListener.sellTower(myTowerImageView);
+		myListener.sellTower(myTowerImageView, activeIndicator);
 	}
 	
 	private void doUpgrade(){
@@ -73,7 +74,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myButtonBox.getChildren().addAll(myName, myIcon, upgrade1Button, sellButton);
 		this.getChildren().add(myButtonBox);
 		myListener.registerUpgradePanel(this);
-		setCurrentTower(new NullTowerInfoObject(), null);
+		setCurrentTower(new NullTowerInfoObject(), null, null);
 	}
 
 	@Override

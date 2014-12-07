@@ -7,18 +7,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.layout.VBox;
 
+
 public class LevelBuildingDisplay extends VBox {
 
     private List<BaseEnemy> myEnemies;
     private List<LevelDisplayCell> myLevelCells;
 
-    public LevelBuildingDisplay(List<BaseEnemy> enemies) {
+    public LevelBuildingDisplay (List<BaseEnemy> enemies) {
         myEnemies = enemies;
         myLevelCells = new ArrayList<LevelDisplayCell>();
         addLevel();
     }
 
-    public void addLevel() {
+    public void addLevel () {
         int numLevels = myLevelCells.size();
         LevelDisplayCell cell = new LevelDisplayCell(myEnemies, numLevels);
         myLevelCells.add(cell);

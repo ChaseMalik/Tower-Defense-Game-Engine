@@ -8,23 +8,28 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+
 /**
  * Defines a line that can be drawn on the screen.
+ * 
  * @author Austin Kyker
  *
  */
 public class PathLine extends Line implements PathComponent {
-    
-    public PathLine() {
+
+    private boolean isPathComponentVisible;
+
+    public PathLine () {
         this(0, 0);
     }
-    
-    public PathLine(double initalMouseClickX, double initialMouseClickY) {
+
+    public PathLine (double initalMouseClickX, double initialMouseClickY) {
         this.setStartX(initalMouseClickX);
         this.setStartY(initialMouseClickY);
         this.setEndX(initalMouseClickX);
         this.setEndY(initialMouseClickY);
         this.setStrokeWidth(20);
+        isPathComponentVisible = true;
     }
 
     @Override
@@ -45,10 +50,10 @@ public class PathLine extends Line implements PathComponent {
 
     @Override
     public void translate (double deltaX, double deltaY) {
-        this.setStartX(this.getStartX()+deltaX);
-        this.setStartY(this.getStartY()+deltaY);
-        this.setEndX(this.getEndX()+deltaX);
-        this.setEndY(this.getEndY()+deltaY);
+        this.setStartX(this.getStartX() + deltaX);
+        this.setStartY(this.getStartY() + deltaY);
+        this.setEndX(this.getEndX() + deltaX);
+        this.setEndY(this.getEndY() + deltaY);
     }
 
     @Override
@@ -63,12 +68,12 @@ public class PathLine extends Line implements PathComponent {
 
     @Override
     public void select () {
-        super.setStroke(Color.GREEN);        
+        super.setStroke(Color.GREEN);
     }
-    
+
     @Override
-    public void deselect () {
-        super.setStroke(Color.BLACK);        
+    public void removeStroke () {
+        super.setStroke(Color.BLACK);
     }
 
     @Override
@@ -93,12 +98,23 @@ public class PathLine extends Line implements PathComponent {
     }
 
     @Override
-    public Node[] getCorrespondingNodesToDelete () {
-        return new Node[] { this };
+    public List<Node> getExtraNodes () {
+        return new ArrayList<Node>();
+    }
+
+    public boolean isPathComponentVisible () {
+        return isPathComponentVisible;
+    }
+
+    public void togglePathComponentVisibility () {
+        isPathComponentVisible = !isPathComponentVisible;
+        Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
+        this.setStroke(color);
     }
 
     @Override
-    public Node getNode () {
-        return this;
+    public void showVisibility () {
+        Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
+        this.setStroke(color);
     }
 }

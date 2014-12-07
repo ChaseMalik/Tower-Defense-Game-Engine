@@ -1,0 +1,31 @@
+.root{
+    -fx-font-size: 10pt;
+    -fx-font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.button{
+    -fx-font-size: 30pt;
+    -fx-opacity: 0.8;
+}
+
+.borders{
+
+}
+
+.ControlDockButton {
+
+}
+
+.MainSplashScreen {
+   -fx-background-color: blue
+}
+
+.gameDescriptionButton {
+    -fx-font-size: 10pt;
+}
+
+.OpponentWaitingLabel {
+    -fx-font-size: 27pt;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}

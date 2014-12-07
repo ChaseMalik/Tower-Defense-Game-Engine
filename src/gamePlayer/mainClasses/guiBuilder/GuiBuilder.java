@@ -57,9 +57,12 @@ public class GuiBuilder {
 		myParser = new XMLParser(new File(propertiesPath));
 		GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag(
 				"GuiElementPropertiesPath").get(0);
+		
+		//TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove line below
 		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
 				"TextGeneratorPropertiesPath").get(0));
-		Dimension2D windowSize = myParser.getDimension("GuiSize");
+		
+		Dimension2D windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 				
 		Group group = new Group();
 		group.setAutoSizeChildren(true);

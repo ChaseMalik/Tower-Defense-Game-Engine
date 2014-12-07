@@ -15,6 +15,7 @@ import javafx.scene.shape.Circle;
 public class TowerPlacer {
 
     private static TowerPlacer myReference = null;
+    private boolean dragging;
 
     public static TowerPlacer getInstance() {
         if (myReference==null) {
@@ -29,19 +30,19 @@ public class TowerPlacer {
      * @param rootNode : The Node to attach the mouseListener to
      * @param itemID : The unique identifier of the item (tower) to be placed
      */
-    public void placeItem(String itemID, Pane rootNode) {
+    public void placeItem(String towerName, Pane rootNode, double range) {
 
-        Circle dragCircle = new Circle(50, Color.RED);
+        Circle dragCircle = new Circle(range, Color.RED);
         dragCircle.setOpacity(0.5);
-
+        dragging = false;
         // TODO : Add the image of the tower to be added to the dragged object
-        rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY()));
-        rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), itemID, rootNode));
-        rootNode.getChildren().add(dragCircle);
-        
+        rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY(), rootNode));
+        rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), towerName, rootNode));
     }
 
-    private void drag(Circle node, double X, double Y) {
+    private void drag(Circle node, double X, double Y, Pane root) {
+        if (!dragging) root.getChildren().add(node);
+        dragging = true;
         node.setTranslateX(X);
         node.setTranslateY(Y);
         if (validPlacement(X,Y)) {
@@ -51,7 +52,7 @@ public class TowerPlacer {
         }
     }
 
-    private void drop(Circle node, double X, double Y, String towerID, Node rootNode) {
+    private void drop(Circle node, double X, double Y, String towerName, Node rootNode) {
 
         if (!validPlacement(X,Y)) {
             GuiConstants.GUI_MANAGER.displayMessage("Invalid placement", true);
@@ -62,7 +63,7 @@ public class TowerPlacer {
         rootNode.setOnMouseReleased(null);
         node.setVisible(false);
 
-        GuiConstants.GUI_MANAGER.makeTower(towerID, X, Y);
+        GuiConstants.GUI_MANAGER.makeTower(towerName, X, Y);
     }
 
     private boolean validPlacement(double X, double Y) {

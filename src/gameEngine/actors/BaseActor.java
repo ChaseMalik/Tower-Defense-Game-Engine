@@ -1,7 +1,9 @@
 package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
+import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
+import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-import utilities.JavaFXutilities.CenteredImageView;
-import utilities.JavaFXutilities.StringToImageViewConverter;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -35,13 +37,14 @@ public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient CenteredImageView myNode;
-    protected InfoObject myInfo;
+    protected transient InfoObject myInfo;
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected Set<BaseEffectBehavior> myEffects;
-    private boolean myIsRemovable;
-    protected List<IBehavior> myDebuffs;
+    protected boolean myIsRemovable;
+    protected Map<String,IBehavior> myDebuffs;
+    protected Set<IBehavior> myDebuffsToRemove;
     public BaseActor () {
 
     }
@@ -51,7 +54,8 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
-        myDebuffs=new ArrayList<>();
+        myDebuffs=new HashMap<>();
+        myDebuffsToRemove=new HashSet<>();
         myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
@@ -68,19 +72,20 @@ public abstract class BaseActor extends Observable {
      */
     public void update (InfoObject info) {
         myInfo = info;
-        for(IBehavior debuff: myDebuffs){
-            debuff.execute(this);
-        }
+
         for (String s : myBehaviors.keySet()) {
             myBehaviors.get(s).execute(this);
         }
 
     }
     public void addDebuff(IBehavior debuff){
-        myDebuffs.add(debuff);
+        if(myDebuffs.containsKey(debuff.toString())){
+        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).undo(this);
+        }
+        myDebuffs.put(debuff.toString(), debuff);
     }
     public void removeDebuff(IBehavior debuff){
-        myDebuffs.remove(debuff);
+        myDebuffsToRemove.add(debuff);
     }
     protected void makeNode () {
         int[] array = getSize();
@@ -121,9 +126,12 @@ public abstract class BaseActor extends Observable {
     }
 
     public void addEffect (BaseEffectBehavior effect) {
+        
         if (myEffects.add(effect)) {
             effect.performEffect(this);
+          
         }
+        
     }
 
     @Override
@@ -177,4 +185,21 @@ public abstract class BaseActor extends Observable {
     public boolean isDead(){
         return myIsRemovable;
     }
+    public void changeAndNotify(updateObject o){
+        this.setChanged();
+        this.notifyObservers(o);
+        
+    }
+    public boolean addTypes (Class<? extends BaseActor> type) {
+        return myTypes.add(type);
+    }
+    public void removeType(Class<? extends BaseActor> type){
+        myTypes.remove(type);
+    }
+
+    public void killed () {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

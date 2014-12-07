@@ -2,12 +2,6 @@
 
 <ContainerProperties>
 
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>0.22</element>
-		<element>0.78</element>
-	</SizeRatio>
-	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.headsUpDisplay.HUD</element>

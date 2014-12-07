@@ -10,18 +10,22 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 
+
 /**
  * Represent a node representing an enemy location. Also defines a pane that
  * allows the user to clear the locations as well as to continue to the next
  * scene.
+ * 
  * @author Austin Kyker
  *
  */
 public abstract class EnemyLocationPane extends BuildingPane {
 
+    private static final double PROMPT_HEIGHT = AuthorController.SCREEN_HEIGHT / 2 - 100;
+    private static final double PROMPT_WIDTH = BuildingPane.DRAW_SCREEN_WIDTH / 2 - 80;
     private static final int CONTAINER_PADDING = 15;
     private static final String CLR_BTN_TEXT = "Clear Locations";
-    
+
     protected Button myClearLocations = new Button(CLR_BTN_TEXT);
     protected Path myPath;
 
@@ -29,14 +33,14 @@ public abstract class EnemyLocationPane extends BuildingPane {
         super(group);
         myPath = path;
     }
-    
+
     protected void createEnemyLocationsSetupComponents (Button button, String LabelStr) {
         VBox container = new VBox(10);
         container.setPadding(new Insets(CONTAINER_PADDING));
-        container.setLayoutX(BuildingPane.DRAW_SCREEN_WIDTH/2-50);
-        container.setLayoutY(AuthorController.SCREEN_HEIGHT/2);
+        container.setLayoutX(PROMPT_WIDTH);
+        container.setLayoutY(PROMPT_HEIGHT);
         container.setAlignment(Pos.CENTER);
-        container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.95");
+        container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.98;");
         Label label = new Label(LabelStr);
         container.getChildren().addAll(label, button, myClearLocations);
         this.getChildren().add(container);
