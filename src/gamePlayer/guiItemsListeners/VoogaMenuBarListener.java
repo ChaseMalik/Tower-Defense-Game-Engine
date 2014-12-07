@@ -1,4 +1,4 @@
-package gamePlayer.Listeners;
+package gamePlayer.guiItemsListeners;
 
 /**
  * Listener interface for VoogaMenuBar GuiItem

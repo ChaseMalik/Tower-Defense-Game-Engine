@@ -2,8 +2,8 @@ package gamePlayer.guiItems.gameWorld;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
-import gamePlayer.Listeners.GameWorldListener;
 import gamePlayer.guiItems.GuiItem;
+import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;

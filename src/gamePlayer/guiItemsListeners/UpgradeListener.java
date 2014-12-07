@@ -1,4 +1,4 @@
-package gamePlayer.Listeners;
+package gamePlayer.guiItemsListeners;
 
 import javafx.scene.image.ImageView;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;

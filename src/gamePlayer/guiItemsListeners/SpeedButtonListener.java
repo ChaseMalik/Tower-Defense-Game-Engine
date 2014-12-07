@@ -1,4 +1,4 @@
-package gamePlayer.Listeners;
+package gamePlayer.guiItemsListeners;
 
 public interface SpeedButtonListener {
     public void normalSpeed();

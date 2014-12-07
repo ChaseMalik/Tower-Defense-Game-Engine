@@ -1,7 +1,7 @@
 package gamePlayer.guiItems.controlDockButtons.buttons;
 
-import gamePlayer.Listeners.SpeedButtonListener;
 import gamePlayer.guiItems.controlDockButtons.ControlDockButton;
+import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;

@@ -10,4 +10,4 @@
  * The GUI Manager must implement all of these interfaces to handle the behavior of all of the GUI items.
  *
  */
-package gamePlayer.Listeners;
+package gamePlayer.guiItemsListeners;

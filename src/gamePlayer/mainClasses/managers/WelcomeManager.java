@@ -1,8 +1,8 @@
 package gamePlayer.mainClasses.managers;
 
 import gamePlayer.Listeners.LMConnectorListener;
-import gamePlayer.Listeners.LeapMotionListener;
 import gamePlayer.Listeners.NavigatorListener;
+import gamePlayer.guiFeatures.LeapMotionListener;
 import gamePlayer.guiItems.welcome.LMConnector;
 import gamePlayer.guiItems.welcome.WelcomeNavigator;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
@@ -47,7 +47,7 @@ public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 			return;
 		}
 		// TODO : Setup more LeapMotion stuff 
-		LMConnected();
+		// LMConnected();
 	}
 	
 	public void LMConnected() {

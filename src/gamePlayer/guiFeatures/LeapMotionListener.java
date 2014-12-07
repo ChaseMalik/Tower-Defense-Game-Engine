@@ -1,4 +1,4 @@
-package gamePlayer.Listeners;
+package gamePlayer.guiFeatures;
 
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.application.Platform;
@@ -38,7 +38,7 @@ public class LeapMotionListener extends Listener {
 		// c.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
 		//Tell manager to change panes
 		setupTimers();
-		GuiConstants.WELCOME_MANAGER.LMConnected();
+		Platform.runLater(() ->GuiConstants.WELCOME_MANAGER.LMConnected());
 	}
 
 	@Override

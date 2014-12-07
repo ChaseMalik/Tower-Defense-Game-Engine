@@ -1,4 +1,4 @@
-package gamePlayer.Listeners;
+package gamePlayer.guiItemsListeners;
 
 import gamePlayer.guiItems.gameWorld.GameWorld;
 
