@@ -3,6 +3,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameEngine.actors.behaviors.IBehavior;
 import java.io.File;
@@ -124,7 +125,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void attemptToSaveActor () {
-        Map<String, IBehavior> iBehaviorMap = buildIBehaviorMap();
+        Map<String, IBehavior> iBehaviorMap = BehaviorMapBuilder.buildMap(myBehaviorBuilders);
         if(fieldsAreValidForActiveCreation(iBehaviorMap)){
             makeNewActor(iBehaviorMap);
             clearFields();
@@ -155,15 +156,6 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     protected abstract boolean actorSpecificFieldsValid ();
-
-    private Map<String, IBehavior> buildIBehaviorMap () {
-        Map<String, IBehavior> iBehaviorMap = new HashMap<String, IBehavior>();
-        for(BehaviorBuilder builder:myBehaviorBuilders){
-            IBehaviorKeyValuePair pair = builder.buildBehavior();
-            iBehaviorMap.put(pair.getTypeOfBehavior(), pair.getMyIBehavior());
-        }
-        return iBehaviorMap;
-    }
 
     @Override
     public void update (Observable obs, Object arg1) {
