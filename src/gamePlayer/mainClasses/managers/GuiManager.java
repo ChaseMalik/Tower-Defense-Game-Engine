@@ -85,7 +85,15 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
         myEngineManager.initializeGame(directoryPath);
         initializeNewGameElements(directoryPath);
     }
-    
+
+    public void joinMultiPlayerGame() {
+        myCoOpManager = new CoOpManager();
+        if (myCoOpManager.joinGame()) {
+            GuiConstants.GUI_MANAGER.init();
+            myCoOpManager.initializeGame(myGameWorld.getMap());
+        }
+    }
+
     public void prepareMultiPlayerGame (String directoryPath) {
         myCoOpManager = new CoOpManager();
         myCoOpManager.startNewGame(directoryPath);
@@ -113,7 +121,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
     //TODO: Remove method, deprecated
     private void startGame(String directoryPath){
-        
+
     }
 
     private void addBackground(String directory){

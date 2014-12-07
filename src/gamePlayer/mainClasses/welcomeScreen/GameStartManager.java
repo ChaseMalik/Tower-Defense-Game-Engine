@@ -63,10 +63,9 @@ public class GameStartManager {
     }
 
     public void joinMultiPlayerGame() {
-        //joining
+        GuiManager manager = new GuiManager(myStage);
+        manager.joinMultiPlayerGame();
     }
-
-
 
     private void startSinglePlayerGameChooser() {
         GameChooser chooser = new GameChooser(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY);
