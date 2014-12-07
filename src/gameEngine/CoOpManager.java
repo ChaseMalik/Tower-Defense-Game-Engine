@@ -31,8 +31,8 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final int TIMER_END = 30;
     private boolean myTowerPlacement;
 
-    public CoOpManager (Pane engineGroup) {
-        super(engineGroup);
+    public CoOpManager () {
+        super();
     }
 
     public void startNewGame (String directory) {
@@ -47,8 +47,8 @@ public class CoOpManager extends SingleThreadedEngineManager {
         return HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
     }
 
-    @Override
-    public void initializeGame (String dir) {
+    public void initializeGame (String dir, Pane engineGroup) {
+        addGroups(engineGroup);
         super.initializeGame(dir);
         new Chatroom();
         allowTowerPlacement();
