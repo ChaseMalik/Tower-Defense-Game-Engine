@@ -54,23 +54,22 @@ public class CoOpManager extends SingleThreadedEngineManager {
         
         System.out.println(myTowerGroup.getChildren().size());
     }
+    @Override
     public void removeTower (ImageView node) {
         getTowersFromServer();
-        
-        BaseTower tower = myNodeToTower.get(node);
-        myNodeToTower.remove(node);
-        myTowerGroup.remove(tower);
+        super.removeTower(node);
         writeTowersToServer();
     }
+    @Override
     public ImageView addTower(String name, double x, double y){
         getTowersFromServer();
-        ImageView ans = addTowerHelper(name, x, y);
+        ImageView ans = super.addTower(name, x, y);
         writeTowersToServer();
         return ans;
     }
 
     private void addTowerFromServer(DataWrapper w){
-        addTowerHelper(w.getName(), w.getX(), w.getY());
+        super.addTower(w.getName(), w.getX(), w.getY());
     }
     
     if (myUpdateServerTimer % 150 == 0) {

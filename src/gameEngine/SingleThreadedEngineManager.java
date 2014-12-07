@@ -52,7 +52,7 @@ public class SingleThreadedEngineManager implements Observer {
     private Timeline myTimeline;
     private double myUpdateRate;
     private AtomicBoolean myReadyToPlay;
-    private RangeRestrictedCollection<BaseTower> myTowerGroup;
+    protected RangeRestrictedCollection<BaseTower> myTowerGroup;
     private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
     private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
     private double duration;
@@ -67,8 +67,8 @@ public class SingleThreadedEngineManager implements Observer {
     private SimpleDoubleProperty myHealth;
     private Map<Node, BaseTower> myNodeToTower;
     private Collection<TowerInfoObject> myTowerInformation;
-    private GSONFileReader myFileReader;
-    private GSONFileWriter myFileWriter;
+    protected GSONFileReader myFileReader;
+    protected GSONFileWriter myFileWriter;
     
     public SingleThreadedEngineManager (Pane engineGroup) {
         myReadyToPlay = new AtomicBoolean(false);
