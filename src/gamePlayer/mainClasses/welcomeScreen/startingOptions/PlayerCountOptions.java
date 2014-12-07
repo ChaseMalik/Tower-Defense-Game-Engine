@@ -1,8 +1,7 @@
-package gamePlayer.mainClasses.welcomeScreen.options;
+package gamePlayer.mainClasses.welcomeScreen.startingOptions;
 
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
-import gamePlayer.mainClasses.welcomeScreen.Options;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 

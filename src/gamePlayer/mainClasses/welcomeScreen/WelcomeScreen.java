@@ -3,16 +3,17 @@ package gamePlayer.mainClasses.welcomeScreen;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 
-public class WelcomeScreen extends Pane {
+public class WelcomeScreen extends AnchorPane {
     public static final double WIDTH = GuiConstants.WINDOW_WIDTH;
     public static final double HEIGHT = GuiConstants.WINDOW_HEIGHT;
     
-    private static final double VBOX_WIDTH = WIDTH/4;
-    private static final double VBOX_HEIGHT= HEIGHT;
+    public static final double VBOX_WIDTH = WIDTH/2.5;
+    public static final double VBOX_HEIGHT= HEIGHT;
+    private static final double VBOX_PADDING = 20;
     
     public static final double PANE_WIDTH  = VBOX_WIDTH;
     public static final double PANE_HEIGHT = VBOX_HEIGHT/3;
@@ -26,9 +27,11 @@ public class WelcomeScreen extends Pane {
         
         topPane = createPane(PANE_WIDTH, PANE_HEIGHT);
         centerPane = createPane(PANE_WIDTH,PANE_HEIGHT);
+        //allow center pane to grow large to accommodate game descriptions
+        centerPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT*2);
         bottomPane = createPane(PANE_WIDTH, PANE_HEIGHT);
         
-        VBox vbox = new VBox(20);
+        VBox vbox = new VBox(VBOX_PADDING);
         vbox.setPrefSize(VBOX_WIDTH,VBOX_HEIGHT);
         vbox.setLayoutX((WIDTH/2)-(VBOX_WIDTH/2));
         vbox.setLayoutY(0);
@@ -40,7 +43,6 @@ public class WelcomeScreen extends Pane {
     
     private Pane createPane(Double width, Double height) {
         Pane pane = new Pane();
-        pane.setMinSize(width, height);
         pane.setPrefSize(width, height);
         pane.setMaxSize(width, height);
         return pane;
