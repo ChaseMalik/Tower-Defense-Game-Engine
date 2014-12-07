@@ -11,6 +11,7 @@ import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
+
 import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
@@ -32,6 +34,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -52,7 +55,7 @@ public class SingleThreadedEngineManager implements Observer {
     private Timeline myTimeline;
     private double myUpdateRate;
     private AtomicBoolean myReadyToPlay;
-    private RangeRestrictedCollection<BaseTower> myTowerGroup;
+    protected RangeRestrictedCollection<BaseTower> myTowerGroup;
     private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
     private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
     private double duration;
@@ -67,8 +70,10 @@ public class SingleThreadedEngineManager implements Observer {
     private SimpleDoubleProperty myHealth;
     private Map<Node, BaseTower> myNodeToTower;
     private Collection<TowerInfoObject> myTowerInformation;
-    private GSONFileReader myFileReader;
-    private GSONFileWriter myFileWriter;
+    protected GSONFileReader myFileReader;
+    protected GSONFileWriter myFileWriter;
+    
+    private boolean[][] myTowerLocationByGrid;
     
     public SingleThreadedEngineManager (Pane engineGroup) {
         myReadyToPlay = new AtomicBoolean(false);
@@ -193,6 +198,7 @@ public class SingleThreadedEngineManager implements Observer {
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
     }
+    
 
     private void onLevelEnd () {
         duration = 0; // TODO bad code, but problem with multiple levels
@@ -273,6 +279,7 @@ public class SingleThreadedEngineManager implements Observer {
 
     private void loadLocations (String dir) {
         boolean[][] validRegions = myFileReader.readTowerRegionsFromGameDirectory(dir);
+        myTowerLocationByGrid = new boolean[validRegions.length][validRegions[0].length];
         myValidRegions = new GridPane();
         myValidRegions.setPrefSize(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
         for (int row = 0; row < validRegions.length; row++) {
@@ -287,6 +294,8 @@ public class SingleThreadedEngineManager implements Observer {
         }
 
     }
+//    buildingpane.drawscreenwidth
+//    AuthorController.ScreenHeight
 
     public boolean validateTower (double x, double y) {
         return !(listCollidesWith(myTowerGroup.getChildren(), x, y)) &&
