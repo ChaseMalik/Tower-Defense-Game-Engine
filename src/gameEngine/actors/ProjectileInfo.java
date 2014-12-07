@@ -2,6 +2,7 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectileInfo {
@@ -10,10 +11,14 @@ public class ProjectileInfo {
     private IBehavior myMovement;
     private List<IBehavior> myOnHitEffects;
     private List<String> myEnemyTypes;
-    
-    public ProjectileInfo(String image, IBehavior move, List<IBehavior> list, List<String> types){
+    private int myDamage;
+    public ProjectileInfo(String image, int damage,List<IBehavior> list, List<String> types){
+        myDamage=damage;
         myImage = image;
-        myMovement=move;
+        for(IBehavior m : list){
+            if(m.toString().equals("movement"))
+                myMovement=m;
+        }
         myOnHitEffects=list;
         myEnemyTypes=types;
 
@@ -35,7 +40,14 @@ public class ProjectileInfo {
     public BaseMovementBehavior getMove(){
         return (BaseMovementBehavior)myMovement;
     }
+    public List<IBehavior> copyEffects(){
+        List<IBehavior> l=new ArrayList<>();
+        for(IBehavior b: l){
+            l.add(b.copy());
+        }
+        return l;
+    }
     public ProjectileInfo copy(){
-        return new ProjectileInfo(myImage,myMovement.copy(), myOnHitEffects,myEnemyTypes);
+        return new ProjectileInfo(myImage,myDamage,copyEffects(),myEnemyTypes);
     }
 }
