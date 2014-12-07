@@ -10,17 +10,17 @@ import javafx.scene.media.MediaView;
 class VideoPlayer extends BorderPane {
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
-    private HBox mediaBar;
+    private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
         this.myMediaPlayer = mediaPlayer;
         myMediaView = new MediaView(mediaPlayer);
-        Pane moviePane = new Pane() {};
+        Pane moviePane = new Pane() { };
         moviePane.getChildren().add(myMediaView);
         setCenter(moviePane);
-        mediaBar = new HBox();
-        mediaBar.setAlignment(Pos.CENTER);
-        BorderPane.setAlignment(mediaBar, Pos.CENTER);
-        setBottom(mediaBar);
+        myMediaBar = new HBox();
+        myMediaBar.setAlignment(Pos.CENTER);
+        BorderPane.setAlignment(myMediaBar, Pos.CENTER);
+        setBottom(myMediaBar);
     }
 }
