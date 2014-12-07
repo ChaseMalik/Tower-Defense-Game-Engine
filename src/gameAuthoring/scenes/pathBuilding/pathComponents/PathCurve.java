@@ -17,14 +17,17 @@ import javafx.scene.shape.CubicCurve;
 public class PathCurve extends CubicCurve implements PathComponent {
 
     private static final double NUM_INNER_POINTS = 15.0;
+    
     private boolean isEndPointSet;
     private Circle myControlPoint1Setter;
     private Circle myControlPoint2Setter;
+    private boolean isPathComponentVisible;
     
     public PathCurve() {
         this.setStrokeWidth(20);
         this.setStroke(Color.BLACK);
         this.setFill(null);
+        isPathComponentVisible = true;
     }
 
     public PathCurve(double initialX, double initialY) {
@@ -77,7 +80,7 @@ public class PathCurve extends CubicCurve implements PathComponent {
     }
 
     @Override
-    public void deselect () {
+    public void removeStroke () {
         super.setStroke(Color.BLACK);        
     }
 
@@ -135,7 +138,7 @@ public class PathCurve extends CubicCurve implements PathComponent {
     public List<VisibilityPoint> getInnerPointsRepresentingComponent () {
         List<VisibilityPoint> innerPoints = new ArrayList<VisibilityPoint>();
         for(double t = 1/NUM_INNER_POINTS; t < 1; t = t + 1/NUM_INNER_POINTS) {
-            innerPoints.add(new VisibilityPoint(true,
+            innerPoints.add(new VisibilityPoint(this.isPathComponentVisible,
                                                 this.getStartingPoint().multiply(Math.pow((1-t),3))
                                                 .add(getControlPoint1().multiply(3*Math.pow(1-t, 2)*t))
                                                 .add(getControlPoint2().multiply(3*(1-t)*Math.pow(t,2)))
@@ -155,5 +158,20 @@ public class PathCurve extends CubicCurve implements PathComponent {
         nodes.add(myControlPoint1Setter);
         nodes.add(myControlPoint2Setter);
         return nodes;
+    }
+    
+    public boolean isPathComponentVisible() {
+        return isPathComponentVisible;
+    }
+    
+    public void togglePathComponentVisibility() {
+        isPathComponentVisible = !isPathComponentVisible;
+        this.showVisibility();
+    }
+
+    @Override
+    public void showVisibility () {
+        Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
+        this.setStroke(color);       
     }
 }

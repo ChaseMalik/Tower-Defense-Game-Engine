@@ -39,7 +39,7 @@ public class BackendRoute {
 
     private void setUpBackendRouteFromFrontEndRoute (PathRoute route) {
         for(PathComponent component:route) {
-            myPoints.add(new VisibilityPoint(true, component.getStartingPoint()));
+            myPoints.add(new VisibilityPoint(component.isPathComponentVisible(), component.getStartingPoint()));
             myPoints.addAll(component.getInnerPointsRepresentingComponent());
         }       
         myPoints.add(new VisibilityPoint(true, route.getLast().getEndingPoint()));

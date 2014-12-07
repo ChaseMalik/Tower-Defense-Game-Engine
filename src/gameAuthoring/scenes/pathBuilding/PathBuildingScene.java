@@ -5,6 +5,7 @@ import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.ComponentVisibilityPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.CurveDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingOptionPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
@@ -54,6 +55,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private LineDrawingPane myLineDrawingPane;
     private CurveDrawingPane myCurveDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
+    private ComponentVisibilityPane myComponentVisibilityPane;
     private TowerRegionsPane myTowerRegionsPane;
     private BuildingPane myCurrentBuildingPane;
 
@@ -92,6 +94,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myCurveDrawingPane = new CurveDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
         myTowerRegionsPane = new TowerRegionsPane(myGroup, myPath);
+        myComponentVisibilityPane = new ComponentVisibilityPane(myGroup, myPath);
     }
 
     private void handleKeyPress (KeyEvent event) {
@@ -128,6 +131,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
                 getBuildingOptionsPane("Line", myLineDrawingPane),
                 getBuildingOptionsPane("Curve", myCurveDrawingPane),
                 getBuildingOptionsPane("Selection", mySelectionComponentPane),
+                getBuildingOptionsPane("Visibility", myComponentVisibilityPane),
                 getBuildingOptionsPane("Regions", myTowerRegionsPane),
                 myFinishedPathBuildingOptionPane);
     }
