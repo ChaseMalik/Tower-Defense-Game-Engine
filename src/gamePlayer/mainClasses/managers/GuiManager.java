@@ -335,16 +335,15 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
         myGameWorld.getMap().getChildren().remove(indicator);
     }
 
-    @Override
-    public void updateSpeed() {
-        // TODO Auto-generated method stub
-
-    }
-
     /*
      * For Tower Placing
      */
     public boolean validPlacement(double x, double y) {
         return myEngineManager.validateTower(x, y);
     }
+
+	@Override
+	public void changeSpeed(double d) {
+		myEngineManager.changeRunSpeed(d);
+	}
 }
