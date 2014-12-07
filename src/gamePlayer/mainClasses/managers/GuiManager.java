@@ -56,8 +56,10 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
     public static final String NO_GOLD = "Not enough gold available";
 
     private Stage myStage;
+    
     private SingleThreadedEngineManager myEngineManager;
     private CoOpManager myCoOpManager;
+    
     private Group myRoot;
     private TowerIndicator activeIndicator;
     private ImageView activeTower;
@@ -82,8 +84,8 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
     public void startSinglePlayerGame(String directoryPath) {
         myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
-        myEngineManager.initializeGame(directoryPath);
-        initializeNewGameElements(directoryPath);
+        myEngineManager.initializeGame(directoryPath);   
+        initializeNewGameElements(myEngineManager, directoryPath);
     }
 
     public void joinMultiPlayerGame() {
@@ -106,15 +108,15 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
     public void startMultiPlayerGame (String directoryPath) {
         GuiConstants.GUI_MANAGER.init();
         myCoOpManager.initializeGame(myGameWorld.getMap());
-        initializeNewGameElements(directoryPath);
+        initializeNewGameElements(myCoOpManager, directoryPath);
     }
 
-    private void initializeNewGameElements(String directoryPath) {
+    private void initializeNewGameElements(SingleThreadedEngineManager manager, String directoryPath) {
         addBackground(directoryPath);
         makeTowerMap();
         testHUD();
         //myRoot.getChildren().add(engineGroup);
-        fillStore(myEngineManager.getAllTowerTypeInformation());
+        fillStore(manager.getAllTowerTypeInformation());
         //myGameWorld.getMap().getStyleClass().add("GameWorld");
         //System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
         gameRunning = true;
@@ -133,7 +135,16 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
     private void makeTowerMap(){
         towerMap = new HashMap<String, TowerInfoObject>();
-        for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
+        
+        //TODO: BAD DESIGN!! Design to remove this check
+        SingleThreadedEngineManager manager = null;
+        if (myEngineManager!=null) {
+            manager = myEngineManager;
+        } else if (myCoOpManager!=null) {
+            manager = myCoOpManager;
+        }
+        
+        for (TowerInfoObject info: manager.getAllTowerTypeInformation()){
             towerMap.put(info.getName(), info);
             TowerInfoObject next = info.getMyUpgrade();
             while(!(next instanceof NullTowerInfoObject)){
@@ -249,6 +260,14 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
     }
 
     private void testHUD() {
+        SingleThreadedEngineManager manager = null;
+        if (myEngineManager!=null) {
+            manager = myEngineManager;
+        } else if (myCoOpManager!=null) {
+            manager = myCoOpManager;
+        }
+        
+        
         List<GameStat> gameStats;
         GameStat level = new GameStat();
         level.setGameStat("Level");
@@ -256,7 +275,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
         GameStat gold = new GameStat();
         gold.setGameStat("Gold");
-        gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
+        gold.statValueProperty().bindBidirectional(manager.myGold());
 
         GameStat health = new GameStat();
         health.setGameStat("Health");
