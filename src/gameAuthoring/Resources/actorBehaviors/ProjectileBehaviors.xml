@@ -1,0 +1,5 @@
+<behaviors>
+ 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
+		<element>LinearMovement</element>
+	</movement>
+</behaviors>

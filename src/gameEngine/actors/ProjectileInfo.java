@@ -12,7 +12,7 @@ public class ProjectileInfo {
     private List<IBehavior> myOnHitEffects;
     private List<String> myEnemyTypes;
     private int myDamage;
-    public ProjectileInfo(String image, int damage,List<IBehavior> list, List<String> types){
+    public ProjectileInfo(String image, int damage, List<IBehavior> list, List<String> types){
         myDamage=damage;
         myImage = image;
         for(IBehavior m : list){
