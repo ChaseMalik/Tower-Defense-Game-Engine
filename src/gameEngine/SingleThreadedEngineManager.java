@@ -55,7 +55,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 	private Timeline myTimeline;
 	private double myUpdateRate;
 	private AtomicBoolean myReadyToPlay;
-	private RangeRestrictedCollection<BaseTower> myTowerGroup;
+	protected RangeRestrictedCollection<BaseTower> myTowerGroup;
 	private RangeRestrictedCollection<BaseEnemy> myEnemyGroup;
 	private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
 	private double duration;
@@ -70,10 +70,10 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 	private SimpleDoubleProperty myHealth;
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
-	private GSONFileReader myFileReader;
-	private GSONFileWriter myFileWriter;
+	protected GSONFileReader myFileReader;
+	protected GSONFileWriter myFileWriter;
 
-	private boolean[][] myTowerLocationByGrid;
+	private TowerTileGrid myTowerLocationByGrid;
 	private GridPane myTowerTiles;
 
 	private GridPathFinder myPathFinder;
@@ -147,6 +147,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 		BaseTower tower = myNodeToTower.get(node);
 		myNodeToTower.remove(node);
 		myTowerGroup.remove(tower);
+		setTowerTileStatus(tower, false);
 	}
 
 	public ImageView addTower(String identifier, double x, double y) {
@@ -158,19 +159,25 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 		newTowerNode.setVisible(true);
 		myTowerGroup.add(newTower);
 		myNodeToTower.put(newTowerNode, newTower);
-
-		Collection<Node> towerTiles = getIntersectingTowerTileNode(
-				newTowerNode, myTowerTiles.getChildren());
-		for (Node tileNode : towerTiles) {
-			Tile tile = (Tile)tileNode;
-			int row = tile.getRow();
-			int col = tile.getColumn();
-			myTowerLocationByGrid[row][col] = true;
-		}
+		
+		setTowerTileStatus(newTower, true);
 		newTower.addObserver(this);
 		return newTowerNode;
 	}
 
+	private void setTowerTileStatus(BaseTower tower, boolean towerTileStatus) {
+		Node towerNode = tower.getNode();
+		Collection<Node> towerTiles = getIntersectingTowerTileNode(
+				towerNode, myTowerTiles.getChildren());
+		for (Node tileNode : towerTiles) {
+			Tile tile = (Tile)tileNode;
+			int row = tile.getRow();
+			int col = tile.getColumn();
+			myTowerLocationByGrid.setTowerTile(row, col, towerTileStatus);
+		}
+		
+	}
+	
 	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
 			Collection<Node> nodeList) {
 		List<Node> towerTiles = nodeList.stream()
@@ -223,7 +230,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 		myProjectileGroup.clearAndExecuteRemoveBuffer();
 	}
 
-	private void onLevelEnd() {
+	protected void onLevelEnd() {
 		duration = 0; // TODO bad code, but problem with multiple levels
 		myTimeline.pause();
 		myProjectileGroup.clear();
@@ -271,7 +278,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 				projectileList = myProjectileGroup.getActorsInRange(actor);
 			}
 		}
-		return new InfoObject(enemyList, towerList, projectileList);
+		return new InfoObject(enemyList, towerList, projectileList, myTowerLocationByGrid, myTowerTiles);
 	}
 
 	public void pause() {
@@ -305,7 +312,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 	private void loadLocations(String dir) {
 		boolean[][] validRegions = myFileReader
 				.readTowerRegionsFromGameDirectory(dir);
-		myTowerLocationByGrid = new boolean[validRegions.length][validRegions[0].length];
+		myTowerLocationByGrid = new TowerTileGrid(validRegions.length, validRegions[0].length);
 		myValidRegions = createGameSizedGridPane();
 		myTowerTiles = createGameSizedGridPane();
 		for (int row = 0; row < validRegions.length; row++) {

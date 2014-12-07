@@ -1,11 +1,11 @@
 .root{
     -fx-font-size: 10pt;
-    -fx-font-family: Arial;
+    -fx-font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 .button{
-    -fx-font-size: 20pt;
-
+    -fx-font-size: 30pt;
+    -fx-opacity: 0.8;
 }
 
 .borders{
@@ -18,4 +18,8 @@
 
 .MainSplashScreen {
    -fx-background-color: blue
+}
+
+.gameDescriptionButton {
+    -fx-font-size: 10pt;
 }

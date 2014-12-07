@@ -1,9 +1,6 @@
 package utilities.GSON;
 
-import javafx.geometry.Point2D;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseTower;
-
 
 public class DataWrapper {
 
