@@ -21,6 +21,7 @@ class VideoPlayer extends BorderPane {
 
     private static final String PLAY_BUTTON_TEXT = "Play";
     private static final String PAUSE_BUTTON_TEXT = "Pause";
+    private static final String SPACE = "   ";
     private static final String TIME_LABEL_TEXT = "Play Time: 308";
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
 
@@ -49,7 +50,10 @@ class VideoPlayer extends BorderPane {
 
         final Button playButton = new Button(PLAY_BUTTON_TEXT);
         definePlayButtonBehavior(mediaPlayer, playButton);
+        myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(playButton);
+        
+        myMediaBar.getChildren().add(new Label(SPACE));
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
