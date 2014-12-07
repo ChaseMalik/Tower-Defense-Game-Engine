@@ -69,10 +69,6 @@ public class SingleThreadedEngineManager implements Observer {
     private Collection<TowerInfoObject> myTowerInformation;
     private GSONFileReader myFileReader;
     private GSONFileWriter myFileWriter;
-
-    private int myUpdateServerTimer;
-    private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
-    private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     
     public SingleThreadedEngineManager (Pane engineGroup) {
         myReadyToPlay = new AtomicBoolean(false);
@@ -95,7 +91,6 @@ public class SingleThreadedEngineManager implements Observer {
         myGold = new SimpleDoubleProperty();
         myGold.set(10000);
         myHealth= new SimpleDoubleProperty();
-        myUpdateServerTimer = 0;
         myLastUpdateTime = -1;
     }
 
@@ -138,21 +133,12 @@ public class SingleThreadedEngineManager implements Observer {
     }
 
     public void removeTower (ImageView node) {
-        getTowersFromServer();
-        
         BaseTower tower = myNodeToTower.get(node);
         myNodeToTower.remove(node);
         myTowerGroup.remove(tower);
-        writeTowersToServer();
     }
 
-    private void writeTowersToServer () {
-        String parameters = "master_json=" + convertTowersToString();
-        System.out.println(myTowerGroup.getChildren().size());
-        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
-    }
-
-    public ImageView addTowerHelper (String identifier, double x, double y) {
+    public ImageView addTower (String identifier, double x, double y) {
         BaseTower prototypeTower = myPrototypeTowerMap.get(identifier);
         BaseTower newTower = (BaseTower) prototypeTower.copy();
         CenteredImageView newTowerNode = newTower.getNode();
@@ -163,9 +149,6 @@ public class SingleThreadedEngineManager implements Observer {
         myNodeToTower.put(newTowerNode, newTower);
         newTower.addObserver(this);
         return newTowerNode;
-    }
-    private void addTowerFromServer(DataWrapper w){
-        addTowerHelper(w.getName(), w.getX(), w.getY());
     }
 
     private Timeline createTimeline () {
@@ -209,48 +192,6 @@ public class SingleThreadedEngineManager implements Observer {
         myTowerGroup.clearAndExecuteRemoveBuffer();
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
-        if (myUpdateServerTimer % 150 == 0) {
-            getTowersFromServer();
-        }
-        myUpdateServerTimer++;
-    }
-
-    public ImageView addTower(String name, double x, double y){
-        getTowersFromServer();
-        ImageView ans = addTowerHelper(name, x, y);
-        writeTowersToServer();
-        return ans;
-    }
-    
-    private String convertTowersToString () {
-        List<DataWrapper> wrapper = new ArrayList<>();
-        for (BaseTower tower : myTowerGroup) {
-            wrapper.add(new DataWrapper(tower));
-        }
-        return myFileWriter.convertWrappersToJson(wrapper);
-    }
-
-    private void getTowersFromServer () {
-        List<DataWrapper> listFromServer =
-                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet("get_master_json"));
-        if(listFromServer == null){
-            return;
-        }
-        for(BaseTower tower: myTowerGroup){
-            if(!listFromServer.contains(new DataWrapper(tower))){
-                System.out.println("removing tower " + tower.toString() + " at " + tower.getX() + "," + tower.getY());
-                myTowerGroup.addActorToRemoveBuffer(tower);
-            }
-            else{
-                listFromServer.remove(new DataWrapper(tower));
-            }
-        }
-        for(DataWrapper wrapper: listFromServer){
-            System.out.println("adding tower " + wrapper.getName() + " at " + wrapper.getX() + "," + wrapper.getY());
-            addTowerFromServer(wrapper);
-        }
-        
-        System.out.println(myTowerGroup.getChildren().size());
     }
 
     private void onLevelEnd () {
