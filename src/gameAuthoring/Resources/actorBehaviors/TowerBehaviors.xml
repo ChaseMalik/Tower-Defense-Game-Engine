@@ -1,5 +1,5 @@
 <behaviors>
-	 <attack sliderName="speed" sliderMin="0" sliderMax="5">
+	 <attack sliderName="speed" sliderMin="0" sliderMax="10">
 		<element>ClosestRangeAttack</element>
 		<element>FarthestRangeAttack</element>
 		<element>StrongestRangeAttack</element>

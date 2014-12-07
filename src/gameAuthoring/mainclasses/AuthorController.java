@@ -8,6 +8,7 @@ import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.GSONWritingScene;
+import gameAuthoring.scenes.GeneralSettingScene;
 import gameAuthoring.scenes.WelcomeScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
@@ -31,20 +32,21 @@ import utilities.errorPopup.ErrorPopup;
 
 
 /**
- * The purpose of this class is to manage the different scenes (path building and author
- * creation). The class also will hold the enemies, towers, and level objects which
- * it will write to JSON files at the end of the authoring process.
- * 
+ * The purpose of this class is to manage the different scenes (path building
+ * and author creation). The class also will hold the enemies, towers, and level
+ * objects which it will write to JSON files at the end of the authoring
+ * process.
  * @author Austin Kyker
  *
  */
-public class AuthorController extends Application implements GameDirectoryBuilding,
-        PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
+public class AuthorController extends Application implements
+        GameDirectoryBuilding, PathConfiguring, TowerConfiguring,
+        EnemyConfiguring, LevelConfiguring {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
     public static final double SCREEN_WIDTH = 1100;
-    public static final double SCREEN_HEIGHT = 630;
+    public static final double SCREEN_HEIGHT = 620;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
     public static String gameDir;
 
@@ -54,6 +56,7 @@ public class AuthorController extends Application implements GameDirectoryBuildi
     private LevelBuildingScene myLevelBuildingScene;
     private GSONWritingScene myGSONWritingScene;
     private WelcomeScene myWelcomeScene;
+    private GeneralSettingScene myGeneralSettingScene;
 
     private List<BackendRoute> myBackendRoutes;
     private List<BaseEnemy> myEnemies;
@@ -71,6 +74,7 @@ public class AuthorController extends Application implements GameDirectoryBuildi
     public void start (Stage stage) throws Exception {
         myStage = stage;
         showWelcomeScene();
+        // showGeneralSettingScene();
         configureAndDisplayStage();
     }
 
@@ -79,22 +83,26 @@ public class AuthorController extends Application implements GameDirectoryBuildi
     }
 
     public void showPathBuildingScene () {
-        myPathBuildingScene = new PathBuildingScene(new BorderPane(), (PathConfiguring) this);
+        myPathBuildingScene = new PathBuildingScene(new BorderPane(),
+                                                    (PathConfiguring) this);
         setSceneAndTitle(myPathBuildingScene);
     }
 
     public void showEnemyBuildingScene () {
-        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), (EnemyConfiguring) this);
+        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(),
+                                                      (EnemyConfiguring) this);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
     public void showTowerBuildingScene () {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), (TowerConfiguring) this);
+        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(),
+                                                      (TowerConfiguring) this);
         setSceneAndTitle(myTowerBuildingScene);
     }
 
     public void showLevelBuildingScene () {
-        myLevelBuildingScene = new LevelBuildingScene(new BorderPane(), (LevelConfiguring) this);
+        myLevelBuildingScene = new LevelBuildingScene(new BorderPane(),
+                                                      (LevelConfiguring) this);
         setSceneAndTitle(myLevelBuildingScene);
     }
 
@@ -108,6 +116,12 @@ public class AuthorController extends Application implements GameDirectoryBuildi
         myStage.setScene(myWelcomeScene.getScene());
     }
 
+    private void showGeneralSettingScene () {
+        // myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
+        myGeneralSettingScene = new GeneralSettingScene();
+        myStage.setScene(myGeneralSettingScene.getScene());
+    }
+
     private void showGSONWritingScene () {
         myGSONWritingScene = new GSONWritingScene(new BorderPane());
         myStage.setScene(myGSONWritingScene);
@@ -119,15 +133,16 @@ public class AuthorController extends Application implements GameDirectoryBuildi
     private void writeBackgroundImageToGameDir () {
         try {
             File file = new File(myBackgroundImageFileName);
-            File backgroundDir = new File(AuthorController.gameDir + "background");
+            File backgroundDir = new File(AuthorController.gameDir
+                                          + "background");
             backgroundDir.mkdir();
-            File targetFile =
-                    new File(backgroundDir.getPath() + "/" +
-                             (new File(myBackgroundImageFileName)).getName());
+            File targetFile = new File(backgroundDir.getPath() + "/"
+                                       + (new File(myBackgroundImageFileName)).getName());
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
         }
         catch (IOException e) {
-            new ErrorPopup("Background image could not be written to the game file");
+            new ErrorPopup(
+                           "Background image could not be written to the game file");
         }
     }
 

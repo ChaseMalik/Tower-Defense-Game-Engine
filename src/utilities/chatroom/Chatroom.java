@@ -3,14 +3,19 @@ package utilities.chatroom;
 import utilities.networking.HTTPConnection;
 import gameAuthoring.mainclasses.AuthorController;
 import gameEngine.CoOpManager;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Utility class that easily allows for the creation of error popups in a new window.
@@ -18,22 +23,34 @@ import javafx.stage.Stage;
  *
  */
 public class Chatroom extends Stage {
-    
+
+    private static final String NO_MSG_RESPONSE = "None";
+    private static final String MSG_SEPERATOR = "~";
     private static final String SERVER_URL = "https://voogasalad.herokuapp.com/";
     public static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
-        
+
     private static final double HEIGHT = AuthorController.SCREEN_HEIGHT/2;
     private static final double WIDTH = 400;
     private static final String TITLE = "Chatroom";
     private TextField myTextField;
     private ScrollPane myScrollPane;
-    private Timeline myTimeline;
-    
-    
+    private Timeline myRequestTimeline;
+    private int myMessageIndex;
+    private VBox myMessages;
+
+
     public Chatroom(){
+        myMessageIndex = 0;
+        setupChatroomGraphics();
+        setupAndBeginMessageRequests();
+    }
+
+    private void setupChatroomGraphics () {
         VBox container = new VBox(10);
         myScrollPane = new ScrollPane();
         myScrollPane.setPrefSize(WIDTH, HEIGHT);
+        myMessages = new VBox(10);
+        myScrollPane.setContent(myMessages);
         container.setAlignment(Pos.CENTER);
         myTextField = new TextField();
         myTextField.setOnKeyPressed(event->handleKeyPressed(event));
@@ -43,7 +60,26 @@ public class Chatroom extends Stage {
         this.setResizable(false);
         this.show();
     }
-   
+
+    public void setupAndBeginMessageRequests() {
+        myRequestTimeline = new Timeline();
+        myRequestTimeline.setCycleCount(Animation.INDEFINITE);
+        myRequestTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+                                                          event -> pollServerForMessages()));
+        myRequestTimeline.play();
+    }
+
+
+    private void pollServerForMessages () {
+        String messageResponse = HTTP_CONNECTOR.sendGet("get_messages/" + myMessageIndex);
+        if(!messageResponse.equals(NO_MSG_RESPONSE)) {
+            myMessageIndex = Integer.parseInt(messageResponse.substring(0, messageResponse.indexOf("~")));
+            String[] messages = messageResponse.substring(messageResponse.indexOf("~")).split(MSG_SEPERATOR);
+            for(String msg:messages){
+                myMessages.getChildren().add(new Label(msg));
+            }
+        }
+    }
 
     private void handleKeyPressed (KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER && !myTextField.getText().isEmpty()) {
@@ -53,7 +89,8 @@ public class Chatroom extends Stage {
 
 
     public void sendMessage(String message) {
-        HTTP_CONNECTOR.sendPost("post_message", "message=" + message);
+        myMessageIndex = Integer.parseInt(HTTP_CONNECTOR.sendPost("post_message", "message=" + message));
+        myMessages.getChildren().add(new Label(message));
         myTextField.setText("");
     }
 }

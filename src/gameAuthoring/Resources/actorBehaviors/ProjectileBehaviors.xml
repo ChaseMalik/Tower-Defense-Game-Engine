@@ -2,4 +2,8 @@
  	<movement sliderName="speed" sliderMin="0" sliderMax="5">
 		<element>LinearMovement</element>
 	</movement>
+	 <onhiteffect sliderName="multiplier" sliderMin="0" sliderMax="5">
+		<element>SlowEffect</element>
+		<element>DoTOnHit</element>
+	</onhiteffect>
 </behaviors>
