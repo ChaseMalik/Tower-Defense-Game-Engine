@@ -35,4 +35,8 @@ public abstract class BaseDefendBehavior implements IBehavior {
         a.add(BaseProjectile.class);
         return a;
     }
+    public void setHealth (double d) {
+        // TODO Auto-generated method stub
+        myHealth=d;
+    }
 }

@@ -10,6 +10,7 @@ public class TowerRangeEffect extends RangeEffect {
 
     public TowerRangeEffect (double change) {
         super(change);
+        myString="towerRangeEffect";
     }
 
     @Override

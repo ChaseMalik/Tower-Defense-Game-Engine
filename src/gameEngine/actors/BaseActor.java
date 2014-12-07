@@ -42,7 +42,7 @@ public abstract class BaseActor extends Observable {
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected Set<BaseEffectBehavior> myEffects;
     protected boolean myIsRemovable;
-    protected HashMap<String,IBehavior> myDebuffs;
+    protected Map<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
     public BaseActor () {
 
@@ -125,9 +125,12 @@ public abstract class BaseActor extends Observable {
     }
 
     public void addEffect (BaseEffectBehavior effect) {
+        
         if (myEffects.add(effect)) {
             effect.performEffect(this);
+          
         }
+        
     }
 
     @Override
