@@ -1,5 +1,6 @@
 package gamePlayer.mainClasses.welcomeScreen.availableGames;
 
+import java.io.File;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,7 @@ public class GameDescription extends Pane {
     public static final double GAME_IMAGE_HEIGHT = 2*HEIGHT/3;
     public static final double GAME_DESCRIPTION_HEIGHT = HEIGHT/3;
 
-    public GameDescription (ImageView image, String description,String gameDirectory) {
+    public GameDescription (ImageView image, String description,File file) {
         this.setPrefSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
         
@@ -28,7 +29,7 @@ public class GameDescription extends Pane {
         Button button = new Button(description);
         button.getStyleClass().add("gameDescriptionButton");
         button.setPrefSize(WIDTH, GAME_DESCRIPTION_HEIGHT);
-        button.setOnMouseReleased(event->GuiConstants.GAME_START_MANAGER.startSinglePlayerGame(gameDirectory));
+        button.setOnMouseReleased(event->GuiConstants.GAME_START_MANAGER.startGame(file));
         box.getChildren().add(button);
         
         this.getChildren().add(box);

@@ -9,7 +9,7 @@ public class GameChooser extends ScrollPane {
     public static final double WIDTH = WelcomeScreen.PANE_WIDTH;
     public static final double HEIGHT = WelcomeScreen.PANE_HEIGHT*1.5;
     
-    public GameChooser () {        
+    public GameChooser (String directory) {        
         myBox = new VBox();
         myBox.setPrefSize(WIDTH,HEIGHT);
         
@@ -17,11 +17,11 @@ public class GameChooser extends ScrollPane {
         this.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         this.setHbarPolicy(ScrollBarPolicy.NEVER);
         
-        loadGameDescriptions();
+        loadGameDescriptions(directory);
     }
     
-    private void loadGameDescriptions () {
+    private void loadGameDescriptions (String directory) {
         GameDescriptionLoader loader = new GameDescriptionLoader();
-        myBox.getChildren().addAll(loader.getDescriptions());
+        myBox.getChildren().addAll(loader.getDescriptions(directory));
     }
 }

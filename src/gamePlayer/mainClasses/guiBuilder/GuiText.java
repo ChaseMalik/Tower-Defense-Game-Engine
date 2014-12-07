@@ -15,4 +15,5 @@ public class GuiText {
     public static final String MULTI_PLAYER = "MultiPlayer";
     public static final String NEW_GAME = "NewGame";
     public static final String JOIN_GAME = "JoinGame";
+    public static final String WAITING_FOR_CHALLENGER = "WaitingForChallenger";
 }

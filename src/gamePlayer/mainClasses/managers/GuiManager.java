@@ -1,7 +1,6 @@
 package gamePlayer.mainClasses.managers;
 
-import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameEngine.CoOpManager;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
@@ -28,18 +27,17 @@ import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 /**
  * Class controls all GUI items and MUST implement ALL of the interfaces in the
@@ -59,6 +57,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
     private Stage myStage;
     private SingleThreadedEngineManager myEngineManager;
+    private CoOpManager myCoOpManager;
     private Group myRoot;
     private TowerIndicator activeIndicator;
     private ImageView activeTower;
@@ -85,6 +84,20 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
         myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
         myEngineManager.initializeGame(directoryPath);
         initializeNewGameElements(directoryPath);
+    }
+    
+    public void prepareMultiPlayerGame (String directoryPath) {
+        myCoOpManager = new CoOpManager();
+        myCoOpManager.startNewGame(directoryPath);
+    }
+
+    public boolean multiPlayerGameIsReady () {
+        return myCoOpManager.isReady();
+    }
+
+    public void startMultiPlayerGame () {
+        GuiConstants.GUI_MANAGER.init();
+        myCoOpManager.initializeGame(myGameWorld.getMap());;
     }
 
     private void initializeNewGameElements(String directoryPath) {

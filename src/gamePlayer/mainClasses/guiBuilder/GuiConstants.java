@@ -19,6 +19,10 @@ public class GuiConstants {
     public static String GUI_ELEMENT_PROPERTIES_PATH;
     public static GameStartManager GAME_START_MANAGER; 
     
+    //game location paths
+    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./Games/";
+    public static final String MULTI_PLAYER_GAMES_DIRECTORY = "./CoopGames/";
+    
     //core container sizes
     public static double CENTER_CONTAINER_WIDTH = BuildingPane.DRAW_SCREEN_WIDTH;
     public static double CENTER_CONTAINER_HEIGHT = AuthorController.SCREEN_HEIGHT;

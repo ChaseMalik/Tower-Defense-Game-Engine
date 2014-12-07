@@ -23,3 +23,9 @@
 .gameDescriptionButton {
     -fx-font-size: 10pt;
 }
+
+.OpponentWaitingLabel {
+    -fx-font-size: 27pt;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
