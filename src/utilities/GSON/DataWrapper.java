@@ -26,4 +26,8 @@ public class DataWrapper {
     public double getY(){
         return myY;
     }
+    
+    public boolean equals(BaseTower tower){
+        return (tower.toString().equals(myName)) && (tower.getX() == myX) && (tower.getY() == myY);
+    }
 }
