@@ -19,3 +19,7 @@
 .MainSplashScreen {
    -fx-background-color: blue
 }
+
+.gameDescriptionButton {
+    -fx-font-size: 10pt;
+}

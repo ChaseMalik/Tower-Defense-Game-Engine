@@ -2,6 +2,7 @@ package gamePlayer.mainClasses.welcomeScreen;
 
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.managers.GuiManager;
+import gamePlayer.mainClasses.welcomeScreen.availableGames.GameChooser;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.MultiPlayerOptions;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions;
 import java.io.File;
@@ -14,19 +15,18 @@ import javafx.stage.Stage;
 import utilities.XMLParsing.XMLParser;
 import utilities.textGenerator.TextGenerator;
 
-public class WelcomeScreenManager {
+public class GameStartManager {
     Stage myStage;
     public static final String propertiesPath = "./src/gamePlayer/properties/WelcomeScreenProperties.XML";
     private XMLParser parser;
     private WelcomeScreen welcomeScreen;
 
-    public WelcomeScreenManager(Stage stage) {
-
+    public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
+        GuiConstants.GAME_START_MANAGER = this;
         init(myStage);
-
     }
 
     private void init(Stage stage) {
@@ -50,7 +50,7 @@ public class WelcomeScreenManager {
         welcomeScreen.setTopContent(getImageFromPath(parser.getValuesFromTag("Logo").get(0),WelcomeScreen.PANE_WIDTH,WelcomeScreen.PANE_HEIGHT/2));
         
         PlayerCountOptions playerCountOptions = new PlayerCountOptions();
-        playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGame());
+        playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions);
 
@@ -67,6 +67,11 @@ public class WelcomeScreenManager {
         //
     }
     
+    private void startGameChooser() {
+        GameChooser chooser = new GameChooser();
+        welcomeScreen.setCenterContent(chooser);
+    }
+    
     private void startMultiPlayerOptions() {
         MultiPlayerOptions multiPlayerOptions = new MultiPlayerOptions();
         multiPlayerOptions.getNewGameOption().setOnMouseReleased(event->startMultiPlayerGame());
@@ -74,9 +79,10 @@ public class WelcomeScreenManager {
         welcomeScreen.setCenterContent(multiPlayerOptions);
     }
     
-    private void startSinglePlayerGame() {
-        new GuiManager(myStage);
+    public void startSinglePlayerGame(String directoryPath) {
+        GuiManager manager = new GuiManager(myStage);
         GuiConstants.GUI_MANAGER.init();
+        manager.startSinglePlayerGame(directoryPath);
     }
 
     private ImageView getImageFromPath(String imagePath,double width,double height) {

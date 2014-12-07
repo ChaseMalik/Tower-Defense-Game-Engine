@@ -11,8 +11,8 @@ public class WelcomeScreen extends AnchorPane {
     public static final double WIDTH = GuiConstants.WINDOW_WIDTH;
     public static final double HEIGHT = GuiConstants.WINDOW_HEIGHT;
     
-    private static final double VBOX_WIDTH = WIDTH/2.5;
-    private static final double VBOX_HEIGHT= HEIGHT;
+    public static final double VBOX_WIDTH = WIDTH/2.5;
+    public static final double VBOX_HEIGHT= HEIGHT;
     private static final double VBOX_PADDING = 20;
     
     public static final double PANE_WIDTH  = VBOX_WIDTH;
