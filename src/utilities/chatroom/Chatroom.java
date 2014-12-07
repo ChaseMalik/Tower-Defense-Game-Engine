@@ -1,8 +1,6 @@
 package utilities.chatroom;
 
-import utilities.networking.HTTPConnection;
 import gameAuthoring.mainclasses.AuthorController;
-import gameEngine.CoOpManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilities.networking.HTTPConnection;
 
 /**
  * Utility class that easily allows for the creation of error popups in a new window.
@@ -76,7 +75,8 @@ public class Chatroom extends Stage {
             myMessageIndex = Integer.parseInt(messageResponse.substring(0, messageResponse.indexOf("~")));
             String[] messages = messageResponse.substring(messageResponse.indexOf("~")).trim().split(MSG_SEPERATOR);
             for(String msg:messages){
-                myMessages.getChildren().add(new Label(msg));
+                if(!msg.isEmpty())
+                    myMessages.getChildren().add(new Label(msg));
             }
         }
 
