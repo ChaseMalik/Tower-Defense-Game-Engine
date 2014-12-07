@@ -15,7 +15,7 @@ public class AIMovement extends BaseMovementBehavior {
     public AIMovement (double speed) {
         super(speed);
         myPathFinder = new GridPathFinder();
-        myIndex=0;
+        myIndex=-1;
         // TODO Auto-generated constructor stub
     }
 
@@ -23,13 +23,14 @@ public class AIMovement extends BaseMovementBehavior {
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
         InfoObject info = actor.getInfoObject();
-        if (info.getTowerTileGrid().hasBeenChanged()) {
+        if (info.getTowerTileGrid().hasBeenChanged() || myIndex==-1) {
             myAIRoute =
                     myPathFinder.getPath((BaseEnemy) actor, info.getmTowerTilePane(),
                                          info.getTowerTileGrid());
             myIndex=0;
         }
         if(myAIRoute==null){
+            System.out.println("no path");
             return;
         }
         Point2D current = new Point2D(actor.getX(), actor.getY());

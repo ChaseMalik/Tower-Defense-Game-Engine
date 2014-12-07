@@ -24,7 +24,7 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 			{ -1, 1 }, { 0, -1 }, { 0, 0 }, { 0, 1 }, { 1, -1 }, { 1, 0 },
 			{ 1, 1 } };
 
-	private Collection<int[]> myEnemyTileDirections;;
+	private Collection<int[]> myEnemyTileDirections;
 	private TowerTileGrid myTowerLocations;
 
 	@Override
@@ -44,7 +44,7 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 				.filter(node -> node.contains(enemy.getX(), enemy.getY()))
 				.collect(Collectors.toList());
 		Tile enemyCenterTile = (Tile) enemyCenterTileList.get(0);
-
+		myEnemyTileDirections = new ArrayList<>();
 		for (Node enemyTileNode : enemyTiles) {
 			Tile enemyTile = (Tile) enemyTileNode;
 			int rowDifference = enemyTile.getRow() - enemyCenterTile.getRow();

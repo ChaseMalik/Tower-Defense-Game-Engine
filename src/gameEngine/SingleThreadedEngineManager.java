@@ -212,6 +212,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 									adjustedUpdateInterval);
 						} while (updatedTime - frameStart < FRAME_DURATION);
 					}
+					myTowerLocationByGrid.setAsNotChanged();
 				}
 			}
 		};

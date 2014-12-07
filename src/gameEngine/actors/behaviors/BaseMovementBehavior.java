@@ -56,7 +56,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
         return myString;
     }
     protected void move (BaseActor a, Point2D point) {
+      
         CenteredImageView actor = a.getNode();
+        actor.setVisible(true);
         actor.setXCenter(point.getX());
         actor.setYCenter(point.getY());
     }
