@@ -1,6 +1,5 @@
 package utilities.chatroom;
 
-import utilities.networking.HTTPConnection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

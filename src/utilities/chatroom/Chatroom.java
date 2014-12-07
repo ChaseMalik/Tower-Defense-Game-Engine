@@ -74,7 +74,7 @@ public class Chatroom extends Stage {
         String messageResponse = HTTP_CONNECTOR.sendGet("get_messages/" + myMessageIndex);
         if(!messageResponse.equals(NO_MSG_RESPONSE)) {
             myMessageIndex = Integer.parseInt(messageResponse.substring(0, messageResponse.indexOf("~")));
-            String[] messages = messageResponse.substring(messageResponse.indexOf("~")).split(MSG_SEPERATOR);
+            String[] messages = messageResponse.substring(messageResponse.indexOf("~")).trim().split(MSG_SEPERATOR);
             for(String msg:messages){
                 myMessages.getChildren().add(new Label(msg));
             }
