@@ -25,8 +25,7 @@ public class GSONFileReader {
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
     private boolean[][] locations;
-    private List<DataWrapper> wrappedEnemies;
-    private List<DataWrapper> wrappedTowers;
+    private GameStateWrapper gameState;
 
     public GSONFileReader(){
     	gson = new GsonBuilder();
@@ -71,4 +70,17 @@ public class GSONFileReader {
 
         return locations;
     }
+    
+    public GameStateWrapper readGameStateFromJSon(String directory){
+    	
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(directory + "gameState.json"));   
+            gameState = gson.create().fromJson(br, GameStateWrapper.class);
+        } catch(IOException e){
+            new ErrorPopup("File could not be found.");
+        }   
+    	
+        return gameState;
+    }
+    
 }

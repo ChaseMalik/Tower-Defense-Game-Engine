@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 
 /**
  * Holds all of the routes and all of the logic to connect disconnected routes together, 
@@ -18,6 +19,9 @@ import javafx.scene.Node;
  *
  */
 public class Path implements Iterable<PathRoute> {
+    
+    protected static final Color VISIBLE_COLOR = Color.BLUE;
+    protected static final Color INVISIBLE_COLOR = new Color(0, 0, 0, .3);
 
     private static final double CONNECT_THRESHOLD = 40;
     private static final double INSIDE_STARTING_LOC_THRESHOLD = 50;
@@ -286,7 +290,7 @@ public class Path implements Iterable<PathRoute> {
         if(mySelectedComponent != null){
             PathRoute selectedConnectedComponent = getRouteContaining(mySelectedComponent);
             for(PathComponent comp:selectedConnectedComponent) {
-                comp.deselect();
+                comp.removeStroke();
             }
             mySelectedComponent = null;
         }

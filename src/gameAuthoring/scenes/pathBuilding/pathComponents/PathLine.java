@@ -15,6 +15,8 @@ import javafx.scene.shape.Line;
  */
 public class PathLine extends Line implements PathComponent {
     
+    private boolean isPathComponentVisible;
+
     public PathLine() {
         this(0, 0);
     }
@@ -25,6 +27,7 @@ public class PathLine extends Line implements PathComponent {
         this.setEndX(initalMouseClickX);
         this.setEndY(initialMouseClickY);
         this.setStrokeWidth(20);
+        isPathComponentVisible = true;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class PathLine extends Line implements PathComponent {
     }
     
     @Override
-    public void deselect () {
+    public void removeStroke () {
         super.setStroke(Color.BLACK);        
     }
 
@@ -95,5 +98,22 @@ public class PathLine extends Line implements PathComponent {
     @Override
     public List<Node> getExtraNodes () {
         return new ArrayList<Node>();
+    }
+    
+    
+    public boolean isPathComponentVisible() {
+        return isPathComponentVisible;
+    }
+    
+    public void togglePathComponentVisibility() {
+        isPathComponentVisible = !isPathComponentVisible;
+        Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
+        this.setStroke(color);
+    }
+
+    @Override
+    public void showVisibility () {
+        Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
+        this.setStroke(color);       
     }
 }
