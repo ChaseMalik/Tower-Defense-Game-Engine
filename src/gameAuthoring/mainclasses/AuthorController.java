@@ -3,11 +3,13 @@ package gameAuthoring.mainclasses;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
+import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.GSONWritingScene;
+import gameAuthoring.scenes.GeneralSettingScene;
 import gameAuthoring.scenes.WelcomeScene;
 import gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.TowerBuildingScene;
@@ -32,169 +34,186 @@ import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
 /**
- * The purpose of this class is to manage the different scenes (path building and author
- * creation). The class also will hold the enemies, towers, and level objects which
- * it will write to JSON files at the end of the authoring process.
+ * The purpose of this class is to manage the different scenes (path building
+ * and author creation). The class also will hold the enemies, towers, and level
+ * objects which it will write to JSON files at the end of the authoring
+ * process.
+ * 
  * @author Austin Kyker
  *
  */
-public class AuthorController extends Application implements GameDirectoryBuilding, 
-PathConfiguring, TowerConfiguring, EnemyConfiguring, LevelConfiguring {
+public class AuthorController extends Application implements
+		GameDirectoryBuilding, PathConfiguring, TowerConfiguring,
+		EnemyConfiguring, LevelConfiguring {
 
-    private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
-    private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
-    public static final double SCREEN_WIDTH = 1100;
-    public static final double SCREEN_HEIGHT = 620;
-    private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
-    public static String gameDir;
+	private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
+	private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
+	public static final double SCREEN_WIDTH = 1100;
+	public static final double SCREEN_HEIGHT = 620;
+	private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
+	public static String gameDir;
 
-    private EnemyBuildingScene myEnemyBuildingScene;
-    private TowerBuildingScene myTowerBuildingScene;
-    private PathBuildingScene myPathBuildingScene;
-    private LevelBuildingScene myLevelBuildingScene;
-    private GSONWritingScene myGSONWritingScene;
-    private WelcomeScene myWelcomeScene;
+	private EnemyBuildingScene myEnemyBuildingScene;
+	private TowerBuildingScene myTowerBuildingScene;
+	private PathBuildingScene myPathBuildingScene;
+	private LevelBuildingScene myLevelBuildingScene;
+	private GSONWritingScene myGSONWritingScene;
+	private WelcomeScene myWelcomeScene;
+	private GeneralSettingScene myGeneralSettingScene;
 
-    private List<BackendRoute> myBackendRoutes;
-    private List<BaseEnemy> myEnemies;
-    private List<TowerUpgradeGroup> myTowerGroups;
-    private List<BaseLevel> myLevels;
+	private List<BackendRoute> myBackendRoutes;
+	private List<BaseEnemy> myEnemies;
+	private List<TowerUpgradeGroup> myTowerGroups;
+	private List<BaseLevel> myLevels;
 
-    private Stage myStage;
-    private String myBackgroundImageFileName;
+	private Stage myStage;
+	private String myBackgroundImageFileName;
 
-    public static void main(String[] args) { launch(args); }
+	public static void main(String[] args) {
+		launch(args);
+	}
 
-    @Override
-    public void start (Stage stage) throws Exception {
-        myStage = stage;
-        showWelcomeScene();
-        configureAndDisplayStage();
-    }
+	@Override
+	public void start(Stage stage) throws Exception {
+		myStage = stage;
+		//showWelcomeScene();
+		showGeneralSettingScene();
+		configureAndDisplayStage();
+	}
 
-    private void configureAndDisplayStage () {
-        myStage.show(); 
-    }
+	private void configureAndDisplayStage() {
+		myStage.show();
+	}
 
-    public void showPathBuildingScene() {
-        myPathBuildingScene = new PathBuildingScene(new BorderPane(), (PathConfiguring) this);
-        setSceneAndTitle(myPathBuildingScene);
-    }
+	public void showPathBuildingScene() {
+		myPathBuildingScene = new PathBuildingScene(new BorderPane(),
+				(PathConfiguring) this);
+		setSceneAndTitle(myPathBuildingScene);
+	}
 
-    public void showEnemyBuildingScene() {
-        myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(), (EnemyConfiguring) this);
-        setSceneAndTitle(myEnemyBuildingScene);
-    }
+	public void showEnemyBuildingScene() {
+		myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(),
+				(EnemyConfiguring) this);
+		setSceneAndTitle(myEnemyBuildingScene);
+	}
 
-    public void showTowerBuildingScene() {
-        myTowerBuildingScene = new TowerBuildingScene(new BorderPane(), (TowerConfiguring) this);
-        setSceneAndTitle(myTowerBuildingScene);
-    }
+	public void showTowerBuildingScene() {
+		myTowerBuildingScene = new TowerBuildingScene(new BorderPane(),
+				(TowerConfiguring) this);
+		setSceneAndTitle(myTowerBuildingScene);
+	}
 
-    public void showLevelBuildingScene() {
-        myLevelBuildingScene = new LevelBuildingScene(new BorderPane(), (LevelConfiguring) this);
-        setSceneAndTitle(myLevelBuildingScene);
-    }
+	public void showLevelBuildingScene() {
+		myLevelBuildingScene = new LevelBuildingScene(new BorderPane(),
+				(LevelConfiguring) this);
+		setSceneAndTitle(myLevelBuildingScene);
+	}
 
-    private void setSceneAndTitle(BuildingScene scene) {
-        myStage.setScene(scene.getScene());
-        myStage.setTitle(scene.getTitle().concat(" Building"));
-    }
+	private void setSceneAndTitle(BuildingScene scene) {
+		myStage.setScene(scene.getScene());
+		myStage.setTitle(scene.getTitle().concat(" Building"));
+	}
 
-    private void showWelcomeScene(){
-        myWelcomeScene = new WelcomeScene((GameDirectoryBuilding) this);
-        myStage.setScene(myWelcomeScene.getScene());
-    }
+	private void showWelcomeScene() {
+		myWelcomeScene = new WelcomeScene((GameDirectoryBuilding) this);
+		myStage.setScene(myWelcomeScene.getScene());
+	}
+	
+	private void showGeneralSettingScene(){
+		//myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
+		myGeneralSettingScene = new GeneralSettingScene();
+		myStage.setScene(myGeneralSettingScene.getScene());
+	}
 
-    private void showGSONWritingScene () {
-        myGSONWritingScene = new GSONWritingScene(new BorderPane());
-        myStage.setScene(myGSONWritingScene);
-        myStage.setTitle("Writing Game"); 
-        GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir); 
-        writeBackgroundImageToGameDir();
-    }
+	private void showGSONWritingScene() {
+		myGSONWritingScene = new GSONWritingScene(new BorderPane());
+		myStage.setScene(myGSONWritingScene);
+		myStage.setTitle("Writing Game");
+		GSON_WRITER.writeGameFile(myTowerGroups, myLevels, gameDir);
+		writeBackgroundImageToGameDir();
+	}
 
-    private void writeBackgroundImageToGameDir () {
-        try {
-            File file = new File(myBackgroundImageFileName);
-            File backgroundDir = new File(AuthorController.gameDir + "background");
-            backgroundDir.mkdir();
-            File targetFile = new File(backgroundDir.getPath() + "/" + (new File(myBackgroundImageFileName)).getName());
-            Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            new ErrorPopup("Background image could not be written to the game file");
-        }
-    }
+	private void writeBackgroundImageToGameDir() {
+		try {
+			File file = new File(myBackgroundImageFileName);
+			File backgroundDir = new File(AuthorController.gameDir
+					+ "background");
+			backgroundDir.mkdir();
+			File targetFile = new File(backgroundDir.getPath() + "/"
+					+ (new File(myBackgroundImageFileName)).getName());
+			Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
+		} catch (IOException e) {
+			new ErrorPopup(
+					"Background image could not be written to the game file");
+		}
+	}
 
-    @Override
-    public void makeDirectory (String gameName) {
-        gameDir = "./Games/" + gameName + "/";
-        File dir = new File(gameDir);
-        dir.mkdir();
-        showPathBuildingScene();        
-    }
+	@Override
+	public void makeDirectory(String gameName) {
+		gameDir = "./Games/" + gameName + "/";
+		File dir = new File(gameDir);
+		dir.mkdir();
+		showPathBuildingScene();
+	}
 
-    @Override
-    public void configurePath (Path path) {
-        myBackendRoutes = BackendRoutesGenerator.getBackendRoutes(path);
-        showEnemyBuildingScene();        
-    }
+	@Override
+	public void configurePath(Path path) {
+		myBackendRoutes = BackendRoutesGenerator.getBackendRoutes(path);
+		showEnemyBuildingScene();
+	}
 
-    @Override
-    public void configureEnemies (List<BaseEnemy> enemies) {
-        myEnemies = enemies;
-        if(notEnoughEnemies()) {
-            new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
-        }
-        else {
-            showTowerBuildingScene();
-        }        
-    }
+	@Override
+	public void configureEnemies(List<BaseEnemy> enemies) {
+		myEnemies = enemies;
+		if (notEnoughEnemies()) {
+			new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
+		} else {
+			showTowerBuildingScene();
+		}
+	}
 
-    private boolean notEnoughTowers () {
-        return myTowerGroups.size() < 1;
-    }
+	private boolean notEnoughTowers() {
+		return myTowerGroups.size() < 1;
+	}
 
-    private boolean notEnoughEnemies () {
-        return myEnemies.size() < 1;
-    }
+	private boolean notEnoughEnemies() {
+		return myEnemies.size() < 1;
+	}
 
-    @Override
-    public void configureTowers (List<TowerUpgradeGroup> towers) {
-        myTowerGroups = towers;
-        if(notEnoughTowers()) {
-            new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
-        }
-        else {
-            showLevelBuildingScene();
-        }        
-    }
+	@Override
+	public void configureTowers(List<TowerUpgradeGroup> towers) {
+		myTowerGroups = towers;
+		if (notEnoughTowers()) {
+			new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
+		} else {
+			showLevelBuildingScene();
+		}
+	}
 
-    @Override
-    public void configureLevels (List<BaseLevel> levels) {
-        myLevels = levels;
-        showGSONWritingScene();        
-    }
+	@Override
+	public void configureLevels(List<BaseLevel> levels) {
+		myLevels = levels;
+		showGSONWritingScene();
+	}
 
-    @Override
-    public List<BaseEnemy> fetchEnemies () {
-        return myEnemies;
-    }
+	@Override
+	public List<BaseEnemy> fetchEnemies() {
+		return myEnemies;
+	}
 
-    @Override
-    public List<BackendRoute> fetchEnemyRoutes () {
-        return myBackendRoutes;
-    }
+	@Override
+	public List<BackendRoute> fetchEnemyRoutes() {
+		return myBackendRoutes;
+	}
 
-    @Override
-    public void setBackground (String imageFileName) {
-        myBackgroundImageFileName = imageFileName;       
-    }
+	@Override
+	public void setBackground(String imageFileName) {
+		myBackgroundImageFileName = imageFileName;
+	}
 
-    @Override
-    public void setTowerRegions (boolean[][] backendTowerRegions) {
-        GSONFileWriter writer = new GSONFileWriter();
-        writer.writeTowerRegions(gameDir, backendTowerRegions);       
-    }
+	@Override
+	public void setTowerRegions(boolean[][] backendTowerRegions) {
+		GSONFileWriter writer = new GSONFileWriter();
+		writer.writeTowerRegions(gameDir, backendTowerRegions);
+	}
 }
