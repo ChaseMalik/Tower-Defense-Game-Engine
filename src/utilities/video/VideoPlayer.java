@@ -1,32 +1,26 @@
 package utilities.video;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer.Status;
-import javafx.util.Duration;
+import javafx.scene.media.MediaView;
 
 class VideoPlayer extends BorderPane {
+
+    private static final String PLAY_BUTTON_TEXT = "Play";
+    private static final String PAUSE_BUTTON_TEXT = "Pause";
+
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
     private final boolean replayVideo = true;
     private boolean stopVideo = false;
     private boolean cycleComplete = false;
-    //    private Duration myDuration;
-    //    private Slider timeSlider;
-    //    private Label playTime;
-    //    private Slider volumeSlider;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
@@ -40,41 +34,55 @@ class VideoPlayer extends BorderPane {
         BorderPane.setAlignment(myMediaBar, Pos.CENTER);
         setBottom(myMediaBar);
 
-        final Button playButton = new Button(">");
+        final Button playButton = new Button(PLAY_BUTTON_TEXT);
 
         playButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
+            public void handle (ActionEvent e) {
                 Status status = mediaPlayer.getStatus();
 
-                if (status == Status.UNKNOWN || status == Status.HALTED) {
-                    // don't do anything in these states
+                if (status == Status.HALTED || status == Status.UNKNOWN) {
                     return;
                 }
 
-                if (status == Status.PAUSED || status == Status.READY
-                        || status == Status.STOPPED) {
-                    // rewind the movie if we're sitting at the end
+                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
                     if (cycleComplete) {
                         mediaPlayer.seek(mediaPlayer.getStartTime());
                         cycleComplete = false;
                     }
                     mediaPlayer.play();
-                } else {
+                }
+                else {
                     mediaPlayer.pause();
                 }
             }
         });
-//        mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
-//            public void invalidated(Observable ov) {
-//                updateValues();
-//            }
-//        });
+
+        mediaPlayer.setOnPlaying(new Runnable() {
+            public void run () {
+                if (stopVideo) {
+                    mediaPlayer.pause();
+                    stopVideo = false;
+                }
+                else {
+                    playButton.setText(PAUSE_BUTTON_TEXT);
+                }
+            }
+        });
+
+        mediaPlayer.setOnPaused(new Runnable() {
+            public void run () {
+                playButton.setText(PLAY_BUTTON_TEXT);
+            }
+        });
+
+        myMediaBar.getChildren().add(playButton);
 
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
+
         mediaPlayer.setOnEndOfMedia(new Runnable() {
-            public void run() {
+            public void run () {
                 if (!replayVideo) {
-                    playButton.setText(">");
+                    playButton.setText(PLAY_BUTTON_TEXT);
                     stopVideo = true;
                     cycleComplete = true;
                 }
