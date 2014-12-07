@@ -126,9 +126,18 @@ public class SingleThreadedEngineManager implements Observer {
     }
 
     public void removeTower (ImageView node) {
+        getTowersFromServer();
+        
         BaseTower tower = myNodeToTower.get(node);
         myNodeToTower.remove(node);
         myTowerGroup.remove(tower);
+        writeTowersToServer();
+    }
+
+    private void writeTowersToServer () {
+        String parameters = "master_json=" + convertTowersToString();
+        System.out.println(myTowerGroup.getChildren().size());
+        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
     }
 
     public ImageView addTowerHelper (String identifier, double x, double y) {
@@ -197,9 +206,7 @@ public class SingleThreadedEngineManager implements Observer {
     public ImageView addTower(String name, double x, double y){
         getTowersFromServer();
         ImageView ans = addTowerHelper(name, x, y);
-        String parameters = "master_json=" + convertTowersToString();
-        System.out.println(myTowerGroup.getChildren().size());
-        HTTP_CONNECTOR.sendPost("update_master_json", parameters);
+        writeTowersToServer();
         return ans;
     }
     
