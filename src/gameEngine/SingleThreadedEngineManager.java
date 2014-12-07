@@ -78,33 +78,39 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 
 	private GridPathFinder myPathFinder;
 	
-	public SingleThreadedEngineManager(Pane engineGroup) {
-		myReadyToPlay = new AtomicBoolean(false);
-		myEnemyGroup = new RangeRestrictedCollection<>();
-		myTowerGroup = new RangeRestrictedCollection<>();
-		myProjectileGroup = new RangeRestrictedCollection<>();
-		myValidRegions = new GridPane();
-		engineGroup.getChildren().add(myTowerGroup);
-		engineGroup.getChildren().add(myProjectileGroup);
-		engineGroup.getChildren().add(myEnemyGroup);
-		myTowerInformation = new ArrayList<>();
-		myEnemiesToAdd = new LinkedList<>();
-		myTimeline = createTimeline();
-		myCurrentLevelIndex = -1;
-		myNodeToTower = new HashMap<>();
-		myPrototypeTowerMap = new HashMap<>();
-		myFileReader = new GSONFileReader();
-		myFileWriter = new GSONFileWriter();
-		myUpdateRate = 1;
-		myGold = new SimpleDoubleProperty();
-		myGold.set(10000);
-		myHealth = new SimpleDoubleProperty();
-		myLastUpdateTime = -1;
-		
-		myPathFinder = new GridPathFinder();
+	public SingleThreadedEngineManager(){
+	    myReadyToPlay = new AtomicBoolean(false);
+            myEnemyGroup = new RangeRestrictedCollection<>();
+            myTowerGroup = new RangeRestrictedCollection<>();
+            myProjectileGroup = new RangeRestrictedCollection<>();
+            myValidRegions = new GridPane();
+            myTowerInformation = new ArrayList<>();
+            myEnemiesToAdd = new LinkedList<>();
+            myTimeline = createTimeline();
+            myCurrentLevelIndex = -1;
+            myNodeToTower = new HashMap<>();
+            myPrototypeTowerMap = new HashMap<>();
+            myFileReader = new GSONFileReader();
+            myFileWriter = new GSONFileWriter();
+            myUpdateRate = 1;
+            myGold = new SimpleDoubleProperty();
+            myGold.set(10000);
+            myHealth = new SimpleDoubleProperty();
+            myLastUpdateTime = -1;          
+            myPathFinder = new GridPathFinder();
+	}
+	public SingleThreadedEngineManager(Pane engineGroup) {	
+	        this();
+	        addGroups(engineGroup);		
 	}
 
-	public double getMyGold() {
+	protected void addGroups (Pane engineGroup) {
+	    engineGroup.getChildren().add(myTowerGroup);
+            engineGroup.getChildren().add(myProjectileGroup);
+            engineGroup.getChildren().add(myEnemyGroup);
+        
+    }
+    public double getMyGold() {
 		return myGold.get();
 	}
 
