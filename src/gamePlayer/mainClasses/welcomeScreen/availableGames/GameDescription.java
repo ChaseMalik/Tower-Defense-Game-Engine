@@ -11,13 +11,9 @@ public class GameDescription extends Pane {
     public static final double HEIGHT = GameChooser.HEIGHT/2;
     
     public static final double GAME_IMAGE_HEIGHT = 2*HEIGHT/3;
-    public static final double GAME_DESCRIPTION_HEIGHT = 2*HEIGHT/3;
-    
-    private String directory;
-    
+    public static final double GAME_DESCRIPTION_HEIGHT = HEIGHT/3;
+
     public GameDescription (ImageView image, String description,String gameDirectory) {
-        directory = gameDirectory;
-        
         this.setPrefSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
         
