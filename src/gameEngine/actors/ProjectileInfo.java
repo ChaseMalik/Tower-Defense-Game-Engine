@@ -20,11 +20,13 @@ public class ProjectileInfo {
         myDamage=damage;
         myImage = image;
         myOnHitEffects=new ArrayList<>();
-        for(String s: map.keySet()){
-            myOnHitEffects.add(map.get(s));
+        if(map != null) {
+            for(String s: map.keySet()){
+                myOnHitEffects.add(map.get(s));
+            }
+            myMovement=map.get("movement");
+            myOnHitEffects.remove(myMovement);
         }
-        myMovement=map.get("movement");
-        myOnHitEffects.remove(myMovement);
         myEnemyTypes=types;
 
     }
@@ -35,16 +37,16 @@ public class ProjectileInfo {
         myMovement=move;
         myEnemyTypes=types;
     }
- 
-    
+
+
     public String getImage () {
         return myImage;
     }
-    
+
     public List<IBehavior> getOnHit(){
         return myOnHitEffects;
     }
-    
+
     public List<String> getEnemiesTypes(){
         return myEnemyTypes;
     }

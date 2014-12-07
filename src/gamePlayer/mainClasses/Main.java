@@ -1,7 +1,5 @@
 package gamePlayer.mainClasses;
 
-import gamePlayer.mainClasses.managers.GuiManager;
-import gamePlayer.mainClasses.managers.WelcomeManager;
 import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
 import javafx.application.Application;
 import javafx.stage.Stage;

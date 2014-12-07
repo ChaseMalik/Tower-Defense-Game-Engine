@@ -2,7 +2,6 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
-import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.ProjectileInfo;
 import java.io.File;
@@ -26,13 +25,15 @@ public class ProjectilePane extends Observable implements Observer {
             AuthorController.gameDir + "projectileImages/";
     private static final String PROJECTILE_BEHAVIORS_XML = 
             "./src/gameAuthoring/Resources/actorBehaviors/ProjectileBehaviors.xml";
-    private HBox myContainer;
+    private VBox myContainer;
     private DragAndDropImagePane myDropImgPane;
     private ArrayList<BehaviorBuilder> myBehaviorBuilders;
     private SliderContainer myDamageSlider;
     
     public ProjectilePane() {
         
+        File dir = new File(PROJECTILE_IMG_DIR);
+        dir.mkdir();
         
         myBehaviorBuilders = new ArrayList<BehaviorBuilder>();
         XMLParser parser = new XMLParser(new File(PROJECTILE_BEHAVIORS_XML));
@@ -42,31 +43,32 @@ public class ProjectilePane extends Observable implements Observer {
             myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, 
                                                        parser.getSliderInfo(behaviorType)));
         }
-        
-        myDamageSlider = new SliderContainer("Damage", 1, 5);
+       
         HBox behaviorBox = new HBox(10);
-        behaviorBox.getChildren().add(myDamageSlider);
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             behaviorBox.getChildren().add(builder.getContainer());
         }
-                
-        File dir = new File(PROJECTILE_IMG_DIR);
-        dir.mkdir();
+               
         
-        myContainer = new HBox(20);
+        myContainer = new VBox(20);
         myContainer.setPadding(new Insets(10));
+       
         Label title = new Label("Projectile");
         title.setStyle("-fx-font-size: 18px");
-        VBox leftBox = new VBox(10);
-        leftBox.getChildren().addAll(title, behaviorBox);
+        
         myDropImgPane = new DragAndDropCopyImagePane(200, 100, PROJECTILE_IMG_DIR);
         myDropImgPane.getPane().setStyle("-fx-background-color: white; " +
                                          "-fx-border: 2px; -fx-border-color: gray; " +
                                          "-fx-border-radius: 5px");
-        myContainer.getChildren().addAll(leftBox, myDropImgPane.getPane());
+        VBox rightBox = new VBox(10);
+        myDamageSlider = new SliderContainer("Damage", 1, 5);
+        rightBox.getChildren().addAll(myDamageSlider, myDropImgPane.getPane());
+        behaviorBox.getChildren().add(rightBox);
+        
+        myContainer.getChildren().addAll(title, behaviorBox);        
     }
 
-    public HBox getNode () {
+    public VBox getNode () {
         return myContainer;
     }
 
@@ -82,7 +84,7 @@ public class ProjectilePane extends Observable implements Observer {
                 .collect(Collectors.toList());
         return new ProjectileInfo(myDropImgPane.getImagePath(),
                                   (int) myDamageSlider.getSliderValue(),
-                                  BehaviorMapBuilder.buildMap(myBehaviorBuilders),
+                                  null,
                                   enemyStrings);
     }
 }
