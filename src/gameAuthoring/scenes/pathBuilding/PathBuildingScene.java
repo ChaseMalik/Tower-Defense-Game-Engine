@@ -5,6 +5,7 @@ import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.ComponentVisibilityPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.CurveDrawingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingOptionPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane;
@@ -29,10 +30,12 @@ import javafx.scene.layout.VBox;
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 
+
 /**
- * This class allows the user to build a path from a starting location to an 
+ * This class allows the user to build a path from a starting location to an
  * ending location. The scene manages the different BuildingPanes that allow
  * the user different on-click functionality.
+ * 
  * @author Austin Kyker
  *
  */
@@ -40,11 +43,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     private static final String SELECTED_CSS_CLASS = "selected";
     public static final int BUILDING_OPTIONS_PADDING = 10;
-    public static final double SIDE_PANE_WIDTH = 
-            ((AuthorController.SCREEN_WIDTH-BuildingPane.DRAW_SCREEN_WIDTH)/2);
+    public static final double SIDE_PANE_WIDTH =
+            ((AuthorController.SCREEN_WIDTH - BuildingPane.DRAW_SCREEN_WIDTH) / 2);
     private static final String TITLE = "Path";
 
-    private Path  myPath;
+    private Path myPath;
     private BorderPane myPane;
     private static Group myGroup;
 
@@ -54,6 +57,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private LineDrawingPane myLineDrawingPane;
     private CurveDrawingPane myCurveDrawingPane;
     private SelectComponentPane mySelectionComponentPane;
+    private ComponentVisibilityPane myComponentVisibilityPane;
     private TowerRegionsPane myTowerRegionsPane;
     private BuildingPane myCurrentBuildingPane;
 
@@ -63,7 +67,6 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private PathConfiguring myPathConfiguringController;
     private VBox myPathBuildingOptionsContainer;
     private Map<BuildingPane, BuildingOptionPane> myBuildingPaneToOptionPaneMap;
-
 
     public PathBuildingScene (BorderPane root, PathConfiguring controller) {
         super(root, TITLE);
@@ -75,11 +78,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         createAndDisplayDefaultMapSelectionPane();
         createBuildingPanes();
         createPathBuildingOptions();
-        this.getScene().setOnKeyReleased(event->handleKeyPress(event));
-        setCurrentBuildingPane(myBackgroundSelectionPane); 
+        this.getScene().setOnKeyReleased(event -> handleKeyPress(event));
+        setCurrentBuildingPane(myBackgroundSelectionPane);
     }
 
-    private void createAndDisplayDefaultMapSelectionPane() {
+    private void createAndDisplayDefaultMapSelectionPane () {
         myDefaultMapSelectionPane = new DefaultMapSelectionPane((BackgroundBuilding) this);
         myPane.setLeft(myDefaultMapSelectionPane.getDefaultMapsScrollPane());
     }
@@ -92,13 +95,14 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myCurveDrawingPane = new CurveDrawingPane(myGroup, myPath);
         mySelectionComponentPane = new SelectComponentPane(myGroup, myPath);
         myTowerRegionsPane = new TowerRegionsPane(myGroup, myPath);
+        myComponentVisibilityPane = new ComponentVisibilityPane(myGroup, myPath);
     }
 
     private void handleKeyPress (KeyEvent event) {
-        if(event.getCode() == KeyCode.DELETE){
+        if (event.getCode() == KeyCode.DELETE) {
             List<PathComponent> deletedComponent = myPath.deleteSelectedComponent();
-            if(deletedComponent != null) {
-                for(PathComponent comp:deletedComponent) {
+            if (deletedComponent != null) {
+                for (PathComponent comp : deletedComponent) {
                     myGroup.getChildren().remove(comp);
                     myGroup.getChildren().removeAll(comp.getExtraNodes());
                 }
@@ -118,89 +122,91 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
         myPane.setRight(myPathBuildingOptionsContainer);
 
         myResetBuildOptionPane = new BuildingOptionPane("Reset");
-        myResetBuildOptionPane.setOnMouseReleased(event->resetBuild());
+        myResetBuildOptionPane.setOnMouseReleased(event -> resetBuild());
 
         myFinishedPathBuildingOptionPane = new BuildingOptionPane("Finished");
-        myFinishedPathBuildingOptionPane.setOnMouseReleased(event->handleFinishButtonClick());
+        myFinishedPathBuildingOptionPane.setOnMouseReleased(event -> handleFinishButtonClick());
 
         myPathBuildingOptionsContainer.getChildren()
-        .addAll(myResetBuildOptionPane,
-                getBuildingOptionsPane("Line", myLineDrawingPane),
-                getBuildingOptionsPane("Curve", myCurveDrawingPane),
-                getBuildingOptionsPane("Selection", mySelectionComponentPane),
-                getBuildingOptionsPane("Regions", myTowerRegionsPane),
-                myFinishedPathBuildingOptionPane);
+                .addAll(myResetBuildOptionPane,
+                        getBuildingOptionsPane("Line", myLineDrawingPane),
+                        getBuildingOptionsPane("Curve", myCurveDrawingPane),
+                        getBuildingOptionsPane("Selection", mySelectionComponentPane),
+                        getBuildingOptionsPane("Visibility", myComponentVisibilityPane),
+                        getBuildingOptionsPane("Regions", myTowerRegionsPane),
+                        myFinishedPathBuildingOptionPane);
     }
 
     private BuildingOptionPane getBuildingOptionsPane (String name, BuildingPane pane) {
         BuildingOptionPane optionsPane = new BuildingOptionPane(name);
         myBuildingPaneToOptionPaneMap.put(pane, optionsPane);
-        optionsPane.setOnMouseReleased(event->setCurrentDrawingPane(pane));
+        optionsPane.setOnMouseReleased(event -> setCurrentDrawingPane(pane));
         return optionsPane;
     }
 
     private void resetBuild () {
         myPath.resetPath();
-        setCurrentBuildingPane(myBackgroundSelectionPane);        
+        setCurrentBuildingPane(myBackgroundSelectionPane);
         deselectOptionsComponents();
     }
 
     private void handleFinishButtonClick () {
-        if(myPath.isCompletedAndRoutesVerified()) {
-            myPathConfiguringController.setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
+        if (myPath.isCompletedAndRoutesVerified()) {
+            myPathConfiguringController
+                    .setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
             myPathConfiguringController.configurePath(myPath);
         }
         else {
             new ErrorPopup("You're route does not go from the starting location to " +
-                    "the ending location or your components are not connected " +
-                    "together. To see the connectivity of your routes use the " +
-                    "selection tool on the right. To start over press the reset " +
-                    "button. HINT: build your routes starting at the start " +
-                    "locations and then connecting subsequent components until " +
-                    "you reach the ending location.");
+                           "the ending location or your components are not connected " +
+                           "together. To see the connectivity of your routes use the " +
+                           "selection tool on the right. To start over press the reset " +
+                           "button. HINT: build your routes starting at the start " +
+                           "locations and then connecting subsequent components until " +
+                           "you reach the ending location.");
         }
     }
 
     public void proceedToLineDrawerModeIfLocationsVerified () {
-        if(myPath.endingLocationsConfiguredCorrectly()){
+        if (myPath.endingLocationsConfiguredCorrectly()) {
             setCurrentBuildingPane(myLineDrawingPane);
             myBuildingPaneToOptionPaneMap.get(myLineDrawingPane).selectPane();
         }
     }
 
-    private void deselectOptionsComponents() {
-        for(Node node:myPathBuildingOptionsContainer.getChildren()){
+    private void deselectOptionsComponents () {
+        for (Node node : myPathBuildingOptionsContainer.getChildren()) {
             node.getStyleClass().remove(SELECTED_CSS_CLASS);
         }
     }
 
-    private boolean canDrawPathComponents() {
-        return !(isCurrentPane(myEnemyStartingLocationsPane) || 
-                isCurrentPane(myEnemyEndingLocationsPane) ||
-                isCurrentPane(myBackgroundSelectionPane));
+    private boolean canDrawPathComponents () {
+        return !(isCurrentPane(myEnemyStartingLocationsPane) ||
+                 isCurrentPane(myEnemyEndingLocationsPane) || isCurrentPane(myBackgroundSelectionPane));
     }
 
-    private boolean isCurrentPane(BuildingPane pane){
+    private boolean isCurrentPane (BuildingPane pane) {
         return myCurrentBuildingPane.equals(pane);
     }
 
     public void proceedToStartLocationSelection () {
-        setCurrentBuildingPane(myEnemyStartingLocationsPane);        
+        setCurrentBuildingPane(myEnemyStartingLocationsPane);
     }
 
     public void proceedToEndLocationsSelection () {
-        if(myPath.startingLocationsConfiguredCorrectly()){
+        if (myPath.startingLocationsConfiguredCorrectly()) {
             setCurrentBuildingPane(myEnemyEndingLocationsPane);
         }
     }
-    
+
     /**
      * Drawing panes include tower regions, curve drawing, line drawing,
      * and selection.
+     * 
      * @param pane
      */
     private void setCurrentDrawingPane (BuildingPane pane) {
-        if(!isCurrentPane(pane) && canDrawPathComponents()) {
+        if (!isCurrentPane(pane) && canDrawPathComponents()) {
             deselectOptionsComponents();
             setCurrentBuildingPane(pane);
             myBuildingPaneToOptionPaneMap.get(pane).selectPane();
@@ -210,10 +216,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     /**
      * Include all panes: curve, line, regions, enemy starting and ending
      * locations, background selection, etc.
+     * 
      * @param nextPane
      */
-    public void setCurrentBuildingPane(BuildingPane nextPane) {
-        if(myCurrentBuildingPane != null) {
+    public void setCurrentBuildingPane (BuildingPane nextPane) {
+        if (myCurrentBuildingPane != null) {
             myCurrentBuildingPane.executeExitFunction();
         }
         myCurrentBuildingPane = nextPane;
@@ -225,12 +232,12 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
 
     @Override
     public void setBackground (String imageFileName) {
-        ImageView imageView = 
-                StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH, 
-                                                        AuthorController.SCREEN_HEIGHT, 
+        ImageView imageView =
+                StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH,
+                                                        AuthorController.SCREEN_HEIGHT,
                                                         imageFileName);
-        myGroup.getChildren().add(imageView); 
-        myPathConfiguringController.setBackground(imageFileName);     
-        proceedToStartLocationSelection();      
+        myGroup.getChildren().add(imageView);
+        myPathConfiguringController.setBackground(imageFileName);
+        proceedToStartLocationSelection();
     }
 }

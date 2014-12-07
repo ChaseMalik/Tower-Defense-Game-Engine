@@ -21,23 +21,28 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
 
+
 /**
+<<<<<<< HEAD
  * The purpose of this class is to manage the different scenes (path building
  * and author creation). The class also will hold the enemies, towers, and level
  * objects which it will write to JSON files at the end of the authoring
  * process.
+=======
+ * The purpose of this class is to manage the different scenes (path building and author
+ * creation). The class also will hold the enemies, towers, and level objects which
+ * it will write to JSON files at the end of the authoring process.
+>>>>>>> f483274fbd71c7de9052734e3b5b9eb0d0872e30
  * 
  * @author Austin Kyker
  *
@@ -76,8 +81,8 @@ public class AuthorController extends Application implements
 	@Override
 	public void start(Stage stage) throws Exception {
 		myStage = stage;
-		//showWelcomeScene();
-		showGeneralSettingScene();
+		showWelcomeScene();
+		//showGeneralSettingScene();
 		configureAndDisplayStage();
 	}
 

@@ -11,25 +11,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import utilities.errorPopup.ErrorPopup;
 
+
 /**
  * Represents the pane on the right side of the PathBuildingScene that has the different
  * types of drawing options. Clicking on these options switches out the BuildingPanes.
+ * 
  * @author Austin Kyker
  *
  */
 public class BuildingOptionPane extends VBox {
 
-    private static final String DRAWING_OPTIONS_IMG_DIR = 
+    private static final String DRAWING_OPTIONS_IMG_DIR =
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
     private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 38;
     private static final int OPTIONS_IMAGE_HEIGHT = 52;
 
-    public BuildingOptionPane(String componentName){
+    public BuildingOptionPane (String componentName) {
         setupOptionsBoxGraphicallyAndDisplayLabel(componentName);
         try {
             ImageView imageView = new ImageView();
             File imgFile = new File(DRAWING_OPTIONS_IMG_DIR + componentName.toLowerCase() + ".png");
-            imageView.setImage(new Image(new FileInputStream(imgFile), OPTIONS_IMAGE_WIDTH, 
+            imageView.setImage(new Image(new FileInputStream(imgFile), OPTIONS_IMAGE_WIDTH,
                                          OPTIONS_IMAGE_HEIGHT, false, true));
             this.getChildren().add(imageView);
         }
@@ -39,9 +41,8 @@ public class BuildingOptionPane extends VBox {
         this.getStyleClass().add("border");
     }
 
-
     public void selectPane () {
-        if(!this.getStyleClass().contains("selected")){
+        if (!this.getStyleClass().contains("selected")) {
             this.getStyleClass().add("selected");
         }
     }

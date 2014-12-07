@@ -4,7 +4,9 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameEngine.actors.BaseEnemy;
 import java.util.List;
 
+
 public interface EnemyConfiguring {
-    void configureEnemies(List<BaseEnemy> enemies);
-    List<BackendRoute> fetchEnemyRoutes();
+    void configureEnemies (List<BaseEnemy> enemies);
+
+    List<BackendRoute> fetchEnemyRoutes ();
 }

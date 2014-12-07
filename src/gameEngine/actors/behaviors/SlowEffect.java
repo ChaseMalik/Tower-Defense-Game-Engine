@@ -9,7 +9,9 @@ public class SlowEffect extends BaseOnHitBehavior {
         // TODO Auto-generated constructor stub
         myString="slowEffect";
     }
-
+    public SlowEffect(double multiplier){
+        this(30.0,multiplier);
+    }
     @Override
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub

@@ -1,0 +1,27 @@
+<WelcomeScreenProperties>
+
+ 	<TextGeneratorPropertiesPath>
+		<element>./src/gamePlayer/properties/TextGeneratorProperties.XML</element>
+	</TextGeneratorPropertiesPath>
+
+ <StyleSheet>
+	    <element>/gamePlayer/styleSheets/welcomescreen_theme.css</element> 
+ </StyleSheet>
+
+ <BackgroundImage>
+    <element>gamePlayer/playerImages/castle.jpg</element>
+ </BackgroundImage>
+
+<Logo>
+    <element>gamePlayer/playerImages/Logo.png</element>
+</Logo>
+
+ <SinglePlayerImage>
+
+ </SinglePlayerImage>
+
+ <MultiPlayerImage>
+
+ </MultiPlayerImage>
+
+</WelcomeScreenProperties>
