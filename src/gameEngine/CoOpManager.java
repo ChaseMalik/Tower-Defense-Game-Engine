@@ -3,17 +3,14 @@ package gameEngine;
 import gameEngine.actors.BaseTower;
 import java.util.ArrayList;
 import java.util.List;
-import utilities.GSON.DataWrapper;
-import utilities.chatroom.Chatroom;
-import utilities.networking.HTTPConnection;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import utilities.GSON.DataWrapper;
+import utilities.chatroom.Chatroom;
+import utilities.networking.HTTPConnection;
 
 
 public class CoOpManager extends SingleThreadedEngineManager {

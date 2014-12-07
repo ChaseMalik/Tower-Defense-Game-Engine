@@ -23,7 +23,8 @@ public class BuildingOptionPane extends VBox {
 
     private static final String DRAWING_OPTIONS_IMG_DIR =
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
-    private static final double OPTIONS_IMAGE_WIDTH = PathBuildingScene.SIDE_PANE_WIDTH - 40;
+    private static final double OPTIONS_IMAGE_WIDTH = 
+            PathBuildingScene.SIDE_PANE_WIDTH - 45;
     private static final int OPTIONS_IMAGE_HEIGHT = 40;
 
     public BuildingOptionPane (String componentName) {

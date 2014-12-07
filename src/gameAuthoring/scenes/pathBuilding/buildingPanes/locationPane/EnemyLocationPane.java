@@ -21,6 +21,8 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
  */
 public abstract class EnemyLocationPane extends BuildingPane {
 
+    private static final double PROMPT_HEIGHT = AuthorController.SCREEN_HEIGHT / 2 - 100;
+    private static final double PROMPT_WIDTH = BuildingPane.DRAW_SCREEN_WIDTH / 2 - 80;
     private static final int CONTAINER_PADDING = 15;
     private static final String CLR_BTN_TEXT = "Clear Locations";
 
@@ -35,10 +37,10 @@ public abstract class EnemyLocationPane extends BuildingPane {
     protected void createEnemyLocationsSetupComponents (Button button, String LabelStr) {
         VBox container = new VBox(10);
         container.setPadding(new Insets(CONTAINER_PADDING));
-        container.setLayoutX(BuildingPane.DRAW_SCREEN_WIDTH / 2 - 50);
-        container.setLayoutY(AuthorController.SCREEN_HEIGHT / 2);
+        container.setLayoutX(PROMPT_WIDTH);
+        container.setLayoutY(PROMPT_HEIGHT);
         container.setAlignment(Pos.CENTER);
-        container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.95");
+        container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.98;");
         Label label = new Label(LabelStr);
         container.getChildren().addAll(label, button, myClearLocations);
         this.getChildren().add(container);
