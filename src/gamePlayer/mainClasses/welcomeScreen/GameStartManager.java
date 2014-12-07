@@ -102,17 +102,16 @@ public class GameStartManager {
 
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager,timeline)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager,timeline,directoryPath)));
         timeline.play();
     }
 
-    private void pollEngineForMultiPlayerReadiness(GuiManager manager,Timeline timeline) {
+    private void pollEngineForMultiPlayerReadiness(GuiManager manager,Timeline timeline,String directoryPath) {
         if (manager.multiPlayerGameIsReady()) {
             timeline.stop();
-            manager.startMultiPlayerGame();
+            manager.startMultiPlayerGame(directoryPath);
         }
     }
-
 
     private ImageView getImageFromPath(String imagePath,double width,double height) {
         Image image = new Image(imagePath,width,height,false,true);

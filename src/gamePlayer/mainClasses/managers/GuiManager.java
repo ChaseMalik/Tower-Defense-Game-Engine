@@ -103,9 +103,10 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
         return myCoOpManager.isReady();
     }
 
-    public void startMultiPlayerGame () {
+    public void startMultiPlayerGame (String directoryPath) {
         GuiConstants.GUI_MANAGER.init();
-        myCoOpManager.initializeGame(myGameWorld.getMap());;
+        myCoOpManager.initializeGame(myGameWorld.getMap());
+        initializeNewGameElements(directoryPath);
     }
 
     private void initializeNewGameElements(String directoryPath) {
