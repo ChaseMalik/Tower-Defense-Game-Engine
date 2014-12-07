@@ -38,7 +38,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
     
     public boolean isReady(){
-        return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS,"")) >= REQUIRED_NUM_PLAYERS;
+        return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS)) >= REQUIRED_NUM_PLAYERS;
     }
     
     public String joinGame() {       
@@ -80,7 +80,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     private void getTowersFromServer () {
         List<DataWrapper> listFromServer =
-                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet(GET_MASTER_JSON,""));
+                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet(GET_MASTER_JSON));
         if(listFromServer == null){
             return;
         }
