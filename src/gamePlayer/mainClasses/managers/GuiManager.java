@@ -98,6 +98,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
     public void prepareMultiPlayerGame (String directoryPath) {
         myCoOpManager = new CoOpManager();
+        myEngineManager = myCoOpManager;
         myCoOpManager.startNewGame(directoryPath);
     }
 
@@ -136,15 +137,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
     private void makeTowerMap(){
         towerMap = new HashMap<String, TowerInfoObject>();
         
-        //TODO: BAD DESIGN!! Design to remove this check
-        SingleThreadedEngineManager manager = null;
-        if (myEngineManager!=null) {
-            manager = myEngineManager;
-        } else if (myCoOpManager!=null) {
-            manager = myCoOpManager;
-        }
-        
-        for (TowerInfoObject info: manager.getAllTowerTypeInformation()){
+        for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
             towerMap.put(info.getName(), info);
             TowerInfoObject next = info.getMyUpgrade();
             while(!(next instanceof NullTowerInfoObject)){
@@ -260,14 +253,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
     }
 
     private void testHUD() {
-        SingleThreadedEngineManager manager = null;
-        if (myEngineManager!=null) {
-            manager = myEngineManager;
-        } else if (myCoOpManager!=null) {
-            manager = myCoOpManager;
-        }
-        
-        
+   
         List<GameStat> gameStats;
         GameStat level = new GameStat();
         level.setGameStat("Level");
@@ -275,7 +261,7 @@ GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, Sp
 
         GameStat gold = new GameStat();
         gold.setGameStat("Gold");
-        gold.statValueProperty().bindBidirectional(manager.myGold());
+        gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
 
         GameStat health = new GameStat();
         health.setGameStat("Health");
