@@ -5,17 +5,22 @@ import gameEngine.actors.BaseActor;
 
 public class DoTOnHit extends BaseOnHitBehavior {
 
-    public DoTOnHit (double duration, double multiplier) {
-        super(duration, multiplier);
+    public DoTOnHit (double duration, double damage) {
+        super(duration, damage);
         // TODO Auto-generated constructor stub
     }
-
+    public DoTOnHit (double damage){
+        this(30.0, damage);
+    }
     @Override
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
         BaseDefendBehavior m = ((BaseDefendBehavior) actor.getBehavior("defend"));
-        double d = m.getHealth()-myMultiplier;
+        double d = m.getHealth()-myMultiplier/myInitialDuration;
         m.setHealth(d);
+ //       System.out.println(m.getHealth());
+        if(m.getHealth()<=0)
+            actor.died(1);
         if (myDuration == 0) {
             actor.removeDebuff(this);
             undo(actor);
@@ -32,8 +37,7 @@ public class DoTOnHit extends BaseOnHitBehavior {
     @Override
     public void undo (BaseActor actor) {
         // TODO Auto-generated method stub
-        BaseMovementBehavior m = ((BaseMovementBehavior) actor.getBehavior("movement"));
-        m.setSpeed(m.getSpeed() / myMultiplier);
+      
     }
 
 }

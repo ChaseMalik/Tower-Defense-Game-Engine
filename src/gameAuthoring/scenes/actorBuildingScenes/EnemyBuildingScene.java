@@ -64,7 +64,7 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     @Override
     protected HBox addRequiredNumericalTextFields () {
         HBox fieldsContainer = new HBox(10);
-        myDamageField = new LabeledNumericalTextField("Cost", FIELD_WIDTH);
+        myDamageField = new LabeledNumericalTextField("Damage", FIELD_WIDTH);
         fieldsContainer.getChildren().add(myDamageField);
         return fieldsContainer;
     }

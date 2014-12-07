@@ -18,9 +18,14 @@ public class Tile extends Rectangle {
 
     private boolean isSelected;
 
+    private int myRow;
+    private int myCol;
+    
     public Tile (int row, int col) {
         this.setX(col * Tile.WIDTH);
         this.setY(row * Tile.HEIGHT);
+        myRow = row;
+        myCol = col;
         this.isSelected = false;
         this.setFill(new Color(1, 0, 0, TRANSLUCENT));
         this.setWidth(WIDTH);
@@ -33,6 +38,14 @@ public class Tile extends Rectangle {
         this.setOnMouseDragEntered(mouseEvent -> toggleSelection());
     }
 
+    public int getRow() {
+    	return myRow;
+    }
+    
+    public int getColumn() {
+    	return myCol;
+    }
+    
     public void toggleSelection () {
         this.setFill(this.isSelected ? new Color(1, 0, 0, TRANSLUCENT)
                                     : new Color(1, 0, 0, LESS_TRANSLUCENT));
