@@ -1,5 +1,7 @@
 package utilities.video;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -8,9 +10,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 class VideoPlayer extends BorderPane {
 
@@ -20,6 +24,7 @@ class VideoPlayer extends BorderPane {
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
     private Slider myTimeSlider;
+    private Duration myDuration;
     private final boolean replayVideo = true;
     private boolean stopVideo = false;
     private boolean cycleComplete = false;
@@ -41,6 +46,9 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(playButton);
 
         myTimeSlider = new Slider();
+        HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
+        myTimeSlider.setMinWidth(50);
+        myTimeSlider.setMaxWidth(Double.MAX_VALUE);
         myMediaBar.getChildren().add(myTimeSlider);
 
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
