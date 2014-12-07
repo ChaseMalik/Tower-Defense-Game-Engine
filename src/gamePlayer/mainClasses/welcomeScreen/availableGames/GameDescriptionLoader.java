@@ -14,8 +14,9 @@ public class GameDescriptionLoader {
 
         //step through each game and create game description
         for (File file:games) {
+            File[] images = new File(file.getAbsolutePath()+"/background/").listFiles();
             ImageView gameImage = StringToImageViewConverter.getImageView
-                    (GameDescription.WIDTH, GameDescription.GAME_IMAGE_HEIGHT, file.getAbsolutePath()+"/background/Map1.jpg");
+                    (GameDescription.WIDTH, GameDescription.GAME_IMAGE_HEIGHT, images[0].getAbsolutePath());
             list.add(new GameDescription(gameImage,file.getName(),file));
         }
 
