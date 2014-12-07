@@ -5,6 +5,7 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
@@ -26,12 +27,14 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
@@ -48,308 +51,363 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
  *
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
-PlayButtonListener, SpeedButtonListener, StoreListener,
-GameWorldListener, GameItemListener, UpgradeListener, MessageDisplayListener, SpeedSliderListener {
+		PlayButtonListener, SpeedButtonListener, StoreListener,
+		GameWorldListener, GameItemListener, UpgradeListener,
+		MessageDisplayListener, SpeedSliderListener {
 
-    private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
-    public static final String NO_UPGRADE = "No update available";
-    public static final String NO_GOLD = "Not enough gold available";
+	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
-    private Stage myStage;
-    
-    private SingleThreadedEngineManager myEngineManager;
-    private CoOpManager myCoOpManager;
-    
-    private Group myRoot;
-    private TowerIndicator activeIndicator;
-    private ImageView activeTower;
-    private boolean gameRunning;
+	private Stage myStage;
+	private SingleThreadedEngineManager myEngineManager;
+	private CoOpManager myCoOpManager;
 
-    private Store myStore;
-    private HUD myHUD;
-    private GameWorld myGameWorld;
-    private TowerUpgradePanel myUpgradePanel;
-    private MessageDisplay myMessageDisplay;
-    private Map<String, TowerInfoObject> towerMap;
+	private Group myRoot;
+	private TowerIndicator activeIndicator;
+	private ImageView activeTower;
+	private boolean gameRunning;
 
-    public GuiManager(Stage stage) {
-        myStage = stage;
-        GuiConstants.GUI_MANAGER = this;	
-        gameRunning = false;
-    }
+	private Store myStore;
+	private HUD myHUD;
+	private GameWorld myGameWorld;
+	private TowerUpgradePanel myUpgradePanel;
+	private MessageDisplay myMessageDisplay;
+	private Map<String, TowerInfoObject> towerMap;
 
-    public void init() {
-        myRoot = GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
-    }
+	public GuiManager(Stage stage) {
+		myStage = stage;
+		GuiConstants.GUI_MANAGER = this;
+		gameRunning = false;
+	}
 
-    public void startSinglePlayerGame(String directoryPath) {
-        myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
-        myEngineManager.initializeGame(directoryPath);   
-        initializeNewGameElements(myEngineManager, directoryPath);
-    }
+	public void init() {
+		myRoot = GuiBuilder.getInstance().build(myStage,
+				guiBuilderPropertiesPath);
+		if (LMController.getInstance().deviceIsConnected()) {
+			LMConnected();
+		}
+	}
 
-    public void joinMultiPlayerGame() {
-        myCoOpManager = new CoOpManager();
-        if (myCoOpManager.joinGame()) {
-            GuiConstants.GUI_MANAGER.init();
-            myCoOpManager.initializeGame(myGameWorld.getMap());
-        }
-    }
+	private void startGame(String directoryPath) {
+		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager.initializeGame(directoryPath);
+		addBackground(directoryPath);
+		makeTowerMap();
+		testHUD();
+		// myRoot.getChildren().add(engineGroup);
+		fillStore(myEngineManager.getAllTowerTypeInformation());
+		// myGameWorld.getMap().getStyleClass().add("GameWorld");
+		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
+		// AuthorController.SCREEN_HEIGHT);
+		gameRunning = true;
+	}
 
-    public void prepareMultiPlayerGame (String directoryPath) {
-        myCoOpManager = new CoOpManager();
-        myEngineManager = myCoOpManager;
-        myCoOpManager.startNewGame(directoryPath);
-    }
+	@Override
+	public void loadGame() {
+		File file = FileLoader.getInstance().load(myStage);
+		if (file != null) {
+			startGame(file.getAbsolutePath());
+		}
+	}
 
-    public boolean multiPlayerGameIsReady () {
-        return myCoOpManager.isReady();
-    }
+	private static String guiBuilderPropertiesPath1 = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
 
-    public void startMultiPlayerGame (String directoryPath) {
-        GuiConstants.GUI_MANAGER.init();
-        myCoOpManager.initializeGame(myGameWorld.getMap());
-        initializeNewGameElements(myCoOpManager, directoryPath);
-    }
+	public void LMConnected() {
+		LMController controller = LMController.getInstance();
+		System.out.println("Hello");
+		controller.onCircleCW(event -> speedUpOrPlay());
+		controller.onCircleCCW(event -> normalSpeed());
+		controller.onSwipeDown(event -> System.out
+				.println("Swipe Down from Manager!"));
+	}
 
-    private void initializeNewGameElements(SingleThreadedEngineManager manager, String directoryPath) {
-        addBackground(directoryPath);
-        makeTowerMap();
-        testHUD();
-        //myRoot.getChildren().add(engineGroup);
-        fillStore(manager.getAllTowerTypeInformation());
-        //myGameWorld.getMap().getStyleClass().add("GameWorld");
-        //System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " + AuthorController.SCREEN_HEIGHT);
-        gameRunning = true;
-    }
+	public boolean gameRunning() {
+		return gameRunning;
+	}
 
-    //TODO: Remove method, deprecated
-    private void startGame(String directoryPath){
+	public void startSinglePlayerGame(String directoryPath) {
+		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager.initializeGame(directoryPath);
+		initializeNewGameElements(directoryPath);
+	}
 
-    }
+	@Override
+	public void play() {
+		if (!gameRunning)
+			return;
+		myEngineManager.resume();
+	}
 
-    private void addBackground(String directory){
-        File parent = new File(directory+="/background/");
-        File background = parent.listFiles()[0];
-        myGameWorld.setBackground(background.getAbsolutePath());
-    }
+	private void speedUpOrPlay() {
+		if (gameRunning)
+			play();
+		else
+			fastForward();
+	}
 
-    private void makeTowerMap(){
-        towerMap = new HashMap<String, TowerInfoObject>();
-        
-        for (TowerInfoObject info: myEngineManager.getAllTowerTypeInformation()){
-            towerMap.put(info.getName(), info);
-            TowerInfoObject next = info.getMyUpgrade();
-            while(!(next instanceof NullTowerInfoObject)){
-                towerMap.put(next.getName(), next);
-                next = next.getMyUpgrade();
-            }
-        }
-    }
+	public void joinMultiPlayerGame() {
+		myCoOpManager = new CoOpManager();
+		if (myCoOpManager.joinGame()) {
+			GuiConstants.GUI_MANAGER.init();
+			myCoOpManager.initializeGame(myGameWorld.getMap());
+		}
+	}
 
-    @Override
-    public void loadGame() {
-        File file = FileLoader.getInstance().load(myStage);
-        if (file != null) {
-            startGame(file.getAbsolutePath());
-        }
-    }
+	public void prepareMultiPlayerGame(String directoryPath) {	        
+		myCoOpManager = new CoOpManager();
+		myEngineManager = myCoOpManager;
+		myCoOpManager.startNewGame(directoryPath);
+	}
 
-    @Override
-    public void saveGame() {
-        //myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
-    }
+	public boolean multiPlayerGameIsReady() {
+		return myCoOpManager.isReady();
+	}
 
-    @Override
-    public void registerStatsBoard(HUD hud) {
-        myHUD = hud;
-    }
+	public void startMultiPlayerGame(String directoryPath) {
+		GuiConstants.GUI_MANAGER.init();
+		myCoOpManager.initializeGame(myGameWorld.getMap());
+		initializeNewGameElements(directoryPath);
+	}
 
-    @Override
-    public void registerGameWorld(GameWorld world){
-        myGameWorld = world;
-    }
+	private void initializeNewGameElements(String directoryPath) {
+		addBackground(directoryPath);
+		makeTowerMap();
+		testHUD();
+		// myRoot.getChildren().add(engineGroup);
+		fillStore(myEngineManager.getAllTowerTypeInformation());
+		// myGameWorld.getMap().getStyleClass().add("GameWorld");
+		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
+		// AuthorController.SCREEN_HEIGHT);
+		gameRunning = true;
+	}
 
-    @Override
-    public void registerUpgradePanel(TowerUpgradePanel upgradePanel){
-        myUpgradePanel = upgradePanel;
-    }
+	private void addBackground(String directory) {
+		File parent = new File(directory += "/background/");
+		File background = parent.listFiles()[0];
+		myGameWorld.setBackground(background.getAbsolutePath());
+	}
 
-    @Override
-    public void setGameStats(List<GameStat> stats) {
-        myHUD.setGameStats(stats);
-    }
+	@Override
+	public void saveGame() {
+		// myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
+	}
 
-    @Override
-    public void pause() {
-        if (!gameRunning) return;
-        myEngineManager.pause();
-    }
+	@Override
+	public void registerStatsBoard(HUD hud) {
+		myHUD = hud;
+	}
 
-    @Override
-    public void play() {
-        if (!gameRunning) return;
-        myEngineManager.resume();
-    }
+	@Override
+	public void registerGameWorld(GameWorld world) {
+		myGameWorld = world;
+	}
 
-    @Override
-    public void changeTheme() {
-        File file = FileLoader.getInstance().load(myStage, "StyleSheets",
-                "*.css");
-        if (file != null) {
-            myStage.getScene().getStylesheets().clear();
-            myStage.getScene().getStylesheets()
-            .add("file:" + file.getAbsolutePath());
-        }
-    }
+	@Override
+	public void registerUpgradePanel(TowerUpgradePanel upgradePanel) {
+		myUpgradePanel = upgradePanel;
+	}
 
-    @Override
-    public void normalSpeed() {
-        if (!gameRunning) return;
-        //myEngineManager.changeRunSpeed(1.0);
-        play();
-    }
+	@Override
+	public void setGameStats(List<GameStat> stats) {
+		myHUD.setGameStats(stats);
+	}
 
-    @Override
-    public void fastForward() {
-        if (!gameRunning) return;
-        //myEngineManager.changeRunSpeed(3.0);
-        play();
-    }
+	@Override
+	public void pause() {
+		if (!gameRunning)
+			return;
+		myEngineManager.pause();
+	}
 
-    @Override
-    public void registerStore(Store store) {
-        myStore = store;
-    }
+	@Override
+	public void changeTheme() {
+		File file = FileLoader.getInstance().load(myStage, "StyleSheets",
+				"*.css");
+		if (file != null) {
+			myStage.getScene().getStylesheets().clear();
+			myStage.getScene().getStylesheets()
+					.add("file:" + file.getAbsolutePath());
+		}
+	}
 
-    @Override
-    public void fillStore(Collection<TowerInfoObject> towersAvailable) {
-        List<StoreItem> storeItems = new ArrayList<StoreItem>();
-        for (TowerInfoObject info: towersAvailable) {
-            StoreItem newItem = new StoreItem(info.getName(), info.getImageLocation(), new SimpleBooleanProperty(true));
-            storeItems.add(newItem);
-        }
-        myStore.fillStore(storeItems);
-    }
+	@Override
+	public void normalSpeed() {
+		if (!gameRunning)
+			return;
+		// myEngineManager.changeRunSpeed(1.0);
+		play();
+	}
 
-    @Override
-    public void refreshStore() {
-        myStore.refreshStore();
-    }
+	@Override
+	public void fastForward() {
+		if (!gameRunning)
+			return;
+		// myEngineManager.changeRunSpeed(3.0);
+		play();
+	}
 
-    @Override
-    public void upgradeTower(ImageView imageView, String upgradeName) {
-        if (!gameRunning) return;
-        if (upgradeName.equals(NO_UPGRADE) && !myEngineManager.checkGold(towerMap.get(upgradeName))){ 
-            displayMessage(upgradeName, true);
-            return;
-        }
-        DoubleProperty gold=myEngineManager.myGold();
-        myEngineManager.setMyGold(gold.get()-towerMap.get(upgradeName).getBuyCost());
-        ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
-        //if (newTower == null) displayMessage(NO_GOLD, true);
-        newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
-        selectTower(upgradeName, newTower);
-    }
+	@Override
+	public void registerStore(Store store) {
+		myStore = store;
+	}
 
-    private void testHUD() {
-   
-        List<GameStat> gameStats;
-        GameStat level = new GameStat();
-        level.setGameStat("Level");
-        level.setStatValue(1);
+	@Override
+	public void fillStore(Collection<TowerInfoObject> towersAvailable) {
+		List<StoreItem> storeItems = new ArrayList<StoreItem>();
+		for (TowerInfoObject info : towersAvailable) {
+			StoreItem newItem = new StoreItem(info.getName(),
+					info.getImageLocation(), new SimpleBooleanProperty(true));
+			storeItems.add(newItem);
+		}
+		myStore.fillStore(storeItems);
+	}
 
-        GameStat gold = new GameStat();
-        gold.setGameStat("Gold");
-        gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
+	@Override
+	public void refreshStore() {
+		myStore.refreshStore();
+	}
 
-        GameStat health = new GameStat();
-        health.setGameStat("Health");
-        health.setStatValue(100);
+	@Override
+	public void upgradeTower(ImageView imageView, String upgradeName) {
+		if (!gameRunning)
+			return;
+		if (upgradeName.equals(NO_UPGRADE)
+				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
+			displayMessage(upgradeName, true);
+			return;
+		}
+		DoubleProperty gold = myEngineManager.myGold();
+		myEngineManager.setMyGold(gold.get()
+				- towerMap.get(upgradeName).getBuyCost());
+		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
+		// if (newTower == null) displayMessage(NO_GOLD, true);
+		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
+		selectTower(upgradeName, newTower);
+	}
 
-        gameStats = new ArrayList<GameStat>();
-        gameStats.add(level); gameStats.add(gold); gameStats.add(health);
-        this.setGameStats(gameStats);
+	private void testHUD() {
+		List<GameStat> gameStats;
+		GameStat level = new GameStat();
+		level.setGameStat("Level");
+		level.setStatValue(1);
 
-        //update game stats
-        // gameStats.get(1).setStatValue(50);
-        //  gameStats.get(2).setStatValue(50);
-    }
+		GameStat gold = new GameStat();
+		gold.setGameStat("Gold");
+		gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
 
-    public void makeTower(String towerName, double x, double y) {
-        if (!gameRunning) return;
-        if (!myEngineManager.checkGold(towerMap.get(towerName))){ 
-            displayMessage(towerName, true);
-            return;
-        }
-        DoubleProperty gold=myEngineManager.myGold();
-        myEngineManager.setMyGold(gold.get()-towerMap.get(towerName).getBuyCost());		
-        ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
-        //		if(towerImageView == null) {
-        //			displayMessage(NO_GOLD, true);
-        //		    return;
-        //		}
-        towerImageView.setOnMouseClicked(event -> selectTower(towerName, towerImageView));
-    }
+		GameStat health = new GameStat();
+		health.setGameStat("Health");
+		health.setStatValue(100);
 
-    private void selectTower(String towerName, ImageView tower){
-        CenteredImageView centered = (CenteredImageView)tower;
-        double radius = towerMap.get(towerName).getRange();
-        deselectTower(activeIndicator, activeTower, myEngineManager.getTowerName(activeTower));
-        activeIndicator = new TowerIndicator(centered.getXCenter(), centered.getYCenter(), radius);
-        activeTower = tower;
-        myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower, activeIndicator);
-        myGameWorld.getMap().getChildren().add(activeIndicator);
-        tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower, towerName));
-        tower.getParent().toFront();
-    }
+		gameStats = new ArrayList<GameStat>();
+		gameStats.add(level);
+		gameStats.add(gold);
+		gameStats.add(health);
+		this.setGameStats(gameStats);
 
-    private void deselectTower(TowerIndicator indicator, ImageView tower, String towerName) {
-        myGameWorld.getMap().getChildren().remove(indicator);
-        myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
-        if (tower != null) tower.setOnMouseClicked(event -> selectTower(towerName, tower));
-    }
+		// update game stats
+		// gameStats.get(1).setStatValue(50);
+		// gameStats.get(2).setStatValue(50);
+	}
 
-    @Override
-    public void placeTower(String towerName) {
-        TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(), towerMap.get(towerName).getRange());
-    }
+	public void makeTower(String towerName, double x, double y) {
+		if (!gameRunning)
+			return;
+		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
+			displayMessage(towerName, true);
+			return;
+		}
+		DoubleProperty gold = myEngineManager.myGold();
+		myEngineManager.setMyGold(gold.get()
+				- towerMap.get(towerName).getBuyCost());
+		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
+		// if(towerImageView == null) {
+		// displayMessage(NO_GOLD, true);
+		// return;
+		// }
+		towerImageView.setOnMouseClicked(event -> selectTower(towerName,
+				towerImageView));
+	}
 
-    @Override
-    public void registerMessageDisplayListener(MessageDisplay display) {
-        myMessageDisplay = display;
-    }
+	private void selectTower(String towerName, ImageView tower) {
+		CenteredImageView centered = (CenteredImageView) tower;
+		double radius = towerMap.get(towerName).getRange();
+		deselectTower(activeIndicator, activeTower,
+				myEngineManager.getTowerName(activeTower));
+		activeIndicator = new TowerIndicator(centered.getXCenter(),
+				centered.getYCenter(), radius);
+		activeTower = tower;
+		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower,
+				activeIndicator);
+		myGameWorld.getMap().getChildren().add(activeIndicator);
+		tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower,
+				towerName));
+		tower.getParent().toFront();
+	}
 
-    @Override
-    public void displayMessage(String message, boolean error) {
-        myMessageDisplay.showMessage(message, error);
-    }
+	private void deselectTower(TowerIndicator indicator, ImageView tower,
+			String towerName) {
+		myGameWorld.getMap().getChildren().remove(indicator);
+		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		if (tower != null)
+			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
+	}
 
-    @Override
-    public void clearMessageDisplay() {
-        myMessageDisplay.clear();		
-    }
+	@Override
+	public void placeTower(String towerName) {
+		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
+				towerMap.get(towerName).getRange());
+	}
 
-    @Override
-    public void selectItem(int itemID) {
+	@Override
+	public void registerMessageDisplayListener(MessageDisplay display) {
+		myMessageDisplay = display;
+	}
 
-    }
+	@Override
+	public void displayMessage(String message, boolean error) {
+		myMessageDisplay.showMessage(message, error);
+	}
 
-    @Override
-    public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
-        myEngineManager.sellTower(myTowerImageView);
-        myGameWorld.getMap().getChildren().remove(indicator);
-    }
+	@Override
+	public void clearMessageDisplay() {
+		myMessageDisplay.clear();
+	}
 
-    /*
-     * For Tower Placing
-     */
-    public boolean validPlacement(double x, double y) {
-        return myEngineManager.validateTower(x, y);
-    }
+	@Override
+	public void selectItem(int itemID) {
+
+	}
+
+	@Override
+	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
+		myEngineManager.sellTower(myTowerImageView);
+		myGameWorld.getMap().getChildren().remove(indicator);
+	}
+
+	/*
+	 * For Tower Placing
+	 */
+	public boolean validPlacement(double x, double y) {
+		return myEngineManager.validateTower(x, y);
+	}
 
 	@Override
 	public void changeSpeed(double d) {
 		myEngineManager.changeRunSpeed(d);
+	}
+
+	private void makeTowerMap() {
+		towerMap = new HashMap<String, TowerInfoObject>();
+		for (TowerInfoObject info : myEngineManager
+				.getAllTowerTypeInformation()) {
+			towerMap.put(info.getName(), info);
+			TowerInfoObject next = info.getMyUpgrade();
+			while (!(next instanceof NullTowerInfoObject)) {
+				towerMap.put(next.getName(), next);
+				next = next.getMyUpgrade();
+			}
+		}
 	}
 }

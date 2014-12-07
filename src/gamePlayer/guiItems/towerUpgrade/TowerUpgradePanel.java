@@ -1,22 +1,22 @@
 package gamePlayer.guiItems.towerUpgrade;
 
-import java.io.File;
-import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
-import utilities.XMLParsing.XMLParser;
 import gameEngine.NullTowerInfoObject;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
+import java.io.File;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.XMLParsing.XMLParser;
 
 public class TowerUpgradePanel extends Pane implements GuiItem {
 	
