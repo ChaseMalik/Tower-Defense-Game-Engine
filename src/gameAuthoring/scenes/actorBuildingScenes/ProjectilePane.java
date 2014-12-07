@@ -3,16 +3,11 @@ package gameAuthoring.scenes.actorBuildingScenes;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
-import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.IBehaviorKeyValuePair;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.ProjectileInfo;
-import gameEngine.actors.behaviors.IBehavior;
-import gameEngine.actors.behaviors.LinearMovement;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Collectors;
@@ -33,6 +28,7 @@ public class ProjectilePane extends Observable implements Observer {
     private HBox myContainer;
     private DragAndDropImagePane myDropImgPane;
     private ArrayList<BehaviorBuilder> myBehaviorBuilders;
+    private SliderContainer myDamageSlider;
     
     public ProjectilePane() {
         
@@ -44,11 +40,13 @@ public class ProjectilePane extends Observable implements Observer {
             List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
             myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser.getSliderInfo(behaviorType)));
         }
+        
+        myDamageSlider = new SliderContainer("Damage", 1, 5);
         HBox behaviorBox = new HBox(10);
+        behaviorBox.getChildren().add(myDamageSlider);
         for(BehaviorBuilder builder:myBehaviorBuilders) {
             behaviorBox.getChildren().add(builder.getContainer());
         }
-        
                 
         File dir = new File(PROJECTILE_IMG_DIR);
         dir.mkdir();
@@ -79,7 +77,7 @@ public class ProjectilePane extends Observable implements Observer {
                 .map(enemy->enemy.toString())
                 .collect(Collectors.toList());
         return new ProjectileInfo(myDropImgPane.getImagePath(),
-                                  10.0,
+                                  (int) myDamageSlider.getSliderValue(),
                                   BehaviorMapBuilder.buildMap(myBehaviorBuilders),
                                   enemyStrings);
     }
