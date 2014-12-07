@@ -3,8 +3,8 @@ package gameEngine.actors;
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProjectileInfo {
 
@@ -16,7 +16,7 @@ public class ProjectileInfo {
 
 
 
-    public ProjectileInfo(String image, int damage,HashMap<String,IBehavior> map, List<String> types){
+    public ProjectileInfo(String image, int damage, Map<String,IBehavior> map, List<String> types){
         myDamage=damage;
         myImage = image;
         myOnHitEffects=new ArrayList<>();
