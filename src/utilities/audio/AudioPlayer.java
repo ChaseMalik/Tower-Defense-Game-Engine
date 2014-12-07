@@ -14,11 +14,9 @@ import javafx.scene.media.MediaPlayer;
  * 
  */
 public class AudioPlayer {
-
     protected static void playAudio (File file) {
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
         player.play();
     }
-
 }
