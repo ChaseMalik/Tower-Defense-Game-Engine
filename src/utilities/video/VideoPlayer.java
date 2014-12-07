@@ -10,6 +10,7 @@ import javafx.scene.media.MediaView;
 class VideoPlayer extends BorderPane {
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
+    private final boolean replayVideo = true;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
@@ -22,5 +23,7 @@ class VideoPlayer extends BorderPane {
         myMediaBar.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(myMediaBar, Pos.CENTER);
         setBottom(myMediaBar);
+
+        mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
     }
 }
