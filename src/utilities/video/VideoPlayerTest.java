@@ -1,19 +1,18 @@
-package utilities.audio;
+package utilities.video;
 
 import java.net.URL;
 
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MediaPlayerTest extends Application {
+public class VideoPlayerTest extends Application {
 
-    private static final int myMovieTheaterWidth = 1600;
-    private static final int myMovieTheaterHeight = 900;
+    private static final int MY_MOVIE_THEATER_WIDTH = 1600;
+    private static final int MY_MOVIE_THEATER_HEIGHT = 900;
     private static final String MEDIA_PLAYER_TEST_FILE = "mongols.mp4";
     private static final String MY_MOVIE_THEATER_TITLE = "$cotty $haw's Movie Theater";
 
@@ -25,15 +24,15 @@ public class MediaPlayerTest extends Application {
     public void start (Stage movieTheater) {
         movieTheater.setTitle(MY_MOVIE_THEATER_TITLE);
         Group root = new Group();
-        Scene scene = new Scene(root, myMovieTheaterWidth, myMovieTheaterHeight);
+        Scene scene = new Scene(root, MY_MOVIE_THEATER_WIDTH, MY_MOVIE_THEATER_HEIGHT);
 
-        final URL resource = getClass().getResource(MEDIA_PLAYER_TEST_FILE);
-        final Media media = new Media(resource.toString());
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        final URL RESOURCE = getClass().getResource(MEDIA_PLAYER_TEST_FILE);
+        final Media MEDIA = new Media(RESOURCE.toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(MEDIA);
+        mediaPlayer.setAutoPlay(true);
 
-        MediaViewer mediaViewer = new MediaViewer();
-        scene.setRoot(mediaViewer);
+        VideoPlayer videoPlayer = new VideoPlayer(mediaPlayer);
+        scene.setRoot(videoPlayer);
 
         movieTheater.setScene(scene);
         movieTheater.show();

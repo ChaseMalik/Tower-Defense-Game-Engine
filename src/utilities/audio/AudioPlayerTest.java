@@ -16,10 +16,10 @@ import javafx.stage.Stage;
  */
 public class AudioPlayerTest extends Application {
 
-    private static final int myJukeBoxWidth = 500;
-    private static final int myJukeBoxHeight = 500;
+    private static final int MY_JUKEBOX_WIDTH = 500;
+    private static final int MY_JUKEBOX_HEIGHT = 500;
     private static final String AUDIO_PLAYER_TEST_FILE = "joe.mp3";
-    private static final String MY_JUKE_BOX_TITLE = "$cotty $haw's Juke Box - Brand New Day";
+    private static final String MY_JUKE_BOX_TITLE = "$cotty $haw's Jukebox - Brand New Day";
 
     public static void main (String[] args) {
         launch(args);
@@ -27,14 +27,14 @@ public class AudioPlayerTest extends Application {
 
     @Override
     public void start (Stage jukeBox) {
-        final URL resource = getClass().getResource(AUDIO_PLAYER_TEST_FILE);
-        final Media media = new Media(resource.toString());
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        final URL RESOURCE = getClass().getResource(AUDIO_PLAYER_TEST_FILE);
+        final Media MEDIA = new Media(RESOURCE.toString());
+        final MediaPlayer PLAYER = new MediaPlayer(MEDIA);
+        PLAYER.play();
 
         jukeBox.setTitle(MY_JUKE_BOX_TITLE);
-        jukeBox.setWidth(myJukeBoxWidth);
-        jukeBox.setHeight(myJukeBoxHeight);
+        jukeBox.setWidth(MY_JUKEBOX_WIDTH);
+        jukeBox.setHeight(MY_JUKEBOX_HEIGHT);
         jukeBox.show();
     }
 }
