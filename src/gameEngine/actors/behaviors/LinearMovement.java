@@ -50,7 +50,7 @@ public class LinearMovement extends BaseMovementBehavior {
         myRemainingDistance-=mySpeed;
         Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
         Point2D answer = current.add(vector);
-        move(actor, new VisibilityPoint(myRoute.get(myIndex).isVisible(), answer));
+        move(actor, new VisibilityPoint(myRoute.get(myIndex-1).isVisible(), answer));
 
     }
 

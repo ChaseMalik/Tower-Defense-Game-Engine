@@ -4,6 +4,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import javafx.scene.Group;
 
+
 public class ComponentVisibilityPane extends BuildingPane {
 
     private Path myPath;
@@ -14,29 +15,29 @@ public class ComponentVisibilityPane extends BuildingPane {
     }
 
     private void addListeners () {
-        for(PathComponent comp:myPath.getAllPathComponents()) {
-            comp.getNode().setOnMouseClicked(event->comp.togglePathComponentVisibility());
+        for (PathComponent comp : myPath.getAllPathComponents()) {
+            comp.getNode().setOnMouseClicked(event -> comp.togglePathComponentVisibility());
         }
     }
 
     private void removeListeners () {
-        for(PathComponent comp:myPath.getAllPathComponents()) {
+        for (PathComponent comp : myPath.getAllPathComponents()) {
             comp.getNode().setOnMouseClicked(null);
         }
     }
 
     @Override
-    public void executeEnterFunction() {
+    public void executeEnterFunction () {
         addListeners();
-        for(PathComponent comp:myPath.getAllPathComponents()) {
+        for (PathComponent comp : myPath.getAllPathComponents()) {
             comp.showVisibility();
         }
     }
 
     @Override
-    public void executeExitFunction() {
+    public void executeExitFunction () {
         removeListeners();
-        for(PathComponent comp:myPath.getAllPathComponents()) {
+        for (PathComponent comp : myPath.getAllPathComponents()) {
             comp.removeStroke();
         }
     }

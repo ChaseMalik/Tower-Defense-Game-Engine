@@ -3,8 +3,9 @@ package gameAuthoring.scenes;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
+
 public abstract class BuildingScene {
-    
+
     public static final String STYLESHEET_PACKAGE = "./gameAuthoring/Stylesheets/";
     private Scene myScene;
     private String myTitle;
@@ -14,18 +15,18 @@ public abstract class BuildingScene {
         myPane = root;
         myScene = new Scene(root);
         myTitle = title;
-        myScene.getStylesheets().add(getStyleSheetFileName()); 
+        myScene.getStylesheets().add(getStyleSheetFileName());
     }
-    
+
     private String getStyleSheetFileName () {
         return STYLESHEET_PACKAGE + myTitle.concat("building").toLowerCase().concat(".css");
     }
 
-    public String getTitle() {
+    public String getTitle () {
         return myTitle;
     }
-    
-    public Scene getScene() {
+
+    public Scene getScene () {
         return myScene;
     }
 }

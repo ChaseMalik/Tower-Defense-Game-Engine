@@ -9,28 +9,30 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurve;
 
+
 /**
  * Defines a curve that can be drawn on the screen.
+ * 
  * @author Austin Kyker
  *
  */
 public class PathCurve extends CubicCurve implements PathComponent {
 
     private static final double NUM_INNER_POINTS = 15.0;
-    
+
     private boolean isEndPointSet;
     private Circle myControlPoint1Setter;
     private Circle myControlPoint2Setter;
     private boolean isPathComponentVisible;
-    
-    public PathCurve() {
+
+    public PathCurve () {
         this.setStrokeWidth(20);
         this.setStroke(Color.BLACK);
         this.setFill(null);
         isPathComponentVisible = true;
     }
 
-    public PathCurve(double initialX, double initialY) {
+    public PathCurve (double initialX, double initialY) {
         this();
         this.setStartingPoint(new Point2D(initialX, initialY));
         this.setEndingPoint(new Point2D(initialX, initialY));
@@ -38,11 +40,11 @@ public class PathCurve extends CubicCurve implements PathComponent {
         calculateAndSetControlPoints();
     }
 
-    public boolean isEndPointSet() {
+    public boolean isEndPointSet () {
         return isEndPointSet;
     }
 
-    public void endPointIsSet() {
+    public void endPointIsSet () {
         isEndPointSet = true;
     }
 
@@ -71,17 +73,17 @@ public class PathCurve extends CubicCurve implements PathComponent {
     @Override
     public void translate (double deltaX, double deltaY) {
         this.setTranslateX(deltaX);
-        this.setTranslateY(deltaY);      
+        this.setTranslateY(deltaY);
     }
 
     @Override
     public void select () {
-        super.setStroke(Color.GREEN);        
+        super.setStroke(Color.GREEN);
     }
 
     @Override
     public void removeStroke () {
-        super.setStroke(Color.BLACK);        
+        super.setStroke(Color.BLACK);
     }
 
     @Override
@@ -93,8 +95,8 @@ public class PathCurve extends CubicCurve implements PathComponent {
         copy.setControlPoint2(this.getControlX2(), this.getControlY2());
         return copy;
     }
-    
-    public void setControlPointSetters(Circle setter1, Circle setter2) {
+
+    public void setControlPointSetters (Circle setter1, Circle setter2) {
         myControlPoint1Setter = setter1;
         myControlPoint2Setter = setter2;
     }
@@ -105,27 +107,27 @@ public class PathCurve extends CubicCurve implements PathComponent {
 
     public void setControlPoint1 (double x, double y) {
         this.setControlX1(x);
-        this.setControlY1(y);      
+        this.setControlY1(y);
     }
 
-    public void setControlPoint2 (double x, double y){ 
+    public void setControlPoint2 (double x, double y) {
         this.setControlX2(x);
-        this.setControlY2(y);      
+        this.setControlY2(y);
     }
 
-    public void calculateAndSetControlPoints() {
+    public void calculateAndSetControlPoints () {
         Point2D curveMidPoint = this.getStartingPoint().midpoint(this.getEndingPoint());
         Point2D controlPoint1Loc = this.getStartingPoint().midpoint(curveMidPoint);
         this.setControlPoint1(controlPoint1Loc.getX(), controlPoint1Loc.getY());
         Point2D controlPoint2Loc = curveMidPoint.midpoint(this.getEndingPoint());
-        this.setControlPoint2(controlPoint2Loc.getX(), controlPoint2Loc.getY());        
+        this.setControlPoint2(controlPoint2Loc.getX(), controlPoint2Loc.getY());
     }
 
-    private Point2D getControlPoint1() {
+    private Point2D getControlPoint1 () {
         return new Point2D(this.getControlX1(), this.getControlY1());
     }
 
-    private Point2D getControlPoint2() {
+    private Point2D getControlPoint2 () {
         return new Point2D(this.getControlX2(), this.getControlY2());
     }
 
@@ -137,12 +139,20 @@ public class PathCurve extends CubicCurve implements PathComponent {
     @Override
     public List<VisibilityPoint> getInnerPointsRepresentingComponent () {
         List<VisibilityPoint> innerPoints = new ArrayList<VisibilityPoint>();
-        for(double t = 1/NUM_INNER_POINTS; t < 1; t = t + 1/NUM_INNER_POINTS) {
-            innerPoints.add(new VisibilityPoint(this.isPathComponentVisible,
-                                                this.getStartingPoint().multiply(Math.pow((1-t),3))
-                                                .add(getControlPoint1().multiply(3*Math.pow(1-t, 2)*t))
-                                                .add(getControlPoint2().multiply(3*(1-t)*Math.pow(t,2)))
-                                                .add(this.getEndingPoint().multiply(Math.pow(t, 3)))
+        for (double t = 1 / NUM_INNER_POINTS; t < 1; t = t + 1 / NUM_INNER_POINTS) {
+            innerPoints
+                    .add(new VisibilityPoint(
+                                             this.isPathComponentVisible,
+                                             this.getStartingPoint()
+                                                     .multiply(Math.pow((1 - t), 3))
+                                                     .add(getControlPoint1()
+                                                                  .multiply(3 * Math.pow(1 - t, 2) *
+                                                                                    t))
+                                                     .add(getControlPoint2()
+                                                                  .multiply(3 * (1 - t) *
+                                                                                    Math.pow(t, 2)))
+                                                     .add(this.getEndingPoint()
+                                                                  .multiply(Math.pow(t, 3)))
                     ));
         }
         return innerPoints;
@@ -159,12 +169,12 @@ public class PathCurve extends CubicCurve implements PathComponent {
         nodes.add(myControlPoint2Setter);
         return nodes;
     }
-    
-    public boolean isPathComponentVisible() {
+
+    public boolean isPathComponentVisible () {
         return isPathComponentVisible;
     }
-    
-    public void togglePathComponentVisibility() {
+
+    public void togglePathComponentVisibility () {
         isPathComponentVisible = !isPathComponentVisible;
         this.showVisibility();
     }
@@ -172,6 +182,6 @@ public class PathCurve extends CubicCurve implements PathComponent {
     @Override
     public void showVisibility () {
         Color color = isPathComponentVisible ? Path.VISIBLE_COLOR : Path.INVISIBLE_COLOR;
-        this.setStroke(color);       
+        this.setStroke(color);
     }
 }

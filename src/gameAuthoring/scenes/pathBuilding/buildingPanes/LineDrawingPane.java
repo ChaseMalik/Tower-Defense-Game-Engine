@@ -67,12 +67,12 @@ public class LineDrawingPane extends BuildingPane {
     }
     
     @Override
-    public void executeEnterFunction() {
+    public void executeEnterFunction () {
         addListeners();
     }
 
     @Override
-    public void executeExitFunction() {
+    public void executeExitFunction () {
         removeListeners();
     }
 }
