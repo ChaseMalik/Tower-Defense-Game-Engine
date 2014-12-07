@@ -89,9 +89,11 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void getTowersFromServer () {
-        List<DataWrapper> listFromServer =
-                myFileReader.readWrappers(HTTP_CONNECTOR.sendGet(GET_MASTER_JSON));
-        if (listFromServer == null) { return; }
+        String response = HTTP_CONNECTOR.sendGet(GET_MASTER_JSON);
+        if(response.trim().equals("None")){
+            return;
+        }
+        List<DataWrapper> listFromServer = myFileReader.readWrappers(response);
         for (BaseTower tower : myTowerGroup) {
             if (!listFromServer.contains(new DataWrapper(tower))) {
                 myTowerGroup.addActorToRemoveBuffer(tower);
