@@ -18,9 +18,11 @@ public class DoTOnHit extends BaseOnHitBehavior {
         BaseDefendBehavior m = ((BaseDefendBehavior) actor.getBehavior("defend"));
         double d = m.getHealth()-myMultiplier/myInitialDuration;
         m.setHealth(d);
- //       System.out.println(m.getHealth());
-        if(m.getHealth()<=0)
-            actor.died(1);
+ 
+        if(m.getHealth()<=0){
+            
+            actor.killed();
+        }
         if (myDuration == 0) {
             actor.removeDebuff(this);
             undo(actor);

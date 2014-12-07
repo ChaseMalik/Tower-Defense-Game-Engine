@@ -2,9 +2,10 @@ package gameEngine.actors;
 
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import gameEngine.goldUpdate;
+import gameEngine.healthUpdate;
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
-
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +51,15 @@ public class BaseEnemy extends RealActor {
         return myBounty;
     }
     @Override
-    public void died(double flag){
+    public void died(){
+        this.changeAndNotify(new healthUpdate(-1*myBounty));
         myIsRemovable=true;
-        this.setChanged();
-        this.notifyObservers(new Double(myBounty*flag));
             
+    }
+    @Override 
+    public void killed(){
+        this.changeAndNotify(new goldUpdate(myBounty));
+        myIsRemovable=true;
     }
     
     public VisibilityPoint getStart() {

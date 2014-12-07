@@ -1,6 +1,7 @@
 package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
+import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
@@ -178,10 +179,27 @@ public abstract class BaseActor extends Observable {
         myRange = d;
     }
     
-    public void died(double flag) {
+    public void died() {
         myIsRemovable = true;
     }
     public boolean isDead(){
         return myIsRemovable;
     }
+    public void changeAndNotify(updateObject o){
+        this.setChanged();
+        this.notifyObservers(o);
+        
+    }
+    public boolean addTypes (Class<? extends BaseActor> type) {
+        return myTypes.add(type);
+    }
+    public void removeType(Class<? extends BaseActor> type){
+        myTypes.remove(type);
+    }
+
+    public void killed () {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

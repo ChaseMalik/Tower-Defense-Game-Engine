@@ -10,8 +10,8 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
+import gameEngine.actors.behaviors.updateInterface;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,9 +24,7 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.sun.javafx.geom.Point2D;
-
 import utilities.GSON.DataWrapper;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
@@ -47,7 +45,7 @@ import utilities.GSON.GSONFileReader;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
-public class SingleThreadedEngineManager implements Observer {
+public class SingleThreadedEngineManager implements Observer, updateInterface{
 
 	private static final int FPS = 30;
 	private static final double ONE_SECOND_IN_MILLIS = 1000.0;
@@ -75,7 +73,7 @@ public class SingleThreadedEngineManager implements Observer {
 	protected GSONFileReader myFileReader;
 	protected GSONFileWriter myFileWriter;
 
-	private boolean[][] myTowerLocationByGrid;
+	private TowerTileGrid myTowerLocationByGrid;
 	private GridPane myTowerTiles;
 
 	private GridPathFinder myPathFinder;
@@ -149,6 +147,7 @@ public class SingleThreadedEngineManager implements Observer {
 		BaseTower tower = myNodeToTower.get(node);
 		myNodeToTower.remove(node);
 		myTowerGroup.remove(tower);
+		setTowerTileStatus(tower, false);
 	}
 
 	public ImageView addTower(String identifier, double x, double y) {
@@ -160,19 +159,25 @@ public class SingleThreadedEngineManager implements Observer {
 		newTowerNode.setVisible(true);
 		myTowerGroup.add(newTower);
 		myNodeToTower.put(newTowerNode, newTower);
-
-		Collection<Node> towerTiles = getIntersectingTowerTileNode(
-				newTowerNode, myTowerTiles.getChildren());
-		for (Node tileNode : towerTiles) {
-			Tile tile = (Tile)tileNode;
-			int row = tile.getRow();
-			int col = tile.getColumn();
-			myTowerLocationByGrid[row][col] = true;
-		}
+		
+		setTowerTileStatus(newTower, true);
 		newTower.addObserver(this);
 		return newTowerNode;
 	}
 
+	private void setTowerTileStatus(BaseTower tower, boolean towerTileStatus) {
+		Node towerNode = tower.getNode();
+		Collection<Node> towerTiles = getIntersectingTowerTileNode(
+				towerNode, myTowerTiles.getChildren());
+		for (Node tileNode : towerTiles) {
+			Tile tile = (Tile)tileNode;
+			int row = tile.getRow();
+			int col = tile.getColumn();
+			myTowerLocationByGrid.setTowerTile(row, col, towerTileStatus);
+		}
+		
+	}
+	
 	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
 			Collection<Node> nodeList) {
 		List<Node> towerTiles = nodeList.stream()
@@ -273,7 +278,7 @@ public class SingleThreadedEngineManager implements Observer {
 				projectileList = myProjectileGroup.getActorsInRange(actor);
 			}
 		}
-		return new InfoObject(enemyList, towerList, projectileList);
+		return new InfoObject(enemyList, towerList, projectileList, myTowerLocationByGrid, myTowerTiles);
 	}
 
 	public void pause() {
@@ -307,7 +312,7 @@ public class SingleThreadedEngineManager implements Observer {
 	private void loadLocations(String dir) {
 		boolean[][] validRegions = myFileReader
 				.readTowerRegionsFromGameDirectory(dir);
-		myTowerLocationByGrid = new boolean[validRegions.length][validRegions[0].length];
+		myTowerLocationByGrid = new TowerTileGrid(validRegions.length, validRegions[0].length);
 		myValidRegions = createGameSizedGridPane();
 		myTowerTiles = createGameSizedGridPane();
 		for (int row = 0; row < validRegions.length; row++) {
@@ -395,18 +400,18 @@ public class SingleThreadedEngineManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof BaseActor && arg != null) {
+            if(arg instanceof updateObject){
+                ((updateObject)arg).update(this);
+            }else if (o instanceof BaseActor && arg != null) {
 			if (arg instanceof BaseTower) {
 				myTowerGroup.add((BaseTower) arg);
-			} else if (o instanceof BaseEnemy) {
-				if (((Double) arg).doubleValue() > 0)
-					myGold.set(((Double) arg).doubleValue() + myGold.get());
-				else
-					myHealth.set(((Double) arg).doubleValue() + myHealth.get());
+			} else if (arg instanceof BaseEnemy) {
+			        myTowerGroup.add((BaseTower) arg);
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
 		}
+
 	}
 
 	public ImageView upgrade(ImageView n, String name) {
