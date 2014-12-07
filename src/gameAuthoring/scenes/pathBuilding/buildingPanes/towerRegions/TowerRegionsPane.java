@@ -10,8 +10,8 @@ import javafx.scene.layout.GridPane;
 
 public class TowerRegionsPane extends BuildingPane {
 
-    protected static final int NUM_COLS = 20;
-    protected static final int NUM_ROWS = 20;
+    public static final int NUM_COLS = 20;
+    public static final int NUM_ROWS = 20;
 
     private GridPane myPane;
     private Path myPath;
