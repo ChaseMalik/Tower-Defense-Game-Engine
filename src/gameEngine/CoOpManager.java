@@ -30,12 +30,15 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     private static final int TIMER_END = 30;
     private boolean myTowerPlacement;
+    private String myDirectory;
 
     public CoOpManager () {
         super();
+        myDirectory = "";
     }
 
     public void startNewGame (String directory) {
+        myDirectory = directory;
         HTTP_CONNECTOR.sendPost(MAKE_GAME, GAME_DIRECTORY + directory);
     }
 
@@ -43,13 +46,14 @@ public class CoOpManager extends SingleThreadedEngineManager {
         return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS)) >= REQUIRED_NUM_PLAYERS;
     }
 
-    public String joinGame () {
-        return HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
+    public boolean joinGame () {
+        myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
+        return myDirectory.equals("") ? false : true;
     }
 
-    public void initializeGame (String dir, Pane engineGroup) {
+    public void initializeGame (Pane engineGroup) {
         addGroups(engineGroup);
-        super.initializeGame(dir);
+        super.initializeGame(myDirectory);
         new Chatroom();
         allowTowerPlacement();
     }
