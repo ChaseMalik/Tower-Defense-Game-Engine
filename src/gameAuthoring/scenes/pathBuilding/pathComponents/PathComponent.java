@@ -12,14 +12,14 @@ import javafx.scene.shape.Shape;
  * @author Austin Kyker
  *
  */
-public interface PathComponent {
+public interface PathComponent { 
     Point2D getStartingPoint();
     Point2D getEndingPoint();
     void setStartingPoint (Point2D endingPoint);
     void setEndingPoint (Point2D startingPoint);
     void translate(double deltaX, double deltaY);
     void select ();
-    void deselect ();
+    void removeStroke ();
     PathComponent deepCopy();
     List<VisibilityPoint> getInnerPointsRepresentingComponent();
     /**
@@ -31,4 +31,8 @@ public interface PathComponent {
     default Node getNode() {
         return (Shape) this;
     }
+    
+    boolean isPathComponentVisible ();
+    void togglePathComponentVisibility();
+    void showVisibility ();
 }
