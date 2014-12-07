@@ -118,9 +118,9 @@ public class GameStartManager {
         public void startGame (File file) {
             String filePath = file.getAbsolutePath();
             if (filePath.contains(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY)) {
-                startSinglePlayerGame(filePath);
+                startSinglePlayerGame(file.getPath());
             } else if (filePath.contains(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY)) {
-                startMultiPlayerGame(filePath);
+                startMultiPlayerGame(file.getPath());
             }
         }
     }
