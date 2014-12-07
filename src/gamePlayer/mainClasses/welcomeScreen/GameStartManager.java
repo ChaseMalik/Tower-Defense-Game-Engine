@@ -21,10 +21,11 @@ import utilities.XMLParsing.XMLParser;
 import utilities.textGenerator.TextGenerator;
 
 public class GameStartManager {
-    Stage myStage;
+    private Stage myStage;
     public static final String propertiesPath = "./src/gamePlayer/properties/WelcomeScreenProperties.XML";
     private XMLParser parser;
     private WelcomeScreen welcomeScreen;
+    private String gameTypeBeingChosen;
 
     public GameStartManager(Stage stage) {
         myStage = stage;
@@ -68,11 +69,13 @@ public class GameStartManager {
     }
 
     private void startSinglePlayerGameChooser() {
+        gameTypeBeingChosen = GuiConstants.SINGLE_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY);
         welcomeScreen.setCenterContent(chooser);
     }
 
     private void startMultiPlayerGameChooser() {
+        gameTypeBeingChosen = GuiConstants.MULTI_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY);
         welcomeScreen.setCenterContent(chooser);
     }
@@ -117,11 +120,10 @@ public class GameStartManager {
     }
 
     public void startGame (File file) {
-        String filePath = file.getAbsolutePath();
-        System.out.println(file.getPath());
-        if (filePath.contains(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY)) {
+        
+        if (gameTypeBeingChosen.equals(GuiConstants.SINGLE_PLAYER_GAME)) {
             startSinglePlayerGame(file.getPath());
-        } else if (filePath.contains(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY)) {
+        } else if (gameTypeBeingChosen.equals(GuiConstants.MULTI_PLAYER_GAME)) {
             startMultiPlayerGame(file.getPath());
         }
     }

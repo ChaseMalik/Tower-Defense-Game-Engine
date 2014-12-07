@@ -11,27 +11,25 @@ public class GameDescription extends Pane {
     public static final double WIDTH = GameChooser.WIDTH;
     public static final double HEIGHT = GameChooser.HEIGHT/2;
     
-    public static final double GAME_IMAGE_HEIGHT = 2*HEIGHT/3;
+    public static final double GAME_IMAGE_HEIGHT =  2*HEIGHT/3;
     public static final double GAME_DESCRIPTION_HEIGHT = HEIGHT/3;
 
-    public GameDescription (ImageView image, String description,File file) {
+    public GameDescription (ImageView image, File file) {
         this.setPrefSize(WIDTH, HEIGHT);
-        this.setMaxSize(WIDTH, HEIGHT);
+        this.setMinSize(WIDTH, HEIGHT);
         
         VBox box = new VBox();
         box.setPrefSize(WIDTH, HEIGHT);
-        box.setMaxSize(WIDTH, HEIGHT);
         
         image.setFitWidth(WIDTH);
         image.setFitHeight(GAME_IMAGE_HEIGHT);
-        box.getChildren().add(image);
         
-        Button button = new Button(description);
+        Button button = new Button(file.getName());
         button.getStyleClass().add("gameDescriptionButton");
         button.setPrefSize(WIDTH, GAME_DESCRIPTION_HEIGHT);
-        button.setOnMouseReleased(event->GuiConstants.GAME_START_MANAGER.startGame(file));
-        box.getChildren().add(button);
-        
+        button.setOnAction(event->GuiConstants.GAME_START_MANAGER.startGame(file));
+
+        box.getChildren().addAll(image,button);
         this.getChildren().add(box);
     }
 }
