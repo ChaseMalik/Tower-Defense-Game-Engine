@@ -3,7 +3,9 @@ package gameEngine.actors;
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import com.sun.javafx.collections.MappingChange.Map;
 
 public class ProjectileInfo {
 
@@ -12,18 +14,28 @@ public class ProjectileInfo {
     private List<IBehavior> myOnHitEffects;
     private List<String> myEnemyTypes;
     private int myDamage;
-    public ProjectileInfo(String image, int damage, List<IBehavior> list, List<String> types){
+
+
+
+    public ProjectileInfo(String image, int damage,HashMap<String,IBehavior> map, List<String> types){
         myDamage=damage;
         myImage = image;
-        for(IBehavior m : list){
-            if(m.toString().equals("movement"))
-                myMovement=m;
+        myOnHitEffects=new ArrayList<>();
+        for(String s: map.keySet()){
+            myOnHitEffects.add(map.get(s));
         }
-        myOnHitEffects=list;
+        myMovement=map.get("movement");
+        myOnHitEffects.remove(myMovement);
         myEnemyTypes=types;
 
     }
-
+    public ProjectileInfo(String image, int damage, IBehavior move, List<IBehavior> list, List<String> types){
+        myImage=image;
+        myDamage=damage;
+        myOnHitEffects=list;
+        myMovement=move;
+        myEnemyTypes=types;
+    }
  
     
     public String getImage () {
@@ -40,14 +52,15 @@ public class ProjectileInfo {
     public BaseMovementBehavior getMove(){
         return (BaseMovementBehavior)myMovement;
     }
-    public List<IBehavior> copyEffects(){
-        List<IBehavior> l=new ArrayList<>();
-        for(IBehavior b: l){
-            l.add(b.copy());
-        }
-        return l;
+
+    public int getMyDamage () {
+        return myDamage;
+    }
+
+    public void setMyDamage (int myDamage) {
+        this.myDamage = myDamage;
     }
     public ProjectileInfo copy(){
-        return new ProjectileInfo(myImage,myDamage,copyEffects(),myEnemyTypes);
+        return new ProjectileInfo(myImage,myDamage,myMovement.copy(), myOnHitEffects,myEnemyTypes);
     }
 }
