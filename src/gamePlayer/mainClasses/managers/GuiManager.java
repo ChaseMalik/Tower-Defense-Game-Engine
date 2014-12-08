@@ -6,6 +6,7 @@ import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiFeatures.WinStatusProperty;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -36,6 +37,7 @@ import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -74,11 +76,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 	private List<GameStat> gameStats;
+	private double myScore;
 	private boolean isCoOp;
+	
+	private DoubleProperty endgame;
 
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
+
 	}
 
 	public void init() {
@@ -116,7 +122,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
-	private static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String YOU_WON = "Congratulations! You won!";
+	public static final String YOU_LOST = "Sorry, you lost!";
+	public static final String SCORE = "Your score: ";
+
+	protected static final Number WIN = null;
 
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
@@ -181,8 +192,27 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		makeTowerMap();
 		testHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
+		/*
+		endgame = new WinStatusProperty();
+		endgame.bindBidirectional(myEngineManager.getWinStatus());
+		endgame.addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				checkEndGame((double)newValue);
+			}
+		});*/
 	}
 
+	private void checkEndGame(double d){
+		myScore = myEngineManager.getMyHealth()*myEngineManager.getCurrentLevelProperty().getValue()*myEngineManager.getMyGold();
+		if (d == WinStatusProperty.WIN){
+			displayMessage(YOU_WON + SCORE + myScore, false);
+		} else if (d == WinStatusProperty.LOSS){
+			displayMessage(YOU_LOST + SCORE + myScore, true);
+		}
+		
+	}
+	
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];

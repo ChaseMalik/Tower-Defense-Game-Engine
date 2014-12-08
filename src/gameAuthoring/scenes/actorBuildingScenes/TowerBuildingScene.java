@@ -32,6 +32,7 @@ import javafx.scene.layout.VBox;
  */
 public class TowerBuildingScene extends ActorBuildingScene {
 
+    private static final int TILE_PANE_WIDTH = 340;
     private static final String SELL = "Sell";
     private static final String COST = "Cost";
     private static final double ENEMY_DISPLAY_HEIGHT = 110;
@@ -143,8 +144,9 @@ public class TowerBuildingScene extends ActorBuildingScene {
     protected void initializeActorsAndBuildActorDisplay () {
         myTowerUpgradeGroups = new ArrayList<TowerUpgradeGroup>();
         myTilePane = new TilePane();
-        myTilePane.setPrefWidth(340);
-        myTilePane.setPadding(new Insets(5, 0, 5, 0));
+        myTilePane.setPrefWidth(TILE_PANE_WIDTH);
+        myTilePane.setPadding(new Insets(Constants.SMALLEST_PADDING, 0,
+                                         Constants.SMALLEST_PADDING, 0));
         myTilePane.setVgap(Constants.SM_PADDING);
         myTilePane.setHgap(Constants.SM_PADDING);
         myTilePane.setPrefColumns(NUM_UPGRADES_POSSIBLE);
@@ -155,7 +157,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
 
     @Override
     protected HBox addRequiredNumericalTextFields () {
-        HBox fieldsContainer = new HBox(10);
+        HBox fieldsContainer = new HBox(Constants.SM_PADDING);
         myBuildCostField = new LabeledNumericalTextField(COST, FIELD_WIDTH);
         mySellValueField = new LabeledNumericalTextField(SELL, FIELD_WIDTH);
         fieldsContainer.getChildren().addAll(myBuildCostField, mySellValueField);
@@ -164,27 +166,25 @@ public class TowerBuildingScene extends ActorBuildingScene {
 
     @Override
     public boolean actorSpecificFieldsValid () {
-        if(myEnemiesTowerCanShoot.size() == 0) {
+        if (myEnemiesTowerCanShoot.size() == 0) {
             new ErrorPopup(Constants.NO_ENEMY_TOWER_CAN_SHOOT);
             return false;
         }
-        if(!isAllTowerNamesUnique()) {
+        if (!isAllTowerNamesUnique()) {
             new ErrorPopup(Constants.UNIQUE_NAMES_ERROR);
             return false;
         }
         return myBuildCostField.isValueEntered() && mySellValueField.isValueEntered() &&
-                myProjectilePane.isInfoValid();
+               myProjectilePane.isInfoValid();
     }
 
     /**
      * Ensures all tower names are unique.
      */
     private boolean isAllTowerNamesUnique () {
-        for(TowerUpgradeGroup group:myTowerUpgradeGroups) {
-            for(BaseTower tower:group) {
-                if(myActorNameField.getText().equalsIgnoreCase(tower.toString())) {
-                    return false;
-                }
+        for (TowerUpgradeGroup group : myTowerUpgradeGroups) {
+            for (BaseTower tower : group) {
+                if (myActorNameField.getText().equalsIgnoreCase(tower.toString())) { return false; }
             }
         }
         return true;

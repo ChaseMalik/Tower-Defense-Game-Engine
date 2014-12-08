@@ -488,7 +488,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     }
 
     public boolean isRunning() {
-    	return (myTimeline.statusProperty().get() != Status.PAUSED);
+    	return (myTimeline.statusProperty().get() == Status.RUNNING);
     }
     
     public void loadAuthoringLevel (BaseLevel level) {
