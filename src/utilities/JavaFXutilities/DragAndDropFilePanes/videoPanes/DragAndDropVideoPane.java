@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes.mediaPanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.videoPanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -18,13 +18,13 @@ import utilities.errorPopup.ErrorPopup;
  * an audio file drops.
  * 
  */
-public class DragAndDropCopyMediaPane extends DragAndDropFilePane {
+public class DragAndDropVideoPane extends DragAndDropFilePane {
 
     private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Error adding audio file";
     private static String[] myAllowedFileExtensions = {".gif", ".mp4"};
     private String myFileDestination;
 
-    public DragAndDropCopyMediaPane (double width, double height, String fileDestination) {
+    public DragAndDropVideoPane (double width, double height, String fileDestination) {
         super(width, height, myAllowedFileExtensions);
         myFileDestination = fileDestination;
     }

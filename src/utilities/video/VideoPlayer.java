@@ -52,7 +52,7 @@ class VideoPlayer extends BorderPane {
     private Label myTimeLabel;
     private Slider myVolumeSlider;
     private Duration myDuration;
-    private boolean myVideoWillReplay;
+    private boolean myVideoWillReplay = true;
     private boolean myVideoIsStopped;
     private boolean myCycleIsComplete;
     private HBox myMediaBar;
