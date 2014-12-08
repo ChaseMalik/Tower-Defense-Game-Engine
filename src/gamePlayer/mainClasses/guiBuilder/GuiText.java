@@ -21,4 +21,6 @@ public class GuiText {
     public static final String LEVEL = "Level";
     public static final String GOLD = "Gold";
     public static final String HEALTH = "Health";
+	public static final String REPLAY = "Replay";
+	public static final String SWITCH = "SwitchGames";
 }
