@@ -22,10 +22,11 @@ public abstract class BaseOnHitBehavior implements IBehavior{
         // TODO Auto-generated constructor stub
         myList=list;
         myDuration=list.get(0);
-
+        myDuration=myInitialDuration;
     }
 
     public void execute(BaseActor actor){
+
         if(myDuration==myInitialDuration)
             start(actor);
         

@@ -262,7 +262,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	}
 
 	private void gameUpdate() {
-		System.out.println("gameupdate");
 		addEnemies();
 		updateActors(myTowerGroup);
 		updateActors(myEnemyGroup);
@@ -288,7 +287,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	private void addEnemies() {
 
 		if (duration <= 0) {
-			System.out.println("add enemies");
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
 			if (enemy == null)
@@ -369,7 +367,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	public void resume() {
 		myTimeline.play();
 		myPausedFlag = false;
-		System.out.println("resume ");
 	}
 
 	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
@@ -578,7 +575,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 
 	public ImageView upgrade(ImageView n, String name) {
 		removeTower(n);
-		return addTower(name, ((ImageView) n).getX(), ((ImageView) n).getY());
+		return addTower(name, ((CenteredImageView) n).getXCenter(), ((CenteredImageView) n).getYCenter());
 
 	}
 
