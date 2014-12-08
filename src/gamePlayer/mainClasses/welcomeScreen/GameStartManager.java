@@ -108,13 +108,13 @@ public class GameStartManager {
     private void startSinglePlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.SINGLE_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.setCenterLargeContent(chooser);
     }
 
     private void startMultiPlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.MULTI_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.setCenterLargeContent(chooser);
     }
 
     private void startMultiPlayerOptions() {
