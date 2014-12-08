@@ -1,6 +1,7 @@
 package gamePlayer.guiContainers.coreContainers;
 
 import gamePlayer.guiContainers.GuiContainer;
+import gamePlayer.guiItems.towerUpgrade.StandardBorder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiElement;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 

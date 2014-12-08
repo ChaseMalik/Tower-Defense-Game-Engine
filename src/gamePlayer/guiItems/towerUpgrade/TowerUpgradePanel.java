@@ -2,6 +2,9 @@ package gamePlayer.guiItems.towerUpgrade;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
@@ -14,7 +17,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -23,6 +32,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * 
@@ -53,13 +64,14 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	
 	public static final String NO_SELECTED_TOWER = "Click on a tower to upgrade or sell it";
 	public static final String UPGRADE_TEXT = "Upgrade to:" + "\n";
+	public static final String STONE_PATH = "./src/gamePlayer/playerImages/stonewall.jpg";
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		
 		myListener = GuiConstants.GUI_MANAGER;
 		
-		unselectedLabel = new Label(NO_SELECTED_TOWER);
+
 		
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
@@ -72,24 +84,37 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
         myIconSize = RatiosToDim.convert(mySize, iconRatio);
         myButtonSize = RatiosToDim.convert(mySize, buttonRatio);
         myLabelSize = RatiosToDim.convert(mySize, labelRatio);
-        
-        
+   
         this.setPrefSize(mySize.getWidth(), mySize.getHeight());
+        
+		unselectedLabel = new Label(NO_SELECTED_TOWER);
+		unselectedLabel.setPrefSize(mySize.getWidth(), mySize.getHeight());
+		unselectedLabel.setAlignment(Pos.CENTER);
+		unselectedLabel.setFont(Font.font("sans-serif", FontWeight.BOLD, 20.0));
+		unselectedLabel.setStyle("-fx-text-fill: WHITE;");
+		Image background = null;
+		try {
+			background = new Image(new FileInputStream(new File(STONE_PATH)), mySize.getWidth(), mySize.getHeight(), false, false);
+		} catch (FileNotFoundException e) {
+		}
+		Background b = new Background(
+				new BackgroundImage(background,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+		unselectedLabel.setBackground(b);
+		System.out.println(unselectedLabel.getPrefWidth() + " " + unselectedLabel.getPrefHeight());
+		unselectedLabel.setBorder(StandardBorder.get(Color.BLACK));
         
 		myIcon = new ImageView();
 		myIcon.setFitWidth(myIconSize.getWidth());
 		myIcon.setFitHeight(myIconSize.getWidth());  //same dimensions for square image
+		myIcon.setStyle("-fx-stroke: green; -fx-stroke-width: 5");
 		
 		myName = new Label();
 		myName.setPrefSize(myLabelSize.getWidth(), myLabelSize.getHeight());
 		myName.setAlignment(Pos.CENTER);
-		myName.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.MEDIUM)));
+		myName.setBorder(StandardBorder.get(Color.ORANGE));
 		
-		upgradeButton = new Button();
-		upgradeButton.setPrefSize(myButtonSize.getWidth(), myButtonSize.getHeight());
-		
-		sellButton = new Button();
-		sellButton.setPrefSize(myButtonSize.getWidth(), myButtonSize.getHeight());
+		upgradeButton = new PanelButton(Color.LIGHTGREEN, myButtonSize);
+		sellButton = new PanelButton(Color.BLUEVIOLET, myButtonSize);
 		
 		myUpgradeBox = new HBox();
 		myUpgradeBox.getChildren().addAll(myIcon, myName, upgradeButton, sellButton);
@@ -98,6 +123,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		
 		//setCurrentTower(new NullTowerInfoObject(), null, null);
 		this.getChildren().add(unselectedLabel);
+
 		this.toFront();
 	}
 	
