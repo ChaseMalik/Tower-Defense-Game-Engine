@@ -57,27 +57,24 @@ class VideoPlayer extends BorderPane {
     private boolean myCycleIsComplete;
     private HBox myMediaBar;
 
-    public VideoPlayer (final MediaPlayer mediaPlayer) {
-        createMediaPlayer(mediaPlayer);
+    public VideoPlayer (final MediaPlayer player) {
+        createMediaPlayer(player);
         defineMediaBarBehavior();
 
         final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
-        definePlayButtonBehavior(mediaPlayer, PLAY_BUTTON);
+        definePlayButtonBehavior(player, PLAY_BUTTON);
 
-        defineTimeSliderBehavior(mediaPlayer);
-        defineTimeLabelBehavior();
+        createAndDefineTimeComponents(player);
 
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
-        defineVolumeButtonBehavior(mediaPlayer, VOLUME_BUTTON);
-        defineVolumeSliderBehavior(mediaPlayer, VOLUME_BUTTON);
+        createAndDefineVolumeComponents(player, VOLUME_BUTTON);
 
-        defineMediaPlayerBehavior(mediaPlayer, PLAY_BUTTON);
+        defineMediaPlayerBehavior(player, PLAY_BUTTON);
     }
 
     private void createMediaPlayer (final MediaPlayer player) {
         this.myMediaPlayer = player;
         setStyle(MEDIA_PLAYER_BACKGROUND_COLOR);
-
         myMediaView = new MediaView(player);
         Pane moviePane = new Pane() { };
         moviePane.getChildren().add(myMediaView);
@@ -114,18 +111,16 @@ class VideoPlayer extends BorderPane {
                 }
             }
         });
-
         player.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 updateValues();
             }
         });
-
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
     }
 
-    private void defineTimeSliderBehavior (final MediaPlayer player) {
+    private void createAndDefineTimeComponents (final MediaPlayer player) {
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
         myTimeSlider.setMinWidth(SLIDER_WIDTH);
@@ -138,15 +133,12 @@ class VideoPlayer extends BorderPane {
             }
         });
         myMediaBar.getChildren().add(myTimeSlider);
-    }
-
-    private void defineTimeLabelBehavior () {
         myTimeLabel = new Label(TIME_LABEL_TEXT);
         myTimeLabel.setPrefWidth(LABEL_WIDTH);
         myMediaBar.getChildren().add(myTimeLabel);
     }
 
-    private void defineVolumeButtonBehavior (final MediaPlayer player, final Button button) {
+    private void createAndDefineVolumeComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
@@ -157,9 +149,6 @@ class VideoPlayer extends BorderPane {
         });
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
-    }
-
-    private void defineVolumeSliderBehavior (final MediaPlayer player, final Button button) {
         myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
         myVolumeSlider = new Slider();
         myVolumeSlider.valueProperty().addListener(new InvalidationListener() {
@@ -185,20 +174,17 @@ class VideoPlayer extends BorderPane {
                 button.setText(myVideoShouldStop ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
             }
         });
-
         player.setOnPaused(new Runnable() {
             public void run () {
                 button.setText(PLAY_BUTTON_TEXT);
             }
         });
-
         player.setOnReady(new Runnable() {
             public void run () {
                 myDuration = player.getMedia().getDuration();
                 updateValues();
             }
         });
-
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
                 button.setText(myVideoShouldReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
