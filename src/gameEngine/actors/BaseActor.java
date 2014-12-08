@@ -3,6 +3,7 @@ package gameEngine.actors;
 import gameEngine.InformationInterface;
 import gameEngine.updateObject;
 import gameEngine.actors.behaviors.IBehavior;
+import gameEngine.actors.behaviors.BaseEffect;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -50,11 +51,6 @@ public abstract class BaseActor extends Observable {
         myDebuffsToRemove=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
-//        for (String s : behaviors.keySet()) {
-//            if (behaviors.get(s).getType() != null) {
-//                myTypes.addAll(behaviors.get(s).getType());
-//            }
-//        }
         makeNode();
     }
 
@@ -71,7 +67,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-   //     ((BaseEffect)myDebuffs.get(debuff.toString())).end(this);
+            return;      
         }
         myDebuffs.put(debuff.toString(), debuff);
     }

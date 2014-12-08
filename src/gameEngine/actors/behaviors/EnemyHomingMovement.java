@@ -36,25 +36,19 @@ public class EnemyHomingMovement extends BaseMovementBehavior{
 			}
 			myHomedEnemy =closestEnemy; 
 			myEnemyFound=true;
-		//	System.out.println("here");
 		}
 		if(myHomedEnemy==null || myHomedEnemy.isDead()){
 		    actor.killed();
 		    return;
-		//    System.out.println("a");
 		}
 	        Point2D current = new Point2D(actor.getX(), actor.getY());
 	        Point2D destination = new Point2D(myHomedEnemy.getX(),myHomedEnemy.getY());
-	        myRemainingDistance-=mySpeed;
-	        Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
-	        Point2D answer = current.add(vector);
-	        move(actor, answer);
+	        moveTowards(actor,current,destination);
 		
 	}
 
 	@Override
 	public IBehavior copy() {
-		// TODO Auto-generated method stub
 		return new EnemyHomingMovement(myList);
 	}
 
