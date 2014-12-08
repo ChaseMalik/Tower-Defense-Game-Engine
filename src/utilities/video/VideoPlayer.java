@@ -5,6 +5,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,9 +21,13 @@ import javafx.util.Duration;
 
 class VideoPlayer extends BorderPane {
 
+    private static final int SECONDS_PER_MINUTE = 60;
+    private static final int MINUTES_PER_HOUR = 60;
+    private static final String SPACE = "          ";
     private static final String PLAY_BUTTON_TEXT = "Play";
     private static final String PAUSE_BUTTON_TEXT = "Stop";
-    private static final String SPACE = "   ";
+    private static final String MUTE_BUTTON_TEXT = "MUTE";
+    private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
     private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
 
@@ -47,6 +52,7 @@ class VideoPlayer extends BorderPane {
         myMediaBar = new HBox();
         myMediaBar.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(myMediaBar, Pos.CENTER);
+        myMediaBar.setPadding(new Insets(20, 20, 20, 20));
         setBottom(myMediaBar);
 
         final Button playButton = new Button(PLAY_BUTTON_TEXT);
@@ -75,6 +81,26 @@ class VideoPlayer extends BorderPane {
         });
 
         myMediaBar.getChildren().add(myTimeLabel);
+
+        final Button volumeButton = new Button(MUTE_BUTTON_TEXT);
+
+        volumeButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                double volume = mediaPlayer.getVolume();
+
+                if (volume > 0.0) {
+                    mediaPlayer.setVolume(0.0);
+                    volumeButton.setText(UNMUTE_BUTTON_TEXT);
+                }
+                else {
+                    mediaPlayer.setVolume(1.0);
+                    volumeButton.setText(MUTE_BUTTON_TEXT);
+                }
+            }
+        });
+
+        myMediaBar.getChildren().add(volumeButton);
+        myMediaBar.getChildren().add(new Label(SPACE));
 
         myVolumeLabel = new Label(VOLUME_LABEL_TEXT);
         myMediaBar.getChildren().add(myVolumeLabel);
@@ -165,7 +191,7 @@ class VideoPlayer extends BorderPane {
             Platform.runLater(new Runnable() {
                 public void run () {
                     Duration currentTime = myMediaPlayer.getCurrentTime();
-                    myTimeLabel.setText(currentTime.toString());
+                    myTimeLabel.setText(calculateTime(currentTime, myDuration));
                     myTimeSlider.setDisable(myDuration.isUnknown());
                     if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
                         double duration = myDuration.toMillis();
@@ -177,6 +203,39 @@ class VideoPlayer extends BorderPane {
                     }
                 }
             });
+        }
+    }
+
+    private static String calculateTime (Duration elapsed, Duration duration) {
+        int time = (int)Math.floor(elapsed.toSeconds());
+        int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+
+        if (hours > 0) {
+            time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+        }
+
+        int minutes = time / SECONDS_PER_MINUTE;
+        int seconds = time - hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE - minutes * SECONDS_PER_MINUTE;
+
+        return formatTime(duration, hours, minutes, seconds);
+    }
+
+    private static String formatTime (Duration duration, int hours, int minutes, int seconds) {
+        if (duration.greaterThan(Duration.ZERO)) {
+            int time = (int) Math.floor(duration.toSeconds());
+            int numHours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+
+            if (numHours > 0) {
+                time -= numHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+            }
+
+            int numMinutes = time / SECONDS_PER_MINUTE;
+            int numSeconds = time - numHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE - numMinutes * SECONDS_PER_MINUTE;
+
+            return String.format("%d:%02d:%02d/%d:%02d:%02d", hours, minutes, seconds, numHours, numMinutes, numSeconds);
+        }
+        else {
+            return String.format("%d:%02d:%02d", hours, minutes, seconds);
         }
     }
 }
