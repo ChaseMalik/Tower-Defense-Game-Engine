@@ -143,9 +143,7 @@ class VideoPlayer extends BorderPane {
                     player.pause();
                     myVideoShouldStop = false;
                 }
-                else {
-                    button.setText(STOP_BUTTON_TEXT);
-                }
+                button.setText(myVideoShouldStop ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
             }
         });
 
@@ -164,11 +162,9 @@ class VideoPlayer extends BorderPane {
 
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
-                if (!myVideoShouldReplay) {
-                    button.setText(PLAY_BUTTON_TEXT);
-                    myVideoShouldStop = true;
-                    myCycleIsComplete = true;
-                }
+                button.setText(myVideoShouldReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
+                myVideoShouldStop = !myVideoShouldReplay;
+                myCycleIsComplete = !myVideoShouldReplay;
             }
         });
     }
