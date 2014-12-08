@@ -24,7 +24,10 @@ class VideoPlayer extends BorderPane {
     private static final int PADDING = 20;
     private static final int SLIDER_WIDTH = 50;
     private static final int BUTTON_WIDTH = 75;
+    private static final int INT_CONVERT = 100;
     private static final int LABEL_WIDTH = 150;
+    
+    private static final double DOUBLE_CONVERT = 100.0;
 
     private static final int SECONDS_PER_MINUTE = 60;
     private static final int MINUTES_PER_HOUR = 60;
@@ -38,6 +41,7 @@ class VideoPlayer extends BorderPane {
 
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
     private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
+    private static final String TIME_FORMAT = "%d:%02d:%02d/%d:%02d:%02d";
 
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
@@ -85,7 +89,7 @@ class VideoPlayer extends BorderPane {
         myTimeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 if (myTimeSlider.isValueChanging()) {
-                    mediaPlayer.seek(myDuration.multiply(myTimeSlider.getValue() / 100.0));
+                    mediaPlayer.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
                 }
             }
         });
@@ -120,7 +124,7 @@ class VideoPlayer extends BorderPane {
         myVolumeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 if (myVolumeSlider.isValueChanging()) {
-                    mediaPlayer.setVolume(myVolumeSlider.getValue() / 100.0);
+                    mediaPlayer.setVolume(myVolumeSlider.getValue() / DOUBLE_CONVERT);
                 }
             }
         });
@@ -204,13 +208,18 @@ class VideoPlayer extends BorderPane {
                     Duration currentTime = myMediaPlayer.getCurrentTime();
                     myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
                     myTimeSlider.setDisable(myDuration.isUnknown());
-                    if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
+                    boolean durationValid = myDuration.greaterThan(Duration.ZERO) ? true : false;
+                    boolean sliderActive = !myTimeSlider.isDisabled() ? true : false;
+                    boolean sliderValueChanging = !myTimeSlider.isValueChanging() ? true : false;
+                    if (durationValid && sliderActive && sliderValueChanging) {
                         double duration = myDuration.toMillis();
-                        double timeSliderValue = currentTime.divide(duration).toMillis() * 100.0;
+                        double doubleTime = currentTime.divide(duration).toMillis();
+                        double timeSliderValue = doubleTime * DOUBLE_CONVERT;
                         myTimeSlider.setValue(timeSliderValue);
                     }
                     if (!myVolumeSlider.isValueChanging()) {
-                        myVolumeSlider.setValue((int)Math.round(myMediaPlayer.getVolume() * 100));
+                        int intVolume = (int)Math.round(myMediaPlayer.getVolume());
+                        myVolumeSlider.setValue(intVolume * INT_CONVERT);
                     }
                 }
             });
@@ -229,7 +238,7 @@ class VideoPlayer extends BorderPane {
         return formatTime(videoDuration, hours, minutes, seconds);
     }
 
-    private static String formatTime (Duration duration, int intHours, int intMinutes, int intSeconds) {
+    private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
         int time = (int)Math.floor(duration.toSeconds());
 
         int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
@@ -238,6 +247,6 @@ class VideoPlayer extends BorderPane {
         time -= minutes * SECONDS_PER_MINUTE;
         int seconds = time;
 
-        return String.format("%d:%02d:%02d/%d:%02d:%02d", intHours, intMinutes, intSeconds, hours, minutes, seconds);
+        return String.format(TIME_FORMAT, intHours, intMin, intSec, hours, minutes, seconds);
     }
 }
