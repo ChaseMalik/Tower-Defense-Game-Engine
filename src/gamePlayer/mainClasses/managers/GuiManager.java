@@ -85,6 +85,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GuiConstants.DYNAMIC_SIZING = true;
 		myRoot = GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
+		
 	}
 
 	private void startGame(String directoryPath) {
@@ -93,11 +94,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		addBackground(directoryPath);
 		makeTowerMap();
 		testHUD();
-		// myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
 		interactionAllowed = true;
 	}
 
@@ -296,7 +293,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		gameStats = new ArrayList<GameStat>();
 		GameStat level = new GameStat();
 		level.setGameStat("Level");
-		//level.statValueProperty().bindBidirectional
+		level.statValueProperty().bindBidirectional(myEngineManager.getCurrentLevelProperty());
 
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
