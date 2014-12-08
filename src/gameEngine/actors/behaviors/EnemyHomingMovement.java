@@ -38,8 +38,9 @@ public class EnemyHomingMovement extends BaseMovementBehavior{
 			myEnemyFound=true;
 		//	System.out.println("here");
 		}
-		if(myHomedEnemy.isDead()){
+		if(myHomedEnemy==null || myHomedEnemy.isDead()){
 		    actor.killed();
+		    return;
 		//    System.out.println("a");
 		}
 	        Point2D current = new Point2D(actor.getX(), actor.getY());

@@ -1,15 +1,9 @@
 package gameEngine.actors;
 
-import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
 import gameEngine.InformationInterface;
 import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
-import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,13 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
-import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
-import utilities.errorPopup.ErrorPopup;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 
 /**
