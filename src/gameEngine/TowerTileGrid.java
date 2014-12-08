@@ -7,8 +7,7 @@ public class TowerTileGrid {
 	private boolean[][] myTowerTileGrid;
 	private int myRowSize;
 	private int myColSize;
-	public int trueCount;
-	
+
 	public TowerTileGrid(int rowSize, int colSize) {
 		myTowerTileGrid = new boolean[rowSize][colSize];
 		myChangedFlag = false;
@@ -21,15 +20,12 @@ public class TowerTileGrid {
 	}
 	
 	public boolean checkTowerTile(int row, int col) {
-		return myTowerTileGrid[row][col];
+		return myTowerTileGrid[col][row];
 	}
 	
 	public void setTowerTile(int row, int col, boolean towerOn) {
-		myTowerTileGrid[row][col] = towerOn;
+		myTowerTileGrid[col][row] = towerOn;
 		setChangedStatus(true);
-		if(towerOn) {
-			trueCount += 1;
-		}
 	}
 
 	private void setChangedStatus(boolean status) {

@@ -23,9 +23,17 @@ public class AIMovement extends BaseMovementBehavior {
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
         InfoObject info = actor.getInfoObject();
-        if (info.getTowerTileGrid().hasBeenChanged() || myIndex==-1) {
+        BaseEnemy enemy = (BaseEnemy)actor;
+        if(myIndex == -1) {
+        	move(enemy, enemy.getStart().getPoint());
+        	myAIRoute =
+                    myPathFinder.getPath(enemy, info.getmTowerTilePane(),
+                                         info.getTowerTileGrid());
+            myIndex=0;
+        }
+        else if (info.getTowerTileGrid().hasBeenChanged()) {
             myAIRoute =
-                    myPathFinder.getPath((BaseEnemy) actor, info.getmTowerTilePane(),
+                    myPathFinder.getPath(enemy, info.getmTowerTilePane(),
                                          info.getTowerTileGrid());
             myIndex=0;
         }
@@ -34,18 +42,18 @@ public class AIMovement extends BaseMovementBehavior {
             return;
         }
         Point2D current = new Point2D(actor.getX(), actor.getY());
-        Point2D destination = myRoute.get(myIndex).getPoint();
+        Point2D destination = myAIRoute.get(myIndex);
         double distance = mySpeed;
 
         while (distance > destination.distance(current)) {
             myIndex++;
-            if (myIndex == myRoute.size()) {
+            if (myIndex == myAIRoute.size()) {
                 actor.died();
                 return;
             }
             distance -= destination.distance(current);
             current = new Point2D(destination.getX(), destination.getY());
-            destination = myRoute.get(myIndex).getPoint();
+            destination = myAIRoute.get(myIndex);
         }
         myRemainingDistance-=mySpeed;
         Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);

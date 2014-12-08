@@ -38,19 +38,23 @@ public class GridPathFinderTest {
 						.getBoundsInLocal())).collect(Collectors.toList());
 		System.out.println("Enemy Tiles");
 		printNodes(enemyTiles);
-//		ImageView towerImage = createTowerNode();
-//		List<Node> towerTiles = referencePane
-//				.getChildren()
-//				.stream()
-//				.filter(node -> node.intersects(towerImage
-//						.getBoundsInLocal())).collect(Collectors.toList());
-//		System.out.println("towers");
-//		printNodes(towerTiles);
-		for(int i = 3; i <= 5; i ++) {
-			for(int j = 2; j <= 3; j++) {
-				tileGrid.setTowerTile(i, j, true);
-			}
+		ImageView towerImage = createTowerNode();
+		List<Node> towerTiles = referencePane
+				.getChildren()
+				.stream()
+				.filter(node -> node.intersects(towerImage
+						.getBoundsInLocal())).collect(Collectors.toList());
+		for(Node node : towerTiles) {
+			Tile tile = (Tile) node;
+			tileGrid.setTowerTile(tile.getRow(), tile.getColumn(), true);
 		}
+		System.out.println("Tower tiles");
+		printNodes(towerTiles);
+//		for(int i = 3; i <= 5; i ++) {
+//			for(int j = 2; j <= 3; j++) {
+//				tileGrid.setTowerTile(i, j, true);
+//			}
+//		}
 		GridPathFinder finder = new GridPathFinder();
 		List<Point2D> path = finder.getPath(enemy, referencePane, tileGrid);
 		//System.out.println(path);
@@ -66,8 +70,8 @@ public class GridPathFinderTest {
 	public ImageView createTowerNode() {
 		ImageView towerImage = StringToImageViewConverter
 				.getImageView(
-						1,
-						1,
+						50,
+						50,
 						"/Users/Duke/Desktop/Compsci308/voogasalad_LosTorres/Games/AIBelieve/enemyImages/zombie2.jpg");
 		towerImage.setX(120);
 		towerImage.setY(120);

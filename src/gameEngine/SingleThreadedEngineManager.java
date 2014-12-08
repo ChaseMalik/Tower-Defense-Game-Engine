@@ -179,16 +179,14 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 			Tile tile = (Tile)tileNode;
 			int row = tile.getRow();
 			int col = tile.getColumn();
-			System.out.println("Tower row " + row + " col " + col);
 			myTowerLocationByGrid.setTowerTile(row, col, towerTileStatus);
-		}
-		
+		}		
 	}
 	
 	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
 			Collection<Node> nodeList) {
 		List<Node> towerTiles = nodeList.stream()
-				.filter(node -> node.intersects(towerNode.getBoundsInLocal()))
+				.filter(node -> node.intersects(towerNode.getBoundsInParent()))
 				.collect(Collectors.toList());
 		return towerTiles;
 	}
