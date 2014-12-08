@@ -60,10 +60,6 @@ public class GameStartManager {
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions); 
-        
-//        leapConnector = new LMConnector();
-//        leapConnector.initialize(new Dimension2D(WelcomeScreen.PANE_WIDTH, WelcomeScreen.PANE_HEIGHT));
-//        welcomeScreen.setBottomContent(leapConnector.getNode());
 
         group.getChildren().add(welcomeScreen);
     }

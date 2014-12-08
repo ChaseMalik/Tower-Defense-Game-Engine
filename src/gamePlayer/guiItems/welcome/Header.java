@@ -38,7 +38,6 @@ public class Header implements GuiItem {
 	private void setupPane() {
 		myRoot = new HBox();
 		myRoot.setPrefSize(mySize.getWidth(), mySize.getHeight());
-		System.out.println("Header Size: " + mySize.getWidth() + "," + mySize.getHeight());
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.getStyleClass().add("Header");
 	}

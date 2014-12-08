@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
@@ -54,6 +55,11 @@ public class WelcomeNavigator implements GuiItem {
 		navPane.setTranslateX(-mySize.getWidth()*(currentScene-1));
 	}
 	
+	public void setContent(Node node) {
+		navPane.getChildren().remove(currentScene);
+		navPane.getChildren().add(currentScene, node);
+	}
+	
 	private void setupNavPane() {
 		navPane = new HBox();
 		numScenes = myParser.getIntegerValuesFromTag("NumScenes").get(0);
@@ -78,8 +84,12 @@ public class WelcomeNavigator implements GuiItem {
 			forwardButton.setMinSize(forwardPaneSize.get(0)*mySize.getWidth(), mySize.getHeight() * forwardPaneSize.get(1));
 			int fromScene = i;
 			forwardButton.setOnAction(event -> shift(fromScene, fromScene + 1));
+			VBox buttonContainer = new VBox();
+			buttonContainer.setAlignment(Pos.CENTER);
+			buttonContainer.getChildren().add(forwardButton);
+			buttonContainer.setMinSize(forwardPaneSize.get(0)*mySize.getWidth(), mySize.getHeight());
 			
-			scene = new HBox(item.getNode(), forwardButton);
+			scene = new HBox(item.getNode(), buttonContainer);
 			
 			navPane.getChildren().add(scene);
 		}
@@ -87,7 +97,6 @@ public class WelcomeNavigator implements GuiItem {
 	}
 	
 	private void shift(int fromScene, int toScene) {
-		System.out.println("hello!");
 		if (toScene == numScenes)
 			return;
 		
