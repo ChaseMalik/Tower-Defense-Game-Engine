@@ -1,7 +1,5 @@
 package gamePlayer.mainClasses.welcomeScreen;
 
-import gamePlayer.guiFeatures.LMController;
-import gamePlayer.guiItems.welcome.LMConnector;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import gamePlayer.mainClasses.managers.GuiManager;
@@ -29,14 +27,12 @@ public class GameStartManager {
     private XMLParser parser;
     private WelcomeScreen welcomeScreen;
     private String gameTypeBeingChosen;
-    private LMConnector leapConnector;
 
     public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.GAME_START_MANAGER = this;
-        LMController.getInstance().onConnect(event -> LMConnected());
     }
 
     public void init() {
@@ -70,12 +66,6 @@ public class GameStartManager {
 
         group.getChildren().add(welcomeScreen);
     }
-    
-    public void LMConnected() {
-		leapConnector.deviceConnected(true);
-		LMController controller = LMController.getInstance();
-		controller.onSwipeDown(event -> System.out.println("Swipe Down from Game Start Screen!"));
-	}
 
     public void joinMultiPlayerGame() {
         GuiManager manager = new GuiManager(myStage);
