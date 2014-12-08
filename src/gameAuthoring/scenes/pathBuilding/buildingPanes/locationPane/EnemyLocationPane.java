@@ -1,14 +1,15 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane;
 
+import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
-import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -26,22 +27,25 @@ public abstract class EnemyLocationPane extends BuildingPane {
     private static final int CONTAINER_PADDING = 15;
     private static final String CLR_BTN_TEXT = "Clear Locations";
 
-    protected Button myClearLocations = new Button(CLR_BTN_TEXT);
+    protected Button myClearLocations;
     protected Path myPath;
 
     public EnemyLocationPane (Group group, Path path) {
         super(group);
+        myClearLocations = new Button();
+        myClearLocations.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("ClearLocations"));
         myPath = path;
     }
 
-    protected void createEnemyLocationsSetupComponents (Button button, String LabelStr) {
+    protected void createEnemyLocationsSetupComponents (Button button, String labelStr) {
         VBox container = new VBox(10);
         container.setPadding(new Insets(CONTAINER_PADDING));
         container.setLayoutX(PROMPT_WIDTH);
         container.setLayoutY(PROMPT_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.98;");
-        Label label = new Label(LabelStr);
+        Label label = new Label();
+        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(labelStr));
         container.getChildren().addAll(label, button, myClearLocations);
         this.getChildren().add(container);
     }

@@ -23,6 +23,7 @@ import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropFile
 import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropImagePane;
 import utilities.JavaFXutilities.slider.SliderContainer;
 import utilities.XMLParsing.XMLParser;
+import utilities.multilanguage.MultiLanguageUtility;
 
 /**
  * Class that is extended by EnemyBuildingScene and TowerBuildingScene. Creates a
@@ -37,6 +38,7 @@ import utilities.XMLParsing.XMLParser;
  */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
+    private static final String DRAG_AND_DROP_CSS = "dragAndDrop";
     protected static final String ADD_TOWER_IMG_PATH = 
             "./src/gameAuthoring/Resources/otherImages/addTower.png";
     protected static final int DRAG_AND_DROP_WIDTH = 550;
@@ -81,7 +83,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
                 new DragAndDropCopyImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,  
                                              myActorImageDirectory);
         myDragAndDrop.addObserver(this);
-        myDragAndDrop.getPane().getStyleClass().add("dragAndDrop");
+        myDragAndDrop.getPane().getStyleClass().add(DRAG_AND_DROP_CSS);
         myPane.setRight(myDragAndDrop.getPane());
     }
 
@@ -91,7 +93,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void setupFileMenu () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
-        MenuItem saveItem = new MenuItem("Save " + myTitle);
+        MenuItem saveItem = new MenuItem();
+        saveItem.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("SaveActors"));
         saveItem.setOnAction(event->attemptToSaveActor());
         menu.addMenuItemToFileMenu(saveItem);
         menu.addObserver(this);
@@ -100,7 +103,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void createCenterDisplay() {
         VBox centerOptionsBox = new VBox(15);
-        Label title = new Label(super.getTitle() + " Behaviors.");
+        Label title = new Label();
+        title.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("Behaviors"));
         title.setStyle("-fx-font-size: 18px");
         myRangeSliderContainer = new SliderContainer("range", 0, 100);
         VBox generalBox = new VBox(10);

@@ -1,5 +1,6 @@
 package gameAuthoring.scenes;
 
+import utilities.multilanguage.MultiLanguageUtility;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
 import javafx.geometry.Insets;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 
 public class WelcomeScene {
 
-    private static final String WELCOME_MSG = "Welcome to our Authoring Environment";
     private Scene myScene;
     private VBox myVBox;
     private TextField nameTextField;
@@ -35,14 +35,16 @@ public class WelcomeScene {
     }
 
     private void createWelcomeLabel () {
-        Label welcomeLabel = new Label(WELCOME_MSG);
+        Label welcomeLabel = new Label();
+        welcomeLabel.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("WelcomeMessage"));
         welcomeLabel.setStyle("-fx-font-size: 32px");
         myVBox.getChildren().add(welcomeLabel);
     }
 
     private void createGameNameField () {
         HBox nameOptionHBox = new HBox(15);
-        Label nameLabel = new Label("Name of Game: ");
+        Label nameLabel = new Label();
+        nameLabel.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("NameOfGamePrompt"));
         nameLabel.setStyle("-fx-font-size: 16px");
         nameTextField = new TextField();
         nameOptionHBox.getChildren().addAll(nameLabel, nameTextField, createStartButton());
@@ -51,7 +53,8 @@ public class WelcomeScene {
     }
 
     private Button createStartButton () {
-        Button startButton = new Button("Start Building!");
+        Button startButton = new Button();
+        startButton.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("StartBuild"));
         startButton.setOnAction(event -> handleButtonClick());
         return startButton;
     }
