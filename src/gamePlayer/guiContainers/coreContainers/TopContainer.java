@@ -24,13 +24,12 @@ public class TopContainer extends HBox implements GuiContainer {
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		/*
-		CoreContainerSetup c = new CoreContainerSetup();
-		c.setRegion(this);
-		c.setDimensions(GuiConstants.TOP_CONTAINER_WIDTH, GuiConstants.TOP_CONTAINER_HEIGHT, containerSize);
-		c.initialize(containerSize);
-		this.getChildren().addAll(c.getChildList());*/
 		
+		CoreContainerSetup c = new CoreContainerSetup();
+		c.initialize(this, GuiConstants.TOP_CONTAINER_WIDTH, GuiConstants.TOP_CONTAINER_HEIGHT, containerSize);
+		this.getChildren().addAll(c.getChildList());
+		
+		/*
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
 				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
 		myParser = new XMLParser(new File(propertiesPath));
@@ -53,7 +52,7 @@ public class TopContainer extends HBox implements GuiContainer {
 			GuiElement element = (GuiElement) Reflection.createInstance(item);
 			element.initialize(mySize);
 			this.getChildren().add(element.getNode());
-		}
+		}*/
 	}
 
 	@Override

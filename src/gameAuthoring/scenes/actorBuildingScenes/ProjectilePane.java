@@ -102,4 +102,10 @@ public class ProjectilePane extends Observable implements Observer {
     public void update (Observable arg0, Object arg1) {
         myContainer.getChildren().remove(myDropImgPane.getPane());
     }
+
+    public boolean isInfoValid () {
+        return myBehaviorBuilders.stream()
+                .filter(builder -> !builder.isValid())
+                .count() == 0;
+    }
 }

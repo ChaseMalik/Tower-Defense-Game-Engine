@@ -1,6 +1,7 @@
 package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import gameAuthoring.mainclasses.Constants;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +25,7 @@ public class DragAndDropCopyImagePane extends DragAndDropImagePane {
             displayImage();
         }
         catch (IOException e) {
-            new ErrorPopup("Image file could not be copied.");
+            new ErrorPopup(Constants.IMG_FILE_NOT_FOUND);
         }       
     }
 }

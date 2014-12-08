@@ -6,6 +6,7 @@ import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import java.util.Observable;
 import java.util.Observer;
+import utilities.errorPopup.ErrorPopup;
 import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
@@ -53,6 +54,9 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     public void update (Observable arg0, Object arg1) {
         if (myLevelsDisplay.isAllUserInputIsValid()) {
             myLevelConfiguringController.configureLevels(myLevelsDisplay.transformToLevels());
+        }
+        else {
+            new ErrorPopup(Constants.LEVEL_ERROR);
         }
     }
 }
