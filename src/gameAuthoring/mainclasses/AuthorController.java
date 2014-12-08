@@ -2,7 +2,7 @@ package gameAuthoring.mainclasses;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
+import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
@@ -20,10 +20,14 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -43,8 +47,8 @@ import utilities.multilanguage.MultiLanguageUtility;
  *
  */
 public class AuthorController extends Application implements
-        GameDirectoryBuilding, PathConfiguring, TowerConfiguring,
-        EnemyConfiguring, LevelConfiguring {
+        GeneralSettingsConfiguring, PathConfiguring, TowerConfiguring,
+        EnemyConfiguring, LevelConfiguring, Observer {
 
     private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
     private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
@@ -120,13 +124,14 @@ public class AuthorController extends Application implements
     }
 
     private void showWelcomeScene () {
-        myWelcomeScene = new WelcomeScene((GameDirectoryBuilding) this);
+        myWelcomeScene = new WelcomeScene();
+        myWelcomeScene.addObserver(this);
         myStage.setScene(myWelcomeScene.getScene());
     }
 
     private void showGeneralSettingScene () {
-        // myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
-        myGeneralSettingScene = new GeneralSettingScene();
+        myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
+        //myGeneralSettingScene = new GeneralSettingScene();
         myStage.setScene(myGeneralSettingScene.getScene());
     }
 
@@ -155,7 +160,7 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void makeDirectory (String gameName) {
+    public void makeDirectory (String gameName, boolean singlePlayer) {
         gameDir = "./Games/" + gameName + "/";
         File dir = new File(gameDir);
         dir.mkdir();
@@ -224,4 +229,18 @@ public class AuthorController extends Application implements
         GSONFileWriter writer = new GSONFileWriter();
         writer.writeTowerRegions(gameDir, backendTowerRegions);
     }
+
+	@Override
+	public void setGeneralSettings(String name, int health, int cash) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Called after welcome scene clicked.
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		this.showGeneralSettingScene();		
+	}
 }

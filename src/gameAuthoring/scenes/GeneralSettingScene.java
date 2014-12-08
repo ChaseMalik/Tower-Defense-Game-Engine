@@ -15,7 +15,7 @@ import utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes.DragAndDropCopy
 public class GeneralSettingScene {
 
 	private static final String GENERAL_SETTING_MSG = "Create Your Game Settings";
-	private GeneralSettingsConfiguring myGameDirectoryController;
+	private GeneralSettingsConfiguring myGeneralSettingsController;
 	private Scene myScene;
 	private VBox myVBox;
 	private TextField myNameTextField;
@@ -25,8 +25,8 @@ public class GeneralSettingScene {
 
 
 
-	public GeneralSettingScene(){
-		//myGameDirectoryController = generalSettingsConfiguring;
+	public GeneralSettingScene(GeneralSettingsConfiguring controller){
+		myGeneralSettingsController = controller;
 		Group root = new Group();
 		myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
 		myVBox = new VBox(25);
@@ -91,6 +91,11 @@ public class GeneralSettingScene {
 	}
 
 	private void handleButtonClick(){
+		
+        String gameNameText = myNameTextField.getText();
+        if (!gameNameText.isEmpty()) {
+            myGeneralSettingsController.makeDirectory(gameNameText, true);
+        }
 		
 		//THIS IS TEMPORARY
 		System.out.println(myNameTextField.getText());
