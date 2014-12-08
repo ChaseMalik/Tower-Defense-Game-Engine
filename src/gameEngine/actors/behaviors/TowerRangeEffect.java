@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TowerRangeEffect extends RangeEffect {
-
+    private int myRange;
     public TowerRangeEffect (double change) {
         super(change);
         myString="towerRangeEffect";
@@ -15,7 +15,7 @@ public class TowerRangeEffect extends RangeEffect {
 
     @Override
     public void execute (BaseActor actor) {
-       for(BaseActor a :actor.getTowersInRange()){
+       for(BaseActor a :actor.getTowersInRange(myRange)){
            
            a.addEffect(this);
        }

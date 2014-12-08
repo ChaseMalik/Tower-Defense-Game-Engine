@@ -25,7 +25,7 @@ public class GuiConstants {
     public static final String MULTI_PLAYER_GAME = "MultiPlayer";
     
     //game location paths
-    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./Games/";
+    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./SinglePlayerGames/";
     public static final String MULTI_PLAYER_GAMES_DIRECTORY = "./CoopGames/";
     
     //core container sizes

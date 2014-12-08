@@ -37,8 +37,9 @@ public abstract class RangeAttack extends BaseAttack {
 
     @Override
     protected void performAttack (BaseActor actor) {
+//        System.out.println(actor.getRangeProperty());
         Optional<BaseActor> target =
-                actor.getEnemiesInRange().stream().min(defineComparison(actor));
+                actor.getEnemiesInRange(actor.getAttackRange()).stream().min(defineComparison(actor));
         if (target.isPresent()) {
             shootActorFromActor(target.get(), actor);
         }
