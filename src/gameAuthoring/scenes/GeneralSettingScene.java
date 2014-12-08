@@ -1,8 +1,7 @@
 package gameAuthoring.scenes;
 
-import utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes.DragAndDropCopyAudioPane;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -11,9 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
-import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
+import utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes.DragAndDropCopyAudioPane;
 
 public class GeneralSettingScene {
 

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import utilities.multilanguage.MultiLanguageUtility;
 
 /**
  * Purpose of this class is to allow front-end components to easily be able
@@ -27,10 +28,16 @@ public class SliderContainer extends VBox {
         resetSlider();
         HBox nameAndValue = new HBox(10);
         myValueLabel = new Label(Double.toString(mySlider.getValue()));
-        nameAndValue.getChildren().addAll(new Label(name), myValueLabel);
+        nameAndValue.getChildren().addAll(getNameLabel(name), myValueLabel);
         this.getChildren().addAll(nameAndValue, mySlider);
     }
     
+    private Label getNameLabel (String name) {
+        Label label = new Label();
+        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(name));
+        return label;
+    }
+
     public SliderContainer(SliderInfo info) {
         super(10);
         mySliderInfo = info;
@@ -38,7 +45,7 @@ public class SliderContainer extends VBox {
         HBox sliderAndValue = new HBox(10);
         myValueLabel = new Label(Double.toString(mySlider.getValue()));
         sliderAndValue.getChildren().addAll(mySlider, myValueLabel);
-        this.getChildren().addAll(new Label(info.getMyInfo()), sliderAndValue);
+        this.getChildren().addAll(getNameLabel(mySliderInfo.getMyInfo()), sliderAndValue);
     } 
    
     

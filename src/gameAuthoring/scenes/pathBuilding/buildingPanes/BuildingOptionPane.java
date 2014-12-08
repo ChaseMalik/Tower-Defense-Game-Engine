@@ -1,15 +1,12 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes;
 
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import utilities.errorPopup.ErrorPopup;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -21,36 +18,40 @@ import utilities.errorPopup.ErrorPopup;
  */
 public class BuildingOptionPane extends VBox {
 
+    private static final String BORDER_CSS = "border";
+    private static final String SELECTED_CSS = "selected";
+    private static final String COMP_OPTION_CSS = "pathComponentOption";
     private static final String DRAWING_OPTIONS_IMG_DIR =
             "./src/gameAuthoring/Resources/PathDrawingOptionsImages/";
-    private static final double OPTIONS_IMAGE_WIDTH = 
+    private static final double OPTIONS_IMAGE_WIDTH =
             PathBuildingScene.SIDE_PANE_WIDTH - 45;
     private static final int OPTIONS_IMAGE_HEIGHT = 40;
+    
 
     public BuildingOptionPane (String componentName) {
         setupOptionsBoxGraphicallyAndDisplayLabel(componentName);
-        try {
-            ImageView imageView = new ImageView();
-            File imgFile = new File(DRAWING_OPTIONS_IMG_DIR + componentName.toLowerCase() + ".png");
-            imageView.setImage(new Image(new FileInputStream(imgFile), OPTIONS_IMAGE_WIDTH,
-                                         OPTIONS_IMAGE_HEIGHT, false, true));
-            this.getChildren().add(imageView);
-        }
-        catch (FileNotFoundException e) {
-            new ErrorPopup("No file found representing " + componentName + " image.");
-        }
-        this.getStyleClass().add("border");
+        ImageView imageView = 
+                StringToImageViewConverter.getImageView(OPTIONS_IMAGE_WIDTH, 
+                                                        OPTIONS_IMAGE_HEIGHT, 
+                                                        DRAWING_OPTIONS_IMG_DIR + 
+                                                        componentName.toLowerCase() + 
+                                                        ".png");
+        this.getChildren().add(imageView);
+        this.getStyleClass().add(BORDER_CSS);
     }
 
     public void selectPane () {
-        if (!this.getStyleClass().contains("selected")) {
-            this.getStyleClass().add("selected");
+        if (!this.getStyleClass().contains(SELECTED_CSS)) {
+            this.getStyleClass().add(SELECTED_CSS);
         }
     }
 
     private void setupOptionsBoxGraphicallyAndDisplayLabel (String componentName) {
         this.setPadding(new Insets(PathBuildingScene.BUILDING_OPTIONS_PADDING));
-        this.getChildren().add(new Label(componentName));
-        this.getStyleClass().add("pathComponentOption");
+        Label nameLabel = new Label(componentName);
+        nameLabel.textProperty().bind(MultiLanguageUtility.getInstance()
+                                      .getStringProperty(componentName));
+        this.getChildren().add(nameLabel);
+        this.getStyleClass().add(COMP_OPTION_CSS);
     }
 }

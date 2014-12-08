@@ -25,10 +25,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.GSON.GSONFileWriter;
 import utilities.errorPopup.ErrorPopup;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -65,6 +68,7 @@ public class AuthorController extends Application implements
 
     private Stage myStage;
     private String myBackgroundImageFileName;
+    private StringProperty myStageTitle = new SimpleStringProperty();
 
     public static void main (String[] args) {
         launch(args);
@@ -72,6 +76,10 @@ public class AuthorController extends Application implements
 
     @Override
     public void start (Stage stage) throws Exception {
+        MultiLanguageUtility util = MultiLanguageUtility.getInstance();
+        util.initLanguages("gameAuthoring.Resources.propertyFiles.Spanish.properties",
+                           "gameAuthoring.Resources.propertyFiles.English.properties");
+        util.setLanguage("Spanish");
         myStage = stage;
         showWelcomeScene();
         // showGeneralSettingScene();

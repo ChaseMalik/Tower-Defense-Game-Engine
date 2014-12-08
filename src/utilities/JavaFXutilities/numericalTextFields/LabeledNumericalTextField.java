@@ -1,5 +1,6 @@
 package utilities.JavaFXutilities.numericalTextFields;
 
+import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -11,7 +12,9 @@ public class LabeledNumericalTextField extends VBox {
     public LabeledNumericalTextField(String label, double textFieldWidth) {
         this.setSpacing(SPACING);
         myTextField = new NumericalTextField(textFieldWidth);
-        this.getChildren().addAll(new Label(label), myTextField);
+        Label fieldLabel = new Label();
+        fieldLabel.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(label));
+        this.getChildren().addAll(fieldLabel, myTextField);
     }
     
     public int getNumberEntered() {

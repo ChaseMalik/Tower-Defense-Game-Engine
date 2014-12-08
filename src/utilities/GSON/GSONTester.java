@@ -40,7 +40,6 @@ public class GSONTester {
 		
 		towerTestList.add(group1);
 		towerTestList.add(group2);
-		
 		//writer.writeToFile("tower", gson.toJson(towerTestList, new TypeToken<List>() {}.getType() ), "./Game/");
 		
 	}

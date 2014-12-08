@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import utilities.JavaFXutilities.slider.SliderContainer;
+import utilities.multilanguage.MultiLanguageUtility;
 import utilities.reflection.Reflection;
 
 /**
@@ -56,7 +57,8 @@ public class BehaviorBuilder {
                              "-fx-padding: 10px; " +
                              "-fx-border-radius: 5px");
         myContainer.setSpacing(20); 
-        Label label = new Label(myBehaviorType);
+        Label label = new Label();
+        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(myBehaviorType));
         myComboBox = createComboBox();
         myContainer.getChildren().addAll(label, myComboBox);
     }

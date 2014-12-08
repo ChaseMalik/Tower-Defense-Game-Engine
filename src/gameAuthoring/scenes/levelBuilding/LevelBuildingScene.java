@@ -5,6 +5,7 @@ import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import java.util.Observable;
 import java.util.Observer;
+import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 
@@ -36,7 +37,8 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     private void createMenuAndAddNewLevelOption () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
-        MenuItem newLevelItem = new MenuItem("New Level");
+        MenuItem newLevelItem = new MenuItem();
+        newLevelItem.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("NewLevel"));
         newLevelItem.setOnAction(event -> myLevelsDisplay.addLevel());
         menu.addMenuItemToFileMenu(newLevelItem);
         menu.addObserver(this);
