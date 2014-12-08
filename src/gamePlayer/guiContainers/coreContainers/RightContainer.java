@@ -27,28 +27,6 @@ public class RightContainer extends VBox implements GuiContainer {
 		CoreContainerSetup c = new CoreContainerSetup();
 		c.initialize(this, GuiConstants.RIGHT_CONTAINER_WIDTH,GuiConstants.RIGHT_CONTAINER_HEIGHT, containerSize);
 		this.getChildren().addAll(c.getChildList());
-    	
-    	/*String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
-        myParser = new XMLParser(new File(propertiesPath)); 
-        
-        Dimension2D mySize = null;
-		if (GuiConstants.DYNAMIC_SIZING) {
-			mySize = new Dimension2D(GuiConstants.RIGHT_CONTAINER_WIDTH,GuiConstants.RIGHT_CONTAINER_HEIGHT);
-		} else {
-			mySize = containerSize;
-		}
-        
-        
-        this.setMinSize(mySize.getWidth(),mySize.getHeight());
-        this.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        
-        //add contained GUI elements
-        List<String> myItems = myParser.getValuesFromTag("Items");
-        for (String item:myItems) {
-                GuiElement element = (GuiElement) Reflection.createInstance(item);
-                element.initialize(mySize);
-                this.getChildren().add(element.getNode());
-        }*/
     }
 
     @Override
