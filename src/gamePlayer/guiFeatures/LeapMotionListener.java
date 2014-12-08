@@ -1,10 +1,6 @@
 package gamePlayer.guiFeatures;
 
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Point2D;
 
 import com.leapmotion.leap.CircleGesture;
 import com.leapmotion.leap.Controller;
@@ -18,15 +14,10 @@ import com.leapmotion.leap.Vector;
 
 public class LeapMotionListener extends Listener {
 
-	private ObjectProperty<Point2D> point = new SimpleObjectProperty<>();
 	private long swipeTimer, circleTimer;
 	private static final long SWIPE_TIME_LIMITER = 500;
 	private static final long CIRCLE_TIME_LIMITER = 1000;
 	private LMController controller = LMController.getInstance();
-
-	public ObservableValue<Point2D> pointProperty() {
-		return point;
-	}
 
 	@Override
 	public void onConnect(Controller c) {
@@ -36,7 +27,7 @@ public class LeapMotionListener extends Listener {
 		c.enableGesture(Gesture.Type.TYPE_CIRCLE);
 		// c.enableGesture(Gesture.Type.TYPE_KEY_TAP);
 		// c.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
-		//Tell manager to change panes
+		
 		setupTimers();
 		Platform.runLater(() -> controller.connect());
 	}

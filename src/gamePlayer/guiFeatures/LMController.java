@@ -18,15 +18,19 @@ import com.leapmotion.leap.Listener;
  * @author brianbolze
  */
 public class LMController {
+	
+	private enum EventType {
+		DEVICE_CONNECTED, SWIPE_LEFT, SWIPE_RIGHT, SWIPE_DOWN, SWIPE_UP, CIRCLE_CW, CIRCLE_CCW
+	}
 
-	private Map<String, Set<EventHandler<ActionEvent>>> myHandlerMap;
+	private Map<EventType, Set<EventHandler<ActionEvent>>> myHandlerMap;
 	public static Controller DeviceController;
 	public static Listener DeviceListener;
 
 	private static LMController myReference;
 
 	private LMController() {
-		myHandlerMap = new HashMap<String, Set<EventHandler<ActionEvent>>>();
+		myHandlerMap = new HashMap<EventType, Set<EventHandler<ActionEvent>>>();
 	}
 
 	public static LMController getInstance() {
@@ -49,7 +53,6 @@ public class LMController {
 			System.out.println("Error connecting Leap Motion");
 			return;
 		}
-		// TODO : Setup more LeapMotion stuff
 	}
 
 	public void clearAllHandlers() {
@@ -57,93 +60,72 @@ public class LMController {
 	}
 
 	public void onConnect(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("DeviceConnected")) {
-			myHandlerMap.put("DeviceConnected",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("DeviceConnected").add(handler);
+		addHandler(EventType.DEVICE_CONNECTED, handler);
 	}
 
 	public void onSwipeLeft(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("SwipeLeft")) {
-			myHandlerMap.put("SwipeLeft",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("SwipeLeft").add(handler);
+		addHandler(EventType.SWIPE_LEFT, handler);
 	}
 
 	public void onSwipeRight(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("SwipeRight")) {
-			myHandlerMap.put("SwipeRight",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("SwipeRight").add(handler);
+		addHandler(EventType.SWIPE_RIGHT, handler);
 	}
 
 	public void onSwipeUp(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("SwipeUp")) {
-			myHandlerMap.put("SwipeUp",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("SwipeUp").add(handler);
+		addHandler(EventType.SWIPE_UP, handler);
 	}
 
 	public void onSwipeDown(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("SwipeDown")) {
-			myHandlerMap.put("SwipeDown",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("SwipeDown").add(handler);
+		addHandler(EventType.SWIPE_DOWN, handler);
 	}
 
 	public void onCircleCW(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("CircleCW")) {
-			myHandlerMap.put("CircleCW",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("CircleCW").add(handler);
+		addHandler(EventType.CIRCLE_CW, handler);
 	}
 
 	public void onCircleCCW(EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey("CircleCCW")) {
-			myHandlerMap.put("CircleCCW",
-					new HashSet<EventHandler<ActionEvent>>());
-		}
-		myHandlerMap.get("CircleCCW").add(handler);
+		addHandler(EventType.CIRCLE_CCW, handler);
 	}
 
 	// /////////////////////
 	// THESE METHODS ARE CALLED BY LEAPMOTIONLISTENER
 	// /////////////////////
 	protected void swipeLeft() {
-		invoke("SwipeLeft");
+		invoke(EventType.SWIPE_LEFT);
 	}
 
 	protected void swipeRight() {
-		invoke("SwipeRight");
+		invoke(EventType.SWIPE_RIGHT);
 	}
 
 	protected void swipeUp() {
-		invoke("SwipeUp");
+		invoke(EventType.SWIPE_UP);
 	}
 
 	protected void swipeDown() {
-		invoke("SwipeDown");
+		invoke(EventType.SWIPE_DOWN);
 	}
 
 	protected void circleCW() {
-		invoke("CircleCW");
+		invoke(EventType.CIRCLE_CW);
 	}
 
 	protected void circleCCW() {
-		invoke("CircleCCW");
+		invoke(EventType.CIRCLE_CCW);
 	}
 
 	protected void connect() {
-		invoke("DeviceConnected");
+		invoke(EventType.DEVICE_CONNECTED);
 	}
 
-	private void invoke(String eventType) {
+	private void addHandler(EventType event, EventHandler<ActionEvent> handler) {
+		if (!myHandlerMap.containsKey(event)) {
+			myHandlerMap.put(event, new HashSet<EventHandler<ActionEvent>>());
+		}
+		myHandlerMap.get(event).add(handler);
+	}
+
+	private void invoke(EventType eventType) {
 		if (!myHandlerMap.containsKey(eventType))
 			return;
 		Set<EventHandler<ActionEvent>> handlers = myHandlerMap.get(eventType);
