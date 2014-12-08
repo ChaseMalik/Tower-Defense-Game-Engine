@@ -55,7 +55,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     public boolean joinGame () {
-        myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
+        myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "").replace("\\", "/");
         return !myDirectory.equals("None");
     }
 

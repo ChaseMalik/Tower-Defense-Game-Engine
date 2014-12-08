@@ -130,9 +130,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myCoOpManager = new CoOpManager();
 		myEngineManager = myCoOpManager;
 		if (myCoOpManager.joinGame()) {
-			GuiConstants.GUI_MANAGER.init();
-			String dir = myCoOpManager.initializeGame(myGameWorld.getMap());
-			initializeNewGameElements(dir);
+			startMultiPlayerGame();
 		}
 	}
 
@@ -146,10 +144,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		return myCoOpManager.isReady();
 	}
 
-	public void startMultiPlayerGame(String directoryPath) {
+	public void startMultiPlayerGame() {
 		GuiConstants.GUI_MANAGER.init();
-		myCoOpManager.initializeGame(myGameWorld.getMap());
-		initializeNewGameElements(directoryPath);
+		String dir = myCoOpManager.initializeGame(myGameWorld.getMap());
+		initializeNewGameElements(dir);
 		
 		GameStat time = new GameStat();
 		time.setGameStat("Time");
