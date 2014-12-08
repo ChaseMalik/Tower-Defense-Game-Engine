@@ -52,7 +52,7 @@ public class GuiBuilder {
 	 * @param stage
 	 *            the stage in which to construct the GUI
 	 */
-	public Group build(Stage stage, String propertiesPath, boolean dynamicSizing) {
+	public Group build(Stage stage, String propertiesPath) {
 		// set constants
 		myParser = new XMLParser(new File(propertiesPath));
 		GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag(
@@ -61,12 +61,8 @@ public class GuiBuilder {
 		//TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove line below
 		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
 				"TextGeneratorPropertiesPath").get(0));
-		Dimension2D windowSize = null;
-		if (dynamicSizing) {
-			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
-		} else {
-			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
-		}
+		
+		Dimension2D windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 		
 		Group group = new Group();
 		group.setAutoSizeChildren(true);

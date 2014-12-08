@@ -33,9 +33,10 @@ public class GameStartManager {
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.GAME_START_MANAGER = this;
+        init(myStage);
     }
 
-    public void init() {
+    public void init(Stage stage) {
         Group group  = new Group();
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 
