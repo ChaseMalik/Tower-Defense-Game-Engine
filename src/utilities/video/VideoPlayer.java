@@ -19,6 +19,15 @@ import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
+/**
+ * @author $cotty $haw
+ *
+ * Our DragAndDropAudioPane is a utility that will accept audio files
+ * with the allowed extensions that the user dragged and dropped into
+ * the pane. This class extends Observable, so it can listen for when
+ * an audio file drops.
+ * 
+ */
 class VideoPlayer extends BorderPane {
 
     private static final int PADDING = 20;
