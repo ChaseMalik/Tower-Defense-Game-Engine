@@ -11,6 +11,7 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -484,8 +487,13 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myCurrentLevel = level;
     }
 
+    public boolean isRunning() {
+    	return (myTimeline.statusProperty().get() == Status.RUNNING);
+    }
+    
     public void loadAuthoringLevel (BaseLevel level) {
         pause();
+        myHealth.set(Double.MAX_VALUE);
         myEnemyGroup.clear();
         myEnemiesToAdd.clear();
         loadLevel(level);
