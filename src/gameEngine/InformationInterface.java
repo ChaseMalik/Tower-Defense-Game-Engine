@@ -14,4 +14,6 @@ public interface InformationInterface {
     public GridPane getReferencePane();
     
     public TowerTileGrid getExistingTowerTiles();
+    
+    public double getEarthquakeMagnitude();
 }
