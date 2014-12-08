@@ -21,7 +21,8 @@ public class EnemyStartingLocationsPane extends EnemyLocationPane {
     private Button mySaveStartsButton;
     private PathBuildingScene myPathBuildingScene;
 
-    public EnemyStartingLocationsPane (Group group, Path path, PathBuildingScene pathBuildingScene) {
+    public EnemyStartingLocationsPane (Group group, Path path, 
+                                       PathBuildingScene pathBuildingScene) {
         super(group, path);
         mySaveStartsButton = new Button();
         mySaveStartsButton.textProperty().bind(MultiLanguageUtility.getInstance()

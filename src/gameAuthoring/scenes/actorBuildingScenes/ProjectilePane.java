@@ -25,6 +25,8 @@ import utilities.multilanguage.MultiLanguageUtility;
 
 public class ProjectilePane extends Observable implements Observer {
 
+    private static final int MAX_DAMAGE = 5;
+    private static final int RT_BOX_WIDTH = 120;
     private static final String TITLE_CSS = "title";
     private static final String RIGHT_BOX_CSS = "projectileRightBox";
     private static final int LARGE_PADDING = 20;
@@ -72,9 +74,9 @@ public class ProjectilePane extends Observable implements Observer {
                                                      PROJECTILE_IMG_HEIGHT,
                                                      PROJECTILE_IMG_DIR);
         myDropImgPane.getPane().getStyleClass().add(DRAG_N_DROP_CSS);
-        VBox rightBox = new VBox(10);
-        rightBox.setMaxWidth(120);
-        myDamageSlider = new SliderContainer(Constants.DAMAGE, 1, 5);
+        VBox rightBox = new VBox(Constants.SM_PADDING);
+        rightBox.setMaxWidth(RT_BOX_WIDTH);
+        myDamageSlider = new SliderContainer(Constants.DAMAGE, 1, MAX_DAMAGE);
         rightBox.getChildren().addAll(myDamageSlider, myDropImgPane.getPane());
         rightBox.getStyleClass().add(RIGHT_BOX_CSS);
         behaviorBox.getChildren().add(rightBox);
