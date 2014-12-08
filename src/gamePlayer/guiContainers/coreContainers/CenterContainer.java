@@ -10,6 +10,8 @@ import java.util.List;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
@@ -19,33 +21,15 @@ import utilities.reflection.Reflection;
  * @author allankiplagat
  *
  */
-public class CenterContainer extends BorderPane implements GuiContainer {
+public class CenterContainer extends Pane implements GuiContainer {
 	private XMLParser myParser;
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
-		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
-				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
-		myParser = new XMLParser(new File(propertiesPath));
-
-		Dimension2D mySize = null;
-		if (GuiConstants.DYNAMIC_SIZING) {
-			mySize = new Dimension2D(GuiConstants.CENTER_CONTAINER_WIDTH,
-					GuiConstants.CENTER_CONTAINER_HEIGHT);
-		} else {
-			mySize = containerSize;
-		}
-
-		this.setMinSize(mySize.getWidth(), mySize.getHeight());
-		this.setPrefSize(mySize.getWidth(), mySize.getHeight());
-
-		// add contained GUI elements
-		List<String> myItems = myParser.getValuesFromTag("Items");
-		for (String item : myItems) {
-			GuiElement element = (GuiElement) Reflection.createInstance(item);
-			element.initialize(mySize);
-			this.setCenter(element.getNode());
-		}
+		
+		CoreContainerSetup c = new CoreContainerSetup();
+		c.initialize(this, GuiConstants.CENTER_CONTAINER_WIDTH, GuiConstants.CENTER_CONTAINER_HEIGHT, containerSize);
+		this.getChildren().addAll(c.getChildList());
 	}
 
 	@Override
