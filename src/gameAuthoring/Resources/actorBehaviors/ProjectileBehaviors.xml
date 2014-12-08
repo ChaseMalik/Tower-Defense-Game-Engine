@@ -9,8 +9,8 @@
 	</movement>
 	 <onhiteffect>
 	 	<sliders>
-	 		<slider name="Duration" min="0" max="90"></slider>
-	 		<slider name="Multiplier" min="0" max="1"></slider>
+	 		<slider name="duration" min="0" max="90"></slider>
+	 		<slider name="multiplier" min="0" max="1"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>SlowEffect</element>
@@ -19,8 +19,8 @@
 	</onhiteffect>
 	 <onhiteffect1>
 	 	<sliders>
-	 		<slider name="Duration" min="0" max="90"></slider>
-	 		<slider name="Damage" min="0" max="1"></slider>
+	 		<slider name="duration" min="0" max="90"></slider>
+	 		<slider name="damage" min="0" max="1"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>DoT</element>
@@ -29,8 +29,8 @@
 	</onhiteffect1>
 	 <onhiteffect2>
 	 	<sliders>
-	 		<slider name="Damage" min="0" max="100"></slider>
-	 		<slider name="Range" min="0" max="250"></slider>
+	 		<slider name="damage" min="0" max="100"></slider>
+	 		<slider name="range" min="0" max="250"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>SlowEffect</element>

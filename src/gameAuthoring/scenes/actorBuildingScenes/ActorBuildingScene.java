@@ -153,6 +153,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         for (BehaviorBuilder builder : myBehaviorBuilders) {
             builder.reset();
         }
+        myRangeSliderContainer.resetSlider();
         clearActorSpecificFields();
         myDragAndDrop.reset();
         myActorImgPath = "";
