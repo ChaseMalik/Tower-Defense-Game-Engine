@@ -23,7 +23,7 @@ class VideoPlayer extends BorderPane {
     private static final String PLAY_BUTTON_TEXT = "Play";
     private static final String PAUSE_BUTTON_TEXT = "Stop";
     private static final String SPACE = "   ";
-    private static final String TIME_LABEL_TEXT = "";
+    private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
 
     private MediaPlayer myMediaPlayer;
@@ -66,13 +66,13 @@ class VideoPlayer extends BorderPane {
         myTimeLabel.setPrefWidth(150);
         myTimeLabel.setMinWidth(50);
 
-        //        timeSlider.valueProperty().addListener(new InvalidationListener() {
-        //            public void invalidated(Observable ov) {
-        //                if (timeSlider.isValueChanging()) {
-        //                    mediaPlayer.seek(myDuration.multiply(timeSlider.getValue() / 100.0));
-        //                }
-        //            }
-        //        });
+        myTimeSlider.valueProperty().addListener(new InvalidationListener() {
+            public void invalidated(Observable observable) {
+                if (myTimeSlider.isValueChanging()) {
+                    mediaPlayer.seek(myDuration.multiply(myTimeSlider.getValue() / 100.0));
+                }
+            }
+        });
 
         myMediaBar.getChildren().add(myTimeLabel);
 
@@ -166,7 +166,6 @@ class VideoPlayer extends BorderPane {
                 public void run () {
                     Duration currentTime = myMediaPlayer.getCurrentTime();
                     myTimeLabel.setText(currentTime.toString());
-//                  myTimeLabel.setText(calculateTime(currentTime, myDuration));
                     myTimeSlider.setDisable(myDuration.isUnknown());
                     if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
                         double duration = myDuration.toMillis();
