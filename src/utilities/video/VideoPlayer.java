@@ -26,7 +26,7 @@ class VideoPlayer extends BorderPane {
     private static final int BUTTON_WIDTH = 75;
     private static final int INT_CONVERT = 100;
     private static final int LABEL_WIDTH = 150;
-    
+
     private static final double DOUBLE_CONVERT = 100.0;
 
     private static final int SECONDS_PER_MINUTE = 60;
@@ -34,6 +34,7 @@ class VideoPlayer extends BorderPane {
 
     private static final String SPACE = "      ";
 
+    //should these 4 be final?
     private static final String PLAY_BUTTON_TEXT = "PLAY";
     private static final String STOP_BUTTON_TEXT = "STOP";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
@@ -50,9 +51,9 @@ class VideoPlayer extends BorderPane {
     private Label myVolumeLabel;
     private Slider myVolumeSlider;
     private Duration myDuration;
-    private final boolean replayVideo = true;
-    private boolean stopVideo = false;
-    private boolean cycleComplete = false;
+    private boolean myVideoShouldReplay = true;
+    private boolean myVideoShouldStop;
+    private boolean myCycleIsComplete;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
@@ -102,7 +103,6 @@ class VideoPlayer extends BorderPane {
         VOLUME_BUTTON.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 double volume = mediaPlayer.getVolume();
-
                 if (volume > 0.0) {
                     mediaPlayer.setVolume(0.0);
                     VOLUME_BUTTON.setText(UNMUTE_BUTTON_TEXT);
@@ -132,16 +132,16 @@ class VideoPlayer extends BorderPane {
 
         myMediaBar.getChildren().add(new Label(SPACE));
 
-        mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
+        mediaPlayer.setCycleCount(myVideoShouldReplay ? MediaPlayer.INDEFINITE : 1);
         defineMediaPlayerBehavior(mediaPlayer, PLAY_BUTTON);
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
         player.setOnPlaying(new Runnable() {
             public void run () {
-                if (stopVideo) {
+                if (myVideoShouldStop) {
                     player.pause();
-                    stopVideo = false;
+                    myVideoShouldStop = false;
                 }
                 else {
                     button.setText(STOP_BUTTON_TEXT);
@@ -164,10 +164,10 @@ class VideoPlayer extends BorderPane {
 
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
-                if (!replayVideo) {
+                if (!myVideoShouldReplay) {
                     button.setText(PLAY_BUTTON_TEXT);
-                    stopVideo = true;
-                    cycleComplete = true;
+                    myVideoShouldStop = true;
+                    myCycleIsComplete = true;
                 }
             }
         });
@@ -183,9 +183,9 @@ class VideoPlayer extends BorderPane {
                 }
 
                 if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                    if (cycleComplete) {
+                    if (myCycleIsComplete) {
                         player.seek(player.getStartTime());
-                        cycleComplete = false;
+                        myCycleIsComplete = false;
                     }
                     player.play();
                 }
@@ -202,28 +202,29 @@ class VideoPlayer extends BorderPane {
     }
 
     private void updateValues () {
-        if (myTimeLabel != null && myTimeSlider != null && myVolumeSlider != null) {
-            Platform.runLater(new Runnable() {
-                public void run () {
-                    Duration currentTime = myMediaPlayer.getCurrentTime();
-                    myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
-                    myTimeSlider.setDisable(myDuration.isUnknown());
-                    boolean durationValid = myDuration.greaterThan(Duration.ZERO) ? true : false;
-                    boolean sliderActive = !myTimeSlider.isDisabled() ? true : false;
-                    boolean sliderValueChanging = !myTimeSlider.isValueChanging() ? true : false;
-                    if (durationValid && sliderActive && sliderValueChanging) {
-                        double duration = myDuration.toMillis();
-                        double doubleTime = currentTime.divide(duration).toMillis();
-                        double timeSliderValue = doubleTime * DOUBLE_CONVERT;
-                        myTimeSlider.setValue(timeSliderValue);
-                    }
-                    if (!myVolumeSlider.isValueChanging()) {
-                        int intVolume = (int)Math.round(myMediaPlayer.getVolume());
-                        myVolumeSlider.setValue(intVolume * INT_CONVERT);
-                    }
+        Platform.runLater(new Runnable() {
+            public void run () {
+                Duration currentTime = myMediaPlayer.getCurrentTime();
+                myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
+                myTimeSlider.setDisable(myDuration.isUnknown());
+
+                boolean durationValid = myDuration.greaterThan(Duration.ZERO) ? true : false;
+                boolean sliderActive = !myTimeSlider.isDisabled() ? true : false;
+                boolean sliderValueChanging = !myTimeSlider.isValueChanging() ? true : false;
+
+                if (durationValid && sliderActive && sliderValueChanging) {
+                    double duration = myDuration.toMillis();
+                    double doubleTime = currentTime.divide(duration).toMillis();
+                    double timeSliderValue = doubleTime * DOUBLE_CONVERT;
+                    myTimeSlider.setValue(timeSliderValue);
                 }
-            });
-        }
+                if (!myVolumeSlider.isValueChanging()) {
+                    //                        int intVolume = (int)Math.round(myMediaPlayer.getVolume());
+                    double intVolume = Math.round(myMediaPlayer.getVolume());
+                    myVolumeSlider.setValue(intVolume * DOUBLE_CONVERT);
+                }
+            }
+        });
     }
 
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
