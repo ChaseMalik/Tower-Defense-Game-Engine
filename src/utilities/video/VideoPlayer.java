@@ -52,8 +52,8 @@ class VideoPlayer extends BorderPane {
     private Label myTimeLabel;
     private Slider myVolumeSlider;
     private Duration myDuration;
-    private boolean myVideoShouldReplay;
-    private boolean myVideoShouldStop;
+    private boolean myVideoWillReplay;
+    private boolean myVideoIsStopped;
     private boolean myCycleIsComplete;
     private HBox myMediaBar;
 
@@ -164,14 +164,14 @@ class VideoPlayer extends BorderPane {
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
-        player.setCycleCount(myVideoShouldReplay ? MediaPlayer.INDEFINITE : 1);
+        player.setCycleCount(myVideoWillReplay ? MediaPlayer.INDEFINITE : 1);
         player.setOnPlaying(new Runnable() {
             public void run () {
-                if (myVideoShouldStop) {
+                if (myVideoIsStopped) {
                     player.pause();
-                    myVideoShouldStop = false;
+                    myVideoIsStopped = false;
                 }
-                button.setText(myVideoShouldStop ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
+                button.setText(myVideoIsStopped ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
             }
         });
         player.setOnPaused(new Runnable() {
@@ -187,9 +187,10 @@ class VideoPlayer extends BorderPane {
         });
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
-                button.setText(myVideoShouldReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
-                myVideoShouldStop = !myVideoShouldReplay;
-                myCycleIsComplete = !myVideoShouldReplay;
+                button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
+                myVideoIsStopped = !myVideoWillReplay;
+                myCycleIsComplete = !myVideoWillReplay;
+                //                myMediaPlayer.seek?
             }
         });
     }
