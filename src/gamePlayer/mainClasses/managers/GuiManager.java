@@ -444,7 +444,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	private void initWithLM() {
 		LMController controller = LMController.getInstance();
-		controller.onCircleCW(event -> mySpeedSlider.incrementSpeed());
+		controller.onCircleCW(event -> incrementSpeed());
 		controller.onCircleCCW(event -> mySpeedSlider.decrementSpeed());
 	}
 
@@ -512,5 +512,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void removeEventFilter(EventType<MouseEvent> eventType,
 			EventHandler<MouseEvent> handler) {
 		myStage.removeEventFilter(eventType, handler);
+	}
+	
+	private void incrementSpeed() {
+		if (myEngineManager.isPaused())
+			play();
+		else
+			mySpeedSlider.incrementSpeed();
 	}
 }

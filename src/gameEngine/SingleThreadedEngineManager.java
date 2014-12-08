@@ -10,8 +10,6 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
-import gameEngine.UpdateInterface;
-import gameEngine.backendExceptions.BackendException;
 import gameEngine.levels.BaseLevel;
 
 import java.util.ArrayList;
@@ -23,35 +21,27 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.sun.javafx.geom.Point2D;
-
-import utilities.GSON.GSONFileReader;
-import utilities.GSON.GSONFileWriter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
+import utilities.GSON.GSONFileWriter;
 import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.GSON.objectWrappers.GameStateWrapper;
 import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.errorPopup.ErrorPopup;
-import utilities.networking.HTTPConnection;
 
 public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		InformationInterface {
@@ -575,6 +565,10 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	public void sellTower(ImageView n) {
 		myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
 		removeTower(n);
+	}
+	
+	public boolean isPaused() {
+		return myPausedFlag;
 	}
 
 }
