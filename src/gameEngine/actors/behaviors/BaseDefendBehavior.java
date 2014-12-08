@@ -51,8 +51,8 @@ public abstract class BaseDefendBehavior implements IBehavior {
         if (p.getInfo().getOnHit() != null) {
             for (IBehavior e : p.getInfo().getOnHit()) {
                 IBehavior effect = e.copy();
-                actor.addDebuff(effect);
                 effect.execute(actor);
+                actor.addDebuff(effect);
             }
         }
         handleBullet(p);
