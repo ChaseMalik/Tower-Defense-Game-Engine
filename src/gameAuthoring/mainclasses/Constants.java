@@ -43,5 +43,8 @@ public class Constants {
     public static final String BACKGROUND_IMG_NOT_COPIED = "BackgroundNotCopied";
     public static final String ERROR_WRITING_STATE = "ErrorWritingState";
     public static final String SAVE_STATE_DOESNT_CORRESPOND = "SaveStateDoesntCorrespond";
-    public static final String LOADING_SAVE_FILE_ERROR = "LoadingSaveFileProblem";
+    public static final String GENERAL_SETTING_MSG = "GameSettingsMsg";
+    public static final String XML_LOADING_ERROR = "XMLLoadingError";
+    public static final String FILE_NOT_LOADED = "FileNotLoaded";
+    public static final String LANG_NOT_FOUND = "LangNotFound";
 }

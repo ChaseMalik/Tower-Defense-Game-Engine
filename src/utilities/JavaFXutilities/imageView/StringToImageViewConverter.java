@@ -1,11 +1,11 @@
 package utilities.JavaFXutilities.imageView;
 
+import gameAuthoring.mainclasses.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import utilities.errorPopup.ErrorPopup;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import utilities.errorPopup.ErrorPopup;
 
 /**
  * The purpose of this class is to allow the user to get an image view from a string. This
@@ -26,7 +26,7 @@ public class StringToImageViewConverter {
             imgView.setFitHeight(height);
         }
         catch (FileNotFoundException e) {
-            new ErrorPopup("File " + path + " could not be loaded.");
+            new ErrorPopup(Constants.FILE_NOT_LOADED);
         }
         return imgView;
     }
