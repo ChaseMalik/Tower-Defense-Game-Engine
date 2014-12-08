@@ -24,7 +24,7 @@ public class ProjectileInfo {
             for(String s: map.keySet()){
                 myOnHitEffects.add(map.get(s));
             }
-            myMovement=map.get("movement");
+            myMovement=map.get("movement").copy();
             myOnHitEffects.remove(myMovement);
         }
         myEnemyTypes=types;

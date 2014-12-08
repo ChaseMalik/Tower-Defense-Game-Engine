@@ -3,7 +3,6 @@ package gameEngine.actors;
 import gameEngine.InformationInterface;
 import gameEngine.updateObject;
 import gameEngine.actors.behaviors.IBehavior;
-import gameEngine.actors.behaviors.BaseEffect;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,9 +33,10 @@ public abstract class BaseActor extends Observable {
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected boolean myIsRemovable;
-    protected Map<String,IBehavior> myDebuffs;
+    protected Map<String, IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
     protected double myARange;
+
     public BaseActor () {
 
     }
@@ -46,9 +46,9 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
-        myARange=range;
-        myDebuffs=new HashMap<>();
-        myDebuffsToRemove=new HashSet<>();
+        myARange = range;
+        myDebuffs = new HashMap<>();
+        myDebuffsToRemove = new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
         makeNode();
@@ -65,24 +65,24 @@ public abstract class BaseActor extends Observable {
         }
 
     }
-    public void addDebuff(IBehavior debuff){
-        if(myDebuffs.containsKey(debuff.toString())){
-            return;      
-        }
+
+    public void addDebuff (IBehavior debuff) {
+        if (myDebuffs.containsKey(debuff.toString())) { return; }
         myDebuffs.put(debuff.toString(), debuff);
     }
-    public void removeDebuff(IBehavior debuff){
+
+    public void removeDebuff (IBehavior debuff) {
         myDebuffsToRemove.add(debuff);
     }
+
     protected void makeNode () {
         int[] array = getSize();
         myNode = StringToImageViewConverter.getImageView(array[0],
                                                          array[1],
                                                          myImagePath);
     }
-    public double getAttackRange(){
-        return myARange;
-    }
+
+
     public void makeNode (Point2D point) {
         int[] array = getSize();
         myNode = StringToImageViewConverter.getImageView(array[0],
@@ -91,8 +91,8 @@ public abstract class BaseActor extends Observable {
         myNode.setXCenter(point.getX());
         myNode.setYCenter(point.getY());
     }
-    
-    protected abstract int[] getSize();
+
+    protected abstract int[] getSize ();
 
     /**
      * Copies the current actor to create another one
@@ -136,8 +136,8 @@ public abstract class BaseActor extends Observable {
     }
 
     public abstract Node getRange ();
-    
-    public double getRangeProperty(){
+
+    public double getRangeProperty () {
         return myRange;
     }
 
@@ -150,15 +150,16 @@ public abstract class BaseActor extends Observable {
         setRange(range);
         return myInfo.getRequiredActors(this, BaseTower.class);
     }
-    
+
     public List<BaseActor> getProjectilesInRange (double range) {
         setRange(range);
         return myInfo.getRequiredActors(this, BaseProjectile.class);
     }
-    
-    public InformationInterface getInfoObject(){
+
+    public InformationInterface getInfoInterface () {
         return myInfo;
     }
+
     public Collection<Class<? extends BaseActor>> getTypes () {
         return myTypes;
     }
@@ -166,28 +167,23 @@ public abstract class BaseActor extends Observable {
     public void setRange (double d) {
         myRange = d;
     }
-    
-    public void died() {
+
+    public void died () {
         myIsRemovable = true;
     }
-    public boolean isDead(){
+
+    public boolean isDead () {
         return myIsRemovable;
     }
-    public void changeAndNotify(updateObject o){
+
+    public void changeAndNotify (updateObject o) {
         this.setChanged();
         this.notifyObservers(o);
-        
-    }
-    public boolean addTypes (Class<? extends BaseActor> type) {
-        return myTypes.add(type);
-    }
-    public void removeType(Class<? extends BaseActor> type){
-        myTypes.remove(type);
+
     }
 
     public void killed () {
-        // TODO Auto-generated method stub
-        myIsRemovable=true;
+        myIsRemovable = true;
     }
 
 }
