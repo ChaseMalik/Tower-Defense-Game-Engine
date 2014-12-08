@@ -29,3 +29,13 @@
     -fx-text-fill: white;
     -fx-text-alignment: center;
 }
+
+.LMConnectBox {
+	-fx-font-size: 10pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: White;
+}
+
+.LMConnectButton {
+	-fx-opacity: 1;
+}
