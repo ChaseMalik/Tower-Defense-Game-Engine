@@ -33,7 +33,7 @@ public class WelcomeScene extends Observable {
     private VBox myVBox;
     private Group root;
     private ComboBox<String> myLanguageCB;
-    private static final String SPANISH = "Spanish";
+    private static final String CHINESE = "Chinese";
     private static final String ENGLISH = "English";
 
     public WelcomeScene () {
@@ -55,7 +55,7 @@ public class WelcomeScene extends Observable {
         Label languageLabel = new Label(CHOOSE_LANG);
         languageLabel.setStyle("-fx-font-size: 20px");
         myLanguageCB = new ComboBox<String>();
-        myLanguageCB.getItems().addAll(ENGLISH, SPANISH);
+        myLanguageCB.getItems().addAll(ENGLISH, CHINESE);
         myLanguageCB.setOnAction(event -> {
             if (MultiLanguageUtility.getInstance().setLanguage(myLanguageCB.getValue())) {
                 this.setChanged();
