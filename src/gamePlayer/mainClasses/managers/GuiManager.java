@@ -216,7 +216,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void saveGame() {
 		File file = FileLoader.getInstance().save(myStage);
 		if (file != null) {
-			myEngineManager.saveState(file.getAbsolutePath().replace("\\","/"), file.getName());
+			myEngineManager.saveState(file.getParent().replace("\\","/"), file.getName());
 		}
 	}
 

@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import utilities.JavaFXutilities.numericalTextFields.LabeledNumericalTextField;
+import utilities.errorPopup.ErrorPopup;
 
 
 /**
@@ -75,7 +76,17 @@ public class EnemyBuildingScene extends ActorBuildingScene {
 
     @Override
     public boolean actorSpecificFieldsValid () {
-        return myDamageField.isValueEntered();
+        return myDamageField.isValueEntered() && actorNamesAreUnique();
+    }
+
+    private boolean actorNamesAreUnique () {
+        if (myEnemies.stream()
+                .filter(enemy -> myActorNameField.getText().equalsIgnoreCase(enemy.toString()))
+                .count() == 0) {
+           return true;
+        }
+        new ErrorPopup(Constants.UNIQUE_NAMES_ERROR);
+        return false;
     }
 
     @Override
