@@ -40,4 +40,5 @@ public class Constants {
     public static final String LEVEL_ERROR = "LevelError";
     public static final String UNIQUE_NAMES_ERROR = "UniqueNamesError";
     public static final String IMG_FILE_NOT_FOUND = "IMGFileNotFound";
+    public static final String BACKGROUND_IMG_NOT_COPIED = "BackgroundNotCopied";
 }

@@ -20,14 +20,12 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -71,7 +69,7 @@ public class AuthorController extends Application implements
     private List<BaseEnemy> myEnemies;
     private List<TowerUpgradeGroup> myTowerGroups;
     private List<BaseLevel> myLevels;
-    
+
     private Stage myStage;
     private String myBackgroundImageFileName;
 
@@ -151,8 +149,7 @@ public class AuthorController extends Application implements
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
         }
         catch (IOException e) {
-            new ErrorPopup(
-                           "Background image could not be written to the game file");
+            new ErrorPopup(Constants.BACKGROUND_IMG_NOT_COPIED);
         }
     }
 
@@ -222,24 +219,23 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void setTowerRegions (boolean[][] backendTowerRegions) {     
+    public void setTowerRegions (boolean[][] backendTowerRegions) {
         GSON_WRITER.writeTowerRegions(gameDir, backendTowerRegions);
     }
 
     @Override
     public void setGeneralSettings (GeneralSettingsWrapper wrapper) {
-       GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
+        GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
-    
-    //Called after welcome scene clicked.
+    // Called after welcome scene clicked.
     @Override
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();
     }
 
-	@Override
-	public String getBackgroundImagePath() {	
-		return myBackgroundImageFileName;
-	}
+    @Override
+    public String getBackgroundImagePath () {
+        return myBackgroundImageFileName;
+    }
 }

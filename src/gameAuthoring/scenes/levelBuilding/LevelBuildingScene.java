@@ -5,18 +5,13 @@ import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
-
 import java.util.Observable;
 import java.util.Observer;
-
-import utilities.errorPopup.ErrorPopup;
-
-import utilities.multilanguage.MultiLanguageUtility;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import utilities.errorPopup.ErrorPopup;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -31,7 +26,6 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     private LevelBuildingDisplay myLevelsDisplay;
     private ILevelConfiguring myLevelConfiguringController;
-    private BorderPane myBorderPane;
     private Pane mySimulationPane;
     
     public LevelBuildingScene (BorderPane root, ILevelConfiguring controller) {
