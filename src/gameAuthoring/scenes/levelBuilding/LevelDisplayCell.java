@@ -47,11 +47,12 @@ public class LevelDisplayCell extends HBox {
         container.getStyleClass().add(LVL_CONTAINER_CLASS);
         VBox levelInfoBox = createLevelInfoBox();
         HBox enemiesBox = createEnemiesBox();
-        Image img = new Image(PLAYLEVELBUTTON_IMG_PATH);
-        ImageView playLevelButton = new ImageView(img);
-
+        ImageView playButtonImageView = StringToImageViewConverter.getImageView(FIT_SIZE,
+                FIT_SIZE,
+                PLAYLEVELBUTTON_IMG_PATH);
+  
         myEngineInstantiatedFlag = false;
-        playLevelButton.setOnMouseClicked(event ->{
+        playButtonImageView.setOnMouseClicked(event ->{
         	System.out.println("simulate!");
         	if(!myEngineInstantiatedFlag) {
         		myEngineManager = new SingleThreadedEngineManager(pane);
@@ -61,7 +62,7 @@ public class LevelDisplayCell extends HBox {
         	myEngineManager.resume();
         	
         });
-        container.getChildren().addAll(levelInfoBox, enemiesBox, playLevelButton);
+        container.getChildren().addAll(levelInfoBox, enemiesBox, playButtonImageView);
         this.getChildren().add(container);
     }
 
