@@ -157,7 +157,6 @@ public class AuthorController extends Application implements
     @Override
     public void makeDirectory (String gameName, String gameType) {
         gameDir = "./" + gameType + "Games/" + gameName + "/";
-        System.out.println(gameDir);
         File dir = new File(gameDir);
         dir.mkdir();
         showPathBuildingScene();
@@ -230,9 +229,8 @@ public class AuthorController extends Application implements
        GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
-    /**
-     * Called after welcome scene clicked.
-     */
+    
+    //Called after welcome scene clicked.
     @Override
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();

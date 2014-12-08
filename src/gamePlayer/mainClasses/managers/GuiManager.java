@@ -404,4 +404,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			}
 		}
 	}
+
+	@Override
+	public void escapePlace() {
+		myGameWorld.getMap().setOnMouseMoved(null);
+		myGameWorld.getMap().setOnMouseReleased(null);
+		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
+	}
 }
