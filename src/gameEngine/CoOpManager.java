@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -26,12 +28,15 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final int REQUIRED_NUM_PLAYERS = 2;
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     private static final int TIMER_END = 30;
+    private static final double QUERY_SERVER_TIME = 1.0;
+    private DoubleProperty myTimer;
     private boolean myInteraction;
     private String myDirectory;
 
     public CoOpManager () {
         super();
         myDirectory = "";
+        myTimer = new SimpleDoubleProperty();
     }
 
     public void startNewGame (String directory) {
@@ -41,6 +46,10 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     public boolean isReady () {
         return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS)) >= REQUIRED_NUM_PLAYERS;
+    }
+    
+    public DoubleProperty getTimer(){
+        return myTimer;
     }
 
     public boolean joinGame () {
@@ -57,10 +66,10 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void allowInteraction () {
-        myInteraction = true;
+        myTimer.set(30);
         Timeline timeline = new Timeline();
         timeline.setCycleCount(TIMER_END);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(QUERY_SERVER_TIME),
                                                  event -> getTowersFromServer()));
         timeline.setOnFinished(event -> startLevel());
         timeline.play();
@@ -72,9 +81,9 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void startLevel () {
+        getTowersFromServer();
+        myTimer.set(0);
         super.resume();
-        myInteraction = false;
-        System.out.println(myInteraction);
     }
 
     @Override
@@ -96,6 +105,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void getTowersFromServer () {
+        myTimer.set(myTimer.get()-QUERY_SERVER_TIME);
         String response = HTTP_CONNECTOR.sendGet(GET_MASTER_JSON);
         if(response.trim().equals("None")){
             return;
