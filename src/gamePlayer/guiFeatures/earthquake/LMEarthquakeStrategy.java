@@ -10,9 +10,10 @@ public class LMEarthquakeStrategy extends EarthquakeStrategy {
 	private EventHandler<ActionEvent> swiper;
 	
 	@Override
-	public void start() {
+	public void start(EarthquakeController listener) {
+		super.start(listener);
 		controller = LMController.getInstance();
-		swiper = event -> swipe(0.3);
+		swiper = event -> swipe(0.05);
 		controller.setTimeLimit(false);
 		controller.onSwipeDown(swiper);
 		controller.onSwipeUp(swiper);

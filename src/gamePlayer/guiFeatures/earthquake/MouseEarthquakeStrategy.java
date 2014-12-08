@@ -9,8 +9,9 @@ public class MouseEarthquakeStrategy extends EarthquakeStrategy {
 	EventHandler<MouseEvent> swiper;
 	
 	@Override
-	public void start() {
-		swiper = event -> swipe(1);
+	public void start(EarthquakeController listener) {
+		super.start(listener);
+		swiper = event -> swipe(0.6);
 		GuiConstants.GUI_MANAGER.addEventFilter(MouseEvent.MOUSE_PRESSED, swiper);
 	}
 

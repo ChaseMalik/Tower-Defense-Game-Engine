@@ -1,15 +1,14 @@
 package gamePlayer.guiFeatures.earthquake;
 
-import gamePlayer.guiItemsListeners.EarthquakeListener;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 
 
 public abstract class EarthquakeStrategy {
 
-	private EarthquakeListener listener = GuiConstants.GUI_MANAGER;
+	private EarthquakeController listener;
 
-	public void start() {
+	public void start(EarthquakeController listener) {
+		this.listener = listener;
 	}
 
 	public void stop() {
