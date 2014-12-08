@@ -211,8 +211,8 @@ class VideoPlayer extends BorderPane {
                     myTimeSlider.setValue(timeSliderValue);
                 }
                 if (!myVolumeSlider.isValueChanging()) {
-                    int intVolume = (int)Math.round(myMediaPlayer.getVolume());
-                    myVolumeSlider.setValue(intVolume * INT_CONVERT);
+                    double playerVolume = myMediaPlayer.getVolume();
+                    myVolumeSlider.setValue((int)Math.round(playerVolume * INT_CONVERT));
                 }
             }
         });
