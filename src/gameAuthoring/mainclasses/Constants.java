@@ -43,4 +43,5 @@ public class Constants {
     public static final String BACKGROUND_IMG_NOT_COPIED = "BackgroundNotCopied";
     public static final String ERROR_WRITING_STATE = "ErrorWritingState";
     public static final String SAVE_STATE_DOESNT_CORRESPOND = "SaveStateDoesntCorrespond";
+    public static final String LOADING_SAVE_FILE_ERROR = "LoadingSaveFileProblem";
 }
