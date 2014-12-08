@@ -12,6 +12,7 @@ public class Constants {
     public static final String NOT_ENOUGH_ENEMIES_MSG = "NotEnoughEnemiesMsg";
     public static final String NOT_ENOUGH_TOWERS_MSG = "NotEnoughTowersMsg";
     public static final String FINISHED = "finished";
+    public static final int SMALLEST_PADDING = 5;
     public static final int SM_PADDING = 10;
     public static final int MED_PADDING = 15;
     public static final double LG_PADDING = 20;
