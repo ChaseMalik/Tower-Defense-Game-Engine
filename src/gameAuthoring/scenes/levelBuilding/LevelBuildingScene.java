@@ -18,6 +18,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import utilities.errorPopup.ErrorPopup;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -32,7 +34,6 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     private LevelBuildingDisplay myLevelsDisplay;
     private ILevelConfiguring myLevelConfiguringController;
-    private BorderPane myBorderPane;
     private Pane mySimulationPane;
     
     public LevelBuildingScene (BorderPane root, ILevelConfiguring controller) {

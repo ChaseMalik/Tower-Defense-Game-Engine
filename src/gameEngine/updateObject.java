@@ -2,8 +2,8 @@ package gameEngine;
 
 
 public abstract class updateObject {
-    protected int myValue;
-    public updateObject(int value){
+    protected double myValue;
+    public updateObject(double value){
         myValue=value;
     }
     public abstract void update(UpdateInterface manager);
