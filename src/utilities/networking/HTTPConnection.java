@@ -51,7 +51,6 @@ public class HTTPConnection {
                     return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful get request" + responseCode);
                     return "";
                 }
                 
@@ -99,11 +98,7 @@ public class HTTPConnection {
                     return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful post request" + responseCode);
                     return "";
                 }
-                
- 
-        }
- 
+        } 
 }

@@ -1,20 +1,20 @@
 package gameEngine.actors.behaviors;
 
 import java.util.List;
-import gameEngine.goldUpdate;
+import gameEngine.healthUpdate;
 import gameEngine.actors.BaseActor;
 
-public class GoldGenEffect extends BaseEffect{
-    private double myGold;
+public class healBehavior extends BaseEffect{
     
-    public GoldGenEffect(List<Double> list){
+    private double myHeal;
+    public healBehavior(List<Double> list){
         super(list);
-        myGold=list.get(1);
+        myHeal=list.get(1);
     }
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new GoldGenEffect(myList);
+        return new healBehavior(myList);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class GoldGenEffect extends BaseEffect{
     @Override
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
-        actor.changeAndNotify(new goldUpdate(myGold));
+        actor.changeAndNotify(new healthUpdate(myHeal));
     }
 
     @Override

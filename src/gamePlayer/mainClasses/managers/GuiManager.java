@@ -108,11 +108,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		addBackground(directoryPath);
 		makeTowerMap();
 		testHUD();
-		// myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
 		interactionAllowed = true;
 	}
 
@@ -145,7 +141,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void play() {
-		if (!interactionAllowed)
+		if (!interactionAllowed || isCoOp)
 			return;
 		myEngineManager.resume();
 	}
@@ -198,11 +194,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		addBackground(directoryPath);
 		makeTowerMap();
 		testHUD();
-		// myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
 	}
 
 	private void addBackground(String directory) {
@@ -314,9 +306,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	private void testHUD() {
 		gameStats = new ArrayList<GameStat>();
-		GameStat level = new GameStat();
-		level.setGameStat("Level");
-		level.setStatValue(1);
 
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
@@ -328,14 +317,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 				.bindBidirectional(myEngineManager.myHealth());
 
 		gameStats = new ArrayList<GameStat>();
-		gameStats.add(level);
+//		gameStats.add(level);
 		gameStats.add(gold);
 		gameStats.add(health);
 		this.setGameStats(gameStats);
 
-		// update game stats
-		// gameStats.get(1).setStatValue(50);
-		// gameStats.get(2).setStatValue(50);
 	}
 
 	public void makeTower(String towerName, double x, double y) {

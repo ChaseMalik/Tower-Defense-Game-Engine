@@ -1,14 +1,10 @@
 package gamePlayer.guiItems.gameWorld;
 
-import gamePlayer.guiItemsListeners.GameItemListener;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -44,9 +40,8 @@ public class SelectableGameItem extends GameItem {
 		mySelectCircle.setFill(Color.web(color));
 		mySelectCircle.setOpacity(opacity);
 		mySelectCircle.visibleProperty().bind(selectedProperty);
-		
-		Node tmp = myGroup.getChildren().remove(0);
-		myGroup.getChildren().addAll(mySelectCircle, tmp);
+
+		myGroup.getChildren().add(0, mySelectCircle);
 	}
 	
 	private void select() {

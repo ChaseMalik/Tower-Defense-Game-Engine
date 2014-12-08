@@ -3,7 +3,7 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import gameEngine.actors.BaseActor;
 
-public class SlowEffect extends BaseOnHitBehavior {
+public class SlowEffect extends BaseEffect {
     private double myMultiplier;
     public SlowEffect (double duration, double multiplier) {
         super(duration, multiplier);
@@ -42,7 +42,7 @@ public class SlowEffect extends BaseOnHitBehavior {
         BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
         double d=m.getSpeed()*myMultiplier;
         m.setSpeed(d);
-        System.out.println(m.getSpeed());
+        
     }
 
 

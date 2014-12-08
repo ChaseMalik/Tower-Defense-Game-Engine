@@ -40,13 +40,6 @@ public class SpeedSlider extends ControlDockSlider {
 
 	private void setUpSlider(){
 
-		mySlider.setValue(1.0);
-		mySlider.setMin(0.5);
-		mySlider.setMax(5);
-		mySlider.setMajorTickUnit(0.5);
-		mySlider.setShowTickMarks(true);
-		mySlider.setSnapToTicks(true);
-
 		mySlider.valueProperty().addListener(new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {

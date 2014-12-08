@@ -1,15 +1,8 @@
 package gameEngine.actors;
 
-import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
 import gameEngine.InformationInterface;
 import gameEngine.updateObject;
-import gameEngine.actors.behaviors.BaseEffectBehavior;
-import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,13 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
-import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
-import utilities.errorPopup.ErrorPopup;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 
 /**
@@ -42,7 +32,6 @@ public abstract class BaseActor extends Observable {
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
-    protected Set<BaseEffectBehavior> myEffects;
     protected boolean myIsRemovable;
     protected Map<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
@@ -59,7 +48,6 @@ public abstract class BaseActor extends Observable {
         myARange=range;
         myDebuffs=new HashMap<>();
         myDebuffsToRemove=new HashSet<>();
-        myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
 //        for (String s : behaviors.keySet()) {
@@ -83,7 +71,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-   //     ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).end(this);
+   //     ((BaseEffect)myDebuffs.get(debuff.toString())).end(this);
         }
         myDebuffs.put(debuff.toString(), debuff);
     }
@@ -128,15 +116,6 @@ public abstract class BaseActor extends Observable {
 
     public IBehavior getBehavior (String s) {
         return myBehaviors.get(s);
-    }
-
-    public void addEffect (BaseEffectBehavior effect) {
-        
-        if (myEffects.add(effect)) {
-            effect.performEffect(this);
-          
-        }
-        
     }
 
     @Override

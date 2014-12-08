@@ -10,9 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-//import javafx.scene.control.ToggleButton;
-//import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
+import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 
 public abstract class ControlDockSlider implements GuiItem {
@@ -21,6 +19,7 @@ public abstract class ControlDockSlider implements GuiItem {
 	protected Slider mySlider;
 	private Label myLabel;
 	private Pane myPane;
+	public static final String LABEL = "GameSpeed";
 
 	protected Dimension2D sliderSize, mySize;
 	private double heightRatio;
@@ -36,13 +35,6 @@ public abstract class ControlDockSlider implements GuiItem {
 	@Override
 	public Node getNode() {
 		return myPane;
-	}
-
-	protected void setUpSizing(Dimension2D containerSize) {
-
-		sliderSize = new Dimension2D(mySize.getWidth(),
-				mySize.getHeight() * heightRatio);
-		mySlider.setPrefSize(sliderSize.getWidth(), sliderSize.getHeight());
 	}
 
 	private void setupPane(Dimension2D containerSize) {
@@ -62,4 +54,10 @@ public abstract class ControlDockSlider implements GuiItem {
 		myLabel.setMinSize(mySize.getWidth(), (1-heightRatio)*mySize.getHeight());
 		myLabel.setAlignment(Pos.CENTER);
 	}
+
+    protected void setUpSizing(Dimension2D containerSize) {
+        Dimension2D sliderRatio = myParser.getDimension("SizeRatio");
+        Dimension2D sliderSize = RatiosToDim.convert(containerSize, sliderRatio);
+    	mySlider.setMaxSize(sliderSize.getWidth(), sliderSize.getHeight());
+    }
 }

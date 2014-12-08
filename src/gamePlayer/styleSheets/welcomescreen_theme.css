@@ -17,10 +17,25 @@
 }
 
 .MainSplashScreen {
-   -fx-background-color: blue
+   -fx-background-color: blue;
 }
 
-.gameDescriptionButton {
+.gameChooserTilePane {
+   -fx-tile-alignment: center;
+   -fx-pref-columns: 3;
+   -fx-hgap: 8;
+   -fx-padding: 5,5,5,5;
+}
+
+.gameImage {
+   -fx-opacity: 0.9;
+}
+
+.gameImage:hover {
+   -fx-opacity: 1.0;
+}
+
+.gameDescriptionLabel {
     -fx-font-size: 10pt;
 }
 

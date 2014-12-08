@@ -3,29 +3,30 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import gameEngine.actors.BaseActor;
 
-public abstract class BaseOnHitBehavior implements IBehavior{
+public abstract class BaseEffect implements IBehavior{
     protected List<Double> myList;
     double myDuration;
     double myInitialDuration;
     protected String myString;
     
-    public BaseOnHitBehavior(double duration, double multiplier){
+    public BaseEffect(double duration, double multiplier){
         myDuration=duration;
         myInitialDuration=duration;
     }
 
-    public BaseOnHitBehavior(){
+    public BaseEffect(){
 
     }
     
-    public BaseOnHitBehavior (List<Double> list) {
+    public BaseEffect (List<Double> list) {
         // TODO Auto-generated constructor stub
         myList=list;
         myDuration=list.get(0);
-
+        myDuration=myInitialDuration;
     }
 
     public void execute(BaseActor actor){
+
         if(myDuration==myInitialDuration)
             start(actor);
         
