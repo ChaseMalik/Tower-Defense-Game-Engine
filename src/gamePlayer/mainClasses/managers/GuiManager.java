@@ -490,7 +490,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void vibrate(double magnitude) {
-		// TODO : Shake Screen and tell GameEngine
+		myEngineManager.setEarthquakeMagnitude(magnitude);
 		Pane gameworld = myGameWorld.getMap();
 		if (magnitude == -1) {
 			gameworld.setTranslateX(0);
