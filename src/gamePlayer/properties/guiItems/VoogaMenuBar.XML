@@ -7,11 +7,14 @@
 		<element>1</element>
 	</SizeRatio>
 	
-	
     <FileMenu>
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.LoadMenuItem</element>
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.SaveMenuItem</element>
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.ChangeThemeMenuItem</element>
     </FileMenu>
+    
+    <LanguageMenu>
+         <element>gamePlayer.guiItems.voogaMenuBar.menuItems.LoadMenuItem</element>
+    </LanguageMenu>
 
 </VoogaMenuBarProperties>

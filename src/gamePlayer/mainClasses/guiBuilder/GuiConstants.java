@@ -5,7 +5,7 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.mainClasses.managers.GuiManager;
 import gamePlayer.mainClasses.managers.WelcomeManager;
 import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
-import utilities.textGenerator.TextGenerator;
+import utilities.multilanguage.MultiLanguageUtility;
 
 /**
  * Class holds GUI constants that GUI elements refer to during initialization and GamePlay
@@ -15,7 +15,7 @@ import utilities.textGenerator.TextGenerator;
 public class GuiConstants {
     public static GuiManager GUI_MANAGER;
     public static WelcomeManager WELCOME_MANAGER;
-    public static TextGenerator TEXT_GEN;
+    public static MultiLanguageUtility MULTILANGUAGE;
     public static String GUI_ELEMENT_PROPERTIES_PATH;
     public static GameStartManager GAME_START_MANAGER; 
     public static Boolean DYNAMIC_SIZING;
