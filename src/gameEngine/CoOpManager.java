@@ -18,6 +18,7 @@ import utilities.networking.HTTPConnection;
 
 public class CoOpManager extends SingleThreadedEngineManager {
 
+    private static final int FADE_DURATION = 2;
     private static final String GET_PLAYERS = "get_num_players";
     private static final String GET_MASTER_JSON = "get_master_json";
     private static final String UPDATE_MASTER_JSON = "update_master_json";
@@ -125,7 +126,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private void addTower(DataWrapper wrapper){
         ImageView image = super.addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
         image.setOpacity(0);
-        FadeTransition transition = new FadeTransition(Duration.seconds(2),image);
+        FadeTransition transition = new FadeTransition(Duration.seconds(FADE_DURATION),image);
         transition.setToValue(1);
         transition.play();
     }
