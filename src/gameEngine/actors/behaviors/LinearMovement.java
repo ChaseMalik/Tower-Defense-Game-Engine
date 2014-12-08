@@ -66,7 +66,7 @@ public class LinearMovement extends BaseMovementBehavior {
 
     @Override
     public IBehavior copy () {
-        return new LinearMovement(mySpeed);
+        return new LinearMovement(myList);
     }
 
 

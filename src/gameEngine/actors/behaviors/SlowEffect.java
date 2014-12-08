@@ -1,5 +1,6 @@
 package gameEngine.actors.behaviors;
 
+import java.util.List;
 import gameEngine.actors.BaseActor;
 
 public class SlowEffect extends BaseOnHitBehavior {
@@ -12,11 +13,15 @@ public class SlowEffect extends BaseOnHitBehavior {
     public SlowEffect(double multiplier){
         this(30.0,multiplier);
     }
+    public SlowEffect (List<Double> list){
+        super(list);
+        
+    }
     
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new SlowEffect(myDuration,myMultiplier);
+        return new SlowEffect(myList);
     }
 
     @Override

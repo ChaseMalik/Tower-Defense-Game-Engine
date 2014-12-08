@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.scene.layout.GridPane;
 
 public class InfoObject {
-	//Timmy likes traps
+
 	private List<BaseActor> myEnemiesInRange;
 	private List<BaseActor> myTowersInRange;
 	private List<BaseActor> myProjectilesInRange;
