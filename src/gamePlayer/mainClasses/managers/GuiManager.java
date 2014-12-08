@@ -74,6 +74,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 	private List<GameStat> gameStats;
+	private boolean isCoOp;
 
 	public GuiManager(Stage stage) {
 		myStage = stage;
@@ -110,16 +111,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
+	private static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
 
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
+		isCoOp = false;
 	}
 
 	@Override
 	public void play() {
-		if (!interactionAllowed)
+		if (!interactionAllowed || isCoOp)
 			return;
 		myEngineManager.resume();
 	}
@@ -143,6 +146,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	public void startMultiPlayerGame() {
+		isCoOp = true;
 		GuiConstants.GUI_MANAGER.init();
 		String dir = myCoOpManager.initializeGame(myGameWorld.getMap());
 		initializeNewGameElements(dir);
@@ -177,7 +181,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// myGameWorld.getMap().getStyleClass().add("GameWorld");
 		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
 		// AuthorController.SCREEN_HEIGHT);
-		interactionAllowed = true;
+		interactionAllowed = false;
 	}
 
 	private void addBackground(String directory) {
@@ -295,7 +299,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		
 		GameStat health = new GameStat();
 		health.setGameStat("Health");
-		health.setStatValue(100);
+		health.statValueProperty().bindBidirectional(myEngineManager.myHealth());
 
 		gameStats = new ArrayList<GameStat>();
 		gameStats.add(level);
@@ -310,6 +314,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void makeTower(String towerName, double x, double y) {
 		if (!interactionAllowed) return;
+		displayMessage(MessageDisplay.DEFAULT, false);
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
 			displayMessage(towerName, true);
 			return;
@@ -356,6 +361,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void placeTower(String towerName) {
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
 				towerMap.get(towerName).getRange());
+		displayMessage(ESCAPE_TEXT, false);
 	}
 
 	@Override
@@ -403,5 +409,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 				next = next.getMyUpgrade();
 			}
 		}
+	}
+
+	@Override
+	public void escapePlace() {
+		myGameWorld.getMap().setOnMouseMoved(null);
+		myGameWorld.getMap().setOnMouseReleased(null);
+		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
+		displayMessage(MessageDisplay.DEFAULT, false);
 	}
 }

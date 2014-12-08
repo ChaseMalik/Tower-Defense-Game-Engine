@@ -1,11 +1,11 @@
 package gameAuthoring.mainclasses;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IEnemyConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ITowerConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.GSONWritingScene;
 import gameAuthoring.scenes.GeneralSettingScene;
@@ -20,14 +20,12 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -47,8 +45,8 @@ import utilities.multilanguage.MultiLanguageUtility;
  *
  */
 public class AuthorController extends Application implements
-        GeneralSettingsConfiguring, PathConfiguring, TowerConfiguring,
-        EnemyConfiguring, LevelConfiguring, Observer {
+        IGeneralSettingsConfiguring, IPathConfiguring, ITowerConfiguring,
+        IEnemyConfiguring, ILevelConfiguring, Observer {
 
     private static final String SPANISH_PROPERTIES =
             "gameAuthoring.Resources.propertyFiles.English.properties";
@@ -94,25 +92,25 @@ public class AuthorController extends Application implements
 
     public void showPathBuildingScene () {
         myPathBuildingScene = new PathBuildingScene(new BorderPane(),
-                                                    (PathConfiguring) this);
+                                                    (IPathConfiguring) this);
         setSceneAndTitle(myPathBuildingScene);
     }
 
     public void showEnemyBuildingScene () {
         myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(),
-                                                      (EnemyConfiguring) this);
+                                                      (IEnemyConfiguring) this);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
     public void showTowerBuildingScene () {
         myTowerBuildingScene = new TowerBuildingScene(new BorderPane(),
-                                                      (TowerConfiguring) this);
+                                                      (ITowerConfiguring) this);
         setSceneAndTitle(myTowerBuildingScene);
     }
 
     public void showLevelBuildingScene () {
         myLevelBuildingScene = new LevelBuildingScene(new BorderPane(),
-                                                      (LevelConfiguring) this);
+                                                      (ILevelConfiguring) this);
         setSceneAndTitle(myLevelBuildingScene);
     }
 
@@ -128,7 +126,7 @@ public class AuthorController extends Application implements
     }
 
     private void showGeneralSettingScene () {
-        myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
+        myGeneralSettingScene = new GeneralSettingScene((IGeneralSettingsConfiguring) this);
         myStage.setScene(myGeneralSettingScene.getScene());
     }
 
@@ -231,9 +229,8 @@ public class AuthorController extends Application implements
        GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
-    /**
-     * Called after welcome scene clicked.
-     */
+    
+    //Called after welcome scene clicked.
     @Override
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();

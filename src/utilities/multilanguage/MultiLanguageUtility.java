@@ -107,13 +107,15 @@ public class MultiLanguageUtility {
      * @param language
      * @throws LanguageNotFoundException
      */
-    public void setLanguage (String language) throws LanguageNotFoundException {
+    public boolean setLanguage (String language) {
         if (myLanguagesToStringsMap.containsKey(language)) {
             myCurrentLanguage = language;
             updateProperties();
+            return true;
         }
         else {
-            throw new LanguageNotFoundException(language);
+            new ErrorPopup("Language not found");
+            return false;
         }
     }
 
@@ -147,7 +149,7 @@ public class MultiLanguageUtility {
             property = getProperty(myStringProperties, propertyKey);
         }
         catch (LanguagePropertyNotFoundException e) {
-            new ErrorPopup("Property " + propertyKey + " not found");
+            System.out.println("Property " + propertyKey + " not found");
         }
         return property;
     }

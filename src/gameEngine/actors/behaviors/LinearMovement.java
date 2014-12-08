@@ -1,13 +1,12 @@
 package gameEngine.actors.behaviors;
 
-import java.util.List;
-import java.util.Set;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
-import javafx.geometry.Point2D;
-import javafx.scene.image.ImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.geometry.Point2D;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 
 /**
@@ -18,11 +17,13 @@ import gameEngine.actors.BaseActor;
  *
  */
 public class LinearMovement extends BaseMovementBehavior {
+    
     private int myIndex = 0;
-
-    public LinearMovement (double speed) {
-        super(speed);
+    
+    public LinearMovement(List<Double> list) {
+        super(list);
     }
+
     public LinearMovement(double speed, BackendRoute route){
         super(speed,route);
     }
@@ -63,7 +64,9 @@ public class LinearMovement extends BaseMovementBehavior {
 
     @Override
     public IBehavior copy () {
-        return new LinearMovement(mySpeed);
+
+        return new LinearMovement(myList);
+
     }
 
 

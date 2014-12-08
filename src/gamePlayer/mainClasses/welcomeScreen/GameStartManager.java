@@ -39,12 +39,7 @@ public class GameStartManager {
         util.initLanguages("properties.gamePlayer.languages.English.properties",
                            "properties.gamePlayer.languages.Swahili.properties");
 
-        try {
-            util.setLanguage("English");
-        }
-        catch (LanguageNotFoundException e) {
-            e.printStackTrace();
-        }
+        util.setLanguage("English");
 
         GuiConstants.MULTILANGUAGE = util;
         GuiConstants.GAME_START_MANAGER = this;

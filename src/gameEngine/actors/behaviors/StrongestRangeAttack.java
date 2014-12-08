@@ -1,16 +1,16 @@
 package gameEngine.actors.behaviors;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class StrongestRangeAttack extends RangeAttack {
 
     public static final String DEFEND = "defend";
-
+    public StrongestRangeAttack(List<Double> list){
+        super(list);
+    }
     public StrongestRangeAttack (double attackSpeed) {
         super(attackSpeed);
     }
@@ -24,13 +24,8 @@ public class StrongestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        return new StrongestRangeAttack(myAttackSpeed);
+        return new StrongestRangeAttack(myList);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        Set<Class<? extends BaseActor>> a = new HashSet<Class<? extends BaseActor>>();
-        a.add(BaseEnemy.class);
-        return a;
-    }
+
 }

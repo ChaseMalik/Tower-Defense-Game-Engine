@@ -2,6 +2,7 @@ package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
 import java.util.Comparator;
+import java.util.List;
 import javafx.geometry.Point2D;
 
 
@@ -12,7 +13,10 @@ import javafx.geometry.Point2D;
  *
  */
 public class ClosestRangeAttack extends RangeAttack {
-
+   
+    public ClosestRangeAttack(List<Double> list){
+        super(list);
+    }
     public ClosestRangeAttack (double attackSpeed) {
         super(attackSpeed);
     }
@@ -27,7 +31,7 @@ public class ClosestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        return new ClosestRangeAttack(myAttackSpeed);
+        return new ClosestRangeAttack(myList);
     }
 
 }

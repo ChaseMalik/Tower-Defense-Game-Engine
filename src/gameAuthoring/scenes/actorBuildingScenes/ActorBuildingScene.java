@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
@@ -75,7 +76,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         XMLParser parser = new XMLParser(new File(behaviorXMLFileLocation));
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for (String behaviorType : allBehaviorTypes) {
-            List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
+            List<String> behaviorOptions = parser.getBehaviorElementsFromTag(behaviorType);
             myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser
                     .getSliderInfo(behaviorType)));
         }
@@ -98,7 +99,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         BuildingSceneMenu menu = new BuildingSceneMenu();
         MenuItem saveItem = new MenuItem();
         saveItem.textProperty().bind(MultiLanguageUtility.getInstance()
-                                             .getStringProperty("SaveActors"));
+                .getStringProperty(Constants.SAVE_ACTORS));
         saveItem.setOnAction(event -> attemptToSaveActor());
         menu.addMenuItemToFileMenu(saveItem);
         menu.addObserver(this);
@@ -109,9 +110,10 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         VBox centerOptionsBox = new VBox(15);
         Label title = new Label();
         title.textProperty()
-                .bind(MultiLanguageUtility.getInstance().getStringProperty("Behaviors"));
+                .bind(MultiLanguageUtility.getInstance()
+                        .getStringProperty(Constants.BEHAVIORS));
         title.setStyle("-fx-font-size: 18px");
-        myRangeSliderContainer = new SliderContainer("range", 0, 100);
+        myRangeSliderContainer = new SliderContainer(Constants.RANGE, 0, 100);
         VBox generalBox = new VBox(10);
         generalBox.getChildren().addAll(addRequiredNumericalTextFields(),
                                         myRangeSliderContainer);
@@ -134,7 +136,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void attemptToSaveActor () {
-        Map<String, IBehavior> iBehaviorMap = BehaviorMapBuilder.buildMap(myBehaviorBuilders);
+        Map<String, IBehavior> iBehaviorMap = 
+                BehaviorMapBuilder.buildMap(myBehaviorBuilders);
         if (fieldsAreValidForActiveCreation(iBehaviorMap)) {
             makeNewActor(iBehaviorMap);
             clearFields();

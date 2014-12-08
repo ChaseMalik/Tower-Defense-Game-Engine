@@ -1,7 +1,7 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
@@ -64,11 +64,11 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     private BuildingOptionPane myFinishedPathBuildingOptionPane;
     private BuildingOptionPane myResetBuildOptionPane;
     private DefaultMapSelectionPane myDefaultMapSelectionPane;
-    private PathConfiguring myPathConfiguringController;
+    private IPathConfiguring myPathConfiguringController;
     private VBox myPathBuildingOptionsContainer;
     private Map<BuildingPane, BuildingOptionPane> myBuildingPaneToOptionPaneMap;
 
-    public PathBuildingScene (BorderPane root, PathConfiguring controller) {
+    public PathBuildingScene (BorderPane root, IPathConfiguring controller) {
         super(root, TITLE);
         myPathConfiguringController = controller;
         myPane = root;
@@ -151,7 +151,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     }
 
     private void handleFinishButtonClick () {
-        if (myPath.isCompletedAndRoutesVerified()) {
+        if (myPath.isPathCompletedAndRoutesVerified()) {
             myPathConfiguringController
                     .setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
             myPathConfiguringController.configurePath(myPath);

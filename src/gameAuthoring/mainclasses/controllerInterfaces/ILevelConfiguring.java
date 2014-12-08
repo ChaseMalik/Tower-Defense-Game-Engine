@@ -10,7 +10,7 @@ import java.util.List;
  * @author Austin Kyker
  *
  */
-public interface LevelConfiguring {
+public interface ILevelConfiguring {
     void configureLevels (List<BaseLevel> levels);
 
     List<BaseEnemy> fetchEnemies ();

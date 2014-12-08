@@ -1,7 +1,7 @@
 package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
-import gameEngine.infoInterface;
+import gameEngine.InformationInterface;
 import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.BaseOnHitBehavior;
@@ -38,7 +38,7 @@ public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient CenteredImageView myNode;
-    protected transient infoInterface myInfo;
+    protected transient InformationInterface myInfo;
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
@@ -73,7 +73,7 @@ public abstract class BaseActor extends Observable {
     /**
      * Updates the actor by looping over all of its behaviors and performing them
      */
-    public void update (infoInterface info) {
+    public void update (InformationInterface info) {
         myInfo = info;
 
         for (String s : myBehaviors.keySet()) {
@@ -83,7 +83,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).undo(this);
+        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).end(this);
         }
         myDebuffs.put(debuff.toString(), debuff);
     }
@@ -181,7 +181,7 @@ public abstract class BaseActor extends Observable {
         return myInfo.getRequiredActors(this, BaseProjectile.class);
     }
     
-    public infoInterface getInfoObject(){
+    public InformationInterface getInfoObject(){
         return myInfo;
     }
     public Collection<Class<? extends BaseActor>> getTypes () {
@@ -212,7 +212,7 @@ public abstract class BaseActor extends Observable {
 
     public void killed () {
         // TODO Auto-generated method stub
-        
+        myIsRemovable=true;
     }
 
 }

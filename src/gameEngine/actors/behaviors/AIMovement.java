@@ -1,7 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.GridPathFinder;
-import gameEngine.infoInterface;
+import gameEngine.InformationInterface;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.InfoObject;
@@ -23,15 +23,15 @@ public class AIMovement extends BaseMovementBehavior {
     @Override
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
-        infoInterface info = actor.getInfoObject();
+        InformationInterface info = actor.getInfoObject();
         BaseEnemy enemy = (BaseEnemy)actor;
         if(myIndex == -1) {
         	move(enemy, enemy.getStart().getPoint());
-        	myAIRoute =info.getAIPath((BaseEnemy)actor);
+        	myAIRoute =myPathFinder.getPath(enemy, info.getReferencePane(), info.getExistingTowerTiles());
             myIndex=0;
         }
         else if (info.checkNewPath()) {
-            myAIRoute = info.getAIPath((BaseEnemy)actor);
+            myAIRoute =myPathFinder.getPath(enemy, info.getReferencePane(), info.getExistingTowerTiles());
             myIndex=0;
         }
         if(myAIRoute==null){

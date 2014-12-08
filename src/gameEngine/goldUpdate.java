@@ -1,6 +1,5 @@
 package gameEngine;
 
-import gameEngine.actors.behaviors.updateInterface;
 
 
 public class goldUpdate extends updateObject {
@@ -11,7 +10,7 @@ public class goldUpdate extends updateObject {
     }
 
     @Override
-    public void update (updateInterface manager) {
+    public void update (UpdateInterface manager) {
         // TODO Auto-generated method stub
         manager.setMyGold(myValue+manager.getMyGold());
     }

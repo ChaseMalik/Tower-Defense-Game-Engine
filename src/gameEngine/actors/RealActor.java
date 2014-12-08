@@ -1,6 +1,6 @@
 package gameEngine.actors;
 
-import gameEngine.infoInterface;
+import gameEngine.InformationInterface;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.Map;
 import javafx.scene.Node;
@@ -17,14 +17,15 @@ public abstract class RealActor extends BaseActor {
         myProjectile=projectile;
     }
     @Override
-    public void update(infoInterface info){
+    public void update(InformationInterface info){
         myInfo = info;
-        for (String s : myBehaviors.keySet()) {
-            myBehaviors.get(s).execute(this);
-        }
         for(String s: myDebuffs.keySet()){
             myDebuffs.get(s).execute(this);
         }
+        for (String s : myBehaviors.keySet()) {
+            myBehaviors.get(s).execute(this);
+        }
+
         for(IBehavior debuff: myDebuffsToRemove){
             myDebuffs.remove(debuff.toString());
         }

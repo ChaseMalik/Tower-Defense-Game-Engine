@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import javafx.geometry.Insets;
@@ -25,7 +26,6 @@ public abstract class EnemyLocationPane extends BuildingPane {
     private static final double PROMPT_HEIGHT = AuthorController.SCREEN_HEIGHT / 2 - 100;
     private static final double PROMPT_WIDTH = BuildingPane.DRAW_SCREEN_WIDTH / 2 - 80;
     private static final int CONTAINER_PADDING = 15;
-    private static final String CLR_BTN_TEXT = "Clear Locations";
 
     protected Button myClearLocations;
     protected Path myPath;
@@ -33,12 +33,13 @@ public abstract class EnemyLocationPane extends BuildingPane {
     public EnemyLocationPane (Group group, Path path) {
         super(group);
         myClearLocations = new Button();
-        myClearLocations.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("ClearLocations"));
+        myClearLocations.textProperty().bind(MultiLanguageUtility.getInstance()
+                .getStringProperty(Constants.CLEAR_LOCS));
         myPath = path;
     }
 
     protected void createEnemyLocationsSetupComponents (Button button, String labelStr) {
-        VBox container = new VBox(10);
+        VBox container = new VBox(Constants.SM_PADDING);
         container.setPadding(new Insets(CONTAINER_PADDING));
         container.setLayoutX(PROMPT_WIDTH);
         container.setLayoutY(PROMPT_HEIGHT);
