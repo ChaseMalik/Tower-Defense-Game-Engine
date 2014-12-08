@@ -83,7 +83,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).undo(this);
+        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).end(this);
         }
         myDebuffs.put(debuff.toString(), debuff);
     }
@@ -212,7 +212,7 @@ public abstract class BaseActor extends Observable {
 
     public void killed () {
         // TODO Auto-generated method stub
-        
+        myIsRemovable=true;
     }
 
 }

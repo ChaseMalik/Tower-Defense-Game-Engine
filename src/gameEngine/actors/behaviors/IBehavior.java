@@ -24,7 +24,6 @@ public interface IBehavior {
      */
     public IBehavior copy ();
 
-    public Set<Class<? extends BaseActor>> getType ();
     
     public String toString();
 }

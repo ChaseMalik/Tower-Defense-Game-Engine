@@ -1,6 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
@@ -24,7 +25,9 @@ public abstract class BaseAttack implements IBehavior {
         myAttackSpeed = attackSpeed;
         myCooldown = READY_TO_SHOOT;
     }
-
+    public BaseAttack(List<Double> list){
+        
+    }
     protected boolean readyToShoot () {
         return myCooldown == READY_TO_SHOOT;
     }
@@ -48,13 +51,7 @@ public abstract class BaseAttack implements IBehavior {
 
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        Set<Class<? extends BaseActor>> a = new HashSet<Class<? extends BaseActor>>();
-        a.add(BaseTower.class);
-        a.add(BaseEnemy.class);
-        return a;
-    }
+
 
     public String toString () {
         return myName;
