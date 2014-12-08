@@ -74,6 +74,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private void startLevel () {
         super.resume();
         myInteraction = false;
+        System.out.println(myInteraction);
     }
 
     @Override
