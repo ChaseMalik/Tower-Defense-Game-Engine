@@ -1,9 +1,9 @@
-package gameEngine;
+package gameEngine.ManagerInterface;
 
 
-public abstract class updateObject {
+public abstract class UpdateObject {
     protected double myValue;
-    public updateObject(double value){
+    public UpdateObject(double value){
         myValue=value;
     }
     public abstract void update(UpdateInterface manager);

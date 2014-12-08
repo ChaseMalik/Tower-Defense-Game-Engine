@@ -1,9 +1,9 @@
 package gamePlayer.mainClasses.managers;
 
 import gameEngine.CoOpManager;
-import gameEngine.NullTowerInfoObject;
-import gameEngine.SingleThreadedEngineManager;
-import gameEngine.TowerInfoObject;
+import gameEngine.MainEngineManager;
+import gameEngine.Data.NullTowerInfoObject;
+import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiFeatures.WinStatusProperty;
@@ -62,7 +62,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
 	private Stage myStage;
-	private SingleThreadedEngineManager myEngineManager;
+	private MainEngineManager myEngineManager;
 	private CoOpManager myCoOpManager;
 
 	private Group myRoot;
@@ -97,7 +97,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	private void startGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		addBackground(directoryPath);
 		makeTowerMap();
@@ -132,7 +132,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	protected static final Number WIN = null;
 
 	public void startSinglePlayerGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
 		myDirectory = directoryPath;

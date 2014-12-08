@@ -16,7 +16,7 @@ import utilities.chatroom.Chatroom;
 import utilities.networking.HTTPConnection;
 
 
-public class CoOpManager extends SingleThreadedEngineManager {
+public class CoOpManager extends MainEngineManager {
 
     private static final int FADE_DURATION = 2;
     private static final String GET_PLAYERS = "get_num_players";

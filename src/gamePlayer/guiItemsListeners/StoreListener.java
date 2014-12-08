@@ -1,6 +1,6 @@
 package gamePlayer.guiItemsListeners;
 
-import gameEngine.TowerInfoObject;
+import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiItems.store.Store;
 
 import java.util.Collection;
