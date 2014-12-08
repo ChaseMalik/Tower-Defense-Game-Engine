@@ -48,7 +48,6 @@ public class LevelDisplayCell extends HBox {
         HBox enemiesBox = createEnemiesBox();
         Image img = new Image(PLAYLEVELBUTTON_IMG_PATH);
         ImageView playLevelButton = new ImageView(img);
-
         myEngineInstantiatedFlag = false;
         playLevelButton.setOnMouseClicked(event -> {
             if (!myEngineInstantiatedFlag) {
