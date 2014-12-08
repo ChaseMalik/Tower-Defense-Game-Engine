@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StoreItem {
-    private int ID;
     private String name;
     private ImageView imageView;
     private String description;
@@ -21,9 +20,6 @@ public class StoreItem {
         this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
     
-    public int getID () {
-        return ID;
-    }
     public String getName(){
     	return name;
     }
@@ -36,10 +32,6 @@ public class StoreItem {
 
     public BooleanBinding availableBinding () {
         return availableBinding;
-    }
-
-    public void setID (int iD) {
-        ID = iD;
     }
 
     public void setImageView (ImageView imageView) {

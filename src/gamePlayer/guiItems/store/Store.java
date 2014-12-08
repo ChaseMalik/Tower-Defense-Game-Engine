@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
+import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 
 public class Store implements GuiItem {
