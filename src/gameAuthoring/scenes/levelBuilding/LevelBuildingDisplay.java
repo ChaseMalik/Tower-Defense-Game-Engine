@@ -2,10 +2,13 @@ package gameAuthoring.scenes.levelBuilding;
 
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**

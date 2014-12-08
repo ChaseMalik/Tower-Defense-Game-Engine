@@ -3,15 +3,18 @@ package gameAuthoring.scenes.levelBuilding;
 import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
 import utilities.multilanguage.MultiLanguageUtility;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +27,7 @@ public class LevelDisplayCell extends HBox {
     private static final int TEXT_FIELD_WIDTH = 50;
     private static final double FIT_SIZE = 80;
     private static final int GENERAL_PADDING = 10;
+    private static final String PLAYLEVELBUTTON_IMG_PATH = "gameAuthoring/scenes/levelBuilding/PlayLevelButton.png";
 
     private List<BaseEnemy> myEnemies;
     private int myLevelNum;
@@ -39,7 +43,13 @@ public class LevelDisplayCell extends HBox {
         container.getStyleClass().add(LVL_CONTAINER_CLASS);
         VBox levelInfoBox = createLevelInfoBox();
         HBox enemiesBox = createEnemiesBox();
-        container.getChildren().addAll(levelInfoBox, enemiesBox);
+        Image img = new Image(PLAYLEVELBUTTON_IMG_PATH);
+        ImageView playLevelButton = new ImageView(img);
+        
+        playLevelButton.setOnMouseClicked(event ->{
+        	
+        });
+        container.getChildren().addAll(levelInfoBox, enemiesBox, playLevelButton);
         this.getChildren().add(container);
     }
 
