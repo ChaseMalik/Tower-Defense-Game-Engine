@@ -463,16 +463,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		displayMessage("Earthquake! Wave your hands as fast as you can!", false);
 		// TODO : Create Vibrator
 		EarthquakeController controller;
+		double maxMag = 5;
+		double length = 5;
 		if (LMController.getInstance().deviceIsConnected()) {
-			controller = new EarthquakeController(new LMEarthquakeStrategy(),
+			controller = new EarthquakeController(maxMag, new LMEarthquakeStrategy(),
 					(EarthquakeListener) this);
 		} else {
-			controller = new EarthquakeController(
+			controller = new EarthquakeController(maxMag, 
 					new MouseEarthquakeStrategy(), (EarthquakeListener) this);
 		}
-		controller.start(5);
+		controller.start(length);
 
-		return 5;
+		return length;
 	}
 
 	@Override

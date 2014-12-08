@@ -9,15 +9,16 @@ import javafx.util.Duration;
 
 public class EarthquakeController {
 	
-	EarthquakeStrategy strategy;
-	EarthquakeListener listener;
-	private DoubleProperty magnitudeProperty;
-	private double maxMag;
+	public static double maxMag;
 	
-	public EarthquakeController(EarthquakeStrategy strategy, EarthquakeListener listener) {
+	private EarthquakeStrategy strategy;
+	private EarthquakeListener listener;
+	private DoubleProperty magnitudeProperty;
+	
+	public EarthquakeController(double maxMag, EarthquakeStrategy strategy, EarthquakeListener listener) {
+		this.maxMag = maxMag;
 		this.strategy = strategy;
 		this.listener = listener;
-		maxMag = 5;
 		magnitudeProperty = new SimpleDoubleProperty(0);
 	}
 	
