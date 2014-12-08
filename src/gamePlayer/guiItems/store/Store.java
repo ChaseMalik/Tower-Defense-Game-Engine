@@ -47,6 +47,7 @@ public class Store implements GuiItem {
         myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
+        myTilePane.toFront();
 
         myListener.registerStore(this);
     }
