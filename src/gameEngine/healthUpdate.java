@@ -3,7 +3,7 @@ package gameEngine;
 
 public class healthUpdate extends updateObject {
 
-    public healthUpdate (int value) {
+    public healthUpdate (double value) {
         super(value);
         // TODO Auto-generated constructor stub
     }

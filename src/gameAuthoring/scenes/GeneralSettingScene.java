@@ -29,7 +29,6 @@ public class GeneralSettingScene {
     private static final double FIELD_WIDTH = AuthorController.SCREEN_WIDTH / 4;
     private static final String MULTIPLAYER = "Coop";
     private static final String SINGLEPLAYER = "SinglePlayer";
-    private static final String GENERAL_SETTING_MSG = "Create Your Game Settings";
     private IGeneralSettingsConfiguring myGeneralSettingsController;
     private Scene myScene;
     private VBox myVBox;
@@ -57,7 +56,9 @@ public class GeneralSettingScene {
     }
 
     private void createHeadingLabel () {
-        Label headingLabel = new Label(GENERAL_SETTING_MSG);
+        Label headingLabel = new Label();
+        headingLabel.textProperty().bind(MultiLanguageUtility.getInstance()
+                                         .getStringProperty(Constants.GENERAL_SETTING_MSG));
         headingLabel.setStyle("-fx-font-size: 24px");
         myVBox.getChildren().add(headingLabel);
     }

@@ -3,7 +3,7 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import gameEngine.actors.BaseActor;
 
-public class AoEEffect extends BaseOnHitBehavior{
+public class AoEEffect extends BaseEffect{
     private double myDamage;
     private double myRange;
     public AoEEffect (List<Double> list) {
