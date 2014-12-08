@@ -34,4 +34,7 @@ public class Constants {
     public static final String RANGE = "range";
     public static final String BEHAVIORS = "Behaviors";
     public static final String NO_ENEMY_TOWER_CAN_SHOOT = "NoEnemyTowerCanShoot";
+    public static final String PATH_NOT_CONNECTED = "PathNotConnected";
+    public static final String EMPTY_BEHAVIOR = "EmptyBehavior";
+    public static final String NO_PROJECTILE_IMG = "NoProjectileImg";
 }

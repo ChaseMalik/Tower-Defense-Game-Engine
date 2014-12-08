@@ -14,35 +14,35 @@ import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiElement;
 
-public class CoreContainerSetup implements GuiContainer{
+public class CoreContainerSetup {
 
 	private XMLParser myParser;
 	private Dimension2D mySize;
 	private Region myRegion;
 	private List<Node> myChildren;
 	
-	public void setRegion(Region r){
+	public static final String myPropertiesPath =  "guiContainers/";
+	
+	public void setRegion(Region r, String className){
 		myRegion = r;
 		myChildren = new ArrayList<Node>();
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
+				+ myPropertiesPath + className + ".XML";
+		myParser = new XMLParser(new File(propertiesPath));
 	}
 	
 	public void setDimensions(double width, double height, Dimension2D containerSize) {
-		Dimension2D mySize = null;
-		if (GuiConstants.DYNAMIC_SIZING) {
-			mySize = new Dimension2D(width, height);
-		} else {
-			mySize = containerSize;
-		}
+		mySize = new Dimension2D(width, height);
 		myRegion.setMinSize(mySize.getWidth(), mySize.getHeight());
 		myRegion.setPrefSize(mySize.getWidth(), mySize.getHeight());
 	}
+	
+	
+	public void initialize(Region r, double width, double height, Dimension2D containerSize) {
 
-	@Override
-	public void initialize(Dimension2D containerSize) {
-		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
-				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
-		myParser = new XMLParser(new File(propertiesPath));
-
+		setRegion(r, r.getClass().getSimpleName());
+		setDimensions(width, height, containerSize);
+		
 		// add contained GUI elements
 		List<String> myItems = myParser.getValuesFromTag("Items");
 		for (String item : myItems) {
@@ -55,12 +55,5 @@ public class CoreContainerSetup implements GuiContainer{
 	public List<Node> getChildList(){
 		return myChildren;
 	}
-
-	@Override
-	public Node getNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

@@ -11,11 +11,10 @@ import javafx.stage.Stage;
 
 /**
  * @author $cotty $haw
- *
- * Our DragAndDropAudioPane is a utility that will accept audio files
- * with the allowed extensions that the user dragged and dropped into
- * the pane. This class extends Observable, so it can listen for when
- * an audio file drops.
+ * 
+ * The VideoPlayerTest tests playing video files on a MediaPlayer. If
+ * the user loads a video file with an allowed file extension to this
+ * package, it should play.
  * 
  */
 public class VideoPlayerTest extends Application {
