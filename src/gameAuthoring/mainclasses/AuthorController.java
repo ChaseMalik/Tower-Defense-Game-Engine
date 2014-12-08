@@ -48,10 +48,10 @@ public class AuthorController extends Application implements
         IGeneralSettingsConfiguring, IPathConfiguring, ITowerConfiguring,
         IEnemyConfiguring, ILevelConfiguring, Observer {
 
-    private static final String SPANISH_PROPERTIES =
-            "gameAuthoring.Resources.propertyFiles.English.properties";
     private static final String ENGLISH_PROPERTIES =
-            "gameAuthoring.Resources.propertyFiles.Spanish.properties";
+            "gameAuthoring.Resources.propertyFiles.English.properties";
+    private static final String CHINESE_PROPERTIES =
+            "gameAuthoring.Resources.propertyFiles.Chinese.properties";
     public static final double SCREEN_WIDTH = 1100;
     public static final double SCREEN_HEIGHT = 633;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
@@ -80,7 +80,7 @@ public class AuthorController extends Application implements
     @Override
     public void start (Stage stage) throws Exception {
         MultiLanguageUtility util = MultiLanguageUtility.getInstance();
-        util.initLanguages(ENGLISH_PROPERTIES, SPANISH_PROPERTIES);
+        util.initLanguages(ENGLISH_PROPERTIES, CHINESE_PROPERTIES);
         myStage = stage;
         showWelcomeScene();
         configureAndDisplayStage();
