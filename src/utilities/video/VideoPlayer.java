@@ -23,9 +23,9 @@ class VideoPlayer extends BorderPane {
 
     private static final int SECONDS_PER_MINUTE = 60;
     private static final int MINUTES_PER_HOUR = 60;
-    private static final String SPACE = "          ";
-    private static final String PLAY_BUTTON_TEXT = "Play";
-    private static final String PAUSE_BUTTON_TEXT = "Stop";
+    private static final String SPACE = "      ";
+    private static final String PLAY_BUTTON_TEXT = "PLAY";
+    private static final String STOP_BUTTON_TEXT = "STOP";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
     private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
     private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
@@ -45,9 +45,11 @@ class VideoPlayer extends BorderPane {
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
         this.myMediaPlayer = mediaPlayer;
+        setStyle("-fx-background-color: #bfc2c7;");
         myMediaView = new MediaView(mediaPlayer);
         Pane moviePane = new Pane() { };
         moviePane.getChildren().add(myMediaView);
+        moviePane.setStyle("-fx-background-color: #000000;");
         setCenter(moviePane);
         myMediaBar = new HBox();
         myMediaBar.setAlignment(Pos.CENTER);
@@ -56,6 +58,8 @@ class VideoPlayer extends BorderPane {
         setBottom(myMediaBar);
 
         final Button playButton = new Button(PLAY_BUTTON_TEXT);
+        playButton.setMinWidth(75);
+        playButton.setMaxWidth(75);
         definePlayButtonBehavior(mediaPlayer, playButton);
         myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(playButton);
@@ -83,6 +87,8 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(myTimeLabel);
 
         final Button volumeButton = new Button(MUTE_BUTTON_TEXT);
+        volumeButton.setMinWidth(75);
+        volumeButton.setMaxWidth(75);
 
         volumeButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
@@ -129,7 +135,7 @@ class VideoPlayer extends BorderPane {
                     stopVideo = false;
                 }
                 else {
-                    button.setText(PAUSE_BUTTON_TEXT);
+                    button.setText(STOP_BUTTON_TEXT);
                 }
             }
         });
@@ -230,12 +236,17 @@ class VideoPlayer extends BorderPane {
             }
 
             int numMinutes = time / SECONDS_PER_MINUTE;
-            int numSeconds = time - numHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE - numMinutes * SECONDS_PER_MINUTE;
+            
+            if (numMinutes > 0) {
+                time -= numMinutes * SECONDS_PER_MINUTE;
+            }
+            
+            int numSeconds = time;
 
             return String.format("%d:%02d:%02d/%d:%02d:%02d", hours, minutes, seconds, numHours, numMinutes, numSeconds);
         }
         else {
-            return String.format("%d:%02d:%02d", hours, minutes, seconds);
+            return String.format("%d:%02d:%02d/0:00:00", hours, minutes, seconds);
         }
     }
 }
