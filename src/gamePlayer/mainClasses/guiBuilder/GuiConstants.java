@@ -3,8 +3,8 @@ package gamePlayer.mainClasses.guiBuilder;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.mainClasses.managers.GuiManager;
-import gamePlayer.mainClasses.managers.WelcomeManager;
 import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
+import gamePlayer.unusedCodeWarehouse.WelcomeManager;
 import utilities.textGenerator.TextGenerator;
 
 /**

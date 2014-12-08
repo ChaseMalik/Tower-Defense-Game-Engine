@@ -12,10 +12,13 @@ import java.io.File;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
@@ -27,6 +30,7 @@ public class GameStartManager {
     private XMLParser parser;
     private WelcomeScreen welcomeScreen;
     private String gameTypeBeingChosen;
+    private Group group;
 
     public GameStartManager(Stage stage) {
         myStage = stage;
@@ -37,14 +41,15 @@ public class GameStartManager {
 
     public void init() {
     	GuiConstants.DYNAMIC_SIZING = true;
-        Group group  = new Group();
+        group  = new Group();
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 
         String styleSheetPath = parser.getValuesFromTag("StyleSheet").get(0);
         scene.getStylesheets().add(this.getClass().getResource(styleSheetPath).toExternalForm());
 
         initializeWelcomeScreen(group);
-
+        addLMButton();
+        
         myStage.setScene(scene);
         myStage.setResizable(false);
         myStage.show();
@@ -130,5 +135,17 @@ public class GameStartManager {
         } else if (gameTypeBeingChosen.equals(GuiConstants.MULTI_PLAYER_GAME)) {
             startMultiPlayerGame(file.getPath());
         }
+    }
+    
+    private void addLMButton() {
+    	LMConnector connector = new LMConnector();
+    	Dimension2D size = new Dimension2D(GuiConstants.BOTTOM_CONTAINER_WIDTH, GuiConstants.BOTTOM_CONTAINER_HEIGHT);
+    	connector.initialize(size);
+    	HBox hbox = new HBox();
+    	hbox.setPrefSize(size.getWidth(), size.getHeight());
+    	hbox.getChildren().add(connector.getNode());
+    	hbox.setAlignment(Pos.CENTER);
+    	hbox.setTranslateY(550);
+    	group.getChildren().add(hbox);
     }
 }

@@ -3,7 +3,6 @@ package gamePlayer.mainClasses.welcomeScreen;
 import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 import java.util.List;
@@ -38,8 +37,7 @@ public class LMConnector implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		mySize = containerSize;
-		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
-				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+		String propertiesPath = "src/gamePlayer/properties/welcome/guiItems/LMConnector.XML";
 		myParser = new XMLParser(new File(propertiesPath));
 		connectedProperty = new SimpleBooleanProperty(false);
 		
@@ -61,7 +59,10 @@ public class LMConnector implements GuiItem {
 	 * Called by the button to attempt a device connection
 	 */
 	private void connect() {
+		if (LMController.getInstance().deviceIsConnected())
+			return;
 		LMController.getInstance().activateDevice();
+		LMController.getInstance().onConnect(event -> deviceConnected(true));;
 	}
 	
 	private void setupPane() {
@@ -115,7 +116,8 @@ public class LMConnector implements GuiItem {
 				.then(image2)
 				.otherwise(image1));
 		iconButton.setGraphic(iconImage);
-		iconButton.setOnAction(event -> connect());		
+		iconButton.setOnAction(event -> connect());	
+		iconButton.getStyleClass().add("LMConnectButton");
 		
 		hbox.getChildren().addAll(checkmark, iconButton);
 		root.getChildren().add(hbox);
