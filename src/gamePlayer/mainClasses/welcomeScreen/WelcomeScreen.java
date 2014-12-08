@@ -34,8 +34,6 @@ public class WelcomeScreen extends AnchorPane {
         
         topPane = createPane(PANE_WIDTH, PANE_HEIGHT);
         centerPane = createPane(PANE_WIDTH,PANE_HEIGHT);
-        //allow center pane to grow large to accommodate game descriptions
-        centerPane.setMaxSize(PANE_WIDTH, PANE_HEIGHT*2);
         bottomPane = createPane(PANE_WIDTH, PANE_HEIGHT);
         
         centerLargePane = initializeCenterLargePane();
@@ -77,7 +75,7 @@ public class WelcomeScreen extends AnchorPane {
     }
     
     public void setCenterLargeContent(Node node) {
-        vbox.getChildren().removeAll(centerPane,bottomPane);
+        //vbox.getChildren().removeAll(centerPane,bottomPane);
         
         centerLargePane.getChildren().clear();
         centerLargePane.getChildren().add(node);
@@ -92,9 +90,11 @@ public class WelcomeScreen extends AnchorPane {
     
     private void setPaneContent(Pane pane,Node node) {
         this.getChildren().remove(centerLargePane);
+        
         if (!this.getChildren().contains(vbox)) {
             this.getChildren().add(vbox);
         } 
+        
         
         pane.getChildren().clear();
         pane.getChildren().add(node);
