@@ -1,7 +1,11 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
+import gameEngine.actors.BaseEnemy;
+import gameEngine.actors.BaseTower;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TowerRangeEffect extends RangeEffect {
     private int myRange;
@@ -23,7 +27,7 @@ public class TowerRangeEffect extends RangeEffect {
 
     @Override
     public IBehavior copy () {
-        return new TowerRangeEffect(myChange);
+        return new TowerRangeEffect(myList);
     }
 
 

@@ -2,7 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ITowerConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import utilities.JavaFXutilities.numericalTextFields.LabeledNumericalTextField;
+import utilities.errorPopup.ErrorPopup;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -31,6 +32,8 @@ import javafx.scene.layout.VBox;
  */
 public class TowerBuildingScene extends ActorBuildingScene {
 
+    private static final String SELL = "Sell";
+    private static final String COST = "Cost";
     private static final double ENEMY_DISPLAY_HEIGHT = 110;
     private static final double DRAG_AND_DROP_HEIGHT = 300;
     private static final String TITLE = "Tower";
@@ -46,11 +49,11 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private EnemySelectionDisplay myEnemySelectionView;
     private TilePane myTilePane;
     private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
-    private TowerConfiguring myTowerConfiguringController;
+    private ITowerConfiguring myTowerConfiguringController;
     private LabeledNumericalTextField myBuildCostField;
     private LabeledNumericalTextField mySellValueField;
 
-    public TowerBuildingScene (BorderPane root, TowerConfiguring controller) {
+    public TowerBuildingScene (BorderPane root, ITowerConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myTowerConfiguringController = controller;
     }
@@ -152,14 +155,18 @@ public class TowerBuildingScene extends ActorBuildingScene {
     @Override
     protected HBox addRequiredNumericalTextFields () {
         HBox fieldsContainer = new HBox(10);
-        myBuildCostField = new LabeledNumericalTextField("Cost", FIELD_WIDTH);
-        mySellValueField = new LabeledNumericalTextField("Sell", FIELD_WIDTH);
+        myBuildCostField = new LabeledNumericalTextField(COST, FIELD_WIDTH);
+        mySellValueField = new LabeledNumericalTextField(SELL, FIELD_WIDTH);
         fieldsContainer.getChildren().addAll(myBuildCostField, mySellValueField);
         return fieldsContainer;
     }
 
     @Override
     public boolean actorSpecificFieldsValid () {
+        if(myEnemiesTowerCanShoot.size() == 0) {
+            new ErrorPopup(Constants.NO_ENEMY_TOWER_CAN_SHOOT);
+            return false;
+        }
         return myBuildCostField.isValueEntered() && mySellValueField.isValueEntered();
     }
 

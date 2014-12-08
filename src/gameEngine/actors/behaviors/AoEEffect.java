@@ -1,10 +1,16 @@
 package gameEngine.actors.behaviors;
 
+import java.util.List;
 import gameEngine.actors.BaseActor;
 
 public class AoEEffect extends BaseOnHitBehavior{
-    public AoEEffect (double multiplier) {
-        super(1,multiplier);
+    private double myDamage;
+    private double myRange;
+    public AoEEffect (List<Double> list) {
+        myDamage=list.get(0);
+        myRange=list.get(1);
+        myDuration=1;
+        myInitialDuration=1;
         myString="AoEEffect";
         // TODO Auto-generated constructor stub
     }
@@ -13,7 +19,7 @@ public class AoEEffect extends BaseOnHitBehavior{
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new AoEEffect(myMultiplier);
+        return new AoEEffect(myList);
     }
 
     @Override
@@ -25,8 +31,14 @@ public class AoEEffect extends BaseOnHitBehavior{
     @Override
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
-        for(BaseActor a:actor.getEnemiesInRange(1000)){
-            a.killed();
+        for(BaseActor a:actor.getEnemiesInRange(myRange)){
+            BaseDefendBehavior d=((BaseDefendBehavior)a.getBehavior("defend"));
+            if(d.getHealth()-myDamage<0){
+                d.onDeath(a);
+            }else{
+                d.setHealth(d.getHealth()-myDamage);
+            }
+                
         }
     }
 

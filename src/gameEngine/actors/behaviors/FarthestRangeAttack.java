@@ -29,7 +29,7 @@ public class FarthestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        return new FarthestRangeAttack(myAttackSpeed);
+        return new FarthestRangeAttack(myList);
     }
 
 

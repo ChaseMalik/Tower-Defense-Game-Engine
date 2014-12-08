@@ -149,7 +149,7 @@ public class MultiLanguageUtility {
             property = getProperty(myStringProperties, propertyKey);
         }
         catch (LanguagePropertyNotFoundException e) {
-            new ErrorPopup("Property " + propertyKey + " not found");
+            System.out.println("Property " + propertyKey + " not found");
         }
         return property;
     }

@@ -8,7 +8,7 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
  * @author Austin Kyker
  *
  */
-public interface PathConfiguring {
+public interface IPathConfiguring {
     void configurePath (Path path);
 
     void setBackground (String imageFileName);

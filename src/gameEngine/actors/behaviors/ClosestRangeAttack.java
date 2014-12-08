@@ -31,7 +31,7 @@ public class ClosestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        return new ClosestRangeAttack(myAttackSpeed);
+        return new ClosestRangeAttack(myList);
     }
 
 }

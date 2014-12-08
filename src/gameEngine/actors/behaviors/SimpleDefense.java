@@ -14,7 +14,7 @@ public class SimpleDefense extends BaseDefendBehavior {
     }
     @Override
     public IBehavior copy () {
-        return new SimpleDefense(myInitialHealth);
+        return new SimpleDefense(myList);
     }
 
     @Override

@@ -8,7 +8,7 @@ import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
  * @author Austin Kyker
  *
  */
-public interface GeneralSettingsConfiguring {
+public interface IGeneralSettingsConfiguring {
 	void setGeneralSettings(GeneralSettingsWrapper generalSettingsWrapper);
 	
 	/**

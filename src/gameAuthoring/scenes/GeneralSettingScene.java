@@ -2,7 +2,7 @@ package gameAuthoring.scenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -23,13 +23,14 @@ import utilities.multilanguage.MultiLanguageUtility;
 
 public class GeneralSettingScene {
 
+    private static final int BTN_SPACE = 140;
     private static final String GENERAL_SETTINGS_IMG_PATH =
             "gameAuthoring/scenes/GeneralSettingsImage.png";
     private static final double FIELD_WIDTH = AuthorController.SCREEN_WIDTH / 4;
     private static final String MULTIPLAYER = "Coop";
     private static final String SINGLEPLAYER = "SinglePlayer";
     private static final String GENERAL_SETTING_MSG = "Create Your Game Settings";
-    private GeneralSettingsConfiguring myGeneralSettingsController;
+    private IGeneralSettingsConfiguring myGeneralSettingsController;
     private Scene myScene;
     private VBox myVBox;
     private TextField myNameTextField;
@@ -38,7 +39,7 @@ public class GeneralSettingScene {
     private ComboBox<String> myGameTypeComboBox;
     private Group root;
 
-    public GeneralSettingScene (GeneralSettingsConfiguring controller) {
+    public GeneralSettingScene (IGeneralSettingsConfiguring controller) {
         myGeneralSettingsController = controller;
         root = new Group();
         myScene = new Scene(root, AuthorController.SCREEN_WIDTH,
@@ -71,28 +72,36 @@ public class GeneralSettingScene {
     }
 
     private void createOptions () {
-        createFieldWithLabel(Constants.NAME_OF_GAME, myNameTextField);
-        createFieldWithLabel(Constants.STARTING_HEALTH, myStartingHealthField);
-        createFieldWithLabel(Constants.STARTING_CASH, myStartingCashField);
-        createFieldWithLabel(Constants.SELECT_GAME_TYPE, myGameTypeComboBox);
+        myVBox.getChildren().addAll(createFieldWithLabel(Constants.NAME_OF_GAME, 
+                                                         myNameTextField),
+                                    createFieldWithLabel(Constants.STARTING_HEALTH,
+                                                         myStartingHealthField),
+                                    createFieldWithLabel(Constants.STARTING_CASH,
+                                                         myStartingCashField));
+        HBox box = new HBox(BTN_SPACE);
+        box.getChildren().addAll(createFieldWithLabel(Constants.SELECT_GAME_TYPE,
+                                                      myGameTypeComboBox),
+                                 createNextButton());
+        myVBox.getChildren().add(box);
     }
 
-    private void createFieldWithLabel (String labelName, Node node) {
-        VBox vb = new VBox(Constants.MED_PADDING);
+    private VBox createFieldWithLabel (String labelName, Node node) {
+        VBox box = new VBox(Constants.MED_PADDING);
         Label optionLabel = new Label();
         optionLabel.textProperty().bind(MultiLanguageUtility.getInstance()
                 .getStringProperty(labelName));
-        vb.getChildren().addAll(optionLabel, node);
-        myVBox.getChildren().add(vb);
-
+        box.getChildren().addAll(optionLabel, node);
+        return box;
     }
 
-    private void createNextButton () {
+    private VBox createNextButton () {
+        VBox box = new VBox(Constants.MED_PADDING);
         Button nextButton = new Button();
         nextButton.textProperty().bind(MultiLanguageUtility.getInstance()
                 .getStringProperty(Constants.START_BUILDING));
         nextButton.setOnAction(event -> handleButtonClick());
-        myVBox.getChildren().add(nextButton);
+        box.getChildren().addAll(new Label(""), nextButton);
+        return box;
     }
 
     private void handleButtonClick () {

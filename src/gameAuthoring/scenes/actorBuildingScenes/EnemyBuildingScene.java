@@ -2,7 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IEnemyConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.CreatedEnemiesDisplay;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.behaviors.IBehavior;
@@ -29,10 +29,10 @@ public class EnemyBuildingScene extends ActorBuildingScene {
     private static final double FIELD_WIDTH = 100;
 
     private List<BaseEnemy> myEnemies;
-    private EnemyConfiguring myEnemyConfiguringController;
+    private IEnemyConfiguring myEnemyConfiguringController;
     private LabeledNumericalTextField myDamageField;
 
-    public EnemyBuildingScene (BorderPane root, EnemyConfiguring controller) {
+    public EnemyBuildingScene (BorderPane root, IEnemyConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myEnemyConfiguringController = controller;
 

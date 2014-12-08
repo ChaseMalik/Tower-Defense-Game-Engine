@@ -1,17 +1,21 @@
 package utilities.GSON.objectWrappers;
 
+import java.util.List;
+
 public class GameStateWrapper {
 	
 	private int myLevel;
-	private int myHealth;
-	private int myMoney;
+	private double myHealth;
+	private double myMoney;
 	private String myName;
+	private List<DataWrapper> myTowers;
 	
-	public GameStateWrapper(String name, int level, int health, int money){
+	public GameStateWrapper(String name, int level, double health, double money, List<DataWrapper> towers){
 		myName = name;
 		myLevel = level;
 		myHealth = health;
-		myMoney = money;		
+		myMoney = money;	
+		myTowers = towers;
 	}
 	
 	public String getName(){
@@ -22,12 +26,15 @@ public class GameStateWrapper {
 		return myLevel;
 	}
 	
-	public int getHealth(){
+	public double getHealth(){
 		return myHealth;
 	}
 	
-	public int getMoney(){
+	public double getMoney(){
 		return myMoney;
 	}
 
+	public List<DataWrapper> getTowerWrappers() {
+		return myTowers;
+	}
 }

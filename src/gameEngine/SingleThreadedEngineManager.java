@@ -10,7 +10,10 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
+import gameEngine.UpdateInterface;
+import gameEngine.backendExceptions.BackendException;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,10 +23,13 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import com.sun.javafx.geom.Point2D;
+
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
 import javafx.animation.KeyFrame;
@@ -41,7 +47,10 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.objectWrappers.DataWrapper;
+import utilities.GSON.objectWrappers.GameStateWrapper;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
+import utilities.errorPopup.ErrorPopup;
 import utilities.networking.HTTPConnection;
 
 public class SingleThreadedEngineManager implements Observer, UpdateInterface,
@@ -76,6 +85,12 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	private TowerTileGrid myTowerLocationByGrid;
 	private GridPane myTowerTiles;
 
+	private double myFieldWidth;
+	private double myFieldHeight;
+
+	private boolean myPausedFlag;
+	private String myCurrentGameName;
+
 	public SingleThreadedEngineManager() {
 		myReadyToPlay = new AtomicBoolean(false);
 		myEnemyGroup = new RangeRestrictedCollection<>();
@@ -95,6 +110,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		myGold.set(10000);
 		myHealth = new SimpleDoubleProperty();
 		myLastUpdateTime = -1;
+		myPausedFlag = true;
 	}
 
 	@Override
@@ -116,7 +132,8 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		engineGroup.getChildren().add(myTowerGroup);
 		engineGroup.getChildren().add(myProjectileGroup);
 		engineGroup.getChildren().add(myEnemyGroup);
-
+		myFieldWidth = engineGroup.getWidth();
+		myFieldHeight = engineGroup.getHeight();
 	}
 
 	@Override
@@ -251,9 +268,10 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 
 	protected void onLevelEnd() {
 		duration = 0; // TODO bad code, but problem with multiple levels
-		myTimeline.pause();
+		pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
+		// saveState("/Users/Duke/Desktop");
 		// myReadyToPlay.set(true);
 	}
 
@@ -275,10 +293,19 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 			if (actor.isDead()) {
 				actorGroup.addActorToRemoveBuffer(actor);
 			} else {
-				// InfoObject requiredInfo = getRequiredInformation(actor);
 				actor.update(this);
 			}
+			if (!isInRangeOfField(actor)) {
+				actor.died();
+			}
 		}
+	}
+
+	private boolean isInRangeOfField(BaseActor actor) {
+		double actorX = actor.getX();
+		double actorY = actor.getY();
+		return 0 <= actorX && actorX <= myFieldWidth && 0 <= actorY
+				&& actorY <= myFieldHeight;
 	}
 
 	private InfoObject getRequiredInformation(BaseActor actor) {
@@ -326,10 +353,12 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 
 	public void pause() {
 		myTimeline.pause();
+		myPausedFlag = true;
 	}
 
 	public void resume() {
 		myTimeline.play();
+		myPausedFlag = false;
 	}
 
 	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
@@ -340,6 +369,8 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	}
 
 	public void initializeGame(String directory) {
+		String[] splitDirectory = directory.split("/");
+		myCurrentGameName = splitDirectory[splitDirectory.length - 1];
 		myTowerGroup.clear();
 		myEnemyGroup.clear();
 		myProjectileGroup.clear();
@@ -348,10 +379,17 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
 		loadLocations(correctedDirectory);
+		loadGameSettings(correctedDirectory);
 		myReadyToPlay.set(true);
 		loadNextLevel();
 	}
-
+	
+	private void loadGameSettings(String directory) {
+		GeneralSettingsWrapper settingsWrapper = myFileReader.readGeneralSettingsWrapper(directory);
+		myGold.set(settingsWrapper.getStartingCash());
+		myHealth.set(settingsWrapper.getStartingHealth());
+	}
+	
 	private void loadLocations(String dir) {
 		boolean[][] validRegions = myFileReader
 				.readTowerRegionsFromGameDirectory(dir);
@@ -428,8 +466,12 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		}
 	}
 
-	private void loadLevel(BaseLevel level) {
+	public void loadLevel(BaseLevel level) {
+		pause();
 		int levelDuration = level.getDuration();
+		myEnemyGroup.clear();
+		myEnemiesToAdd.clear();
+		myProjectileGroup.clear();
 		Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
 		for (EnemyCountPair enemyPair : enemies) {
 			BaseEnemy enemy = enemyPair.getMyEnemy();
@@ -453,6 +495,67 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 				myTowerGroup.add((BaseTower) arg);
 			} else if (arg instanceof BaseProjectile) {
 				myProjectileGroup.add((BaseProjectile) arg);
+			}
+		}
+	}
+
+	public void saveState(String directory, String fileName) {
+		if (myPausedFlag) {
+			String joinedFileName = directory + "/" + fileName + ".json";
+			try {
+				List<DataWrapper> wrappedTowers = wrapTowers();
+				GameStateWrapper gameState = new GameStateWrapper(
+						myCurrentGameName, myCurrentLevelIndex, myHealth.get(),
+						myGold.get(), wrappedTowers);
+				myFileWriter.writeGameStateToJSon(joinedFileName, gameState);
+			} catch (Exception ex) {
+				new ErrorPopup("Error writing state");
+			}
+		}
+	}
+
+	private List<DataWrapper> wrapTowers() {
+		ArrayList<DataWrapper> wrappedTowers = new ArrayList<>();
+		for (BaseTower tower : myTowerGroup) {
+			DataWrapper wrappedTower = new DataWrapper(tower);
+			wrappedTowers.add(wrappedTower);
+		}
+		return wrappedTowers;
+	}
+
+	public void clear() {
+		if (myPausedFlag) {
+			myTowerGroup.clear();
+			myEnemyGroup.clear();
+			myProjectileGroup.clear();
+			myLastUpdateTime = -1;
+			myEnemiesToAdd.clear();
+			myNodeToTower.clear();
+			myTowerInformation.clear();
+		}
+	}
+
+	public void loadState(String gameFile) {
+		if (myPausedFlag) {
+			try {
+				clear();
+				GameStateWrapper gameState = myFileReader
+						.readGameStateFromJSon(gameFile);
+				if(gameState.getName().equals(myCurrentGameName)){
+					myGold.set(gameState.getMoney());
+					myHealth.set(gameState.getHealth());
+					myCurrentLevelIndex = gameState.getLevel();
+					loadLevel(myLevels.get(myCurrentLevelIndex));
+					List<DataWrapper> towers = gameState.getTowerWrappers();
+					for (DataWrapper wrappedTower : towers) {
+						addTower(wrappedTower.getName(), wrappedTower.getX(), wrappedTower.getY());
+					}
+				}
+				else{
+					new ErrorPopup("Save state does not correspond to this game");
+				}
+			} catch (Exception ex) {
+				new ErrorPopup("Problem loading save file");
 			}
 		}
 	}
