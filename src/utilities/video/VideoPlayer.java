@@ -197,7 +197,7 @@ class VideoPlayer extends BorderPane {
             Platform.runLater(new Runnable() {
                 public void run () {
                     Duration currentTime = myMediaPlayer.getCurrentTime();
-                    myTimeLabel.setText(calculateTime(currentTime, myDuration));
+                    myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
                     myTimeSlider.setDisable(myDuration.isUnknown());
                     if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
                         double duration = myDuration.toMillis();
@@ -212,8 +212,20 @@ class VideoPlayer extends BorderPane {
         }
     }
 
-    private static String calculateTime (Duration elapsed, Duration duration) {
-        int time = (int)Math.floor(elapsed.toSeconds());
+    private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
+        int elapsedTime = (int)Math.floor(elapsed.toSeconds());
+
+        int elapsedHours = elapsedTime / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        elapsedTime -= elapsedHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+        int elapsedMinutes = elapsedTime / SECONDS_PER_MINUTE;
+        elapsedTime -= elapsedMinutes * SECONDS_PER_MINUTE;
+        int elapsedSeconds = elapsedTime;
+
+        return formatTime(videoDuration, elapsedHours, elapsedMinutes, elapsedSeconds);
+    }
+
+    private static String formatTime (Duration duration, int intHours, int intMinutes, int intSeconds) {
+        int time = (int)Math.floor(duration.toSeconds());
 
         int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
@@ -221,23 +233,6 @@ class VideoPlayer extends BorderPane {
         time -= minutes * SECONDS_PER_MINUTE;
         int seconds = time;
 
-        return formatTime(duration, hours, minutes, seconds);
-    }
-
-    private static String formatTime (Duration duration, int intHours, int intMinutes, int intSeconds) {
-        if (duration.greaterThan(Duration.ZERO)) {
-            int time = (int)Math.floor(duration.toSeconds());
-
-            int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-            time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-            int minutes = time / SECONDS_PER_MINUTE;
-            time -= minutes * SECONDS_PER_MINUTE;
-            int seconds = time;
-
-            return String.format("%d:%02d:%02d/%d:%02d:%02d", intHours, intMinutes, intSeconds, hours, minutes, seconds);
-        }
-        else {
-            return String.format("%d:%02d:%02d/0:00:00", intHours, intMinutes, intSeconds);
-        }
+        return String.format("%d:%02d:%02d/%d:%02d:%02d", intHours, intMinutes, intSeconds, hours, minutes, seconds);
     }
 }
