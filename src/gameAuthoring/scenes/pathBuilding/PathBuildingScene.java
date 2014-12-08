@@ -151,7 +151,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
     }
 
     private void handleFinishButtonClick () {
-        if (myPath.isCompletedAndRoutesVerified()) {
+        if (myPath.isPathCompletedAndRoutesVerified()) {
             myPathConfiguringController
                     .setTowerRegions(myTowerRegionsPane.getBackendTowerRegions());
             myPathConfiguringController.configurePath(myPath);

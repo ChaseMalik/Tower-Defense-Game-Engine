@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameEngine.actors.BaseActor;
@@ -37,6 +38,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private static final String BEHAVIOR_XML_LOC =
             "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
     private static final double FIELD_WIDTH = 50;
+    protected static final int NUM_UPGRADES_POSSIBLE = 3;
 
     private List<BaseEnemy> myEnemiesTowerCanShoot;
     private ProjectilePane myProjectilePane;
@@ -117,7 +119,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
                 if (j >= towersInGroup) {
                     upgradeGroupViews.get(j)
                             .setOnMouseClicked(event -> handleAddUpgrade(myTowerUpgradeGroups
-                                                       .get(index)));
+                                    .get(index)));
                 }
             }
         }
@@ -139,9 +141,9 @@ public class TowerBuildingScene extends ActorBuildingScene {
         myTilePane = new TilePane();
         myTilePane.setPrefWidth(340);
         myTilePane.setPadding(new Insets(5, 0, 5, 0));
-        myTilePane.setVgap(10);
-        myTilePane.setHgap(10);
-        myTilePane.setPrefColumns(3);
+        myTilePane.setVgap(Constants.SM_PADDING);
+        myTilePane.setHgap(Constants.SM_PADDING);
+        myTilePane.setPrefColumns(NUM_UPGRADES_POSSIBLE);
         myTilePane.setStyle("-fx-background-color: DAE6F3;");
         redrawTowerDisplay();
         myPane.setLeft(myTilePane);

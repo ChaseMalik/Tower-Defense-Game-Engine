@@ -8,6 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 
+/**
+ * A pane of tiles representing the locations towers will be able
+ * to be placed during the game. The user can select and deselect these
+ * locations by clicking or dragging over grid tiles.
+ * 
+ * @author Austin Kyker
+ *
+ */
 public class TowerRegionsPane extends BuildingPane {
 
     public static final int NUM_COLS = 20;

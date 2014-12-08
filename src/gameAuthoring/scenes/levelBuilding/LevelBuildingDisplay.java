@@ -8,9 +8,13 @@ import java.util.stream.Collectors;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * A ScrollPane that allows the user to build and visualize all of the levels.
+ * @author Austin Kyker
+ *
+ */
 public class LevelBuildingDisplay extends ScrollPane {
-    
+
     private static final double HEIGHT = 600;
 
     private List<BaseEnemy> myEnemies;
