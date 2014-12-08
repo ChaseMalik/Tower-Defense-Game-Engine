@@ -149,8 +149,7 @@ public class AuthorController extends Application implements
             Files.copy(file.toPath(), targetFile.toPath(), REPLACE_EXISTING);
         }
         catch (IOException e) {
-            new ErrorPopup(
-                           "Background image could not be written to the game file");
+            new ErrorPopup(Constants.BACKGROUND_IMG_NOT_COPIED);
         }
     }
 
@@ -220,19 +219,23 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void setTowerRegions (boolean[][] backendTowerRegions) {     
+    public void setTowerRegions (boolean[][] backendTowerRegions) {
         GSON_WRITER.writeTowerRegions(gameDir, backendTowerRegions);
     }
 
     @Override
     public void setGeneralSettings (GeneralSettingsWrapper wrapper) {
-       GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
+        GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
-    
-    //Called after welcome scene clicked.
+    // Called after welcome scene clicked.
     @Override
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();
+    }
+
+    @Override
+    public String getBackgroundImagePath () {
+        return myBackgroundImageFileName;
     }
 }

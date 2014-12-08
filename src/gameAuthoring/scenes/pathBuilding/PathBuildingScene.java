@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.pathBuilding;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BackgroundBuilding;
@@ -157,13 +158,7 @@ public class PathBuildingScene extends BuildingScene implements BackgroundBuildi
             myPathConfiguringController.configurePath(myPath);
         }
         else {
-            new ErrorPopup("You're route does not go from the starting location to " +
-                           "the ending location or your components are not connected " +
-                           "together. To see the connectivity of your routes use the " +
-                           "selection tool on the right. To start over press the reset " +
-                           "button. HINT: build your routes starting at the start " +
-                           "locations and then connecting subsequent components until " +
-                           "you reach the ending location.");
+            new ErrorPopup(Constants.PATH_NOT_CONNECTED);
         }
     }
 

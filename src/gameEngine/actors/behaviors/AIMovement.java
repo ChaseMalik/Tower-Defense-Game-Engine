@@ -13,11 +13,10 @@ public class AIMovement extends BaseMovementBehavior {
     private transient GridPathFinder myPathFinder;
     private transient List<Point2D> myAIRoute;
     private int myIndex;
-    public AIMovement (double speed) {
-        super(speed);
+    public AIMovement (List<Double> list) {
+        super(list);
         myPathFinder = new GridPathFinder();
         myIndex=-1;
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -61,7 +60,7 @@ public class AIMovement extends BaseMovementBehavior {
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new AIMovement(mySpeed);
+        return new AIMovement(myList);
     }
 
 }

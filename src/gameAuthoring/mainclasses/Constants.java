@@ -7,7 +7,7 @@ public class Constants {
     public static final String TOWER = "tower";
     public static final String LINE = "line";
     public static final String VISIBLE = "visible";
-    public static final String DAMAGE = "Damage";
+    public static final String DAMAGE = "damage";
     public static final String PROJECTILE = "projectile";
     public static final String NOT_ENOUGH_ENEMIES_MSG = "NotEnoughEnemiesMsg";
     public static final String NOT_ENOUGH_TOWERS_MSG = "NotEnoughTowersMsg";
@@ -34,4 +34,11 @@ public class Constants {
     public static final String RANGE = "range";
     public static final String BEHAVIORS = "Behaviors";
     public static final String NO_ENEMY_TOWER_CAN_SHOOT = "NoEnemyTowerCanShoot";
+    public static final String PATH_NOT_CONNECTED = "PathNotConnected";
+    public static final String EMPTY_BEHAVIOR = "EmptyBehavior";
+    public static final String NO_PROJECTILE_IMG = "NoProjectileImg";
+    public static final String LEVEL_ERROR = "LevelError";
+    public static final String UNIQUE_NAMES_ERROR = "UniqueNamesError";
+    public static final String IMG_FILE_NOT_FOUND = "IMGFileNotFound";
+    public static final String BACKGROUND_IMG_NOT_COPIED = "BackgroundNotCopied";
 }

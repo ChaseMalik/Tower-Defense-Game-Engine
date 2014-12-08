@@ -15,7 +15,7 @@ public class SlowEffect extends BaseOnHitBehavior {
     }
     public SlowEffect (List<Double> list){
         super(list);
-        myMultiplier=list.get(1)/100.0;
+        myMultiplier=(list.get(1)/100.0);
         
     }
     
@@ -42,6 +42,7 @@ public class SlowEffect extends BaseOnHitBehavior {
         BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
         double d=m.getSpeed()*myMultiplier;
         m.setSpeed(d);
+        System.out.println(m.getSpeed());
     }
 
 

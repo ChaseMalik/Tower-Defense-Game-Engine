@@ -19,6 +19,14 @@ import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
+/**
+ * @author $cotty $haw
+ * 
+ * The VideoPlayer is a MediaPlayer that plays video files. All users
+ * can use it with VideoViewer.java to play any video files placed in
+ * this package.
+ * 
+ */
 class VideoPlayer extends BorderPane {
 
     private static final int PADDING = 20;
@@ -34,7 +42,7 @@ class VideoPlayer extends BorderPane {
 
     private static final String SPACE = "      ";
 
-    private static final String MEDIA_PLAYER_BACKGROUND_COLOR = "-fx-background-color: #bfc2c7;";
+    private static final String MEDIA_PLAYER_BACKGROUND_COLOR = "-fx-background-color: #bbc0c4;";
     private static final String MOVIE_PANE_BACKGROUND_COLOR = "-fx-background-color: #000000;";
 
     private static final String PLAY_BUTTON_TEXT = "PLAY";
@@ -52,7 +60,7 @@ class VideoPlayer extends BorderPane {
     private Label myTimeLabel;
     private Slider myVolumeSlider;
     private Duration myDuration;
-    private boolean myVideoWillReplay;
+    private boolean myVideoWillReplay = true;
     private boolean myVideoIsStopped;
     private boolean myCycleIsComplete;
     private HBox myMediaBar;

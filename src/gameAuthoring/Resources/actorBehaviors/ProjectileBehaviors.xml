@@ -9,8 +9,8 @@
 	</movement>
 	 <onhiteffect>
 	 	<sliders>
-	 		<slider name="Duration" min="0" max="90"></slider>
-	 		<slider name="Magnitude" min="0" max="100"></slider>
+	 		<slider name="duration" min="0" max="90"></slider>
+	 		<slider name="magnitude" min="0" max="100"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>SlowEffect</element>

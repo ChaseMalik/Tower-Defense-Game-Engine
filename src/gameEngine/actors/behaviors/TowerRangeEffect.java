@@ -11,6 +11,7 @@ public class TowerRangeEffect extends RangeEffect {
     private int myRange;
     public TowerRangeEffect(List<Double> list){
         super(list);
+        myString="towerRangeEffect";
     }
     public TowerRangeEffect (double change) {
         super(change);

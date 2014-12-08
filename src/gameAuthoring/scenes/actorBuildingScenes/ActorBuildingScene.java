@@ -84,7 +84,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     private void setupDragAndDropForActorImage () {
         myDragAndDrop =
-                new DragAndDropCopyImagePane(DRAG_AND_DROP_WIDTH, AuthorController.SCREEN_HEIGHT,
+                new DragAndDropCopyImagePane(DRAG_AND_DROP_WIDTH, 
+                                             AuthorController.SCREEN_HEIGHT,
                                              myActorImageDirectory);
         myDragAndDrop.addObserver(this);
         myDragAndDrop.getPane().getStyleClass().add(DRAG_AND_DROP_CSS);
@@ -136,9 +137,9 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void attemptToSaveActor () {
-        Map<String, IBehavior> iBehaviorMap = 
-                BehaviorMapBuilder.buildMap(myBehaviorBuilders);
-        if (fieldsAreValidForActiveCreation(iBehaviorMap)) {
+        if (fieldsAreValidForActiveCreation()) {
+            Map<String, IBehavior> iBehaviorMap = 
+                    BehaviorMapBuilder.buildMap(myBehaviorBuilders);
             makeNewActor(iBehaviorMap);
             clearFields();
         }
@@ -153,6 +154,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         for (BehaviorBuilder builder : myBehaviorBuilders) {
             builder.reset();
         }
+        myRangeSliderContainer.resetSlider();
         clearActorSpecificFields();
         myDragAndDrop.reset();
         myActorImgPath = "";
@@ -160,11 +162,17 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
 
     protected abstract void clearActorSpecificFields ();
 
-    private boolean fieldsAreValidForActiveCreation (Map<String, IBehavior> iBehaviorMap) {
-        return !myActorImgPath.isEmpty() &&
-               !iBehaviorMap.isEmpty() &&
+    private boolean fieldsAreValidForActiveCreation () {
+        return myActorImgPath != null &&
+                behaviorsValid() &&
                !myActorNameField.getText().isEmpty() &&
                actorSpecificFieldsValid();
+    }
+
+    private boolean behaviorsValid () {
+        return myBehaviorBuilders.stream()
+                .filter(builder -> !builder.isValid())
+                .count() == 0;
     }
 
     protected abstract boolean actorSpecificFieldsValid ();
