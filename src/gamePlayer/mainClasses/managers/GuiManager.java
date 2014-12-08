@@ -117,12 +117,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
-		isCoOp = false;
+		interactionAllowed = true;
 	}
 
 	@Override
 	public void play() {
-		if (!interactionAllowed || isCoOp)
+		if (!interactionAllowed)
 			return;
 		myEngineManager.resume();
 	}
@@ -181,7 +181,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// myGameWorld.getMap().getStyleClass().add("GameWorld");
 		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
 		// AuthorController.SCREEN_HEIGHT);
-		interactionAllowed = false;
 	}
 
 	private void addBackground(String directory) {
