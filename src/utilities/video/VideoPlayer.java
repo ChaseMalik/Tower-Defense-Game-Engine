@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -35,7 +34,9 @@ class VideoPlayer extends BorderPane {
 
     private static final String SPACE = "      ";
 
-    //should these 4 be final?
+    private static final String MEDIA_PLAYER_BACKGROUND_COLOR = "-fx-background-color: #bfc2c7;";
+    private static final String MOVIE_PANE_BACKGROUND_COLOR = "-fx-background-color: #000000;";
+
     private static final String PLAY_BUTTON_TEXT = "PLAY";
     private static final String STOP_BUTTON_TEXT = "STOP";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
@@ -49,89 +50,132 @@ class VideoPlayer extends BorderPane {
     private MediaView myMediaView;
     private Slider myTimeSlider;
     private Label myTimeLabel;
-    private Label myVolumeLabel;
     private Slider myVolumeSlider;
     private Duration myDuration;
-    private boolean myVideoShouldReplay = true;
+    private boolean myVideoShouldReplay;
     private boolean myVideoShouldStop;
     private boolean myCycleIsComplete;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer mediaPlayer) {
-        this.myMediaPlayer = mediaPlayer;
-        setStyle("-fx-background-color: #bfc2c7;");
-        myMediaView = new MediaView(mediaPlayer);
+        createMediaPlayer(mediaPlayer);
+        defineMediaBarBehavior();
+
+        final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
+        definePlayButtonBehavior(mediaPlayer, PLAY_BUTTON);
+
+        defineTimeSliderBehavior(mediaPlayer);
+        defineTimeLabelBehavior();
+
+        final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
+        defineVolumeButtonBehavior(mediaPlayer, VOLUME_BUTTON);
+        defineVolumeSliderBehavior(mediaPlayer, VOLUME_BUTTON);
+
+        defineMediaPlayerBehavior(mediaPlayer, PLAY_BUTTON);
+    }
+
+    private void createMediaPlayer (final MediaPlayer player) {
+        this.myMediaPlayer = player;
+        setStyle(MEDIA_PLAYER_BACKGROUND_COLOR);
+
+        myMediaView = new MediaView(player);
         Pane moviePane = new Pane() { };
         moviePane.getChildren().add(myMediaView);
-        moviePane.setStyle("-fx-background-color: #000000;");
+        moviePane.setStyle(MOVIE_PANE_BACKGROUND_COLOR);
         setCenter(moviePane);
+    }
+
+    private void defineMediaBarBehavior () {
         myMediaBar = new HBox();
         myMediaBar.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(myMediaBar, Pos.CENTER);
         myMediaBar.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         setBottom(myMediaBar);
-
-        final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
-        PLAY_BUTTON.setPrefWidth(BUTTON_WIDTH);
-        definePlayButtonBehavior(mediaPlayer, PLAY_BUTTON);
         myMediaBar.getChildren().add(new Label(SPACE));
-        myMediaBar.getChildren().add(PLAY_BUTTON);
+    }
 
+    private void definePlayButtonBehavior (final MediaPlayer player, final Button button) {
+        button.setPrefWidth(BUTTON_WIDTH);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle (ActionEvent e) {
+                Status status = player.getStatus();
+                if (status == Status.HALTED || status == Status.UNKNOWN) {
+                    return;
+                }
+                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+                    if (myCycleIsComplete) {
+                        player.seek(player.getStartTime());
+                        myCycleIsComplete = false;
+                    }
+                    player.play();
+                }
+                else {
+                    player.pause();
+                }
+            }
+        });
+
+        player.currentTimeProperty().addListener(new InvalidationListener() {
+            public void invalidated (Observable observable) {
+                updateValues();
+            }
+        });
+
+        myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
+    }
 
+    private void defineTimeSliderBehavior (final MediaPlayer player) {
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
         myTimeSlider.setMinWidth(SLIDER_WIDTH);
         myTimeSlider.setMaxWidth(Double.MAX_VALUE);
-        myMediaBar.getChildren().add(myTimeSlider);
-
-        myTimeLabel = new Label(TIME_LABEL_TEXT);
-        myTimeLabel.setPrefWidth(LABEL_WIDTH);
-
         myTimeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 if (myTimeSlider.isValueChanging()) {
-                    mediaPlayer.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
+                    player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
                 }
             }
         });
+        myMediaBar.getChildren().add(myTimeSlider);
+    }
 
+    private void defineTimeLabelBehavior () {
+        myTimeLabel = new Label(TIME_LABEL_TEXT);
+        myTimeLabel.setPrefWidth(LABEL_WIDTH);
         myMediaBar.getChildren().add(myTimeLabel);
+    }
 
-        final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
-        VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
-
-        VOLUME_BUTTON.setOnAction(new EventHandler<ActionEvent>() {
+    private void defineVolumeButtonBehavior (final MediaPlayer player, final Button button) {
+        button.setPrefWidth(BUTTON_WIDTH);
+        button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
-                double volume = mediaPlayer.getVolume();
-                mediaPlayer.setVolume(volume == 0.0 ? 1.0 : 0.0);
-                VOLUME_BUTTON.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
+                double volume = player.getVolume();
+                player.setVolume(volume == 0.0 ? 1.0 : 0.0);
+                button.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
             }
         });
-
-        myMediaBar.getChildren().add(VOLUME_BUTTON);
+        myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
+    }
 
-        myVolumeLabel = new Label(VOLUME_LABEL_TEXT);
-        myMediaBar.getChildren().add(myVolumeLabel);
-
+    private void defineVolumeSliderBehavior (final MediaPlayer player, final Button button) {
+        myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
         myVolumeSlider = new Slider();
         myVolumeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 if (myVolumeSlider.isValueChanging()) {
-                    mediaPlayer.setVolume(myVolumeSlider.getValue() / DOUBLE_CONVERT);
+                    player.setVolume(myVolumeSlider.getValue() / DOUBLE_CONVERT);
                 }
+                button.setText(player.getVolume() > 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
             }
         });
         myMediaBar.getChildren().add(myVolumeSlider);
-
         myMediaBar.getChildren().add(new Label(SPACE));
-
-        mediaPlayer.setCycleCount(myVideoShouldReplay ? MediaPlayer.INDEFINITE : 1);
-        defineMediaPlayerBehavior(mediaPlayer, PLAY_BUTTON);
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
+        player.setCycleCount(myVideoShouldReplay ? MediaPlayer.INDEFINITE : 1);
         player.setOnPlaying(new Runnable() {
             public void run () {
                 if (myVideoShouldStop) {
@@ -160,35 +204,6 @@ class VideoPlayer extends BorderPane {
                 button.setText(myVideoShouldReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
                 myVideoShouldStop = !myVideoShouldReplay;
                 myCycleIsComplete = !myVideoShouldReplay;
-            }
-        });
-    }
-
-    private void definePlayButtonBehavior (final MediaPlayer player, final Button button) {
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
-                Status status = player.getStatus();
-
-                if (status == Status.HALTED || status == Status.UNKNOWN) {
-                    return;
-                }
-
-                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                    if (myCycleIsComplete) {
-                        player.seek(player.getStartTime());
-                        myCycleIsComplete = false;
-                    }
-                    player.play();
-                }
-                else {
-                    player.pause();
-                }
-            }
-        });
-
-        player.currentTimeProperty().addListener(new InvalidationListener() {
-            public void invalidated (Observable observable) {
-                updateValues();
             }
         });
     }
