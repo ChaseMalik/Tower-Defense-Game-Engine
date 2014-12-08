@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
 import utilities.multilanguage.MultiLanguageUtility;
+import utilities.multilanguage.languageexceptions.LanguageNotFoundException;
 
 public class GameStartManager {
     private Stage myStage;
@@ -30,9 +31,16 @@ public class GameStartManager {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
         
-        GuiConstants.MULTILANGUAGE = MultiLanguageUtility.getInstance();
-        GuiConstants.MULTILANGUAGE.initLanguages("gamePlayer.properties.languages.English.properties");
+        MultiLanguageUtility util = MultiLanguageUtility.getInstance();
+        util.initLanguages("gamePlayer.properties.languages.English.properties");
+        try {
+            util.setLanguage("English");
+        }
+        catch (LanguageNotFoundException e) {
+            e.printStackTrace();
+        }
         
+        GuiConstants.MULTILANGUAGE = util;
         GuiConstants.GAME_START_MANAGER = this;
         init();
     }

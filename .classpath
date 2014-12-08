@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="gamePlayer/properties/languages/" kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson"/>
 	<classpathentry kind="lib" path="lib/gson-2.3.jar" sourcepath="lib/gson-2.3-sources.jar">
 		<attributes>
@@ -9,5 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="src/gamePlayer/properties/languages"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
