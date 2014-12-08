@@ -2,6 +2,7 @@ package utilities.JavaFXutilities.slider;
 
 import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
@@ -72,4 +73,8 @@ public class SliderContainer extends VBox {
     public double getSliderValue () {
         return mySlider.getValue();
     }
+
+	public DoubleProperty getValueProperty() {
+		return mySlider.valueProperty();
+	}
 }

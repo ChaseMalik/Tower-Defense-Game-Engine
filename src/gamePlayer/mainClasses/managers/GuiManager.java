@@ -130,7 +130,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void play() {
-		if (!interactionAllowed)
+		if (!interactionAllowed || isCoOp)
 			return;
 		myEngineManager.resume();
 	}
@@ -183,11 +183,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		addBackground(directoryPath);
 		makeTowerMap();
 		testHUD();
-		// myRoot.getChildren().add(engineGroup);
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
 	}
 
 	private void addBackground(String directory) {
