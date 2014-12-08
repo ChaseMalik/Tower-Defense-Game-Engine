@@ -1,8 +1,10 @@
 package gameAuthoring.scenes.actorBuildingScenes.actorListView;
 
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.listViewCells.EnemyCell;
 import gameEngine.actors.BaseEnemy;
 import java.util.List;
+import utilities.multilanguage.MultiLanguageUtility;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListCell;
@@ -31,7 +33,9 @@ public class CreatedEnemiesDisplay extends ListView<BaseEnemy> {
             @Override 
             public ListCell<BaseEnemy> call(ListView<BaseEnemy> list) {
                 EnemyCell enemyCell = new EnemyCell(ENEMY_WIDTH, ENEMY_HEIGHT);
-                MenuItem delete = new MenuItem("Delete Actor");
+                MenuItem delete = new MenuItem();
+                delete.textProperty().bind(MultiLanguageUtility.getInstance()
+                                           .getStringProperty(Constants.DELETE_ACTOR));
                 delete.setOnAction(event->myActors.remove(enemyCell.getItem()));
                 ContextMenu contextMenu = new ContextMenu(delete);
                 enemyCell.setContextMenu(contextMenu);

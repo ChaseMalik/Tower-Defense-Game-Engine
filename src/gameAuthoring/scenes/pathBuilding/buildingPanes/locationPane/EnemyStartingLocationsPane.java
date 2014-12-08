@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane;
 
+import utilities.multilanguage.MultiLanguageUtility;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathStartingLocation;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
@@ -16,20 +17,20 @@ import javafx.scene.input.MouseEvent;
  */
 public class EnemyStartingLocationsPane extends EnemyLocationPane {
 
-    private static final String LABEL_TEXT = "Click to add a Start Location";
-    private static final String BTN_TEXT = "Set Start Locations";
-    private Button mySaveStartsButton = new Button(BTN_TEXT);
+    private Button mySaveStartsButton;
     private PathBuildingScene myPathBuildingScene;
 
     public EnemyStartingLocationsPane (Group group, Path path, PathBuildingScene pathBuildingScene) {
         super(group, path);
+        mySaveStartsButton = new Button();
+        mySaveStartsButton.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("SetStartLocations"));
         myPathBuildingScene = pathBuildingScene;
         createEnemyStartingLocationsSetupComponents();
         this.setOnMouseClicked(event -> addNewStartingLocation(event));
     }
 
     private void createEnemyStartingLocationsSetupComponents () {
-        super.createEnemyLocationsSetupComponents(mySaveStartsButton, LABEL_TEXT);
+        super.createEnemyLocationsSetupComponents(mySaveStartsButton, "EnemyStartingLocationPrompt");
         mySaveStartsButton.setOnAction(event -> myPathBuildingScene
                 .proceedToEndLocationsSelection());
         myClearLocations.setOnAction(event -> myPath.clearEnemyStartingLocations());

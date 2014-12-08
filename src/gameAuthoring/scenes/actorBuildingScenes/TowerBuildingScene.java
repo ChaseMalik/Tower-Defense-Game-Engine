@@ -21,8 +21,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
+
 /**
  * Scene to build a new tower.
+ * 
  * @author Austin Kyker
  *
  */
@@ -32,7 +34,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private static final double DRAG_AND_DROP_HEIGHT = 300;
     private static final String TITLE = "Tower";
     private static final String IMG_DIR = AuthorController.gameDir + "/towerImages/";
-    private static final String BEHAVIOR_XML_LOC = 
+    private static final String BEHAVIOR_XML_LOC =
             "./src/gameAuthoring/Resources/actorBehaviors/TowerBehaviors.xml";
     private static final double FIELD_WIDTH = 50;
 
@@ -58,41 +60,45 @@ public class TowerBuildingScene extends ActorBuildingScene {
      */
     @Override
     protected void configureAndDisplayRightPane () {
-        VBox container = new  VBox();
+        VBox container = new VBox();
         myProjectilePane = new ProjectilePane();
         myDragAndDrop.setHeight(DRAG_AND_DROP_HEIGHT);
         setupEnemyTowerCanShootSelection();
-        container.getChildren().addAll(myProjectilePane.getNode(), 
-                                       myDragAndDrop.getPane(), 
+        container.getChildren().addAll(myProjectilePane.getNode(),
+                                       myDragAndDrop.getPane(),
                                        myEnemySelectionView);
         myPane.setRight(container);
     }
 
     private void setupEnemyTowerCanShootSelection () {
-        myEnemySelectionView = new EnemySelectionDisplay(myTowerConfiguringController.fetchEnemies());
+        myEnemySelectionView =
+                new EnemySelectionDisplay(myTowerConfiguringController.fetchEnemies());
         myEnemySelectionView.setPrefHeight(ENEMY_DISPLAY_HEIGHT);
-        myEnemySelectionView.setOrientation(Orientation.HORIZONTAL); 
+        myEnemySelectionView.setOrientation(Orientation.HORIZONTAL);
         myEnemySelectionView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        myEnemySelectionView.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<BaseActor>() {
-            @Override
-            public void onChanged(ListChangeListener.Change<? extends BaseActor> change) {
-                myEnemiesTowerCanShoot = myEnemySelectionView.getSelectionModel().getSelectedItems();
-            }
-        });
+        myEnemySelectionView.getSelectionModel().getSelectedItems()
+                .addListener(new ListChangeListener<BaseActor>() {
+                    @Override
+                    public void onChanged (ListChangeListener.Change<? extends BaseActor> change) {
+                        myEnemiesTowerCanShoot =
+                                myEnemySelectionView.getSelectionModel().getSelectedItems();
+                    }
+                });
     }
 
     @Override
     protected void makeNewActor (Map<String, IBehavior> iBehaviorMap) {
-        BaseTower tower = new BaseTower(iBehaviorMap, myActorImgPath, 
-                                        myActorNameField.getText(), 
-                                        myRangeSliderContainer.getSliderValue(), 
-                                        myBuildCostField.getNumberEntered(),
-                                        mySellValueField.getNumberEntered(),
-                                        myProjectilePane.makeProjectileInfo(myEnemiesTowerCanShoot));
-        if(myCurrentlySelectedTowerGroup == null) {
+        BaseTower tower =
+                new BaseTower(iBehaviorMap, myActorImgPath,
+                              myActorNameField.getText(),
+                              myRangeSliderContainer.getSliderValue(),
+                              myBuildCostField.getNumberEntered(),
+                              mySellValueField.getNumberEntered(),
+                              myProjectilePane.makeProjectileInfo(myEnemiesTowerCanShoot));
+        if (myCurrentlySelectedTowerGroup == null) {
             TowerUpgradeGroup group = new TowerUpgradeGroup(tower);
-            myTowerUpgradeGroups.add(group);  
-        } 
+            myTowerUpgradeGroups.add(group);
+        }
         else {
             myCurrentlySelectedTowerGroup.addTower(tower);
             myCurrentlySelectedTowerGroup = null;
@@ -102,17 +108,19 @@ public class TowerBuildingScene extends ActorBuildingScene {
 
     private void redrawTowerDisplay () {
         myTilePane.getChildren().clear();
-        for(int i = 0; i < myTowerUpgradeGroups.size(); i++) {
+        for (int i = 0; i < myTowerUpgradeGroups.size(); i++) {
             List<ImageView> upgradeGroupViews = myTowerUpgradeGroups.get(i).fetchImageViews();
             int towersInGroup = myTowerUpgradeGroups.get(i).getNumTowersInGroup();
             final int index = i;
-            for(int j = 0; j < upgradeGroupViews.size(); j++) {
+            for (int j = 0; j < upgradeGroupViews.size(); j++) {
                 myTilePane.getChildren().add(upgradeGroupViews.get(j));
-                if(j >= towersInGroup) {
-                    upgradeGroupViews.get(j).setOnMouseClicked(event->handleAddUpgrade(myTowerUpgradeGroups.get(index)));
+                if (j >= towersInGroup) {
+                    upgradeGroupViews.get(j)
+                            .setOnMouseClicked(event -> handleAddUpgrade(myTowerUpgradeGroups
+                                                       .get(index)));
                 }
             }
-        }        
+        }
     }
 
     private void handleAddUpgrade (TowerUpgradeGroup groupSelected) {
@@ -121,7 +129,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
     }
 
     @Override
-    protected void finishBuildingActors() {    
+    protected void finishBuildingActors () {
         myTowerConfiguringController.configureTowers(myTowerUpgradeGroups);
     }
 
@@ -134,7 +142,7 @@ public class TowerBuildingScene extends ActorBuildingScene {
         myTilePane.setVgap(10);
         myTilePane.setHgap(10);
         myTilePane.setPrefColumns(3);
-        myTilePane.setStyle("-fx-background-color: DAE6F3;"); 
+        myTilePane.setStyle("-fx-background-color: DAE6F3;");
         redrawTowerDisplay();
         myPane.setLeft(myTilePane);
     }
@@ -156,6 +164,6 @@ public class TowerBuildingScene extends ActorBuildingScene {
     @Override
     protected void clearActorSpecificFields () {
         myBuildCostField.clearField();
-        mySellValueField.clearField();       
+        mySellValueField.clearField();
     }
 }

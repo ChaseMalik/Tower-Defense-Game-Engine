@@ -1,4 +1,4 @@
-package utilities.GSON;
+package utilities.GSON.objectWrappers;
 
 import gameEngine.actors.BaseActor;
 

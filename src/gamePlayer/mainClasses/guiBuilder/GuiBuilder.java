@@ -71,7 +71,7 @@ public class GuiBuilder {
 			List<Double> sizing = myParser.getDoubleValuesFromTag("GuiSize");
 			windowSize = new Dimension2D(sizing.get(0), sizing.get(1));
 		}
-
+				
 		Group group = new Group();
 		group.setAutoSizeChildren(true);
 		group.getChildren().add(initializeCoreContainers(windowSize));

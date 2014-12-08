@@ -17,9 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start (Stage stage) throws Exception {
-    	GameStartManager manager = new GameStartManager(stage);
-    	//WelcomeManager manager = new WelcomeManager(stage);
-    	new GuiManager(stage);
-    	manager.init();
+        new GameStartManager(stage);
     }
 }

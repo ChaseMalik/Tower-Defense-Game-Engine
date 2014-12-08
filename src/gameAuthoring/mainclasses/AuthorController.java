@@ -2,7 +2,7 @@ package gameAuthoring.mainclasses;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.GameDirectoryBuilding;
+import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
 import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
@@ -20,15 +20,21 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.GSON.GSONFileWriter;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.errorPopup.ErrorPopup;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 /**
@@ -36,15 +42,18 @@ import utilities.errorPopup.ErrorPopup;
  * and author creation). The class also will hold the enemies, towers, and level
  * objects which it will write to JSON files at the end of the authoring
  * process.
+ * 
  * @author Austin Kyker
  *
  */
 public class AuthorController extends Application implements
-        GameDirectoryBuilding, PathConfiguring, TowerConfiguring,
-        EnemyConfiguring, LevelConfiguring {
+        GeneralSettingsConfiguring, PathConfiguring, TowerConfiguring,
+        EnemyConfiguring, LevelConfiguring, Observer {
 
-    private static final String NOT_ENOUGH_ENEMIES_MSG = "You need at least one type of enemy";
-    private static final String NOT_ENOUGH_TOWERS_MSG = "You need at least one type of tower";
+    private static final String SPANISH_PROPERTIES =
+            "gameAuthoring.Resources.propertyFiles.English.properties";
+    private static final String ENGLISH_PROPERTIES =
+            "gameAuthoring.Resources.propertyFiles.Spanish.properties";
     public static final double SCREEN_WIDTH = 1100;
     public static final double SCREEN_HEIGHT = 633;
     private static final GSONFileWriter GSON_WRITER = new GSONFileWriter();
@@ -72,9 +81,10 @@ public class AuthorController extends Application implements
 
     @Override
     public void start (Stage stage) throws Exception {
+        MultiLanguageUtility util = MultiLanguageUtility.getInstance();
+        util.initLanguages(ENGLISH_PROPERTIES, SPANISH_PROPERTIES);
         myStage = stage;
         showWelcomeScene();
-        // showGeneralSettingScene();
         configureAndDisplayStage();
     }
 
@@ -112,13 +122,13 @@ public class AuthorController extends Application implements
     }
 
     private void showWelcomeScene () {
-        myWelcomeScene = new WelcomeScene((GameDirectoryBuilding) this);
+        myWelcomeScene = new WelcomeScene();
+        myWelcomeScene.addObserver(this);
         myStage.setScene(myWelcomeScene.getScene());
     }
 
     private void showGeneralSettingScene () {
-        // myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
-        myGeneralSettingScene = new GeneralSettingScene();
+        myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
         myStage.setScene(myGeneralSettingScene.getScene());
     }
 
@@ -147,8 +157,8 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void makeDirectory (String gameName) {
-        gameDir = "./Games/" + gameName + "/";
+    public void makeDirectory (String gameName, String gameType) {
+        gameDir = "./" + gameType + "Games/" + gameName + "/";
         File dir = new File(gameDir);
         dir.mkdir();
         showPathBuildingScene();
@@ -164,7 +174,7 @@ public class AuthorController extends Application implements
     public void configureEnemies (List<BaseEnemy> enemies) {
         myEnemies = enemies;
         if (notEnoughEnemies()) {
-            new ErrorPopup(NOT_ENOUGH_ENEMIES_MSG);
+            new ErrorPopup(Constants.NOT_ENOUGH_ENEMIES_MSG);
         }
         else {
             showTowerBuildingScene();
@@ -183,7 +193,7 @@ public class AuthorController extends Application implements
     public void configureTowers (List<TowerUpgradeGroup> towers) {
         myTowerGroups = towers;
         if (notEnoughTowers()) {
-            new ErrorPopup(NOT_ENOUGH_TOWERS_MSG);
+            new ErrorPopup(Constants.NOT_ENOUGH_TOWERS_MSG);
         }
         else {
             showLevelBuildingScene();
@@ -212,8 +222,20 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void setTowerRegions (boolean[][] backendTowerRegions) {
-        GSONFileWriter writer = new GSONFileWriter();
-        writer.writeTowerRegions(gameDir, backendTowerRegions);
+    public void setTowerRegions (boolean[][] backendTowerRegions) {     
+        GSON_WRITER.writeTowerRegions(gameDir, backendTowerRegions);
+    }
+
+    @Override
+    public void setGeneralSettings (GeneralSettingsWrapper wrapper) {
+       GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
+    }
+
+    /**
+     * Called after welcome scene clicked.
+     */
+    @Override
+    public void update (Observable o, Object arg) {
+        this.showGeneralSettingScene();
     }
 }

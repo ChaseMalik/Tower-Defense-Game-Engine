@@ -47,6 +47,7 @@ public class WelcomeManager implements NavigatorListener {
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         navigator.setContent(playerCountOptions); 
+		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
 	}
 
 	public void newGame() {
@@ -121,7 +122,7 @@ public class WelcomeManager implements NavigatorListener {
 			Timeline timeline, String directoryPath) {
 		if (manager.multiPlayerGameIsReady()) {
 			timeline.stop();
-			manager.startMultiPlayerGame(directoryPath);
+			manager.startMultiPlayerGame();
 		}
 	}
 

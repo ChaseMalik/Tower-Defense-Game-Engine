@@ -27,7 +27,7 @@ public class GSONTester {
 		Map<String,IBehavior> map = new HashMap<String, IBehavior>();
 		map.put("movement", new LinearMovement(5));
 		
-		ProjectileInfo info = new ProjectileInfo(IMAGE_PATH, new LinearMovement(5), null,new ArrayList<String>());
+		ProjectileInfo info = new ProjectileInfo(IMAGE_PATH,1,map, new ArrayList<String>());
 		
 		BaseTower tower1 = new BaseTower(map, IMAGE_PATH,"b", 1.0, 200, 200, info);
 		BaseTower tower2 = new BaseTower(map, IMAGE_PATH, "d", 2.0, 200, 200, info);
@@ -40,7 +40,6 @@ public class GSONTester {
 		
 		towerTestList.add(group1);
 		towerTestList.add(group2);
-		
 		//writer.writeToFile("tower", gson.toJson(towerTestList, new TypeToken<List>() {}.getType() ), "./Game/");
 		
 	}

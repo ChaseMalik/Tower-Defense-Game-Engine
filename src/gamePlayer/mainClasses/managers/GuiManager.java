@@ -71,6 +71,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private TowerUpgradePanel myUpgradePanel;
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
+	private List<GameStat> gameStats;
 
 	public GuiManager(Stage stage) {
 		myStage = stage;
@@ -128,9 +129,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void joinMultiPlayerGame() {
 		myCoOpManager = new CoOpManager();
+		myEngineManager = myCoOpManager;
 		if (myCoOpManager.joinGame()) {
-			GuiConstants.GUI_MANAGER.init();
-			myCoOpManager.initializeGame(myGameWorld.getMap());
+			startMultiPlayerGame();
 		}
 	}
 
@@ -144,10 +145,16 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		return myCoOpManager.isReady();
 	}
 
-	public void startMultiPlayerGame(String directoryPath) {
+	public void startMultiPlayerGame() {
 		GuiConstants.GUI_MANAGER.init();
-		myCoOpManager.initializeGame(myGameWorld.getMap());
-		initializeNewGameElements(directoryPath);
+		String dir = myCoOpManager.initializeGame(myGameWorld.getMap());
+		initializeNewGameElements(dir);
+		
+		GameStat time = new GameStat();
+		time.setGameStat("Time");
+		time.statValueProperty().bindBidirectional(myCoOpManager.getTimer());
+		gameStats.add(time);
+		this.setGameStats(gameStats);
 	}
 
 	private void initializeNewGameElements(String directoryPath) {
@@ -267,7 +274,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	private void testHUD() {
-		List<GameStat> gameStats;
+		gameStats = new ArrayList<GameStat>();
 		GameStat level = new GameStat();
 		level.setGameStat("Level");
 		level.setStatValue(1);
@@ -275,7 +282,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
 		gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
-
+		
 		GameStat health = new GameStat();
 		health.setGameStat("Health");
 		health.setStatValue(100);
@@ -302,10 +309,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(towerName).getBuyCost());
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
-		// if(towerImageView == null) {
-		// displayMessage(NO_GOLD, true);
-		// return;
-		// }
+		if(towerImageView == null) {
+		displayMessage(NO_GOLD, true);
+		return;
+		}
 		towerImageView.setOnMouseClicked(event -> selectTower(towerName,
 				towerImageView));
 	}

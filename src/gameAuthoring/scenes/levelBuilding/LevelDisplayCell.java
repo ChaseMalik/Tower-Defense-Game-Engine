@@ -69,7 +69,7 @@ public class LevelDisplayCell extends HBox {
         myLevelDurationField = new NumericalTextField(TEXT_FIELD_WIDTH);
         Label secondsLabel = new Label("seconds");
         timeAndSeconds.getChildren().addAll(myLevelDurationField, secondsLabel);
-        Label levelLabel = new Label("Level " + myLevelNum);
+        Label levelLabel = new Label("Level " + (myLevelNum+1));
         levelLabel.getStyleClass().add("levelLabel");
         levelInfoBox.getChildren().addAll(levelLabel,
                                           timeAndSeconds);
