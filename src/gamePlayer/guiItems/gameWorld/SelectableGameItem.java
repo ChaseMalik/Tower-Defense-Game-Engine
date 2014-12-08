@@ -51,7 +51,6 @@ public class SelectableGameItem extends GameItem {
 	
 	private void select() {
 		selectedProperty.set(!selectedProperty.get());
-		myListener.selectItem(myID);
 	}
 
 }
