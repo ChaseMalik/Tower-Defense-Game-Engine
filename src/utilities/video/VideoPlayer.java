@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -210,9 +211,8 @@ class VideoPlayer extends BorderPane {
                     myTimeSlider.setValue(timeSliderValue);
                 }
                 if (!myVolumeSlider.isValueChanging()) {
-                    // int intVolume = (int)Math.round(myMediaPlayer.getVolume());
-                    double intVolume = Math.round(myMediaPlayer.getVolume());
-                    myVolumeSlider.setValue(intVolume * DOUBLE_CONVERT);
+                    int intVolume = (int)Math.round(myMediaPlayer.getVolume());
+                    myVolumeSlider.setValue(intVolume * INT_CONVERT);
                 }
             }
         });
