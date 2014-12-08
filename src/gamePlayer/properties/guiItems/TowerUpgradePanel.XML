@@ -2,7 +2,19 @@
 
 <UpgradeProperties>
 	<SizeRatio>
-		<element>0.78</element>
+		<element>0.8</element>
 		<element>1</element>
 	</SizeRatio>
+	<IconSizeRatio>
+		<element>0.1</element>
+		<element>1</element>
+	</IconSizeRatio>
+	<LabelRatio>
+		<element>0.2</element>
+		<element>1</element>
+	</LabelRatio>
+	<ButtonSizeRatio>
+		<element>0.35</element>
+		<element>1</element>
+	</ButtonSizeRatio>
 </UpgradeProperties>

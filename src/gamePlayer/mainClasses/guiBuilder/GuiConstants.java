@@ -42,7 +42,7 @@ public class GuiConstants {
     public static double TOP_CONTAINER_HEIGHT = 30;
     
     public static double BOTTOM_CONTAINER_WIDTH = TOP_CONTAINER_WIDTH;
-    public static double BOTTOM_CONTAINER_HEIGHT = 150;
+    public static double BOTTOM_CONTAINER_HEIGHT = 80;
     
     //window size
     public static double WINDOW_WIDTH = TOP_CONTAINER_WIDTH;
