@@ -80,7 +80,9 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
 
     private boolean myPausedFlag;
     private String myCurrentGameName;
-
+    private SimpleDoubleProperty myCurrentLevelProperty;
+    private SimpleDoubleProperty myWinStatus;
+    
     public SingleThreadedEngineManager () {
         myReadyToPlay = new AtomicBoolean(false);
         myEnemyGroup = new RangeRestrictedCollection<>();
@@ -102,6 +104,8 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myPausedFlag = true;
         myEarthquakeMagnitude = new SimpleDoubleProperty();
         myTowerLocationByGrid = new TowerTileGrid(20, 20);
+        myCurrentLevelProperty = new SimpleDoubleProperty(1);
+        myWinStatus = new SimpleDoubleProperty(0);
     }
 
     public void setEarthquakeMagnitude (double magnitude) {
@@ -141,7 +145,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         return myGold.get();
     }
 
-    public DoubleProperty myGold () {
+    public DoubleProperty getGoldProperty () {
         return myGold;
     }
 
@@ -155,7 +159,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         return myHealth.get();
     }
 
-    public DoubleProperty myHealth () {
+    public DoubleProperty getHealthProperty () {
         return myHealth;
     }
 
@@ -267,7 +271,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     }
 
     protected void onLevelEnd () {
-        duration = 0; // TODO bad code, but problem with multiple levels
+        duration = 0;
         pause();
         myProjectileGroup.clear();
         if( myLevels != null ) {
@@ -462,10 +466,22 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     private void loadNextLevel () {
         myCurrentLevelIndex += 1;
         if (myCurrentLevelIndex < myLevels.size()) {
+        	myCurrentLevelProperty.set(myCurrentLevelIndex + 1);
             loadLevel(myLevels.get(myCurrentLevelIndex));
+        }
+        else {
+        	myWinStatus.set(1);
         }
     }
 
+    public SimpleDoubleProperty getWinStatus() {
+    	return myWinStatus;	
+    }
+    
+    public SimpleDoubleProperty getCurrentLevelProperty() {
+    	return myCurrentLevelProperty;
+    }
+    
     public void loadLevel (BaseLevel level) {
         int levelDuration = level.getDuration();
         Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
@@ -556,6 +572,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
                     myGold.set(gameState.getMoney());
                     myHealth.set(gameState.getHealth());
                     myCurrentLevelIndex = gameState.getLevel();
+                    myCurrentLevelProperty.set(myCurrentLevelIndex + 1);
                     loadLevel(myLevels.get(myCurrentLevelIndex));
                     List<DataWrapper> towers = gameState.getTowerWrappers();
                     for (DataWrapper wrappedTower : towers) {
