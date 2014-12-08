@@ -43,7 +43,6 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 				.filter(node -> node.contains(enemy.getX(), enemy.getY()))
 				.collect(Collectors.toList());
 		Tile enemyCenterTile = (Tile) enemyCenterTileList.get(0);
-		System.out.println("Enemy Center " + enemyCenterTile.getRow() + " , " + enemyCenterTile.getColumn());
 		myEnemyTileDirections = new ArrayList<>();
 		for (Node enemyTileNode : enemyTiles) {
 			Tile enemyTile = (Tile) enemyTileNode;
@@ -66,8 +65,6 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 		List<Point2D> tilePath = findPath(new Point2D(enemyCenterTile.getRow(),
 				enemyCenterTile.getColumn()), new Point2D(goalTile.getRow(),
 				goalTile.getColumn()));
-		System.out.println("result ");
-		System.out.println(tilePath);
 		List<Point2D> convertedPath = null;
 		if(tilePath != null) {
 			convertedPath = new ArrayList<>();
@@ -113,7 +110,6 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 				}
 			}			
 		}
-		System.out.println(nodeList.size());
 		return nodeList;
 	}
 
