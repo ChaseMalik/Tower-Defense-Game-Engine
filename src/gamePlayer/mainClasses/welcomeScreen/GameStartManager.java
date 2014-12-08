@@ -33,10 +33,12 @@ public class GameStartManager {
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.GAME_START_MANAGER = this;
-        init(myStage);
+        init();
     }
 
-    public void init(Stage stage) {
+    	
+    public void init() {
+    	GuiConstants.DYNAMIC_SIZING = true;
         Group group  = new Group();
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 
@@ -60,10 +62,6 @@ public class GameStartManager {
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions); 
-        
-//        leapConnector = new LMConnector();
-//        leapConnector.initialize(new Dimension2D(WelcomeScreen.PANE_WIDTH, WelcomeScreen.PANE_HEIGHT));
-//        welcomeScreen.setBottomContent(leapConnector.getNode());
 
         group.getChildren().add(welcomeScreen);
     }

@@ -1,12 +1,6 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
 <ContainerProperties>
-
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>1</element> <!-- Width -->
-		<element>0.55</element> <!-- Height -->
-	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
