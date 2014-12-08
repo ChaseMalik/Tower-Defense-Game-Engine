@@ -47,6 +47,7 @@ public class Store implements GuiItem {
         myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
+        myTilePane.toFront();
 
         myListener.registerStore(this);
     }
@@ -93,4 +94,12 @@ public class Store implements GuiItem {
         pane.setHbarPolicy(ScrollBarPolicy.NEVER);
         return pane;
     }
+
+	public void freeze() {
+		myTilePane.setDisable(true);
+	}
+	
+	public void unfreeze(){
+		myTilePane.setDisable(false);
+	}
 }

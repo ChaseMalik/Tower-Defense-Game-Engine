@@ -98,6 +98,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		
 		//setCurrentTower(new NullTowerInfoObject(), null, null);
 		this.getChildren().add(unselectedLabel);
+		this.toFront();
 	}
 	
 	public void deselectTower(){

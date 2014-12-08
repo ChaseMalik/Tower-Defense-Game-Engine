@@ -16,51 +16,57 @@ import utilities.reflection.Reflection;
 
 /**
  * This GuiItem initializes and manages the menu bar
+ * 
  * @author allankiplagat
  *
  */
 public class VoogaMenuBar implements GuiItem {
-    private XMLParser myParser;
-    private MenuBar myMenuBar;
-    private Dimension2D myMenuBarSize;
+	private XMLParser myParser;
+	private MenuBar myMenuBar;
+	private Dimension2D myMenuBarSize;
 
-    @Override
-    public void initialize (Dimension2D containerSize) {
-    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
-        myParser = new XMLParser(new File(propertiesPath)); 
-        
-        myMenuBar = new MenuBar();
-        Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        myMenuBarSize = new Dimension2D(sizeRatio.getWidth()*containerSize.getWidth(), 
-                              sizeRatio.getHeight()*containerSize.getHeight());
-        
-        myMenuBar.setMinSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
-        myMenuBar.setPrefSize(myMenuBarSize.getWidth(), myMenuBarSize.getHeight());
-        myMenuBar.getStyleClass().add("VoogaMenuBar");
-        initializeMenus();
-    }
+	@Override
+	public void initialize(Dimension2D containerSize) {
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
+				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+		myParser = new XMLParser(new File(propertiesPath));
 
-    private void initializeMenus() {
-        Menu fileMenu = createMenu("FileMenu");
-        fileMenu.setText(GuiConstants.TEXT_GEN.get(GuiText.FILE));
-        myMenuBar.getMenus().add(fileMenu);
-       
-    }
+		myMenuBar = new MenuBar();
+		Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
+		myMenuBarSize = new Dimension2D(sizeRatio.getWidth()
+				* containerSize.getWidth(), sizeRatio.getHeight()
+				* containerSize.getHeight());
 
-    private Menu createMenu(String menuName) {
-        Menu menu = new Menu();
-        
-        List<String> myItems = myParser.getValuesFromTag(menuName);
-        for (String item:myItems) {
-            VoogaMenuItem menuItem = (VoogaMenuItem) Reflection.createInstance(item);
-            menuItem.initialize();
-            menu.getItems().add(menuItem);
-        }
-        return menu;
-    }
+		myMenuBar.setMinSize(myMenuBarSize.getWidth(),
+				myMenuBarSize.getHeight());
+		myMenuBar.setPrefSize(myMenuBarSize.getWidth(),
+				myMenuBarSize.getHeight());
+		myMenuBar.getStyleClass().add("VoogaMenuBar");
+		initializeMenus();
+	}
 
-    @Override
-    public Node getNode () {
-        return myMenuBar;
-    }
+	private void initializeMenus() {
+		Menu fileMenu = createMenu("FileMenu");
+		fileMenu.setText(GuiConstants.TEXT_GEN.get(GuiText.FILE));
+		myMenuBar.getMenus().add(fileMenu);
+
+	}
+
+	private Menu createMenu(String menuName) {
+		Menu menu = new Menu();
+
+		List<String> myItems = myParser.getValuesFromTag(menuName);
+		for (String item : myItems) {
+			VoogaMenuItem menuItem = (VoogaMenuItem) Reflection
+					.createInstance(item);
+			menuItem.initialize();
+			menu.getItems().add(menuItem);
+		}
+		return menu;
+	}
+
+	@Override
+	public Node getNode() {
+		return myMenuBar;
+	}
 }

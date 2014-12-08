@@ -26,7 +26,12 @@ public class BottomContainer extends HBox implements GuiContainer {
     	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
 
-        Dimension2D mySize = new Dimension2D(GuiConstants.BOTTOM_CONTAINER_WIDTH,GuiConstants.BOTTOM_CONTAINER_HEIGHT);
+        Dimension2D mySize = null;
+		if (GuiConstants.DYNAMIC_SIZING) {
+			mySize = new Dimension2D(GuiConstants.BOTTOM_CONTAINER_WIDTH,GuiConstants.BOTTOM_CONTAINER_HEIGHT);
+		} else {
+			mySize = containerSize;
+		}
         
         this.setMinSize(mySize.getWidth(),mySize.getHeight());
         this.setPrefSize(mySize.getWidth(),mySize.getHeight());

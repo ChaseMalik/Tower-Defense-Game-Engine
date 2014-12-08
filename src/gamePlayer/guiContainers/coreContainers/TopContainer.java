@@ -15,33 +15,42 @@ import utilities.reflection.Reflection;
 
 /**
  * GuiContainer that hosts GuiElements at the top of the screen
+ * 
  * @author allankiplagat
  *
  */
 public class TopContainer extends HBox implements GuiContainer {
-    private XMLParser myParser;
+	private XMLParser myParser;
 
-    @Override
-    public void initialize (Dimension2D containerSize) {
-    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
-        myParser = new XMLParser(new File(propertiesPath)); 
-        
-        Dimension2D mySize = new Dimension2D(GuiConstants.TOP_CONTAINER_WIDTH,GuiConstants.TOP_CONTAINER_HEIGHT);
-        
-        this.setMinSize(mySize.getWidth(),mySize.getHeight());
-        this.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        
-        //add contained GUI elements
-        List<String> myItems = myParser.getValuesFromTag("Items");
-        for (String item:myItems) {
-                GuiElement element = (GuiElement) Reflection.createInstance(item);
-                element.initialize(mySize);
-                this.getChildren().add(element.getNode());
-        }
-    }
+	@Override
+	public void initialize(Dimension2D containerSize) {
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
+				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+		myParser = new XMLParser(new File(propertiesPath));
 
-    @Override
-    public Node getNode () {
-        return this;
-    }
+		Dimension2D mySize = null;
+		if (GuiConstants.DYNAMIC_SIZING) {
+			mySize = new Dimension2D(
+					GuiConstants.TOP_CONTAINER_WIDTH,
+					GuiConstants.TOP_CONTAINER_HEIGHT);
+		} else {
+			mySize = containerSize;
+		}
+
+		this.setMinSize(mySize.getWidth(), mySize.getHeight());
+		this.setPrefSize(mySize.getWidth(), mySize.getHeight());
+
+		// add contained GUI elements
+		List<String> myItems = myParser.getValuesFromTag("Items");
+		for (String item : myItems) {
+			GuiElement element = (GuiElement) Reflection.createInstance(item);
+			element.initialize(mySize);
+			this.getChildren().add(element.getNode());
+		}
+	}
+
+	@Override
+	public Node getNode() {
+		return this;
+	}
 }

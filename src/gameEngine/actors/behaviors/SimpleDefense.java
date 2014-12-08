@@ -11,7 +11,7 @@ public class SimpleDefense extends BaseDefendBehavior {
 
     @Override
     public void execute (BaseActor actor) {
-        for (BaseActor b : actor.getInfoObject().getProjectilesInRange()) {
+        for (BaseActor b : actor.getProjectilesInRange(actor.getAttackRange())) {
             BaseProjectile a = (BaseProjectile) b;
             if (actor.getNode().intersects(a.getRange().getBoundsInLocal())) {
                 if(checkTypes(a,actor)){

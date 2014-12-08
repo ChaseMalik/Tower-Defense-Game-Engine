@@ -1,16 +1,10 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 
 <ContainerProperties>
-
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>1</element> <!-- Height -->
-		<element>0.15</element> <!-- Width -->
-	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
-		<element>gamePlayer.guiItems.welcome.LMConnector</element>
+		<!--   <element>gamePlayer.guiItems.welcome.LMConnector</element> -->
 	</Items>
 	
 </ContainerProperties>

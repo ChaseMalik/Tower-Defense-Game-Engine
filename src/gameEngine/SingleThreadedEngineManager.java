@@ -48,7 +48,7 @@ import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
-public class SingleThreadedEngineManager implements Observer, updateInterface{
+public class SingleThreadedEngineManager implements Observer, updateInterface, infoInterface{
 
 	private static final int FPS = 30;
 	private static final double ONE_SECOND_IN_MILLIS = 1000.0;
@@ -265,8 +265,8 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 			if (actor.isDead()) {
 				actorGroup.addActorToRemoveBuffer(actor);
 			} else {
-				InfoObject requiredInfo = getRequiredInformation(actor);
-				actor.update(requiredInfo);
+				//InfoObject requiredInfo = getRequiredInformation(actor);
+				actor.update(this);
 			}
 		}
 	}
@@ -289,7 +289,32 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 		}
 		return new InfoObject(enemyList, towerList, projectileList, myTowerLocationByGrid, myTowerTiles);
 	}
-
+	    @Override
+	    public List<BaseActor> getRequiredActors (BaseActor actor, Class<? extends BaseActor> infoType) {
+	        // TODO Auto-generated method stub
+	                List<BaseActor> list = new ArrayList<>();
+	  
+	                        if (BaseEnemy.class.isAssignableFrom(infoType)) {   
+	                            list = myEnemyGroup.getActorsInRange(actor);
+	                        }
+	                        if (BaseTower.class.isAssignableFrom(infoType)) {
+	                                list = myTowerGroup.getActorsInRange(actor);
+	                        }
+	                        if (BaseProjectile.class.isAssignableFrom(infoType)) {
+	                                list = myProjectileGroup.getActorsInRange(actor);
+	                        }
+	                
+	        return list;
+	    }
+	    @Override
+	    public List<javafx.geometry.Point2D> getAIPath (BaseEnemy enemy) {
+	        // TODO Auto-generated method stub
+	        
+	        return  myPathFinder.getPath(enemy, myTowerTiles, myTowerLocationByGrid);
+	    }
+	    public boolean checkNewPath(){
+	        return myTowerLocationByGrid.hasBeenChanged();
+	    }
 	public void pause() {
 		myTimeline.pause();
 	}
@@ -432,4 +457,5 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 		myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
 		removeTower(n);
 	}
+
 }
