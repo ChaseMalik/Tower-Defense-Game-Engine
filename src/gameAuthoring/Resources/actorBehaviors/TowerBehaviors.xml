@@ -1,7 +1,7 @@
 <behaviors>
 	 <attack>
 	 	<sliders>
- 			<slider name="speed" min="0" max="10"></sliders>
+ 			<slider name="speed" min="0" max="10"></slider>
  		</sliders>
  		<elements>
 			<element>ClosestRangeAttack</element>
@@ -11,7 +11,7 @@
 	 </attack>
 	 <effect>
 	 	<sliders>
- 			<slider name="multiplier" min="0" max="2"></sliders>
+ 			<slider name="multiplier" min="0" max="2"></slider>
  		</sliders>
  		<elements>
 			<element>TowerRangeEffect</element>

@@ -2,6 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
 import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.control.ComboBox;
@@ -40,6 +41,7 @@ public class BehaviorBuilder {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
         createCenterDisplay();
+        mySliderContainers = new ArrayList<SliderContainer>();
         for(SliderInfo info:sliderInfoObjects) {
             mySliderContainers.add(new SliderContainer(info));
         }
@@ -59,7 +61,7 @@ public class BehaviorBuilder {
     public void createCenterDisplay() {
         myContainer = new VBox();
         myContainer.setStyle("-fx-border-width: 1px; -fx-border-color: gray; " +
-                             "-fx-padding: 10px; -fx-border-radius: 5px");
+                "-fx-padding: 10px; -fx-border-radius: 5px");
         myContainer.setSpacing(Constants.LG_PADDING); 
         Label label = new Label();
         label.textProperty().bind(MultiLanguageUtility.getInstance()

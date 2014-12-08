@@ -76,7 +76,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         XMLParser parser = new XMLParser(new File(behaviorXMLFileLocation));
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
         for (String behaviorType : allBehaviorTypes) {
-            List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
+            List<String> behaviorOptions = parser.getBehaviorElementsFromTag(behaviorType);
             myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser
                     .getSliderInfo(behaviorType)));
         }
