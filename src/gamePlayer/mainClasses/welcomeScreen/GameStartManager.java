@@ -107,14 +107,14 @@ public class GameStartManager {
 
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager,timeline,directoryPath)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> pollEngineForMultiPlayerReadiness(manager,timeline)));
         timeline.play();
     }
 
-    private void pollEngineForMultiPlayerReadiness(GuiManager manager,Timeline timeline,String directoryPath) {
+    private void pollEngineForMultiPlayerReadiness(GuiManager manager,Timeline timeline) {
         if (manager.multiPlayerGameIsReady()) {
             timeline.stop();
-            manager.startMultiPlayerGame(directoryPath);
+            manager.startMultiPlayerGame();
         }
     }
 
