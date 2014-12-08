@@ -268,8 +268,17 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myTowerGroup.clearAndExecuteRemoveBuffer();
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
+        if(myHealth.get() <= 0){
+        	onGameEnd();
+        }
     }
 
+    private void onGameEnd() {
+    	myHealth.set(0);
+    	myWinStatus.set(-1);
+    	pause();
+    }
+    
     protected void onLevelEnd () {
         duration = 0;
         pause();
