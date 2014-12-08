@@ -129,7 +129,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myCoOpManager = new CoOpManager();
 		if (myCoOpManager.joinGame()) {
 			GuiConstants.GUI_MANAGER.init();
-			myCoOpManager.initializeGame(myGameWorld.getMap());
+			initializeNewGameElements(myCoOpManager.initializeGame(myGameWorld.getMap()));
 		}
 	}
 
