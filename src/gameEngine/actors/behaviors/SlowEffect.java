@@ -15,7 +15,7 @@ public class SlowEffect extends BaseOnHitBehavior {
     }
     public SlowEffect (List<Double> list){
         super(list);
-        myMultiplier=list.get(1);
+        myMultiplier=list.get(1)/100.0;
         
     }
     
