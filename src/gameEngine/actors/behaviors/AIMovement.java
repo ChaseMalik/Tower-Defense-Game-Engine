@@ -1,10 +1,12 @@
 package gameEngine.actors.behaviors;
 
-import gameEngine.GridPathFinder;
-import gameEngine.InformationInterface;
+import gameEngine.AI.GridPathFinder;
+import gameEngine.ManagerInterface.InformationInterface;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
+
 import java.util.List;
+
 import javafx.geometry.Point2D;
 
 

@@ -1,7 +1,8 @@
 package gameEngine.actors.behaviors;
 
 import java.util.List;
-import gameEngine.goldUpdate;
+
+import gameEngine.ManagerInterface.GoldUpdate;
 import gameEngine.actors.BaseActor;
 
 public class GoldGenEffect extends BaseEffect{
@@ -26,7 +27,7 @@ public class GoldGenEffect extends BaseEffect{
     @Override
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
-        actor.changeAndNotify(new goldUpdate(myGold));
+        actor.changeAndNotify(new GoldUpdate(myGold));
     }
 
     @Override

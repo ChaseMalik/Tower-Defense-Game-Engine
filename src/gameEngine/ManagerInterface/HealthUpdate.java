@@ -1,9 +1,10 @@
-package gameEngine;
+package gameEngine.ManagerInterface;
 
 
-public class healthUpdate extends updateObject {
 
-    public healthUpdate (double value) {
+public class HealthUpdate extends UpdateObject {
+
+    public HealthUpdate (double value) {
         super(value);
         // TODO Auto-generated constructor stub
     }

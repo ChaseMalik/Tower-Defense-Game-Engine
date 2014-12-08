@@ -1,9 +1,9 @@
 package gamePlayer.mainClasses.managers;
 
 import gameEngine.CoOpManager;
-import gameEngine.NullTowerInfoObject;
-import gameEngine.SingleThreadedEngineManager;
-import gameEngine.TowerInfoObject;
+import gameEngine.MainEngineManager;
+import gameEngine.Data.NullTowerInfoObject;
+import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiFeatures.WinStatusProperty;
@@ -25,6 +25,7 @@ import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
+import gamePlayer.mainClasses.Main;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
@@ -61,7 +62,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
 	private Stage myStage;
-	private SingleThreadedEngineManager myEngineManager;
+	private MainEngineManager myEngineManager;
 	private CoOpManager myCoOpManager;
 
 	private Group myRoot;
@@ -78,6 +79,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private List<GameStat> gameStats;
 	private double myScore;
 	private boolean isCoOp;
+	private String myDirectory;
 	
 	private DoubleProperty endgame;
 
@@ -95,7 +97,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	private void startGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		addBackground(directoryPath);
 		makeTowerMap();
@@ -130,9 +132,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	protected static final Number WIN = null;
 
 	public void startSinglePlayerGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
+		myDirectory = directoryPath;
 		interactionAllowed = true;
 	}
 
@@ -442,9 +445,21 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void escapePlace() {
+		
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
 		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
 		displayMessage(MessageDisplay.DEFAULT, false);
+		
+	}
+
+	public void switchGame() {
+		
+	}
+
+	public void replayGame() {
+		init();
+		if (isCoOp) startMultiPlayerGame();
+		else startSinglePlayerGame(myDirectory);
 	}
 }

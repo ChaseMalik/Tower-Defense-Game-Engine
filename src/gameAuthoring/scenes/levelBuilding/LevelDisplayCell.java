@@ -1,7 +1,7 @@
 package gameAuthoring.scenes.levelBuilding;
 
 import gameAuthoring.mainclasses.Constants;
-import gameEngine.SingleThreadedEngineManager;
+import gameEngine.MainEngineManager;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class LevelDisplayCell extends HBox {
     private Map<BaseEnemy, NumericalTextField> enemyToEnemyCountMap;
     private NumericalTextField myLevelDurationField;
     private boolean myEngineInstantiatedFlag;
-    private SingleThreadedEngineManager myEngineManager;
+    private MainEngineManager myEngineManager;
 
     public LevelDisplayCell (List<BaseEnemy> baseEnemies, int levelNum, Pane pane) {
         myEnemies = baseEnemies;
@@ -51,7 +51,7 @@ public class LevelDisplayCell extends HBox {
         myEngineInstantiatedFlag = false;
         playLevelButton.setOnMouseClicked(event -> {
             if (!myEngineInstantiatedFlag) {
-                myEngineManager = new SingleThreadedEngineManager(pane);
+                myEngineManager = new MainEngineManager(pane);
                 myEngineInstantiatedFlag = true;
             }
             if (!myEngineManager.isRunning()) {
