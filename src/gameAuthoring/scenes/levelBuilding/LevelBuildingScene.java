@@ -5,16 +5,13 @@ import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import java.util.Observable;
 import java.util.Observer;
-<<<<<<< HEAD
-=======
-
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.Label;
->>>>>>> 0e626648b72e3c745885875c94ef177c15b94ab7
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
