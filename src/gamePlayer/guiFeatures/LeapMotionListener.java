@@ -14,6 +14,7 @@ import com.leapmotion.leap.Vector;
 
 public class LeapMotionListener extends Listener {
 
+	private boolean isTimerLimit;
 	private long swipeTimer, circleTimer;
 	private static long SWIPE_TIME_LIMITER = 500;
 	private static long CIRCLE_TIME_LIMITER = 1000;
@@ -72,7 +73,7 @@ public class LeapMotionListener extends Listener {
 	private void circle(CircleGesture circle) {
 
 		// Limit amount of swipes they can do
-		if (System.currentTimeMillis() - circleTimer < CIRCLE_TIME_LIMITER)
+		if (isTimerLimit && System.currentTimeMillis() - circleTimer < CIRCLE_TIME_LIMITER)
 			return;
 		circleTimer = System.currentTimeMillis();
 
@@ -86,7 +87,7 @@ public class LeapMotionListener extends Listener {
 	private void swipe(SwipeGesture gesture) {
 
 		// Limit amount of swipes they can do
-		if (System.currentTimeMillis() - swipeTimer < SWIPE_TIME_LIMITER)
+		if (isTimerLimit && System.currentTimeMillis() - swipeTimer < SWIPE_TIME_LIMITER)
 			return;
 		swipeTimer = System.currentTimeMillis();
 
@@ -122,6 +123,11 @@ public class LeapMotionListener extends Listener {
 	private void setupTimers() {
 		swipeTimer = System.currentTimeMillis();
 		circleTimer = System.currentTimeMillis();
+		isTimerLimit = true;
+	}
+
+	public void setTimeLimit(boolean isSwipeTimeLimit) {
+		this.isTimerLimit = isSwipeTimeLimit;
 	}
 
 }

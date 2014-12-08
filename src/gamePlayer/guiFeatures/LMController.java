@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import com.leapmotion.leap.Controller;
-import com.leapmotion.leap.Listener;
 
 /**
  * Controller for the Leap Motion Device. Any class can register a method to
@@ -25,7 +24,7 @@ public class LMController {
 
 	private Map<EventType, Set<EventHandler<ActionEvent>>> myHandlerMap;
 	public static Controller DeviceController;
-	public static Listener DeviceListener;
+	public static LeapMotionListener DeviceListener;
 
 	private static LMController myReference;
 
@@ -86,6 +85,34 @@ public class LMController {
 	public void onCircleCCW(EventHandler<ActionEvent> handler) {
 		addHandler(EventType.CIRCLE_CCW, handler);
 	}
+	
+	public void removeOnConnect(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.DEVICE_CONNECTED, handler);
+	}
+	
+	public void removeOnSwipeLeft(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.SWIPE_LEFT, handler);
+	}
+	
+	public void removeOnSwipeRight(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.SWIPE_RIGHT, handler);
+	}
+	
+	public void removeOnSwipeUp(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.SWIPE_UP, handler);
+	}
+	
+	public void removeOnSwipeDown(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.SWIPE_DOWN, handler);
+	}
+	
+	public void removeOnCircleCW(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.CIRCLE_CW, handler);
+	}
+	
+	public void removeOnCircleCCW(EventHandler<ActionEvent> handler) {
+		removeHandler(EventType.CIRCLE_CCW, handler);
+	}
 
 	// /////////////////////
 	// THESE METHODS ARE CALLED BY LEAPMOTIONLISTENER
@@ -124,6 +151,15 @@ public class LMController {
 		}
 		myHandlerMap.get(event).add(handler);
 	}
+	
+	private void removeHandler(EventType event,
+			EventHandler<ActionEvent> handler) {
+		if (!myHandlerMap.containsKey(event) || !myHandlerMap.get(event).contains(handler)) {
+			return;
+		}
+		myHandlerMap.get(event).remove(handler);
+		
+	}
 
 	private void invoke(EventType eventType) {
 		if (!myHandlerMap.containsKey(eventType))
@@ -131,5 +167,9 @@ public class LMController {
 		Set<EventHandler<ActionEvent>> handlers = myHandlerMap.get(eventType);
 		handlers.parallelStream().forEach(
 				(handler) -> handler.handle(new ActionEvent()));
+	}
+
+	public void setTimeLimit(boolean isSwipeTimeLimit) {
+		DeviceListener.setTimeLimit(isSwipeTimeLimit);
 	}
 }

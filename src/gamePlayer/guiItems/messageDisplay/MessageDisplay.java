@@ -4,7 +4,7 @@ import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 /**
  * 
@@ -13,16 +13,18 @@ import javafx.scene.control.TextField;
 public class MessageDisplay implements GuiItem {
 
 	private Dimension2D mySize;
-	private TextField textField;
+	private TextArea textField;
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		mySize = new Dimension2D(containerSize.getWidth()*0.22, containerSize.getHeight());
-		textField = new TextField();
+		textField = new TextArea();
 		textField.setPrefSize(mySize.getWidth(), mySize.getHeight());
+		textField.setMaxSize(mySize.getWidth(), mySize.getHeight());
 		textField.getStyleClass().add("MessageDisplay");
 		textField.setText("Welcome to TowerDefense!");
 		textField.toFront();
+		textField.setWrapText(true);
 		GuiConstants.GUI_MANAGER.registerMessageDisplayListener(this);
 	}
 

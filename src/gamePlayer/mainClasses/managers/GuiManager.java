@@ -7,6 +7,9 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiFeatures.earthquake.EarthquakeController;
+import gamePlayer.guiFeatures.earthquake.LMEarthquakeStrategy;
+import gamePlayer.guiFeatures.earthquake.MouseEarthquakeStrategy;
 import gamePlayer.guiItems.controlDockButtons.sliders.SpeedSlider;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
@@ -16,10 +19,12 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
+import gamePlayer.guiItemsListeners.EarthquakeListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
 import gamePlayer.guiItemsListeners.PlayButtonListener;
+import gamePlayer.guiItemsListeners.SpecialButtonListener;
 import gamePlayer.guiItemsListeners.SpeedButtonListener;
 import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
@@ -39,8 +44,11 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 
@@ -55,7 +63,7 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
 		GameWorldListener, UpgradeListener,
-		MessageDisplayListener, SpeedSliderListener {
+		MessageDisplayListener, SpeedSliderListener, SpecialButtonListener, EarthquakeListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -426,5 +434,36 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
 		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
+	}
+
+	@Override
+	public double specialSelected() {
+		displayMessage("Earthquake! Wave your hands as fast as you can!", false);
+		// TODO : Create Vibrator
+		EarthquakeController controller;
+		if (LMController.getInstance().deviceIsConnected()) {
+			controller = new EarthquakeController(new LMEarthquakeStrategy(),(EarthquakeListener)this);
+		} else {
+			controller = new EarthquakeController(new MouseEarthquakeStrategy(),(EarthquakeListener)this);
+		}
+		controller.start(5);
+		
+		return 5;
+	}
+	
+	@Override
+	public void vibrate(double magnitude) {
+		//TODO : Shake Screen and tell GameEngine
+		System.out.println(magnitude);
+	}
+
+	public void addEventFilter(EventType<MouseEvent> eventType,
+			EventHandler<MouseEvent> handler) {
+		myStage.addEventFilter(eventType, handler);
+	}
+
+	public void removeEventFilter(EventType<MouseEvent> eventType,
+			EventHandler<MouseEvent> handler) {
+		myStage.removeEventFilter(eventType, handler);
 	}
 }

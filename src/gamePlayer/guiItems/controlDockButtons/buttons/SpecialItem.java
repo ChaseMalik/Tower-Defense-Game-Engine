@@ -6,10 +6,13 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
 
 public class SpecialItem extends ControlDockButton {
@@ -34,9 +37,28 @@ public class SpecialItem extends ControlDockButton {
 	public Node getNode() {
 		return myButton;
 	}
+	
+	public void startAnimation(double length) {
+		//TODO: add circle that will fade out with time
+		Timeline timeline = new Timeline();
+		KeyFrame kf = new KeyFrame(Duration.seconds(length/60));
+		timeline.getKeyFrames().add(kf);
+		timeline.setCycleCount(60);
+		timeline.setAutoReverse(false);
+		timeline.getKeyFrames().add(kf);
+		timeline.setOnFinished(event -> reset());
+		timeline.play();
+	}
+	
+	private void reset() {
+		myButton.setDisable(false);
+		myButton.selectedProperty().set(false);
+	}
 
 	private void buttonClicked() {
-		System.out.println("Special Button Clicked");
+		double time = GuiConstants.GUI_MANAGER.specialSelected();
+		myButton.setDisable(true);
+		startAnimation(time);
 	}
 	
 	private void setupImageView() {
