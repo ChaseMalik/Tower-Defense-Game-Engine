@@ -20,7 +20,7 @@ public class DoTOnHit extends BaseOnHitBehavior {
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new DoTOnHit(myDuration, myMultiplier);
+        return new DoTOnHit(myList);
     }
     @Override
     public void during (BaseActor actor) {

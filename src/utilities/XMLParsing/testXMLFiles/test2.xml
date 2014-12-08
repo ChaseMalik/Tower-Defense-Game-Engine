@@ -1,11 +1,19 @@
 <behaviors>
  	<movement>
-		<element>FastMovement</element>
-		<element>SlowMovement</element>
-		<element>NoMovement</element>
+ 		<elements>
+			<element>FastMovement</element>
+			<element>SlowMovement</element>
+			<element>NoMovement</element>
+		</elements>
 	</movement>
 	 <attack>
-		<element>BigAttack</element>
-		<element>SmallAttack</element>
+	 	<sliders>
+	 		<slider name="slider1" min="1" max="5"></slider>
+	 		<slider name="slider2" min="1" max="5"></slider>
+	 	</sliders>
+	 	<elements>
+			<element>BigAttack</element>
+			<element>SmallAttack</element>
+		</elements>
 	</attack>
 </behaviors>

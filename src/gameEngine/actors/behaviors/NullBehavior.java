@@ -24,7 +24,7 @@ public class NullBehavior implements IBehavior {
 
     @Override
     public IBehavior copy () {
-        return new NullBehavior(0);
+        return new NullBehavior(null);
     }
 
 

@@ -1,10 +1,19 @@
 <behaviors>
- 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
-		<element>LinearMovement</element>
+ 	<movement>
+ 		<sliders>
+ 			<slider name="speed" min="0" max="5"></slider>
+ 		</sliders>
+ 		<elements>
+			<element>LinearMovement</element>
+		</elements>
 	</movement>
-	 <onhiteffect sliderName="multiplier" sliderMin="0" sliderMax="5">
-		<element>SlowEffect</element>
-		<element>DoTOnHit</element>
-		<element>AoEEffect</element>
+	 <onhiteffect>
+	 	<sliders>
+	 		<slider name="multiplier" min="0" max="5"></slider>
+	 	</sliders>
+	 	<elements>
+			<element>SlowEffect</element>
+			<element>DoTOnHit</element>
+		</elements>
 	</onhiteffect>
 </behaviors>

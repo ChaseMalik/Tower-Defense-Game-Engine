@@ -9,7 +9,7 @@ import java.util.List;
  * @author Austin Kyker
  *
  */
-public interface EnemyConfiguring {
+public interface IEnemyConfiguring {
     void configureEnemies (List<BaseEnemy> enemies);
 
     List<BackendRoute> fetchEnemyRoutes ();

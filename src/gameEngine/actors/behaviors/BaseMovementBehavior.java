@@ -15,14 +15,16 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
  *
  */
 public abstract class BaseMovementBehavior implements IBehavior {
-
+    
+    protected List<Double> myList;
     protected String myString;
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
     protected double myRemainingDistance;
 
     BaseMovementBehavior (List<Double> list) {
-
+        mySpeed=list.get(0);
+        myList=list;
     }
 
     public BaseMovementBehavior (double speed) {

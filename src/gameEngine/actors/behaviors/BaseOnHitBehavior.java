@@ -4,6 +4,7 @@ import java.util.List;
 import gameEngine.actors.BaseActor;
 
 public abstract class BaseOnHitBehavior implements IBehavior{
+    protected List<Double> myList;
     double myDuration;
     double myInitialDuration;
     double myMultiplier;
@@ -21,6 +22,8 @@ public abstract class BaseOnHitBehavior implements IBehavior{
     
     public BaseOnHitBehavior (List<Double> list) {
         // TODO Auto-generated constructor stub
+        myList=list;
+        myDuration=list.get(0);
     }
 
     public void execute(BaseActor actor){

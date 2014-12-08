@@ -15,8 +15,9 @@ import gameEngine.actors.BaseTower;
  *
  */
 public abstract class BaseAttack implements IBehavior {
-
+    protected List<Double> myList;
     protected double myAttackSpeed;
+    protected double myRange;
     protected int myCooldown;
     protected final static int READY_TO_SHOOT = 0;
     private final static String myName = "attack";
@@ -26,7 +27,9 @@ public abstract class BaseAttack implements IBehavior {
         myCooldown = READY_TO_SHOOT;
     }
     public BaseAttack(List<Double> list){
-        
+        myList=list;
+        myAttackSpeed=list.get(0);
+        myRange=list.get(0);
     }
     protected boolean readyToShoot () {
         return myCooldown == READY_TO_SHOOT;

@@ -1,9 +1,19 @@
 <behaviors>
- 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
-		<element>LinearMovement</element>
-		<element>AIMovement</element>
+ 	<movement>
+ 		<sliders>
+ 			<slider name="speed" min="0" max="5"></slider>
+ 		</sliders>
+ 		<elements>
+			<element>LinearMovement</element>
+			<element>AIMovement</element>
+		</elements>
 	</movement>
-	<defend sliderName="health" sliderMin="1" sliderMax="4">
-		<element>SimpleDefense</element>
+	<defend>
+		<sliders>
+			<slider name="health" min="1" max="4"></slider>
+		</sliders>
+		<elements>
+			<element>SimpleDefense</element>
+		</elements>
 	</defend>
 </behaviors>

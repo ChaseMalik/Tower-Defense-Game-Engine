@@ -13,12 +13,14 @@ import java.util.stream.Stream;
  *
  */
 public abstract class BaseDefendBehavior implements IBehavior {
-
+    protected List<Double> myList;
     protected double myHealth;
     protected double myInitialHealth;
 
     BaseDefendBehavior (List<Double> list) {
-
+        myList=list;
+        myHealth=list.get(0);
+        myInitialHealth=myHealth;
     }
 
     BaseDefendBehavior (double health) {
@@ -32,7 +34,7 @@ public abstract class BaseDefendBehavior implements IBehavior {
 
     @Override
     public void execute (BaseActor actor) {
-        Stream<BaseActor> a = actor.getProjectilesInRange(actor.getAttackRange()).stream()
+        Stream<BaseActor> a = actor.getProjectilesInRange(actor.getNode().getFitHeight()).stream()
                 .filter(p ->
                         actor.getNode().intersects(p.getRange().getBoundsInLocal()));
 

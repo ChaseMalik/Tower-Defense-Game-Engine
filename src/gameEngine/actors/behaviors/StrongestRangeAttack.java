@@ -24,7 +24,7 @@ public class StrongestRangeAttack extends RangeAttack {
 
     @Override
     public IBehavior copy () {
-        return new StrongestRangeAttack(myAttackSpeed);
+        return new StrongestRangeAttack(myList);
     }
 
 
