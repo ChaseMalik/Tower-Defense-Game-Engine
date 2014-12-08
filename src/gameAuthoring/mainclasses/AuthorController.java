@@ -219,14 +219,15 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void setTowerRegions (boolean[][] backendTowerRegions) {
-        GSONFileWriter writer = new GSONFileWriter();
-        writer.writeTowerRegions(gameDir, backendTowerRegions);
+    public void setTowerRegions (boolean[][] backendTowerRegions) {     
+        GSON_WRITER.writeTowerRegions(gameDir, backendTowerRegions);
     }
 
     @Override
     public void setGeneralSettings (String name, int health, int cash) {
+    	GSON_WRITER.write
         // TODO Auto-generated method stub
+    	
 
     }
 
