@@ -108,11 +108,11 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1;
 		myGold = new SimpleDoubleProperty();
-		myGold.set(10000);
 		myHealth = new SimpleDoubleProperty();
 		myLastUpdateTime = -1;
 		myPausedFlag = true;
 		myEarthquakeMagnitude = new SimpleDoubleProperty();
+		myTowerLocationByGrid = new TowerTileGrid(20,20);
 	}
 
 	public void setEarthquakeMagnitude(double magnitude) {
@@ -337,7 +337,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	@Override
 	public List<BaseActor> getRequiredActors(BaseActor actor,
 			Class<? extends BaseActor> infoType) {
-		// TODO Auto-generated method stub
 		List<BaseActor> list = new ArrayList<>();
 
 		if (BaseEnemy.class.isAssignableFrom(infoType)) {
