@@ -5,7 +5,7 @@ public class GeneralSettingsWrapper {
 	private int myStartingCash;
 	private int myStartingHealth;
 
-	public GeneralSettingsWrapper(int startingCash, int startingHealth){
+	public GeneralSettingsWrapper(int startingHealth, int startingCash){
 		myStartingCash = startingCash;
 		myStartingHealth = startingHealth;
 	}

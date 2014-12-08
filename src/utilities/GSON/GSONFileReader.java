@@ -10,6 +10,7 @@ import java.util.List;
 
 import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.GSON.objectWrappers.GameStateWrapper;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.errorPopup.ErrorPopup;
 
 import com.google.gson.GsonBuilder;
@@ -25,6 +26,7 @@ public class GSONFileReader {
     private List<BaseLevel> levelList;
     private boolean[][] locations;
     private GameStateWrapper gameState;
+    private GeneralSettingsWrapper generalSettings;
 
     public GSONFileReader(){
         gson = new GsonBuilder();
@@ -80,6 +82,19 @@ public class GSONFileReader {
         }   
 
         return gameState;
+    }
+    
+    public GeneralSettingsWrapper readGeneralSettingsWrapper(String directory){
+    	
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(directory + "generalSettings.json"));   
+            generalSettings = gson.create().fromJson(br,GeneralSettingsWrapper.class);
+        } catch(IOException e){
+            new ErrorPopup("File could not be found.");
+        }   
+        
+        return generalSettings;
+    	
     }
 
 }

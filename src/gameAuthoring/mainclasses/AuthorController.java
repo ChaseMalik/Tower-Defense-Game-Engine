@@ -20,16 +20,19 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.GSON.GSONFileWriter;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.errorPopup.ErrorPopup;
 import utilities.multilanguage.MultiLanguageUtility;
 
@@ -155,7 +158,7 @@ public class AuthorController extends Application implements
 
     @Override
     public void makeDirectory (String gameName, String gameType) {
-        gameDir = "./Games/" + gameName + "/";
+        gameDir = "./" + gameType + "Games/" + gameName + "/";
         File dir = new File(gameDir);
         dir.mkdir();
         showPathBuildingScene();
@@ -224,11 +227,8 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void setGeneralSettings (String name, int health, int cash) {
-    	GSON_WRITER.write
-        // TODO Auto-generated method stub
-    	
-
+    public void setGeneralSettings (GeneralSettingsWrapper wrapper) {
+       GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
     /**

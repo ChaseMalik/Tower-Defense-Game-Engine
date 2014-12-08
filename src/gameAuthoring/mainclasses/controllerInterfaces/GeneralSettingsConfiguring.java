@@ -1,5 +1,7 @@
 package gameAuthoring.mainclasses.controllerInterfaces;
 
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
+
 /**
  * An interface for selecting general settings for the game (player's starting
  * gold, health, background sound, etc).
@@ -7,7 +9,7 @@ package gameAuthoring.mainclasses.controllerInterfaces;
  *
  */
 public interface GeneralSettingsConfiguring {
-	void setGeneralSettings(String name, int health, int cash);
+	void setGeneralSettings(GeneralSettingsWrapper generalSettingsWrapper);
 	
 	/**
 	 * 
