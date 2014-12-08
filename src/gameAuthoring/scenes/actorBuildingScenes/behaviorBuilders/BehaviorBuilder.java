@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import utilities.JavaFXutilities.slider.SliderContainer;
+import utilities.errorPopup.ErrorPopup;
 import utilities.multilanguage.MultiLanguageUtility;
 import utilities.reflection.Reflection;
 
@@ -87,5 +88,13 @@ public class BehaviorBuilder {
         for(SliderContainer container:mySliderContainers) {
             container.resetSlider();
         }
+    }
+
+    public boolean isValid () {
+        if(myComboBox.getValue() == null) {
+            new ErrorPopup(Constants.EMPTY_BEHAVIOR);
+            return false;
+        }
+        return true;
     }
 }

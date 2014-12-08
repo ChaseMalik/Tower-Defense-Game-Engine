@@ -103,9 +103,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void loadGame() {
-		File file = FileLoader.getInstance().load(myStage);
+		File file = FileLoader.getInstance().loadDirectory(myStage);
 		if (file != null) {
 			startGame(file.getAbsolutePath());
+		}
+	}
+	
+	@Override
+	public void loadState(){
+		File file = FileLoader.getInstance().load(myStage, "Json", "*.json");
+		if (file != null) {
+			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
 		}
 	}
 
@@ -165,7 +173,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 					interactionAllowed = true;
 					myStore.unfreeze();
 				}
-			
 			}
 		});
 		gameStats.add(time);
@@ -191,7 +198,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void saveGame() {
-		// myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
+		File file = FileLoader.getInstance().save(myStage);
+		if (file != null) {
+			myEngineManager.saveState(file.getParent().replace("\\","/"), file.getName());
+		}
 	}
 
 	@Override
@@ -258,7 +268,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
 		for (TowerInfoObject info : towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(),
-					info.getImageLocation(), new SimpleBooleanProperty(true));
+					info.getImageLocation(), info.getBuyCost(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
 		myStore.fillStore(storeItems);
@@ -315,7 +325,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (!interactionAllowed) return;
 		displayMessage(MessageDisplay.DEFAULT, false);
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
-			displayMessage(towerName, true);
+			displayMessage(NO_GOLD, true);
 			return;
 		}
 		DoubleProperty gold = myEngineManager.myGold();

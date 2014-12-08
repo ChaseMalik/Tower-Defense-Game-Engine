@@ -8,6 +8,6 @@ public class LoadMenuItem extends VoogaMenuItem {
     @Override
     public void initialize() {
         this.textProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.LOAD));
-        this.setOnAction(event->GuiConstants.GUI_MANAGER.loadGame());
+        this.setOnAction(event->GuiConstants.GUI_MANAGER.loadState());
     }
 }
