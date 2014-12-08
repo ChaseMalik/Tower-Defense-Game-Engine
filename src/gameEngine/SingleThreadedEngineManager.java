@@ -188,7 +188,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
 			Collection<Node> nodeList) {
 		List<Node> towerTiles = nodeList.stream()
-				.filter(node -> node.intersects(towerNode.getBoundsInLocal()))
+				.filter(node -> node.intersects(towerNode.getBoundsInParent()))
 				.collect(Collectors.toList());
 		return towerTiles;
 	}

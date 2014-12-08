@@ -23,9 +23,17 @@ public class AIMovement extends BaseMovementBehavior {
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
         InfoObject info = actor.getInfoObject();
-        if (info.getTowerTileGrid().hasBeenChanged() || myIndex==-1) {
+        BaseEnemy enemy = (BaseEnemy)actor;
+        if(myIndex == -1) {
+        	move(enemy, enemy.getStart().getPoint());
+        	myAIRoute =
+                    myPathFinder.getPath(enemy, info.getmTowerTilePane(),
+                                         info.getTowerTileGrid());
+            myIndex=0;
+        }
+        else if (info.getTowerTileGrid().hasBeenChanged()) {
             myAIRoute =
-                    myPathFinder.getPath((BaseEnemy) actor, info.getmTowerTilePane(),
+                    myPathFinder.getPath(enemy, info.getmTowerTilePane(),
                                          info.getTowerTileGrid());
             myIndex=0;
         }

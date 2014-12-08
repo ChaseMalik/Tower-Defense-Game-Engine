@@ -113,7 +113,6 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 				}
 			}			
 		}
-		System.out.println(nodeList.size());
 		return nodeList;
 	}
 
