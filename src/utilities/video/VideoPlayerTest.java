@@ -9,6 +9,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+/**
+ * @author $cotty $haw
+ * 
+ * The VideoPlayerTest tests playing video files on a MediaPlayer. If
+ * the user loads a video file with an allowed file extension to this
+ * package, it should play.
+ * 
+ */
 public class VideoPlayerTest extends Application {
 
     private static final int MY_MOVIE_THEATER_WIDTH = 1600;

@@ -1,4 +1,4 @@
-package utilities.JavaFXutilities.DragAndDropFilePanes.mediaPanes;
+package utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -11,21 +11,21 @@ import utilities.errorPopup.ErrorPopup;
 
 /**
  * @author $cotty $haw
- *
- * Our DragAndDropCopyAudioPane is a utility that accepts audio files
+ * 
+ * The DragAndDropAudioPane is a utility that will accept audio files
  * with the allowed extensions that the user dragged and dropped into
  * the pane. This class extends Observable, so it can listen for when
  * an audio file drops.
  * 
  */
-public class DragAndDropCopyMediaPane extends DragAndDropFilePane {
+public class DragAndDropAudioPane extends DragAndDropFilePane {
 
     private static final String ERROR_WHILE_ADDING_AUDIO_FILE = "Error adding audio file";
-    private static String[] myAllowedFileExtensions = {".gif", ".mp4"};
+    private static final String[] MY_ALLOWED_FILE_EXTENSIONS = {".mp3", ".m4a", ".wav", ".caf"};
     private String myFileDestination;
 
-    public DragAndDropCopyMediaPane (double width, double height, String fileDestination) {
-        super(width, height, myAllowedFileExtensions);
+    public DragAndDropAudioPane (double width, double height, String fileDestination) {
+        super(width, height, MY_ALLOWED_FILE_EXTENSIONS);
         myFileDestination = fileDestination;
     }
 

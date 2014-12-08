@@ -7,8 +7,8 @@ import javafx.scene.media.MediaPlayer;
 
 /**
  * @author $cotty $haw
- *
- * Our AudioPlayer is a MediaPlayer that plays audio files. It can be
+ * 
+ * The AudioPlayer is a MediaPlayer that plays audio files. It can be
  * used with AudioPlayerTest.java to play audio files that are placed
  * in this package.
  * 

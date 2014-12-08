@@ -23,7 +23,12 @@ public class RightContainer extends VBox implements GuiContainer {
 
     @Override
     public void initialize (Dimension2D containerSize) {
-    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+    	
+		CoreContainerSetup c = new CoreContainerSetup();
+		c.initialize(this, GuiConstants.RIGHT_CONTAINER_WIDTH,GuiConstants.RIGHT_CONTAINER_HEIGHT, containerSize);
+		this.getChildren().addAll(c.getChildList());
+    	
+    	/*String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         
         Dimension2D mySize = null;
@@ -43,7 +48,7 @@ public class RightContainer extends VBox implements GuiContainer {
                 GuiElement element = (GuiElement) Reflection.createInstance(item);
                 element.initialize(mySize);
                 this.getChildren().add(element.getNode());
-        }
+        }*/
     }
 
     @Override
