@@ -113,13 +113,14 @@ public class LevelDisplayCell extends HBox {
     }
 
     public boolean isUserInputValid () {
-        return !isAnyEnemyFieldEmpty() && !myLevelDurationField.getText().isEmpty();
+        return isAllEnemyFieldsValid() && myLevelDurationField.isValueEntered() && 
+                myLevelDurationField.getNumber() > 0;
     }
 
-    private boolean isAnyEnemyFieldEmpty () {
+    private boolean isAllEnemyFieldsValid () {
         return enemyToEnemyCountMap.values()
                 .stream()
-                .filter(field -> field.getText().isEmpty())
-                .count() > 0;
+                .filter(field -> !(field.isValueEntered() && field.getNumber() > 0))
+                .count() == 0;
     }
 }

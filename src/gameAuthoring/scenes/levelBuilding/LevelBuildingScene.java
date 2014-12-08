@@ -10,7 +10,7 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.sun.javafx.geom.Rectangle;
+import utilities.errorPopup.ErrorPopup;
 
 import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.Label;
@@ -74,6 +74,9 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     public void update (Observable arg0, Object arg1) {
         if (myLevelsDisplay.isAllUserInputIsValid()) {
             myLevelConfiguringController.configureLevels(myLevelsDisplay.transformToLevels());
+        }
+        else {
+            new ErrorPopup(Constants.LEVEL_ERROR);
         }
     }
 }

@@ -103,9 +103,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void loadGame() {
-		File file = FileLoader.getInstance().load(myStage);
+		File file = FileLoader.getInstance().loadDirectory(myStage);
 		if (file != null) {
 			startGame(file.getAbsolutePath());
+		}
+	}
+	
+	@Override
+	public void loadState(){
+		File file = FileLoader.getInstance().load(myStage, "Json", "*.json");
+		if (file != null) {
+			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
 		}
 	}
 
@@ -117,12 +125,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
-		isCoOp = false;
+		interactionAllowed = true;
 	}
 
 	@Override
 	public void play() {
-		if (!interactionAllowed || isCoOp)
+		if (!interactionAllowed)
 			return;
 		myEngineManager.resume();
 	}
@@ -181,7 +189,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// myGameWorld.getMap().getStyleClass().add("GameWorld");
 		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
 		// AuthorController.SCREEN_HEIGHT);
-		interactionAllowed = false;
 	}
 
 	private void addBackground(String directory) {
@@ -192,7 +199,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void saveGame() {
-		// myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
+		File file = FileLoader.getInstance().save(myStage);
+		if (file != null) {
+			myEngineManager.saveState(file.getParent().replace("\\","/"), file.getName());
+		}
 	}
 
 	@Override

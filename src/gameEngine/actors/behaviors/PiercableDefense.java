@@ -17,7 +17,7 @@ public class PiercableDefense extends BaseDefendBehavior{
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new PiercableDefense(myHealth);
+        return new PiercableDefense(myList);
     }
 
     @Override

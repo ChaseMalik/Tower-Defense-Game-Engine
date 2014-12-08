@@ -25,7 +25,7 @@ public class SpeedButton extends ControlDockButton {
         slowImage = myParser.getValuesFromTag("SlowDownImage").get(0);
 
         setUpSizing (containerSize);
-        myButton.setOnAction(event -> fastForward());
+        myButton.setOnAction(event -> normalSpeed());
         setupImageViews(slowImage, ffImage);
         myButton.setGraphic(myImageView);
     }
@@ -37,7 +37,7 @@ public class SpeedButton extends ControlDockButton {
     
     private void normalSpeed() {
         myListener.normalSpeed();
-        myButton.setOnAction(event->fastForward());
+        //myButton.setOnAction(event->fastForward());
     }
     
     @Override

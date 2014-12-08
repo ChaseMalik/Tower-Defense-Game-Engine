@@ -15,14 +15,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
 import utilities.multilanguage.MultiLanguageUtility;
-import utilities.multilanguage.languageexceptions.LanguageNotFoundException;
 
 public class GameStartManager {
     private Stage myStage;

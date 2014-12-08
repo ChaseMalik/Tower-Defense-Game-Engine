@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import javafx.scene.Node;
+import javafx.scene.shape.Circle;
 
 /**
  * Base Projectile extends Base Actor.  This class allows for the constructor of a base projectile
@@ -45,7 +46,8 @@ public class BaseProjectile extends BaseActor{
     @Override
     public Node getRange () {
         // TODO Auto-generated method stub
-        return myNode;
+        return new Circle(myNode.getXCenter(),myNode.getYCenter(),myRange);
+
     }
 
 }
