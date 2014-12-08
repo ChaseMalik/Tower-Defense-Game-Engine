@@ -1,7 +1,7 @@
 package gameAuthoring.scenes.levelBuilding;
 
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import java.util.Observable;
@@ -22,9 +22,9 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     private static final String TITLE = "Level";
 
     private LevelBuildingDisplay myLevelsDisplay;
-    private LevelConfiguring myLevelConfiguringController;
+    private ILevelConfiguring myLevelConfiguringController;
 
-    public LevelBuildingScene (BorderPane root, LevelConfiguring controller) {
+    public LevelBuildingScene (BorderPane root, ILevelConfiguring controller) {
         super(root, TITLE);
         myLevelConfiguringController = controller;
         createMenuAndAddNewLevelOption();

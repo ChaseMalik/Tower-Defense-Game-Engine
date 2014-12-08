@@ -3,6 +3,7 @@ package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -24,40 +25,41 @@ import utilities.reflection.Reflection;
  *
  */
 public class BehaviorBuilder {
-    
+
     private static final double COMBO_BOX_WIDTH = 160;
-    
+
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
-    private SliderContainer mySliderContainer;
+    private List<SliderContainer> mySliderContainers;
     protected SliderInfo mySliderInfo;
     private String myBehaviorType;
     private List<String> myBehaviorOptions;
-    
+
     public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, 
-                           SliderInfo sliderInfo) {
+                           List<SliderInfo> sliderInfoObjects) {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
-        mySliderInfo = sliderInfo;
         createCenterDisplay();
-        mySliderContainer = new SliderContainer(sliderInfo);
-        myContainer.getChildren().add(mySliderContainer);
+        for(SliderInfo info:sliderInfoObjects) {
+            mySliderContainers.add(new SliderContainer(info));
+        }
+        myContainer.getChildren().addAll(mySliderContainers);
     }
 
     public IBehaviorKeyValuePair buildBehavior() {
         String behaviorSelected = myComboBox.getValue();
-        double sliderValue = mySliderContainer.getSliderValue();
+        List<Double> sliderValues = mySliderContainers.stream()
+                .map(slider->slider.getSliderValue())
+                .collect(Collectors.toList());
         String className = "gameEngine.actors.behaviors." + behaviorSelected;
         return new IBehaviorKeyValuePair(myBehaviorType,
-                                        (IBehavior) Reflection.createInstance(className, sliderValue));  
+                                         (IBehavior) Reflection.createInstance(className, sliderValues));  
     }
-    
+
     public void createCenterDisplay() {
         myContainer = new VBox();
-        myContainer.setStyle("-fx-border-width: 1px; " +
-                             "-fx-border-color: gray; " +
-                             "-fx-padding: 10px; " +
-                             "-fx-border-radius: 5px");
+        myContainer.setStyle("-fx-border-width: 1px; -fx-border-color: gray; " +
+                             "-fx-padding: 10px; -fx-border-radius: 5px");
         myContainer.setSpacing(Constants.LG_PADDING); 
         Label label = new Label();
         label.textProperty().bind(MultiLanguageUtility.getInstance()
@@ -65,7 +67,7 @@ public class BehaviorBuilder {
         myComboBox = createComboBox();
         myContainer.getChildren().addAll(label, myComboBox);
     }
-    
+
     private ComboBox<String> createComboBox(){  
         ComboBox<String> CB = new ComboBox<String>();
         CB.setMinWidth(COMBO_BOX_WIDTH);
@@ -80,6 +82,8 @@ public class BehaviorBuilder {
 
     public void reset () {
         myComboBox.setValue(null);
-        mySliderContainer.resetSlider();
+        for(SliderContainer container:mySliderContainers) {
+            container.resetSlider();
+        }
     }
 }

@@ -1,10 +1,20 @@
 <behaviors>
-	 <attack sliderName="speed" sliderMin="0" sliderMax="10">
-		<element>ClosestRangeAttack</element>
-		<element>FarthestRangeAttack</element>
-		<element>StrongestRangeAttack</element>
+	 <attack>
+	 	<sliders>
+ 			<slider name="speed" min="0" max="10"></sliders>
+ 		</sliders>
+ 		<elements>
+			<element>ClosestRangeAttack</element>
+			<element>FarthestRangeAttack</element>
+			<element>StrongestRangeAttack</element>
+		</elements>
 	 </attack>
-	 <effect sliderName="multiplier" sliderMin="0" sliderMax="2">
-		<element>TowerRangeEffect</element>
+	 <effect>
+	 	<sliders>
+ 			<slider name="multiplier" min="0" max="2"></sliders>
+ 		</sliders>
+ 		<elements>
+			<element>TowerRangeEffect</element>
+		</elements>
 	</effect>
 </behaviors>

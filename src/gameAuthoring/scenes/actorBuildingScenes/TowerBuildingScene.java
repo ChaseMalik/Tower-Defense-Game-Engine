@@ -2,7 +2,7 @@ package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ITowerConfiguring;
 import gameAuthoring.scenes.actorBuildingScenes.actorListView.EnemySelectionDisplay;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
@@ -46,11 +46,11 @@ public class TowerBuildingScene extends ActorBuildingScene {
     private EnemySelectionDisplay myEnemySelectionView;
     private TilePane myTilePane;
     private TowerUpgradeGroup myCurrentlySelectedTowerGroup;
-    private TowerConfiguring myTowerConfiguringController;
+    private ITowerConfiguring myTowerConfiguringController;
     private LabeledNumericalTextField myBuildCostField;
     private LabeledNumericalTextField mySellValueField;
 
-    public TowerBuildingScene (BorderPane root, TowerConfiguring controller) {
+    public TowerBuildingScene (BorderPane root, ITowerConfiguring controller) {
         super(root, TITLE, BEHAVIOR_XML_LOC, IMG_DIR);
         myTowerConfiguringController = controller;
     }

@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import utilities.errorPopup.ErrorPopup;
 
 /**
  * An XML Parser utility that will allow different parts of the application
@@ -25,9 +26,11 @@ import org.xml.sax.SAXException;
  */
 public class XMLParser {
 
-    private static final String SLIDER_NAME = "sliderName";
-    private static final String SLIDER_MIN = "sliderMin";
-    private static final String SLIDER_MAX = "sliderMax";
+    private static final String SLIDER_NAME = "name";
+    private static final String SLIDER_MIN = "min";
+    private static final String SLIDER_MAX = "max";
+    private static final String ELEMENTS = "elements";
+    private static final String SLIDERS = "sliders";
     private Document myDocument;
 
     public XMLParser(File file)  {
@@ -38,8 +41,7 @@ public class XMLParser {
             myDocument = builder.parse(new FileInputStream(file));
         }
         catch (ParserConfigurationException |SAXException | IOException e) {
-            System.out.println("Error creating XML parser\n");
-            e.printStackTrace();
+            new ErrorPopup("Error creating xml parser");
         }
     }
 
@@ -48,10 +50,23 @@ public class XMLParser {
      * For instance tagName might be "Movement" and the returning list will have "FastMovement",
      * "SlowMovement", "NoMovement", etc.
      * @param tagName
-     */
-    public List<String> getValuesFromTag(String tagName) {
-        List<String> valuesFromTag = new ArrayList<String>();
+     */    
+    public List<String> getBehaviorElementsFromTag(String tagName) {
         Element tag =  (Element) myDocument.getElementsByTagName(tagName).item(0);
+        Element elementsTag = (Element) tag.getElementsByTagName(ELEMENTS).item(0);
+        return getValues(elementsTag);
+    }
+
+
+    public List<String> getValuesFromTag(String tagName) {
+        Element tag =  (Element) myDocument.getElementsByTagName(tagName).item(0);
+        return getValues(tag);
+    }
+
+
+
+    private List<String> getValues (Element tag) {
+        List<String> valuesFromTag = new ArrayList<String>();
         NodeList tagChildren = tag.getChildNodes();
         for(int i = 0; i < tagChildren.getLength(); i++){
             Node n = tagChildren.item(i);
@@ -61,7 +76,8 @@ public class XMLParser {
         }
         return valuesFromTag;
     }
-    
+
+
     public List<String> getAllBehaviorTypes() {
         List<String> allBehaviorTypes = new ArrayList<String>();
         NodeList behaviorTypesNodes = myDocument.getDocumentElement().getChildNodes();
@@ -73,26 +89,34 @@ public class XMLParser {
         }
         return allBehaviorTypes;
     }
-    
-    public SliderInfo getSliderInfo (String behaviorType) {
+
+    public List<SliderInfo> getSliderInfo (String behaviorType) {
+        List<SliderInfo> sliderInfoList = new ArrayList<SliderInfo>();
         Element tag =  (Element) myDocument.getElementsByTagName(behaviorType).item(0);
-        String sliderName = tag.getAttribute(SLIDER_NAME);
-        double sliderMin = Double.parseDouble(tag.getAttribute(SLIDER_MIN));
-        double sliderMax = Double.parseDouble(tag.getAttribute(SLIDER_MAX));
-        return new SliderInfo(sliderName, sliderMin, sliderMax);
+        NodeList sliders = tag.getElementsByTagName(SLIDERS).item(0).getChildNodes();
+        for(int i = 0; i < sliders.getLength(); i++) {
+            if(sliders.item(i) instanceof Element) {
+                Element slider = (Element) sliders.item(i);
+                String sliderName = slider.getAttribute(SLIDER_NAME);
+                double sliderMin = Double.parseDouble(slider.getAttribute(SLIDER_MIN));
+                double sliderMax = Double.parseDouble(slider.getAttribute(SLIDER_MAX));
+                sliderInfoList.add(new SliderInfo(sliderName, sliderMin, sliderMax));
+            }
+        }
+        return sliderInfoList;
     }
-    
+
 
     public List<Integer> getIntegerValuesFromTag(String tagName) {
         return getValuesFromTag(tagName)
                 .stream().map(s->Integer.parseInt(s)).collect(Collectors.toList());
     }
-    
+
     public List<Double> getDoubleValuesFromTag(String tagName) {
         return getValuesFromTag(tagName)
                 .stream().map(s->Double.parseDouble(s)).collect(Collectors.toList());
     }
-    
+
     public Dimension2D getDimension(String tagName) {
         List<Double> dimensionList = getDoubleValuesFromTag(tagName);
         return new Dimension2D(dimensionList.get(0),dimensionList.get(1));
