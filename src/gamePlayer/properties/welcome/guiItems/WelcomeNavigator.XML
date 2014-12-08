@@ -8,7 +8,7 @@
 	
 	<ForwardPanelSizeRatio>
 		<element>0.08</element> <!-- Width -->
-		<element>1</element> <!-- Height -->
+		<element>0.4</element> <!-- Height -->
 	</ForwardPanelSizeRatio>
 	
 	<BasicSceneItems>

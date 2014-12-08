@@ -22,7 +22,6 @@ public class SelectableGameItem extends GameItem {
 	private XMLParser myParser;
 	private Circle mySelectCircle;
 	private BooleanProperty selectedProperty;
-	protected GameItemListener myListener = GuiConstants.GUI_MANAGER;
 
 
 	public SelectableGameItem(int ID, Point2D loc, ImageView imageView) {
@@ -52,7 +51,6 @@ public class SelectableGameItem extends GameItem {
 	
 	private void select() {
 		selectedProperty.set(!selectedProperty.get());
-		myListener.selectItem(myID);
 	}
 
 }

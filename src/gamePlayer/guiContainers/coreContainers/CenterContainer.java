@@ -15,33 +15,41 @@ import utilities.reflection.Reflection;
 
 /**
  * GuiContainer that hosts GuiElements at the center of the screen
+ * 
  * @author allankiplagat
  *
  */
 public class CenterContainer extends BorderPane implements GuiContainer {
-    private XMLParser myParser;
+	private XMLParser myParser;
 
-    @Override
-    public void initialize (Dimension2D containerSize) {
-    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
-        myParser = new XMLParser(new File(propertiesPath)); 
+	@Override
+	public void initialize(Dimension2D containerSize) {
+		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
+				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+		myParser = new XMLParser(new File(propertiesPath));
 
-        Dimension2D mySize = new Dimension2D(GuiConstants.CENTER_CONTAINER_WIDTH,GuiConstants.CENTER_CONTAINER_HEIGHT);
-        
-        this.setMinSize(mySize.getWidth(),mySize.getHeight());
-        this.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        
-        //add contained GUI elements
-        List<String> myItems = myParser.getValuesFromTag("Items");
-        for (String item:myItems) {
-                GuiElement element = (GuiElement) Reflection.createInstance(item);
-                element.initialize(mySize);
-                this.setCenter(element.getNode());
-        }
-    }
+		Dimension2D mySize = null;
+		if (GuiConstants.DYNAMIC_SIZING) {
+			mySize = new Dimension2D(GuiConstants.CENTER_CONTAINER_WIDTH,
+					GuiConstants.CENTER_CONTAINER_HEIGHT);
+		} else {
+			mySize = containerSize;
+		}
 
-    @Override
-    public Node getNode () {
-        return this;
-    }
+		this.setMinSize(mySize.getWidth(), mySize.getHeight());
+		this.setPrefSize(mySize.getWidth(), mySize.getHeight());
+
+		// add contained GUI elements
+		List<String> myItems = myParser.getValuesFromTag("Items");
+		for (String item : myItems) {
+			GuiElement element = (GuiElement) Reflection.createInstance(item);
+			element.initialize(mySize);
+			this.setCenter(element.getNode());
+		}
+	}
+
+	@Override
+	public Node getNode() {
+		return this;
+	}
 }

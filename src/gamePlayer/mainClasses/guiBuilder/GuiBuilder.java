@@ -7,6 +7,7 @@ import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -57,13 +58,20 @@ public class GuiBuilder {
 		myParser = new XMLParser(new File(propertiesPath));
 		GuiConstants.GUI_ELEMENT_PROPERTIES_PATH = myParser.getValuesFromTag(
 				"GuiElementPropertiesPath").get(0);
-		
-		//TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove line below
+
+		// TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove
+		// line below
 		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
 				"TextGeneratorPropertiesPath").get(0));
-		
-		Dimension2D windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
-		
+		Dimension2D windowSize = null;
+		if (GuiConstants.DYNAMIC_SIZING) {
+			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,
+					GuiConstants.WINDOW_HEIGHT);
+		} else {
+			List<Double> sizing = myParser.getDoubleValuesFromTag("GuiSize");
+			windowSize = new Dimension2D(sizing.get(0), sizing.get(1));
+		}
+				
 		Group group = new Group();
 		group.setAutoSizeChildren(true);
 		group.getChildren().add(initializeCoreContainers(windowSize));
@@ -98,24 +106,32 @@ public class GuiBuilder {
 		pane.setPrefSize(windowSize.getWidth(), windowSize.getHeight());
 
 		TopContainer top = new TopContainer();
-		top.initialize(windowSize);
-		pane.setTop(top);
-
 		LeftContainer left = new LeftContainer();
-		left.initialize(windowSize);
-		pane.setLeft(left);
-
 		RightContainer right = new RightContainer();
-		right.initialize(windowSize);
-		pane.setRight(right);
-
 		CenterContainer center = new CenterContainer();
-		center.initialize(windowSize);
-		pane.setCenter(center);
-
 		BottomContainer bottom = new BottomContainer();
-		bottom.initialize(windowSize);
+
+		if (GuiConstants.DYNAMIC_SIZING) {
+			top.initialize(windowSize);
+			left.initialize(windowSize);
+			right.initialize(windowSize);
+			center.initialize(windowSize);
+			bottom.initialize(windowSize);
+		} else {
+			List<Double> widths = myParser.getDoubleValuesFromTag("ContainerWidths");
+			List<Double> heights = myParser.getDoubleValuesFromTag("ContainerHeights");
+			top.initialize(new Dimension2D(windowSize.getWidth()*widths.get(0), windowSize.getHeight()*heights.get(0)));
+			left.initialize(new Dimension2D(windowSize.getWidth()*widths.get(1), windowSize.getHeight()*heights.get(1)));
+			right.initialize(new Dimension2D(windowSize.getWidth()*widths.get(2), windowSize.getHeight()*heights.get(2)));
+			center.initialize(new Dimension2D(windowSize.getWidth()*widths.get(3), windowSize.getHeight()*heights.get(3)));
+			bottom.initialize(new Dimension2D(windowSize.getWidth()*widths.get(4), windowSize.getHeight()*heights.get(4)));
+		}
+
+		pane.setTop(top);
+		pane.setLeft(left);
+		pane.setRight(right);
 		pane.setBottom(bottom);
+		pane.setCenter(center);
 
 		return pane;
 	}

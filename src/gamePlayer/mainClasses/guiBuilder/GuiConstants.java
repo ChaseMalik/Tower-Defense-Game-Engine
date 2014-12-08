@@ -18,13 +18,14 @@ public class GuiConstants {
     public static TextGenerator TEXT_GEN;
     public static String GUI_ELEMENT_PROPERTIES_PATH;
     public static GameStartManager GAME_START_MANAGER; 
+    public static Boolean DYNAMIC_SIZING;
     
     //Game start manager constants
     public static final String SINGLE_PLAYER_GAME = "SinglePlayer";
     public static final String MULTI_PLAYER_GAME = "MultiPlayer";
     
     //game location paths
-    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./Games/";
+    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./SinglePlayerGames/";
     public static final String MULTI_PLAYER_GAMES_DIRECTORY = "./CoopGames/";
     
     //core container sizes

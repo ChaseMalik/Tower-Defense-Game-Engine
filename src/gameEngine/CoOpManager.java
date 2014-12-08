@@ -32,7 +32,6 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final int TIMER_END = 30;
     private static final double QUERY_SERVER_TIME = 1.0;
     private DoubleProperty myTimer;
-    private boolean myInteraction;
     private String myDirectory;
 
     public CoOpManager () {
@@ -55,7 +54,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     public boolean joinGame () {
-        myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
+        myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "").replace("\\", "/");
         return !myDirectory.equals("None");
     }
 
@@ -128,7 +127,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     @Override
     public void removeTower (ImageView node) {
-        if (myInteraction) {
+        if (myTimer.get()>0) {
             getTowersFromServer();
             super.removeTower(node);
             writeTowersToServer();
@@ -137,7 +136,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     @Override
     public ImageView addTower (String name, double x, double y) {
-        if (myInteraction) {
+        if (myTimer.get()>0) {
             getTowersFromServer();
             ImageView ans = super.addTower(name, x, y);
             writeTowersToServer();
