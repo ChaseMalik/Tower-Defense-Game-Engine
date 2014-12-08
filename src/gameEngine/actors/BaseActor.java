@@ -1,6 +1,7 @@
 package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
+import gameEngine.infoInterface;
 import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.BaseOnHitBehavior;
@@ -37,7 +38,7 @@ public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient CenteredImageView myNode;
-    protected transient InfoObject myInfo;
+    protected transient infoInterface myInfo;
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
@@ -45,6 +46,7 @@ public abstract class BaseActor extends Observable {
     protected boolean myIsRemovable;
     protected Map<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
+    protected double myARange;
     public BaseActor () {
 
     }
@@ -54,23 +56,24 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
+        myARange=range;
         myDebuffs=new HashMap<>();
         myDebuffsToRemove=new HashSet<>();
         myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
-        for (String s : behaviors.keySet()) {
-            if (behaviors.get(s).getType() != null) {
-                myTypes.addAll(behaviors.get(s).getType());
-            }
-        }
+//        for (String s : behaviors.keySet()) {
+//            if (behaviors.get(s).getType() != null) {
+//                myTypes.addAll(behaviors.get(s).getType());
+//            }
+//        }
         makeNode();
     }
 
     /**
      * Updates the actor by looping over all of its behaviors and performing them
      */
-    public void update (InfoObject info) {
+    public void update (infoInterface info) {
         myInfo = info;
 
         for (String s : myBehaviors.keySet()) {
@@ -93,7 +96,9 @@ public abstract class BaseActor extends Observable {
                                                          array[1],
                                                          myImagePath);
     }
-    
+    public double getAttackRange(){
+        return myARange;
+    }
     public void makeNode (Point2D point) {
         int[] array = getSize();
         myNode = StringToImageViewConverter.getImageView(array[0],
@@ -161,14 +166,22 @@ public abstract class BaseActor extends Observable {
         return myRange;
     }
 
-    public List<BaseActor> getEnemiesInRange () {
-        return myInfo.getEnemiesInRange();
+    public List<BaseActor> getEnemiesInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseEnemy.class);
     }
 
-    public List<BaseActor> getTowersInRange () {
-        return myInfo.getTowersInRange();
+    public List<BaseActor> getTowersInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseTower.class);
     }
-    public InfoObject getInfoObject(){
+    
+    public List<BaseActor> getProjectilesInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseProjectile.class);
+    }
+    
+    public infoInterface getInfoObject(){
         return myInfo;
     }
     public Collection<Class<? extends BaseActor>> getTypes () {

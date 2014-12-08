@@ -22,6 +22,7 @@ public class MessageDisplay implements GuiItem {
 		textField.setPrefSize(mySize.getWidth(), mySize.getHeight());
 		textField.getStyleClass().add("MessageDisplay");
 		textField.setText("Welcome to TowerDefense!");
+		textField.toFront();
 		GuiConstants.GUI_MANAGER.registerMessageDisplayListener(this);
 	}
 

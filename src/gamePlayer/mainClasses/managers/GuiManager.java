@@ -38,6 +38,8 @@ import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -53,7 +55,7 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, GameItemListener, UpgradeListener,
+		GameWorldListener, UpgradeListener,
 		MessageDisplayListener, SpeedSliderListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
@@ -65,7 +67,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private Group myRoot;
 	private TowerIndicator activeIndicator;
 	private ImageView activeTower;
-	private boolean gameRunning;
+	private boolean interactionAllowed;
 
 	private Store myStore;
 	private HUD myHUD;
@@ -79,7 +81,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
-		gameRunning = false;
 	}
 
 	public void init() {
@@ -102,7 +103,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// myGameWorld.getMap().getStyleClass().add("GameWorld");
 		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
 		// AuthorController.SCREEN_HEIGHT);
-		gameRunning = true;
+		interactionAllowed = true;
 	}
 
 	@Override
@@ -116,10 +117,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
 
-	public boolean gameRunning() {
-		return gameRunning;
-	}
-
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
@@ -128,7 +125,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void play() {
-		if (!gameRunning)
+		if (!interactionAllowed)
 			return;
 		myEngineManager.resume();
 	}
@@ -159,6 +156,20 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameStat time = new GameStat();
 		time.setGameStat("Time");
 		time.statValueProperty().bindBidirectional(myCoOpManager.getTimer());
+		time.statValueProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				if ((double)newValue <= 0.0){
+					interactionAllowed = false;
+					myStore.freeze();
+				}
+				else {
+					interactionAllowed = true;
+					myStore.unfreeze();
+				}
+			
+			}
+		});
 		gameStats.add(time);
 		this.setGameStats(gameStats);
 	}
@@ -172,7 +183,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// myGameWorld.getMap().getStyleClass().add("GameWorld");
 		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
 		// AuthorController.SCREEN_HEIGHT);
-		gameRunning = true;
+		interactionAllowed = true;
 	}
 
 	private void addBackground(String directory) {
@@ -208,7 +219,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void pause() {
-		if (!gameRunning)
+		if (!interactionAllowed)
 			return;
 		myEngineManager.pause();
 	}
@@ -226,7 +237,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void normalSpeed() {
-		if (!gameRunning)
+		if (!interactionAllowed)
 			return;
 		// myEngineManager.changeRunSpeed(1.0);
 		play();
@@ -234,7 +245,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void fastForward() {
-		if (!gameRunning)
+		if (!interactionAllowed)
 			return;
 		// myEngineManager.changeRunSpeed(3.0);
 		play();
@@ -263,8 +274,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
-		if (!gameRunning)
-			return;
+		if (!interactionAllowed) return;
 		if (upgradeName.equals(NO_UPGRADE)
 				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
 			displayMessage(upgradeName, true);
@@ -305,8 +315,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	public void makeTower(String towerName, double x, double y) {
-		if (!gameRunning)
-			return;
+		if (!interactionAllowed) return;
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
 			displayMessage(towerName, true);
 			return;
@@ -324,6 +333,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	private void selectTower(String towerName, ImageView tower) {
+		if (!interactionAllowed) return;
 		CenteredImageView centered = (CenteredImageView) tower;
 		double radius = towerMap.get(towerName).getRange();
 		deselectTower(activeIndicator, activeTower,
@@ -370,12 +380,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void selectItem(int itemID) {
-
-	}
-
-	@Override
 	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
+		if (!interactionAllowed) return;
 		myEngineManager.sellTower(myTowerImageView);
 		myGameWorld.getMap().getChildren().remove(indicator);
 	}
