@@ -77,6 +77,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	private double myIntervalBetweenEnemies;
 	private Queue<BaseEnemy> myEnemiesToAdd;
 	private SimpleDoubleProperty myHealth;
+	private SimpleDoubleProperty myEarthquakeMagnitude;
 	private Map<Node, BaseTower> myNodeToTower;
 	private Collection<TowerInfoObject> myTowerInformation;
 	protected GSONFileReader myFileReader;
@@ -111,8 +112,13 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		myHealth = new SimpleDoubleProperty();
 		myLastUpdateTime = -1;
 		myPausedFlag = true;
+		myEarthquakeMagnitude = new SimpleDoubleProperty();
 	}
 
+	public void setEarthquakeMagnitude(double magnitude) {
+		myEarthquakeMagnitude.set(magnitude);
+	}
+	
 	@Override
 	public GridPane getReferencePane() {
 		return myTowerTiles;
