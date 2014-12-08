@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes.DragAndDropCopyAudioPane;
 
 public class GeneralSettingScene {
@@ -59,7 +60,7 @@ public class GeneralSettingScene {
 		myGameTypeComboBox = new ComboBox<String>();
 		myGameTypeComboBox.getItems().addAll(
 				"SinglePlayer",
-				"Co-Op"
+				"Coop"
 				);
 	}
 	
@@ -114,7 +115,8 @@ public class GeneralSettingScene {
         String gameType = myGameTypeComboBox.getValue();
         if (!gameNameText.isEmpty() && !gameType.isEmpty() && startingCash!= 0 && startingHealth!=0) {
             myGeneralSettingsController.makeDirectory(gameNameText, gameType);
-            myGeneralSettingsController.setGeneralSettings(gameNameText, startingHealth, startingCash);
+            GeneralSettingsWrapper wrapper = new GeneralSettingsWrapper(startingHealth, startingCash);
+            myGeneralSettingsController.setGeneralSettings(wrapper);
         }
         
         

@@ -11,6 +11,7 @@ import java.util.List;
 
 import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.GSON.objectWrappers.GameStateWrapper;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.errorPopup.ErrorPopup;
 
 import com.google.gson.GsonBuilder;
@@ -42,22 +43,23 @@ public class GSONFileWriter {
             FileWriter writer = new FileWriter(file);
             writer.write(json);
             writer.close();				
-        }catch(IOException e) {
+        } catch(IOException e) {
             new ErrorPopup("File to store actors could not be found.");
         }
     }
 
     public String convertWrappersToJson(Iterable<DataWrapper> wrapper){
         return gson.create().toJson(wrapper,new TypeToken<List<DataWrapper>>() {}.getType());
-
     }
 
 
     public void writeGameStateToJSon(String directory, GameStateWrapper gsw){
-
         writeToFile(directory+"gameState.json", gson.create().toJson(gsw));
-
     }
+
+	public void writeGeneralSettings(String directory, GeneralSettingsWrapper wrapper) {		
+		writeToFile(directory+"generalSettings.json", gson.create().toJson(wrapper));		
+	}
 
 
 }
