@@ -7,12 +7,15 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
@@ -82,8 +85,24 @@ public class Store implements GuiItem {
         storeItem.getImageView().setFitWidth(imageSize.getWidth());
 
         button.setGraphic(storeItem.getImageView());
+        button.hoverProperty().addListener(new ChangeListener<Boolean>(){
+			@Override
+			public void changed(ObservableValue<? extends Boolean> o, Boolean oldValue, Boolean newValue) {
+				if (!newValue) showGraphic(button, storeItem.getImageView());
+				else showCost(button, storeItem.getCost());
+			}
+		});
         myTilePane.getChildren().add(button);
         button.setOnAction(event -> myListener.placeTower(storeItem.getName()));
+    }
+    
+    private void showGraphic(Button b, ImageView v){
+    	b.setGraphic(v);
+    }
+    
+    private void showCost(Button b, int cost){
+    	b.setGraphic(null);
+    	b.setText(""+cost);
     }
     
     public void refreshStore() {

@@ -173,7 +173,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 					interactionAllowed = true;
 					myStore.unfreeze();
 				}
-			
 			}
 		});
 		gameStats.add(time);
@@ -269,7 +268,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
 		for (TowerInfoObject info : towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(),
-					info.getImageLocation(), new SimpleBooleanProperty(true));
+					info.getImageLocation(), info.getBuyCost(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
 		myStore.fillStore(storeItems);
@@ -326,7 +325,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (!interactionAllowed) return;
 		displayMessage(MessageDisplay.DEFAULT, false);
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
-			displayMessage(towerName, true);
+			displayMessage(NO_GOLD, true);
 			return;
 		}
 		DoubleProperty gold = myEngineManager.myGold();
