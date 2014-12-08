@@ -48,11 +48,12 @@ public class CoOpManager extends SingleThreadedEngineManager {
         return !myDirectory.equals("None");
     }
 
-    public void initializeGame (Pane engineGroup) {
+    public String initializeGame (Pane engineGroup) {
         addGroups(engineGroup);
         super.initializeGame(myDirectory);
         new Chatroom();
         allowInteraction();
+        return myDirectory;
     }
 
     private void allowInteraction () {
@@ -63,6 +64,11 @@ public class CoOpManager extends SingleThreadedEngineManager {
                                                  event -> getTowersFromServer()));
         timeline.setOnFinished(event -> startLevel());
         timeline.play();
+    }
+    
+    @Override
+    public void changeRunSpeed(double d){
+        // nothing
     }
 
     private void startLevel () {
