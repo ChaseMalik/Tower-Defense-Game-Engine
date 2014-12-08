@@ -33,32 +33,13 @@ public class AIMovement extends BaseMovementBehavior {
             myIndex=0;
         }
         if(myAIRoute==null){
-            //System.out.println("no path");
             return;
         }
-        Point2D current = new Point2D(actor.getX(), actor.getY());
-        Point2D destination = myAIRoute.get(myIndex);
-        double distance = mySpeed;
-
-        while (distance > destination.distance(current)) {
-            myIndex++;
-            if (myIndex == myAIRoute.size()) {
-                actor.died();
-                return;
-            }
-            distance -= destination.distance(current);
-            current = new Point2D(destination.getX(), destination.getY());
-            destination = myAIRoute.get(myIndex);
-        }
-        myRemainingDistance-=mySpeed;
-        Point2D vector = destination.subtract(current).normalize().multiply(mySpeed);
-        Point2D answer = current.add(vector);
-        move(actor, answer);
+        findNextTarget(actor, myAIRoute);
     }
 
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
         return new AIMovement(myList);
     }
 
