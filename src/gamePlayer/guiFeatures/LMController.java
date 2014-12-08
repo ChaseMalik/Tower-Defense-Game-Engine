@@ -165,8 +165,7 @@ public class LMController {
 		if (!myHandlerMap.containsKey(eventType))
 			return;
 		Set<EventHandler<ActionEvent>> handlers = myHandlerMap.get(eventType);
-		handlers.parallelStream().forEach(
-				(handler) -> handler.handle(new ActionEvent()));
+		handlers.forEach((handler) -> handler.handle(new ActionEvent()));
 	}
 
 	public void setTimeLimit(boolean isSwipeTimeLimit) {
