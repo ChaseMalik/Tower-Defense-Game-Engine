@@ -81,7 +81,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void init() {
 		myRoot = GuiBuilder.getInstance().build(myStage,
-				guiBuilderPropertiesPath);
+				guiBuilderPropertiesPath, true);
 		if (LMController.getInstance().deviceIsConnected()) {
 			LMConnected();
 		}

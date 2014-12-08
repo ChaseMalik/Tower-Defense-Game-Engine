@@ -24,7 +24,7 @@ public class WelcomeManager implements LMConnectorListener, NavigatorListener {
 	}
 
 	public void init() {
-		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
+		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath, false);
 	}
 	
 	@Override

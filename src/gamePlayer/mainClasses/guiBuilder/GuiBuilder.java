@@ -65,7 +65,7 @@ public class GuiBuilder {
 		if (dynamicSizing) {
 			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 		} else {
-			
+			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 		}
 		
 		Group group = new Group();
