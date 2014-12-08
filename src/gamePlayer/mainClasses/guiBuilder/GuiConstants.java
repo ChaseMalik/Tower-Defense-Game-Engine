@@ -4,7 +4,6 @@ import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.mainClasses.managers.GuiManager;
 import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
-import gamePlayer.unusedCodeWarehouse.WelcomeManager;
 import utilities.textGenerator.TextGenerator;
 
 /**
@@ -25,7 +24,7 @@ public class GuiConstants {
     public static final String MULTI_PLAYER_GAME = "MultiPlayer";
     
     //game location paths
-    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./Games/";
+    public static final String SINGLE_PLAYER_GAMES_DIRECTORY = "./SinglePlayerGames/";
     public static final String MULTI_PLAYER_GAMES_DIRECTORY = "./CoopGames/";
     
     //core container sizes
