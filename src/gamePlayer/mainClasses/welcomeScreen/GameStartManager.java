@@ -13,17 +13,20 @@ import java.io.File;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
-import utilities.textGenerator.TextGenerator;
+import utilities.multilanguage.MultiLanguageUtility;
 
 public class GameStartManager {
     private Stage myStage;
@@ -37,11 +40,18 @@ public class GameStartManager {
     public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
-        GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
+
+        MultiLanguageUtility util = MultiLanguageUtility.getInstance();
+        util.initLanguages("properties.gamePlayer.languages.English.properties",
+                           "properties.gamePlayer.languages.Swahili.properties");
+
+        util.setLanguage("English");
+
+        GuiConstants.MULTILANGUAGE = util;
         GuiConstants.GAME_START_MANAGER = this;
     }
 
-    	
+
     public void init() {
     	GuiConstants.DYNAMIC_SIZING = true;
         group  = new Group();
@@ -69,7 +79,31 @@ public class GameStartManager {
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions); 
 
+        welcomeScreen.setBottomContent(createLanguageSelector());
+        
         group.getChildren().add(welcomeScreen);
+    }
+
+    private ComboBox createLanguageSelector() {
+        ComboBox<String> languageSelector = new ComboBox<>();
+        languageSelector.setLayoutX(100);
+        languageSelector.itemsProperty().bind(GuiConstants.MULTILANGUAGE.getSupportedLanguages());
+        languageSelector.getSelectionModel().select(GuiConstants.MULTILANGUAGE.getCurrentLanguage());
+        languageSelector.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<String>() {
+            @Override
+            public void changed (ObservableValue<? extends String> arg0,
+                                 String oldVal,
+                                 String newVal) {
+                try {
+                    GuiConstants.MULTILANGUAGE.setLanguage(newVal);
+                }
+                catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+            }
+        });
+        return languageSelector;
     }
 
     public void joinMultiPlayerGame() {
@@ -104,7 +138,7 @@ public class GameStartManager {
 
     private void startMultiPlayerGame(String directoryPath) {
         //wait for other player to join
-        welcomeScreen.swipeForward(new LoadingIndicator(GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
+        welcomeScreen.setCenterContent(new LoadingIndicator(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.WAITING_FOR_CHALLENGER)));
 
         GuiManager manager = new GuiManager(myStage);
         manager.prepareMultiPlayerGame(directoryPath);
@@ -128,8 +162,9 @@ public class GameStartManager {
     }
 
     public void startGame (File file) {
-        
+
     	LMController.getInstance().clearAllHandlers();
+
         if (gameTypeBeingChosen.equals(GuiConstants.SINGLE_PLAYER_GAME)) {
             startSinglePlayerGame(file.getPath());
         } else if (gameTypeBeingChosen.equals(GuiConstants.MULTI_PLAYER_GAME)) {

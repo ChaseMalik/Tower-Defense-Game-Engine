@@ -10,8 +10,8 @@ public class PlayerCountOptions extends Options {
     private Button multiPlayerOption;
 
     public PlayerCountOptions() {
-        singlePlayerOption = createOptionButton(GuiConstants.TEXT_GEN.get(GuiText.SINGLE_PLAYER));
-        multiPlayerOption = createOptionButton(GuiConstants.TEXT_GEN.get(GuiText.MULTI_PLAYER));
+        singlePlayerOption = createOptionButton(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.SINGLE_PLAYER));
+        multiPlayerOption = createOptionButton(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.MULTI_PLAYER));
 
         this.getChildren().add(singlePlayerOption);
         this.getChildren().add(multiPlayerOption);

@@ -14,9 +14,13 @@ import javafx.scene.media.MediaPlayer;
  * 
  */
 public class AudioPlayer {
+    
+    private static final boolean replayAudio = true;
+    
     protected static void playAudio (File file) {
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
+        player.setCycleCount(replayAudio ? MediaPlayer.INDEFINITE : 1);
         player.play();
     }
 }

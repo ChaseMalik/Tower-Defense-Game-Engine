@@ -1,18 +1,36 @@
-//package gamePlayer.mainClasses.managers;
+package gamePlayer.mainClasses.managers;
 //
 //import gamePlayer.guiItems.welcome.WelcomeNavigator;
 //import gamePlayer.guiItemsListeners.NavigatorListener;
 //import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 //import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+//import gamePlayer.mainClasses.guiBuilder.GuiText;
+//import gamePlayer.mainClasses.welcomeScreen.LoadingIndicator;
+//import gamePlayer.mainClasses.welcomeScreen.availableGames.GameChooser;
+//import gamePlayer.mainClasses.welcomeScreen.startingOptions.MultiPlayerOptions;
 //import gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions;
+//
+//import java.io.File;
+//
+//import javafx.animation.Animation;
+//import javafx.animation.KeyFrame;
+//import javafx.animation.Timeline;
+//import javafx.geometry.Dimension2D;
+//import javafx.scene.Group;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 //import javafx.stage.Stage;
+//import javafx.util.Duration;
+//import utilities.XMLParsing.XMLParser;
 //
-//
-//public class WelcomeManager implements NavigatorListener {
+public class WelcomeManager {
 //
 //	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/welcome/WelcomeBuilderProperties.XML";
+//	private XMLParser myParser;
 //	private WelcomeNavigator navigator;
 //	private Stage myStage;
+//	private Group myGroup;
+//	private String gameTypeBeingChosen;
 //
 //	public WelcomeManager(Stage stage) {
 //		myStage = stage;
@@ -34,6 +52,14 @@
 //
 //	public void newGame() {
 //		GuiConstants.GUI_MANAGER.init();
+//	}
+//	
+//	public void startGame(File file) {
+//		if (gameTypeBeingChosen.equals(GuiConstants.SINGLE_PLAYER_GAME)) {
+//			startSinglePlayerGame(file.getPath());
+//		} else if (gameTypeBeingChosen.equals(GuiConstants.MULTI_PLAYER_GAME)) {
+//			startMultiPlayerGame(file.getPath());
+//		}
 //	}
 //
 //	@Override
@@ -78,7 +104,7 @@
 //	private void startMultiPlayerGame(String directoryPath) {
 //		// wait for other player to join
 //		navigator.setContent(new LoadingIndicator(
-//				GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
+//				GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.WAITING_FOR_CHALLENGER)));
 //
 //		GuiManager manager = new GuiManager(myStage);
 //		manager.prepareMultiPlayerGame(directoryPath);
@@ -115,6 +141,4 @@
 //		image.toBack();
 //	}
 //
-//=======
-//>>>>>>> Revert "Lots of changes"
-//}
+}

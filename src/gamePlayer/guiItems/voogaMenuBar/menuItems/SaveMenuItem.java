@@ -7,7 +7,7 @@ import gamePlayer.mainClasses.guiBuilder.GuiText;
 public class SaveMenuItem extends VoogaMenuItem {
     @Override
     public void initialize() {
-        this.setText(GuiConstants.TEXT_GEN.get(GuiText.SAVE));
+        this.textProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.SAVE));
         this.setOnAction(event->GuiConstants.GUI_MANAGER.saveGame());
     }
 }

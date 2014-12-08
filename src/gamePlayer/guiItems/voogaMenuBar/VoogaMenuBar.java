@@ -39,28 +39,31 @@ public class VoogaMenuBar implements GuiItem {
         myMenuBar.getStyleClass().add("VoogaMenuBar");
         initializeMenus();
     }
+    
+	private void initializeMenus() {
+		Menu fileMenu = createMenu("FileMenu");
+		fileMenu.textProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.FILE));;
+		myMenuBar.getMenus().add(fileMenu);
 
-    private void initializeMenus() {
-        Menu fileMenu = createMenu("FileMenu");
-        fileMenu.setText(GuiConstants.TEXT_GEN.get(GuiText.FILE));
-        myMenuBar.getMenus().add(fileMenu);
-       
-    }
+	}
 
-    private Menu createMenu(String menuName) {
-        Menu menu = new Menu();
-        
-        List<String> myItems = myParser.getValuesFromTag(menuName);
-        for (String item:myItems) {
-            VoogaMenuItem menuItem = (VoogaMenuItem) Reflection.createInstance(item);
-            menuItem.initialize();
-            menu.getItems().add(menuItem);
-        }
-        return menu;
-    }
+	private Menu createMenu(String menuName) {
+		Menu menu = new Menu();
 
-    @Override
-    public Node getNode () {
-        return myMenuBar;
-    }
+		List<String> myItems = myParser.getValuesFromTag(menuName);
+		for (String item : myItems) {
+			VoogaMenuItem menuItem = (VoogaMenuItem) Reflection
+					.createInstance(item);
+			menuItem.initialize();
+			menu.getItems().add(menuItem);
+		}
+		return menu;
+	}
+	
+	
+	
+	@Override
+	public Node getNode() {
+		return myMenuBar;
+	}
 }

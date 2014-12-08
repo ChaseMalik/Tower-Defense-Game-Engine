@@ -12,6 +12,7 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiText;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -42,6 +43,7 @@ import javafx.scene.text.FontWeight;
  */
 
 public class TowerUpgradePanel extends Pane implements GuiItem {
+
 	
 	private HBox myUpgradeBox;
 	private Label unselectedLabel;
@@ -74,16 +76,18 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myListener = GuiConstants.GUI_MANAGER;
 	
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+
         myParser = new XMLParser(new File(propertiesPath)); 
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         Dimension2D buttonRatio = myParser.getDimension("ButtonSizeRatio");
         Dimension2D labelRatio = myParser.getDimension("LabelRatio");
         Dimension2D iconRatio = myParser.getDimension("IconSizeRatio");
-       
+
         mySize = RatiosToDim.convert(containerSize, sizeRatio);
         myIconSize = RatiosToDim.convert(mySize, iconRatio);
         myButtonSize = RatiosToDim.convert(mySize, buttonRatio);
         myLabelSize = RatiosToDim.convert(mySize, labelRatio);
+
    
         this.setPrefSize(mySize.getWidth(), mySize.getHeight());
         
