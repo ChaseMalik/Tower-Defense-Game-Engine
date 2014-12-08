@@ -4,7 +4,7 @@ import java.util.List;
 import gameEngine.actors.BaseActor;
 
 public class SlowEffect extends BaseOnHitBehavior {
-   
+    private double myMultiplier;
     public SlowEffect (double duration, double multiplier) {
         super(duration, multiplier);
         // TODO Auto-generated constructor stub
@@ -15,6 +15,7 @@ public class SlowEffect extends BaseOnHitBehavior {
     }
     public SlowEffect (List<Double> list){
         super(list);
+        myMultiplier=list.get(1);
         
     }
     
