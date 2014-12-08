@@ -1,10 +1,9 @@
 package gameEngine;
 
 import gameEngine.actors.BaseTower;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -48,8 +47,8 @@ public class CoOpManager extends SingleThreadedEngineManager {
     public boolean isReady () {
         return Integer.parseInt(HTTP_CONNECTOR.sendGet(GET_PLAYERS)) >= REQUIRED_NUM_PLAYERS;
     }
-    
-    public DoubleProperty getTimer(){
+
+    public DoubleProperty getTimer () {
         return myTimer;
     }
 
@@ -67,7 +66,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void allowInteraction () {
-        myTimer.set(30);
+        myTimer.set(TIMER_END);
         Timeline timeline = new Timeline();
         timeline.setCycleCount(TIMER_END);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(QUERY_SERVER_TIME),
@@ -75,9 +74,9 @@ public class CoOpManager extends SingleThreadedEngineManager {
         timeline.setOnFinished(event -> startLevel());
         timeline.play();
     }
-    
+
     @Override
-    public void changeRunSpeed(double d){
+    public void changeRunSpeed (double d) {
         // nothing
     }
 
@@ -106,11 +105,9 @@ public class CoOpManager extends SingleThreadedEngineManager {
     }
 
     private void getTowersFromServer () {
-        myTimer.set(myTimer.get()-QUERY_SERVER_TIME);
+        myTimer.set(myTimer.get() - QUERY_SERVER_TIME);
         String response = HTTP_CONNECTOR.sendGet(GET_MASTER_JSON);
-        if(response.trim().equals("None")){
-            return;
-        }
+        if (response.trim().equals("None")) { return; }
         List<DataWrapper> listFromServer = myFileReader.readWrappers(response);
         for (BaseTower tower : myTowerGroup) {
             if (!listFromServer.contains(new DataWrapper(tower))) {
@@ -121,29 +118,31 @@ public class CoOpManager extends SingleThreadedEngineManager {
             }
         }
         for (DataWrapper wrapper : listFromServer) {
-            super.addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
+            addTower(wrapper);
         }
+    }
+    
+    private void addTower(DataWrapper wrapper){
+        ImageView image = super.addTower(wrapper.getName(), wrapper.getX(), wrapper.getY());
+        image.setOpacity(0);
+        FadeTransition transition = new FadeTransition(Duration.seconds(2),image);
+        transition.setToValue(1);
+        transition.play();
     }
 
     @Override
     public void removeTower (ImageView node) {
-        if (myTimer.get()>0) {
-            getTowersFromServer();
-            super.removeTower(node);
-            writeTowersToServer();
-        }
+        getTowersFromServer();
+        super.removeTower(node);
+        writeTowersToServer();
+
     }
 
     @Override
     public ImageView addTower (String name, double x, double y) {
-        if (myTimer.get()>0) {
-            getTowersFromServer();
-            ImageView ans = super.addTower(name, x, y);
-            writeTowersToServer();
-            return ans;
-        }
-        else {
-            return null;
-        }
+        getTowersFromServer();
+        ImageView ans = super.addTower(name, x, y);
+        writeTowersToServer();
+        return ans;
     }
 }
