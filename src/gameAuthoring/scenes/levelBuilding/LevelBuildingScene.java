@@ -6,10 +6,8 @@ import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
-
 import java.util.Observable;
 import java.util.Observer;
-
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.errorPopup.ErrorPopup;
 import utilities.multilanguage.MultiLanguageUtility;
