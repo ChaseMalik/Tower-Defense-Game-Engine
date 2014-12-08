@@ -328,7 +328,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void deselectTower(TowerIndicator indicator, ImageView tower,
 			String towerName) {
 		myGameWorld.getMap().getChildren().remove(indicator);
-		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		//myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		myUpgradePanel.deselectTower();
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
