@@ -1,4 +1,4 @@
-package gameEngine.actors.behaviors;
+package gameEngine;
 
 
 public interface UpdateInterface {

@@ -19,12 +19,13 @@ public abstract class RealActor extends BaseActor {
     @Override
     public void update(InformationInterface info){
         myInfo = info;
-        for (String s : myBehaviors.keySet()) {
-            myBehaviors.get(s).execute(this);
-        }
         for(String s: myDebuffs.keySet()){
             myDebuffs.get(s).execute(this);
         }
+        for (String s : myBehaviors.keySet()) {
+            myBehaviors.get(s).execute(this);
+        }
+
         for(IBehavior debuff: myDebuffsToRemove){
             myDebuffs.remove(debuff.toString());
         }
