@@ -2,8 +2,8 @@ package gameEngine.actors;
 
 import gameEngine.InformationInterface;
 import gameEngine.updateObject;
-import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.IBehavior;
+import gameEngine.actors.behaviors.BaseEffect;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +33,6 @@ public abstract class BaseActor extends Observable {
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
-    protected Set<BaseEffectBehavior> myEffects;
     protected boolean myIsRemovable;
     protected Map<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
@@ -50,14 +49,8 @@ public abstract class BaseActor extends Observable {
         myARange=range;
         myDebuffs=new HashMap<>();
         myDebuffsToRemove=new HashSet<>();
-        myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
-//        for (String s : behaviors.keySet()) {
-//            if (behaviors.get(s).getType() != null) {
-//                myTypes.addAll(behaviors.get(s).getType());
-//            }
-//        }
         makeNode();
     }
 
@@ -74,7 +67,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-   //     ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).end(this);
+            return;      
         }
         myDebuffs.put(debuff.toString(), debuff);
     }
@@ -119,15 +112,6 @@ public abstract class BaseActor extends Observable {
 
     public IBehavior getBehavior (String s) {
         return myBehaviors.get(s);
-    }
-
-    public void addEffect (BaseEffectBehavior effect) {
-        
-        if (myEffects.add(effect)) {
-            effect.performEffect(this);
-          
-        }
-        
     }
 
     @Override

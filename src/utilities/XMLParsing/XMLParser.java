@@ -1,5 +1,6 @@
 package utilities.XMLParsing;
 
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +42,7 @@ public class XMLParser {
             myDocument = builder.parse(new FileInputStream(file));
         }
         catch (ParserConfigurationException |SAXException | IOException e) {
-            new ErrorPopup("Error creating xml parser");
+            new ErrorPopup(Constants.XML_LOADING_ERROR);
         }
     }
 

@@ -3,7 +3,7 @@ package gameEngine.actors.behaviors;
 import java.util.List;
 import gameEngine.actors.BaseActor;
 
-public class EarthQuakeEffect extends BaseOnHitBehavior {
+public class EarthQuakeEffect extends BaseEffect {
     
     public EarthQuakeEffect(List<Double> list){
    
