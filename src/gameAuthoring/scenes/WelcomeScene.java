@@ -21,6 +21,11 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public class WelcomeScene extends Observable {
 
+
+    private static final String SPLASH_IMG_PATH = "gameAuthoring/scenes/WelcomeSplash.png";
+    private static final int TOPDOWN_PADDING = 200;
+    private static final int LEFTRIGHT_PADDING = 50;
+
     private static final int OUTER_PADDING = 200;
     private static final int BOX_SPACING = 50;
     private static final String CHOOSE_LANG = "Choose Your Language";
@@ -38,7 +43,7 @@ public class WelcomeScene extends Observable {
         makeStartScreen();
         myVBox = new VBox(BOX_SPACING);
         myVBox.setPrefWidth(AuthorController.SCREEN_WIDTH);
-        myVBox.setPadding(new Insets(OUTER_PADDING));
+        myVBox.setPadding(new Insets(TOPDOWN_PADDING, 0, TOPDOWN_PADDING, 0));
         myVBox.setAlignment(Pos.CENTER);
         root.getChildren().add(myVBox);
         createWelcomeLabel();
@@ -65,7 +70,9 @@ public class WelcomeScene extends Observable {
         Label welcomeLabel = new Label();
         welcomeLabel.textProperty().bind(MultiLanguageUtility.getInstance()
                 .getStringProperty(Constants.WELCOME_MSG));
-        welcomeLabel.setStyle("-fx-font-size: 38px");
+        welcomeLabel.setStyle("-fx-font-size: 44px");
+     //   welcomeLabel.setStyle("-fx-stroke-width: 2");
+
         myVBox.getChildren().addAll(welcomeLabel);
         createLanguageComboBox();
     }

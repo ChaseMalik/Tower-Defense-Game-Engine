@@ -1,15 +1,22 @@
 package gameAuthoring.scenes.levelBuilding;
 
+import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+
 import java.util.Observable;
 import java.util.Observer;
+
 import utilities.errorPopup.ErrorPopup;
+
 import utilities.multilanguage.MultiLanguageUtility;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -24,17 +31,25 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     private LevelBuildingDisplay myLevelsDisplay;
     private ILevelConfiguring myLevelConfiguringController;
-
+    private BorderPane myBorderPane;
+    private Pane mySimulationPane;
+    
     public LevelBuildingScene (BorderPane root, ILevelConfiguring controller) {
         super(root, TITLE);
         myLevelConfiguringController = controller;
         createMenuAndAddNewLevelOption();
         setupLevelDisplay();
+        setupSimulationPane();
     }
 
     private void setupLevelDisplay () {
-        myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies());
-        myPane.setCenter(myLevelsDisplay);
+    	mySimulationPane = new Pane();
+    	mySimulationPane.setPrefHeight(AuthorController.SCREEN_HEIGHT);
+    	mySimulationPane.setPrefWidth(AuthorController.SCREEN_WIDTH);
+       	myPane.setCenter(mySimulationPane);
+       	
+        myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies(), mySimulationPane);
+        myPane.setLeft(myLevelsDisplay);
     }
 
     private void createMenuAndAddNewLevelOption () {
@@ -45,6 +60,11 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
         menu.addMenuItemToFileMenu(newLevelItem);
         menu.addObserver(this);
         myPane.setTop(menu.getNode());
+    }
+    
+    private void setupSimulationPane(){
+
+ 
     }
 
     /**

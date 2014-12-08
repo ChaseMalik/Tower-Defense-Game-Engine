@@ -72,10 +72,10 @@ public class GSONFileReader {
         return locations;
     }
 
-    public GameStateWrapper readGameStateFromJSon(String directory){
+    public GameStateWrapper readGameStateFromJSon(String fileName){
 
         try{            
-            BufferedReader br = new BufferedReader(new FileReader(directory + "gameState.json"));   
+            BufferedReader br = new BufferedReader(new FileReader(fileName));   
             gameState = gson.create().fromJson(br, GameStateWrapper.class);
         } catch(IOException e){
             new ErrorPopup("File could not be found.");

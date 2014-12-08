@@ -20,12 +20,14 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -69,7 +71,7 @@ public class AuthorController extends Application implements
     private List<BaseEnemy> myEnemies;
     private List<TowerUpgradeGroup> myTowerGroups;
     private List<BaseLevel> myLevels;
-
+    
     private Stage myStage;
     private String myBackgroundImageFileName;
 
@@ -235,4 +237,9 @@ public class AuthorController extends Application implements
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();
     }
+
+	@Override
+	public String getBackgroundImagePath() {	
+		return myBackgroundImageFileName;
+	}
 }
