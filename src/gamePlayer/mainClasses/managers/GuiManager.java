@@ -118,9 +118,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void loadGame() {
-		File file = FileLoader.getInstance().load(myStage);
+		File file = FileLoader.getInstance().loadDirectory(myStage);
 		if (file != null) {
 			startGame(file.getAbsolutePath());
+		}
+	}
+	
+	@Override
+	public void loadState(){
+		File file = FileLoader.getInstance().load(myStage, "Json", "*.json");
+		if (file != null) {
+			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
 		}
 	}
 
@@ -206,7 +214,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void saveGame() {
-		// myEngineManager.saveState("sampleFileName"+Math.random()*1000);l
+		File file = FileLoader.getInstance().save(myStage);
+		if (file != null) {
+			myEngineManager.saveState(file.getAbsolutePath().replace("\\","/"), file.getName());
+		}
 	}
 
 	@Override

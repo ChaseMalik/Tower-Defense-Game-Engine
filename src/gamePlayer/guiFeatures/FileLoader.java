@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
@@ -28,9 +29,9 @@ public class FileLoader  {
      * @param stage the stage that directory loading is associated with
      * @return
      */
-    public File load(Window stage) {
+    public File loadDirectory(Window stage) {
         DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setInitialDirectory(new File("./Games/"));
+        chooser.setInitialDirectory(new File("./"));
         return chooser.showDialog(stage);
     }
     
@@ -43,5 +44,17 @@ public class FileLoader  {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new ExtensionFilter(fileType, extensions));
         return chooser.showOpenDialog(stage);
+    }
+/*
+	public File loadFile(Window stage) {
+		FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new File("./"));
+        return chooser.showDialog(stage);
+	}*/
+    
+    public File save(Window stage){
+    	FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new File("./"));
+        return chooser.showSaveDialog(stage);
     }
 }
