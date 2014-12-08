@@ -28,7 +28,6 @@ public class TowerPlacer {
      * Drags an item and attempts to place it on the map
      * 
      * @param rootNode : The Node to attach the mouseListener to
-     * @param itemID : The unique identifier of the item (tower) to be placed
      */
     public void placeItem(String towerName, Pane rootNode, double range) {
 
