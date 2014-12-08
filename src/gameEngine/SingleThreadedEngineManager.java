@@ -270,9 +270,9 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         duration = 0; // TODO bad code, but problem with multiple levels
         pause();
         myProjectileGroup.clear();
-        loadNextLevel();
-        // saveState("/Users/Duke/Desktop");
-        // myReadyToPlay.set(true);
+        if( myLevels != null ) {
+        	loadNextLevel();
+        }    
     }
 
     private void addEnemies () {
