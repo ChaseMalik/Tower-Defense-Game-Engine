@@ -1,8 +1,5 @@
 package gamePlayer.guiFeatures.earthquake;
 
-
-
-
 public abstract class EarthquakeStrategy {
 
 	private EarthquakeController listener;

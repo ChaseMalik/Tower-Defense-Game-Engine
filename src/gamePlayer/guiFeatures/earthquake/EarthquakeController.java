@@ -9,8 +9,7 @@ import javafx.util.Duration;
 
 public class EarthquakeController {
 	
-	public static double maxMag;
-	
+	private double maxMag;
 	private EarthquakeStrategy strategy;
 	private EarthquakeListener listener;
 	private DoubleProperty magnitudeProperty;
