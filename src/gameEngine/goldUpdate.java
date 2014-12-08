@@ -4,8 +4,8 @@ package gameEngine;
 
 public class goldUpdate extends updateObject {
 
-    public goldUpdate (int value) {
-        super(value);
+    public goldUpdate (double myGold) {
+        super(myGold);
         // TODO Auto-generated constructor stub
     }
 

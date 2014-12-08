@@ -118,7 +118,10 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	public void setEarthquakeMagnitude(double magnitude) {
 		myEarthquakeMagnitude.set(magnitude);
 	}
-	
+	@Override
+	public double getEarthquakeMagnitude(){
+	        return myEarthquakeMagnitude.get(); 
+	}
 	@Override
 	public GridPane getReferencePane() {
 		return myTowerTiles;
