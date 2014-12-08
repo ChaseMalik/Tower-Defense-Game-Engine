@@ -295,7 +295,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			displayMessage(upgradeName, true);
 			return;
 		}
-		DoubleProperty gold = myEngineManager.myGold();
+		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(upgradeName).getBuyCost());
 		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
@@ -309,12 +309,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
-		gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
+		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
 
 		GameStat health = new GameStat();
 		health.setGameStat("Health");
 		health.statValueProperty()
-				.bindBidirectional(myEngineManager.myHealth());
+				.bindBidirectional(myEngineManager.getHealthProperty());
 
 		gameStats = new ArrayList<GameStat>();
 //		gameStats.add(level);
@@ -332,7 +332,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			displayMessage(NO_GOLD, true);
 			return;
 		}
-		DoubleProperty gold = myEngineManager.myGold();
+		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(towerName).getBuyCost());
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
@@ -500,7 +500,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 	
 	private void incrementSpeed() {
-		if (myEngineManager.isPaused())
+		if (myEngineManager.isRunning())
 			play();
 		else
 			mySpeedSlider.incrementSpeed();
