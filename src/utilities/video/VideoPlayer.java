@@ -21,15 +21,23 @@ import javafx.util.Duration;
 
 class VideoPlayer extends BorderPane {
 
+    private static final int PADDING = 20;
+    private static final int SLIDER_WIDTH = 50;
+    private static final int BUTTON_WIDTH = 75;
+    private static final int LABEL_WIDTH = 150;
+
     private static final int SECONDS_PER_MINUTE = 60;
     private static final int MINUTES_PER_HOUR = 60;
+
     private static final String SPACE = "      ";
+
     private static final String PLAY_BUTTON_TEXT = "PLAY";
     private static final String STOP_BUTTON_TEXT = "STOP";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
     private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
-    private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
+
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
+    private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
 
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
@@ -54,30 +62,28 @@ class VideoPlayer extends BorderPane {
         myMediaBar = new HBox();
         myMediaBar.setAlignment(Pos.CENTER);
         BorderPane.setAlignment(myMediaBar, Pos.CENTER);
-        myMediaBar.setPadding(new Insets(20, 20, 20, 20));
+        myMediaBar.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         setBottom(myMediaBar);
 
-        final Button playButton = new Button(PLAY_BUTTON_TEXT);
-        playButton.setMinWidth(75);
-        playButton.setMaxWidth(75);
-        definePlayButtonBehavior(mediaPlayer, playButton);
+        final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
+        PLAY_BUTTON.setPrefWidth(BUTTON_WIDTH);
+        definePlayButtonBehavior(mediaPlayer, PLAY_BUTTON);
         myMediaBar.getChildren().add(new Label(SPACE));
-        myMediaBar.getChildren().add(playButton);
+        myMediaBar.getChildren().add(PLAY_BUTTON);
 
         myMediaBar.getChildren().add(new Label(SPACE));
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
-        myTimeSlider.setMinWidth(50);
+        myTimeSlider.setMinWidth(SLIDER_WIDTH);
         myTimeSlider.setMaxWidth(Double.MAX_VALUE);
         myMediaBar.getChildren().add(myTimeSlider);
 
         myTimeLabel = new Label(TIME_LABEL_TEXT);
-        myTimeLabel.setPrefWidth(150);
-        myTimeLabel.setMinWidth(50);
+        myTimeLabel.setPrefWidth(LABEL_WIDTH);
 
         myTimeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable observable) {
+            public void invalidated (Observable observable) {
                 if (myTimeSlider.isValueChanging()) {
                     mediaPlayer.seek(myDuration.multiply(myTimeSlider.getValue() / 100.0));
                 }
@@ -86,26 +92,25 @@ class VideoPlayer extends BorderPane {
 
         myMediaBar.getChildren().add(myTimeLabel);
 
-        final Button volumeButton = new Button(MUTE_BUTTON_TEXT);
-        volumeButton.setMinWidth(75);
-        volumeButton.setMaxWidth(75);
+        final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
+        VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
 
-        volumeButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
+        VOLUME_BUTTON.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle (ActionEvent e) {
                 double volume = mediaPlayer.getVolume();
 
                 if (volume > 0.0) {
                     mediaPlayer.setVolume(0.0);
-                    volumeButton.setText(UNMUTE_BUTTON_TEXT);
+                    VOLUME_BUTTON.setText(UNMUTE_BUTTON_TEXT);
                 }
                 else {
                     mediaPlayer.setVolume(1.0);
-                    volumeButton.setText(MUTE_BUTTON_TEXT);
+                    VOLUME_BUTTON.setText(MUTE_BUTTON_TEXT);
                 }
             }
         });
 
-        myMediaBar.getChildren().add(volumeButton);
+        myMediaBar.getChildren().add(VOLUME_BUTTON);
         myMediaBar.getChildren().add(new Label(SPACE));
 
         myVolumeLabel = new Label(VOLUME_LABEL_TEXT);
@@ -124,7 +129,7 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(new Label(SPACE));
 
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
-        defineMediaPlayerBehavior(mediaPlayer, playButton);
+        defineMediaPlayerBehavior(mediaPlayer, PLAY_BUTTON);
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
@@ -205,7 +210,7 @@ class VideoPlayer extends BorderPane {
                         myTimeSlider.setValue(timeSliderValue);
                     }
                     if (!myVolumeSlider.isValueChanging()) {
-                        myVolumeSlider.setValue((int) Math.round(myMediaPlayer.getVolume() * 100));
+                        myVolumeSlider.setValue((int)Math.round(myMediaPlayer.getVolume() * 100));
                     }
                 }
             });
@@ -213,15 +218,15 @@ class VideoPlayer extends BorderPane {
     }
 
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
-        int elapsedTime = (int)Math.floor(elapsed.toSeconds());
+        int time = (int)Math.floor(elapsed.toSeconds());
 
-        int elapsedHours = elapsedTime / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-        elapsedTime -= elapsedHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        int elapsedMinutes = elapsedTime / SECONDS_PER_MINUTE;
-        elapsedTime -= elapsedMinutes * SECONDS_PER_MINUTE;
-        int elapsedSeconds = elapsedTime;
+        int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+        int minutes = time / SECONDS_PER_MINUTE;
+        time -= minutes * SECONDS_PER_MINUTE;
+        int seconds = time;
 
-        return formatTime(videoDuration, elapsedHours, elapsedMinutes, elapsedSeconds);
+        return formatTime(videoDuration, hours, minutes, seconds);
     }
 
     private static String formatTime (Duration duration, int intHours, int intMinutes, int intSeconds) {
