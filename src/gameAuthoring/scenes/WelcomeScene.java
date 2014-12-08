@@ -40,7 +40,9 @@ public class WelcomeScene extends Observable {
         Label welcomeLabel = new Label();
         welcomeLabel.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("WelcomeMessage"));
         welcomeLabel.setStyle("-fx-font-size: 32px");
-        myVBox.getChildren().add(welcomeLabel);
+        Label clickAnywhere = new Label("Click Anywhere to Begin!");
+        clickAnywhere.setStyle("-fx-font-size:16px");
+        myVBox.getChildren().addAll(welcomeLabel,clickAnywhere);
     }
 
     public Scene getScene () {

@@ -160,7 +160,7 @@ public class AuthorController extends Application implements
     }
 
     @Override
-    public void makeDirectory (String gameName, boolean singlePlayer) {
+    public void makeDirectory (String gameName, String gameType) {
         gameDir = "./Games/" + gameName + "/";
         File dir = new File(gameDir);
         dir.mkdir();
