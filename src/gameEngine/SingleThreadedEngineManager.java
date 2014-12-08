@@ -101,10 +101,12 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		myLastUpdateTime = -1;
 	}
 
+	@Override
 	public GridPane getReferencePane() {
 		return myTowerTiles;
 	}
 
+	@Override
 	public TowerTileGrid getExistingTowerTiles() {
 		return myTowerLocationByGrid;
 	}
