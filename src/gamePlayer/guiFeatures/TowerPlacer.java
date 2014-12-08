@@ -34,7 +34,6 @@ public class TowerPlacer {
         Circle dragCircle = new Circle(range, Color.RED);
         dragCircle.setOpacity(0.5);
         dragging = false;
-        // TODO : Add the image of the tower to be added to the dragged object
         rootNode.setOnMouseMoved(event -> drag(dragCircle, event.getX(), event.getY(), rootNode));
         rootNode.setOnMouseReleased(event -> drop(dragCircle, event.getX(), event.getY(), towerName, rootNode));
     }
