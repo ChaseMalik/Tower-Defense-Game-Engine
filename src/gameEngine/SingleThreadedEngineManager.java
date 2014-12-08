@@ -78,8 +78,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
 
 	private TowerTileGrid myTowerLocationByGrid;
 	private GridPane myTowerTiles;
-
-	private GridPathFinder myPathFinder;
 	
 	public SingleThreadedEngineManager(){
 	    myReadyToPlay = new AtomicBoolean(false);
@@ -100,8 +98,16 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
             myGold.set(10000);
             myHealth = new SimpleDoubleProperty();
             myLastUpdateTime = -1;          
-            myPathFinder = new GridPathFinder();
 	}
+	
+	public GridPane getReferencePane() {
+		return myTowerTiles;
+	}
+	
+	public TowerTileGrid getExistingTowerTiles() {
+		return myTowerLocationByGrid;
+	}
+	
 	public SingleThreadedEngineManager(Pane engineGroup) {	
 	        this();
 	        addGroups(engineGroup);		
