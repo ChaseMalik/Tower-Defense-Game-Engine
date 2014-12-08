@@ -145,7 +145,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         return myGold.get();
     }
 
-    public DoubleProperty myGold () {
+    public DoubleProperty getGoldProperty () {
         return myGold;
     }
 
@@ -159,7 +159,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         return myHealth.get();
     }
 
-    public DoubleProperty myHealth () {
+    public DoubleProperty getHealthProperty () {
         return myHealth;
     }
 
@@ -271,7 +271,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     }
 
     protected void onLevelEnd () {
-        duration = 0; // TODO bad code, but problem with multiple levels
+        duration = 0;
         pause();
         myProjectileGroup.clear();
         if( myLevels != null ) {
