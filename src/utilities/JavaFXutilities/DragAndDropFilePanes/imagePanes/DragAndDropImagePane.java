@@ -1,7 +1,9 @@
 package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
+import gameAuthoring.mainclasses.Constants;
 import java.io.File;
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.errorPopup.ErrorPopup;
 import javafx.scene.image.ImageView;
 
 public abstract class DragAndDropImagePane extends DragAndDropFilePane {
@@ -37,5 +39,10 @@ public abstract class DragAndDropImagePane extends DragAndDropFilePane {
         myContainer.getChildren().add(myImageView); 
         this.setChanged();
         this.notifyObservers(myFile.getPath());
+    }
+    
+    public boolean hasFileBeenDropped() {
+        new ErrorPopup(Constants.NO_PROJECTILE_IMG);
+        return myFile == null;
     }
 }
