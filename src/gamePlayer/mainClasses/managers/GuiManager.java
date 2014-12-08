@@ -5,7 +5,6 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
-import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
@@ -82,9 +81,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void init() {
 		myRoot = GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
-		if (LMController.getInstance().deviceIsConnected()) {
-			LMConnected();
-		}
 	}
 
 	private void startGame(String directoryPath) {
@@ -109,18 +105,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 	}
 
-	private static String guiBuilderPropertiesPath1 = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
-
-	public void LMConnected() {
-		LMController controller = LMController.getInstance();
-		System.out.println("Hello");
-		controller.onCircleCW(event -> speedUpOrPlay());
-		controller.onCircleCCW(event -> normalSpeed());
-		controller.onSwipeDown(event -> System.out
-				.println("Swipe Down from Manager!"));
-	}
 
 	public boolean gameRunning() {
 		return gameRunning;
@@ -137,13 +123,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (!gameRunning)
 			return;
 		myEngineManager.resume();
-	}
-
-	private void speedUpOrPlay() {
-		if (gameRunning)
-			play();
-		else
-			fastForward();
 	}
 
 	public void joinMultiPlayerGame() {
@@ -349,7 +328,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void deselectTower(TowerIndicator indicator, ImageView tower,
 			String towerName) {
 		myGameWorld.getMap().getChildren().remove(indicator);
-		myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		//myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		myUpgradePanel.deselectTower();
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}

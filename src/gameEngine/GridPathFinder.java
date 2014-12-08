@@ -21,7 +21,7 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 
 	private static final int DIRECTION_SIZE = 2;
 	private static final int[][] SQUARE_2D_DIRECTION = { { -1, -1 }, { -1, 0 },
-			{ -1, 1 }, { 0, -1 }, { 0, 0 }, { 0, 1 }, { 1, -1 }, { 1, 0 },
+			{ -1, 1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 },
 			{ 1, 1 } };
 
 	private Collection<int[]> myEnemyTileDirections;
@@ -29,7 +29,7 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 
 	@Override
 	public Number getCost(Point2D beginningNode, Point2D endingNode) {
-		return 1;
+		return beginningNode.distance(endingNode);
 	}
 
 	public List<Point2D> getPath(BaseEnemy enemy, GridPane tilePane,
@@ -39,7 +39,6 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 		List<Node> enemyTiles = tilePane.getChildren().stream()
 				.filter(node -> node.intersects(enemyNode.getBoundsInLocal()))
 				.collect(Collectors.toList());
-
 		List<Node> enemyCenterTileList = enemyTiles.stream()
 				.filter(node -> node.contains(enemy.getX(), enemy.getY()))
 				.collect(Collectors.toList());
@@ -50,65 +49,82 @@ public class GridPathFinder extends AStarPathFinder<Point2D> {
 			int rowDifference = enemyTile.getRow() - enemyCenterTile.getRow();
 			int colDifference = enemyTile.getColumn()
 					- enemyCenterTile.getColumn();
+			if(rowDifference == 0 && colDifference == 0){ 
+				continue;
+			}
 			int[] direction = new int[DIRECTION_SIZE];
 			direction[0] = rowDifference;
 			direction[1] = colDifference;
 			myEnemyTileDirections.add(direction);
 		}
-
 		Point2D goal = enemy.getGoal().getPoint();
 		List<Node> goalNodeList = tilePane.getChildren().stream()
 				.filter(node -> node.contains(goal.getX(), goal.getY()))
 				.collect(Collectors.toList());
 		Tile goalTile = (Tile) goalNodeList.get(0);
-
-		List<Point2D> path = findPath(new Point2D(enemyCenterTile.getRow(),
+		List<Point2D> tilePath = findPath(new Point2D(enemyCenterTile.getRow(),
 				enemyCenterTile.getColumn()), new Point2D(goalTile.getRow(),
 				goalTile.getColumn()));
-		if(path != null) {
-			path.remove(path.size() -1);
-			path.add(goal);
+		List<Point2D> convertedPath = null;
+		if(tilePath != null) {
+			convertedPath = new ArrayList<>();
+			for(Point2D pathTile : tilePath) {
+				double row = pathTile.getX();
+				double column = pathTile.getY();
+				double convertedX = column * BuildingPane.DRAW_SCREEN_WIDTH/TowerRegionsPane.NUM_COLS;
+				double convertedY = row * AuthorController.SCREEN_HEIGHT / TowerRegionsPane.NUM_ROWS;
+				convertedPath.add(new Point2D(convertedX, convertedY));
+			}
+		
+			convertedPath.remove(convertedPath.size() -1);
+			convertedPath.add(goal);
 		}
-		return path;
+		return convertedPath;
 	}
 
 	@Override
 	public Iterable<Point2D> getNeighbors(Point2D node) {
+
 		List<Point2D> nodeList = new ArrayList<>();
 		for (int[] direction : SQUARE_2D_DIRECTION) {
 			int neighborRow = (int) node.getX() + direction[0];
 			int neighborCol = (int) node.getY() + direction[1];
-			boolean movementAvailable = true;
-			for (int[] enemyTileDirection : myEnemyTileDirections) {
-				int enemyRowAfterMovement = neighborRow + enemyTileDirection[0];
-				int enemyColAfterMovement = neighborRow + enemyTileDirection[1];
-				if (!myTowerLocations.isInRange(enemyRowAfterMovement,
-						enemyColAfterMovement)
-						|| (myTowerLocations.checkTowerTile(
-								enemyRowAfterMovement, enemyColAfterMovement))) {
-					movementAvailable = false;
-					break;
+			if (myTowerLocations.isInRange(neighborRow, neighborCol)) {
+				boolean movementAvailable = true;
+				for (int[] enemyTileDirection : myEnemyTileDirections) {
+					int enemyRowAfterMovement = neighborRow + enemyTileDirection[0];
+					int enemyColAfterMovement = neighborCol + enemyTileDirection[1];
+					if (!myTowerLocations.isInRange(enemyRowAfterMovement,
+							enemyColAfterMovement)) {
+						movementAvailable = false;
+						break;
+					}
+					if(myTowerLocations.checkTowerTile(
+									enemyRowAfterMovement, enemyColAfterMovement)) {
+						movementAvailable = false;
+						break;
+					}
 				}
-			}
-			if (movementAvailable) {
-				nodeList.add(new Point2D(neighborRow, neighborCol));
-			}
+				if (movementAvailable) {
+					nodeList.add(new Point2D(neighborRow, neighborCol));
+				}
+			}			
 		}
 		return nodeList;
 	}
 
 	@Override
 	public int breakTie(Point2D node, Point2D other) {
-		Integer x = (int) node.getX();
-		Integer otherX = (int) other.getX();
-		int xCompareValue = x.compareTo(otherX);
-		return xCompareValue == 0 ? ((Integer) (int) node.getY())
-				.compareTo((Integer) (int) other.getY()) : xCompareValue;
+		Integer col = (int) node.getY();
+		Integer otherCol = (int) other.getY();
+		int colCompareValue = col.compareTo(otherCol);
+		return colCompareValue == 0 ? ((Integer) (int) node.getX())
+				.compareTo((Integer) (int) other.getX()) : colCompareValue;
 	}
 
 	@Override
 	public Number getHeuristicValue(Point2D node, Point2D destination) {
-		return 0;
+		return node.distance(destination);
 	}
 
 }

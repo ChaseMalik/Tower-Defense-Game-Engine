@@ -26,7 +26,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
     private static final int REQUIRED_NUM_PLAYERS = 2;
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
     private static final int TIMER_END = 30;
-    private boolean myTowerPlacement;
+    private boolean myInteraction;
     private String myDirectory;
 
     public CoOpManager () {
@@ -45,18 +45,18 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     public boolean joinGame () {
         myDirectory = HTTP_CONNECTOR.sendPost(JOIN_GAME, "");
-        return myDirectory.equals("") ? false : true;
+        return !myDirectory.equals("None");
     }
 
     public void initializeGame (Pane engineGroup) {
         addGroups(engineGroup);
         super.initializeGame(myDirectory);
         new Chatroom();
-        allowTowerPlacement();
+        allowInteraction();
     }
 
-    private void allowTowerPlacement () {
-        myTowerPlacement = true;
+    private void allowInteraction () {
+        myInteraction = true;
         Timeline timeline = new Timeline();
         timeline.setCycleCount(TIMER_END);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),
@@ -67,13 +67,13 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     private void startLevel () {
         super.resume();
-        myTowerPlacement = false;
+        myInteraction = false;
     }
 
     @Override
     protected void onLevelEnd () {
         super.onLevelEnd();
-        allowTowerPlacement();
+        allowInteraction();
     }
 
     private void writeTowersToServer () {
@@ -109,7 +109,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     @Override
     public void removeTower (ImageView node) {
-        if (myTowerPlacement) {
+        if (myInteraction) {
             getTowersFromServer();
             super.removeTower(node);
             writeTowersToServer();
@@ -118,7 +118,7 @@ public class CoOpManager extends SingleThreadedEngineManager {
 
     @Override
     public ImageView addTower (String name, double x, double y) {
-        if (myTowerPlacement) {
+        if (myInteraction) {
             getTowersFromServer();
             ImageView ans = super.addTower(name, x, y);
             writeTowersToServer();
