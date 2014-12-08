@@ -169,7 +169,7 @@ class VideoPlayer extends BorderPane {
                     myTimeSlider.setDisable(myDuration.isUnknown());
                     if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
                         double duration = myDuration.toMillis();
-                        double timeSliderValue = currentTime.divide(duration).toMillis();
+                        double timeSliderValue = currentTime.divide(duration).toMillis() * 100.0;
                         myTimeSlider.setValue(timeSliderValue);
                     }
                     if (!myVolumeSlider.isValueChanging()) {
