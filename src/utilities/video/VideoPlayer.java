@@ -89,6 +89,8 @@ class VideoPlayer extends BorderPane {
         });
         myMediaBar.getChildren().add(myVolumeSlider);
 
+        myMediaBar.getChildren().add(new Label(SPACE));
+
         mediaPlayer.setCycleCount(replayVideo ? MediaPlayer.INDEFINITE : 1);
         defineMediaPlayerBehavior(mediaPlayer, playButton);
     }
@@ -159,12 +161,22 @@ class VideoPlayer extends BorderPane {
     }
 
     private void updateValues () {
-        Platform.runLater(new Runnable() {
-            public void run () {
-                if (!myVolumeSlider.isValueChanging()) {
-                    myVolumeSlider.setValue((int) Math.round(myMediaPlayer.getVolume() * 100));
+        if (myTimeLabel != null && myTimeSlider != null && myVolumeSlider != null) {
+            Platform.runLater(new Runnable() {
+                public void run () {
+                    Duration currentTime = myMediaPlayer.getCurrentTime();
+                    myTimeLabel.setText(currentTime.toString());
+                    myTimeSlider.setDisable(myDuration.isUnknown());
+                    if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
+                        double duration = myDuration.toMillis();
+                        double timeSliderValue = currentTime.divide(duration).toMillis();
+                        myTimeSlider.setValue(timeSliderValue);
+                    }
+                    if (!myVolumeSlider.isValueChanging()) {
+                        myVolumeSlider.setValue((int) Math.round(myMediaPlayer.getVolume() * 100));
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
