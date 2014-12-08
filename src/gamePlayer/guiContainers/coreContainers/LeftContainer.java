@@ -23,28 +23,10 @@ public class LeftContainer extends VBox implements GuiContainer {
 	private XMLParser myParser;
 
     @Override
-    public void initialize (Dimension2D containerSize) {
-    	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
-        myParser = new XMLParser(new File(propertiesPath)); 
-        
-        Dimension2D mySize = null;
-		if (GuiConstants.DYNAMIC_SIZING) {
-			mySize = new Dimension2D(GuiConstants.LEFT_CONTAINER_WIDTH, GuiConstants.LEFT_CONTAINER_HEIGHT);
-		} else {
-			mySize = containerSize;
-		}
-        
-        
-        this.setMinSize(mySize.getWidth(),mySize.getHeight());
-        this.setPrefSize(mySize.getWidth(),mySize.getHeight());
-        
-        //add contained GUI elements
-        List<String> myItems = myParser.getValuesFromTag("Items");
-        for (String item:myItems) {
-                GuiElement element = (GuiElement) Reflection.createInstance(item);
-                element.initialize(mySize);
-                this.getChildren().add(element.getNode());
-        }
+    public void initialize (Dimension2D containerSize) { 	
+    	CoreContainerSetup c = new CoreContainerSetup();
+		c.initialize(this, GuiConstants.LEFT_CONTAINER_WIDTH, GuiConstants.LEFT_CONTAINER_HEIGHT, containerSize);
+		this.getChildren().addAll(c.getChildList());
     }
 
     @Override
