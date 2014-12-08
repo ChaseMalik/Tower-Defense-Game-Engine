@@ -98,11 +98,11 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		myFileWriter = new GSONFileWriter();
 		myUpdateRate = 1;
 		myGold = new SimpleDoubleProperty();
-		myGold.set(10000);
 		myHealth = new SimpleDoubleProperty();
 		myLastUpdateTime = -1;
 		myPausedFlag = true;
 		myEarthquakeMagnitude = new SimpleDoubleProperty();
+		myTowerLocationByGrid = new TowerTileGrid(20,20);
 	}
 
 	public void setEarthquakeMagnitude(double magnitude) {
@@ -249,6 +249,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	}
 
 	private void gameUpdate() {
+		System.out.println("gameupdate");
 		addEnemies();
 		updateActors(myTowerGroup);
 		updateActors(myEnemyGroup);
@@ -274,6 +275,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	private void addEnemies() {
 
 		if (duration <= 0) {
+			System.out.println("add enemies");
 			duration += myIntervalBetweenEnemies;
 			BaseEnemy enemy = myEnemiesToAdd.poll();
 			if (enemy == null)
@@ -327,7 +329,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	@Override
 	public List<BaseActor> getRequiredActors(BaseActor actor,
 			Class<? extends BaseActor> infoType) {
-		// TODO Auto-generated method stub
 		List<BaseActor> list = new ArrayList<>();
 
 		if (BaseEnemy.class.isAssignableFrom(infoType)) {
@@ -355,6 +356,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	public void resume() {
 		myTimeline.play();
 		myPausedFlag = false;
+		System.out.println("resume ");
 	}
 
 	public Collection<TowerInfoObject> getAllTowerTypeInformation() {
@@ -463,11 +465,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 	}
 
 	public void loadLevel(BaseLevel level) {
-		pause();
 		int levelDuration = level.getDuration();
-		myEnemyGroup.clear();
-		myEnemiesToAdd.clear();
-		myProjectileGroup.clear();
 		Collection<EnemyCountPair> enemies = level.getEnemyCountPairs();
 		for (EnemyCountPair enemyPair : enemies) {
 			BaseEnemy enemy = enemyPair.getMyEnemy();
@@ -478,6 +476,15 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		}
 		myIntervalBetweenEnemies = levelDuration * FPS / myEnemiesToAdd.size();
 		myCurrentLevel = level;
+	}
+	
+	public void loadAuthoringLevel(BaseLevel level){
+		pause();
+		myEnemyGroup.clear();
+		myEnemiesToAdd.clear();
+		loadLevel(level);
+		myReadyToPlay.set(true);
+		
 	}
 
 	@Override

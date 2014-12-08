@@ -14,4 +14,6 @@ public interface ILevelConfiguring {
     void configureLevels (List<BaseLevel> levels);
 
     List<BaseEnemy> fetchEnemies ();
+    
+    String getBackgroundImagePath();
 }
