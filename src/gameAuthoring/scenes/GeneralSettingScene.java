@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.DragAndDropFilePanes.audioPanes.DragAndDropCopyAudioPane;
@@ -26,37 +29,44 @@ public class GeneralSettingScene {
 	private TextField myCashTextField;
 	private DragAndDropCopyAudioPane myAudioPane;
 	private ComboBox<String> myGameTypeComboBox;
-
+	private Group root;
+	private HBox myHBox;
 
 
 	public GeneralSettingScene(GeneralSettingsConfiguring controller){
 		myGeneralSettingsController = controller;
-		Group root = new Group();
+		root = new Group();
 		myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
 		myVBox = new VBox(25);
-		myVBox.setPadding(new Insets(50));
+		myVBox.setPrefWidth(AuthorController.SCREEN_WIDTH/2);
+		myVBox.setPadding(new Insets(100));
 		myVBox.setAlignment(Pos.CENTER);
-		root.getChildren().add(myVBox);
+		
+		//root.getChildren().add(myVBox);
 		createHeadingLabel();
 		createOptionFields();
 		createOptions();
 		myAudioPane = new DragAndDropCopyAudioPane(200, 200, "/src");	
 		//createAudioPane("Drag Your Desired Background Music Here:", myAudioPane);
 		createNextButton();
+		createRightImage();
 	}
 
 
 	private void createHeadingLabel(){
 		Label headingLabel = new Label(GENERAL_SETTING_MSG);
-		headingLabel.setStyle("-fx-font-size: 32px");
+		headingLabel.setStyle("-fx-font-size: 24px");
 		myVBox.getChildren().add(headingLabel);
 	}
 
 
 	private void createOptionFields(){
 		myNameTextField = new TextField();
+		myNameTextField.setPrefWidth(AuthorController.SCREEN_WIDTH/3);
 		myHealthTextField = new TextField();
+		myHealthTextField.setPrefWidth(AuthorController.SCREEN_WIDTH/4);
 		myCashTextField = new TextField();
+		myCashTextField.setPrefWidth(AuthorController.SCREEN_WIDTH/4);
 		myGameTypeComboBox = new ComboBox<String>();
 		myGameTypeComboBox.getItems().addAll(
 				"SinglePlayer",
@@ -122,7 +132,15 @@ public class GeneralSettingScene {
         
 	}
 
-
+	public void createRightImage(){
+		HBox hb = new HBox();
+		Image img = new Image("gameAuthoring/scenes/GeneralSettingsImage.png");
+		ImageView imgView = new ImageView(img);
+		imgView.setFitWidth(AuthorController.SCREEN_WIDTH/2);
+		imgView.setFitHeight(AuthorController.SCREEN_HEIGHT);
+		hb.getChildren().addAll(myVBox, imgView);
+		root.getChildren().add(hb);
+	}
 
 
 	public Scene getScene(){
