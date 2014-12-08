@@ -189,7 +189,6 @@ public abstract class BaseActor extends Observable {
     }
 
     public void setRange (double d) {
-        System.out.println(d);
         myRange = d;
     }
     
