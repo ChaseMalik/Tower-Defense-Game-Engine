@@ -2,10 +2,7 @@ package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
-import gameEngine.actors.BaseTower;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 
@@ -19,6 +16,10 @@ public abstract class BaseDefendBehavior implements IBehavior {
 
     protected double myHealth;
     protected double myInitialHealth;
+
+    BaseDefendBehavior (List<Double> list) {
+
+    }
 
     BaseDefendBehavior (double health) {
         myHealth = health;

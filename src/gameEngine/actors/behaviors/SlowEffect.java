@@ -12,20 +12,6 @@ public class SlowEffect extends BaseOnHitBehavior {
     public SlowEffect(double multiplier){
         this(30.0,multiplier);
     }
-    @Override
-    public void execute (BaseActor actor) {
-        // TODO Auto-generated method stub
-        if(myDuration==myInitialDuration){
-            BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
-            double d=m.getSpeed()*myMultiplier;
-            m.setSpeed(d);
-        }
-        if(myDuration==0){
-            actor.removeDebuff(this);
-            undo(actor);
-        }
-        myDuration--;
-    }
     
     @Override
     public IBehavior copy () {
@@ -34,10 +20,23 @@ public class SlowEffect extends BaseOnHitBehavior {
     }
 
     @Override
-    public void undo (BaseActor actor) {
+    public void end (BaseActor actor) {
         // TODO Auto-generated method stub
         BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
         m.setSpeed(m.getSpeed()/myMultiplier);
     }
+    @Override
+    public void during (BaseActor actor) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void start (BaseActor actor) {
+        // TODO Auto-generated method stub
+        BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
+        double d=m.getSpeed()*myMultiplier;
+        m.setSpeed(d);
+    }
+
 
 }

@@ -1,13 +1,11 @@
 package gameEngine.actors.behaviors;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import javafx.geometry.Point2D;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
+import java.util.List;
+import javafx.geometry.Point2D;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 
 /**
@@ -22,6 +20,10 @@ public abstract class BaseMovementBehavior implements IBehavior {
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
     protected double myRemainingDistance;
+
+    BaseMovementBehavior (List<Double> list) {
+
+    }
 
     public BaseMovementBehavior (double speed) {
         mySpeed = speed;

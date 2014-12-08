@@ -6,6 +6,7 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.RealActor;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import javafx.geometry.Point2D;
 
@@ -17,6 +18,11 @@ public abstract class RangeAttack extends BaseAttack {
 
     public RangeAttack (double attackSpeed) {
         super(attackSpeed);
+    }
+
+    public RangeAttack (List<Double> list) {
+        // TODO Auto-generated constructor stub
+        super(list);
     }
 
     protected void shootActorFromActor (BaseActor target, BaseActor actor) {
