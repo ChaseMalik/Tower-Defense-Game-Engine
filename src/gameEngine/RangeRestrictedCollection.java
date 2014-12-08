@@ -47,13 +47,16 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 	public List<BaseActor> getActorsInRange(BaseActor actor) {
 		Node actorNode = actor.getRange();
 		ArrayList<BaseActor> actorsInRange = new ArrayList<>();
-		for (T otherActor : myActorsList) {
-			Node otherActorNode = otherActor.getNode();
-			if (!actorNode.equals(otherActor)
-					&& !shouldBeRemoved(otherActor)
-					&& actorNode.intersects(otherActorNode.getBoundsInLocal())) {
-				actorsInRange.add(otherActor);
-			}
+		if(actorNode.isVisible()){
+        		for (T otherActor : myActorsList) {
+        			Node otherActorNode = otherActor.getNode();
+        			if (!actorNode.equals(otherActor)
+        					&& !shouldBeRemoved(otherActor)
+        					&& actorNode.intersects(otherActorNode.getBoundsInLocal())
+        					&& otherActor.getNode().isVisible()) {
+        				actorsInRange.add(otherActor);
+        			}
+        		}
 		}
 		return actorsInRange;
 	}
