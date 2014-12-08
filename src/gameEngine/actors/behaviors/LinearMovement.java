@@ -19,6 +19,9 @@ import gameEngine.actors.BaseActor;
  */
 public class LinearMovement extends BaseMovementBehavior {
     private int myIndex = 0;
+    LinearMovement(List<Double> list) {
+        super(list);
+    }
 
     public LinearMovement (double speed) {
         super(speed);

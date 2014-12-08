@@ -2,12 +2,17 @@ package gameEngine.actors.behaviors;
 
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 
 
 public class FarthestRangeAttack extends RangeAttack {
+
+    public FarthestRangeAttack (List<Double> list) {
+        super(list);
+    }
 
     public FarthestRangeAttack (double attackSpeed) {
         super(attackSpeed);
@@ -27,10 +32,5 @@ public class FarthestRangeAttack extends RangeAttack {
         return new FarthestRangeAttack(myAttackSpeed);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        Set<Class<? extends BaseActor>> a = new HashSet<Class<? extends BaseActor>>();
-        a.add(BaseEnemy.class);
-        return a;
-    }
+
 }

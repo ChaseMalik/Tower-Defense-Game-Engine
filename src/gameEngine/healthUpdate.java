@@ -1,6 +1,5 @@
 package gameEngine;
 
-import gameEngine.actors.behaviors.UpdateInterface;
 
 public class healthUpdate extends updateObject {
 
