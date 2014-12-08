@@ -29,7 +29,7 @@ import javafx.scene.layout.VBox;
 public class TowerBuildingScene extends ActorBuildingScene {
 
     private static final double ENEMY_DISPLAY_HEIGHT = 110;
-    private static final double DRAG_AND_DROP_HEIGHT = 380;
+    private static final double DRAG_AND_DROP_HEIGHT = 300;
     private static final String TITLE = "Tower";
     private static final String IMG_DIR = AuthorController.gameDir + "/towerImages/";
     private static final String BEHAVIOR_XML_LOC = 

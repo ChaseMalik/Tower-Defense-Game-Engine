@@ -2,12 +2,13 @@ package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
 import java.io.File;
 import java.util.Observable;
-
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * This utility allows for the creation of drag and drop file panes.
@@ -18,14 +19,14 @@ import javafx.scene.layout.Pane;
  *
  */
 public abstract class DragAndDropFilePane extends Observable {
+    
+    private static final int LAYOUTX_ADJ = 50;
+    private static final int LAYOUTY_ADJ = 20;
 
     private String[] myValidExtensions;
-    protected Pane myContainer;
-    protected Pane myDragAndDropPane;
+    protected VBox myContainer;
+    protected VBox myDragAndDropPane;
     protected File myFile;
-
-    private int myLayoutXAdjustment = 70;
-    private int myLayoutYAdjustment = 20;
 
     /**
      * @param validExtensions The acceptable extensions drag and dropped file. Ex: [.jpg, .png]
@@ -33,8 +34,9 @@ public abstract class DragAndDropFilePane extends Observable {
      */
     public DragAndDropFilePane(double width, double height, String[] validExtensions) {
         myValidExtensions = validExtensions;
-        myContainer = new Pane();
-        myDragAndDropPane = new Pane();
+        myContainer = new VBox();
+        myContainer.setAlignment(Pos.CENTER);
+        myDragAndDropPane = new VBox();
         myDragAndDropPane.setPrefSize(width, height);
         myDragAndDropPane.setOnDragOver(event->handleDragOver(event));
         myDragAndDropPane.setOnDragExited(event->handleDragExit(event));
@@ -44,10 +46,12 @@ public abstract class DragAndDropFilePane extends Observable {
     }
 
     private void showInstructionLabel (double width, double height) {
-        Label label = new Label("Drag and Drop Map Image");
-        label.setLayoutX(width / 2 - myLayoutXAdjustment);
-        label.setLayoutY(height / 2 - myLayoutYAdjustment);
-        myDragAndDropPane.getChildren().add(label);
+        Pane labelPane = new Pane();
+        Label label = new Label("Drag and Drop");
+        label.setLayoutX(width / 2 - LAYOUTX_ADJ);
+        label.setLayoutY(height / 2 - LAYOUTY_ADJ);
+        labelPane.getChildren().add(label);
+        myDragAndDropPane.getChildren().add(labelPane);
     }
 
     private void handleFileDrop (DragEvent event) {

@@ -29,16 +29,26 @@ public class AStarTest {
       }
       TestAStarFinder finder = new TestAStarFinder(nodeMap);
       Random rand = new Random();
-      for (int i = 0; i < 50; i++) {
-          int startX = rand.nextInt(xMax);
-          int startY = rand.nextInt(yMax);
-          int endX = rand.nextInt(xMax);
-          int endY = rand.nextInt(yMax);
-          TestNode start = new TestNode(startX, startY);
-          TestNode destination = new TestNode(endX, endY);
-          List<TestNode> result = finder.findPath(start, destination);
-          assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) + 1),
-                       new Double(result.size()));
+//      for (int i = 0; i < 50; i++) {
+//          int startX = rand.nextInt(xMax);
+//          int startY = rand.nextInt(yMax);
+//          int endX = rand.nextInt(xMax);
+//          int endY = rand.nextInt(yMax);
+//          TestNode start = new TestNode(startX, startY);
+//          TestNode destination = new TestNode(endX, endY);
+//          List<TestNode> result = finder.findPath(start, destination);
+//          assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) + 1),
+//                       new Double(result.size()));
+//      }
+      int startX = 10;
+      int startY = 10;
+      int endX = 10;
+      int endY = 20;
+      TestNode start = new TestNode(startX, startY);
+      TestNode destination = new TestNode(endX, endY);
+      List<TestNode> result = finder.findPath(start, destination);
+      for(TestNode pathnode : result) {
+    	  System.out.println(pathnode);
       }
   }
     
@@ -82,23 +92,28 @@ public class AStarTest {
         }
 
         @Override
-        public Integer getCost (TestNode beginningNode, TestNode endingNode) {
+        public Double getCost (TestNode beginningNode, TestNode endingNode) {
             int beginningX = beginningNode.getX();
             int beginningY = beginningNode.getY();
             int endingX = endingNode.getX();
             int endingY = endingNode.getY();
-            return Math.abs(endingX - beginningX) + Math.abs(endingY - beginningY);
+            return Math.sqrt(1.0*Math.pow(endingX - beginningX, 2) + Math.pow(endingY - beginningY, 2));
         }
 
         @Override
         public Collection<TestNode> getNeighbors (TestNode node) {
-            int[][] myDefault2DDirections = { { -1, 0 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, };
+            int[][] myDefault2DDirections = { { -1, -1 }, { -1, 0 },
+        			{ -1, 1 }, { 0, -1 }, { 0, 0 }, { 0, 1 }, { 1, -1 }, { 1, 0 },
+        			{ 1, 1 } };
             int x = node.getX();
             int y = node.getY();
             ArrayList<TestNode> nodeList = new ArrayList<>();
             for (int[] direction : myDefault2DDirections) {
                 int neighborX = x + direction[0];
                 int neighborY = y + direction[1];
+                if(neighborX == 10 && neighborY == 11) {
+                	continue;
+                }
                 if (neighborX >= 0 && neighborX < myMap.length && neighborY >= 0 &&
                     neighborY < myMap[0].length) {
                     nodeList.add(myMap[neighborX][neighborY]);
@@ -108,7 +123,7 @@ public class AStarTest {
         }
 
         @Override
-        public Number getHeuristicValue (TestNode node, TestNode destination) {
+        public Double getHeuristicValue (TestNode node, TestNode destination) {
             int beginningX = node.getX();
             int beginningY = node.getY();
             int endingX = destination.getX();

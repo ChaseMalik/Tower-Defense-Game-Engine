@@ -154,8 +154,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 	}
 
-	public void prepareMultiPlayerGame(String directoryPath) {
+	public void prepareMultiPlayerGame(String directoryPath) {	        
 		myCoOpManager = new CoOpManager();
+		myEngineManager = myCoOpManager;
 		myCoOpManager.startNewGame(directoryPath);
 	}
 

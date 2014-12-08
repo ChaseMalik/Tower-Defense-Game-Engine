@@ -23,7 +23,7 @@ import utilities.reflection.Reflection;
  */
 public class BehaviorBuilder {
     
-    private static final int COMBO_BOX_WIDTH = 200;
+    private static final double COMBO_BOX_WIDTH = 160;
     
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
@@ -56,7 +56,6 @@ public class BehaviorBuilder {
                              "-fx-padding: 10px; " +
                              "-fx-border-radius: 5px");
         myContainer.setSpacing(20); 
-        myContainer.setPrefWidth(COMBO_BOX_WIDTH);
         Label label = new Label(myBehaviorType);
         myComboBox = createComboBox();
         myContainer.getChildren().addAll(label, myComboBox);
@@ -64,7 +63,8 @@ public class BehaviorBuilder {
     
     private ComboBox<String> createComboBox(){  
         ComboBox<String> CB = new ComboBox<String>();
-        CB.setPrefWidth(COMBO_BOX_WIDTH);
+        CB.setMinWidth(COMBO_BOX_WIDTH);
+        CB.setMaxWidth(COMBO_BOX_WIDTH);
         CB.getItems().addAll(myBehaviorOptions);
         return CB;
     }
