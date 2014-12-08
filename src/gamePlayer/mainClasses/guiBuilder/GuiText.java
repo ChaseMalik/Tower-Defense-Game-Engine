@@ -17,4 +17,8 @@ public class GuiText {
     public static final String JOIN_GAME = "JoinGame";
     public static final String WAITING_FOR_CHALLENGER = "WaitingForChallenger";
     public static String CHANGE_LANGUAGE = "ChangeLanguage";
+    public static final String NO_SELECTED_TOWER = "NoSelectedTower";
+    public static final String LEVEL = "Level";
+    public static final String GOLD = "Gold";
+    public static final String HEALTH = "Health";
 }
