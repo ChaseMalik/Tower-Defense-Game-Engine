@@ -48,6 +48,7 @@ import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.GSON.objectWrappers.GameStateWrapper;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.errorPopup.ErrorPopup;
 import utilities.networking.HTTPConnection;
@@ -378,8 +379,15 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		loadTowers(correctedDirectory);
 		loadLevelFile(correctedDirectory);
 		loadLocations(correctedDirectory);
+		loadGameSettings(correctedDirectory);
 		myReadyToPlay.set(true);
 		loadNextLevel();
+	}
+	
+	private void loadGameSettings(String directory) {
+		GeneralSettingsWrapper settingsWrapper = myFileReader.readGeneralSettingsWrapper(directory);
+		myGold.set(settingsWrapper.getStartingCash());
+		myHealth.set(settingsWrapper.getStartingHealth());
 	}
 	
 	private void loadLocations(String dir) {

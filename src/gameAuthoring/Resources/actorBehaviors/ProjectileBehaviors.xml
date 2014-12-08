@@ -10,31 +10,13 @@
 	 <onhiteffect>
 	 	<sliders>
 	 		<slider name="duration" min="0" max="90"></slider>
-	 		<slider name="multiplier" min="0" max="1"></slider>
+	 		<slider name="magnitude" min="0" max="100"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>SlowEffect</element>
+			<element>DoTOnHit</element>
+			<element>AoEEffect</element>
 			<element>NullBehavior</element>
 		</elements>
 	</onhiteffect>
-	 <onhiteffect1>
-	 	<sliders>
-	 		<slider name="duration" min="0" max="90"></slider>
-	 		<slider name="damage" min="0" max="1"></slider>
-	 	</sliders>
-	 	<elements>
-			<element>DoT</element>
-			<element>NullBehavior</element>
-		</elements>
-	</onhiteffect1>
-	 <onhiteffect2>
-	 	<sliders>
-	 		<slider name="damage" min="0" max="100"></slider>
-	 		<slider name="range" min="0" max="250"></slider>
-	 	</sliders>
-	 	<elements>
-			<element>SlowEffect</element>
-			<element>NullBehavior</element>
-		</elements>
-	</onhiteffect2>
 </behaviors>

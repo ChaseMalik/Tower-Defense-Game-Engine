@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -17,14 +18,15 @@ public class LoadingIndicator extends Pane {
     private static final double INDICATOR_SIZE = 100;
     private static final double LABEL_HEIGHT = 40;
     
-    public LoadingIndicator (String message) {
+    public LoadingIndicator (ObjectProperty<String> labelTextProperty) {
         ProgressIndicator indicator = new ProgressIndicator();
         indicator.setPrefSize(INDICATOR_SIZE, INDICATOR_SIZE);
         indicator.setLayoutX(WIDTH/2-INDICATOR_SIZE/2);
         indicator.setLayoutY(HEIGHT/2-INDICATOR_SIZE/2);
         indicator.setVisible(true);
         
-        Label label = new Label(message);
+        Label label = new Label();
+        label.textProperty().bind(labelTextProperty);
         label.getStyleClass().add("OpponentWaitingLabel");
         label.setPrefSize(WIDTH, LABEL_HEIGHT);
         label.setAlignment(Pos.CENTER);

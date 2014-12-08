@@ -104,7 +104,7 @@ public class WelcomeManager implements NavigatorListener {
 	private void startMultiPlayerGame(String directoryPath) {
 		// wait for other player to join
 		navigator.setContent(new LoadingIndicator(
-				GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
+				GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.WAITING_FOR_CHALLENGER)));
 
 		GuiManager manager = new GuiManager(myStage);
 		manager.prepareMultiPlayerGame(directoryPath);
