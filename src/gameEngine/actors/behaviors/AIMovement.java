@@ -4,7 +4,6 @@ import gameEngine.GridPathFinder;
 import gameEngine.InformationInterface;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.InfoObject;
 import java.util.List;
 import javafx.geometry.Point2D;
 

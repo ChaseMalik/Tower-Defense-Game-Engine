@@ -10,7 +10,6 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
-import gameEngine.actors.InfoObject;
 import gameEngine.levels.BaseLevel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -311,26 +310,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         double actorY = actor.getY();
         return 0 <= actorX && actorX <= myFieldWidth && 0 <= actorY
                && actorY <= myFieldHeight;
-    }
-
-    private InfoObject getRequiredInformation (BaseActor actor) {
-        Collection<Class<? extends BaseActor>> infoTypes = actor.getTypes();
-        List<BaseActor> enemyList = new ArrayList<>();
-        List<BaseActor> towerList = new ArrayList<>();
-        List<BaseActor> projectileList = new ArrayList<>();
-        for (Class<? extends BaseActor> infoType : infoTypes) {
-            if (BaseEnemy.class.isAssignableFrom(infoType)) {
-                enemyList = myEnemyGroup.getActorsInRange(actor);
-            }
-            if (BaseTower.class.isAssignableFrom(infoType)) {
-                towerList = myTowerGroup.getActorsInRange(actor);
-            }
-            if (BaseProjectile.class.isAssignableFrom(infoType)) {
-                projectileList = myProjectileGroup.getActorsInRange(actor);
-            }
-        }
-        return new InfoObject(enemyList, towerList, projectileList,
-                              myTowerLocationByGrid, myTowerTiles);
     }
 
     @Override
