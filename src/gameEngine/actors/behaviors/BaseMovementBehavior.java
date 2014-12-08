@@ -1,11 +1,11 @@
 package gameEngine.actors.behaviors;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
+import java.util.List;
+import javafx.geometry.Point2D;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 
 /**
@@ -15,12 +15,17 @@ import gameEngine.actors.BaseActor;
  *
  */
 public abstract class BaseMovementBehavior implements IBehavior {
-
-    public static final Random RANDOM = new Random();
+    
+    protected List<Double> myList;
     protected String myString;
     protected List<VisibilityPoint> myRoute;
     protected double mySpeed;
     protected double myRemainingDistance;
+
+    BaseMovementBehavior (List<Double> list) {
+        mySpeed=list.get(0);
+        myList=list;
+    }
 
     public BaseMovementBehavior (double speed) {
         mySpeed = speed;
@@ -54,8 +59,12 @@ public abstract class BaseMovementBehavior implements IBehavior {
     public String toString(){
         return myString;
     }
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        return null;
+    protected void move (BaseActor a, Point2D point) {
+      
+        CenteredImageView actor = a.getNode();
+        actor.setVisible(true);
+        actor.setXCenter(point.getX());
+        actor.setYCenter(point.getY());
     }
+
 }

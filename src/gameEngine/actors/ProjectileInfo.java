@@ -12,39 +12,41 @@ public class ProjectileInfo {
     private IBehavior myMovement;
     private List<IBehavior> myOnHitEffects;
     private List<String> myEnemyTypes;
-    private int myDamage;
+    private double myDamage;
 
 
 
-    public ProjectileInfo(String image, int damage, Map<String,IBehavior> map, List<String> types){
+    public ProjectileInfo(String image, double damage, Map<String,IBehavior> map, List<String> types){
         myDamage=damage;
         myImage = image;
         myOnHitEffects=new ArrayList<>();
-        for(String s: map.keySet()){
-            myOnHitEffects.add(map.get(s));
+        if(map != null) {
+            for(String s: map.keySet()){
+                myOnHitEffects.add(map.get(s));
+            }
+            myMovement=map.get("movement");
+            myOnHitEffects.remove(myMovement);
         }
-        myMovement=map.get("movement");
-        myOnHitEffects.remove(myMovement);
         myEnemyTypes=types;
 
     }
-    public ProjectileInfo(String image, int damage, IBehavior move, List<IBehavior> list, List<String> types){
+    public ProjectileInfo(String image, double damage, IBehavior move, List<IBehavior> list, List<String> types){
         myImage=image;
         myDamage=damage;
         myOnHitEffects=list;
         myMovement=move;
         myEnemyTypes=types;
     }
- 
-    
+
+
     public String getImage () {
         return myImage;
     }
-    
+
     public List<IBehavior> getOnHit(){
         return myOnHitEffects;
     }
-    
+
     public List<String> getEnemiesTypes(){
         return myEnemyTypes;
     }
@@ -52,11 +54,11 @@ public class ProjectileInfo {
         return (BaseMovementBehavior)myMovement;
     }
 
-    public int getMyDamage () {
+    public double getMyDamage () {
         return myDamage;
     }
 
-    public void setMyDamage (int myDamage) {
+    public void setMyDamage (double myDamage) {
         this.myDamage = myDamage;
     }
     public ProjectileInfo copy(){

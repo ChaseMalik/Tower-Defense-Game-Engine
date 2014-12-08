@@ -1,6 +1,8 @@
 package gameEngine.actors;
 
 import gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene;
+import gameEngine.InformationInterface;
+import gameEngine.updateObject;
 import gameEngine.actors.behaviors.BaseEffectBehavior;
 import gameEngine.actors.behaviors.BaseOnHitBehavior;
 import gameEngine.actors.behaviors.IBehavior;
@@ -36,7 +38,7 @@ public abstract class BaseActor extends Observable {
     protected Map<String, IBehavior> myBehaviors;
     protected String myName;
     protected transient CenteredImageView myNode;
-    protected InfoObject myInfo;
+    protected transient InformationInterface myInfo;
     protected double myRange;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
@@ -44,6 +46,7 @@ public abstract class BaseActor extends Observable {
     protected boolean myIsRemovable;
     protected Map<String,IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
+    protected double myARange;
     public BaseActor () {
 
     }
@@ -53,23 +56,24 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
+        myARange=range;
         myDebuffs=new HashMap<>();
         myDebuffsToRemove=new HashSet<>();
         myEffects=new HashSet<>();
         myTypes = new HashSet<>();
         myIsRemovable = false;
-        for (String s : behaviors.keySet()) {
-            if (behaviors.get(s).getType() != null) {
-                myTypes.addAll(behaviors.get(s).getType());
-            }
-        }
+//        for (String s : behaviors.keySet()) {
+//            if (behaviors.get(s).getType() != null) {
+//                myTypes.addAll(behaviors.get(s).getType());
+//            }
+//        }
         makeNode();
     }
 
     /**
      * Updates the actor by looping over all of its behaviors and performing them
      */
-    public void update (InfoObject info) {
+    public void update (InformationInterface info) {
         myInfo = info;
 
         for (String s : myBehaviors.keySet()) {
@@ -79,7 +83,7 @@ public abstract class BaseActor extends Observable {
     }
     public void addDebuff(IBehavior debuff){
         if(myDebuffs.containsKey(debuff.toString())){
-        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).undo(this);
+        ((BaseOnHitBehavior)myDebuffs.get(debuff.toString())).end(this);
         }
         myDebuffs.put(debuff.toString(), debuff);
     }
@@ -92,7 +96,9 @@ public abstract class BaseActor extends Observable {
                                                          array[1],
                                                          myImagePath);
     }
-    
+    public double getAttackRange(){
+        return myARange;
+    }
     public void makeNode (Point2D point) {
         int[] array = getSize();
         myNode = StringToImageViewConverter.getImageView(array[0],
@@ -160,14 +166,22 @@ public abstract class BaseActor extends Observable {
         return myRange;
     }
 
-    public List<BaseActor> getEnemiesInRange () {
-        return myInfo.getEnemiesInRange();
+    public List<BaseActor> getEnemiesInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseEnemy.class);
     }
 
-    public List<BaseActor> getTowersInRange () {
-        return myInfo.getTowersInRange();
+    public List<BaseActor> getTowersInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseTower.class);
     }
-    public InfoObject getInfoObject(){
+    
+    public List<BaseActor> getProjectilesInRange (double range) {
+        setRange(range);
+        return myInfo.getRequiredActors(this, BaseProjectile.class);
+    }
+    
+    public InformationInterface getInfoObject(){
         return myInfo;
     }
     public Collection<Class<? extends BaseActor>> getTypes () {
@@ -178,13 +192,27 @@ public abstract class BaseActor extends Observable {
         myRange = d;
     }
     
-    public void died(double flag) {
+    public void died() {
         myIsRemovable = true;
     }
     public boolean isDead(){
         return myIsRemovable;
     }
-    public void change(){
+    public void changeAndNotify(updateObject o){
         this.setChanged();
+        this.notifyObservers(o);
+        
     }
+    public boolean addTypes (Class<? extends BaseActor> type) {
+        return myTypes.add(type);
+    }
+    public void removeType(Class<? extends BaseActor> type){
+        myTypes.remove(type);
+    }
+
+    public void killed () {
+        // TODO Auto-generated method stub
+        myIsRemovable=true;
+    }
+
 }

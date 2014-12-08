@@ -8,7 +8,7 @@ public class ChangeThemeMenuItem extends VoogaMenuItem {
 
 	@Override
 	public void initialize() {
-		this.setText(GuiConstants.TEXT_GEN.get(GuiText.CHANGE_THEME));
+		this.textProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.CHANGE_THEME));
 		this.setOnAction(event -> GuiConstants.GUI_MANAGER.changeTheme());
 	}
 }

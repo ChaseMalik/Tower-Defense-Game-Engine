@@ -1,11 +1,15 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
+import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.behaviors.IBehavior;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import utilities.JavaFXutilities.slider.SliderContainer;
+import utilities.multilanguage.MultiLanguageUtility;
 import utilities.reflection.Reflection;
 
 /**
@@ -22,49 +26,54 @@ import utilities.reflection.Reflection;
  *
  */
 public class BehaviorBuilder {
-    
-    private static final int COMBO_BOX_WIDTH = 200;
-    
+
+    private static final double COMBO_BOX_WIDTH = 160;
+
     protected ComboBox<String> myComboBox;
     protected VBox myContainer;
-    private SliderContainer mySliderContainer;
+    private List<SliderContainer> mySliderContainers;
     protected SliderInfo mySliderInfo;
     private String myBehaviorType;
     private List<String> myBehaviorOptions;
-    
-    public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, SliderInfo sliderInfo) {
+
+    public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, 
+                           List<SliderInfo> sliderInfoObjects) {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
-        mySliderInfo = sliderInfo;
         createCenterDisplay();
-        mySliderContainer = new SliderContainer(sliderInfo);
-        myContainer.getChildren().add(mySliderContainer);
+        mySliderContainers = new ArrayList<SliderContainer>();
+        for(SliderInfo info:sliderInfoObjects) {
+            mySliderContainers.add(new SliderContainer(info));
+        }
+        myContainer.getChildren().addAll(mySliderContainers);
     }
 
     public IBehaviorKeyValuePair buildBehavior() {
         String behaviorSelected = myComboBox.getValue();
-        double sliderValue = mySliderContainer.getSliderValue();
+        List<Double> sliderValues = mySliderContainers.stream()
+                .map(slider->slider.getSliderValue())
+                .collect(Collectors.toList());
         String className = "gameEngine.actors.behaviors." + behaviorSelected;
         return new IBehaviorKeyValuePair(myBehaviorType,
-                                        (IBehavior) Reflection.createInstance(className, sliderValue));  
+                                         (IBehavior) Reflection.createInstance(className, sliderValues));  
     }
-    
+
     public void createCenterDisplay() {
         myContainer = new VBox();
-        myContainer.setStyle("-fx-border-width: 1px; " +
-                             "-fx-border-color: gray; " +
-                             "-fx-padding: 10px; " +
-                             "-fx-border-radius: 5px");
-        myContainer.setSpacing(20); 
-        myContainer.setPrefWidth(COMBO_BOX_WIDTH);
-        Label label = new Label(myBehaviorType);
+        myContainer.setStyle("-fx-border-width: 1px; -fx-border-color: gray; " +
+                "-fx-padding: 10px; -fx-border-radius: 5px");
+        myContainer.setSpacing(Constants.LG_PADDING); 
+        Label label = new Label();
+        label.textProperty().bind(MultiLanguageUtility.getInstance()
+                                  .getStringProperty(myBehaviorType));
         myComboBox = createComboBox();
         myContainer.getChildren().addAll(label, myComboBox);
     }
-    
+
     private ComboBox<String> createComboBox(){  
         ComboBox<String> CB = new ComboBox<String>();
-        CB.setPrefWidth(COMBO_BOX_WIDTH);
+        CB.setMinWidth(COMBO_BOX_WIDTH);
+        CB.setMaxWidth(COMBO_BOX_WIDTH);
         CB.getItems().addAll(myBehaviorOptions);
         return CB;
     }
@@ -75,6 +84,8 @@ public class BehaviorBuilder {
 
     public void reset () {
         myComboBox.setValue(null);
-        mySliderContainer.resetSlider();
+        for(SliderContainer container:mySliderContainers) {
+            container.resetSlider();
+        }
     }
 }

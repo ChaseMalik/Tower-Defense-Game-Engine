@@ -6,66 +6,46 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import utilities.XMLParsing.XMLParser;
 
 public class SpeedSlider extends ControlDockSlider {
-//    private String ffImage;
-//    private String slowImage;
-    //private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
 
-    @Override
-    public void initialize (Dimension2D containerSize) {
-        super.initialize(containerSize);
-        myParser = new XMLParser(new File(myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+	private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
 
-//        ffImage = myParser.getValuesFromTag("FastForwardImage").get(0);
-//        slowImage = myParser.getValuesFromTag("SlowDownImage").get(0);
+	@Override
+	public void initialize (Dimension2D containerSize) {
+		super.initialize(containerSize);
+		myParser = new XMLParser(new File(GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+		setUpSlider();
+		setUpSizing(containerSize);
 
-        setUpSizing (containerSize);
-        //mySlider.setNodeOrientation(event -> updateSpeed());
-//        setupImageViews(ffImage, slowImage);
-//        mySlider.setGraphic(myImageView);
-    }
+	}
 
-//    private void fastForward() {
-//        myListener.fastForward();
-//        myButton.setOnAction(event-> normalSpeed());
-//    }
-    
-//    private void normalSpeed() {
-//        myListener.normalSpeed();
-//        myButton.setOnAction(event->fastForward());
-//    }
-    
-//    /**
-//     * Method to check the value of the 
-//     * fps slider and update the animation speed.
-//     */
-//    private void updateFPS() {
-//        framesPerSecond = (int) Math.round(fpsSlider.getValue());
-//        animation.stop();
-//        animation.getKeyFrames().remove(frame);
-//        frame = makeFrame();
-//        animation.getKeyFrames().add(frame);
-//        animation.play();
-//    }
-    
-//    fpsSlider = new Slider(1, 10, 1);
-//    fpsSlider.setValue(framesPerSecond);
-//    fpsSlider.setMajorTickUnit(1);
-//    fpsSlider.setSnapToTicks(true);
-//    fpsSlider.setMinWidth(BUTTON_WIDTH);
-//    fpsSlider.setMaxWidth(BUTTON_WIDTH);
-//    fpsSlider.setMajorTickUnit(1.0);
-//    fpsSlider.setShowTickMarks(false);
-//    fpsSlider.setSnapToTicks(true);
-    
-//    gridNew.add(fpsSlider, rightSide, numCols + 1);
-    
-    @Override
-    public Node getNode () {
-        return mySlider;
-    }
+	private void setUpSlider(){
+
+		mySlider.setValue(1.0);
+		mySlider.setMin(0.5);
+		mySlider.setMax(5);
+		mySlider.setMajorTickUnit(0.5);
+		mySlider.setShowTickMarks(true);
+		mySlider.setSnapToTicks(true);
+
+		mySlider.valueProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				myListener.changeSpeed((double) o.getValue());
+			}
+		});
+	}
+
+	@Override
+	public Node getNode () {
+		return mySlider;
+	}
 }

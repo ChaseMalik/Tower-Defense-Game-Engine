@@ -1,10 +1,15 @@
 package gameEngine.actors.behaviors;
 
+import java.util.List;
 import gameEngine.actors.BaseActor;
 
 
 public class DoTOnHit extends BaseOnHitBehavior {
-
+    private double myDamage;
+    public DoTOnHit(List<Double> list){
+        super(list);
+        myDamage=list.get(1);
+    }
     public DoTOnHit (double duration, double damage) {
         super(duration, damage);
         // TODO Auto-generated constructor stub
@@ -12,32 +17,35 @@ public class DoTOnHit extends BaseOnHitBehavior {
     public DoTOnHit (double damage){
         this(30.0, damage);
     }
-    @Override
-    public void execute (BaseActor actor) {
-        // TODO Auto-generated method stub
-        BaseDefendBehavior m = ((BaseDefendBehavior) actor.getBehavior("defend"));
-        double d = m.getHealth()-myMultiplier/myInitialDuration;
-        m.setHealth(d);
- //       System.out.println(m.getHealth());
-        if(m.getHealth()<=0)
-            actor.died(1);
-        if (myDuration == 0) {
-            actor.removeDebuff(this);
-            undo(actor);
-        }
-        myDuration--;
-    }
 
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new DoTOnHit(myDuration, myMultiplier);
+        return new DoTOnHit(myList);
+    }
+    @Override
+    public void during (BaseActor actor) {
+        // TODO Auto-generated method stub
+        BaseDefendBehavior m = ((BaseDefendBehavior) actor.getBehavior("defend"));
+        double d = m.getHealth()-myDamage/myInitialDuration;
+        m.setHealth(d);
+ 
+        if(m.getHealth()<=0){
+            
+            actor.killed();
+        }
+    }
+    @Override
+    public void start (BaseActor actor) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void end (BaseActor actor) {
+        // TODO Auto-generated method stub
+        actor.removeDebuff(this);
     }
 
-    @Override
-    public void undo (BaseActor actor) {
-        // TODO Auto-generated method stub
-      
-    }
+
 
 }

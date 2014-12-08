@@ -5,7 +5,12 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
+/**
+ * A class to represents the tiles in the grid used by the user to select
+ * the regions where towers can and cannot be placed.
+ * @author Austin Kyker
+ *
+ */
 public class Tile extends Rectangle {
 
     protected static final double WIDTH =

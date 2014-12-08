@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.levelBuilding;
 
+import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
+import utilities.multilanguage.MultiLanguageUtility;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -67,9 +69,11 @@ public class LevelDisplayCell extends HBox {
         levelInfoBox.setPadding(new Insets(15));
         HBox timeAndSeconds = new HBox(10);
         myLevelDurationField = new NumericalTextField(TEXT_FIELD_WIDTH);
-        Label secondsLabel = new Label("seconds");
+        Label secondsLabel = new Label();
+        secondsLabel.textProperty().bind(MultiLanguageUtility.getInstance()
+                                         .getStringProperty(Constants.SECONDS));
         timeAndSeconds.getChildren().addAll(myLevelDurationField, secondsLabel);
-        Label levelLabel = new Label("Level " + myLevelNum);
+        Label levelLabel = new Label("Level " + (myLevelNum+1));
         levelLabel.getStyleClass().add("levelLabel");
         levelInfoBox.getChildren().addAll(levelLabel,
                                           timeAndSeconds);

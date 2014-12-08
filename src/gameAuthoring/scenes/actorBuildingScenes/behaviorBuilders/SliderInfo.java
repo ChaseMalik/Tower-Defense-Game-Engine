@@ -1,5 +1,10 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
+/**
+ * A class to hold information about a slider.
+ * @author Austin Kyker
+ *
+ */
 public class SliderInfo {
     private String myInfo;
     private double myMin;

@@ -51,7 +51,7 @@ public class HTTPConnection {
                     return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful post request" + responseCode);
+                    new ErrorPopup("Unsuccesful get request" + responseCode);
                     return "";
                 }
                 
@@ -59,7 +59,7 @@ public class HTTPConnection {
         }
  
         // HTTP POST request
-        public void sendPost(String url, String urlParameters){
+        public String sendPost(String url, String urlParameters){
             
                 URL obj;
                 int responseCode = 0;
@@ -96,9 +96,11 @@ public class HTTPConnection {
      
                     //print result
                     System.out.println(response.toString());
+                    return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful get request" + responseCode);
+                    new ErrorPopup("Unsuccesful post request" + responseCode);
+                    return "";
                 }
                 
  

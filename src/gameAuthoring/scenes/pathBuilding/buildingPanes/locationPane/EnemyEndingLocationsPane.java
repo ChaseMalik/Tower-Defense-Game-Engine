@@ -1,5 +1,7 @@
 package gameAuthoring.scenes.pathBuilding.buildingPanes.locationPane;
 
+import utilities.multilanguage.MultiLanguageUtility;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.pathBuilding.PathBuildingScene;
 import gameAuthoring.scenes.pathBuilding.enemyLocations.PathEndingLocation;
 import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
@@ -16,20 +18,22 @@ import javafx.scene.input.MouseEvent;
  */
 public class EnemyEndingLocationsPane extends EnemyLocationPane {
 
-    private static final String LABEL_TEXT = "Click to add a End Location";
-    private static final String SET_BTN_TEXT = "Set End Locations";
-    private Button mySaveEndsButton = new Button(SET_BTN_TEXT);
+    private Button mySaveEndsButton;
     private PathBuildingScene myPathBuildingScene;
 
     public EnemyEndingLocationsPane (Group group, Path path, PathBuildingScene pathBuildingScene) {
         super(group, path);
+        mySaveEndsButton = new Button();
+        mySaveEndsButton.textProperty().bind(MultiLanguageUtility.getInstance()
+                .getStringProperty(Constants.SET_END_LOCS));
         myPathBuildingScene = pathBuildingScene;
         createEnemyEndingLocationsSetupComponents();
         this.setOnMouseClicked(event -> addNewEndingLocation(event));
     }
 
     private void createEnemyEndingLocationsSetupComponents () {
-        super.createEnemyLocationsSetupComponents(mySaveEndsButton, LABEL_TEXT);
+        super.createEnemyLocationsSetupComponents(mySaveEndsButton,
+                                                  Constants.ENEMY_ENDING_LOC_PROMPT);
         mySaveEndsButton.setOnAction(event -> myPathBuildingScene
                 .proceedToLineDrawerModeIfLocationsVerified());
         myClearLocations.setOnAction(event -> myPath.clearEnemyEndingLocations());

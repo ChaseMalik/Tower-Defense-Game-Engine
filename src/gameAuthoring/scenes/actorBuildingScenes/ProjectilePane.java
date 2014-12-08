@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
 import gameEngine.actors.BaseEnemy;
@@ -19,66 +20,86 @@ import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropCopy
 import utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes.DragAndDropImagePane;
 import utilities.JavaFXutilities.slider.SliderContainer;
 import utilities.XMLParsing.XMLParser;
+import utilities.multilanguage.MultiLanguageUtility;
+
 
 public class ProjectilePane extends Observable implements Observer {
-    
-    private static final String PROJECTILE_IMG_DIR = AuthorController.gameDir + "projectileImages/";
-    private static final String PROJECTILE_BEHAVIORS_XML = "./src/gameAuthoring/Resources/actorBehaviors/ProjectileBehaviors.xml";
-    private SliderContainer mySliderContainer;
-    private HBox myContainer;
+
+    private static final String TITLE_CSS = "title";
+    private static final String RIGHT_BOX_CSS = "projectileRightBox";
+    private static final int LARGE_PADDING = 20;
+    private static final int SMALL_PADDING = 10;
+    private static final int PROJECTILE_IMG_HEIGHT = 80;
+    private static final int PROJECTILE_IMG_WIDTH = 100;
+    private static final String DRAG_N_DROP_CSS = "borderedPane";
+    private static final String PROJECTILE_IMG_DIR =
+            AuthorController.gameDir + "projectileImages/";
+    private static final String PROJECTILE_BEHAVIORS_XML =
+            "./src/gameAuthoring/Resources/actorBehaviors/ProjectileBehaviors.xml";
+    private VBox myContainer;
     private DragAndDropImagePane myDropImgPane;
     private ArrayList<BehaviorBuilder> myBehaviorBuilders;
     private SliderContainer myDamageSlider;
-    
-    public ProjectilePane() {
-        
-        
+
+    public ProjectilePane () {
+
+        File dir = new File(PROJECTILE_IMG_DIR);
+        dir.mkdir();
+
         myBehaviorBuilders = new ArrayList<BehaviorBuilder>();
         XMLParser parser = new XMLParser(new File(PROJECTILE_BEHAVIORS_XML));
         List<String> allBehaviorTypes = parser.getAllBehaviorTypes();
-        for(String behaviorType:allBehaviorTypes){
-            List<String> behaviorOptions = parser.getValuesFromTag(behaviorType);
-            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions, parser.getSliderInfo(behaviorType)));
+        for (String behaviorType : allBehaviorTypes) {
+            List<String> behaviorOptions = parser.getBehaviorElementsFromTag(behaviorType);
+            myBehaviorBuilders.add(new BehaviorBuilder(behaviorType, behaviorOptions,
+                                                       parser.getSliderInfo(behaviorType)));
         }
-        
-        myDamageSlider = new SliderContainer("Damage", 1, 5);
-        HBox behaviorBox = new HBox(10);
-        behaviorBox.getChildren().add(myDamageSlider);
-        for(BehaviorBuilder builder:myBehaviorBuilders) {
+
+        HBox behaviorBox = new HBox(SMALL_PADDING);
+        for (BehaviorBuilder builder : myBehaviorBuilders) {
             behaviorBox.getChildren().add(builder.getContainer());
         }
-                
-        File dir = new File(PROJECTILE_IMG_DIR);
-        dir.mkdir();
-        
-        myContainer = new HBox(20);
-        myContainer.setPadding(new Insets(10));
-        Label title = new Label("Projectile");
-        title.setStyle("-fx-font-size: 18px");
-        VBox leftBox = new VBox(10);
-        leftBox.getChildren().addAll(title, behaviorBox);
-        myDropImgPane = new DragAndDropCopyImagePane(200, 100, PROJECTILE_IMG_DIR);
-        myDropImgPane.getPane().setStyle("-fx-background-color: white; -fx-border: 2px; -fx-border-color: gray; -fx-border-radius: 5px");
-        myContainer.getChildren().addAll(leftBox, myDropImgPane.getPane());
+
+        myContainer = new VBox(LARGE_PADDING);
+        myContainer.setPadding(new Insets(SMALL_PADDING));
+
+        Label title = new Label();
+        title.textProperty().bind(MultiLanguageUtility.getInstance()
+                .getStringProperty(Constants.PROJECTILE));
+        title.getStyleClass().add(TITLE_CSS);
+
+        myDropImgPane = new DragAndDropCopyImagePane(PROJECTILE_IMG_WIDTH,
+                                                     PROJECTILE_IMG_HEIGHT,
+                                                     PROJECTILE_IMG_DIR);
+        myDropImgPane.getPane().getStyleClass().add(DRAG_N_DROP_CSS);
+        VBox rightBox = new VBox(10);
+        rightBox.setMaxWidth(120);
+        myDamageSlider = new SliderContainer(Constants.DAMAGE, 1, 5);
+        rightBox.getChildren().addAll(myDamageSlider, myDropImgPane.getPane());
+        rightBox.getStyleClass().add(RIGHT_BOX_CSS);
+        behaviorBox.getChildren().add(rightBox);
+        myContainer.getChildren().addAll(title, behaviorBox);
     }
 
-    public HBox getNode () {
+    public VBox getNode () {
         return myContainer;
     }
 
-    @Override
-    public void update (Observable arg0, Object arg1) {
-        myContainer.getChildren().remove(myDropImgPane.getPane());             
-    }
-    
-    public ProjectileInfo makeProjectileInfo(List<BaseEnemy> enemiesCanDamage) {
-        List<String> enemyStrings = enemiesCanDamage
-                .stream()
-                .map(enemy->enemy.toString())
+    public ProjectileInfo makeProjectileInfo (List<BaseEnemy> enemiesCanDamage) {
+        List<String> enemyStrings = enemiesCanDamage.stream()
+                .map(enemy -> enemy.toString())
                 .collect(Collectors.toList());
         return new ProjectileInfo(myDropImgPane.getImagePath(),
                                   (int) myDamageSlider.getSliderValue(),
                                   BehaviorMapBuilder.buildMap(myBehaviorBuilders),
                                   enemyStrings);
+    }
+
+    /**
+     * Called when Projectile image is dragged in.
+     */
+    @Override
+    public void update (Observable arg0, Object arg1) {
+        myContainer.getChildren().remove(myDropImgPane.getPane());
     }
 }

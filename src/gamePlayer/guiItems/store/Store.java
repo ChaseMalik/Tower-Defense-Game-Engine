@@ -7,11 +7,14 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import java.io.File;
 import java.util.List;
 
+import javafx.event.Event;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
 import utilities.XMLParsing.XMLParser;
 
@@ -47,8 +50,17 @@ public class Store implements GuiItem {
         myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
+        myTilePane.toFront();
+        
+        myTilePane.setOnKeyPressed(event -> checkEscape(event));
 
         myListener.registerStore(this);
+    }
+    
+    private void checkEscape(Event ke){
+    	if (((KeyEvent)ke).getCode() == KeyCode.ESCAPE){
+    		myListener.escapePlace();
+    	}
     }
 
     public void fillStore(List<StoreItem> storeItems) {
@@ -93,4 +105,12 @@ public class Store implements GuiItem {
         pane.setHbarPolicy(ScrollBarPolicy.NEVER);
         return pane;
     }
+
+	public void freeze() {
+		myTilePane.setDisable(true);
+	}
+	
+	public void unfreeze(){
+		myTilePane.setDisable(false);
+	}
 }

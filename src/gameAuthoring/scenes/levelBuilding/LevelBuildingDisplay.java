@@ -5,17 +5,28 @@ import gameEngine.levels.BaseLevel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * A ScrollPane that allows the user to build and visualize all of the levels.
+ * @author Austin Kyker
+ *
+ */
+public class LevelBuildingDisplay extends ScrollPane {
 
-public class LevelBuildingDisplay extends VBox {
+    private static final double HEIGHT = 600;
 
     private List<BaseEnemy> myEnemies;
     private List<LevelDisplayCell> myLevelCells;
+    private VBox myLevelsContainer;
 
     public LevelBuildingDisplay (List<BaseEnemy> enemies) {
         myEnemies = enemies;
         myLevelCells = new ArrayList<LevelDisplayCell>();
+        myLevelsContainer = new VBox();
+        this.setContent(myLevelsContainer);
+        this.setPrefHeight(HEIGHT);
         addLevel();
     }
 
@@ -23,7 +34,7 @@ public class LevelBuildingDisplay extends VBox {
         int numLevels = myLevelCells.size();
         LevelDisplayCell cell = new LevelDisplayCell(myEnemies, numLevels);
         myLevelCells.add(cell);
-        this.getChildren().add(cell);
+        myLevelsContainer.getChildren().add(cell);
     }
 
     public boolean isAllUserInputIsValid () {

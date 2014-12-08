@@ -4,10 +4,14 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseTower;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class TowerRangeEffect extends RangeEffect {
-
+    private int myRange;
+    public TowerRangeEffect(List<Double> list){
+        super(list);
+    }
     public TowerRangeEffect (double change) {
         super(change);
         myString="towerRangeEffect";
@@ -15,7 +19,7 @@ public class TowerRangeEffect extends RangeEffect {
 
     @Override
     public void execute (BaseActor actor) {
-       for(BaseActor a :actor.getTowersInRange()){
+       for(BaseActor a :actor.getTowersInRange(myRange)){
            
            a.addEffect(this);
        }
@@ -23,14 +27,9 @@ public class TowerRangeEffect extends RangeEffect {
 
     @Override
     public IBehavior copy () {
-        return new TowerRangeEffect(myChange);
+        return new TowerRangeEffect(myList);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-       Set<Class<? extends BaseActor>> set = new HashSet<>();
-       set.add(BaseTower.class);
-       return set;
-    }
+
 
 }

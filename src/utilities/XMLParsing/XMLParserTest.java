@@ -2,6 +2,7 @@ package utilities.XMLParsing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import java.io.File;
 import java.util.List;
 import javafx.geometry.Dimension2D;
@@ -28,19 +29,29 @@ public class XMLParserTest {
     
     @Test
     public void XMLParsingBehaviorOptionsTest() {
-        List<String> movementsList = myBehaviorExtractionXMLParser.getValuesFromTag("movement");
+        List<String> movementsList = myBehaviorExtractionXMLParser.getBehaviorElementsFromTag("movement");
         assertEquals(3, movementsList.size());
         String[] movementVals = new String[]{"FastMovement", "SlowMovement", "NoMovement"};
         for(int i = 0; i < movementsList.size(); i++){
             assertEquals(movementVals[i], movementsList.get(i));
         }        
         
-        List<String> attackList = myBehaviorExtractionXMLParser.getValuesFromTag("attack");
+        List<String> attackList = myBehaviorExtractionXMLParser.getBehaviorElementsFromTag("attack");
         assertEquals(2, attackList.size());
         String[] attackVals = new String[]{"BigAttack", "SmallAttack"};
         for(int i = 0; i < attackList.size(); i++){
             assertEquals(attackVals[i], attackList.get(i));
         } 
+    }
+    
+    @Test
+    public void XMLParsingSliderInfo() {
+        List<SliderInfo> sliderInfoList = myBehaviorExtractionXMLParser.getSliderInfo("attack");
+        assertEquals(2, sliderInfoList.size());
+        SliderInfo slider = new SliderInfo("slider1", 1, 5);
+        assertEquals(slider.getMyInfo(), sliderInfoList.get(0).getMyInfo());
+        assertEquals(1, Math.round(sliderInfoList.get(0).getMyMin()));
+        assertEquals(5, Math.round(sliderInfoList.get(0).getMyMax()));
     }
     
     @Test

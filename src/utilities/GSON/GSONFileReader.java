@@ -1,16 +1,16 @@
 package utilities.GSON;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
 import gameEngine.actors.behaviors.IBehavior;
 import gameEngine.levels.BaseLevel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import utilities.GSON.objectWrappers.DataWrapper;
+import utilities.GSON.objectWrappers.GameStateWrapper;
+import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.errorPopup.ErrorPopup;
 
 import com.google.gson.GsonBuilder;
@@ -21,15 +21,16 @@ public class GSONFileReader {
 
 
 
-	GsonBuilder gson;
+    GsonBuilder gson;
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;
     private boolean[][] locations;
     private GameStateWrapper gameState;
+    private GeneralSettingsWrapper generalSettings;
 
     public GSONFileReader(){
-    	gson = new GsonBuilder();
-    	gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
+        gson = new GsonBuilder();
+        gson.registerTypeAdapter(IBehavior.class, new IBehaviorClassAdapter());
     }
 
     public List<TowerUpgradeGroup> readTowersFromGameDirectory(String gameDir){
@@ -53,13 +54,13 @@ public class GSONFileReader {
 
         return levelList;
     }
-       
+
     public List<DataWrapper> readWrappers(String towers){
-    	
-    	return gson.create().fromJson(towers, new TypeToken<List<DataWrapper>>() {}.getType());
-    
+
+        return gson.create().fromJson(towers, new TypeToken<List<DataWrapper>>() {}.getType());
+
     }
-    
+
     public boolean[][] readTowerRegionsFromGameDirectory(String gameDir){
         try{            
             BufferedReader br = new BufferedReader(new FileReader(gameDir + "locations.json"));        
@@ -70,17 +71,30 @@ public class GSONFileReader {
 
         return locations;
     }
-    
+
     public GameStateWrapper readGameStateFromJSon(String directory){
-    	
+
         try{            
             BufferedReader br = new BufferedReader(new FileReader(directory + "gameState.json"));   
             gameState = gson.create().fromJson(br, GameStateWrapper.class);
         } catch(IOException e){
             new ErrorPopup("File could not be found.");
         }   
-    	
+
         return gameState;
     }
     
+    public GeneralSettingsWrapper readGeneralSettingsWrapper(String directory){
+    	
+        try{            
+            BufferedReader br = new BufferedReader(new FileReader(directory + "generalSettings.json"));   
+            generalSettings = gson.create().fromJson(br,GeneralSettingsWrapper.class);
+        } catch(IOException e){
+            new ErrorPopup("File could not be found.");
+        }   
+        
+        return generalSettings;
+    	
+    }
+
 }

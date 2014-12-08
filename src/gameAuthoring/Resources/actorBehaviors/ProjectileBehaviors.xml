@@ -1,9 +1,40 @@
 <behaviors>
- 	<movement sliderName="speed" sliderMin="0" sliderMax="5">
-		<element>LinearMovement</element>
+ 	<movement>
+ 		<sliders>
+ 			<slider name="speed" min="0" max="5"></slider>
+ 		</sliders>
+ 		<elements>
+			<element>LinearMovement</element>
+		</elements>
 	</movement>
-	 <onhiteffect sliderName="multiplier" sliderMin="0" sliderMax="5">
-		<element>SlowEffect</element>
-		<element>DoTOnHit</element>
+	 <onhiteffect>
+	 	<sliders>
+	 		<slider name="Duration" min="0" max="90"></slider>
+	 		<slider name="Multiplier" min="0" max="1"></slider>
+	 	</sliders>
+	 	<elements>
+			<element>SlowEffect</element>
+			<element>NullBehavior</element>
+		</elements>
 	</onhiteffect>
+	 <onhiteffect1>
+	 	<sliders>
+	 		<slider name="Duration" min="0" max="90"></slider>
+	 		<slider name="Damage" min="0" max="1"></slider>
+	 	</sliders>
+	 	<elements>
+			<element>DoT</element>
+			<element>NullBehavior</element>
+		</elements>
+	</onhiteffect1>
+	 <onhiteffect2>
+	 	<sliders>
+	 		<slider name="Damage" min="0" max="100"></slider>
+	 		<slider name="Range" min="0" max="250"></slider>
+	 	</sliders>
+	 	<elements>
+			<element>SlowEffect</element>
+			<element>NullBehavior</element>
+		</elements>
+	</onhiteffect2>
 </behaviors>

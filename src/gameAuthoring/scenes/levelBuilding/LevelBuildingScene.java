@@ -1,10 +1,12 @@
 package gameAuthoring.scenes.levelBuilding;
 
-import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
+import gameAuthoring.mainclasses.Constants;
+import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
 import java.util.Observable;
 import java.util.Observer;
+import utilities.multilanguage.MultiLanguageUtility;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 
@@ -20,9 +22,9 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     private static final String TITLE = "Level";
 
     private LevelBuildingDisplay myLevelsDisplay;
-    private LevelConfiguring myLevelConfiguringController;
+    private ILevelConfiguring myLevelConfiguringController;
 
-    public LevelBuildingScene (BorderPane root, LevelConfiguring controller) {
+    public LevelBuildingScene (BorderPane root, ILevelConfiguring controller) {
         super(root, TITLE);
         myLevelConfiguringController = controller;
         createMenuAndAddNewLevelOption();
@@ -36,7 +38,8 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
 
     private void createMenuAndAddNewLevelOption () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
-        MenuItem newLevelItem = new MenuItem("New Level");
+        MenuItem newLevelItem = new MenuItem();
+        newLevelItem.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(Constants.NEW_LEVEL));
         newLevelItem.setOnAction(event -> myLevelsDisplay.addLevel());
         menu.addMenuItemToFileMenu(newLevelItem);
         menu.addObserver(this);
