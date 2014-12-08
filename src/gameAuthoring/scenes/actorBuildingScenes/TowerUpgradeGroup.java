@@ -16,7 +16,7 @@ public class TowerUpgradeGroup implements Iterable<BaseTower> {
     private int myNumPossibleUpgrades;
 
     public TowerUpgradeGroup(BaseTower base) {
-        this(base, 3);
+        this(base, TowerBuildingScene.NUM_UPGRADES_POSSIBLE);
     }
 
     public TowerUpgradeGroup(BaseTower base, int numPossibleUpgrades) {

@@ -16,7 +16,6 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
@@ -420,5 +419,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	@Override
 	public void registerSpeedSlider(SpeedSlider slider) {
 		mySpeedSlider = slider;
+	}
+
+	@Override
+	public void escapePlace() {
+		myGameWorld.getMap().setOnMouseMoved(null);
+		myGameWorld.getMap().setOnMouseReleased(null);
+		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
 	}
 }

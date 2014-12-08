@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.levelBuilding;
 
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
@@ -38,7 +39,7 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     private void createMenuAndAddNewLevelOption () {
         BuildingSceneMenu menu = new BuildingSceneMenu();
         MenuItem newLevelItem = new MenuItem();
-        newLevelItem.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty("NewLevel"));
+        newLevelItem.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(Constants.NEW_LEVEL));
         newLevelItem.setOnAction(event -> myLevelsDisplay.addLevel());
         menu.addMenuItemToFileMenu(newLevelItem);
         menu.addObserver(this);
