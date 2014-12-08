@@ -88,7 +88,7 @@ public class ClickAnywherePane implements GuiItem {
 	private void dummyLoop(Timeline timeline) {
 		if (timeline.getTotalDuration().toSeconds() >= 2) {
 			timeline.stop();
-			GuiConstants.WELCOME_MANAGER.newGame();
+			// GuiConstants.WELCOME_MANAGER.newGame();
 		}
 	}
 	

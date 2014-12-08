@@ -1,9 +1,7 @@
 package gamePlayer.mainClasses.welcomeScreen.availableGames;
 
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
-
 import java.io.File;
-
+import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -30,8 +28,6 @@ public class GameDescription extends Pane {
         button.getStyleClass().add("gameDescriptionButton");
         button.setPrefSize(WIDTH, GAME_DESCRIPTION_HEIGHT);
         button.setOnAction(event->GuiConstants.GAME_START_MANAGER.startGame(file));
-        // button.setOnAction(event->GuiConstants.WELCOME_MANAGER.startGame(file));
-
 
         box.getChildren().addAll(image,button);
         this.getChildren().add(box);
