@@ -214,39 +214,30 @@ class VideoPlayer extends BorderPane {
 
     private static String calculateTime (Duration elapsed, Duration duration) {
         int time = (int)Math.floor(elapsed.toSeconds());
+
         int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-
-        if (hours > 0) {
-            time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        }
-
+        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
         int minutes = time / SECONDS_PER_MINUTE;
-        int seconds = time - hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE - minutes * SECONDS_PER_MINUTE;
+        time -= minutes * SECONDS_PER_MINUTE;
+        int seconds = time;
 
         return formatTime(duration, hours, minutes, seconds);
     }
 
-    private static String formatTime (Duration duration, int hours, int minutes, int seconds) {
+    private static String formatTime (Duration duration, int intHours, int intMinutes, int intSeconds) {
         if (duration.greaterThan(Duration.ZERO)) {
-            int time = (int) Math.floor(duration.toSeconds());
-            int numHours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+            int time = (int)Math.floor(duration.toSeconds());
 
-            if (numHours > 0) {
-                time -= numHours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-            }
+            int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+            time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+            int minutes = time / SECONDS_PER_MINUTE;
+            time -= minutes * SECONDS_PER_MINUTE;
+            int seconds = time;
 
-            int numMinutes = time / SECONDS_PER_MINUTE;
-            
-            if (numMinutes > 0) {
-                time -= numMinutes * SECONDS_PER_MINUTE;
-            }
-            
-            int numSeconds = time;
-
-            return String.format("%d:%02d:%02d/%d:%02d:%02d", hours, minutes, seconds, numHours, numMinutes, numSeconds);
+            return String.format("%d:%02d:%02d/%d:%02d:%02d", intHours, intMinutes, intSeconds, hours, minutes, seconds);
         }
         else {
-            return String.format("%d:%02d:%02d/0:00:00", hours, minutes, seconds);
+            return String.format("%d:%02d:%02d/0:00:00", intHours, intMinutes, intSeconds);
         }
     }
 }
