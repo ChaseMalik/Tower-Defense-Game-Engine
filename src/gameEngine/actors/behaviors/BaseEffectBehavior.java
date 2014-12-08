@@ -1,6 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
+import java.util.List;
 import java.util.Set;
 
 public abstract class BaseEffectBehavior implements IBehavior {
@@ -10,7 +11,10 @@ public abstract class BaseEffectBehavior implements IBehavior {
     public BaseEffectBehavior(double change){
         myChange = change;
     }
-    
+    public BaseEffectBehavior (List<Double> list) {
+
+    }
+
     public abstract void performEffect(BaseActor actor);
     public String toString(){
         return myString;

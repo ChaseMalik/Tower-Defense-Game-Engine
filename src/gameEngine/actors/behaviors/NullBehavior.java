@@ -1,7 +1,7 @@
 package gameEngine.actors.behaviors;
 
-import java.util.Set;
 import gameEngine.actors.BaseActor;
+import java.util.List;
 
 /**
  * Null behavior so that the authoring environment can allow users to choose no behavior
@@ -11,6 +11,9 @@ import gameEngine.actors.BaseActor;
  */
 public class NullBehavior implements IBehavior {
 
+    public NullBehavior(List<Double> list){
+        
+    }
     public NullBehavior(double n){
         
     }

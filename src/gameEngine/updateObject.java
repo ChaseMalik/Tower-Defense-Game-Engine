@@ -1,6 +1,5 @@
 package gameEngine;
 
-import gameEngine.actors.behaviors.UpdateInterface;
 
 public abstract class updateObject {
     protected int myValue;

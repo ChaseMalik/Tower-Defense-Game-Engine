@@ -10,10 +10,9 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
-import gameEngine.actors.behaviors.UpdateInterface;
+import gameEngine.UpdateInterface;
 import gameEngine.backendExceptions.BackendException;
 import gameEngine.levels.BaseLevel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,9 +26,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.sun.javafx.geom.Point2D;
-
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
 import javafx.animation.KeyFrame;
@@ -269,7 +266,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
-		saveState("/Users/Duke");
+		saveState("/Users/Duke/Desktop");
 		// myReadyToPlay.set(true);
 	}
 
