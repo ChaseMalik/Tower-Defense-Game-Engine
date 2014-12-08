@@ -562,7 +562,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 
 	public ImageView upgrade(ImageView n, String name) {
 		removeTower(n);
-		return addTower(name, ((ImageView) n).getX(), ((ImageView) n).getY());
+		return addTower(name, ((CenteredImageView) n).getXCenter(), ((CenteredImageView) n).getYCenter());
 
 	}
 
