@@ -1,7 +1,7 @@
 package gamePlayer.mainClasses.guiBuilder;
 
 /**
- * Convenience class for storing strings used in the TextGenerator
+ * Convenience class for storing strings used in the Multilanguage utility
  * @author allankiplagat
  *
  */

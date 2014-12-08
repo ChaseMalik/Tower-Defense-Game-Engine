@@ -47,7 +47,7 @@ public class VoogaMenuBar implements GuiItem {
 
 	private void initializeMenus() {
 		Menu fileMenu = createMenu("FileMenu");
-		fileMenu.setText(GuiConstants.TEXT_GEN.get(GuiText.FILE));
+		fileMenu.textProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.FILE));;
 		myMenuBar.getMenus().add(fileMenu);
 
 	}

@@ -6,9 +6,7 @@ import gamePlayer.mainClasses.managers.GuiManager;
 import gamePlayer.mainClasses.welcomeScreen.availableGames.GameChooser;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.MultiPlayerOptions;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions;
-
 import java.io.File;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,7 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.XMLParsing.XMLParser;
-import utilities.textGenerator.TextGenerator;
+import utilities.multilanguage.MultiLanguageUtility;
 
 public class GameStartManager {
     private Stage myStage;
@@ -31,7 +29,10 @@ public class GameStartManager {
     public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
-        GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
+        
+        GuiConstants.MULTILANGUAGE = MultiLanguageUtility.getInstance();
+        GuiConstants.MULTILANGUAGE.initLanguages("gamePlayer.properties.languages.English.properties");
+        
         GuiConstants.GAME_START_MANAGER = this;
         init();
     }
@@ -98,7 +99,7 @@ public class GameStartManager {
 
     private void startMultiPlayerGame(String directoryPath) {
         //wait for other player to join
-        welcomeScreen.setCenterContent(new LoadingIndicator(GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
+        welcomeScreen.setCenterContent(new LoadingIndicator(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.WAITING_FOR_CHALLENGER)));
 
         GuiManager manager = new GuiManager(myStage);
         manager.prepareMultiPlayerGame(directoryPath);

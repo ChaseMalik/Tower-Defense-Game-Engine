@@ -10,8 +10,9 @@ public class MultiPlayerOptions extends Options {
     private Button joinGameOption;
 
     public MultiPlayerOptions() {
-        newGameOption = createOptionButton(GuiConstants.TEXT_GEN.get(GuiText.NEW_GAME));
-        joinGameOption = createOptionButton(GuiConstants.TEXT_GEN.get(GuiText.JOIN_GAME));
+        newGameOption = createOptionButton(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.NEW_GAME));
+        
+        joinGameOption = createOptionButton(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.JOIN_GAME));
 
         this.getChildren().add(newGameOption);
         this.getChildren().add(joinGameOption);
