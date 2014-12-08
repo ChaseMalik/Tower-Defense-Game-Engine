@@ -212,7 +212,7 @@ public abstract class BaseActor extends Observable {
 
     public void killed () {
         // TODO Auto-generated method stub
-        
+        myIsRemovable=true;
     }
 
 }

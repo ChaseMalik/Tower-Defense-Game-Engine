@@ -27,10 +27,5 @@ public class StrongestRangeAttack extends RangeAttack {
         return new StrongestRangeAttack(myAttackSpeed);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        Set<Class<? extends BaseActor>> a = new HashSet<Class<? extends BaseActor>>();
-        a.add(BaseEnemy.class);
-        return a;
-    }
+
 }

@@ -48,13 +48,7 @@ public abstract class BaseAttack implements IBehavior {
 
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        Set<Class<? extends BaseActor>> a = new HashSet<Class<? extends BaseActor>>();
-        a.add(BaseTower.class);
-        a.add(BaseEnemy.class);
-        return a;
-    }
+
 
     public String toString () {
         return myName;

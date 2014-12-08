@@ -62,8 +62,5 @@ public abstract class BaseMovementBehavior implements IBehavior {
         actor.setXCenter(point.getX());
         actor.setYCenter(point.getY());
     }
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        return null;
-    }
+
 }

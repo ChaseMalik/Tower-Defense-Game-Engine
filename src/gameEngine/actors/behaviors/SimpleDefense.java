@@ -10,39 +10,20 @@ public class SimpleDefense extends BaseDefendBehavior {
     }
 
     @Override
-    public void execute (BaseActor actor) {
-        for (BaseActor b : actor.getProjectilesInRange(actor.getAttackRange())) {
-            BaseProjectile a = (BaseProjectile) b;
-            if (actor.getNode().intersects(a.getRange().getBoundsInLocal())) {
-                if(checkTypes(a,actor)){
-                if (a.getInfo().getOnHit() != null) {
-                    for (IBehavior e : a.getInfo().getOnHit()) {
-                        actor.addDebuff(e.copy());
-                    }
-                }
-                myHealth -= a.getInfo().getMyDamage();
-                if (myHealth <= 0) {
-                    // TODO add enemy cost
-                    actor.killed();
-                }
-                }
-                a.died();
-            }
-        }
-    }
-
-    private boolean checkTypes (BaseProjectile p, BaseActor a) {
-        // TODO Auto-generated method stub
-        
-        for(String s:p.getInfo().getEnemiesTypes()){
-            if(s.equals(a.toString()))
-                return true;
-        }
-        return false;
+    public IBehavior copy () {
+        return new SimpleDefense(myInitialHealth);
     }
 
     @Override
-    public IBehavior copy () {
-        return new SimpleDefense(myInitialHealth);
+    public void onDeath (BaseActor actor) {
+        // TODO Auto-generated method stub
+        actor.killed();
+    }
+
+    @Override
+    public void handleBullet (BaseProjectile p) {
+        // TODO Auto-generated method stub
+        myHealth -= p.getInfo().getMyDamage();
+        p.died();
     }
 }

@@ -24,10 +24,6 @@ public class NullBehavior implements IBehavior {
         return new NullBehavior(0);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
 }

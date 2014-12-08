@@ -4,9 +4,9 @@ import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 
 public class AoEEffect extends BaseOnHitBehavior{
-    private boolean bool;
     public AoEEffect (double multiplier) {
         super(1,multiplier);
+        myString="AoEEffect";
         // TODO Auto-generated constructor stub
     }
 
@@ -14,16 +14,22 @@ public class AoEEffect extends BaseOnHitBehavior{
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
         if(myDuration==1){
-            bool=actor.addTypes(BaseEnemy.class);
-        }else{
+            for(BaseActor a:actor.getEnemiesInRange(1000)){
+                a.killed();
+            }
             
         }
+            
+        if(myDuration==0){
+               actor.removeDebuff(this);
+        }
+        myDuration--;
     }
 
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return null;
+        return new AoEEffect(myMultiplier);
     }
 
     @Override

@@ -26,11 +26,6 @@ public class TowerRangeEffect extends RangeEffect {
         return new TowerRangeEffect(myChange);
     }
 
-    @Override
-    public Set<Class<? extends BaseActor>> getType () {
-       Set<Class<? extends BaseActor>> set = new HashSet<>();
-       set.add(BaseTower.class);
-       return set;
-    }
+
 
 }
