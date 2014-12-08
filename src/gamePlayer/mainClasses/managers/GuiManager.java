@@ -110,6 +110,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
+	private static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
 
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
@@ -356,6 +357,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void placeTower(String towerName) {
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
 				towerMap.get(towerName).getRange());
+		displayMessage(ESCAPE_TEXT, false);
 	}
 
 	@Override
@@ -410,5 +412,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
 		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
+		displayMessage(MessageDisplay.DEFAULT, false);
 	}
 }

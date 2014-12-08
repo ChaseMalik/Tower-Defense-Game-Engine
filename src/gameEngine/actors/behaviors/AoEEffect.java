@@ -1,7 +1,6 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
 
 public class AoEEffect extends BaseOnHitBehavior{
     public AoEEffect (double multiplier) {
@@ -10,21 +9,6 @@ public class AoEEffect extends BaseOnHitBehavior{
         // TODO Auto-generated constructor stub
     }
 
-    @Override
-    public void execute (BaseActor actor) {
-        // TODO Auto-generated method stub
-        if(myDuration==1){
-            for(BaseActor a:actor.getEnemiesInRange(1000)){
-                a.killed();
-            }
-            
-        }
-            
-        if(myDuration==0){
-               actor.removeDebuff(this);
-        }
-        myDuration--;
-    }
 
     @Override
     public IBehavior copy () {
@@ -33,9 +17,23 @@ public class AoEEffect extends BaseOnHitBehavior{
     }
 
     @Override
-    public void undo (BaseActor actor) {
+    public void during (BaseActor actor) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void start (BaseActor actor) {
+        // TODO Auto-generated method stub
+        for(BaseActor a:actor.getEnemiesInRange(1000)){
+            a.killed();
+        }
+    }
+
+    @Override
+    public void end (BaseActor actor) {
+        // TODO Auto-generated method stub
+        actor.removeDebuff(this);
     }
 
 }

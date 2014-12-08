@@ -1,10 +1,14 @@
 package gameEngine.actors.behaviors;
 
+import java.util.List;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
 
 public class PiercableDefense extends BaseDefendBehavior{
 
+    public PiercableDefense(List<Double> list){
+        super(list);
+    }
     PiercableDefense (double health) {
         super(health);
         // TODO Auto-generated constructor stub
