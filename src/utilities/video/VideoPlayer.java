@@ -1,5 +1,6 @@
 package utilities.video;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -52,7 +53,7 @@ class VideoPlayer extends BorderPane {
         definePlayButtonBehavior(mediaPlayer, playButton);
         myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(playButton);
-        
+
         myMediaBar.getChildren().add(new Label(SPACE));
 
         myTimeSlider = new Slider();
@@ -64,6 +65,15 @@ class VideoPlayer extends BorderPane {
         myTimeLabel = new Label(TIME_LABEL_TEXT);
         myTimeLabel.setPrefWidth(150);
         myTimeLabel.setMinWidth(50);
+
+        //        timeSlider.valueProperty().addListener(new InvalidationListener() {
+        //            public void invalidated(Observable ov) {
+        //                if (timeSlider.isValueChanging()) {
+        //                    mediaPlayer.seek(myDuration.multiply(timeSlider.getValue() / 100.0));
+        //                }
+        //            }
+        //        });
+
         myMediaBar.getChildren().add(myTimeLabel);
 
         myVolumeLabel = new Label(VOLUME_LABEL_TEXT);
@@ -102,6 +112,13 @@ class VideoPlayer extends BorderPane {
             }
         });
 
+        player.setOnReady(new Runnable() {
+            public void run () {
+                myDuration = player.getMedia().getDuration();
+                updateValues();
+            }
+        });
+
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
                 if (!replayVideo) {
@@ -131,6 +148,21 @@ class VideoPlayer extends BorderPane {
                 }
                 else {
                     player.pause();
+                }
+            }
+        });
+        player.currentTimeProperty().addListener(new InvalidationListener() {
+            public void invalidated (Observable observable) {
+                updateValues();
+            }
+        });
+    }
+
+    private void updateValues () {
+        Platform.runLater(new Runnable() {
+            public void run () {
+                if (!myVolumeSlider.isValueChanging()) {
+                    myVolumeSlider.setValue((int) Math.round(myMediaPlayer.getVolume() * 100));
                 }
             }
         });
