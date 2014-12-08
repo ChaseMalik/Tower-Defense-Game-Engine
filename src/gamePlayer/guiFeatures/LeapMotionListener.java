@@ -54,14 +54,14 @@ public class LeapMotionListener extends Listener {
 				swipe(new SwipeGesture(gesture));
 				break;
 			case TYPE_CIRCLE:
-				System.out.println("Circle!");
+				//System.out.println("Circle!");
 				circle(new CircleGesture(gesture));
 				break;
 			case TYPE_KEY_TAP:
-				System.out.println("Key tap!");
+				//System.out.println("Key tap!");
 				break;
 			case TYPE_SCREEN_TAP:
-				System.out.println("Screen tap!");
+				//System.out.println("Screen tap!");
 				Vector position = frame.fingers().frontmost()
 						.stabilizedTipPosition();
 				InteractionBox iBox = frame.interactionBox();
@@ -84,7 +84,7 @@ public class LeapMotionListener extends Listener {
 		if (circle.pointable().direction().angleTo(circle.normal()) <= Math.PI / 2) { // Clock-wise
 			Platform.runLater(() -> controller.circleCW());
 		} else { // Counter-Clockwise
-			Platform.runLater(() -> controller.circleCW());
+			Platform.runLater(() -> controller.circleCCW());
 		}
 	}
 
@@ -95,25 +95,21 @@ public class LeapMotionListener extends Listener {
 			return;
 		swipeTimer = System.currentTimeMillis();
 
-		System.out.println("SWIPE!!!");
-
-		System.out.println("Speed: " + gesture.speed());
-
 		Vector swipeDirection = gesture.direction();
 		double roll = Math.abs(swipeDirection.roll());
 		if (roll < .80) {
-			System.out.println("Down");
+			//System.out.println("Down");
 			Platform.runLater(() -> controller.swipeDown());
 		} else if (roll < 2.50) {
 			if (swipeDirection.roll() > 0) {
-				System.out.println("Right");
+				//System.out.println("Right");
 				Platform.runLater(() -> controller.swipeRight());
 			} else {
-				System.out.println("Left");
+				//System.out.println("Left");
 				Platform.runLater(() -> controller.swipeLeft());
 			}
 		} else {
-			System.out.println("Up");
+			//System.out.println("Up");
 			Platform.runLater(() -> controller.swipeUp());
 		}
 	}
