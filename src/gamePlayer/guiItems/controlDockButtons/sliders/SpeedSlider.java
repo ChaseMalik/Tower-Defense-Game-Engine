@@ -9,7 +9,6 @@ import java.io.File;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Dimension2D;
-import javafx.scene.Node;
 import utilities.XMLParsing.XMLParser;
 
 public class SpeedSlider extends ControlDockSlider {
@@ -18,8 +17,8 @@ public class SpeedSlider extends ControlDockSlider {
 
 	@Override
 	public void initialize (Dimension2D containerSize) {
-		super.initialize(containerSize);
 		myParser = new XMLParser(new File(GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML"));
+		super.initialize(containerSize);
 		setUpSlider();
 		setUpSizing(containerSize);
 		myListener.registerSpeedSlider(this);
@@ -54,10 +53,5 @@ public class SpeedSlider extends ControlDockSlider {
 				myListener.changeSpeed((double) o.getValue());
 			}
 		});
-	}
-
-	@Override
-	public Node getNode () {
-		return mySlider;
 	}
 }

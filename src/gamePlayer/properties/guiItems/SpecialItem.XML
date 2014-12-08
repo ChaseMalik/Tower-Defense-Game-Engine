@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SpecialItemProperties>
+    <SizeRatio>
+		<element>1</element>
+		<element>0.4</element>
+	</SizeRatio>
+	
+	<!-- Image ratio to button size -->
+	<ImageRatio>
+		<element>0.8</element>
+		<element>0.8</element>
+	</ImageRatio>
+	
+	<Images>
+	    <element>gamePlayer/playerImages/earthquake.png</element> <!-- Available -->
+	    <element>gamePlayer/playerImages/earthquake-disabled.png</element> <!-- Not Available -->
+	</Images>
+
+
+</SpecialItemProperties>

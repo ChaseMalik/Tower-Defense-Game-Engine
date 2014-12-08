@@ -9,11 +9,11 @@ import java.util.List;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import utilities.XMLParsing.XMLParser;
 import utilities.reflection.Reflection;
 
-public class ControlDock extends TilePane implements GuiContainer {
+public class ControlDock extends VBox implements GuiContainer {
     private XMLParser myParser;
 
     @Override

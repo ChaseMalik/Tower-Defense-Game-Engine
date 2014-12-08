@@ -17,8 +17,8 @@ import javafx.scene.Node;
 import utilities.XMLParsing.XMLParser;
 
 public class PlayButton extends ControlDockButton {
-    private String playImage;
-    private String pauseImage;
+	
+    private String playImage, pauseImage;
     private PlayButtonListener myListener = GuiConstants.GUI_MANAGER;
 
     @Override

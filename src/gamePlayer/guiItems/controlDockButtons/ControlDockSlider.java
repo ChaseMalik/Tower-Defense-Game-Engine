@@ -4,33 +4,62 @@ import gamePlayer.guiItems.GuiItem;
 //import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
 //import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 //import javafx.scene.control.ToggleButton;
 //import javafx.scene.image.Image;
 //import javafx.scene.image.ImageView;
 import utilities.XMLParsing.XMLParser;
 
 public abstract class ControlDockSlider implements GuiItem {
-    protected XMLParser myParser;
-    protected Slider mySlider;
 
-    protected Dimension2D sliderSize;
+	protected XMLParser myParser;
+	protected Slider mySlider;
+	private Label myLabel;
+	private Pane myPane;
 
-    @Override
-    public void initialize(Dimension2D containerSize) {
-    	mySlider = new Slider();
-    }
+	protected Dimension2D sliderSize, mySize;
+	private double heightRatio;
 
-    protected void setUpSizing(Dimension2D containerSize) {
-        Dimension2D sliderRatio = myParser.getDimension("SizeRatio");
+	@Override
+	public void initialize(Dimension2D containerSize) {
+		mySlider = new Slider();
+		setupPane(containerSize);
+		addLabel();
+		myPane.getChildren().addAll(mySlider, myLabel);
+	}
 
-        sliderSize = new Dimension2D(sliderRatio.getWidth()
-                * containerSize.getWidth(), sliderRatio.getHeight()
-                * containerSize.getHeight());
-       // mySlider.setMinSize(sliderSize.getWidth(), sliderSize.getHeight());
-    	mySlider.setMaxSize(sliderSize.getWidth(), sliderSize.getHeight());
-        //mySlider.setPrefSize(sliderSize.getWidth(), sliderSize.getHeight());
-       // mySlider.setMaxHeight(sliderSize.getHeight());
-       // mySlider.setMaxWidth(sliderSize.getWidth());
-    }
+	@Override
+	public Node getNode() {
+		return myPane;
+	}
+
+	protected void setUpSizing(Dimension2D containerSize) {
+
+		sliderSize = new Dimension2D(mySize.getWidth(),
+				mySize.getHeight() * heightRatio);
+		mySlider.setPrefSize(sliderSize.getWidth(), sliderSize.getHeight());
+	}
+
+	private void setupPane(Dimension2D containerSize) {
+		myPane = new VBox();
+
+		Dimension2D sizeRatios = myParser.getDimension("SizeRatio");
+		mySize = new Dimension2D(sizeRatios.getWidth()
+				* containerSize.getWidth(), sizeRatios.getHeight()
+				* containerSize.getHeight());
+		heightRatio = myParser.getDoubleValuesFromTag("SliderHeightRatio").get(
+				0);
+	}
+
+	private void addLabel() {
+		String text = myParser.getValuesFromTag("Label").get(0);
+		myLabel = new Label(text);
+		myLabel.setMinSize(mySize.getWidth(), (1-heightRatio)*mySize.getHeight());
+		myLabel.setAlignment(Pos.CENTER);
+	}
 }
