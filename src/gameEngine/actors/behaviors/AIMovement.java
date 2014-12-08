@@ -21,7 +21,7 @@ public class AIMovement extends BaseMovementBehavior {
     @Override
     public void execute (BaseActor actor) {
         // TODO Auto-generated method stub
-        InformationInterface info = actor.getInfoObject();
+        InformationInterface info = actor.getInfoInterface();
         BaseEnemy enemy = (BaseEnemy)actor;
         if(myIndex == -1) {
         	move(enemy, enemy.getStart().getPoint());

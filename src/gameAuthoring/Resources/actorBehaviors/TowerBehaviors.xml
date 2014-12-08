@@ -12,7 +12,8 @@
 	 </attack>
 	 <effect>
 	 	<sliders>
- 			<slider name="multiplier" min="0" max="2"></slider>
+ 			<slider name="range" min="0" max="500"></slider>
+ 			<slider	name="magnitude" min="0" max="2"></slider>
  		</sliders>
  		<elements>
 			<element>TowerRangeEffect</element>
