@@ -1,5 +1,6 @@
 package utilities.JavaFXutilities.slider;
 
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,41 +18,36 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public class SliderContainer extends VBox {
     
+    private static final int SLIDER_WIDTH = 120;
     private Slider mySlider;
     private SliderInfo mySliderInfo;
     private Label myValueLabel;
     
     
     public SliderContainer(String name, double min, double max) {
-        super(10);
+        super(Constants.SM_PADDING);
         mySliderInfo = new SliderInfo(name, min, max);
-        resetSlider();
-        HBox nameAndValue = new HBox(10);
+        setupSlider();
+        HBox nameAndValue = new HBox(Constants.SM_PADDING);
         myValueLabel = new Label(Double.toString(mySlider.getValue()));
         nameAndValue.getChildren().addAll(getNameLabel(name), myValueLabel);
         this.getChildren().addAll(nameAndValue, mySlider);
     }
-    
-    private Label getNameLabel (String name) {
-        Label label = new Label();
-        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(name));
-        return label;
-    }
 
     public SliderContainer(SliderInfo info) {
-        super(10);
+        super(Constants.SM_PADDING);
         mySliderInfo = info;
-        resetSlider();
-        HBox sliderAndValue = new HBox(10);
+        setupSlider();
+        HBox sliderAndValue = new HBox(Constants.SM_PADDING);
         myValueLabel = new Label(Double.toString(mySlider.getValue()));
         sliderAndValue.getChildren().addAll(mySlider, myValueLabel);
         this.getChildren().addAll(getNameLabel(mySliderInfo.getMyInfo()), sliderAndValue);
     } 
-   
     
-    public void resetSlider() {
+    
+    private void setupSlider () {
         mySlider = new Slider();
-        mySlider.setPrefWidth(120);
+        mySlider.setPrefWidth(SLIDER_WIDTH);
         mySlider.setMax(mySliderInfo.getMyMax());
         mySlider.setMin(mySliderInfo.getMyMin());
         mySlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -59,7 +55,18 @@ public class SliderContainer extends VBox {
                 Number old_val, Number new_val) {
                 myValueLabel.setText(Double.toString(Math.round(mySlider.getValue()*10)/10.0));
             }
-        });
+        });       
+    }
+
+    private Label getNameLabel (String name) {
+        Label label = new Label();
+        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(name));
+        return label;
+    }
+   
+    
+    public void resetSlider() {
+        mySlider.setValue(mySliderInfo.getMyMin());
     }
 
     public double getSliderValue () {

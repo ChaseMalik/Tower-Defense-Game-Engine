@@ -99,7 +99,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         BuildingSceneMenu menu = new BuildingSceneMenu();
         MenuItem saveItem = new MenuItem();
         saveItem.textProperty().bind(MultiLanguageUtility.getInstance()
-                                             .getStringProperty(Constants.SAVE_ACTORS));
+                .getStringProperty(Constants.SAVE_ACTORS));
         saveItem.setOnAction(event -> attemptToSaveActor());
         menu.addMenuItemToFileMenu(saveItem);
         menu.addObserver(this);
@@ -110,9 +110,10 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         VBox centerOptionsBox = new VBox(15);
         Label title = new Label();
         title.textProperty()
-                .bind(MultiLanguageUtility.getInstance().getStringProperty("Behaviors"));
+                .bind(MultiLanguageUtility.getInstance()
+                        .getStringProperty(Constants.BEHAVIORS));
         title.setStyle("-fx-font-size: 18px");
-        myRangeSliderContainer = new SliderContainer("range", 0, 100);
+        myRangeSliderContainer = new SliderContainer(Constants.RANGE, 0, 100);
         VBox generalBox = new VBox(10);
         generalBox.getChildren().addAll(addRequiredNumericalTextFields(),
                                         myRangeSliderContainer);
@@ -135,7 +136,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void attemptToSaveActor () {
-        Map<String, IBehavior> iBehaviorMap = BehaviorMapBuilder.buildMap(myBehaviorBuilders);
+        Map<String, IBehavior> iBehaviorMap = 
+                BehaviorMapBuilder.buildMap(myBehaviorBuilders);
         if (fieldsAreValidForActiveCreation(iBehaviorMap)) {
             makeNewActor(iBehaviorMap);
             clearFields();
