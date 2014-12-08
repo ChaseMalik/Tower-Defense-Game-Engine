@@ -168,8 +168,26 @@ public class TowerBuildingScene extends ActorBuildingScene {
             new ErrorPopup(Constants.NO_ENEMY_TOWER_CAN_SHOOT);
             return false;
         }
+        if(!isAllTowerNamesUnique()) {
+            new ErrorPopup(Constants.UNIQUE_NAMES_ERROR);
+            return false;
+        }
         return myBuildCostField.isValueEntered() && mySellValueField.isValueEntered() &&
                 myProjectilePane.isInfoValid();
+    }
+
+    /**
+     * Ensures all tower names are unique.
+     */
+    private boolean isAllTowerNamesUnique () {
+        for(TowerUpgradeGroup group:myTowerUpgradeGroups) {
+            for(BaseTower tower:group) {
+                if(myActorNameField.getText().equalsIgnoreCase(tower.toString())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

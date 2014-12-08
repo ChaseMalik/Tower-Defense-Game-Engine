@@ -37,4 +37,7 @@ public class Constants {
     public static final String PATH_NOT_CONNECTED = "PathNotConnected";
     public static final String EMPTY_BEHAVIOR = "EmptyBehavior";
     public static final String NO_PROJECTILE_IMG = "NoProjectileImg";
+    public static final String LEVEL_ERROR = "LevelError";
+    public static final String UNIQUE_NAMES_ERROR = "UniqueNamesError";
+    public static final String IMG_FILE_NOT_FOUND = "IMGFileNotFound";
 }
