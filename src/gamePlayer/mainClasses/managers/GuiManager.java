@@ -5,7 +5,9 @@ import gameEngine.NullTowerInfoObject;
 import gameEngine.SingleThreadedEngineManager;
 import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiItems.controlDockButtons.sliders.SpeedSlider;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -69,6 +71,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private HUD myHUD;
 	private GameWorld myGameWorld;
 	private TowerUpgradePanel myUpgradePanel;
+	private SpeedSlider mySpeedSlider;
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 
@@ -82,6 +85,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GuiConstants.DYNAMIC_SIZING = true;
 		myRoot = GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
+		if (LMController.getInstance().deviceIsConnected()) {
+			initWithLM();
+		}
 	}
 
 	private void startGame(String directoryPath) {
@@ -390,5 +396,16 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 				next = next.getMyUpgrade();
 			}
 		}
+	}
+	
+	private void initWithLM() {
+		LMController controller = LMController.getInstance();
+		controller.onCircleCW(event -> mySpeedSlider.incrementSpeed());
+		controller.onCircleCCW(event -> mySpeedSlider.decrementSpeed());
+	}
+
+	@Override
+	public void registerSpeedSlider(SpeedSlider slider) {
+		mySpeedSlider = slider;
 	}
 }

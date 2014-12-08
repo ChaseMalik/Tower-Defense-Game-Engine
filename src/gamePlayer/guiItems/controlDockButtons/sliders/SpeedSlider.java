@@ -6,10 +6,8 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.WeakChangeListener;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import utilities.XMLParsing.XMLParser;
@@ -24,7 +22,22 @@ public class SpeedSlider extends ControlDockSlider {
 		myParser = new XMLParser(new File(GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML"));
 		setUpSlider();
 		setUpSizing(containerSize);
-
+		myListener.registerSpeedSlider(this);
+	}
+	
+	public void decrementSpeed() {
+		System.out.println("decrement!");
+		double val = mySlider.getValue();
+		if (val-1 >= mySlider.getMin()) {
+			mySlider.setValue(val - 1);
+		}
+	}
+	
+	public void incrementSpeed() {
+		double val = mySlider.getValue();
+		if (val+1 <= mySlider.getMax()) {
+			mySlider.setValue(val + 1);
+		}
 	}
 
 	private void setUpSlider(){
