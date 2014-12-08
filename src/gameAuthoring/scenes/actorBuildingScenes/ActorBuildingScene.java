@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.actorBuildingScenes;
 
 import gameAuthoring.mainclasses.AuthorController;
+import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorBuilder;
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.BehaviorMapBuilder;
@@ -98,7 +99,7 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
         BuildingSceneMenu menu = new BuildingSceneMenu();
         MenuItem saveItem = new MenuItem();
         saveItem.textProperty().bind(MultiLanguageUtility.getInstance()
-                                             .getStringProperty("SaveActors"));
+                                             .getStringProperty(Constants.SAVE_ACTORS));
         saveItem.setOnAction(event -> attemptToSaveActor());
         menu.addMenuItemToFileMenu(saveItem);
         menu.addObserver(this);

@@ -11,7 +11,12 @@ import javafx.scene.Group;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * This class tests the translation of JavaFX PathComponents to backend
+ * route objects.
+ * @author Austin Kyker
+ *
+ */
 public class BackendRouteTranslationTests {
 
     private Path myPath;

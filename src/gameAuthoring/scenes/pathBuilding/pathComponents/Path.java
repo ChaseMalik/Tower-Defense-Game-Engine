@@ -47,8 +47,6 @@ public class Path implements Iterable<PathRoute> {
      * First tries to add a component to a starting location and if this fails,
      * the method tries to add the component to another pre-existing route. Otherwise
      * it starts its own new route.
-     * 
-     * @param componentToAdd
      */
     public void addComponentToPath (PathComponent componentToAdd) {
         createNewRoute(componentToAdd);
@@ -115,9 +113,6 @@ public class Path implements Iterable<PathRoute> {
                             return true;
                         }
                     }
-
-                    // Connecting component 1 to the end of component 2
-                    // or connecting component 2 to the end of component 1
                     else {
                         if (closeEnoughToConnect(connectedComponent1.getLast(),
                                                  connectedComponent2.getFirst())) {
@@ -145,9 +140,6 @@ public class Path implements Iterable<PathRoute> {
     /**
      * Simply connects the ending point of connectedComponent1 to the starting point of
      * connectedComponent2
-     * 
-     * @param connectedComponent1
-     * @param connectedComponent2
      */
     protected void connectRoutes (PathRoute connectedComponent1,
                                   PathRoute connectedComponent2) {
@@ -346,8 +338,7 @@ public class Path implements Iterable<PathRoute> {
         return myPath.iterator();
     }
 
-    // All routes must be completed...They must be connected to a start and ending location
-    public boolean isCompletedAndRoutesVerified () {
+    public boolean isPathCompletedAndRoutesVerified () {
         if (myPath.isEmpty()) return false;
         for (PathRoute route : myPath) {
             if (!route.isConnectedToStartAndEndLocations()) { return false; }

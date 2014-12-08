@@ -4,7 +4,13 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.Path;
 import gameAuthoring.scenes.pathBuilding.pathComponents.PathComponent;
 import javafx.scene.Group;
 
-
+/**
+ * A pane to allow the user to select which path components should be visible
+ * and invisible. An invisible path component means that the enemy will be hidden
+ * from the screen on this path (maybe the enemy went into a tunnel).
+ * @author Austin Kyker
+ *
+ */
 public class ComponentVisibilityPane extends BuildingPane {
 
     private Path myPath;

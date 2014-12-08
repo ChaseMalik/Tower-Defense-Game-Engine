@@ -20,14 +20,12 @@ import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoutesGenerator;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -231,9 +229,8 @@ public class AuthorController extends Application implements
        GSON_WRITER.writeGeneralSettings(gameDir, wrapper);
     }
 
-    /**
-     * Called after welcome scene clicked.
-     */
+    
+    //Called after welcome scene clicked.
     @Override
     public void update (Observable o, Object arg) {
         this.showGeneralSettingScene();

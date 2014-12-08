@@ -10,4 +10,5 @@ public interface StoreListener {
     public void fillStore(Collection<TowerInfoObject> towersAvailable);
     public void refreshStore();
 	public void placeTower(String towerName);
+	public void escapePlace();
 }
