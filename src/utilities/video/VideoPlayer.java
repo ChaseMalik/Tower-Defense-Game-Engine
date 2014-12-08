@@ -103,14 +103,8 @@ class VideoPlayer extends BorderPane {
         VOLUME_BUTTON.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 double volume = mediaPlayer.getVolume();
-                if (volume > 0.0) {
-                    mediaPlayer.setVolume(0.0);
-                    VOLUME_BUTTON.setText(UNMUTE_BUTTON_TEXT);
-                }
-                else {
-                    mediaPlayer.setVolume(1.0);
-                    VOLUME_BUTTON.setText(MUTE_BUTTON_TEXT);
-                }
+                mediaPlayer.setVolume(volume == 0.0 ? 1.0 : 0.0);
+                VOLUME_BUTTON.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
             }
         });
 
@@ -190,6 +184,7 @@ class VideoPlayer extends BorderPane {
                 }
             }
         });
+
         player.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 updateValues();
@@ -215,7 +210,7 @@ class VideoPlayer extends BorderPane {
                     myTimeSlider.setValue(timeSliderValue);
                 }
                 if (!myVolumeSlider.isValueChanging()) {
-                    //                        int intVolume = (int)Math.round(myMediaPlayer.getVolume());
+                    // int intVolume = (int)Math.round(myMediaPlayer.getVolume());
                     double intVolume = Math.round(myMediaPlayer.getVolume());
                     myVolumeSlider.setValue(intVolume * DOUBLE_CONVERT);
                 }
