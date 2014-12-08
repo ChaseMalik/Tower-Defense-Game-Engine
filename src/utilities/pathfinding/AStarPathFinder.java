@@ -117,8 +117,6 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
         while (!frontierQueue.isEmpty()) {
             PQTuple tupleToCheck = frontierQueue.poll();
             T currentNode = tupleToCheck.getNode();
-            Point2D x = (Point2D)currentNode;
-            //System.out.println("Current expanding node " + x.getX() + " , " + x.getY());
             if (isDestination(currentNode, destination)) {
                 ArrayList<T> pathUpToDestination = nodeToCurrentPathMap.get(currentNode);
                 pathUpToDestination.add(currentNode);
