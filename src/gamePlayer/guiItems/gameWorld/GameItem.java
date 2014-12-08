@@ -2,10 +2,10 @@ package gamePlayer.guiItems.gameWorld;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 /**
  * Wraps the GameActor Gui elements passed from the Engine in a group. This
@@ -16,23 +16,19 @@ import javafx.scene.image.ImageView;
  */
 public class GameItem {
 
-	protected int myID;
+	protected String myName;
 	protected DoubleProperty X, Y, rotation;
 	protected ImageView myImageView;
 	protected Group myGroup;
 	protected Node myNode;
 
-	public GameItem(int ID, Point2D loc, ImageView imageView) {
-		myID = ID;
+	public GameItem(String name, double X, double Y, ImageView imageView) {
+		myName = name;
 		myImageView = imageView;
-		X = new SimpleDoubleProperty(loc.getX());
-		Y = new SimpleDoubleProperty(loc.getY());
+		this.X = new SimpleDoubleProperty(X);
+		this.Y = new SimpleDoubleProperty(Y);
 		rotation = new SimpleDoubleProperty(0);
 		init();
-	}
-
-	public int getID() {
-		return myID;
 	}
 
 	public Node getNode() {
@@ -46,8 +42,9 @@ public class GameItem {
 		myGroup.translateYProperty().bind(Y);
 		myGroup.rotateProperty().bind(rotation);
 
-		myImageView.setLayoutX(-myImageView.getImage().getWidth() / 2.);
-		myImageView.setLayoutY(-myImageView.getImage().getHeight() / 2.);
+		CenteredImageView image = new CenteredImageView();
+		myImageView.setX(- myImageView.getFitWidth() / 2);
+		myImageView.setY(- myImageView.getFitHeight() / 2);
 
 		myGroup.getChildren().add(myImageView);
 

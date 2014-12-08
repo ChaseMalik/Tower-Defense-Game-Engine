@@ -5,6 +5,11 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -22,12 +27,14 @@ import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 
 public class GameWorld implements GuiItem {
 
-	Pane myMap;
-	GameWorldListener myListener;
+	private Pane myMap;
+	private GameWorldListener myListener;
+	private Set<SelectableGameItem> selectableGameItems;
 
 	public GameWorld() {
 		myMap = new Pane();
 		myListener = GuiConstants.GUI_MANAGER;
+		selectableGameItems = new HashSet<SelectableGameItem>();
 	}
 
 	@Override
@@ -43,6 +50,18 @@ public class GameWorld implements GuiItem {
 
 	public Pane getMap() {
 		return myMap;
+	}
+	
+	public void addSelectableGameItem(SelectableGameItem item) {
+		selectableGameItems.add(item);
+	}
+	
+	public Collection<SelectableGameItem> getSelectedItems() {
+		
+	}
+	
+	public void removeSelectableGameItem(SelectableGameItem item) {
+		selectableGameItems.remove(item);
 	}
 
 	public void setBackground(String imagePath) {

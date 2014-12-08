@@ -7,6 +7,7 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiItems.gameWorld.GameWorld;
+import gamePlayer.guiItems.gameWorld.SelectableGameItem;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
 import gamePlayer.guiItems.messageDisplay.MessageDisplay;
@@ -14,7 +15,6 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
@@ -41,7 +41,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 /**
  * Class controls all GUI items and MUST implement ALL of the interfaces in the
@@ -64,12 +63,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	private Group myRoot;
 	private TowerIndicator activeIndicator;
-	private ImageView activeTower;
 	private boolean interactionAllowed;
 
 	private Store myStore;
 	private HUD myHUD;
 	private GameWorld myGameWorld;
+	private SelectableGameItem activeTower;
 	private TowerUpgradePanel myUpgradePanel;
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
@@ -333,37 +332,23 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 				- towerMap.get(towerName).getBuyCost());
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
 		if(towerImageView == null) {
-		displayMessage(NO_GOLD, true);
+			displayMessage(NO_GOLD, true);
 		return;
 		}
-		towerImageView.setOnMouseClicked(event -> selectTower(towerName,
-				towerImageView));
+		double radius = towerMap.get(towerName).getRange();
+		activeTower = new SelectableGameItem(towerName, x, y, towerImageView, radius);
+		myGameWorld.getMap().getChildren().add(activeTower.getNode());
 	}
 
-	private void selectTower(String towerName, ImageView tower) {
+	public void selectTower(String towerName, ImageView tower) {
 		if (!interactionAllowed) return;
-		CenteredImageView centered = (CenteredImageView) tower;
-		double radius = towerMap.get(towerName).getRange();
-		deselectTower(activeIndicator, activeTower,
-				myEngineManager.getTowerName(activeTower));
-		activeIndicator = new TowerIndicator(centered.getXCenter(),
-				centered.getYCenter(), radius);
-		activeTower = tower;
+		
 		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower,
 				activeIndicator);
-		myGameWorld.getMap().getChildren().add(activeIndicator);
-		tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower,
-				towerName));
-		tower.getParent().toFront();
 	}
 
-	private void deselectTower(TowerIndicator indicator, ImageView tower,
-			String towerName) {
-		myGameWorld.getMap().getChildren().remove(indicator);
-		//myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+	public void deselectTower(String towerName, ImageView tower) {
 		myUpgradePanel.deselectTower();
-		if (tower != null)
-			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
 
 	@Override
@@ -424,7 +409,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void escapePlace() {
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
-		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
 		displayMessage(MessageDisplay.DEFAULT, false);
 	}
 }
