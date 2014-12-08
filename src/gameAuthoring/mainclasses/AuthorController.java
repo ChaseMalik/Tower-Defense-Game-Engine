@@ -1,11 +1,11 @@
 package gameAuthoring.mainclasses;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import gameAuthoring.mainclasses.controllerInterfaces.EnemyConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.LevelConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.PathConfiguring;
-import gameAuthoring.mainclasses.controllerInterfaces.TowerConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IEnemyConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.ITowerConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.GSONWritingScene;
 import gameAuthoring.scenes.GeneralSettingScene;
@@ -45,8 +45,8 @@ import utilities.multilanguage.MultiLanguageUtility;
  *
  */
 public class AuthorController extends Application implements
-        GeneralSettingsConfiguring, PathConfiguring, TowerConfiguring,
-        EnemyConfiguring, LevelConfiguring, Observer {
+        IGeneralSettingsConfiguring, IPathConfiguring, ITowerConfiguring,
+        IEnemyConfiguring, ILevelConfiguring, Observer {
 
     private static final String SPANISH_PROPERTIES =
             "gameAuthoring.Resources.propertyFiles.English.properties";
@@ -92,25 +92,25 @@ public class AuthorController extends Application implements
 
     public void showPathBuildingScene () {
         myPathBuildingScene = new PathBuildingScene(new BorderPane(),
-                                                    (PathConfiguring) this);
+                                                    (IPathConfiguring) this);
         setSceneAndTitle(myPathBuildingScene);
     }
 
     public void showEnemyBuildingScene () {
         myEnemyBuildingScene = new EnemyBuildingScene(new BorderPane(),
-                                                      (EnemyConfiguring) this);
+                                                      (IEnemyConfiguring) this);
         setSceneAndTitle(myEnemyBuildingScene);
     }
 
     public void showTowerBuildingScene () {
         myTowerBuildingScene = new TowerBuildingScene(new BorderPane(),
-                                                      (TowerConfiguring) this);
+                                                      (ITowerConfiguring) this);
         setSceneAndTitle(myTowerBuildingScene);
     }
 
     public void showLevelBuildingScene () {
         myLevelBuildingScene = new LevelBuildingScene(new BorderPane(),
-                                                      (LevelConfiguring) this);
+                                                      (ILevelConfiguring) this);
         setSceneAndTitle(myLevelBuildingScene);
     }
 
@@ -126,7 +126,7 @@ public class AuthorController extends Application implements
     }
 
     private void showGeneralSettingScene () {
-        myGeneralSettingScene = new GeneralSettingScene((GeneralSettingsConfiguring) this);
+        myGeneralSettingScene = new GeneralSettingScene((IGeneralSettingsConfiguring) this);
         myStage.setScene(myGeneralSettingScene.getScene());
     }
 

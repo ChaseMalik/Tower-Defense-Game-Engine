@@ -266,7 +266,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface,
 		pause();
 		myProjectileGroup.clear();
 		loadNextLevel();
-		saveState("/Users/Duke/Desktop");
+		//saveState("/Users/Duke/Desktop");
 		// myReadyToPlay.set(true);
 	}
 

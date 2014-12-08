@@ -11,7 +11,7 @@ import java.util.List;
  * @author Austin Kyker
  *
  */
-public interface TowerConfiguring {
+public interface ITowerConfiguring {
     void configureTowers (List<TowerUpgradeGroup> towers);
 
     List<BaseEnemy> fetchEnemies ();

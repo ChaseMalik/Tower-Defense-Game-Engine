@@ -2,7 +2,7 @@ package gameAuthoring.scenes;
 
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.Constants;
-import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
+import gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -29,7 +29,7 @@ public class GeneralSettingScene {
     private static final String MULTIPLAYER = "Coop";
     private static final String SINGLEPLAYER = "SinglePlayer";
     private static final String GENERAL_SETTING_MSG = "Create Your Game Settings";
-    private GeneralSettingsConfiguring myGeneralSettingsController;
+    private IGeneralSettingsConfiguring myGeneralSettingsController;
     private Scene myScene;
     private VBox myVBox;
     private TextField myNameTextField;
@@ -38,7 +38,7 @@ public class GeneralSettingScene {
     private ComboBox<String> myGameTypeComboBox;
     private Group root;
 
-    public GeneralSettingScene (GeneralSettingsConfiguring controller) {
+    public GeneralSettingScene (IGeneralSettingsConfiguring controller) {
         myGeneralSettingsController = controller;
         root = new Group();
         myScene = new Scene(root, AuthorController.SCREEN_WIDTH,
