@@ -16,6 +16,11 @@ import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.SwipeGesture;
 import com.leapmotion.leap.Vector;
 
+/**
+ * 
+ * @author brianbolze
+ *
+ */
 public class LeapMotionListener extends Listener {
 
 	private ObjectProperty<Point2D> point = new SimpleObjectProperty<>();
@@ -31,13 +36,15 @@ public class LeapMotionListener extends Listener {
 	@Override
 	public void onConnect(Controller c) {
 		super.onConnect(c);
+		setupTimers();
+
 		System.out.println("Device Connected!");
+
 		c.enableGesture(Gesture.Type.TYPE_SWIPE);
 		c.enableGesture(Gesture.Type.TYPE_CIRCLE);
 		// c.enableGesture(Gesture.Type.TYPE_KEY_TAP);
 		// c.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
-		//Tell manager to change panes
-		setupTimers();
+
 		Platform.runLater(() -> controller.connect());
 	}
 
@@ -76,7 +83,7 @@ public class LeapMotionListener extends Listener {
 
 	private void circle(CircleGesture circle) {
 
-		// Limit amount of swipes they can do
+		// Limit amount of circles they can do
 		if (System.currentTimeMillis() - circleTimer < CIRCLE_TIME_LIMITER)
 			return;
 		circleTimer = System.currentTimeMillis();

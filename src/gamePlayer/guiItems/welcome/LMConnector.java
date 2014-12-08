@@ -3,7 +3,6 @@ package gamePlayer.guiItems.welcome;
 import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
-import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
 import java.io.File;
 import java.util.List;
@@ -38,15 +37,17 @@ public class LMConnector implements GuiItem {
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		mySize = containerSize;
-		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
-				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+//		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH
+//				+ myPropertiesPath + this.getClass().getSimpleName() + ".XML";
+		String propertiesPath = "./src/gamePlayer/properties/welcome/guiItems/LMConnector.XML";
 		myParser = new XMLParser(new File(propertiesPath));
 		connectedProperty = new SimpleBooleanProperty(false);
 		
 		setupPane();
 		setupLabel();
 		setupButton();
-		GuiConstants.WELCOME_MANAGER.registerLMConnector(this);
+		//GuiConstants.WELCOME_MANAGER.registerLMConnector(this);
+		//GuiConstants.GAME_START_MANAGER.registerLMConnector(this);
 	}
 
 	@Override

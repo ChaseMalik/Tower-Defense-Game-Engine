@@ -1,6 +1,7 @@
 package gamePlayer.mainClasses;
 
-import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
+import gamePlayer.mainClasses.managers.GuiManager;
+import gamePlayer.mainClasses.managers.WelcomeManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,6 +17,9 @@ public class Main extends Application {
 
     @Override
     public void start (Stage stage) throws Exception {
-    	new GameStartManager(stage);
+    	//GameStartManager manager = new GameStartManager(stage);
+    	WelcomeManager manager = new WelcomeManager(stage);
+    	new GuiManager(stage);
+    	manager.init();
     }
 }

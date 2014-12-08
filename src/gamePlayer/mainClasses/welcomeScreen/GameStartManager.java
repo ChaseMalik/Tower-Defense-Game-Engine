@@ -1,18 +1,21 @@
 package gamePlayer.mainClasses.welcomeScreen;
 
+import gamePlayer.guiFeatures.LMController;
+import gamePlayer.guiItems.welcome.LMConnector;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import gamePlayer.mainClasses.managers.GuiManager;
 import gamePlayer.mainClasses.welcomeScreen.availableGames.GameChooser;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.MultiPlayerOptions;
 import gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions;
+
 import java.io.File;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -26,16 +29,17 @@ public class GameStartManager {
     private XMLParser parser;
     private WelcomeScreen welcomeScreen;
     private String gameTypeBeingChosen;
+    private LMConnector leapConnector;
 
     public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.GAME_START_MANAGER = this;
-        init(myStage);
+        LMController.getInstance().onConnect(event -> LMConnected());
     }
 
-    private void init(Stage stage) {
+    public void init() {
         Group group  = new Group();
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 
@@ -44,9 +48,9 @@ public class GameStartManager {
 
         initializeWelcomeScreen(group);
 
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        myStage.setScene(scene);
+        myStage.setResizable(false);
+        myStage.show();
     }
 
     private void initializeWelcomeScreen (Group group) {
@@ -58,10 +62,20 @@ public class GameStartManager {
         PlayerCountOptions playerCountOptions = new PlayerCountOptions();
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
-        welcomeScreen.setCenterContent(playerCountOptions);        
+        welcomeScreen.setCenterContent(playerCountOptions); 
+        
+//        leapConnector = new LMConnector();
+//        leapConnector.initialize(new Dimension2D(WelcomeScreen.PANE_WIDTH, WelcomeScreen.PANE_HEIGHT));
+//        welcomeScreen.setBottomContent(leapConnector.getNode());
 
         group.getChildren().add(welcomeScreen);
     }
+    
+    public void LMConnected() {
+		leapConnector.deviceConnected(true);
+		LMController controller = LMController.getInstance();
+		controller.onSwipeDown(event -> System.out.println("Swipe Down from Game Start Screen!"));
+	}
 
     public void joinMultiPlayerGame() {
         GuiManager manager = new GuiManager(myStage);
