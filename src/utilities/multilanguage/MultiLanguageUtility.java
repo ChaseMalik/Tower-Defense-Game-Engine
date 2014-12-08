@@ -1,5 +1,6 @@
 package utilities.multilanguage;
 
+import gameAuthoring.mainclasses.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -114,7 +115,7 @@ public class MultiLanguageUtility {
             return true;
         }
         else {
-            new ErrorPopup("Language not found");
+            new ErrorPopup(Constants.LANG_NOT_FOUND);
             return false;
         }
     }
