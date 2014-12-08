@@ -41,6 +41,7 @@ public class TowerPlacer {
 
     private void drag(Circle node, double X, double Y, Pane root) {
         if (!dragging) root.getChildren().add(node);
+        node.toFront();
         dragging = true;
         node.setTranslateX(X);
         node.setTranslateY(Y);

@@ -38,7 +38,9 @@ public class LevelBuildingDisplay extends ScrollPane {
     }
 
     public boolean isAllUserInputIsValid () {
-        return myLevelCells.stream().filter(cell -> cell.isUserInputValid()).count() > 0;
+        return myLevelCells.stream()
+                .filter(cell -> !cell.isUserInputValid())
+                .count() == 0;
     }
 
     public List<BaseLevel> transformToLevels () {
