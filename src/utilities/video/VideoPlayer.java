@@ -190,7 +190,6 @@ class VideoPlayer extends BorderPane {
                 button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
                 myVideoIsStopped = !myVideoWillReplay;
                 myCycleIsComplete = !myVideoWillReplay;
-                //                myMediaPlayer.seek?
             }
         });
     }
