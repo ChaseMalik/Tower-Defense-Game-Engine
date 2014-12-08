@@ -79,8 +79,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	public void init() {
+		GuiConstants.DYNAMIC_SIZING = true;
 		myRoot = GuiBuilder.getInstance().build(myStage,
-				guiBuilderPropertiesPath, true);
+				guiBuilderPropertiesPath);
 	}
 
 	private void startGame(String directoryPath) {

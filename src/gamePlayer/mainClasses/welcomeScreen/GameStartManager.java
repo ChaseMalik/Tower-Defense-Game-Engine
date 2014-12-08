@@ -36,6 +36,7 @@ public class GameStartManager {
     }
 
     public void init() {
+    	GuiConstants.DYNAMIC_SIZING = true;
         Group group  = new Group();
         Scene scene = new Scene(group,GuiConstants.WINDOW_WIDTH,GuiConstants.WINDOW_HEIGHT);
 

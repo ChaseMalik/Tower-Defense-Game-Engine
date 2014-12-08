@@ -8,6 +8,22 @@
 		<element>600</element>
 	</GuiSize>
 	
+	<ContainerWidths>
+		<element>1</element> <!-- Top -->
+		<element>0</element> <!-- Left -->
+		<element>0</element> <!-- Right -->
+		<element>1</element> <!-- Center -->
+		<element>0</element> <!-- Bottom -->
+	</ContainerWidths>
+	
+	<ContainerHeights>
+		<element>0.3</element> <!-- Top -->
+		<element>0</element> <!-- Left -->
+		<element>0</element> <!-- Right -->
+		<element>0.7</element> <!-- Center -->
+		<element>0</element> <!-- Bottom -->
+	</ContainerHeights>
+	
 	<!-- specifies properties path to be passed to the text generator object used by the guibuilder -->
 	<TextGeneratorPropertiesPath>
 		<element>./src/gamePlayer/properties/TextGeneratorProperties.XML</element>

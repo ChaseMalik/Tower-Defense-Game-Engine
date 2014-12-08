@@ -2,12 +2,6 @@
 
 <ContainerProperties>
 
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>0.0</element>
-		<element>0.0</element>
-	</SizeRatio>
-	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	</Items>

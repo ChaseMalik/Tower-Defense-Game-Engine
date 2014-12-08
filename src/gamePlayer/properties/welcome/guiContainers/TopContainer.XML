@@ -2,12 +2,6 @@
 
 <ContainerProperties>
 
-    <!--width and height size ratios to window size-->
- 	<SizeRatio>
-		<element>1</element> <!-- Width -->
-		<element>0.3</element> <!-- Height -->
-	</SizeRatio>
-	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
 	    <element>gamePlayer.guiItems.welcome.Header</element>

@@ -19,7 +19,8 @@ public class WelcomeManager implements NavigatorListener {
 	}
 
 	public void init() {
-		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath, false);
+		GuiConstants.DYNAMIC_SIZING = false;
+		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
 	}
 
 	public void newGame() {
