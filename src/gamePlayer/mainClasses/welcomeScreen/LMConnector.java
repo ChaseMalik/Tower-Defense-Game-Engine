@@ -62,7 +62,7 @@ public class LMConnector implements GuiItem {
 		if (LMController.getInstance().deviceIsConnected())
 			return;
 		LMController.getInstance().activateDevice();
-		LMController.getInstance().onConnect(event -> deviceConnected(true));;
+		LMController.getInstance().onConnect(event -> deviceConnected(true));
 	}
 	
 	private void setupPane() {

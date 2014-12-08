@@ -26,7 +26,6 @@ public class SpeedSlider extends ControlDockSlider {
 	}
 	
 	public void decrementSpeed() {
-		System.out.println("decrement!");
 		double val = mySlider.getValue();
 		if (val-1 >= mySlider.getMin()) {
 			mySlider.setValue(val - 1);

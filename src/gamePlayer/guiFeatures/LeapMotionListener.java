@@ -15,10 +15,10 @@ import com.leapmotion.leap.Vector;
 public class LeapMotionListener extends Listener {
 
 	private long swipeTimer, circleTimer;
-	private static final long SWIPE_TIME_LIMITER = 500;
-	private static final long CIRCLE_TIME_LIMITER = 1000;
+	private static long SWIPE_TIME_LIMITER = 500;
+	private static long CIRCLE_TIME_LIMITER = 1000;
 	private LMController controller = LMController.getInstance();
-
+	
 	@Override
 	public void onConnect(Controller c) {
 		super.onConnect(c);
@@ -63,6 +63,10 @@ public class LeapMotionListener extends Listener {
 				break;
 			}
 		}
+	} 
+	
+	public void setSwipeTimer(long limit) {
+		SWIPE_TIME_LIMITER = limit;
 	}
 
 	private void circle(CircleGesture circle) {

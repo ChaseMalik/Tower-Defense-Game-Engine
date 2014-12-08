@@ -1,5 +1,6 @@
 package gamePlayer.mainClasses.welcomeScreen;
 
+import gamePlayer.guiFeatures.LMController;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import gamePlayer.mainClasses.managers.GuiManager;
@@ -31,13 +32,13 @@ public class GameStartManager {
     private WelcomeScreen welcomeScreen;
     private String gameTypeBeingChosen;
     private Group group;
+    private PlayerCountOptions playerCountOptions;
 
     public GameStartManager(Stage stage) {
         myStage = stage;
         parser = new XMLParser(new File(propertiesPath));
         GuiConstants.TEXT_GEN = new TextGenerator(parser.getValuesFromTag("TextGeneratorPropertiesPath").get(0));
         GuiConstants.GAME_START_MANAGER = this;
-        init();
     }
 
     	
@@ -63,14 +64,10 @@ public class GameStartManager {
 
         welcomeScreen.setTopContent(getImageFromPath(parser.getValuesFromTag("Logo").get(0),WelcomeScreen.PANE_WIDTH,WelcomeScreen.PANE_HEIGHT/2));
 
-        PlayerCountOptions playerCountOptions = new PlayerCountOptions();
+        playerCountOptions = new PlayerCountOptions();
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
         welcomeScreen.setCenterContent(playerCountOptions); 
-        
-//        leapConnector = new LMConnector();
-//        leapConnector.initialize(new Dimension2D(WelcomeScreen.PANE_WIDTH, WelcomeScreen.PANE_HEIGHT));
-//        welcomeScreen.setBottomContent(leapConnector.getNode());
 
         group.getChildren().add(welcomeScreen);
     }
@@ -83,20 +80,20 @@ public class GameStartManager {
     private void startSinglePlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.SINGLE_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.swipeForward(chooser);
     }
 
     private void startMultiPlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.MULTI_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.swipeForward(chooser);
     }
 
     private void startMultiPlayerOptions() {
         MultiPlayerOptions multiPlayerOptions = new MultiPlayerOptions();
         multiPlayerOptions.getNewGameOption().setOnMouseReleased(event->startMultiPlayerGameChooser());
         multiPlayerOptions.getJoinGameOption().setOnMouseReleased(event->joinMultiPlayerGame());
-        welcomeScreen.setCenterContent(multiPlayerOptions);
+        welcomeScreen.swipeForward(multiPlayerOptions);
     }
 
     public void startSinglePlayerGame(String directoryPath) {
@@ -107,7 +104,7 @@ public class GameStartManager {
 
     private void startMultiPlayerGame(String directoryPath) {
         //wait for other player to join
-        welcomeScreen.setCenterContent(new LoadingIndicator(GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
+        welcomeScreen.swipeForward(new LoadingIndicator(GuiConstants.TEXT_GEN.get(GuiText.WAITING_FOR_CHALLENGER)));
 
         GuiManager manager = new GuiManager(myStage);
         manager.prepareMultiPlayerGame(directoryPath);
@@ -132,6 +129,7 @@ public class GameStartManager {
 
     public void startGame (File file) {
         
+    	LMController.getInstance().clearAllHandlers();
         if (gameTypeBeingChosen.equals(GuiConstants.SINGLE_PLAYER_GAME)) {
             startSinglePlayerGame(file.getPath());
         } else if (gameTypeBeingChosen.equals(GuiConstants.MULTI_PLAYER_GAME)) {
@@ -141,6 +139,7 @@ public class GameStartManager {
     
     private void addLMButton() {
     	LMConnector connector = new LMConnector();
+    	LMController.getInstance().onConnect(event -> addLMActions());
     	Dimension2D size = new Dimension2D(GuiConstants.BOTTOM_CONTAINER_WIDTH, GuiConstants.BOTTOM_CONTAINER_HEIGHT);
     	connector.initialize(size);
     	HBox hbox = new HBox();
@@ -149,5 +148,14 @@ public class GameStartManager {
     	hbox.setAlignment(Pos.CENTER);
     	hbox.setTranslateY(550);
     	group.getChildren().add(hbox);
+    }
+    
+    private void addLMActions() {
+    	LMController controller = LMController.getInstance();
+    	controller.onSwipeRight(event -> navigateBack());
+    }
+    
+    private void navigateBack() {
+    	welcomeScreen.swipeBack(playerCountOptions);
     }
 }
