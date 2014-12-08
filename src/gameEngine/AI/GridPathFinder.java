@@ -1,4 +1,4 @@
-package gameEngine;
+package gameEngine.AI;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +14,7 @@ import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.TowerRegionsPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
+import gameEngine.Data.TowerTileGrid;
 import gameEngine.actors.BaseEnemy;
 import utilities.pathfinding.AStarPathFinder;
 

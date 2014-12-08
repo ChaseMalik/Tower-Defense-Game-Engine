@@ -1,8 +1,9 @@
 package gameEngine.actors;
 
-import gameEngine.InformationInterface;
-import gameEngine.updateObject;
+import gameEngine.ManagerInterface.InformationInterface;
+import gameEngine.ManagerInterface.UpdateObject;
 import gameEngine.actors.behaviors.IBehavior;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
@@ -176,7 +178,7 @@ public abstract class BaseActor extends Observable {
         return myIsRemovable;
     }
 
-    public void changeAndNotify (updateObject o) {
+    public void changeAndNotify (UpdateObject o) {
         this.setChanged();
         this.notifyObservers(o);
 

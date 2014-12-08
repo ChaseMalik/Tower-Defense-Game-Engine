@@ -1,4 +1,4 @@
-package gameEngine;
+package gameEngine.Data;
 
 public class TowerInfoObject {
 
