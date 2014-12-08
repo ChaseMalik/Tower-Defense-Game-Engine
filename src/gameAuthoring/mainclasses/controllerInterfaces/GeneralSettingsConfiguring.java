@@ -8,4 +8,12 @@ package gameAuthoring.mainclasses.controllerInterfaces;
  */
 public interface GeneralSettingsConfiguring {
 	void setGeneralSettings(String name, int health, int cash);
+	
+	/**
+	 * 
+	 * @param gameName
+	 * @param singlePlayer: true if single player, false if co-op
+	 */
+    void makeDirectory (String gameName, boolean singlePlayer);
+
 }

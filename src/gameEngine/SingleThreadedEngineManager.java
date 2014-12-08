@@ -186,7 +186,7 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 	private Collection<Node> getIntersectingTowerTileNode(Node towerNode,
 			Collection<Node> nodeList) {
 		List<Node> towerTiles = nodeList.stream()
-				.filter(node -> node.intersects(towerNode.getBoundsInParent()))
+				.filter(node -> node.intersects(towerNode.getBoundsInLocal()))
 				.collect(Collectors.toList());
 		return towerTiles;
 	}
@@ -417,7 +417,6 @@ public class SingleThreadedEngineManager implements Observer, updateInterface{
 				myProjectileGroup.add((BaseProjectile) arg);
 			}
 		}
-
 	}
 
 	public ImageView upgrade(ImageView n, String name) {
