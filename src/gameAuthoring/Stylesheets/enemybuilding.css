@@ -2,12 +2,6 @@
 	-fx-background-color: white;
 }
 
-.behaviorsTitle {
-	-fx-font-size: 24px;
-	-fx-font-weight: bold;
-
-}
-
 .removeActorLabel {
 	-fx-text-fill: red;
 	-fx-font-size: 22px;

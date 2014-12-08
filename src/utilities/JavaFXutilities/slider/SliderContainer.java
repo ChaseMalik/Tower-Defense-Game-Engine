@@ -1,8 +1,11 @@
 package utilities.JavaFXutilities.slider;
 
 import gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders.SliderInfo;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -13,30 +16,43 @@ import javafx.scene.layout.VBox;
  */
 public class SliderContainer extends VBox {
     
-    private static final int NUM_TICKS = 5;
     private Slider mySlider;
     private SliderInfo mySliderInfo;
+    private Label myValueLabel;
+    
     
     public SliderContainer(String name, double min, double max) {
-        this(new SliderInfo(name, min, max));
+        super(10);
+        mySliderInfo = new SliderInfo(name, min, max);
+        resetSlider();
+        HBox nameAndValue = new HBox(10);
+        myValueLabel = new Label(Double.toString(mySlider.getValue()));
+        nameAndValue.getChildren().addAll(new Label(name), myValueLabel);
+        this.getChildren().addAll(nameAndValue, mySlider);
     }
     
     public SliderContainer(SliderInfo info) {
         super(10);
         mySliderInfo = info;
-        mySlider = new Slider();
         resetSlider();
-        this.getChildren().addAll(new Label(info.getMyInfo()), mySlider);
-    }
+        HBox sliderAndValue = new HBox(10);
+        myValueLabel = new Label(Double.toString(mySlider.getValue()));
+        sliderAndValue.getChildren().addAll(mySlider, myValueLabel);
+        this.getChildren().addAll(new Label(info.getMyInfo()), sliderAndValue);
+    } 
+   
     
     public void resetSlider() {
+        mySlider = new Slider();
+        mySlider.setPrefWidth(120);
         mySlider.setMax(mySliderInfo.getMyMax());
         mySlider.setMin(mySliderInfo.getMyMin());
-        mySlider.setMajorTickUnit((mySliderInfo.getMyMax() - mySliderInfo.getMyMin())/NUM_TICKS);
-        mySlider.setShowTickLabels(true);
-        mySlider.setShowTickMarks(true);
-        mySlider.setMinorTickCount(0);
-        mySlider.snapToTicksProperty().set(true);
+        mySlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                myValueLabel.setText(Double.toString(Math.round(mySlider.getValue()*10)/10.0));
+            }
+        });
     }
 
     public double getSliderValue () {

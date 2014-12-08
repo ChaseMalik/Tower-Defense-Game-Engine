@@ -19,14 +19,15 @@ import utilities.reflection.Reflection;
  *
  */
 public class LeftContainer extends VBox implements GuiContainer {
-    private XMLParser myParser;
+   
+	private XMLParser myParser;
 
     @Override
     public void initialize (Dimension2D containerSize) {
     	String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         
-        Dimension2D mySize = new Dimension2D(GuiConstants.LEFT_CONTAINER_WIDTH,GuiConstants.LEFT_CONTAINER_HEIGHT);
+        Dimension2D mySize = new Dimension2D(GuiConstants.LEFT_CONTAINER_WIDTH, GuiConstants.LEFT_CONTAINER_HEIGHT);
         
         this.setMinSize(mySize.getWidth(),mySize.getHeight());
         this.setPrefSize(mySize.getWidth(),mySize.getHeight());

@@ -30,7 +30,7 @@ public class AIMovement extends BaseMovementBehavior {
             myIndex=0;
         }
         if(myAIRoute==null){
-            System.out.println("no path");
+            //System.out.println("no path");
             return;
         }
         Point2D current = new Point2D(actor.getX(), actor.getY());

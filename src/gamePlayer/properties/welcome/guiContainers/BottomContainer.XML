@@ -4,12 +4,13 @@
 
     <!--width and height size ratios to window size-->
  	<SizeRatio>
-		<element>0.0</element> <!-- Height -->
-		<element>0.0</element> <!-- Width -->
+		<element>1</element> <!-- Height -->
+		<element>0.15</element> <!-- Width -->
 	</SizeRatio>
 	
 	<!--items contained within this container (added via reflection)-->
 	<Items>
+		<element>gamePlayer.guiItems.welcome.LMConnector</element>
 	</Items>
 	
 </ContainerProperties>

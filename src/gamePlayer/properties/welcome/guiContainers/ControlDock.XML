@@ -2,8 +2,8 @@
 
 <ControlDockProperties>
 	<SizeRatio>
-		<element>1</element>
-		<element>0.2</element>
+		<element>0</element>
+		<element>0</element>
 	</SizeRatio>
 
     <Items>

@@ -37,9 +37,9 @@ import utilities.XMLParsing.XMLParser;
  */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
-    private static final int CENTER_DISPLAY_WIDTH = 230;
-    protected static final String ADD_TOWER_IMG_PATH = "./src/gameAuthoring/Resources/otherImages/addTower.png";
-    protected static final int DRAG_AND_DROP_WIDTH = 650;
+    protected static final String ADD_TOWER_IMG_PATH = 
+            "./src/gameAuthoring/Resources/otherImages/addTower.png";
+    protected static final int DRAG_AND_DROP_WIDTH = 550;
     public static final int ACTOR_IMG_HEIGHT = 150;
     public static final int ACTOR_IMG_WIDTH = 150;
 
@@ -99,14 +99,16 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void createCenterDisplay() {
-        VBox centerOptionsBox = new VBox(25);
-        centerOptionsBox.setMinWidth(CENTER_DISPLAY_WIDTH);
+        VBox centerOptionsBox = new VBox(15);
         Label title = new Label(super.getTitle() + " Behaviors.");
-        title.getStyleClass().add("behaviorsTitle");
+        title.setStyle("-fx-font-size: 18px");
         myRangeSliderContainer = new SliderContainer("range", 0, 100);
-        centerOptionsBox.getChildren().addAll(title, createActorNameTextField(), 
-                                              addRequiredNumericalTextFields(), 
-                                              myRangeSliderContainer);
+        VBox generalBox = new VBox(10);
+        generalBox.getChildren().addAll(addRequiredNumericalTextFields(), 
+                                        myRangeSliderContainer);
+        generalBox.setStyle("-fx-border-width: 1px; -fx-border-color: gray; " +
+                            "-fx-padding: 10px; -fx-border-radius: 5px");
+        centerOptionsBox.getChildren().addAll(title, createActorNameTextField(), generalBox);
         centerOptionsBox.setPadding(new Insets(10));
         for(BehaviorBuilder builder:myBehaviorBuilders){
             centerOptionsBox.getChildren().add(builder.getContainer());
