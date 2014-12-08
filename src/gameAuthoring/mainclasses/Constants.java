@@ -7,7 +7,7 @@ public class Constants {
     public static final String TOWER = "tower";
     public static final String LINE = "line";
     public static final String VISIBLE = "visible";
-    public static final String DAMAGE = "Damage";
+    public static final String DAMAGE = "damage";
     public static final String PROJECTILE = "projectile";
     public static final String NOT_ENOUGH_ENEMIES_MSG = "NotEnoughEnemiesMsg";
     public static final String NOT_ENOUGH_TOWERS_MSG = "NotEnoughTowersMsg";

@@ -13,7 +13,9 @@ public abstract class BaseEffectBehavior implements IBehavior {
     }
     public BaseEffectBehavior (List<Double> list) {
         myList=list;
+       
     }
+    
 
     public abstract void performEffect(BaseActor actor);
     public String toString(){
