@@ -12,6 +12,7 @@ import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
 import gameEngine.actors.behaviors.updateInterface;
 import gameEngine.levels.BaseLevel;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,8 +25,9 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import com.sun.javafx.geom.Point2D;
-import utilities.GSON.DataWrapper;
+
 import utilities.GSON.GSONFileReader;
 import utilities.GSON.GSONFileWriter;
 import javafx.animation.KeyFrame;
@@ -42,6 +44,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import utilities.GSON.GSONFileReader;
+import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 

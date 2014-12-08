@@ -1,5 +1,6 @@
 package gameAuthoring.scenes;
 
+
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.mainclasses.controllerInterfaces.GeneralSettingsConfiguring;
 import javafx.geometry.Insets;
@@ -7,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -22,6 +24,7 @@ public class GeneralSettingScene {
 	private TextField myHealthTextField;
 	private TextField myCashTextField;
 	private DragAndDropCopyAudioPane myAudioPane;
+	private ComboBox<String> myGameTypeComboBox;
 
 
 
@@ -34,8 +37,7 @@ public class GeneralSettingScene {
 		myVBox.setAlignment(Pos.CENTER);
 		root.getChildren().add(myVBox);
 		createHeadingLabel();
-	
-		createTextFields();
+		createOptionFields();
 		createOptions();
 		myAudioPane = new DragAndDropCopyAudioPane(200, 200, "/src");	
 		//createAudioPane("Drag Your Desired Background Music Here:", myAudioPane);
@@ -50,16 +52,23 @@ public class GeneralSettingScene {
 	}
 
 
-	private void createTextFields(){
+	private void createOptionFields(){
 		myNameTextField = new TextField();
 		myHealthTextField = new TextField();
-		myCashTextField = new TextField();		
+		myCashTextField = new TextField();
+		myGameTypeComboBox = new ComboBox<String>();
+		myGameTypeComboBox.getItems().addAll(
+				"SinglePlayer",
+				"Co-Op"
+				);
 	}
+	
 
 	private void createOptions(){
 		createTextFieldWithLabel("Name of Your Game", myNameTextField);
 		createTextFieldWithLabel("Starting Health", myHealthTextField);
 		createTextFieldWithLabel("Starting Amount of Cash", myCashTextField);
+		createComboBoxWithLabel("Select Game Type", myGameTypeComboBox);
 	}
 
 
@@ -70,6 +79,13 @@ public class GeneralSettingScene {
 		vb.getChildren().addAll(optionLabel, textField);
 		myVBox.getChildren().add(vb);
 
+	}
+	
+	private void createComboBoxWithLabel(String labelName, ComboBox<String> comboBox){
+		VBox vb = new VBox(15);
+		Label optionLabel = new Label(labelName);
+		vb.getChildren().addAll(optionLabel, comboBox);
+		myVBox.getChildren().add(vb);
 	}
 
 
@@ -93,14 +109,15 @@ public class GeneralSettingScene {
 	private void handleButtonClick(){
 		
         String gameNameText = myNameTextField.getText();
-        if (!gameNameText.isEmpty()) {
-            myGeneralSettingsController.makeDirectory(gameNameText, true);
+        int startingCash = Integer.parseInt(myCashTextField.getText());
+        int startingHealth = Integer.parseInt(myHealthTextField.getText());
+        String gameType = myGameTypeComboBox.getValue();
+        if (!gameNameText.isEmpty() && !gameType.isEmpty() && startingCash!= 0 && startingHealth!=0) {
+            myGeneralSettingsController.makeDirectory(gameNameText, gameType);
+            myGeneralSettingsController.setGeneralSettings(gameNameText, startingHealth, startingCash);
         }
-		
-		//THIS IS TEMPORARY
-		System.out.println(myNameTextField.getText());
-		System.out.println(myHealthTextField.getText());
-		System.out.println(myCashTextField.getText());
+        
+        
 	}
 
 

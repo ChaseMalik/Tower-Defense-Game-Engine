@@ -1,5 +1,6 @@
 package gameAuthoring.scenes.actorBuildingScenes.behaviorBuilders;
 
+import gameAuthoring.mainclasses.Constants;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.List;
 import javafx.scene.control.ComboBox;
@@ -33,7 +34,8 @@ public class BehaviorBuilder {
     private String myBehaviorType;
     private List<String> myBehaviorOptions;
     
-    public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, SliderInfo sliderInfo) {
+    public BehaviorBuilder(String behaviorType, List<String> behaviorOptions, 
+                           SliderInfo sliderInfo) {
         myBehaviorType = behaviorType;
         myBehaviorOptions = behaviorOptions;
         mySliderInfo = sliderInfo;
@@ -56,9 +58,10 @@ public class BehaviorBuilder {
                              "-fx-border-color: gray; " +
                              "-fx-padding: 10px; " +
                              "-fx-border-radius: 5px");
-        myContainer.setSpacing(20); 
+        myContainer.setSpacing(Constants.LG_PADDING); 
         Label label = new Label();
-        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(myBehaviorType));
+        label.textProperty().bind(MultiLanguageUtility.getInstance()
+                                  .getStringProperty(myBehaviorType));
         myComboBox = createComboBox();
         myContainer.getChildren().addAll(label, myComboBox);
     }

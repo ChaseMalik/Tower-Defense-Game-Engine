@@ -12,8 +12,8 @@ public interface GeneralSettingsConfiguring {
 	/**
 	 * 
 	 * @param gameName
-	 * @param singlePlayer: true if single player, false if co-op
+	 * @param singleType: SinglePlayer or Co-Op
 	 */
-    void makeDirectory (String gameName, boolean singlePlayer);
+    void makeDirectory (String gameName, String gameType);
 
 }
