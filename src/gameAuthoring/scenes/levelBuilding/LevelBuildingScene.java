@@ -5,9 +5,17 @@ import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring;
 import gameAuthoring.scenes.BuildingScene;
 import gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu;
+import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
+
 import java.util.Observable;
 import java.util.Observer;
+
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.errorPopup.ErrorPopup;
+import utilities.multilanguage.MultiLanguageUtility;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import utilities.errorPopup.ErrorPopup;
@@ -39,8 +47,10 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     private void setupLevelDisplay () {
     	mySimulationPane = new Pane();
     	mySimulationPane.setPrefHeight(AuthorController.SCREEN_HEIGHT);
-    	mySimulationPane.setPrefWidth(AuthorController.SCREEN_WIDTH);
-       	myPane.setCenter(mySimulationPane);
+    	mySimulationPane.setPrefWidth(BuildingPane.DRAW_SCREEN_WIDTH);
+    	ImageView imgView = StringToImageViewConverter.getImageView(BuildingPane.DRAW_SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT,myLevelConfiguringController.getBackgroundImagePath() );
+       	mySimulationPane.getChildren().add(imgView);
+    	myPane.setCenter(mySimulationPane);
        	
         myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies(), mySimulationPane);
         myPane.setLeft(myLevelsDisplay);
