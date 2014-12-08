@@ -93,4 +93,12 @@ public class Store implements GuiItem {
         pane.setHbarPolicy(ScrollBarPolicy.NEVER);
         return pane;
     }
+
+	public void freeze() {
+		myTilePane.setDisable(true);
+	}
+	
+	public void unfreeze(){
+		myTilePane.setDisable(false);
+	}
 }
