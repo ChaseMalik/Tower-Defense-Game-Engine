@@ -39,6 +39,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -49,6 +50,7 @@ import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 
@@ -62,8 +64,8 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
  */
 public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		PlayButtonListener, SpeedButtonListener, StoreListener,
-		GameWorldListener, UpgradeListener,
-		MessageDisplayListener, SpeedSliderListener, SpecialButtonListener, EarthquakeListener {
+		GameWorldListener, UpgradeListener, MessageDisplayListener,
+		SpeedSliderListener, SpecialButtonListener, EarthquakeListener {
 
 	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
 
@@ -148,7 +150,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 	}
 
-	public void prepareMultiPlayerGame(String directoryPath) {	        
+	public void prepareMultiPlayerGame(String directoryPath) {
 		myCoOpManager = new CoOpManager();
 		myEngineManager = myCoOpManager;
 		myCoOpManager.startNewGame(directoryPath);
@@ -163,22 +165,22 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GuiConstants.GUI_MANAGER.init();
 		String dir = myCoOpManager.initializeGame(myGameWorld.getMap());
 		initializeNewGameElements(dir);
-		
+
 		GameStat time = new GameStat();
 		time.setGameStat("Time");
 		time.statValueProperty().bindBidirectional(myCoOpManager.getTimer());
-		time.statValueProperty().addListener(new ChangeListener<Number>(){
+		time.statValueProperty().addListener(new ChangeListener<Number>() {
 			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				if ((double)newValue <= 0.0){
+			public void changed(ObservableValue<? extends Number> o,
+					Number oldValue, Number newValue) {
+				if ((double) newValue <= 0.0) {
 					interactionAllowed = false;
 					myStore.freeze();
-				}
-				else {
+				} else {
 					interactionAllowed = true;
 					myStore.unfreeze();
 				}
-			
+
 			}
 		});
 		gameStats.add(time);
@@ -284,7 +286,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void upgradeTower(ImageView imageView, String upgradeName) {
-		if (!interactionAllowed) return;
+		if (!interactionAllowed)
+			return;
 		if (upgradeName.equals(NO_UPGRADE)
 				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
 			displayMessage(upgradeName, true);
@@ -308,10 +311,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
 		gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
-		
+
 		GameStat health = new GameStat();
 		health.setGameStat("Health");
-		health.statValueProperty().bindBidirectional(myEngineManager.myHealth());
+		health.statValueProperty()
+				.bindBidirectional(myEngineManager.myHealth());
 
 		gameStats = new ArrayList<GameStat>();
 		gameStats.add(level);
@@ -325,7 +329,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	public void makeTower(String towerName, double x, double y) {
-		if (!interactionAllowed) return;
+		if (!interactionAllowed)
+			return;
 		displayMessage(MessageDisplay.DEFAULT, false);
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
 			displayMessage(towerName, true);
@@ -335,16 +340,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(towerName).getBuyCost());
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
-		if(towerImageView == null) {
-		displayMessage(NO_GOLD, true);
-		return;
+		if (towerImageView == null) {
+			displayMessage(NO_GOLD, true);
+			return;
 		}
 		towerImageView.setOnMouseClicked(event -> selectTower(towerName,
 				towerImageView));
 	}
 
 	private void selectTower(String towerName, ImageView tower) {
-		if (!interactionAllowed) return;
+		if (!interactionAllowed)
+			return;
 		CenteredImageView centered = (CenteredImageView) tower;
 		double radius = towerMap.get(towerName).getRange();
 		deselectTower(activeIndicator, activeTower,
@@ -363,7 +369,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void deselectTower(TowerIndicator indicator, ImageView tower,
 			String towerName) {
 		myGameWorld.getMap().getChildren().remove(indicator);
-		//myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null, null);
+		// myUpgradePanel.setCurrentTower(new NullTowerInfoObject(), null,
+		// null);
 		myUpgradePanel.deselectTower();
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
@@ -393,7 +400,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void sellTower(ImageView myTowerImageView, TowerIndicator indicator) {
-		if (!interactionAllowed) return;
+		if (!interactionAllowed)
+			return;
 		myEngineManager.sellTower(myTowerImageView);
 		myGameWorld.getMap().getChildren().remove(indicator);
 	}
@@ -422,7 +430,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			}
 		}
 	}
-	
+
 	private void initWithLM() {
 		LMController controller = LMController.getInstance();
 		controller.onCircleCW(event -> mySpeedSlider.incrementSpeed());
@@ -438,7 +446,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void escapePlace() {
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
-		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
+		myGameWorld.getMap().getChildren()
+				.remove(myGameWorld.getMap().getChildren().size() - 1); // remove
+																		// range
+																		// circle
+																		// (last
+																		// thing
+																		// added
+																		// to
+																		// children)
 		displayMessage(MessageDisplay.DEFAULT, false);
 	}
 
@@ -448,19 +464,31 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// TODO : Create Vibrator
 		EarthquakeController controller;
 		if (LMController.getInstance().deviceIsConnected()) {
-			controller = new EarthquakeController(new LMEarthquakeStrategy(),(EarthquakeListener)this);
+			controller = new EarthquakeController(new LMEarthquakeStrategy(),
+					(EarthquakeListener) this);
 		} else {
-			controller = new EarthquakeController(new MouseEarthquakeStrategy(),(EarthquakeListener)this);
+			controller = new EarthquakeController(
+					new MouseEarthquakeStrategy(), (EarthquakeListener) this);
 		}
 		controller.start(5);
-		
+
 		return 5;
 	}
-	
+
 	@Override
 	public void vibrate(double magnitude) {
-		//TODO : Shake Screen and tell GameEngine
-		System.out.println(magnitude);
+		// TODO : Shake Screen and tell GameEngine
+		Pane gameworld = myGameWorld.getMap();
+		if (magnitude == -1) {
+			gameworld.setTranslateX(0);
+			gameworld.setTranslateY(0);
+			return;
+		}
+		Random rand = new Random();
+		double factor = 2*rand.nextDouble() - 1;
+		gameworld.setTranslateX(factor * 5*magnitude);
+		factor = 2*rand.nextDouble() - 1;
+		gameworld.setTranslateY(factor * 5*magnitude);
 	}
 
 	public void addEventFilter(EventType<MouseEvent> eventType,

@@ -41,6 +41,7 @@ public class EarthquakeController {
 	}
 
 	public void stop() {
+		listener.vibrate(-1);
 		strategy.stop();
 	}
 	
