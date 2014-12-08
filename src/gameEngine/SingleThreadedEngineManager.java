@@ -10,7 +10,7 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.actors.InfoObject;
-import gameEngine.actors.behaviors.updateInterface;
+import gameEngine.actors.behaviors.UpdateInterface;
 import gameEngine.levels.BaseLevel;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ import utilities.GSON.objectWrappers.DataWrapper;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.networking.HTTPConnection;
 
-public class SingleThreadedEngineManager implements Observer, updateInterface, infoInterface{
+public class SingleThreadedEngineManager implements Observer, UpdateInterface, InformationInterface{
 
 	private static final int FPS = 30;
 	private static final double ONE_SECOND_IN_MILLIS = 1000.0;

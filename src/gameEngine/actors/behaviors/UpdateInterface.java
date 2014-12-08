@@ -1,7 +1,7 @@
 package gameEngine.actors.behaviors;
 
 
-public interface updateInterface {
+public interface UpdateInterface {
 
 public double getMyGold();
 
