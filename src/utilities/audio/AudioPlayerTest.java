@@ -9,9 +9,10 @@ import javafx.stage.Stage;
 
 /**
  * @author $cotty $haw
- *
- * Our AudioPlayerTest tests playing audio files on a MediaPlayer. If
- * the user uses an audio file in this package, it should play.
+ * 
+ * The AudioPlayerTest tests playing audio files on a MediaPlayer. If
+ * the user loads an audio file with an allowed file extension to the
+ * package, it should play.
  * 
  */
 public class AudioPlayerTest extends Application {

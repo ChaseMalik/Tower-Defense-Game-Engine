@@ -11,8 +11,8 @@ import utilities.errorPopup.ErrorPopup;
 
 /**
  * @author $cotty $haw
- *
- * Our DragAndDropAudioPane is a utility that will accept audio files
+ * 
+ * The DragAndDropAudioPane is a utility that will accept audio files
  * with the allowed extensions that the user dragged and dropped into
  * the pane. This class extends Observable, so it can listen for when
  * an audio file drops.
