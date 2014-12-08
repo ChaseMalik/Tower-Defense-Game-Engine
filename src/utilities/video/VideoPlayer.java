@@ -21,9 +21,9 @@ import javafx.util.Duration;
 class VideoPlayer extends BorderPane {
 
     private static final String PLAY_BUTTON_TEXT = "Play";
-    private static final String PAUSE_BUTTON_TEXT = "Pause";
+    private static final String PAUSE_BUTTON_TEXT = "Stop";
     private static final String SPACE = "   ";
-    private static final String TIME_LABEL_TEXT = "Play Time: 308";
+    private static final String TIME_LABEL_TEXT = "";
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
 
     private MediaPlayer myMediaPlayer;
@@ -166,6 +166,7 @@ class VideoPlayer extends BorderPane {
                 public void run () {
                     Duration currentTime = myMediaPlayer.getCurrentTime();
                     myTimeLabel.setText(currentTime.toString());
+//                  myTimeLabel.setText(calculateTime(currentTime, myDuration));
                     myTimeSlider.setDisable(myDuration.isUnknown());
                     if (myDuration.greaterThan(Duration.ZERO) && !myTimeSlider.isDisabled() && !myTimeSlider.isValueChanging()) {
                         double duration = myDuration.toMillis();
