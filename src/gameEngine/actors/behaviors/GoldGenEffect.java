@@ -4,7 +4,7 @@ import java.util.List;
 import gameEngine.goldUpdate;
 import gameEngine.actors.BaseActor;
 
-public class GoldGenEffect extends BaseOnHitBehavior{
+public class GoldGenEffect extends BaseEffect{
     private double myGold;
     
     public GoldGenEffect(List<Double> list){

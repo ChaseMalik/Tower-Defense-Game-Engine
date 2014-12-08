@@ -4,7 +4,7 @@ import java.util.List;
 import gameEngine.healthUpdate;
 import gameEngine.actors.BaseActor;
 
-public class healBehavior extends BaseOnHitBehavior{
+public class healBehavior extends BaseEffect{
     
     private double myHeal;
     public healBehavior(List<Double> list){
