@@ -1,6 +1,7 @@
 package gameAuthoring.scenes.levelBuilding;
 
 import gameAuthoring.mainclasses.Constants;
+import gameEngine.SingleThreadedEngineManager;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -33,8 +35,10 @@ public class LevelDisplayCell extends HBox {
     private int myLevelNum;
     private Map<BaseEnemy, NumericalTextField> enemyToEnemyCountMap;
     private NumericalTextField myLevelDurationField;
-
-    public LevelDisplayCell (List<BaseEnemy> baseEnemies, int levelNum) {
+    private boolean myEngineInstantiatedFlag;
+    private SingleThreadedEngineManager myEngineManager;
+    
+    public LevelDisplayCell (List<BaseEnemy> baseEnemies, int levelNum, Pane pane) {
         myEnemies = baseEnemies;
         myLevelNum = levelNum;
         enemyToEnemyCountMap = new HashMap<BaseEnemy, NumericalTextField>();
@@ -45,8 +49,16 @@ public class LevelDisplayCell extends HBox {
         HBox enemiesBox = createEnemiesBox();
         Image img = new Image(PLAYLEVELBUTTON_IMG_PATH);
         ImageView playLevelButton = new ImageView(img);
-        
+
+        myEngineInstantiatedFlag = false;
         playLevelButton.setOnMouseClicked(event ->{
+        	System.out.println("simulate!");
+        	if(!myEngineInstantiatedFlag) {
+        		myEngineManager = new SingleThreadedEngineManager(pane);
+        		myEngineInstantiatedFlag = true;
+        	}
+        	myEngineManager.loadAuthoringLevel(generateLevel());
+        	myEngineManager.resume();
         	
         });
         container.getChildren().addAll(levelInfoBox, enemiesBox, playLevelButton);

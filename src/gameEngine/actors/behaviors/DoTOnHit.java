@@ -5,9 +5,10 @@ import gameEngine.actors.BaseActor;
 
 
 public class DoTOnHit extends BaseOnHitBehavior {
-    
+    private double myDamage;
     public DoTOnHit(List<Double> list){
         super(list);
+        myDamage=list.get(1);
     }
     public DoTOnHit (double duration, double damage) {
         super(duration, damage);
@@ -26,7 +27,7 @@ public class DoTOnHit extends BaseOnHitBehavior {
     public void during (BaseActor actor) {
         // TODO Auto-generated method stub
         BaseDefendBehavior m = ((BaseDefendBehavior) actor.getBehavior("defend"));
-        double d = m.getHealth()-myMultiplier/myInitialDuration;
+        double d = m.getHealth()-myDamage/myInitialDuration;
         m.setHealth(d);
  
         if(m.getHealth()<=0){

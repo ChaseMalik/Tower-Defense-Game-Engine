@@ -29,7 +29,7 @@ public abstract class BaseAttack implements IBehavior {
     public BaseAttack(List<Double> list){
         myList=list;
         myAttackSpeed=list.get(0);
-        myRange=list.get(0);
+        myRange=list.get(1);
     }
     protected boolean readyToShoot () {
         return myCooldown == READY_TO_SHOOT;

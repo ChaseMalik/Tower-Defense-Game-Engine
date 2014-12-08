@@ -5,10 +5,8 @@ import gamePlayer.guiContainers.coreContainers.CenterContainer;
 import gamePlayer.guiContainers.coreContainers.LeftContainer;
 import gamePlayer.guiContainers.coreContainers.RightContainer;
 import gamePlayer.guiContainers.coreContainers.TopContainer;
-
 import java.io.File;
 import java.util.List;
-
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -16,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utilities.XMLParsing.XMLParser;
-import utilities.textGenerator.TextGenerator;
 
 /**
  * Class builds a GUI recursively by calling 'initialize' on core GuiElements,
@@ -61,8 +58,9 @@ public class GuiBuilder {
 
 		// TODO: TEXT_GEN already initialized in WelcomeScreenManager. Remove
 		// line below
-		GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
-				"TextGeneratorPropertiesPath").get(0));
+		//GuiConstants.TEXT_GEN = new TextGenerator(myParser.getValuesFromTag(
+		//		"TextGeneratorPropertiesPath").get(0));
+		
 		Dimension2D windowSize = null;
 		if (GuiConstants.DYNAMIC_SIZING) {
 			windowSize = new Dimension2D(GuiConstants.WINDOW_WIDTH,
@@ -80,7 +78,7 @@ public class GuiBuilder {
 				windowSize.getHeight());
 		setStyleSheet(scene);
 		stage.setScene(scene);
-		stage.setTitle(GuiConstants.TEXT_GEN.get(GuiText.VOOGASALAD));
+		stage.titleProperty().bind(GuiConstants.MULTILANGUAGE.getStringProperty(GuiText.VOOGASALAD));
 
 		// for now, no re-sizing window dynamically until dynamic window
 		// resizing algorithm is written

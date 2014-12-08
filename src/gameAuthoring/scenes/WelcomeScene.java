@@ -21,9 +21,12 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public class WelcomeScene extends Observable {
 
+
     private static final String SPLASH_IMG_PATH = "gameAuthoring/scenes/WelcomeSplash.png";
     private static final int TOPDOWN_PADDING = 200;
     private static final int LEFTRIGHT_PADDING = 50;
+
+    private static final int OUTER_PADDING = 200;
     private static final int BOX_SPACING = 50;
     private static final String CHOOSE_LANG = "Choose Your Language";
     private Scene myScene;
@@ -35,7 +38,8 @@ public class WelcomeScene extends Observable {
 
     public WelcomeScene () {
         root = new Group();
-        myScene = new Scene(root, AuthorController.SCREEN_WIDTH, AuthorController.SCREEN_HEIGHT);
+        myScene = new Scene(root, AuthorController.SCREEN_WIDTH, 
+                            AuthorController.SCREEN_HEIGHT);
         makeStartScreen();
         myVBox = new VBox(BOX_SPACING);
         myVBox.setPrefWidth(AuthorController.SCREEN_WIDTH);
@@ -46,10 +50,10 @@ public class WelcomeScene extends Observable {
     }
 
     private void createLanguageComboBox () {
-        VBox languageOptionVB = new VBox(15);
+        VBox languageOptionVB = new VBox(Constants.MED_PADDING);
         languageOptionVB.setAlignment(Pos.CENTER);
         Label languageLabel = new Label(CHOOSE_LANG);
-        languageLabel.setStyle("-fx-font-size: 24px");
+        languageLabel.setStyle("-fx-font-size: 20px");
         myLanguageCB = new ComboBox<String>();
         myLanguageCB.getItems().addAll(ENGLISH, SPANISH);
         myLanguageCB.setOnAction(event -> {
@@ -68,14 +72,15 @@ public class WelcomeScene extends Observable {
                 .getStringProperty(Constants.WELCOME_MSG));
         welcomeLabel.setStyle("-fx-font-size: 44px");
      //   welcomeLabel.setStyle("-fx-stroke-width: 2");
+
         myVBox.getChildren().addAll(welcomeLabel);
         createLanguageComboBox();
     }
 
     public void makeStartScreen () {
-        Image img = new Image(SPLASH_IMG_PATH);
-        ImageView imgView = new ImageView(img);
-        root.getChildren().add(imgView);
+//        Image img = new Image(SPLASH_IMG_PATH);
+//        ImageView imgView = new ImageView(img);
+//        root.getChildren().add(imgView);
     }
 
     public Scene getScene () {

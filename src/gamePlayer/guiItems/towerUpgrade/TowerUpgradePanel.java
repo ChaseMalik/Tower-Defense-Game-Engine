@@ -12,6 +12,7 @@ import gameEngine.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.guiBuilder.GuiText;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -42,6 +43,7 @@ import javafx.scene.text.FontWeight;
  */
 
 public class TowerUpgradePanel extends Pane implements GuiItem {
+
 	
 	private HBox myUpgradeBox;
 	private Label unselectedLabel;
@@ -65,56 +67,42 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	public static final String NO_SELECTED_TOWER = "Click on a tower to upgrade or sell it";
 	public static final String UPGRADE_TEXT = "Upgrade to:" + "\n";
 	public static final String STONE_PATH = "./src/gamePlayer/playerImages/stonewall.jpg";
+	public static final String SELL_PATH = "./src/gamePlayer/playerImages/dollars.jpg";
+	public static final String UP_PATH = "./src/gamePlayer/playerImages/upvote.jpg";
 	
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		
 		myListener = GuiConstants.GUI_MANAGER;
-		
-
-		
+	
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
+
         myParser = new XMLParser(new File(propertiesPath)); 
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         Dimension2D buttonRatio = myParser.getDimension("ButtonSizeRatio");
         Dimension2D labelRatio = myParser.getDimension("LabelRatio");
         Dimension2D iconRatio = myParser.getDimension("IconSizeRatio");
-       
+
         mySize = RatiosToDim.convert(containerSize, sizeRatio);
         myIconSize = RatiosToDim.convert(mySize, iconRatio);
         myButtonSize = RatiosToDim.convert(mySize, buttonRatio);
         myLabelSize = RatiosToDim.convert(mySize, labelRatio);
+
    
         this.setPrefSize(mySize.getWidth(), mySize.getHeight());
         
-		unselectedLabel = new Label(NO_SELECTED_TOWER);
-		unselectedLabel.setPrefSize(mySize.getWidth(), mySize.getHeight());
-		unselectedLabel.setAlignment(Pos.CENTER);
-		unselectedLabel.setFont(Font.font("sans-serif", FontWeight.BOLD, 20.0));
-		unselectedLabel.setStyle("-fx-text-fill: WHITE;");
-		Image background = null;
-		try {
-			background = new Image(new FileInputStream(new File(STONE_PATH)), mySize.getWidth(), mySize.getHeight(), false, false);
-		} catch (FileNotFoundException e) {
-		}
-		Background b = new Background(
-				new BackgroundImage(background,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
-		unselectedLabel.setBackground(b);
-		System.out.println(unselectedLabel.getPrefWidth() + " " + unselectedLabel.getPrefHeight());
-		unselectedLabel.setBorder(StandardBorder.get(Color.BLACK));
+		unselectedLabel = new BackgroundLabel(NO_SELECTED_TOWER, mySize, STONE_PATH);
         
 		myIcon = new ImageView();
 		myIcon.setFitWidth(myIconSize.getWidth());
 		myIcon.setFitHeight(myIconSize.getWidth());  //same dimensions for square image
 		myIcon.setStyle("-fx-stroke: green; -fx-stroke-width: 5");
 		
-		myName = new Label();
-		myName.setPrefSize(myLabelSize.getWidth(), myLabelSize.getHeight());
-		myName.setAlignment(Pos.CENTER);
-		myName.setBorder(StandardBorder.get(Color.ORANGE));
-		
-		upgradeButton = new PanelButton(Color.LIGHTGREEN, myButtonSize);
-		sellButton = new PanelButton(Color.BLUEVIOLET, myButtonSize);
+		myName = new BackgroundLabel("", myLabelSize, STONE_PATH);
+		upgradeButton = new PanelButton(Color.ORANGERED, myButtonSize, UP_PATH);
+		upgradeButton.setOnAction(event -> doUpgrade());
+		sellButton = new PanelButton(Color.GREEN, myButtonSize, SELL_PATH);
+		sellButton.setOnAction(event -> sell());
 		
 		myUpgradeBox = new HBox();
 		myUpgradeBox.getChildren().addAll(myIcon, myName, upgradeButton, sellButton);
@@ -138,9 +126,8 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myName.setText(current.getName());
 		myUpgradeName = current.getMyUpgrade().getName();
 		upgradeButton.setText(UPGRADE_TEXT + myUpgradeName);
-		upgradeButton.setOnAction(event -> doUpgrade());
-		sellButton.setText("Sell tower");
-		sellButton.setOnAction(event -> sell());
+		int sellPrice = current.getSellCost();
+		sellButton.setText("Sell tower for:\n" + sellPrice);
 		myTowerImageView = towerImageView;
 		activeIndicator = indicator;
 		this.getChildren().add(myUpgradeBox);
@@ -148,10 +135,13 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	
 	private void sell(){
 		myListener.sellTower(myTowerImageView, activeIndicator);
+		deselectTower();
+		
 	}
 	
 	private void doUpgrade(){
 		myListener.upgradeTower(myTowerImageView, myUpgradeName);
+		deselectTower();
 	}
 
 	

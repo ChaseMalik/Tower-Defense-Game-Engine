@@ -9,11 +9,14 @@
 	</movement>
 	 <onhiteffect>
 	 	<sliders>
-	 		<slider name="multiplier" min="0" max="5"></slider>
+	 		<slider name="duration" min="0" max="90"></slider>
+	 		<slider name="magnitude" min="0" max="100"></slider>
 	 	</sliders>
 	 	<elements>
 			<element>SlowEffect</element>
 			<element>DoTOnHit</element>
+			<element>AoEEffect</element>
+			<element>NullBehavior</element>
 		</elements>
 	</onhiteffect>
 </behaviors>

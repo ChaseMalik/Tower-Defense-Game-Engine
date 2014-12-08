@@ -43,7 +43,12 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     }
 
     private void setupLevelDisplay () {
-        myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies());
+    	mySimulationPane = new Pane();
+    	mySimulationPane.setPrefHeight(AuthorController.SCREEN_HEIGHT);
+    	mySimulationPane.setPrefWidth(AuthorController.SCREEN_WIDTH);
+       	myPane.setCenter(mySimulationPane);
+       	
+        myLevelsDisplay = new LevelBuildingDisplay(myLevelConfiguringController.fetchEnemies(), mySimulationPane);
         myPane.setLeft(myLevelsDisplay);
     }
 
@@ -58,13 +63,8 @@ public class LevelBuildingScene extends BuildingScene implements Observer {
     }
     
     private void setupSimulationPane(){
-    	mySimulationPane = new Pane();
-    	mySimulationPane.setPrefHeight(AuthorController.SCREEN_HEIGHT);
-    	mySimulationPane.setPrefWidth(AuthorController.SCREEN_WIDTH - myLevelsDisplay.getWidth());
-    	Label test = new Label("CHASE SUCKS");
-    	test.setStyle("-fx-font-size: 30px");
-    	mySimulationPane.getChildren().add(test);
-    	myPane.setCenter(mySimulationPane);
+
+ 
     }
 
     /**
