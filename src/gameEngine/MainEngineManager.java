@@ -279,13 +279,16 @@ public class MainEngineManager implements Observer, UpdateInterface, Information
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
         if(myHealth.get() <= 0){
-        	onGameEnd();
+        	onGameLose();
         }
     }
 
-    private void onGameEnd() {
+    private void onGameLose() {
     	myHealth.set(0);
     	myWinStatus.set(-1);
+    	myTowerGroup.clear();
+    	myEnemyGroup.clear();
+    	myProjectileGroup.clear();
     	pause();
     }
     
@@ -603,5 +606,4 @@ public class MainEngineManager implements Observer, UpdateInterface, Information
         myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
         removeTower(n);
     }
-
 }
