@@ -306,12 +306,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(ImageView imageView, String upgradeName) {
-		if (!interactionAllowed) return;
-		if (upgradeName.equals(NO_UPGRADE)
-				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
-			displayMessage(upgradeName, true);
-			return;
+	public boolean upgradeTower(ImageView imageView, String upgradeName) {
+		if (!interactionAllowed) return false;
+		if (upgradeName.equals(NO_UPGRADE)){
+			displayMessage(NO_UPGRADE, true);
+			return false;
+		}
+		if (!myEngineManager.checkGold(towerMap.get(upgradeName))) {
+			displayMessage(NO_GOLD, true);
+			return false;
 		}
 		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
@@ -320,6 +323,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// if (newTower == null) displayMessage(NO_GOLD, true);
 		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
 		selectTower(upgradeName, newTower);
+		return true;
 	}
 
 	private void testHUD() {
