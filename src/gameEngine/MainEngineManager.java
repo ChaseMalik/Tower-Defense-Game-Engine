@@ -114,6 +114,7 @@ public class MainEngineManager implements Observer, UpdateInterface, Information
         myPausedFlag = true;
         myEarthquakeMagnitude = new SimpleDoubleProperty();
         myTowerLocationByGrid = new TowerTileGrid(20, 20);
+        myTowerTiles = createGameSizedGridPane();
         myCurrentLevelProperty = new SimpleDoubleProperty(1);
         myWinStatus = new SimpleDoubleProperty(0);
     }
