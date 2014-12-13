@@ -1,11 +1,7 @@
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TowerRangeEffect extends BaseEffect {
     private double myRange;

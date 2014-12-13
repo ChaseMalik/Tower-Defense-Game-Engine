@@ -1,4 +1,5 @@
-package gameEngine;
+package gameEngine.Data;
+
 
 public class NullTowerInfoObject extends TowerInfoObject{
 

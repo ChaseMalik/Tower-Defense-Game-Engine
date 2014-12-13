@@ -1,11 +1,17 @@
 package gameEngine;
 
 import gameAuthoring.mainclasses.AuthorController;
-import gameAuthoring.mainclasses.Constants;
 import gameAuthoring.scenes.actorBuildingScenes.TowerUpgradeGroup;
 import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
+import gameEngine.Data.NullTowerInfoObject;
+import gameEngine.Data.RangeRestrictedCollection;
+import gameEngine.Data.TowerInfoObject;
+import gameEngine.Data.TowerTileGrid;
+import gameEngine.ManagerInterface.InformationInterface;
+import gameEngine.ManagerInterface.UpdateInterface;
+import gameEngine.ManagerInterface.UpdateObject;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
@@ -45,10 +51,13 @@ import utilities.JavaFXutilities.imageView.CenteredImageView;
 import utilities.errorPopup.ErrorPopup;
 
 
-public class SingleThreadedEngineManager implements Observer, UpdateInterface, InformationInterface {
+public class MainEngineManager implements Observer, UpdateInterface, InformationInterface {
 
-    private static final int FPS = 30;
-    private static final double ONE_SECOND_IN_MILLIS = 1000.0;
+    private static final String UNKNOWN_SAVE_STATE_FILE_MESSAGE = "Unknown problem loading save file";
+	private static final String INCORRECT_SAVE_STATE_MESSAGE = "Save state does not correspond to this game";
+	private static final String JSON_EXTENSION = ".json";
+	private static final String DIRECTORY_SPLIT = "/";
+	private static final int FPS = 30;
     private static final double FRAME_DURATION = 1000.0 / 30;
 
     private double myLastUpdateTime;
@@ -60,7 +69,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     private RangeRestrictedCollection<BaseProjectile> myProjectileGroup;
     private double duration;
     private List<BaseLevel> myLevels;
-    private BaseLevel myCurrentLevel;
     private int myCurrentLevelIndex;
     private GridPane myValidRegions;
     private SimpleDoubleProperty myGold;
@@ -85,7 +93,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     private SimpleDoubleProperty myCurrentLevelProperty;
     private SimpleDoubleProperty myWinStatus;
     
-    public SingleThreadedEngineManager () {
+    public MainEngineManager () {
         myReadyToPlay = new AtomicBoolean(false);
         myEnemyGroup = new RangeRestrictedCollection<>();
         myTowerGroup = new RangeRestrictedCollection<>();
@@ -106,6 +114,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myPausedFlag = true;
         myEarthquakeMagnitude = new SimpleDoubleProperty();
         myTowerLocationByGrid = new TowerTileGrid(20, 20);
+        myTowerTiles = createGameSizedGridPane();
         myCurrentLevelProperty = new SimpleDoubleProperty(1);
         myWinStatus = new SimpleDoubleProperty(0);
     }
@@ -129,7 +138,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         return myTowerLocationByGrid;
     }
 
-    public SingleThreadedEngineManager (Pane engineGroup) {
+    public MainEngineManager (Pane engineGroup) {
         this();
         addGroups(engineGroup);
     }
@@ -271,13 +280,16 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myEnemyGroup.clearAndExecuteRemoveBuffer();
         myProjectileGroup.clearAndExecuteRemoveBuffer();
         if(myHealth.get() <= 0){
-        	onGameEnd();
+        	onGameLose();
         }
     }
 
-    private void onGameEnd() {
+    private void onGameLose() {
     	myHealth.set(0);
     	myWinStatus.set(-1);
+    	myTowerGroup.clear();
+    	myEnemyGroup.clear();
+    	myProjectileGroup.clear();
     	pause();
     }
     
@@ -362,12 +374,12 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
     }
 
     public void initializeGame (String directory) {
-        String[] splitDirectory = directory.split("/");
+        String[] splitDirectory = directory.split(DIRECTORY_SPLIT);
         myCurrentGameName = splitDirectory[splitDirectory.length - 1];
         myTowerGroup.clear();
         myEnemyGroup.clear();
         myProjectileGroup.clear();
-        String correctedDirectory = directory += "/";
+        String correctedDirectory = directory += DIRECTORY_SPLIT;
         myReadyToPlay.set(false);
         loadTowers(correctedDirectory);
         loadLevelFile(correctedDirectory);
@@ -484,7 +496,6 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
             }
         }
         myIntervalBetweenEnemies = levelDuration * FPS / myEnemiesToAdd.size();
-        myCurrentLevel = level;
     }
 
     public boolean isRunning() {
@@ -503,8 +514,8 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
 
     @Override
     public void update (Observable o, Object arg) {
-        if (arg instanceof updateObject) {
-            ((updateObject) arg).update(this);
+        if (arg instanceof UpdateObject) {
+            ((UpdateObject) arg).update(this);
         }
         else if (o instanceof BaseActor && arg != null) {
             if (arg instanceof BaseTower) {
@@ -521,7 +532,7 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
 
     public void saveState (String directory, String fileName) {
         if (myPausedFlag) {
-            String joinedFileName = directory + "/" + fileName + ".json";
+            String joinedFileName = directory + DIRECTORY_SPLIT + fileName + JSON_EXTENSION;
             try {
                 List<DataWrapper> wrappedTowers = wrapTowers();
                 GameStateWrapper gameState =
@@ -576,11 +587,11 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
                     }
                 }
                 else {
-                    new ErrorPopup("Save state does not correspond to this game");
+                    new ErrorPopup(INCORRECT_SAVE_STATE_MESSAGE);
                 }
             }
             catch (Exception ex) {
-                new ErrorPopup("Problem loading save file");
+                new ErrorPopup(UNKNOWN_SAVE_STATE_FILE_MESSAGE);
             }
         }
     }
@@ -596,5 +607,4 @@ public class SingleThreadedEngineManager implements Observer, UpdateInterface, I
         myGold.set(myNodeToTower.get(n).getSellCost() + myGold.get());
         removeTower(n);
     }
-
 }

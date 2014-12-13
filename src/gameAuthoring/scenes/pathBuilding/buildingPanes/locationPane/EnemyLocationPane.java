@@ -38,7 +38,8 @@ public abstract class EnemyLocationPane extends BuildingPane {
         myPath = path;
     }
 
-    protected void createEnemyLocationsSetupComponents (Button button, String labelStr) {
+    protected void createEnemyLocationsSetupComponents (Button button, 
+                                                        String labelStr) {
         VBox container = new VBox(Constants.SM_PADDING);
         container.setPadding(new Insets(CONTAINER_PADDING));
         container.setLayoutX(PROMPT_WIDTH);
@@ -46,7 +47,8 @@ public abstract class EnemyLocationPane extends BuildingPane {
         container.setAlignment(Pos.CENTER);
         container.setStyle("-fx-background-color: LightGray; -fx-opacity: 0.98;");
         Label label = new Label();
-        label.textProperty().bind(MultiLanguageUtility.getInstance().getStringProperty(labelStr));
+        label.textProperty().bind(MultiLanguageUtility.getInstance()
+                                  .getStringProperty(labelStr));
         container.getChildren().addAll(label, button, myClearLocations);
         this.getChildren().add(container);
     }
