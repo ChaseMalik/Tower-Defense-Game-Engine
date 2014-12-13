@@ -13,7 +13,6 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public class GuiConstants {
     public static GuiManager GUI_MANAGER;
-//    public static WelcomeManager WELCOME_MANAGER;
     public static MultiLanguageUtility MULTILANGUAGE;
     public static String GUI_ELEMENT_PROPERTIES_PATH;
     public static GameStartManager GAME_START_MANAGER; 
