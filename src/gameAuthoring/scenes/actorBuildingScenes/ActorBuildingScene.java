@@ -41,6 +41,8 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public abstract class ActorBuildingScene extends BuildingScene implements Observer {
 
+    private static final String NAME = " Name";
+    private static final int MAX_RANGE = 100;
     private static final String DRAG_AND_DROP_CSS = "dragAndDrop";
     protected static final String ADD_TOWER_IMG_PATH =
             "./src/gameAuthoring/Resources/otherImages/addTower.png";
@@ -108,13 +110,13 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private void createCenterDisplay () {
-        VBox centerOptionsBox = new VBox(15);
+        VBox centerOptionsBox = new VBox(Constants.MED_PADDING);
         Label title = new Label();
         title.textProperty()
                 .bind(MultiLanguageUtility.getInstance()
                         .getStringProperty(Constants.BEHAVIORS));
         title.setStyle("-fx-font-size: 18px");
-        myRangeSliderContainer = new SliderContainer(Constants.RANGE, 0, 100);
+        myRangeSliderContainer = new SliderContainer(Constants.RANGE, 0, MAX_RANGE);
         VBox generalBox = new VBox(10);
         generalBox.getChildren().addAll(addRequiredNumericalTextFields(),
                                         myRangeSliderContainer);
@@ -129,8 +131,8 @@ public abstract class ActorBuildingScene extends BuildingScene implements Observ
     }
 
     private VBox createActorNameTextField () {
-        VBox box = new VBox(5);
-        Label label = new Label(myTitle.concat(" Name"));
+        VBox box = new VBox(Constants.SMALLEST_PADDING);
+        Label label = new Label(myTitle.concat(NAME));
         myActorNameField = new TextField();
         box.getChildren().addAll(label, myActorNameField);
         return box;

@@ -1,7 +1,7 @@
 package gameAuthoring.scenes.levelBuilding;
 
 import gameAuthoring.mainclasses.Constants;
-import gameEngine.SingleThreadedEngineManager;
+import gameEngine.MainEngineManager;
 import gameEngine.actors.BaseEnemy;
 import gameEngine.levels.BaseLevel;
 
@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
-import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
-import utilities.multilanguage.MultiLanguageUtility;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,6 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
+import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
+import utilities.multilanguage.MultiLanguageUtility;
 
 
 public class LevelDisplayCell extends HBox {
@@ -29,15 +29,16 @@ public class LevelDisplayCell extends HBox {
     private static final int TEXT_FIELD_WIDTH = 50;
     private static final double FIT_SIZE = 80;
     private static final int GENERAL_PADDING = 10;
-    private static final String PLAYLEVELBUTTON_IMG_PATH = "gameAuthoring/scenes/levelBuilding/PlayLevelButton.png";
+    private static final String PLAYLEVELBUTTON_IMG_PATH =
+            "gameAuthoring/scenes/levelBuilding/PlayLevelButton.png";
 
     private List<BaseEnemy> myEnemies;
     private int myLevelNum;
     private Map<BaseEnemy, NumericalTextField> enemyToEnemyCountMap;
     private NumericalTextField myLevelDurationField;
     private boolean myEngineInstantiatedFlag;
-    private SingleThreadedEngineManager myEngineManager;
-    
+    private MainEngineManager myEngineManager;
+
     public LevelDisplayCell (List<BaseEnemy> baseEnemies, int levelNum, Pane pane) {
         myEnemies = baseEnemies;
         myLevelNum = levelNum;
@@ -51,15 +52,16 @@ public class LevelDisplayCell extends HBox {
         ImageView playLevelButton = new ImageView(img);
 
         myEngineInstantiatedFlag = false;
-        playLevelButton.setOnMouseClicked(event ->{
-        	System.out.println("simulate!");
-        	if(!myEngineInstantiatedFlag) {
-        		myEngineManager = new SingleThreadedEngineManager(pane);
-        		myEngineInstantiatedFlag = true;
-        	}
-        	myEngineManager.loadAuthoringLevel(generateLevel());
-        	myEngineManager.resume();
-        	
+        playLevelButton.setOnMouseClicked(event -> {
+            if (!myEngineInstantiatedFlag) {
+                myEngineManager = new MainEngineManager(pane);
+                myEngineInstantiatedFlag = true;
+            }
+            if (!myEngineManager.isRunning()) {
+                myEngineManager.loadAuthoringLevel(generateLevel());
+                myEngineManager.resume();
+            }
+
         });
         container.getChildren().addAll(levelInfoBox, enemiesBox, playLevelButton);
         this.getChildren().add(container);
@@ -68,7 +70,7 @@ public class LevelDisplayCell extends HBox {
     private HBox createEnemiesBox () {
         HBox enemiesBox = new HBox(GENERAL_PADDING);
         for (BaseEnemy enemy : myEnemies) {
-            VBox enemyBox = new VBox(5);
+            VBox enemyBox = new VBox(Constants.SMALLEST_PADDING);
             enemyBox.setAlignment(Pos.CENTER);
             Label enemyNameLabel = new Label(enemy.toString());
             ImageView enemyImg =
@@ -87,15 +89,15 @@ public class LevelDisplayCell extends HBox {
     }
 
     private VBox createLevelInfoBox () {
-        VBox levelInfoBox = new VBox(10);
-        levelInfoBox.setPadding(new Insets(15));
-        HBox timeAndSeconds = new HBox(10);
+        VBox levelInfoBox = new VBox(Constants.SM_PADDING);
+        levelInfoBox.setPadding(new Insets(Constants.MED_PADDING));
+        HBox timeAndSeconds = new HBox(Constants.SM_PADDING);
         myLevelDurationField = new NumericalTextField(TEXT_FIELD_WIDTH);
         Label secondsLabel = new Label();
         secondsLabel.textProperty().bind(MultiLanguageUtility.getInstance()
-                                         .getStringProperty(Constants.SECONDS));
+                .getStringProperty(Constants.SECONDS));
         timeAndSeconds.getChildren().addAll(myLevelDurationField, secondsLabel);
-        Label levelLabel = new Label("Level " + (myLevelNum+1));
+        Label levelLabel = new Label("Level " + (myLevelNum + 1));
         levelLabel.getStyleClass().add("levelLabel");
         levelInfoBox.getChildren().addAll(levelLabel,
                                           timeAndSeconds);
@@ -113,8 +115,8 @@ public class LevelDisplayCell extends HBox {
     }
 
     public boolean isUserInputValid () {
-        return isAllEnemyFieldsValid() && myLevelDurationField.isValueEntered() && 
-                myLevelDurationField.getNumber() > 0;
+        return isAllEnemyFieldsValid() && myLevelDurationField.isValueEntered() &&
+               myLevelDurationField.getNumber() > 0;
     }
 
     private boolean isAllEnemyFieldsValid () {

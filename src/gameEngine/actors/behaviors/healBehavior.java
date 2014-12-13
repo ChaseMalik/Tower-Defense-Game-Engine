@@ -1,7 +1,8 @@
 package gameEngine.actors.behaviors;
 
 import java.util.List;
-import gameEngine.healthUpdate;
+
+import gameEngine.ManagerInterface.HealthUpdate;
 import gameEngine.actors.BaseActor;
 
 public class healBehavior extends BaseEffect{
@@ -26,7 +27,7 @@ public class healBehavior extends BaseEffect{
     @Override
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
-        actor.changeAndNotify(new healthUpdate(myHeal));
+        actor.changeAndNotify(new HealthUpdate(myHeal));
     }
 
     @Override

@@ -1,10 +1,11 @@
-package gameEngine;
+package gameEngine.ManagerInterface;
 
 
 
-public class goldUpdate extends updateObject {
 
-    public goldUpdate (double myGold) {
+public class GoldUpdate extends UpdateObject {
+
+    public GoldUpdate (double myGold) {
         super(myGold);
         // TODO Auto-generated constructor stub
     }

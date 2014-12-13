@@ -17,6 +17,9 @@ import utilities.multilanguage.MultiLanguageUtility;
 
 public class GSONWritingScene extends Scene {
 
+    private static final int VERT_PADDING = 300;
+    private static final int PADDING_LEFT = 200;
+    private static final double EXEC_SPEED = .05;
     private static final int SPACING = 60;
     private static final int BAR_HEIGHT = 2;
     private static final String WRITE_COMPLETED = "Write completed!";
@@ -34,7 +37,8 @@ public class GSONWritingScene extends Scene {
         label.setStyle("-fx-font-size: 30px");
         myLoadingBar = new Rectangle(0, 0, 0, BAR_HEIGHT);
         VBox container = new VBox(SPACING);
-        container.setPadding(new Insets(200, 300, 0, 300));
+        container.setPadding(new Insets(PADDING_LEFT, VERT_PADDING, 
+                                        0, VERT_PADDING));
         container.getChildren().addAll(label, myLoadingBar);
         pane.setCenter(container);
         activateLoadingBar();
@@ -44,7 +48,7 @@ public class GSONWritingScene extends Scene {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame loadingBarGrowth =
-                new KeyFrame(Duration.seconds(.05),
+                new KeyFrame(Duration.seconds(EXEC_SPEED),
                              event-> {
                                  myLoadingBar.setWidth(myLoadingBar
                                                        .getWidth() + BAR_OFFSET);

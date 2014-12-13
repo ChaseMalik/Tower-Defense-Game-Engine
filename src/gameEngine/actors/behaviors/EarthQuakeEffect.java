@@ -17,7 +17,7 @@ public class EarthQuakeEffect extends BaseEffect {
     @Override
     public void during (BaseActor actor) {
         // TODO Auto-generated method stub
-        double m=actor.getInfoObject().getEarthquakeMagnitude();
+        double m=actor.getInfoInterface().getEarthquakeMagnitude();
         if(m>=0){
          for(BaseActor a: actor.getEnemiesInRange(1000)){
              BaseDefendBehavior d=((BaseDefendBehavior)a.getBehavior("defend"));
