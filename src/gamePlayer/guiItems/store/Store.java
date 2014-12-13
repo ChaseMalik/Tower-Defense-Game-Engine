@@ -19,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
-import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 
 public class Store implements GuiItem {
@@ -55,8 +54,6 @@ public class Store implements GuiItem {
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
         myTilePane.toFront();
-        
-        myTilePane.setOnKeyPressed(event -> checkEscape(event));
 
         myListener.registerStore(this);
     }
@@ -64,6 +61,7 @@ public class Store implements GuiItem {
     private void checkEscape(Event ke){
     	if (((KeyEvent)ke).getCode() == KeyCode.ESCAPE){
     		myListener.escapePlace();
+    		myTilePane.setOnKeyPressed(null);
     	}
     }
 
@@ -93,7 +91,12 @@ public class Store implements GuiItem {
 			}
 		});
         myTilePane.getChildren().add(button);
-        button.setOnAction(event -> myListener.placeTower(storeItem.getName()));
+        button.setOnAction(event -> placeTower(storeItem.getName()));
+    }
+    
+    private void placeTower(String towerName) {
+    	myTilePane.setOnKeyPressed(event -> checkEscape(event));
+    	myListener.placeTower(towerName);
     }
     
     private void showGraphic(Button b, ImageView v){

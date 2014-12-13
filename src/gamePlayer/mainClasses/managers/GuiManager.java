@@ -15,7 +15,6 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
@@ -25,7 +24,6 @@ import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
-import gamePlayer.mainClasses.Main;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 
@@ -38,10 +36,8 @@ import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
@@ -65,7 +61,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private MainEngineManager myEngineManager;
 	private CoOpManager myCoOpManager;
 
-	private Group myRoot;
 	private TowerIndicator activeIndicator;
 	private ImageView activeTower;
 	private boolean interactionAllowed;
@@ -81,8 +76,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private boolean isCoOp;
 	private String myDirectory;
 	
-	private DoubleProperty endgame;
-
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
@@ -91,7 +84,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void init() {
 		GuiConstants.DYNAMIC_SIZING = true;
-		myRoot = GuiBuilder.getInstance().build(myStage,
+		GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
 		
 	}
