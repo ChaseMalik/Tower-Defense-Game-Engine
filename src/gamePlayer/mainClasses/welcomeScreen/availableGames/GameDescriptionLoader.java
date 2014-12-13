@@ -10,7 +10,6 @@ import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 public class GameDescriptionLoader {
 
     public List<GameDescription> getDescriptions(String directory) {
-    	System.out.println(directory);
         File[] games = new File(directory).listFiles();
         List<GameDescription> list = new ArrayList<GameDescription>();
 

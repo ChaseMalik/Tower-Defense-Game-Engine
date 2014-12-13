@@ -14,6 +14,8 @@ import utilities.XMLParsing.XMLParser;
 public class SpeedSlider extends ControlDockSlider {
 
 	private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
+	private final double numIncrements = 5;
+	private double increment;
 
 	@Override
 	public void initialize (Dimension2D containerSize) {
@@ -22,19 +24,20 @@ public class SpeedSlider extends ControlDockSlider {
 		setUpSlider();
 		setUpSizing(containerSize);
 		myListener.registerSpeedSlider(this);
+		increment = mySlider.getMax()/numIncrements;
 	}
 	
 	public void decrementSpeed() {
 		double val = mySlider.getValue();
-		if (val-1 >= mySlider.getMin()) {
-			mySlider.setValue(val - 1);
+		if (val-increment >= mySlider.getMin()) {
+			mySlider.setValue(val - increment);
 		}
 	}
 	
 	public void incrementSpeed() {
 		double val = mySlider.getValue();
-		if (val+1 <= mySlider.getMax()) {
-			mySlider.setValue(val + 1);
+		if (val+increment <= mySlider.getMax()) {
+			mySlider.setValue(val + increment);
 		}
 	}
 
