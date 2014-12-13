@@ -3,7 +3,6 @@ package gamePlayer.mainClasses.guiBuilder;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gamePlayer.mainClasses.managers.GuiManager;
-import gamePlayer.mainClasses.managers.WelcomeManager;
 import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
 import utilities.multilanguage.MultiLanguageUtility;
 
@@ -14,7 +13,6 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public class GuiConstants {
     public static GuiManager GUI_MANAGER;
-    public static WelcomeManager WELCOME_MANAGER;
     public static MultiLanguageUtility MULTILANGUAGE;
     public static String GUI_ELEMENT_PROPERTIES_PATH;
     public static GameStartManager GAME_START_MANAGER; 
