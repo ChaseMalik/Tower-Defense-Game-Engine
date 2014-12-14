@@ -99,9 +99,9 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		myIcon.setStyle("-fx-stroke: green; -fx-stroke-width: 5");
 		
 		myName = new BackgroundLabel("", myLabelSize, STONE_PATH);
-		upgradeButton = new PanelButton(Color.ORANGERED, myButtonSize, UP_PATH);
+		upgradeButton = new UpgradeButton(Color.ORANGERED, myButtonSize, UP_PATH);
 		upgradeButton.setOnAction(event -> doUpgrade());
-		sellButton = new PanelButton(Color.GREEN, myButtonSize, SELL_PATH);
+		sellButton = new SellButton(Color.GREEN, myButtonSize, SELL_PATH);
 		sellButton.setOnAction(event -> sell());
 		
 		myUpgradeBox = new HBox();
