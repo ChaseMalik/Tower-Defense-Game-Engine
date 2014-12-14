@@ -27,8 +27,8 @@ public class AoEAttack extends BaseAttack{
 
     @Override
     protected void performAttack (BaseActor actor) {
-        // TODO Auto-generated method stub
-        if(actor.getEnemiesInRange(myRange)!=null){
+
+        if(actor.getEnemiesInRange(myRange).size()>0){
             for(int i=0; i<myNumBullets; i++){
                 Point2D shooterLoc = new Point2D(actor.getX(), actor.getY());
                 Point2D targetLoc=new Point2D(actor.getX(),actor.getY()).add(myRange*Math.cos(2*i*Math.PI/myNumBullets),myRange*Math.sin(2*i*Math.PI/myNumBullets));

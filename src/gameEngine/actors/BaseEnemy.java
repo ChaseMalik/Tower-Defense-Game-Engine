@@ -9,7 +9,13 @@ import gameEngine.actors.behaviors.IBehavior;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 
+ * 
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
