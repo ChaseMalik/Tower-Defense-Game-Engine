@@ -485,4 +485,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (isCoOp) startMultiPlayerGame();
 		else startSinglePlayerGame(myDirectory);
 	}
+
+	public void selectGame() {
+		new GameStartManager(myStage);
+	}
 }
