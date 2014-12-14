@@ -95,7 +95,6 @@ public class WelcomeScreen extends AnchorPane {
             this.getChildren().add(vbox);
         } 
         
-        
         pane.getChildren().clear();
         pane.getChildren().add(node);
     }

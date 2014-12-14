@@ -385,9 +385,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
+	
+	private boolean checkGold(String towerName) {
+		double cost = towerMap.get(towerName).getBuyCost();
+		return cost <= myEngineManager.getMyGold();
+	}
 
 	@Override
 	public void placeTower(String towerName) {
+		if (!checkGold (towerName))  {
+			displayMessage(NO_GOLD, true);
+			return;
+		}
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
 				towerMap.get(towerName).getRange());
 		displayMessage(ESCAPE_TEXT, false);
