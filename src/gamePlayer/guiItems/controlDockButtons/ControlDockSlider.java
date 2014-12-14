@@ -20,7 +20,7 @@ public abstract class ControlDockSlider implements GuiItem {
     
     @Override
     public void initialize(Dimension2D containerSize) {
-    	mySlider = new SliderContainer(LABEL,1.0, 6.0);
+    	mySlider = new SliderContainer(LABEL,1.0, 20.0);
     }
 
     protected void setUpSizing(Dimension2D containerSize) {
