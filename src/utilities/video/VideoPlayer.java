@@ -52,7 +52,7 @@ class VideoPlayer extends BorderPane {
 
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
     private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
-    private static final String TIME_FORMAT = "%d:%02d:%02d/%d:%02d:%02d";
+    private static final String TIME_FORMAT = "%d:%02d:%02d / %d:%02d:%02d";
 
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
@@ -244,14 +244,29 @@ class VideoPlayer extends BorderPane {
 
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
         int time = (int)Math.floor(duration.toSeconds());
-        int hours, minutes, seconds;
 
-        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        int hours = calculateHours(time);
         time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        minutes = time / SECONDS_PER_MINUTE;
+        int minutes = calculateMinutes(time);
         time -= minutes * SECONDS_PER_MINUTE;
-        seconds = time;
+        int seconds = time;
 
         return String.format(TIME_FORMAT, intHours, intMin, intSec, hours, minutes, seconds);
     }
+
+    private static int calculateHours (int time) {
+        return time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+    }
+
+    private static int calculateMinutes (int time) {
+        return time / SECONDS_PER_MINUTE;
+    }
+
+//    private static void calculateTime (int hours, int minutes, int seconds, int time) {
+//        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+//        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+//        minutes = time / SECONDS_PER_MINUTE;
+//        time -= minutes * SECONDS_PER_MINUTE;
+//        seconds = time;
+//    }
 }
