@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
+import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 
 public class Store implements GuiItem {
@@ -38,8 +39,7 @@ public class Store implements GuiItem {
         String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        myPaneSize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
-                                     containerSize.getHeight()*sizeRatio.getHeight());
+        myPaneSize = RatiosToDim.convert(containerSize, sizeRatio);
 
         Dimension2D buttonRatio = myParser.getDimension("ButtonSize");
         
@@ -47,8 +47,7 @@ public class Store implements GuiItem {
                                      myPaneSize.getWidth()*buttonRatio.getWidth());
         
         Dimension2D imageRatio = myParser.getDimension("ImageSize");
-        imageSize =  new Dimension2D(buttonSize.getWidth()*imageRatio.getWidth(),
-                                     buttonSize.getHeight()*imageRatio.getHeight());
+        imageSize =  RatiosToDim.convert(buttonSize, imageRatio);
 
         myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());

@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 
 /**
@@ -33,8 +34,7 @@ public class HUD implements GuiItem {
         myTableView = new TableView<GameStat>();
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
         
-        mySize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
-                                             containerSize.getHeight()*sizeRatio.getHeight());
+        mySize = RatiosToDim.convert(containerSize, sizeRatio);
         
         myTableView.setMinSize(mySize.getWidth(),mySize.getHeight());
         myTableView.setPrefSize(mySize.getWidth(),mySize.getHeight());
