@@ -31,6 +31,7 @@ public abstract class BaseActor extends Observable {
     protected transient CenteredImageView myNode;
     protected transient InformationInterface myInfo;
     protected double myRange;
+    protected double myBounty;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected boolean myIsRemovable;
@@ -46,6 +47,7 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
+        myBounty=range;
         myDebuffs = new HashMap<>();
         myDebuffsToRemove = new HashSet<>();
         myTypes = new HashSet<>();
