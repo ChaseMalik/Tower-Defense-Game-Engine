@@ -32,7 +32,7 @@ public abstract class BaseEffect implements IBehavior{
         
         during(actor);
         
-        if(myDuration==0)
+        if(myDuration<=0)
             end(actor);
 
         myDuration--;

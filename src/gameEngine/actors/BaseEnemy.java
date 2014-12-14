@@ -14,6 +14,7 @@ public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
     private int myBounty;
+    private int myDamage;
     private VisibilityPoint myStart;
     private VisibilityPoint myGoal;
     
@@ -53,7 +54,7 @@ public class BaseEnemy extends RealActor {
     }
     @Override
     public void died(){
-        this.changeAndNotify(new HealthUpdate(-1*myBounty));
+        this.changeAndNotify(new HealthUpdate(-1*myDamage));
         myIsRemovable=true;
             
     }
