@@ -2,7 +2,7 @@
 	 <attack>
 	 	<sliders>
  			<slider name="speed" min="5" max="30"></slider>
- 			<slider name="range" min="50" max="1000"></slider>
+ 			<slider name="range" min="50" max="400"></slider>
  		</sliders>
  		<elements>
 			<element>ClosestRangeAttack</element>

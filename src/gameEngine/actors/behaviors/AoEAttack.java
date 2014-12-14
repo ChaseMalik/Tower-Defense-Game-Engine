@@ -32,11 +32,7 @@ public class AoEAttack extends BaseAttack{
             for(int i=0; i<myNumBullets; i++){
                 Point2D shooterLoc = new Point2D(actor.getX(), actor.getY());
                 Point2D targetLoc=new Point2D(actor.getX(),actor.getY()).add(myRange*Math.cos(2*i*Math.PI/myNumBullets),myRange*Math.sin(2*i*Math.PI/myNumBullets));
-                
-                Point2D unitVector = targetLoc.subtract(shooterLoc).normalize();
-                BackendRoute route =
-                        new BackendRoute(shooterLoc, shooterLoc.add(unitVector
-                                .multiply(BuildingPane.DRAW_SCREEN_WIDTH * DISTANCE_FACTOR)));
+                BackendRoute route = new BackendRoute(shooterLoc, targetLoc);
                 BaseProjectile projectile = new BaseProjectile(((RealActor) actor).getProjectile().copy());
                 projectile.getInfo().getMove().setRoute(route);
                 ((RealActor)actor).spawnProjectile(projectile);
