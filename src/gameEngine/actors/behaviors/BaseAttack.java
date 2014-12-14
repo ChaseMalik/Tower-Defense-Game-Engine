@@ -54,9 +54,11 @@ public abstract class BaseAttack implements IBehavior {
 
     }
 
-
-
     public String toString () {
         return myName;
+    }
+    
+    public double getRange(){
+        return myRange;
     }
 }

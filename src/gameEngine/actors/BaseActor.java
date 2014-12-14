@@ -2,8 +2,8 @@ package gameEngine.actors;
 
 import gameEngine.ManagerInterface.InformationInterface;
 import gameEngine.ManagerInterface.UpdateObject;
+import gameEngine.actors.behaviors.BaseAttack;
 import gameEngine.actors.behaviors.IBehavior;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
-
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
@@ -37,7 +36,6 @@ public abstract class BaseActor extends Observable {
     protected boolean myIsRemovable;
     protected Map<String, IBehavior> myDebuffs;
     protected Set<IBehavior> myDebuffsToRemove;
-    protected double myARange;
 
     public BaseActor () {
 
@@ -48,7 +46,6 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
-        myARange = range;
         myDebuffs = new HashMap<>();
         myDebuffsToRemove = new HashSet<>();
         myTypes = new HashSet<>();
@@ -140,7 +137,7 @@ public abstract class BaseActor extends Observable {
     public abstract Node getRange ();
 
     public double getRangeProperty () {
-        return myRange;
+        return ((BaseAttack) getBehavior("attack")).getRange();
     }
 
     public List<BaseActor> getEnemiesInRange (double range) {
