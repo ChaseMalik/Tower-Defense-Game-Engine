@@ -9,6 +9,7 @@
 			<element>FarthestRangeAttack</element>
 			<element>StrongestRangeAttack</element>
 			<element>AoEAttack</element>
+			<element>NullAttack</element>
 		</elements>
 	 </attack>
 	 <effect>

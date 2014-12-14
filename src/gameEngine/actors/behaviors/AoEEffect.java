@@ -7,6 +7,7 @@ public class AoEEffect extends BaseEffect{
     private double myDamage;
     private double myRange;
     public AoEEffect (List<Double> list) {
+        super(list);
         myDamage=list.get(0);
         myRange=list.get(1);
         myDuration=1;
