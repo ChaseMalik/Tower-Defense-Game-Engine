@@ -13,22 +13,22 @@ import java.util.Map;
 public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
-    private int myBounty;
+    private int myDamage;
     private VisibilityPoint myStart;
     private VisibilityPoint myGoal;
     
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, ProjectileInfo projectile, List<BackendRoute> route) {
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, ProjectileInfo projectile, List<BackendRoute> route) {
         super(behaviors, image, name, range,projectile);
-        initializeEnemy(behaviors, bounty, route);
+        initializeEnemy(behaviors, damage, route);
     }
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, List<BackendRoute> route) {
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, List<BackendRoute> route) {
         super(behaviors, image, name, range);
-        initializeEnemy(behaviors, bounty, route);
+        initializeEnemy(behaviors, damage, route);
     }
     
-    private void initializeEnemy(Map<String, IBehavior> behaviors, int bounty, List<BackendRoute> route) {
+    private void initializeEnemy(Map<String, IBehavior> behaviors, int damage, List<BackendRoute> route) {
     	myRoutes=route;
-        myBounty = bounty;
+        myDamage = damage;
         BackendRoute selectedRoute = route.get((int)(Math.random()*route.size()));
         ((BaseMovementBehavior)behaviors.get("movement")).setRoute(selectedRoute);
         List<VisibilityPoint> routePoints = selectedRoute.getPoints();
@@ -53,7 +53,7 @@ public class BaseEnemy extends RealActor {
     }
     @Override
     public void died(){
-        this.changeAndNotify(new HealthUpdate(-1*myBounty));
+        this.changeAndNotify(new HealthUpdate(-1*myDamage));
         myIsRemovable=true;
             
     }
