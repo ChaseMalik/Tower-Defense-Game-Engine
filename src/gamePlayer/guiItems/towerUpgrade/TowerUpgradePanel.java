@@ -140,8 +140,8 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	}
 	
 	private void doUpgrade(){
-		myListener.upgradeTower(myTowerImageView, myUpgradeName);
-		deselectTower();
+		if (myListener.upgradeTower(myTowerImageView, myUpgradeName))
+			deselectTower();
 	}
 
 	

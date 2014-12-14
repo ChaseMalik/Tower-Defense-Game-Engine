@@ -13,7 +13,6 @@ import javafx.geometry.Point2D;
 public class AIMovement extends BaseMovementBehavior {
     private transient GridPathFinder myPathFinder;
     private transient List<Point2D> myAIRoute;
-    private int myIndex;
     public AIMovement (List<Double> list) {
         super(list);
         myPathFinder = new GridPathFinder();
@@ -26,6 +25,7 @@ public class AIMovement extends BaseMovementBehavior {
         InformationInterface info = actor.getInfoInterface();
         BaseEnemy enemy = (BaseEnemy)actor;
         if(myIndex == -1) {
+                actor.getNode().setVisible(true);
         	move(enemy, enemy.getStart().getPoint());
         	myAIRoute =myPathFinder.getPath(enemy, info.getReferencePane(), info.getExistingTowerTiles());
             myIndex=0;

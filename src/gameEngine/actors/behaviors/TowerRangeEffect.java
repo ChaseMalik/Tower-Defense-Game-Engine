@@ -6,10 +6,11 @@ import java.util.List;
 public class TowerRangeEffect extends BaseEffect {
     private double myRange;
     private double myMultiplier;
+    private List<Double> myList;
     public TowerRangeEffect(List<Double> list){
         myMultiplier=list.get(0)/100.0;
         myRange=list.get(1);
-            
+        myList=list;
         myString="towerRangeEffect";
     }
 

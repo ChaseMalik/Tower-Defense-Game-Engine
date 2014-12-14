@@ -15,7 +15,6 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
@@ -25,9 +24,9 @@ import gamePlayer.guiItemsListeners.SpeedSliderListener;
 import gamePlayer.guiItemsListeners.StoreListener;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
-import gamePlayer.mainClasses.Main;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,10 +37,8 @@ import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
@@ -59,13 +56,20 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameWorldListener, UpgradeListener,
 		MessageDisplayListener, SpeedSliderListener {
 
-	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	
+	public static final String LOSS = "GAME OVER";
+	public static final String WIN = "Congratulations, you won";
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
+	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String SCORE = "Your score: ";
+	public static final String PLAY_AGAIN = "Click anywhere on the map to play again";
 
 	private Stage myStage;
 	private MainEngineManager myEngineManager;
 	private CoOpManager myCoOpManager;
 
-	private Group myRoot;
 	private TowerIndicator activeIndicator;
 	private ImageView activeTower;
 	private boolean interactionAllowed;
@@ -81,8 +85,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private boolean isCoOp;
 	private String myDirectory;
 	
-	private DoubleProperty endgame;
-
+	private GameStat level;
+	private GameStat health;
+	private GameStat gold;
+	
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
@@ -91,7 +97,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void init() {
 		GuiConstants.DYNAMIC_SIZING = true;
-		myRoot = GuiBuilder.getInstance().build(myStage,
+		GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
 		
 	}
@@ -101,7 +107,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager.initializeGame(directoryPath);
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
 		interactionAllowed = true;
 	}
@@ -121,15 +127,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
 		}
 	}
-
-	public static final String NO_UPGRADE = "No update available";
-	public static final String NO_GOLD = "Not enough gold available";
-	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
-	public static final String YOU_WON = "Congratulations! You won!";
-	public static final String YOU_LOST = "Sorry, you lost!";
-	public static final String SCORE = "Your score: ";
-
-	protected static final Number WIN = null;
 
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new MainEngineManager(myGameWorld.getMap());
@@ -193,7 +190,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void initializeNewGameElements(String directoryPath) {
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
 		/*
 		endgame = new WinStatusProperty();
@@ -205,7 +202,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			}
 		});*/
 	}
-
+ /*
 	private void checkEndGame(double d){
 		myScore = myEngineManager.getMyHealth()*myEngineManager.getCurrentLevelProperty().getValue()*myEngineManager.getMyGold();
 		if (d == WinStatusProperty.WIN){
@@ -215,7 +212,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 		
 	}
-	
+	*/
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];
@@ -272,7 +269,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void normalSpeed() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(1.0);
 		play();
 	}
 
@@ -280,7 +276,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void fastForward() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(3.0);
 		play();
 	}
 
@@ -306,12 +301,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(ImageView imageView, String upgradeName) {
-		if (!interactionAllowed) return;
-		if (upgradeName.equals(NO_UPGRADE)
-				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
-			displayMessage(upgradeName, true);
-			return;
+	public boolean upgradeTower(ImageView imageView, String upgradeName) {
+		if (!interactionAllowed) return false;
+		if (upgradeName.equals(NO_UPGRADE)){
+			displayMessage(NO_UPGRADE, true);
+			return false;
+		}
+		if (!myEngineManager.checkGold(towerMap.get(upgradeName))) {
+			displayMessage(NO_GOLD, true);
+			return false;
 		}
 		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
@@ -320,21 +318,29 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// if (newTower == null) displayMessage(NO_GOLD, true);
 		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
 		selectTower(upgradeName, newTower);
+		return true;
 	}
 
-	private void testHUD() {
+	private void setUpHUD() {
 		gameStats = new ArrayList<GameStat>();
-		GameStat level = new GameStat();
+		level = new GameStat();
 		level.setGameStat("Level");
 		level.statValueProperty().bindBidirectional(myEngineManager.getCurrentLevelProperty());
 
-		GameStat gold = new GameStat();
+		gold = new GameStat();
 		gold.setGameStat("Gold");
 		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
 		
-		GameStat health = new GameStat();
+		health = new GameStat();
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
+		health.statValueProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				if ((double)newValue <= 0.0)
+					endGame(LOSS);
+			}
+		});
 
 		gameStats = new ArrayList<GameStat>();
 		gameStats.add(level);
@@ -342,6 +348,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		gameStats.add(health);
 		this.setGameStats(gameStats);
 
+	}
+	
+	private void endGame(String endCondition){
+		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
+		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
 	}
 
 	public void makeTower(String towerName, double x, double y) {
@@ -388,9 +399,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
+	
+	private boolean checkGold(String towerName) {
+		double cost = towerMap.get(towerName).getBuyCost();
+		return cost <= gold.getStatValue();
+	}
 
 	@Override
 	public void placeTower(String towerName) {
+		if (!checkGold (towerName))  {
+			displayMessage(NO_GOLD, true);
+			return;
+		}
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
 				towerMap.get(towerName).getRange());
 		displayMessage(ESCAPE_TEXT, false);

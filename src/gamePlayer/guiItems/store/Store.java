@@ -27,7 +27,6 @@ public class Store implements GuiItem {
     private XMLParser myParser;
     private Dimension2D myPaneSize;
     private StoreListener myListener = GuiConstants.GUI_MANAGER;
-
     private Dimension2D buttonSize;
     private Dimension2D imageSize;
     
@@ -39,8 +38,7 @@ public class Store implements GuiItem {
         String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
         myParser = new XMLParser(new File(propertiesPath)); 
         Dimension2D sizeRatio = myParser.getDimension("SizeRatio");
-        myPaneSize = new Dimension2D(containerSize.getWidth()*sizeRatio.getWidth(),
-                                     containerSize.getHeight()*sizeRatio.getHeight());
+        myPaneSize = RatiosToDim.convert(containerSize, sizeRatio);
 
         Dimension2D buttonRatio = myParser.getDimension("ButtonSize");
         
@@ -48,15 +46,12 @@ public class Store implements GuiItem {
                                      myPaneSize.getWidth()*buttonRatio.getWidth());
         
         Dimension2D imageRatio = myParser.getDimension("ImageSize");
-        imageSize =  new Dimension2D(buttonSize.getWidth()*imageRatio.getWidth(),
-                                     buttonSize.getHeight()*imageRatio.getHeight());
+        imageSize =  RatiosToDim.convert(buttonSize, imageRatio);
 
         myTilePane.setMinSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.setPrefSize(myPaneSize.getWidth(),myPaneSize.getHeight());
         myTilePane.getStyleClass().add("Store");
         myTilePane.toFront();
-        
-        myTilePane.setOnKeyPressed(event -> checkEscape(event));
 
         myListener.registerStore(this);
     }
@@ -64,6 +59,7 @@ public class Store implements GuiItem {
     private void checkEscape(Event ke){
     	if (((KeyEvent)ke).getCode() == KeyCode.ESCAPE){
     		myListener.escapePlace();
+    		myTilePane.setOnKeyPressed(null);
     	}
     }
 
@@ -93,7 +89,12 @@ public class Store implements GuiItem {
 			}
 		});
         myTilePane.getChildren().add(button);
-        button.setOnAction(event -> myListener.placeTower(storeItem.getName()));
+        button.setOnAction(event -> placeTower(storeItem.getName()));
+    }
+    
+    private void placeTower(String towerName) {
+    	myTilePane.setOnKeyPressed(event -> checkEscape(event));
+    	myListener.placeTower(towerName);
     }
     
     private void showGraphic(Button b, ImageView v){

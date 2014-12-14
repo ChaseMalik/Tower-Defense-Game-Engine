@@ -8,6 +8,7 @@
 			<element>ClosestRangeAttack</element>
 			<element>FarthestRangeAttack</element>
 			<element>StrongestRangeAttack</element>
+			<element>EarthQuakeEffect</element>
 		</elements>
 	 </attack>
 	 <effect>
@@ -17,6 +18,8 @@
  		</sliders>
  		<elements>
 			<element>TowerRangeEffect</element>
+			<element>GoldGenEffect</element>
+			<element>HealBehavior</element>
 			<element>NullBehavior</element>
 		</elements>
 	</effect>
