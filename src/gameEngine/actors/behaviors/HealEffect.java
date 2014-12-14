@@ -33,7 +33,7 @@ public class HealEffect extends BaseEffect{
     @Override
     public void end (BaseActor actor) {
         // TODO Auto-generated method stub
-        myDuration=myInitialDuration;
+        myDuration=myInitialDuration+1;
     }
 
 }
