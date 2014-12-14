@@ -3,6 +3,7 @@ package gameEngine.actors;
 import gameEngine.ManagerInterface.InformationInterface;
 import gameEngine.ManagerInterface.UpdateObject;
 import gameEngine.actors.behaviors.BaseAttack;
+import gameEngine.actors.behaviors.BaseEffect;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.Collection;
 import java.util.HashMap;
