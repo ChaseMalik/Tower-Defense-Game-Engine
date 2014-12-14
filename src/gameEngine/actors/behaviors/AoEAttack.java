@@ -15,7 +15,7 @@ public class AoEAttack extends BaseAttack{
     public AoEAttack (List<Double> list) {
         super(list);
         // TODO Auto-generated constructor stub
-        myNumBullets=list.get(2)==null ? 8 : list.get(2);
+        myNumBullets=list.size()<3 ? 8 : list.get(2);
        
     }
 
@@ -31,7 +31,8 @@ public class AoEAttack extends BaseAttack{
         if(actor.getEnemiesInRange(myRange)!=null){
             for(int i=0; i<myNumBullets; i++){
                 Point2D shooterLoc = new Point2D(actor.getX(), actor.getY());
-                Point2D targetLoc=new Point2D(actor.getX()+myRange*Math.cos(360.0/myNumBullets),actor.getY()+myRange*Math.cos(360.0/myNumBullets));
+                Point2D targetLoc=new Point2D(actor.getX(),actor.getY()).add(myRange*Math.cos(2*i*Math.PI/myNumBullets),myRange*Math.sin(2*i*Math.PI/myNumBullets));
+                
                 Point2D unitVector = targetLoc.subtract(shooterLoc).normalize();
                 BackendRoute route =
                         new BackendRoute(shooterLoc, shooterLoc.add(unitVector
