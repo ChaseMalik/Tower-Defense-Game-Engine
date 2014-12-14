@@ -29,8 +29,6 @@ import javafx.util.Duration;
  */
 class VideoPlayer extends BorderPane {
 
-    private double myStoredVolume = 1.0;
-
     private static final int PADDING = 20;
     private static final int SLIDER_WIDTH = 50;
     private static final int BUTTON_WIDTH = 75;
@@ -150,12 +148,11 @@ class VideoPlayer extends BorderPane {
 
     private void createAndDefineVolumeComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
-        myVolumeSlider = new Slider();
-        button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
 
+        myVolumeSlider = new Slider();
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
         button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
 
@@ -234,24 +231,26 @@ class VideoPlayer extends BorderPane {
 
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
         int time = (int)Math.floor(elapsed.toSeconds());
+        int hours, minutes, seconds;
 
-        int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        int minutes = time / SECONDS_PER_MINUTE;
+        minutes = time / SECONDS_PER_MINUTE;
         time -= minutes * SECONDS_PER_MINUTE;
-        int seconds = time;
+        seconds = time;
 
         return formatTime(videoDuration, hours, minutes, seconds);
     }
 
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
         int time = (int)Math.floor(duration.toSeconds());
+        int hours, minutes, seconds;
 
-        int hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        int minutes = time / SECONDS_PER_MINUTE;
+        minutes = time / SECONDS_PER_MINUTE;
         time -= minutes * SECONDS_PER_MINUTE;
-        int seconds = time;
+        seconds = time;
 
         return String.format(TIME_FORMAT, intHours, intMin, intSec, hours, minutes, seconds);
     }
