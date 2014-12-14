@@ -523,7 +523,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public double specialSelected() {
 		displayMessage("Earthquake! Wave your hands as fast as you can!", false);
 		// TODO : Create Vibrator
-		double maxMag = 5;
+		double maxMag = 0.2;
 		double length = 5;
 		if (earthquakeController == null) {
 			if (LMController.getInstance().deviceIsConnected()) {
@@ -551,7 +551,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			return;
 		}
 		Random rand = new Random();
-		double factor = 2 * rand.nextDouble() - 1;
+		double factor = 20*(2 * rand.nextDouble() - 1);
 		gameworld.setTranslateX(factor * 5 * magnitude);
 		factor = 2 * rand.nextDouble() - 1;
 		gameworld.setTranslateY(factor * 5 * magnitude);
