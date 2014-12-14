@@ -1,7 +1,6 @@
 package gameEngine.levels;
 
 import gameAuthoring.scenes.levelBuilding.EnemyCountPair;
-import gameEngine.actors.BaseActor;
 import java.util.ArrayList;
 import java.util.List;
 

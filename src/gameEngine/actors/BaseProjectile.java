@@ -31,7 +31,7 @@ public class BaseProjectile extends BaseActor{
     }
     @Override
     protected int[] getSize () {
-        return new int[]{10,10};
+        return new int[]{15,15};
     }
 
     public void setMove(BaseMovementBehavior move){

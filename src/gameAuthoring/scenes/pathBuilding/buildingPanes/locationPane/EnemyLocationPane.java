@@ -23,7 +23,7 @@ import utilities.multilanguage.MultiLanguageUtility;
  */
 public abstract class EnemyLocationPane extends BuildingPane {
 
-    private static final double PROMPT_HEIGHT = AuthorController.SCREEN_HEIGHT / 2 - 100;
+    private static final double PROMPT_HEIGHT = AuthorController.SCREEN_HEIGHT / 2 - 320;
     private static final double PROMPT_WIDTH = BuildingPane.DRAW_SCREEN_WIDTH / 2 - 80;
     private static final int CONTAINER_PADDING = 15;
 

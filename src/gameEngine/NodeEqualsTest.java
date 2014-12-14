@@ -1,11 +1,8 @@
 package gameEngine;
 
 import java.util.HashMap;
-
-import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 public class NodeEqualsTest{
 

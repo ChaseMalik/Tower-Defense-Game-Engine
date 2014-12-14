@@ -1,14 +1,15 @@
 <behaviors>
 	 <attack>
 	 	<sliders>
- 			<slider name="speed" min="0" max="10"></slider>
- 			<slider name="range" min="0" max="100"></slider>
+ 			<slider name="speed" min="5" max="30"></slider>
+ 			<slider name="range" min="50" max="400"></slider>
  		</sliders>
  		<elements>
 			<element>ClosestRangeAttack</element>
 			<element>FarthestRangeAttack</element>
 			<element>StrongestRangeAttack</element>
 			<element>AoEAttack</element>
+			<element>NullAttack</element>
 		</elements>
 	 </attack>
 	 <effect>

@@ -220,7 +220,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			}
 		});
 	}
-		
+
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];
@@ -351,13 +351,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		health = new GameStat();
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
-		/*health.statValueProperty().addListener(new ChangeListener<Number>(){
-			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				if ((double)newValue <= 0.0)
-					endGame(LOSS);
-			}
-		});*/
 
 		gameStats = new ArrayList<GameStat>();
 		// gameStats.add(level);
@@ -369,6 +362,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	private void endGame(String endCondition){
 		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
+		interactionAllowed = false;
 		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
 	}
 

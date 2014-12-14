@@ -1,6 +1,5 @@
 package gameEngine.actors.behaviors;
 
-import java.util.Set;
 import gameEngine.actors.BaseActor;
 
 /**
