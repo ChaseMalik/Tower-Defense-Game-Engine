@@ -65,9 +65,12 @@ public abstract class BaseActor extends Observable {
 
     }
 
-    public void addDebuff (IBehavior debuff) {
-        if (myDebuffs.containsKey(debuff.toString())) { return; }
+    public boolean addDebuff (IBehavior debuff) {
+        if (myDebuffs.containsKey(debuff.toString())){
+            return false; 
+        }
         myDebuffs.put(debuff.toString(), debuff);
+        return true;
     }
 
     public void removeDebuff (IBehavior debuff) {

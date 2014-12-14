@@ -29,7 +29,8 @@ public class SlowEffect extends BaseEffect {
     public void end (BaseActor actor) {
         // TODO Auto-generated method stub
         BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
-        m.setSpeed(m.getSpeed()/myMultiplier);
+       double d=m.getSpeed()/myMultiplier;
+        m.setSpeed(d);
     }
     @Override
     public void during (BaseActor actor) {
@@ -42,7 +43,6 @@ public class SlowEffect extends BaseEffect {
         BaseMovementBehavior m=((BaseMovementBehavior) actor.getBehavior("movement"));
         double d=m.getSpeed()*myMultiplier;
         m.setSpeed(d);
-        
     }
 
 
