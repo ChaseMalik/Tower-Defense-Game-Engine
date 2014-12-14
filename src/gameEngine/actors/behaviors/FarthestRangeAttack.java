@@ -1,11 +1,8 @@
 package gameEngine.actors.behaviors;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class FarthestRangeAttack extends RangeAttack {

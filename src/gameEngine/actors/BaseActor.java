@@ -3,7 +3,6 @@ package gameEngine.actors;
 import gameEngine.ManagerInterface.InformationInterface;
 import gameEngine.ManagerInterface.UpdateObject;
 import gameEngine.actors.behaviors.BaseAttack;
-import gameEngine.actors.behaviors.BaseEffect;
 import gameEngine.actors.behaviors.IBehavior;
 import java.util.Collection;
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
-        myBounty=(int)range;
+        myBounty = (int) range;
         myDebuffs = new HashMap<>();
         myDebuffsToRemove = new HashSet<>();
         myTypes = new HashSet<>();
@@ -68,10 +67,11 @@ public abstract class BaseActor extends Observable {
 
     }
 
+    /*
+     * add Debuffs to list of debuffs so they execute
+     */
     public boolean addDebuff (IBehavior debuff) {
-        if (myDebuffs.containsKey(debuff.toString())){
-            return false; 
-        }
+        if (myDebuffs.containsKey(debuff.toString())) { return false; }
         myDebuffs.put(debuff.toString(), debuff);
         return true;
     }
@@ -86,7 +86,6 @@ public abstract class BaseActor extends Observable {
                                                          array[1],
                                                          myImagePath);
     }
-
 
     public void makeNode (Point2D point) {
         int[] array = getSize();

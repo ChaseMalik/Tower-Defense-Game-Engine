@@ -43,7 +43,9 @@ public abstract class BaseAttack implements IBehavior {
         }
 
     }
-
+    /*
+     * attack to be performed on execute when ready to shoot
+     */
     protected abstract void performAttack (BaseActor actor);
 
     public void setAttackSpeed (int i) {

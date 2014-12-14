@@ -3,12 +3,8 @@ package gameEngine.actors.behaviors;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.actors.BaseActor;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import javafx.geometry.Point2D;
-import utilities.JavaFXutilities.imageView.CenteredImageView;
 
 
 /**
