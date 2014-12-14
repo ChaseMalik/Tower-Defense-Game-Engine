@@ -15,6 +15,7 @@ public class SpeedSlider extends ControlDockSlider {
 
 	private SpeedSliderListener myListener = GuiConstants.GUI_MANAGER;
 	private final double numIncrements = 5;
+	private final double maxRate = 8;
 	private double increment;
 
 	@Override
@@ -24,6 +25,7 @@ public class SpeedSlider extends ControlDockSlider {
 		setUpSlider();
 		setUpSizing(containerSize);
 		myListener.registerSpeedSlider(this);
+		mySlider.setMax(maxRate);
 		increment = mySlider.getMax()/numIncrements;
 	}
 	
@@ -42,7 +44,6 @@ public class SpeedSlider extends ControlDockSlider {
 	}
 
 	private void setUpSlider(){
-
 		mySlider.valueProperty().addListener(new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {

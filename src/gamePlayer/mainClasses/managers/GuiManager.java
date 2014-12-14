@@ -89,10 +89,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private boolean isCoOp;
 	private String myDirectory;
 	
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
+	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String YOU_WON = "Congratulations! You won!";
+	public static final String YOU_LOST = "Sorry, you lost!";
+	public static final String SCORE = "Your score: ";
+	protected static final Number WIN = null;
+	
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
-
 	}
 
 	public void init() {
@@ -129,15 +136,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
 		}
 	}
-
-	public static final String NO_UPGRADE = "No update available";
-	public static final String NO_GOLD = "Not enough gold available";
-	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
-	public static final String YOU_WON = "Congratulations! You won!";
-	public static final String YOU_LOST = "Sorry, you lost!";
-	public static final String SCORE = "Your score: ";
-
-	protected static final Number WIN = null;
 
 	public void startSinglePlayerGame(String directoryPath) {
 		myEngineManager = new MainEngineManager(myGameWorld.getMap());
@@ -461,6 +459,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		LMController controller = LMController.getInstance();
 		controller.onCircleCW(event -> incrementSpeed());
 		controller.onCircleCCW(event -> mySpeedSlider.decrementSpeed());
+		controller.onCircleCW(event -> System.out.println("circle"));
 	}
 
 	@Override

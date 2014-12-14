@@ -32,13 +32,6 @@ public class EarthquakeController {
 		timeline.setOnFinished(event -> stop());
 		timeline.play();
 	}
-	
-	private void decrement() {
-		double toValue = magnitudeProperty.get() - 0.4;
-		if (toValue >= 0)
-			magnitudeProperty.set(toValue);
-		listener.vibrate(magnitudeProperty.get());
-	}
 
 	public void stop() {
 		listener.vibrate(-1);
@@ -48,6 +41,13 @@ public class EarthquakeController {
 	public void vibrate(double mag) {
 		double currValue = magnitudeProperty.get();
 		magnitudeProperty.set(currValue + ((maxMag-currValue) * mag));
+	}
+	
+	private void decrement() {
+		double toValue = magnitudeProperty.get() - 0.4;
+		if (toValue >= 0)
+			magnitudeProperty.set(toValue);
+		listener.vibrate(magnitudeProperty.get());
 	}
 	
 }
