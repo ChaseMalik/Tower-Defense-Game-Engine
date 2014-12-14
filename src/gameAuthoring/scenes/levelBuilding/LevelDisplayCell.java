@@ -114,7 +114,7 @@ public class LevelDisplayCell extends HBox {
 
     public boolean isUserInputValid () {
         return isAllEnemyFieldsValid() && myLevelDurationField.isValueEntered() &&
-               myLevelDurationField.getNumber() > 0;
+               myLevelDurationField.getNumber() >= 0;
     }
 
     private boolean isAllEnemyFieldsValid () {
