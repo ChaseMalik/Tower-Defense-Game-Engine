@@ -34,7 +34,7 @@ public class WelcomeManager implements NavigatorListener {
 
 	public WelcomeManager(Stage stage) {
 		myStage = stage;
-		GuiConstants.WELCOME_MANAGER = this;
+		//GuiConstants.WELCOME_MANAGER = this;
 	}
 
 	public void init() {
