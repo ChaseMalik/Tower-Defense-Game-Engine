@@ -18,6 +18,8 @@
  		</sliders>
  		<elements>
 			<element>TowerRangeEffect</element>
+			<element>GoldGenEffect</element>
+			<element>HealBehavior</element>
 			<element>NullBehavior</element>
 		</elements>
 	</effect>
