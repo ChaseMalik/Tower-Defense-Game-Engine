@@ -26,6 +26,7 @@ public class EarthQuakeEffect extends BaseEffect {
              }else{
                  d.setHealth(d.getHealth()-m);
              }
+             
          }
         }
     }

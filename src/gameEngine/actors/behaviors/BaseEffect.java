@@ -22,7 +22,7 @@ public abstract class BaseEffect implements IBehavior{
         // TODO Auto-generated constructor stub
         myList=list;
         myDuration=list.get(0);
-        myDuration=myInitialDuration;
+        myInitialDuration=myDuration;
     }
 
     public void execute(BaseActor actor){

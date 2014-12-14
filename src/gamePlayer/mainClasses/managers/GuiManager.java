@@ -7,7 +7,6 @@ import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
-import gamePlayer.guiFeatures.WinStatusProperty;
 import gamePlayer.guiFeatures.earthquake.EarthquakeController;
 import gamePlayer.guiFeatures.earthquake.LMEarthquakeStrategy;
 import gamePlayer.guiFeatures.earthquake.MouseEarthquakeStrategy;
@@ -33,6 +32,7 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,7 +67,15 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameWorldListener, UpgradeListener, MessageDisplayListener,
 		SpeedSliderListener, SpecialButtonListener, EarthquakeListener {
 
-	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	
+	public static final String LOSS = "GAME OVER";
+	public static final String WIN = "Congratulations, you won";
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
+	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String SCORE = "Your score: ";
+	public static final String PLAY_AGAIN = "Click anywhere on the map to play again";
 
 	private Stage myStage;
 	private MainEngineManager myEngineManager;
@@ -89,15 +97,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private double myScore;
 	private boolean isCoOp;
 	private String myDirectory;
-
-	public static final String NO_UPGRADE = "No update available";
-	public static final String NO_GOLD = "Not enough gold available";
-	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
-	public static final String YOU_WON = "Congratulations! You won!";
-	public static final String YOU_LOST = "Sorry, you lost!";
-	public static final String SCORE = "Your score: ";
-	protected static final Number WIN = null;
-
+	
+	private GameStat level;
+	private GameStat health;
+	private GameStat gold;
+	
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
@@ -116,7 +120,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myEngineManager.initializeGame(directoryPath);
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
 		interactionAllowed = true;
 	}
@@ -200,31 +204,25 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void initializeNewGameElements(String directoryPath) {
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		/*
-		 * endgame = new WinStatusProperty();
-		 * endgame.bindBidirectional(myEngineManager.getWinStatus());
-		 * endgame.addListener(new ChangeListener<Number>(){
-		 * 
-		 * @Override public void changed(ObservableValue<? extends Number> o,
-		 * Number oldValue, Number newValue) { checkEndGame((double)newValue); }
-		 * });
-		 */
 	}
 
 	private void checkEndGame(double d) {
-		myScore = myEngineManager.getMyHealth()
-				* myEngineManager.getCurrentLevelProperty().getValue()
-				* myEngineManager.getMyGold();
-		if (d == WinStatusProperty.WIN) {
-			displayMessage(YOU_WON + SCORE + myScore, false);
-		} else if (d == WinStatusProperty.LOSS) {
-			displayMessage(YOU_LOST + SCORE + myScore, true);
-		}
-
+//		myScore = myEngineManager.getMyHealth()
+//				* myEngineManager.getCurrentLevelProperty().getValue()
+//				* myEngineManager.getMyGold();
+//		if (d == WinStatusProperty.WIN) {
+//		endgame = new WinStatusProperty();
+//		endgame.bindBidirectional(myEngineManager.getWinStatus());
+//		endgame.addListener(new ChangeListener<Number>(){
+//			@Override
+//			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+//				checkEndGame((double)newValue);
+//			}
+//		});*/
 	}
-
+		
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];
@@ -282,7 +280,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void normalSpeed() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(1.0);
 		play();
 	}
 
@@ -290,7 +287,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void fastForward() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(3.0);
 		play();
 	}
 
@@ -337,10 +333,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		return true;
 	}
 
-	private void testHUD() {
+	private void setUpHUD() {
 		gameStats = new ArrayList<GameStat>();
+		level = new GameStat();
+		level.setGameStat("Level");
+		level.statValueProperty().bindBidirectional(myEngineManager.getCurrentLevelProperty());
 
-		GameStat gold = new GameStat();
+		gold = new GameStat();
 		gold.setGameStat("Gold");
 		gold.statValueProperty().bindBidirectional(
 				myEngineManager.getGoldProperty());
@@ -349,6 +348,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(
 				myEngineManager.getHealthProperty());
+		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
+		
+		health = new GameStat();
+		health.setGameStat("Health");
+		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
+		health.statValueProperty().addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				if ((double)newValue <= 0.0)
+					endGame(LOSS);
+			}
+		});
 
 		gameStats = new ArrayList<GameStat>();
 		// gameStats.add(level);
@@ -356,6 +367,11 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		gameStats.add(health);
 		this.setGameStats(gameStats);
 
+	}
+	
+	private void endGame(String endCondition){
+		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
+		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
 	}
 
 	public void makeTower(String towerName, double x, double y) {
@@ -408,7 +424,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	private boolean checkGold(String towerName) {
 		double cost = towerMap.get(towerName).getBuyCost();
-		return cost <= myEngineManager.getMyGold();
+		return cost <= gold.getStatValue();
 	}
 
 	@Override
