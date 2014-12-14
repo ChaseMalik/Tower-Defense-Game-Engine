@@ -5,7 +5,11 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ *  info class that defines projectiles
+ * 
+ *
+ */
 public class ProjectileInfo {
 
     private String myImage;

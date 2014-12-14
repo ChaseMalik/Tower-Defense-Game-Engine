@@ -1,6 +1,5 @@
 package gameEngine.actors.behaviors;
 
-import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
 import gameEngine.actors.BaseActor;
 import gameEngine.actors.BaseProjectile;
@@ -8,8 +7,8 @@ import gameEngine.actors.RealActor;
 import java.util.List;
 import javafx.geometry.Point2D;
 
+
 public class AoEAttack extends BaseAttack{
-    private static final double DISTANCE_FACTOR = 2.0;
 
     private double myNumBullets;
     public AoEAttack (List<Double> list) {
