@@ -459,7 +459,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		LMController controller = LMController.getInstance();
 		controller.onCircleCW(event -> incrementSpeed());
 		controller.onCircleCCW(event -> mySpeedSlider.decrementSpeed());
-		controller.onCircleCW(event -> System.out.println("circle"));
 	}
 
 	@Override
