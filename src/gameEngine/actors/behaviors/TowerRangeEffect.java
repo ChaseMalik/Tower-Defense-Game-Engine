@@ -6,11 +6,11 @@ import java.util.List;
 public class TowerRangeEffect extends BaseEffect {
     private double myRange;
     private double myMultiplier;
-    private List<Double> myList;
     public TowerRangeEffect(List<Double> list){
+        super(list);
         myMultiplier=list.get(0)/100.0;
         myRange=list.get(1);
-        myList=list;
+        
         myString="towerRangeEffect";
     }
 
@@ -28,8 +28,7 @@ public class TowerRangeEffect extends BaseEffect {
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
         for(BaseActor a : actor.getTowersInRange(myRange)){
-            BaseMovementBehavior m=(BaseMovementBehavior)a.getBehavior("movement");
-            m.setSpeed(m.getSpeed()*myMultiplier);
+            a.setRange(a.getRangeProperty()*myMultiplier);
         }
     }
     @Override
