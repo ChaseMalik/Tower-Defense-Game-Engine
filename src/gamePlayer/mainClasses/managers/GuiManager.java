@@ -76,6 +76,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private TowerIndicator activeIndicator;
 	private ImageView activeTower;
 	private boolean interactionAllowed;
+	private EarthquakeController earthquakeController;
 
 	private Store myStore;
 	private HUD myHUD;
@@ -88,7 +89,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private double myScore;
 	private boolean isCoOp;
 	private String myDirectory;
-	
+
 	public static final String NO_UPGRADE = "No update available";
 	public static final String NO_GOLD = "Not enough gold available";
 	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
@@ -96,7 +97,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public static final String YOU_LOST = "Sorry, you lost!";
 	public static final String SCORE = "Your score: ";
 	protected static final Number WIN = null;
-	
+
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
@@ -104,8 +105,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	public void init() {
 		GuiConstants.DYNAMIC_SIZING = true;
-		GuiBuilder.getInstance().build(myStage,
-				guiBuilderPropertiesPath);
+		GuiBuilder.getInstance().build(myStage, guiBuilderPropertiesPath);
 		if (LMController.getInstance().deviceIsConnected()) {
 			initWithLM();
 		}
@@ -128,12 +128,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			startGame(file.getAbsolutePath());
 		}
 	}
-	
+
 	@Override
-	public void loadState(){
+	public void loadState() {
 		File file = FileLoader.getInstance().load(myStage, "Json", "*.json");
 		if (file != null) {
-			myEngineManager.loadState(file.getAbsolutePath().replace("\\","/"));
+			myEngineManager
+					.loadState(file.getAbsolutePath().replace("\\", "/"));
 		}
 	}
 
@@ -202,26 +203,28 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		testHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
 		/*
-		endgame = new WinStatusProperty();
-		endgame.bindBidirectional(myEngineManager.getWinStatus());
-		endgame.addListener(new ChangeListener<Number>(){
-			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				checkEndGame((double)newValue);
-			}
-		});*/
+		 * endgame = new WinStatusProperty();
+		 * endgame.bindBidirectional(myEngineManager.getWinStatus());
+		 * endgame.addListener(new ChangeListener<Number>(){
+		 * 
+		 * @Override public void changed(ObservableValue<? extends Number> o,
+		 * Number oldValue, Number newValue) { checkEndGame((double)newValue); }
+		 * });
+		 */
 	}
 
-	private void checkEndGame(double d){
-		myScore = myEngineManager.getMyHealth()*myEngineManager.getCurrentLevelProperty().getValue()*myEngineManager.getMyGold();
-		if (d == WinStatusProperty.WIN){
+	private void checkEndGame(double d) {
+		myScore = myEngineManager.getMyHealth()
+				* myEngineManager.getCurrentLevelProperty().getValue()
+				* myEngineManager.getMyGold();
+		if (d == WinStatusProperty.WIN) {
 			displayMessage(YOU_WON + SCORE + myScore, false);
-		} else if (d == WinStatusProperty.LOSS){
+		} else if (d == WinStatusProperty.LOSS) {
 			displayMessage(YOU_LOST + SCORE + myScore, true);
 		}
-		
+
 	}
-	
+
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];
@@ -232,7 +235,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void saveGame() {
 		File file = FileLoader.getInstance().save(myStage);
 		if (file != null) {
-			myEngineManager.saveState(file.getParent().replace("\\","/"), file.getName());
+			myEngineManager.saveState(file.getParent().replace("\\", "/"),
+					file.getName());
 		}
 	}
 
@@ -300,7 +304,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
 		for (TowerInfoObject info : towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(),
-					info.getImageLocation(), info.getBuyCost(), new SimpleBooleanProperty(true));
+					info.getImageLocation(), info.getBuyCost(),
+					new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
 		myStore.fillStore(storeItems);
@@ -311,10 +316,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		myStore.refreshStore();
 	}
 
-
 	public boolean upgradeTower(ImageView imageView, String upgradeName) {
-		if (!interactionAllowed) return false;
-		if (upgradeName.equals(NO_UPGRADE)){
+		if (!interactionAllowed)
+			return false;
+		if (upgradeName.equals(NO_UPGRADE)) {
 			displayMessage(NO_UPGRADE, true);
 			return false;
 		}
@@ -337,15 +342,16 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 		GameStat gold = new GameStat();
 		gold.setGameStat("Gold");
-		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
+		gold.statValueProperty().bindBidirectional(
+				myEngineManager.getGoldProperty());
 
 		GameStat health = new GameStat();
 		health.setGameStat("Health");
-		health.statValueProperty()
-				.bindBidirectional(myEngineManager.getHealthProperty());
+		health.statValueProperty().bindBidirectional(
+				myEngineManager.getHealthProperty());
 
 		gameStats = new ArrayList<GameStat>();
-//		gameStats.add(level);
+		// gameStats.add(level);
 		gameStats.add(gold);
 		gameStats.add(health);
 		this.setGameStats(gameStats);
@@ -399,7 +405,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
-	
+
 	private boolean checkGold(String towerName) {
 		double cost = towerMap.get(towerName).getBuyCost();
 		return cost <= myEngineManager.getMyGold();
@@ -407,7 +413,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void placeTower(String towerName) {
-		if (!checkGold (towerName))  {
+		if (!checkGold(towerName)) {
 			displayMessage(NO_GOLD, true);
 			return;
 		}
@@ -477,7 +483,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void escapePlace() {
-		
+
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
 		myGameWorld.getMap().getChildren()
@@ -490,34 +496,39 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 																		// to
 																		// children)
 		displayMessage(MessageDisplay.DEFAULT, false);
-		
+
 	}
 
 	public void switchGame() {
-		
+
 	}
 
 	public void replayGame() {
 		init();
-		if (isCoOp) startMultiPlayerGame();
-		else startSinglePlayerGame(myDirectory);
+		if (isCoOp)
+			startMultiPlayerGame();
+		else
+			startSinglePlayerGame(myDirectory);
 	}
 
 	@Override
 	public double specialSelected() {
 		displayMessage("Earthquake! Wave your hands as fast as you can!", false);
 		// TODO : Create Vibrator
-		EarthquakeController controller;
 		double maxMag = 5;
 		double length = 5;
-		if (LMController.getInstance().deviceIsConnected()) {
-			controller = new EarthquakeController(maxMag, new LMEarthquakeStrategy(),
-					(EarthquakeListener) this);
-		} else {
-			controller = new EarthquakeController(maxMag, 
-					new MouseEarthquakeStrategy(), (EarthquakeListener) this);
+		if (earthquakeController == null) {
+			if (LMController.getInstance().deviceIsConnected()) {
+				earthquakeController = new EarthquakeController(maxMag,
+						new LMEarthquakeStrategy(), (EarthquakeListener) this);
+			} else {
+				earthquakeController = new EarthquakeController(maxMag,
+						new MouseEarthquakeStrategy(),
+						(EarthquakeListener) this);
+			}
+			
 		}
-		controller.start(length);
+		earthquakeController.start(length);
 
 		return length;
 	}
@@ -532,10 +543,10 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			return;
 		}
 		Random rand = new Random();
-		double factor = 2*rand.nextDouble() - 1;
-		gameworld.setTranslateX(factor * 5*magnitude);
-		factor = 2*rand.nextDouble() - 1;
-		gameworld.setTranslateY(factor * 5*magnitude);
+		double factor = 2 * rand.nextDouble() - 1;
+		gameworld.setTranslateX(factor * 5 * magnitude);
+		factor = 2 * rand.nextDouble() - 1;
+		gameworld.setTranslateY(factor * 5 * magnitude);
 	}
 
 	public void addEventFilter(EventType<MouseEvent> eventType,
@@ -547,7 +558,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			EventHandler<MouseEvent> handler) {
 		myStage.removeEventFilter(eventType, handler);
 	}
-	
+
 	private void incrementSpeed() {
 		if (myEngineManager.isRunning())
 			play();

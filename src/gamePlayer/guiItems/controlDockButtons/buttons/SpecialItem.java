@@ -38,7 +38,7 @@ public class SpecialItem extends ControlDockButton {
 		return myButton;
 	}
 	
-	public void startAnimation(double length) {
+	public void startAnimation(double length, boolean run) {
 		//TODO: add circle that will fade out with time
 		Timeline timeline = new Timeline();
 		KeyFrame kf = new KeyFrame(Duration.seconds(length/60));
@@ -46,19 +46,26 @@ public class SpecialItem extends ControlDockButton {
 		timeline.setCycleCount(60);
 		timeline.setAutoReverse(false);
 		timeline.getKeyFrames().add(kf);
-		timeline.setOnFinished(event -> reset());
+		if (run)
+			timeline.setOnFinished(event -> end());
+		else
+			timeline.setOnFinished(event -> reset());
 		timeline.play();
+	}
+	
+	private void end() {
+		myButton.selectedProperty().set(false);
+		startAnimation(10, false);
 	}
 	
 	private void reset() {
 		myButton.setDisable(false);
-		myButton.selectedProperty().set(false);
 	}
 
 	private void buttonClicked() {
 		double time = GuiConstants.GUI_MANAGER.specialSelected();
 		myButton.setDisable(true);
-		startAnimation(time);
+		startAnimation(time, true);
 	}
 	
 	private void setupImageView() {
