@@ -13,7 +13,6 @@ import java.util.Map;
 public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
-    private int myBounty;
     private int myDamage;
     private VisibilityPoint myStart;
     private VisibilityPoint myGoal;
