@@ -12,12 +12,14 @@ import com.leapmotion.leap.Controller;
 
 /**
  * Controller for the Leap Motion Device. Any class can register a method to
- * call when a certain gesture or action happens measurable by the device
+ * call when a certain gesture or action happens measurable by the device. New
+ * gesture events can be created in the LeapMotionListener class, this class
+ * hides the lower level details and calculations on the different gesture types.
  * 
  * @author brianbolze
  */
 public class LMController {
-	
+
 	private enum EventType {
 		DEVICE_CONNECTED, SWIPE_LEFT, SWIPE_RIGHT, SWIPE_DOWN, SWIPE_UP, CIRCLE_CW, CIRCLE_CCW
 	}
@@ -85,31 +87,31 @@ public class LMController {
 	public void onCircleCCW(EventHandler<ActionEvent> handler) {
 		addHandler(EventType.CIRCLE_CCW, handler);
 	}
-	
+
 	public void removeOnConnect(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.DEVICE_CONNECTED, handler);
 	}
-	
+
 	public void removeOnSwipeLeft(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.SWIPE_LEFT, handler);
 	}
-	
+
 	public void removeOnSwipeRight(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.SWIPE_RIGHT, handler);
 	}
-	
+
 	public void removeOnSwipeUp(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.SWIPE_UP, handler);
 	}
-	
+
 	public void removeOnSwipeDown(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.SWIPE_DOWN, handler);
 	}
-	
+
 	public void removeOnCircleCW(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.CIRCLE_CW, handler);
 	}
-	
+
 	public void removeOnCircleCCW(EventHandler<ActionEvent> handler) {
 		removeHandler(EventType.CIRCLE_CCW, handler);
 	}
@@ -151,14 +153,15 @@ public class LMController {
 		}
 		myHandlerMap.get(event).add(handler);
 	}
-	
+
 	private void removeHandler(EventType event,
 			EventHandler<ActionEvent> handler) {
-		if (!myHandlerMap.containsKey(event) || !myHandlerMap.get(event).contains(handler)) {
+		if (!myHandlerMap.containsKey(event)
+				|| !myHandlerMap.get(event).contains(handler)) {
 			return;
 		}
 		myHandlerMap.get(event).remove(handler);
-		
+
 	}
 
 	private void invoke(EventType eventType) {

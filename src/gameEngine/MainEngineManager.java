@@ -17,6 +17,7 @@ import gameEngine.actors.BaseEnemy;
 import gameEngine.actors.BaseProjectile;
 import gameEngine.actors.BaseTower;
 import gameEngine.levels.BaseLevel;
+import gamePlayer.guiFeatures.WinStatusProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -115,7 +116,7 @@ public class MainEngineManager implements Observer, UpdateInterface, Information
         myTowerLocationByGrid = new TowerTileGrid(20, 20);
         myTowerTiles = createGameSizedGridPane();
         myCurrentLevelProperty = new SimpleDoubleProperty(1);
-        myWinStatus = new SimpleDoubleProperty(0);
+        myWinStatus = new WinStatusProperty();
     }
 
     public void setEarthquakeMagnitude (double magnitude) {

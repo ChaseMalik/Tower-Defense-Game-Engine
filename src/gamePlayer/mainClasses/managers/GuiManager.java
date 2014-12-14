@@ -7,6 +7,7 @@ import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiFeatures.WinStatusProperty;
 import gamePlayer.guiFeatures.earthquake.EarthquakeController;
 import gamePlayer.guiFeatures.earthquake.LMEarthquakeStrategy;
 import gamePlayer.guiFeatures.earthquake.MouseEarthquakeStrategy;
@@ -101,6 +102,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private GameStat level;
 	private GameStat health;
 	private GameStat gold;
+	private DoubleProperty endgame;
 	
 	public GuiManager(Stage stage) {
 		myStage = stage;
@@ -206,21 +208,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		makeTowerMap();
 		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-	}
-
-	private void checkEndGame(double d) {
-//		myScore = myEngineManager.getMyHealth()
-//				* myEngineManager.getCurrentLevelProperty().getValue()
-//				* myEngineManager.getMyGold();
-//		if (d == WinStatusProperty.WIN) {
-//		endgame = new WinStatusProperty();
-//		endgame.bindBidirectional(myEngineManager.getWinStatus());
-//		endgame.addListener(new ChangeListener<Number>(){
-//			@Override
-//			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-//				checkEndGame((double)newValue);
-//			}
-//		});*/
+		
+		endgame = new WinStatusProperty();
+		endgame.bindBidirectional(myEngineManager.getWinStatus());
+		endgame.addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				double status = (double)newValue;
+				if (status < 0.0) endGame(LOSS);
+			    if (status > 0.0) endGame(WIN);
+			}
+		});
 	}
 		
 	private void addBackground(String directory) {
@@ -353,13 +351,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		health = new GameStat();
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
-		health.statValueProperty().addListener(new ChangeListener<Number>(){
+		/*health.statValueProperty().addListener(new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
 				if ((double)newValue <= 0.0)
 					endGame(LOSS);
 			}
-		});
+		});*/
 
 		gameStats = new ArrayList<GameStat>();
 		// gameStats.add(level);
@@ -580,5 +578,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			play();
 		else
 			mySpeedSlider.incrementSpeed();
+	}
+
+	public void selectGame() {
+		new GameStartManager(myStage);
 	}
 }
