@@ -23,15 +23,12 @@ public class BaseEnemy extends RealActor {
     private VisibilityPoint myStart;
     private VisibilityPoint myGoal;
     private long MY_SEED=828;
-    private Random myRandom;
     public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, ProjectileInfo projectile, List<BackendRoute> route) {
         super(behaviors, image, name, range,projectile);
-        myRandom=new Random(MY_SEED);
         initializeEnemy(behaviors, damage, route);
     }
     public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, List<BackendRoute> route) {
         super(behaviors, image, name, range);
-        myRandom=new Random(MY_SEED);
         initializeEnemy(behaviors, damage, route);
     }
     
@@ -39,7 +36,7 @@ public class BaseEnemy extends RealActor {
     	
         myRoutes=route;
         myDamage = damage;
-        BackendRoute selectedRoute = route.get(myRandom.nextInt(route.size()));
+        BackendRoute selectedRoute = route.get((int) (Math.random()*(route.size())));
         ((BaseMovementBehavior)behaviors.get("movement")).setRoute(selectedRoute);
         List<VisibilityPoint> routePoints = selectedRoute.getPoints();
         myStart = routePoints.get(0);
