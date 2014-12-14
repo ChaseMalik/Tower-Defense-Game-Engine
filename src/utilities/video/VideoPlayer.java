@@ -29,6 +29,8 @@ import javafx.util.Duration;
  */
 class VideoPlayer extends BorderPane {
 
+    private double myStoredVolume = 1.0;
+
     private static final int PADDING = 20;
     private static final int SLIDER_WIDTH = 50;
     private static final int BUTTON_WIDTH = 75;
@@ -148,27 +150,30 @@ class VideoPlayer extends BorderPane {
 
     private void createAndDefineVolumeComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
-        button.setOnAction(event->muteOrUnmute(player, button));
+        myVolumeSlider = new Slider();
+        button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
-        myVolumeSlider = new Slider();
-        myVolumeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated (Observable observable) {
-                if (myVolumeSlider.isValueChanging()) {
-                    player.setVolume(myVolumeSlider.getValue() / DOUBLE_CONVERT);
-                }
-                button.setText(player.getVolume() > 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
-            }
-        });
+
+        player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
+        button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
+
         myMediaBar.getChildren().add(myVolumeSlider);
         myMediaBar.getChildren().add(new Label(SPACE));
     }
 
-    private void muteOrUnmute (final MediaPlayer player, final Button button) {
-        double volume = player.getVolume();
-        player.setVolume(volume == 0.0 ? 1.0 : 0.0);
-        button.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
+    private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
+        if (player.isMute()) {
+            player.setMute(false);
+            button.setText(MUTE_BUTTON_TEXT);
+            slider.setOpacity(1.0);
+        }
+        else {
+            player.setMute(true);
+            button.setText(UNMUTE_BUTTON_TEXT);
+            slider.setOpacity(0.5);
+        }
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
