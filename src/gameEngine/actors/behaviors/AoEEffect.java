@@ -16,11 +16,14 @@ public class AoEEffect extends BaseEffect{
         // TODO Auto-generated constructor stub
     }
 
-
+    public AoEEffect(double d, double r){
+        myDamage=d;
+        myRange=r;
+    }
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new AoEEffect(myList);
+        return new AoEEffect(myDamage, myRange);
     }
 
     @Override

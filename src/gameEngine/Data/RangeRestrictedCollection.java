@@ -46,7 +46,6 @@ public class RangeRestrictedCollection<T extends BaseActor> extends Group
 
 	public List<BaseActor> getActorsInRange(BaseActor actor) {
 		Node actorNode = actor.getRange();
-		System.out.println(actor.getRange());
 		ArrayList<BaseActor> actorsInRange = new ArrayList<>();
 		if(actorNode.isVisible()){
         		for (T otherActor : myActorsList) {
