@@ -148,13 +148,7 @@ class VideoPlayer extends BorderPane {
 
     private void createAndDefineVolumeComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
-                double volume = player.getVolume();
-                player.setVolume(volume == 0.0 ? 1.0 : 0.0);
-                button.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
-            }
-        });
+        button.setOnAction(event->muteOrUnmute(player, button));
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
         myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
@@ -169,6 +163,12 @@ class VideoPlayer extends BorderPane {
         });
         myMediaBar.getChildren().add(myVolumeSlider);
         myMediaBar.getChildren().add(new Label(SPACE));
+    }
+
+    private void muteOrUnmute (final MediaPlayer player, final Button button) {
+        double volume = player.getVolume();
+        player.setVolume(volume == 0.0 ? 1.0 : 0.0);
+        button.setText(volume == 0.0 ? MUTE_BUTTON_TEXT : UNMUTE_BUTTON_TEXT);
     }
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {

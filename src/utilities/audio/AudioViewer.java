@@ -20,7 +20,7 @@ public class AudioViewer extends Application {
     private static final int MY_JUKEBOX_WIDTH = 500;
     private static final int MY_JUKEBOX_HEIGHT = 500;
     private static final String AUDIO_PLAYER_TEST_FILE = "joe.mp3";
-    private static final String MY_JUKE_BOX_TITLE = "$cotty $haw's Jukebox - Brand New Day";
+    private static final String MY_JUKE_BOX_TITLE = "$cotty $haw's Jukebox - Brand New Day (Joe Budden)";
 
     public static void main (String[] args) {
         launch(args);
