@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Scotty Shaw
+
 package utilities.video;
 
 import javafx.application.Platform;
