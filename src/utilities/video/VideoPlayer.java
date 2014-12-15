@@ -161,14 +161,7 @@ class VideoPlayer extends BorderPane {
         player.setOnPlaying(()->runOnPlaying(player, button));
         player.setOnPaused(()->runOnPaused(button));
         player.setOnReady(()->runOnReady(player));
-        //        player.setOnPaused(()->runOnEndOfMedia(button));
-        player.setOnEndOfMedia(new Runnable() {
-            public void run () {
-                button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
-                myVideoIsStopped = !myVideoWillReplay;
-                myCycleIsComplete = !myVideoWillReplay;
-            }
-        });
+        player.setOnEndOfMedia(()->runOnEndOfMedia(button));
     }
 
     private void runOnPlaying (final MediaPlayer player, final Button button) {
@@ -176,7 +169,7 @@ class VideoPlayer extends BorderPane {
             player.pause();
             myVideoIsStopped = false;
         }
-        button.setText(myVideoIsStopped ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
+        button.setText(STOP_BUTTON_TEXT);
     }
 
     private void runOnPaused (final Button button) {
@@ -188,11 +181,11 @@ class VideoPlayer extends BorderPane {
         updateValues();
     }
 
-    //    private void runOnEndOfMedia (final Button button) {
-    //        button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
-    //        myVideoIsStopped = !myVideoWillReplay;
-    //        myCycleIsComplete = !myVideoWillReplay;
-    //    }
+    private void runOnEndOfMedia (final Button button) {
+        button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
+        myVideoIsStopped = !myVideoWillReplay;
+        myCycleIsComplete = !myVideoWillReplay;
+    }
 
     private void updateValues () {
         Platform.runLater(new Runnable() {
