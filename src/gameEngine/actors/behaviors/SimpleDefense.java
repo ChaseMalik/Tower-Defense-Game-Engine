@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece
+// Timesh Patel 
 package gameEngine.actors.behaviors;
 
 import java.util.List;
@@ -19,13 +21,11 @@ public class SimpleDefense extends BaseDefendBehavior {
 
     @Override
     public void onDeath (BaseActor actor) {
-        // TODO Auto-generated method stub
         actor.killed();
     }
 
     @Override
     public void handleBullet (BaseProjectile p) {
-        // TODO Auto-generated method stub
         myHealth -= p.getInfo().getMyDamage();
         p.died();
     }

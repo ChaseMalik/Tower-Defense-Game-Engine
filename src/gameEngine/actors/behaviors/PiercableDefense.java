@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece
+// Timesh Patel 
 package gameEngine.actors.behaviors;
 
 import java.util.List;
@@ -11,18 +13,15 @@ public class PiercableDefense extends BaseDefendBehavior{
     }
     PiercableDefense (double health) {
         super(health);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public IBehavior copy () {
-        // TODO Auto-generated method stub
         return new PiercableDefense(myList);
     }
 
     @Override
     public void handleBullet (BaseProjectile p) {
-        // TODO Auto-generated method stub
         double d=p.getInfo().getMyDamage();
         if(d-myHealth>0){
             p.getInfo().setMyDamage(d-myHealth);
@@ -34,7 +33,6 @@ public class PiercableDefense extends BaseDefendBehavior{
 
     @Override
     public void onDeath (BaseActor actor) {
-        // TODO Auto-generated method stub
         actor.killed();
     }
 

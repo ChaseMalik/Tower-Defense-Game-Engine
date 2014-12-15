@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece
+// Timesh Patel 
+
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
@@ -43,7 +46,6 @@ public abstract class BaseDefendBehavior implements IBehavior {
     }
 
     public void setHealth (double d) {
-        // TODO Auto-generated method stub
         myHealth = d;
     }
     /*
@@ -60,7 +62,6 @@ public abstract class BaseDefendBehavior implements IBehavior {
         }
         handleBullet(p);
         if (myHealth <= 0) {
-            // TODO add enemy cost
             onDeath(actor);
         }
     }
@@ -74,8 +75,6 @@ public abstract class BaseDefendBehavior implements IBehavior {
     public abstract void onDeath (BaseActor actor);
 
     private boolean checkTypes (BaseProjectile p, BaseActor a) {
-        // TODO Auto-generated method stub
-
         for (String s : p.getInfo().getEnemiesTypes()) {
             if (s.equals(a.toString()))
                 return true;
