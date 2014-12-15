@@ -7,7 +7,7 @@ import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
  * An interface for selecting general settings for the game (player's starting
  * gold, health, background sound, etc).
  * 
- * @author Austin Kyker
+ * @author Austin Kyker, David Zhang
  *
  */
 public interface IGeneralSettingsConfiguring {

@@ -16,7 +16,7 @@ import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
  * on the drag and drop file pane in the center of the screen during this background
  * selection process.
  * 
- * @author Austin Kyker
+ * @author Austin Kyker, David Zhang
  *
  */
 public class DefaultMapSelectionPane {

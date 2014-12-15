@@ -20,7 +20,11 @@ import utilities.GSON.objectWrappers.GeneralSettingsWrapper;
 import utilities.JavaFXutilities.numericalTextFields.NumericalTextField;
 import utilities.multilanguage.MultiLanguageUtility;
 
-
+/**
+ * Scene for user to input their general game settings (Name, Health, Money, GameType)
+ * @author David Zhang, Austin Kyker
+ *
+ */
 public class GeneralSettingScene {
 
     private static final int BTN_SPACE = 140;

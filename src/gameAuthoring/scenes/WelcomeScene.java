@@ -14,7 +14,7 @@ import utilities.multilanguage.MultiLanguageUtility;
 
 /**
  * A welcome scene for the user to choose their language of preference.
- * @author Austin Kyker
+ * @author Austin Kyker, David Zhang
  *
  */
 public class WelcomeScene extends Observable {
