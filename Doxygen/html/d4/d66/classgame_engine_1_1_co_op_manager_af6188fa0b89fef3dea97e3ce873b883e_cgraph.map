@@ -1,0 +1,12 @@
+<map id="gameEngine.CoOpManager.initializeGame" name="gameEngine.CoOpManager.initializeGame">
+<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#ad3268c769066fc73884a7454eb082ba7" title="gameEngine.MainEngineManager.add\lGroups" alt="" coords="345,70,607,111"/>
+<area shape="rect" id="node3" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#ad4b88a1ebf8918a80ea2a3ba697442e3" title="gameEngine.CoOpManager.allow\lInteraction" alt="" coords="361,135,591,177"/>
+<area shape="rect" id="node4" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#a15a51949e52c7652ea6f6e420868bd6d" title="gameEngine.CoOpManager.get\lTowersFromServer" alt="" coords="936,135,1157,177"/>
+<area shape="rect" id="node11" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#af2b56fd3bc5e8ae23648b6ffc0c18dff" title="gameEngine.CoOpManager.start\lLevel" alt="" coords="657,165,887,206"/>
+<area shape="rect" id="node5" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#a6d2b1134b6ee9495331e5fdc76b99873" title="gameEngine.CoOpManager.add\lTower" alt="" coords="1247,70,1471,111"/>
+<area shape="rect" id="node9" href="$d5/db4/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_reader.html#a49e27e4c4dc02a80911ce5f1dab1f152" title="utilities.GSON.GSONFileReader.read\lWrappers" alt="" coords="1234,135,1483,177"/>
+<area shape="rect" id="node10" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html#a83fe2ca04deb090dbffa9b9ab2e44a3e" title="utilities.networking.HTTPConnection.sendGet" alt="" coords="1205,201,1512,228"/>
+<area shape="rect" id="node6" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#a17f40cda61275ecf97d25f881604c4dd" title="utilities.GSON.objectWrappers.\lDataWrapper.getName" alt="" coords="1560,5,1776,46"/>
+<area shape="rect" id="node7" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#a3f1322770e9dce3c439bb7e1347c3e2f" title="utilities.GSON.objectWrappers.\lDataWrapper.getX" alt="" coords="1560,70,1776,111"/>
+<area shape="rect" id="node8" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#aea9e22ae53699f7f4a554eeb7e3fc05e" title="utilities.GSON.objectWrappers.\lDataWrapper.getY" alt="" coords="1560,135,1776,177"/>
+</map>

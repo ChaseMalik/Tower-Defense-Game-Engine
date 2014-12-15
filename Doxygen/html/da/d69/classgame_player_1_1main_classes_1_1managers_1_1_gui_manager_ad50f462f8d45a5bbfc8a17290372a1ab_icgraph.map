@@ -1,0 +1,5 @@
+<map id="gamePlayer.mainClasses.managers.GuiManager.joinMultiPlayerGame" name="gamePlayer.mainClasses.managers.GuiManager.joinMultiPlayerGame">
+<area shape="rect" id="node2" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a71a2a80cfe9d3a07d7becc506178acfd" title="gamePlayer.mainClasses.managers.\lWelcomeManager.joinMultiPlayerGame" alt="" coords="310,5,578,46"/>
+<area shape="rect" id="node4" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a7465850240e12e23aec544dbfd08f6a0" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.joinMulti\lPlayerGame" alt="" coords="317,69,571,125"/>
+<area shape="rect" id="node3" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#aa605746e09c481b225463d37a82427e3" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerOptions" alt="" coords="627,5,914,46"/>
+</map>

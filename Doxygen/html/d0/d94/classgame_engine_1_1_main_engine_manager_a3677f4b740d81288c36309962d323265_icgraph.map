@@ -1,0 +1,10 @@
+<map id="gameEngine.MainEngineManager.initializeGame" name="gameEngine.MainEngineManager.initializeGame">
+<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a02a63a3d495b31cce0c4976f95758a49" title="gamePlayer.mainClasses.managers.\lGuiManager.startGame" alt="" coords="382,22,637,63"/>
+<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#aa9b035d2a17b73719ca8a26d8ebde9ce" title="gamePlayer.mainClasses.managers.\lGuiManager.startSinglePlayerGame" alt="" coords="382,119,637,161"/>
+<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a287842e1d39b7ecf2e13befeeafa1a7b" title="gamePlayer.mainClasses.managers.\lGuiManager.loadGame" alt="" coords="701,5,955,46"/>
+<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a3f657f0e3ba1e493d2dd02b5df5e03f6" title="gamePlayer.mainClasses.managers.\lGuiManager.replayGame" alt="" coords="701,70,955,111"/>
+<area shape="rect" id="node6" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a5da8d3f5b8bc1c4bd4c555140bd9384c" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startSinglePlayerGame" alt="" coords="685,135,971,177"/>
+<area shape="rect" id="node8" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a0c44b3f25d2a30fe2e7aeca9da7161a9" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startSingle\lPlayerGame" alt="" coords="693,200,963,256"/>
+<area shape="rect" id="node7" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#ae6495396aef63551116c0835c40574e1" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startGame" alt="" coords="1027,135,1282,177"/>
+<area shape="rect" id="node9" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a4ac849399bf00c6df86f0db25ea95ed8" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startGame" alt="" coords="1019,207,1290,249"/>
+</map>

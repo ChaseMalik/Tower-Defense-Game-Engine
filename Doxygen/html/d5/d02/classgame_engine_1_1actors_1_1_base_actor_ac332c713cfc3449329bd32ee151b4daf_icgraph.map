@@ -1,0 +1,6 @@
+<map id="gameEngine.actors.BaseActor.killed" name="gameEngine.actors.BaseActor.killed">
+<area shape="rect" id="node2" href="$dc/d58/classgame_engine_1_1actors_1_1behaviors_1_1_do_t_on_hit.html#ad11d0311ebed715d9afd96a7b6c47b76" title="gameEngine.actors.behaviors.\lDoTOnHit.during" alt="" coords="316,5,532,46"/>
+<area shape="rect" id="node3" href="$d6/d0d/classgame_engine_1_1actors_1_1behaviors_1_1_enemy_homing_movement.html#ae0dfa468b7ebfd766b31406b8d1f74d6" title="gameEngine.actors.behaviors.\lEnemyHomingMovement.execute" alt="" coords="305,70,543,111"/>
+<area shape="rect" id="node4" href="$df/d0a/classgame_engine_1_1actors_1_1behaviors_1_1_simple_defense.html#aca848918f462be4330b081a34f5faf7e" title="gameEngine.actors.behaviors.\lSimpleDefense.onDeath" alt="" coords="316,135,532,177"/>
+<area shape="rect" id="node5" href="$d2/d9a/classgame_engine_1_1actors_1_1behaviors_1_1_piercable_defense.html#a7bf9e4fa8ed8b7b701b14d72d4528a23" title="gameEngine.actors.behaviors.\lPiercableDefense.onDeath" alt="" coords="316,201,532,242"/>
+</map>

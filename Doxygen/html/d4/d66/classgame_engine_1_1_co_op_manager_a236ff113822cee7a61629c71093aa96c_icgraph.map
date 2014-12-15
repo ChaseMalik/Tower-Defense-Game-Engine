@@ -1,0 +1,6 @@
+<map id="gameEngine.CoOpManager.joinGame" name="gameEngine.CoOpManager.joinGame">
+<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ad50f462f8d45a5bbfc8a17290372a1ab" title="gamePlayer.mainClasses.managers.\lGuiManager.joinMultiPlayerGame" alt="" coords="315,41,570,82"/>
+<area shape="rect" id="node3" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a71a2a80cfe9d3a07d7becc506178acfd" title="gamePlayer.mainClasses.managers.\lWelcomeManager.joinMultiPlayerGame" alt="" coords="619,5,887,46"/>
+<area shape="rect" id="node5" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a7465850240e12e23aec544dbfd08f6a0" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.joinMulti\lPlayerGame" alt="" coords="627,69,880,125"/>
+<area shape="rect" id="node4" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#aa605746e09c481b225463d37a82427e3" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerOptions" alt="" coords="937,5,1223,46"/>
+</map>

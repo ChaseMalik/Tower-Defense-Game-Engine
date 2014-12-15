@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiItems.store.Store.placeTower" name="gamePlayer.guiItems.store.Store.placeTower">
+<area shape="rect" id="node2" href="$d1/dd3/classgame_player_1_1gui_items_1_1store_1_1_store.html#a9a8c7f92a7b3744d435a62b73a7277cd" title="gamePlayer.guiItems.store.\lStore.checkEscape" alt="" coords="261,5,459,46"/>
+<area shape="rect" id="node4" href="$d4/db7/interfacegame_player_1_1gui_items_listeners_1_1_store_listener.html#af2099fff195e2d68cdf7dbe5e383269e" title="gamePlayer.guiItemsListeners.\lStoreListener.placeTower" alt="" coords="251,70,469,111"/>
+<area shape="rect" id="node3" href="$d4/db7/interfacegame_player_1_1gui_items_listeners_1_1_store_listener.html#a09ba9b5e100d86c9165ce8355a49028d" title="gamePlayer.guiItemsListeners.\lStoreListener.escapePlace" alt="" coords="517,5,736,46"/>
+</map>

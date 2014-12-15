@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiItems.controlDockButtons.buttons.PlayButton.pause" name="gamePlayer.guiItems.controlDockButtons.buttons.PlayButton.pause">
+<area shape="rect" id="node2" href="$d5/de0/interfacegame_player_1_1gui_items_listeners_1_1_play_button_listener.html#a9bc839c40b356cb3c7f710431b6b195d" title="gamePlayer.guiItemsListeners.\lPlayButtonListener.pause" alt="" coords="349,5,568,46"/>
+<area shape="rect" id="node3" href="$da/d25/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_play_button.html#a92ea5a2f61c987df9ab3b651dfd55fb5" title="gamePlayer.guiItems.control\lDockButtons.buttons.PlayButton.play" alt="" coords="329,70,589,111"/>
+<area shape="rect" id="node4" href="$d5/de0/interfacegame_player_1_1gui_items_listeners_1_1_play_button_listener.html#ad910bc1b4f62351e1feb8c3b6777e886" title="gamePlayer.guiItemsListeners.\lPlayButtonListener.play" alt="" coords="637,70,856,111"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="gamePlayer.tests.GuiItemTester.start" name="gamePlayer.tests.GuiItemTester.start">
+<area shape="rect" id="node2" href="$d4/d4f/classgame_player_1_1tests_1_1_gui_item_tester.html#a2293828b32563e3fb3ea6bece96bf4be" title="gamePlayer.tests.GuiItem\lTester.buildComponent" alt="" coords="240,37,427,78"/>
+<area shape="rect" id="node6" href="$d4/d4f/classgame_player_1_1tests_1_1_gui_item_tester.html#a43b11ed033fe3bd29b246468a694b985" title="gamePlayer.tests.GuiItem\lTester.buildContent" alt="" coords="240,102,427,143"/>
+<area shape="rect" id="node3" href="$d0/d33/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1store_1_1_store_item_cell.html#a6543840a5b25eff219f6cdf78d85ee5c" title="gamePlayer.unusedCodeWarehouse.gui\lItems.store.StoreItemCell.getNode" alt="" coords="475,5,749,46"/>
+<area shape="rect" id="node4" href="$d0/d33/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1store_1_1_store_item_cell.html#a61cdb981e8817442396e5b5f2411af16" title="gamePlayer.unusedCodeWarehouse.gui\lItems.store.StoreItemCell.initialize" alt="" coords="475,70,749,111"/>
+<area shape="rect" id="node5" href="$d0/d33/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1store_1_1_store_item_cell.html#a0132604bc6d4e9cf5510a007a81f6e58" title="gamePlayer.unusedCodeWarehouse.gui\lItems.store.StoreItemCell.buyItem" alt="" coords="797,70,1072,111"/>
+</map>

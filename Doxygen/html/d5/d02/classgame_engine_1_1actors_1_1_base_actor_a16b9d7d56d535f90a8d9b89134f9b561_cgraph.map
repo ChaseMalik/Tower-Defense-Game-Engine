@@ -1,0 +1,4 @@
+<map id="gameEngine.actors.BaseActor.getProjectilesInRange" name="gameEngine.actors.BaseActor.getProjectilesInRange">
+<area shape="rect" id="node2" href="$d2/d81/interfacegame_engine_1_1_manager_interface_1_1_information_interface.html#a3eabafeda6598b367a863b4d035932f1" title="gameEngine.ManagerInterface.\lInformationInterface.getRequired\lActors" alt="" coords="298,5,529,61"/>
+<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a827bcd701171b1776750c84bca05675d" title="gameEngine.actors.BaseActor.set\lRange" alt="" coords="294,85,533,126"/>
+</map>

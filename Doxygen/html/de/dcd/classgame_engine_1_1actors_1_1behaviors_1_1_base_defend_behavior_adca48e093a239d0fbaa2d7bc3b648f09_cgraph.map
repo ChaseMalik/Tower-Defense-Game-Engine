@@ -1,0 +1,10 @@
+<map id="gameEngine.actors.behaviors.BaseDefendBehavior.gotHit" name="gameEngine.actors.behaviors.BaseDefendBehavior.gotHit">
+<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a8d9a291774380d73f859d613c5727842" title="gameEngine.actors.BaseActor.add\lDebuff" alt="" coords="292,5,535,46"/>
+<area shape="rect" id="node4" href="$dd/d43/interfacegame_engine_1_1actors_1_1behaviors_1_1_i_behavior.html#a701a43f9c8de537acef9ed467a76ea2c" title="gameEngine.actors.behaviors.\lIBehavior.copy" alt="" coords="305,70,521,111"/>
+<area shape="rect" id="node5" href="$dd/d43/interfacegame_engine_1_1actors_1_1behaviors_1_1_i_behavior.html#a83131ee3ef941c1e10964ca4593f5055" title="gameEngine.actors.behaviors.\lIBehavior.execute" alt="" coords="305,135,521,177"/>
+<area shape="rect" id="node6" href="$da/d6a/classgame_engine_1_1actors_1_1_base_projectile.html#a1576fcb5d291dd025c11c0cab3f05bd4" title="gameEngine.actors.BaseProjectile.getInfo" alt="" coords="269,201,557,228"/>
+<area shape="rect" id="node7" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#ab75b75ef63de19660f8b086ea1b55ed7" title="gameEngine.actors.Projectile\lInfo.getOnHit" alt="" coords="309,253,517,294"/>
+<area shape="rect" id="node8" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a4085847b027812565666be8608b1da59" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.handleBullet" alt="" coords="294,318,533,359"/>
+<area shape="rect" id="node9" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#ab76ecb7cdf0bf5e75e537a75257dfd8c" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.onDeath" alt="" coords="305,383,521,425"/>
+<area shape="rect" id="node3" href="$dd/d43/interfacegame_engine_1_1actors_1_1behaviors_1_1_i_behavior.html#ae5f0a41fea0ccfae4858a4a7f403b3fc" title="gameEngine.actors.behaviors.\lIBehavior.toString" alt="" coords="605,5,821,46"/>
+</map>

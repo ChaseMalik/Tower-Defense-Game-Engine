@@ -1,0 +1,5 @@
+<map id="gameEngine.actors.behaviors.BaseDefendBehavior.checkTypes" name="gameEngine.actors.behaviors.BaseDefendBehavior.checkTypes">
+<area shape="rect" id="node2" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#a6fee193f50f8a1c58c693e955211e57d" title="gameEngine.actors.Projectile\lInfo.getEnemiesTypes" alt="" coords="325,5,533,46"/>
+<area shape="rect" id="node3" href="$da/d6a/classgame_engine_1_1actors_1_1_base_projectile.html#a1576fcb5d291dd025c11c0cab3f05bd4" title="gameEngine.actors.BaseProjectile.getInfo" alt="" coords="285,71,573,97"/>
+<area shape="rect" id="node4" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a9f4fa91555a52251f64b91fa182db92b" title="gameEngine.actors.BaseActor.to\lString" alt="" coords="313,122,545,163"/>
+</map>

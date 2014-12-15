@@ -1,0 +1,4 @@
+<map id="gameAuthoring.scenes.pathBuilding.pathComponents.Path.isComponentInPreviouslySelectedComponent" name="gameAuthoring.scenes.pathBuilding.pathComponents.Path.isComponentInPreviouslySelectedComponent">
+<area shape="rect" id="node2" href="$d7/d4d/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_route.html#aa15bdbf4ff5f98537667883999ebaf2b" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathRoute.get\lComponents" alt="" coords="357,5,637,61"/>
+<area shape="rect" id="node3" href="$d1/d65/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path.html#a628d6d2e49adf5a7f774d6fc2c1cefbe" title="gameAuthoring.scenes.path\lBuilding.pathComponents.Path.get\lRouteContaining" alt="" coords="375,85,619,141"/>
+</map>

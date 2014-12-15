@@ -1,0 +1,7 @@
+<map id="gameAuthoring.mainclasses.AuthorController.configureEnemies" name="gameAuthoring.mainclasses.AuthorController.configureEnemies">
+<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a806202aa2ee9d9fcc05c2bbd4417440b" title="gameAuthoring.mainclasses.\lAuthorController.notEnoughEnemies" alt="" coords="315,5,570,46"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a69b7c2c54299394c733f2671a8d38399" title="gameAuthoring.mainclasses.\lAuthorController.showTowerBuildingScene" alt="" coords="299,70,586,111"/>
+<area shape="rect" id="node4" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a91f790fde3a8af19e3308cac96d4dc23" title="gameAuthoring.mainclasses.\lAuthorController.setSceneAndTitle" alt="" coords="635,70,877,111"/>
+<area shape="rect" id="node5" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#adc8d9b19ad9462a9a8e6ab8a82f7bf3a" title="gameAuthoring.scenes.Building\lScene.getScene" alt="" coords="925,37,1149,78"/>
+<area shape="rect" id="node6" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#a0a4c161ec45d0064d18c5e9997bb6a22" title="gameAuthoring.scenes.Building\lScene.getTitle" alt="" coords="925,102,1149,143"/>
+</map>

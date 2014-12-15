@@ -1,0 +1,5 @@
+<map id="gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring.configurePath" name="gameAuthoring.mainclasses.controllerInterfaces.IPathConfiguring.configurePath">
+<area shape="rect" id="node2" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#ae77dd48a8e8e500b98024d01001320d5" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.handle\lFinishButtonClick" alt="" coords="337,4,578,60"/>
+<area shape="rect" id="node3" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#a9e29faac2f6cb3602cf3bc2b6de78f5e" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.create\lPathBuildingOptions" alt="" coords="627,4,866,60"/>
+<area shape="rect" id="node4" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#aa265fe743457d8feda83464c9af1f288" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.Path\lBuildingScene" alt="" coords="915,4,1141,60"/>
+</map>

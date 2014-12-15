@@ -1,0 +1,4 @@
+<map id="gamePlayer.mainClasses.managers.GuiManager.checkGold" name="gamePlayer.mainClasses.managers.GuiManager.checkGold">
+<area shape="rect" id="node2" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#ae7cfa5e0a3a681fd6c928944ec94792e" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.getStatValue" alt="" coords="310,5,551,46"/>
+<area shape="rect" id="node3" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#a8b7a10b5d7454339159230a830272c69" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.statValueProperty" alt="" coords="600,5,872,46"/>
+</map>

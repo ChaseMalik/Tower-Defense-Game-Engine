@@ -1,0 +1,6 @@
+<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane" name="gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane">
+<area shape="rect" id="node2" href="$d4/d78/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_building_pane.html" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.BuildingPane" alt="" coords="507,41,755,82"/>
+<area shape="rect" id="node5" href="$d1/d65/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.Path" alt="" coords="521,263,740,305"/>
+<area shape="rect" id="node10" href="$df/dea/interfacegame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_component.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathComponent" alt="" coords="6,385,301,426"/>
+<area shape="rect" id="node12" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine" alt="" coords="508,413,753,454"/>
+</map>

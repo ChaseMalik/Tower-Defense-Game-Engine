@@ -1,0 +1,5 @@
+<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane.handleSelectionAndTryToConnectComponents" name="gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane.handleSelectionAndTryToConnectComponents">
+<area shape="rect" id="node2" href="$d7/da7/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_select_component_pane.html#a6f69903216e7f0c8dc628fd667a50496" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.SelectComponent\lPane.addSelectionListeners" alt="" coords="403,4,685,60"/>
+<area shape="rect" id="node3" href="$d7/da7/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_select_component_pane.html#ab264186c3b2f4ed9391d64633b70d5ed" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.SelectComponent\lPane.addListenersToComponents" alt="" coords="733,4,1016,60"/>
+<area shape="rect" id="node4" href="$d7/da7/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_select_component_pane.html#a102b73ae9c6cab53a0738a3be5f8e3a4" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.SelectComponent\lPane.executeEnterFunction" alt="" coords="1064,4,1347,60"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="gamePlayer.guiItems.voogaMenuBar.menuItems.ChangeThemeMenuItem.initialize" name="gamePlayer.guiItems.voogaMenuBar.menuItems.ChangeThemeMenuItem.initialize">
+<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a88fc9dbbb49ae2c8c56612297174961c" title="gamePlayer.mainClasses.managers.\lGuiManager.changeTheme" alt="" coords="342,66,597,107"/>
+<area shape="rect" id="node6" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a6bc704aa624d0bc11d5f18717ef5842a" title="utilities.multilanguage.\lMultiLanguageUtility.getString\lProperty" alt="" coords="363,131,575,187"/>
+<area shape="rect" id="node3" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#af9bf84f005d9d6734a650f1d38237dda" title="gamePlayer.guiFeatures.File\lLoader.getInstance" alt="" coords="661,5,859,46"/>
+<area shape="rect" id="node5" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#ad9f337695d787ac03907ebd6164671db" title="gamePlayer.guiFeatures.File\lLoader.load" alt="" coords="661,70,859,111"/>
+<area shape="rect" id="node4" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#a023c6ba6bb44e7eeff28ead6f40a6587" title="gamePlayer.guiFeatures.File\lLoader.FileLoader" alt="" coords="923,5,1122,46"/>
+<area shape="rect" id="node7" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a124b4a760f410841ecc50dd4b16e40bb" title="utilities.multilanguage.\lMultiLanguageUtility.getProperty" alt="" coords="646,138,874,179"/>
+</map>

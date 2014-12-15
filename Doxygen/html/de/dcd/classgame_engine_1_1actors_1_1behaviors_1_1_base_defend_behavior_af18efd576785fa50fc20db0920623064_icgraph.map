@@ -1,0 +1,5 @@
+<map id="gameEngine.actors.behaviors.BaseDefendBehavior.getHealth" name="gameEngine.actors.behaviors.BaseDefendBehavior.getHealth">
+<area shape="rect" id="node2" href="$d9/df0/classgame_engine_1_1actors_1_1behaviors_1_1_earth_quake_effect.html#a6937fd3e557485b65aa5001b1b66b720" title="gameEngine.actors.behaviors.\lEarthQuakeEffect.during" alt="" coords="277,5,493,46"/>
+<area shape="rect" id="node3" href="$dc/d58/classgame_engine_1_1actors_1_1behaviors_1_1_do_t_on_hit.html#ad11d0311ebed715d9afd96a7b6c47b76" title="gameEngine.actors.behaviors.\lDoTOnHit.during" alt="" coords="277,70,493,111"/>
+<area shape="rect" id="node4" href="$dc/d40/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_effect.html#ab9f4fcfbf53370716362e4c71768623c" title="gameEngine.actors.behaviors.\lAoEEffect.start" alt="" coords="277,135,493,177"/>
+</map>

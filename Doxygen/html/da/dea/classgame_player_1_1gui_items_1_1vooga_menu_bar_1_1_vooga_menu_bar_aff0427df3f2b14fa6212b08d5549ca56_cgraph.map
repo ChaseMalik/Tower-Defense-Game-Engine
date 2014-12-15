@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiItems.voogaMenuBar.VoogaMenuBar.createMenu" name="gamePlayer.guiItems.voogaMenuBar.VoogaMenuBar.createMenu">
+<area shape="rect" id="node2" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="315,5,552,46"/>
+<area shape="rect" id="node4" href="$d2/dbe/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_item.html#adefa8c037c5ddfba536b8af439e50c13" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuItem.initialize" alt="" coords="313,70,554,111"/>
+<area shape="rect" id="node3" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="603,5,840,46"/>
+</map>

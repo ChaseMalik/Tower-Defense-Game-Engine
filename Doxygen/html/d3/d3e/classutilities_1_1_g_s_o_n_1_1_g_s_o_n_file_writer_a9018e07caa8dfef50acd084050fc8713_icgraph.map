@@ -1,0 +1,12 @@
+<map id="utilities.GSON.GSONFileWriter.writeToFile" name="utilities.GSON.GSONFileWriter.writeToFile">
+<area shape="rect" id="node2" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a333c331c33342ee0080df3ec1a0500e3" title="utilities.GSON.GSONFileWriter.write\lGameFile" alt="" coords="296,5,539,46"/>
+<area shape="rect" id="node5" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a987e8b01664835eed515251fb43a0087" title="utilities.GSON.GSONFileWriter.write\lGameStateToJSon" alt="" coords="296,70,539,111"/>
+<area shape="rect" id="node8" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a08bf1bf0c6de9f41631f768d01543f11" title="utilities.GSON.GSONFileWriter.write\lGeneralSettings" alt="" coords="296,135,539,177"/>
+<area shape="rect" id="node10" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#ab7c988160e6352721b786f13001d3e9b" title="utilities.GSON.GSONFileWriter.write\lTowerRegions" alt="" coords="296,201,539,242"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a42183719550aaaf71d1f05630f6d8c42" title="gameAuthoring.mainclasses.\lAuthorController.showGSONWritingScene" alt="" coords="587,5,869,46"/>
+<area shape="rect" id="node4" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#ad97f76dfdff516d025e26ad75afe47e0" title="gameAuthoring.mainclasses.\lAuthorController.configureLevels" alt="" coords="931,5,1160,46"/>
+<area shape="rect" id="node6" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a44adf39004b328c2a54900ee42da155a" title="gameEngine.MainEngineManager.save\lState" alt="" coords="594,70,862,111"/>
+<area shape="rect" id="node7" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#abc8fba7da6bc48fc13a656d9b0658b11" title="gamePlayer.mainClasses.managers.\lGuiManager.saveGame" alt="" coords="918,70,1173,111"/>
+<area shape="rect" id="node9" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a6c9a1f3dea1f56d1af0581f2b44670e5" title="gameAuthoring.mainclasses.\lAuthorController.setGeneralSettings" alt="" coords="601,135,855,177"/>
+<area shape="rect" id="node11" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a30065c6d19c9511b5a63327db06c93ec" title="gameAuthoring.mainclasses.\lAuthorController.setTowerRegions" alt="" coords="611,201,845,242"/>
+</map>

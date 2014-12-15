@@ -1,0 +1,4 @@
+<map id="gameEngine.actors.BaseEnemy" name="gameEngine.actors.BaseEnemy">
+<area shape="rect" id="node2" href="$de/d0f/classgame_engine_1_1actors_1_1_real_actor.html" title="gameEngine.actors.RealActor" alt="" coords="13,155,223,181"/>
+<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html" title="gameEngine.actors.BaseActor" alt="" coords="11,80,227,107"/>
+</map>

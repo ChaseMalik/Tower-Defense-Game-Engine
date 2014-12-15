@@ -1,0 +1,7 @@
+<map id="gameEngine.CoOpManager.startNewGame" name="gameEngine.CoOpManager.startNewGame">
+<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae0e14f366726420cf134a86637ad6e2a" title="gamePlayer.mainClasses.managers.\lGuiManager.prepareMultiPlayerGame" alt="" coords="286,41,546,82"/>
+<area shape="rect" id="node3" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a0669db103a94675dce875042258da508" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerGame" alt="" coords="595,5,871,46"/>
+<area shape="rect" id="node5" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a994c29260d6cb90abf19dca2b3463b6a" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startMulti\lPlayerGame" alt="" coords="603,69,864,125"/>
+<area shape="rect" id="node4" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#ae6495396aef63551116c0835c40574e1" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startGame" alt="" coords="929,5,1183,46"/>
+<area shape="rect" id="node6" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a4ac849399bf00c6df86f0db25ea95ed8" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startGame" alt="" coords="921,77,1191,118"/>
+</map>

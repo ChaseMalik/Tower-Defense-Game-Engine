@@ -1,0 +1,4 @@
+<map id="gameAuthoring.scenes.GeneralSettingScene.getScene" name="gameAuthoring.scenes.GeneralSettingScene.getScene">
+<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a26ee886cc6f507ee9c36e97c61726f2c" title="gameAuthoring.mainclasses.\lAuthorController.showGeneralSettingScene" alt="" coords="277,5,576,46"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#aaa4b57d811457b44bf30d221b215dbc5" title="gameAuthoring.mainclasses.\lAuthorController.update" alt="" coords="624,5,832,46"/>
+</map>

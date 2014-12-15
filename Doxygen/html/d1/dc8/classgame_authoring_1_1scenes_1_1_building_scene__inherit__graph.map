@@ -1,0 +1,7 @@
+<map id="gameAuthoring.scenes.BuildingScene" name="gameAuthoring.scenes.BuildingScene">
+<area shape="rect" id="node2" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene" alt="" coords="278,37,525,78"/>
+<area shape="rect" id="node5" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene" alt="" coords="300,102,503,143"/>
+<area shape="rect" id="node6" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene" alt="" coords="300,167,503,209"/>
+<area shape="rect" id="node3" href="$d4/dc5/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_enemy_building_scene.html" title="gameAuthoring.scenes.actor\lBuildingScenes.EnemyBuildingScene" alt="" coords="574,5,831,46"/>
+<area shape="rect" id="node4" href="$d4/d66/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_tower_building_scene.html" title="gameAuthoring.scenes.actor\lBuildingScenes.TowerBuildingScene" alt="" coords="579,70,827,111"/>
+</map>

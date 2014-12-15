@@ -1,0 +1,10 @@
+<map id="gameEngine.actors.BaseProjectile.getInfo" name="gameEngine.actors.BaseProjectile.getInfo">
+<area shape="rect" id="node2" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#adf0a6bca05b9010f6b79bce32cc2b475" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.checkTypes" alt="" coords="347,5,578,46"/>
+<area shape="rect" id="node4" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#adca48e093a239d0fbaa2d7bc3b648f09" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.gotHit" alt="" coords="355,70,571,111"/>
+<area shape="rect" id="node5" href="$d2/d9a/classgame_engine_1_1actors_1_1behaviors_1_1_piercable_defense.html#a0533ca53ca0354b7e6a7d335762a8f6d" title="gameEngine.actors.behaviors.\lPiercableDefense.handleBullet" alt="" coords="355,135,571,177"/>
+<area shape="rect" id="node6" href="$df/d0a/classgame_engine_1_1actors_1_1behaviors_1_1_simple_defense.html#a4a721080fdb216f6c72bcca0995d2b3d" title="gameEngine.actors.behaviors.\lSimpleDefense.handleBullet" alt="" coords="355,201,571,242"/>
+<area shape="rect" id="node7" href="$db/d9e/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_attack.html#a35d7f53636d745562765310ca1e4b850" title="gameEngine.actors.behaviors.\lAoEAttack.performAttack" alt="" coords="355,266,571,307"/>
+<area shape="rect" id="node8" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#ad01ed9c7d2605735948e6a8b0d1a9485" title="gameEngine.actors.behaviors.\lRangeAttack.shootActorFromActor" alt="" coords="341,331,584,373"/>
+<area shape="rect" id="node3" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a9c4d907d4daabdcbf4706ebd765eb4d3" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.execute" alt="" coords="632,38,848,79"/>
+<area shape="rect" id="node9" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#adce033b0e318665ad52cde7c985b8538" title="gameEngine.actors.behaviors.\lRangeAttack.performAttack" alt="" coords="632,331,848,373"/>
+</map>

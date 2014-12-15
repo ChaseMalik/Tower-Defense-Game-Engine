@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiItemsListeners.SpeedButtonListener.normalSpeed" name="gamePlayer.guiItemsListeners.SpeedButtonListener.normalSpeed">
+<area shape="rect" id="node2" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html#a85368e275e2b877e912484e5d3220b36" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton.normalSpeed" alt="" coords="302,49,637,90"/>
+<area shape="rect" id="node3" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html#a9336e1edbb644efe514bd88eef3d5443" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton.fast\lForward" alt="" coords="699,5,973,61"/>
+<area shape="rect" id="node4" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html#a2f0f314f2da9b1f6dd374976c3619734" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton.initialize" alt="" coords="686,85,986,126"/>
+</map>

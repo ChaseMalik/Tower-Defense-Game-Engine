@@ -1,0 +1,7 @@
+<map id="gameAuthoring.mainclasses.AuthorController.configureTowers" name="gameAuthoring.mainclasses.AuthorController.configureTowers">
+<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a4e4a7c79ed3afaf0c52781ee2912c3c6" title="gameAuthoring.mainclasses.\lAuthorController.notEnoughTowers" alt="" coords="307,5,549,46"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#ade2c0b5aaad7029da07a3dadb4b81b9f" title="gameAuthoring.mainclasses.\lAuthorController.showLevelBuildingScene" alt="" coords="285,70,571,111"/>
+<area shape="rect" id="node4" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a91f790fde3a8af19e3308cac96d4dc23" title="gameAuthoring.mainclasses.\lAuthorController.setSceneAndTitle" alt="" coords="619,70,861,111"/>
+<area shape="rect" id="node5" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#adc8d9b19ad9462a9a8e6ab8a82f7bf3a" title="gameAuthoring.scenes.Building\lScene.getScene" alt="" coords="909,37,1133,78"/>
+<area shape="rect" id="node6" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#a0a4c161ec45d0064d18c5e9997bb6a22" title="gameAuthoring.scenes.Building\lScene.getTitle" alt="" coords="909,102,1133,143"/>
+</map>

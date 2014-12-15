@@ -1,0 +1,4 @@
+<map id="gamePlayer.mainClasses.welcomeScreen.GameStartManager.pollEngineForMultiPlayerReadiness" name="gamePlayer.mainClasses.welcomeScreen.GameStartManager.pollEngineForMultiPlayerReadiness">
+<area shape="rect" id="node2" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a994c29260d6cb90abf19dca2b3463b6a" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startMulti\lPlayerGame" alt="" coords="320,4,581,60"/>
+<area shape="rect" id="node3" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a4ac849399bf00c6df86f0db25ea95ed8" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startGame" alt="" coords="630,11,901,53"/>
+</map>

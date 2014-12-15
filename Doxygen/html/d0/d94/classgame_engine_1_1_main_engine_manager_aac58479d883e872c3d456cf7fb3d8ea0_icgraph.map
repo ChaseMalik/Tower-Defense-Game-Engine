@@ -1,0 +1,11 @@
+<map id="gameEngine.MainEngineManager.loadTowers" name="gameEngine.MainEngineManager.loadTowers">
+<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a3677f4b740d81288c36309962d323265" title="gameEngine.MainEngineManager.initializeGame" alt="" coords="320,79,648,105"/>
+<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a02a63a3d495b31cce0c4976f95758a49" title="gamePlayer.mainClasses.managers.\lGuiManager.startGame" alt="" coords="697,22,951,63"/>
+<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#aa9b035d2a17b73719ca8a26d8ebde9ce" title="gamePlayer.mainClasses.managers.\lGuiManager.startSinglePlayerGame" alt="" coords="697,119,951,161"/>
+<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a287842e1d39b7ecf2e13befeeafa1a7b" title="gamePlayer.mainClasses.managers.\lGuiManager.loadGame" alt="" coords="1015,5,1270,46"/>
+<area shape="rect" id="node6" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a3f657f0e3ba1e493d2dd02b5df5e03f6" title="gamePlayer.mainClasses.managers.\lGuiManager.replayGame" alt="" coords="1015,70,1270,111"/>
+<area shape="rect" id="node7" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a5da8d3f5b8bc1c4bd4c555140bd9384c" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startSinglePlayerGame" alt="" coords="1000,135,1285,177"/>
+<area shape="rect" id="node9" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a0c44b3f25d2a30fe2e7aeca9da7161a9" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startSingle\lPlayerGame" alt="" coords="1007,200,1278,256"/>
+<area shape="rect" id="node8" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#ae6495396aef63551116c0835c40574e1" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startGame" alt="" coords="1342,135,1597,177"/>
+<area shape="rect" id="node10" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a4ac849399bf00c6df86f0db25ea95ed8" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.startGame" alt="" coords="1334,207,1605,249"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="gameEngine.actors.BaseActor.removeDebuff" name="gameEngine.actors.BaseActor.removeDebuff">
+<area shape="rect" id="node2" href="$d6/dc5/classgame_engine_1_1actors_1_1behaviors_1_1_slow_effect.html#a4c539e92c6e4a825c19dc4a73ab04996" title="gameEngine.actors.behaviors.\lSlowEffect.end" alt="" coords="323,5,539,46"/>
+<area shape="rect" id="node3" href="$dc/d58/classgame_engine_1_1actors_1_1behaviors_1_1_do_t_on_hit.html#ab2e2d2aa73d81b73450826ca6efed61a" title="gameEngine.actors.behaviors.\lDoTOnHit.end" alt="" coords="323,70,539,111"/>
+<area shape="rect" id="node4" href="$dc/d40/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_effect.html#a812107026b4d7b0b130aeebebe392db0" title="gameEngine.actors.behaviors.\lAoEEffect.end" alt="" coords="323,135,539,177"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="gamePlayer.unusedCodeWarehouse.guiItems.store.UpgradeStore" name="gamePlayer.unusedCodeWarehouse.guiItems.store.UpgradeStore">
+<area shape="rect" id="node2" href="$de/d25/interfacegame_player_1_1gui_items_1_1_gui_item.html" title="gamePlayer.guiItems.GuiItem" alt="" coords="353,12,564,39"/>
+<area shape="rect" id="node3" href="$d7/d02/interfacegame_player_1_1main_classes_1_1gui_builder_1_1_gui_element.html" title="gamePlayer.mainClasses.gui\lBuilder.GuiElement" alt="" coords="5,5,211,46"/>
+<area shape="rect" id="node8" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html" title="utilities.XMLParsing.XMLParser" alt="" coords="352,287,565,313"/>
+</map>

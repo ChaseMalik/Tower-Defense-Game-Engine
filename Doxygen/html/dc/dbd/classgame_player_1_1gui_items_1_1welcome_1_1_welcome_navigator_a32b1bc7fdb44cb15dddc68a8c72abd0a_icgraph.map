@@ -1,0 +1,8 @@
+<map id="gamePlayer.guiItems.welcome.WelcomeNavigator.setContent" name="gamePlayer.guiItems.welcome.WelcomeNavigator.setContent">
+<area shape="rect" id="node2" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#afd11b6bf91712ea221c4f69945eda2e4" title="gamePlayer.mainClasses.managers.\lWelcomeManager.init" alt="" coords="290,5,545,46"/>
+<area shape="rect" id="node3" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a0669db103a94675dce875042258da508" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerGame" alt="" coords="279,70,555,111"/>
+<area shape="rect" id="node5" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#a50dd4855f0caede3e640dd1ef9a5ecdd" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerGame\lChooser" alt="" coords="279,135,555,191"/>
+<area shape="rect" id="node6" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#aa605746e09c481b225463d37a82427e3" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startMultiPlayerOptions" alt="" coords="609,174,895,215"/>
+<area shape="rect" id="node7" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#add88d7ed8f399823ced1521c172e26b8" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startSinglePlayerGame\lChooser" alt="" coords="275,265,560,321"/>
+<area shape="rect" id="node4" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#ae6495396aef63551116c0835c40574e1" title="gamePlayer.mainClasses.managers.\lWelcomeManager.startGame" alt="" coords="625,70,879,111"/>
+</map>

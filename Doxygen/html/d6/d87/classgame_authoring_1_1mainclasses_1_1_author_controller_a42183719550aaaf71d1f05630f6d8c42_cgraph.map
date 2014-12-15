@@ -1,0 +1,5 @@
+<map id="gameAuthoring.mainclasses.AuthorController.showGSONWritingScene" name="gameAuthoring.mainclasses.AuthorController.showGSONWritingScene">
+<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#ae0c01835ccab7392448c7bb04657feed" title="gameAuthoring.mainclasses.\lAuthorController.writeBackground\lImageToGameDir" alt="" coords="339,5,575,61"/>
+<area shape="rect" id="node3" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a333c331c33342ee0080df3ec1a0500e3" title="utilities.GSON.GSONFileWriter.write\lGameFile" alt="" coords="336,85,579,126"/>
+<area shape="rect" id="node4" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a9018e07caa8dfef50acd084050fc8713" title="utilities.GSON.GSONFileWriter.write\lToFile" alt="" coords="627,85,869,126"/>
+</map>
