@@ -115,11 +115,6 @@ public class LevelDisplayCell extends HBox {
 		return levelInfoBox;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-
 	public BaseLevel generateLevel() {
 		BaseLevel level = new BaseLevel();
 		for (BaseEnemy enemy : myEnemies) {
