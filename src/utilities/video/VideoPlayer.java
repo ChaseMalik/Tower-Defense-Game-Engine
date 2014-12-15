@@ -46,7 +46,6 @@ class VideoPlayer extends BorderPane {
     private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
 
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
-    private static final String TIME_LABEL_TEXT = "0:00:00 / 0:00:00";
     private static final String TIME_FORMAT = "%d:%02d:%02d / %d:%02d:%02d";
 
     private MediaPlayer myMediaPlayer;
@@ -56,8 +55,8 @@ class VideoPlayer extends BorderPane {
     private Slider myVolumeSlider;
     private Duration myDuration;
     private boolean myVideoWillReplay = true;
-    private boolean myVideoIsStopped;
-    private boolean myCycleIsComplete;
+    private boolean myVideoIsStopped = !myVideoWillReplay;
+    private boolean myCycleIsComplete = !myVideoWillReplay;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer player) {
@@ -99,7 +98,7 @@ class VideoPlayer extends BorderPane {
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
         myTimeSlider.valueProperty().addListener(observable->bindPlayerAndSliderTimes(player));
 
-        myTimeLabel = new Label(TIME_LABEL_TEXT);
+        myTimeLabel = new Label();
         myTimeLabel.setPrefWidth(LABEL_WIDTH);
 
         myMediaBar.getChildren().addAll(button, new Label(SPACE), myTimeSlider, myTimeLabel);
@@ -173,6 +172,10 @@ class VideoPlayer extends BorderPane {
     }
 
     private void runOnPaused (final Button button) {
+//        if (myVideoIsStopped) {
+//            player.pause();
+//            myVideoIsStopped = false;
+//        }
         button.setText(PLAY_BUTTON_TEXT);
     }
 
@@ -183,8 +186,8 @@ class VideoPlayer extends BorderPane {
 
     private void runOnEndOfMedia (final Button button) {
         button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
-        myVideoIsStopped = !myVideoWillReplay;
-        myCycleIsComplete = !myVideoWillReplay;
+//        myVideoIsStopped = !myVideoWillReplay;
+//        myCycleIsComplete = !myVideoWillReplay;
     }
 
     private void updateValues () {
