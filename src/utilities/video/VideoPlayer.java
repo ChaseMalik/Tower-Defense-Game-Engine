@@ -23,7 +23,11 @@ import javafx.util.Duration;
  * this package.
  * 
  * The audio components (player volume level and volume slider value)
- * are bound together, and the time display 
+ * are bound together, and the time display is formatted in the style
+ * of YouTube. The visual components are not bound as tightly because
+ * the play/pause button acts upon an event, whereas the player needs
+ * to continuously check on its status to play or stop the video when
+ * necessary.
  * 
  */
 class VideoPlayer extends BorderPane {
