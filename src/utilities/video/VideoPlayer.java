@@ -27,7 +27,7 @@ class VideoPlayer extends BorderPane {
 
     private static final int PADDING = 20;
     private static final int BUTTON_WIDTH = 75;
-    private static final int INT_CONVERT = 100;
+//    private static final int INT_CONVERT = 100;
     private static final int LABEL_WIDTH = 150;
 
     private static final double DOUBLE_CONVERT = 100.0;
