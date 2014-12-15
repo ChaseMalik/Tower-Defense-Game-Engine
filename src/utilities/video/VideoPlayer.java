@@ -95,32 +95,9 @@ class VideoPlayer extends BorderPane {
 
     private void createAndDefineVisualComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
-        //        button.setOnAction(event->playOrPause(player));
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle (ActionEvent e) {
-                Status status = player.getStatus();
-                if (status == Status.HALTED || status == Status.UNKNOWN) {
-                    return;
-                }
-                if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                    if (myCycleIsComplete) {
-                        player.seek(player.getStartTime());
-                        myCycleIsComplete = false;
-                    }
-                    player.play();
-                }
-                else {
-                    player.pause();
-                }
-            }
-        });
-        player.currentTimeProperty().addListener(new InvalidationListener() {
-            public void invalidated (Observable observable) {
-                updateValues();
-            }
-        });
-        myMediaBar.getChildren().add(button);
-        myMediaBar.getChildren().add(new Label(SPACE));
+        button.setOnAction(event->playOrPause(player));
+        player.currentTimeProperty().addListener(observable->updateValues());
+        myMediaBar.getChildren().addAll(button, new Label(SPACE));
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
@@ -139,22 +116,22 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(myTimeLabel);
     }
 
-    //    private void playOrPause (final MediaPlayer player) {
-    //        Status status = player.getStatus();
-    //        if (status == Status.HALTED || status == Status.UNKNOWN) {
-    //            return;
-    //        }
-    //        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-    //            if (myCycleIsComplete) {
-    //                player.seek(player.getStartTime());
-    //                myCycleIsComplete = false;
-    //            }
-    //            player.play();
-    //        }
-    //        else {
-    //            player.pause();
-    //        }
-    //    }
+    private void playOrPause (final MediaPlayer player) {
+        Status status = player.getStatus();
+        if (status == Status.HALTED || status == Status.UNKNOWN) {
+            return;
+        }
+        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+            if (myCycleIsComplete) {
+                player.seek(player.getStartTime());
+                myCycleIsComplete = false;
+            }
+            player.play();
+        }
+        else {
+            player.pause();
+        }
+    }
 
     private void createAndDefineAudioComponents (final MediaPlayer player) {
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
