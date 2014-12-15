@@ -92,21 +92,15 @@ class VideoPlayer extends BorderPane {
         button.setPrefWidth(BUTTON_WIDTH);
         button.setOnAction(event->playOrPause(player));
         player.currentTimeProperty().addListener(observable->updateValues());
-        myMediaBar.getChildren().addAll(button, new Label(SPACE));
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
         myTimeSlider.valueProperty().addListener(observable->bindPlayerAndSliderTimes(player));
-        myMediaBar.getChildren().add(myTimeSlider);
+
         myTimeLabel = new Label(TIME_LABEL_TEXT);
         myTimeLabel.setPrefWidth(LABEL_WIDTH);
-        myMediaBar.getChildren().add(myTimeLabel);
-    }
 
-    private void bindPlayerAndSliderTimes (final MediaPlayer player) {
-        if (myTimeSlider.isValueChanging()) {
-            player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
-        }
+        myMediaBar.getChildren().addAll(button, new Label(SPACE), myTimeSlider, myTimeLabel);
     }
 
     private void playOrPause (final MediaPlayer player) {
@@ -123,6 +117,12 @@ class VideoPlayer extends BorderPane {
         }
         else {
             player.pause();
+        }
+    }
+
+    private void bindPlayerAndSliderTimes (final MediaPlayer player) {
+        if (myTimeSlider.isValueChanging()) {
+            player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
         }
     }
 
@@ -218,7 +218,7 @@ class VideoPlayer extends BorderPane {
     }
 
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
-        int seconds = (int)Math.floor(duration.toSeconds()) + 5000;
+        int seconds = (int)Math.floor(duration.toSeconds()) + 500000;
 
         int hours = seconds / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         seconds %= MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
