@@ -188,15 +188,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		makeTowerMap();
 		testHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		/*
-		endgame = new WinStatusProperty();
-		endgame.bindBidirectional(myEngineManager.getWinStatus());
-		endgame.addListener(new ChangeListener<Number>(){
-			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				checkEndGame((double)newValue);
-			}
-		});*/
 	}
 
 	private void checkEndGame(double d){
@@ -299,7 +290,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public boolean upgradeTower(ImageView imageView, String upgradeName) {
+	public boolean upgradeTower(ImageView imageView) {
+		String upgradeName = myEngineManager.getTowerName(imageView);
 		if (!interactionAllowed) return false;
 		if (upgradeName.equals(NO_UPGRADE)){
 			displayMessage(NO_UPGRADE, true);

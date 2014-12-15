@@ -6,7 +6,7 @@ import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
 
 public interface UpgradeListener {
 
-	public boolean upgradeTower(ImageView myTowerImageView, String upgradeName);
+	public boolean upgradeTower(ImageView myTowerImageView);
 	public void registerUpgradePanel(TowerUpgradePanel upgradePanel);
 	public void sellTower(ImageView myTowerImageView, TowerIndicator myIndicator);
 }
