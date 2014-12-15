@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Duke Kim
+
 package utilities.pathfinding;
 
 import java.util.ArrayList;
@@ -5,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
-
 import javafx.geometry.Point2D;
 
 
@@ -22,7 +24,7 @@ import javafx.geometry.Point2D;
  *         that cost and heuristic values be positive numbers. Final note about the finder is that
  *         while any Number object may be returned for the cost and heuristic values, value accuracy
  *         will be lost for values which are too large or too small.
- *         
+ * 
  * @param <T> Any object type.
  */
 public abstract class AStarPathFinder<T> implements IPathFinder<T> {
@@ -108,10 +110,10 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
         HashMap<T, ArrayList<T>> nodeToCurrentPathMap = new HashMap<>();
 
         PQTuple startTuple = new PQTuple(start, getHeuristicValue(start, destination));
-        frontierQueue.add(startTuple);
         ArrayList<T> beginningRoute = new ArrayList<>();
+        
+        frontierQueue.add(startTuple);
         nodeToCurrentPathMap.put(start, beginningRoute);
-
         nodeToValueMap.put(start, 0);
 
         while (!frontierQueue.isEmpty()) {
@@ -123,30 +125,40 @@ public abstract class AStarPathFinder<T> implements IPathFinder<T> {
                 return pathUpToDestination;
             }
             visitedNodes.add(currentNode);
-            Number valueSoFar = nodeToValueMap.get(currentNode);
-            ArrayList<T> pathSoFar = nodeToCurrentPathMap.get(currentNode);
-            Iterable<T> nextNodes = getNeighbors(currentNode);
-            for (T neighboringNextNode : nextNodes) {
-                if (!visitedNodes.contains(neighboringNextNode)) {
-                    Number traversalCost = getAndCheckCost(currentNode, neighboringNextNode);
-                    Number gScore = addNumbers(valueSoFar, traversalCost);
-                    Number currentRecordedValue = nodeToValueMap.get(neighboringNextNode);
-                    if (currentRecordedValue == null ||
-                        gScore.doubleValue() < currentRecordedValue.doubleValue()) {
-                        nodeToValueMap.put(neighboringNextNode, gScore);
-                        ArrayList<T> pathSoFarCopy = new ArrayList<>(pathSoFar);
-                        pathSoFarCopy.add(currentNode);
-                        nodeToCurrentPathMap.put(neighboringNextNode, pathSoFarCopy);
-                        Number hScore = getAndCheckHeuristicValue(neighboringNextNode, destination);
-                        Number totalScore = addNumbers(gScore, hScore);
-                        PQTuple tuple = new PQTuple(neighboringNextNode, totalScore);
-                        frontierQueue.add(tuple);
-                    }
-                }
-            }
+            checkNeighbors(destination, frontierQueue, visitedNodes, nodeToValueMap,
+                           nodeToCurrentPathMap, currentNode);
 
         }
         return null;
+    }
+
+    private void checkNeighbors (T destination,
+                                 PQ frontierQueue,
+                                 HashSet<T> visitedNodes,
+                                 HashMap<T, Number> nodeToValueMap,
+                                 HashMap<T, ArrayList<T>> nodeToCurrentPathMap,
+                                 T currentNode) {
+        Number valueSoFar = nodeToValueMap.get(currentNode);
+        ArrayList<T> pathSoFar = nodeToCurrentPathMap.get(currentNode);
+        Iterable<T> nextNodes = getNeighbors(currentNode);
+        for (T neighboringNextNode : nextNodes) {
+            if (!visitedNodes.contains(neighboringNextNode)) {
+                Number traversalCost = getAndCheckCost(currentNode, neighboringNextNode);
+                Number gScore = addNumbers(valueSoFar, traversalCost);
+                Number currentRecordedValue = nodeToValueMap.get(neighboringNextNode);
+                if (currentRecordedValue == null ||
+                    gScore.doubleValue() < currentRecordedValue.doubleValue()) {
+                    nodeToValueMap.put(neighboringNextNode, gScore);
+                    ArrayList<T> pathSoFarCopy = new ArrayList<>(pathSoFar);
+                    pathSoFarCopy.add(currentNode);
+                    nodeToCurrentPathMap.put(neighboringNextNode, pathSoFarCopy);
+                    Number hScore = getAndCheckHeuristicValue(neighboringNextNode, destination);
+                    Number totalScore = addNumbers(gScore, hScore);
+                    PQTuple tuple = new PQTuple(neighboringNextNode, totalScore);
+                    frontierQueue.add(tuple);
+                }
+            }
+        }
     }
 
     private boolean isPositive (Number number) {

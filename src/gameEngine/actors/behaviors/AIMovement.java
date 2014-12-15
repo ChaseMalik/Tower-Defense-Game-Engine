@@ -27,13 +27,13 @@ public class AIMovement extends BaseMovementBehavior {
             actor.getNode().setVisible(true);
             move(enemy, enemy.getStart().getPoint());
             myAIRoute =
-                    myPathFinder.getPath(enemy, info.getReferencePane(),
+                    myPathFinder.findAvoidingPath(enemy, info.getReferencePane(),
                                          info.getExistingTowerTiles());
             myIndex = 0;
         }
         else if (info.checkNewPath()) {
             myAIRoute =
-                    myPathFinder.getPath(enemy, info.getReferencePane(),
+                    myPathFinder.findAvoidingPath(enemy, info.getReferencePane(),
                                          info.getExistingTowerTiles());
             myIndex = 0;
         }

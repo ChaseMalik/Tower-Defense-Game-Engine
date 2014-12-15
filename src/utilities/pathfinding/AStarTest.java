@@ -9,49 +9,40 @@ import org.junit.Test;
 
 
 /**
- * Simple test using 2d arrays. 
+ * Simple test using 2d arrays.
+ * 
  * @author Duke
  *
  */
 public class AStarTest {
-    
-//Uncomment to test. 
-  @Test
-  public void testAStarLogic () {
-      int xMax = 50;
-      int yMax = 39;
-      TestNode[][] nodeMap = new TestNode[xMax][yMax];
-      for (int i = 0; i < xMax; i++) {
-          for (int j = 0; j < yMax; j++) {
-              TestNode node = new TestNode(i, j);
-              nodeMap[i][j] = node;
-          }
-      }
-      TestAStarFinder finder = new TestAStarFinder(nodeMap);
-      Random rand = new Random();
-//      for (int i = 0; i < 50; i++) {
-//          int startX = rand.nextInt(xMax);
-//          int startY = rand.nextInt(yMax);
-//          int endX = rand.nextInt(xMax);
-//          int endY = rand.nextInt(yMax);
-//          TestNode start = new TestNode(startX, startY);
-//          TestNode destination = new TestNode(endX, endY);
-//          List<TestNode> result = finder.findPath(start, destination);
-//          assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) + 1),
-//                       new Double(result.size()));
-//      }
-      int startX = 10;
-      int startY = 10;
-      int endX = 10;
-      int endY = 20;
-      TestNode start = new TestNode(startX, startY);
-      TestNode destination = new TestNode(endX, endY);
-      List<TestNode> result = finder.findPath(start, destination);
-      for(TestNode pathnode : result) {
-    	  System.out.println(pathnode);
-      }
-  }
-    
+
+    // Uncomment to test.
+    @Test
+    public void testAStarLogic () {
+        int xMax = 50;
+        int yMax = 39;
+        TestNode[][] nodeMap = new TestNode[xMax][yMax];
+        for (int i = 0; i < xMax; i++) {
+            for (int j = 0; j < yMax; j++) {
+                TestNode node = new TestNode(i, j);
+                nodeMap[i][j] = node;
+            }
+        }
+        TestAStarFinder finder = new TestAStarFinder(nodeMap);
+        Random rand = new Random();
+        for (int i = 0; i < 50; i++) {
+            int startX = rand.nextInt(xMax);
+            int startY = rand.nextInt(yMax);
+            int endX = rand.nextInt(xMax);
+            int endY = rand.nextInt(yMax);
+            TestNode start = new TestNode(startX, startY);
+            TestNode destination = new TestNode(endX, endY);
+            List<TestNode> result = finder.findPath(start, destination);
+            assertEquals(new Double(Math.abs((endX - startX)) + Math.abs((endY - startY)) + 1),
+                         new Double(result.size()));
+        }
+    }
+
     private class TestNode {
 
         private int myX;
@@ -97,22 +88,22 @@ public class AStarTest {
             int beginningY = beginningNode.getY();
             int endingX = endingNode.getX();
             int endingY = endingNode.getY();
-            return Math.sqrt(1.0*Math.pow(endingX - beginningX, 2) + Math.pow(endingY - beginningY, 2));
+            return Math.sqrt(1.0 * Math.pow(endingX - beginningX, 2) +
+                             Math.pow(endingY - beginningY, 2));
         }
 
         @Override
         public Collection<TestNode> getNeighbors (TestNode node) {
-            int[][] myDefault2DDirections = { { -1, -1 }, { -1, 0 },
-        			{ -1, 1 }, { 0, -1 }, { 0, 0 }, { 0, 1 }, { 1, -1 }, { 1, 0 },
-        			{ 1, 1 } };
+            int[][] myDefault2DDirections = { { -1, 0 },
+                                             { 0, -1 }, { 0, 1 }, { 1, 0 } };
             int x = node.getX();
             int y = node.getY();
             ArrayList<TestNode> nodeList = new ArrayList<>();
             for (int[] direction : myDefault2DDirections) {
                 int neighborX = x + direction[0];
                 int neighborY = y + direction[1];
-                if(neighborX == 10 && neighborY == 11) {
-                	continue;
+                if (neighborX == 10 && neighborY == 11) {
+                    continue;
                 }
                 if (neighborX >= 0 && neighborX < myMap.length && neighborY >= 0 &&
                     neighborY < myMap[0].length) {

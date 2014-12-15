@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Duke Kim
+
 package utilities.pathfinding;
 
 import java.util.Collection;
