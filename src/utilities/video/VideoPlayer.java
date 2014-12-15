@@ -30,7 +30,6 @@ import javafx.util.Duration;
 class VideoPlayer extends BorderPane {
 
     private static final int PADDING = 20;
-    private static final int SLIDER_WIDTH = 50;
     private static final int BUTTON_WIDTH = 75;
     private static final int INT_CONVERT = 100;
     private static final int LABEL_WIDTH = 150;
@@ -101,8 +100,6 @@ class VideoPlayer extends BorderPane {
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
-        myTimeSlider.setMinWidth(SLIDER_WIDTH);
-        myTimeSlider.setMaxWidth(Double.MAX_VALUE);
         myTimeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated (Observable observable) {
                 if (myTimeSlider.isValueChanging()) {
@@ -141,7 +138,6 @@ class VideoPlayer extends BorderPane {
         myVolumeSlider = new Slider();
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
         VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, myVolumeSlider));
-
         myMediaBar.getChildren().add(myVolumeSlider);
     }
 
