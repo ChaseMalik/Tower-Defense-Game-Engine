@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// GREG LYONS
+
 package gamePlayer.guiItems.towerUpgrade;
 
 import java.util.ArrayList;
@@ -7,11 +10,11 @@ import java.util.List;
 
 import javafx.scene.Node;
 
-public class UpgradeItemsCollection<UpgradePanelItem> implements Iterable<UpgradePanelItem>{
+public class UpgradeItemCollection<UpgradePanelItem> implements Iterable<UpgradePanelItem>{
 
 	private List<UpgradePanelItem> myItems;
 	
-	public UpgradeItemsCollection() {
+	public UpgradeItemCollection() {
 		myItems = new ArrayList<UpgradePanelItem>();
 	}
 	

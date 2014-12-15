@@ -1,24 +1,24 @@
+// This entire file is part of my masterpiece.
+// GREG LYONS
+
 package gamePlayer.guiItems.towerUpgrade.panelItems;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
-import javafx.scene.paint.Color;
 import gameEngine.Data.TowerInfoObject;
-import gamePlayer.guiItemsListeners.UpgradeListener;
+import gamePlayer.guiItems.towerUpgrade.UpgradeConstants;
 
 public class SellButton extends PanelButton implements UpgradePanelItem {
 
-	public SellButton(Color green, Dimension2D myButtonSize, String sellPath, EventHandler<ActionEvent> handler) {
-		super(green, myButtonSize, sellPath);
+	public SellButton(Dimension2D myButtonSize, EventHandler<ActionEvent> handler) {
+		super(UpgradeConstants.SELL_COLOR, myButtonSize, UpgradeConstants.SELL_PATH);
 		this.setOnAction(event -> handler.handle(event));
 	}
 
 	@Override
 	public void setCurrentTower(TowerInfoObject tower) {
-		this.setText("Sell tower for:\n" + tower.getSellCost());
-
+		this.setText(UpgradeConstants.SELL_TEXT + tower.getSellCost());
 	}
-
 
 }

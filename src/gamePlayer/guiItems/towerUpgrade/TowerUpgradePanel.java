@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// GREG LYONS
+
 package gamePlayer.guiItems.towerUpgrade;
 
 
@@ -26,6 +29,19 @@ import javafx.scene.paint.Color;
 /**
  * 
  * @author Greg Lyons
+ * 
+ * The TowerUpgradePanel is a HUD-type panel on-screen during gameplay that allows for selected towers
+ * to be upgraded or sold. When a tower is clicked, the TowerUpgradePanel modifies its text
+ * and images to reflect the tower currently selected. It does so by iterating over its 
+ * UpgradeItemCollection of UpgradePanelItems, calling setCurrentTower on each one.
+ * 
+ * myUpgradeBox - holds the panel items
+ * unselectedLabel - placeholder for when no tower is selected
+ * upgradePanelItems - collection of UpgradePanelItems
+ * myTowerImageView - the ImageView of the currently selected tower
+ * myParser - XML Parser
+ * activeIndicator - an extended circle used to show which tower is selected
+ * myListener - a reference to the GuiManager, but can only call the methods relevant to upgrading/selling
  *
  */
 
@@ -33,16 +49,20 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 
 	private HBox myUpgradeBox;
 	private Label unselectedLabel;
-	private UpgradeItemsCollection<UpgradePanelItem> upgradePanelItems;
+	private UpgradeItemCollection<UpgradePanelItem> upgradePanelItems;
 	private ImageView myTowerImageView;
 	private XMLParser myParser;
 	private TowerIndicator activeIndicator;
-	private UpgradeListener myListener;
+	
+	private static final UpgradeListener myListener = GuiConstants.GUI_MANAGER;
 
+	
+	/**
+	 * Set up the dimensions and add items
+	 */
 	@Override
 	public void initialize(Dimension2D containerSize) {
 
-		myListener = GuiConstants.GUI_MANAGER;
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
 		myParser = new XMLParser(new File(propertiesPath)); 
 
@@ -57,32 +77,52 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		unselectedLabel = new BackgroundLabel(UpgradeConstants.NO_SELECTED_TOWER, mySize, UpgradeConstants.STONE_PATH);
 		this.getChildren().add(unselectedLabel);
 	}
+	
+	/**
+	 * 
+	 * This method is where the items to be added to the panel are specified and instantiated
+	 * 
+	 */
 
 	private void makePanelItems(Dimension2D mySize) {
 		Dimension2D myIconSize = makeDim(mySize, "IconSizeRatio");
 		Dimension2D myButtonSize = makeDim(mySize, "ButtonSizeRatio");
 		Dimension2D myLabelSize = makeDim(mySize, "LabelRatio");
 
-		UpgradePanelItem myIcon = new TowerIcon(myIconSize, null);
-		UpgradePanelItem myName = new NameLabel(myLabelSize, UpgradeConstants.STONE_PATH, null);
-		UpgradePanelItem upgradeButton = new UpgradeButton(Color.ORANGERED, myButtonSize, UpgradeConstants.UP_PATH, event -> doUpgrade());	
-		UpgradePanelItem sellButton = new SellButton(Color.GREEN, myButtonSize, UpgradeConstants.SELL_PATH, event -> sell());
+		UpgradePanelItem myIcon = new TowerIcon(myIconSize);
+		UpgradePanelItem myName = new NameLabel(myLabelSize);
+		UpgradePanelItem upgradeButton = new UpgradeButton(myButtonSize, event -> doUpgrade());	
+		UpgradePanelItem sellButton = new SellButton(myButtonSize, event -> sell());
 
-		upgradePanelItems = new UpgradeItemsCollection<UpgradePanelItem>();
+		upgradePanelItems = new UpgradeItemCollection<UpgradePanelItem>();
 		upgradePanelItems.addItems(myIcon, myName, upgradeButton, sellButton);
 	}
 
+	/**
+	 * Utility method for finding an XML tag and returning the appropriate size dimension
+	 */
 	private Dimension2D makeDim(Dimension2D containerSize, String tag) {
 		Dimension2D ratio = myParser.getDimension(tag);
 		return RatiosToDim.convert(containerSize, ratio);
 	}
-
+	
+	/**
+	 * 
+	 * No tower is selected
+	 */
 	public void deselectTower(){
 		this.getChildren().clear();
 		this.getChildren().add(unselectedLabel);
 	}
 
-	public void setCurrentTower(TowerInfoObject current, ImageView towerImageView, TowerIndicator indicator){
+	/**
+	 * A tower has been selected (called by GuiManager)
+	 * 
+	 * @param current
+	 * @param towerImageView
+	 * @param indicator
+	 */
+	public void selectTower(TowerInfoObject current, ImageView towerImageView, TowerIndicator indicator){
 		this.getChildren().clear();
 		for (UpgradePanelItem item: upgradePanelItems) {
 			((UpgradePanelItem)item).setCurrentTower(current);

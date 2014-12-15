@@ -372,7 +372,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		activeIndicator = new TowerIndicator(centered.getXCenter(),
 				centered.getYCenter(), radius);
 		activeTower = tower;
-		myUpgradePanel.setCurrentTower(towerMap.get(towerName), tower,
+		myUpgradePanel.selectTower(towerMap.get(towerName), tower,
 				activeIndicator);
 		myGameWorld.getMap().getChildren().add(activeIndicator);
 		tower.setOnMouseClicked(event -> deselectTower(activeIndicator, tower,

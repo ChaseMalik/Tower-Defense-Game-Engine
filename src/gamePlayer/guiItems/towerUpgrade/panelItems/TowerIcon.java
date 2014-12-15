@@ -12,7 +12,7 @@ public class TowerIcon extends ImageView implements UpgradePanelItem{
 	
 	private Dimension2D myIconSize;
 	
-	public TowerIcon(Dimension2D iconSize, EventHandler<ActionEvent> handler) {
+	public TowerIcon(Dimension2D iconSize) {
 		super();
 		this.setFitWidth(iconSize.getWidth());
 		this.setFitHeight(iconSize.getWidth());
