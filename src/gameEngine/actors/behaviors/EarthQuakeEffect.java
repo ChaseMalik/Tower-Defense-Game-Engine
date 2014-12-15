@@ -11,7 +11,7 @@ public class EarthQuakeEffect extends BaseEffect {
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return null;
+        return new EarthQuakeEffect(null);
     }
 
     @Override
@@ -26,6 +26,7 @@ public class EarthQuakeEffect extends BaseEffect {
              }else{
                  d.setHealth(d.getHealth()-m);
              }
+             
          }
         }
     }

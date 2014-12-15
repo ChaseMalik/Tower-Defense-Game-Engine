@@ -21,19 +21,20 @@ public class GoldGenEffect extends BaseEffect{
     @Override
     public void during (BaseActor actor) {
         // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
         actor.changeAndNotify(new GoldUpdate(myGold));
+        
     }
 
     @Override
     public void end (BaseActor actor) {
         // TODO Auto-generated method stub
-        myDuration=myInitialDuration;
+        myDuration=myInitialDuration+1;
+    //    System.out.println(myDuration);
     }
 
 }

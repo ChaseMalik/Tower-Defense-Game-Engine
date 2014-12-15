@@ -1,21 +1,18 @@
 package gameEngine.AI;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
 import gameAuthoring.mainclasses.AuthorController;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.BuildingPane;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.Tile;
 import gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.TowerRegionsPane;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.BackendRoute;
-import gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint;
 import gameEngine.Data.TowerTileGrid;
 import gameEngine.actors.BaseEnemy;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import utilities.pathfinding.AStarPathFinder;
 
 public class GridPathFinder extends AStarPathFinder<Point2D> {

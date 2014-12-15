@@ -29,7 +29,7 @@ public class CoOpManager extends MainEngineManager {
     private static final String JOIN_GAME = "join_game";
     private static final int REQUIRED_NUM_PLAYERS = 2;
     private static final HTTPConnection HTTP_CONNECTOR = new HTTPConnection(SERVER_URL);
-    private static final int TIMER_END = 30;
+    private static final int TIMER_END = 15;
     private static final double QUERY_SERVER_TIME = 1.0;
     private DoubleProperty myTimer;
     private String myDirectory;

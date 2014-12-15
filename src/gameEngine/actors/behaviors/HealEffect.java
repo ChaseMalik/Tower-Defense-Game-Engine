@@ -5,17 +5,17 @@ import java.util.List;
 import gameEngine.ManagerInterface.HealthUpdate;
 import gameEngine.actors.BaseActor;
 
-public class healBehavior extends BaseEffect{
+public class HealEffect extends BaseEffect{
     
     private double myHeal;
-    public healBehavior(List<Double> list){
+    public HealEffect(List<Double> list){
         super(list);
         myHeal=list.get(1);
     }
     @Override
     public IBehavior copy () {
         // TODO Auto-generated method stub
-        return new healBehavior(myList);
+        return new HealEffect(myList);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class healBehavior extends BaseEffect{
     @Override
     public void end (BaseActor actor) {
         // TODO Auto-generated method stub
-        myDuration=myInitialDuration;
+        myDuration=myInitialDuration+1;
     }
 
 }

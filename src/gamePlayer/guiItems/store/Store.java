@@ -27,7 +27,6 @@ public class Store implements GuiItem {
     private XMLParser myParser;
     private Dimension2D myPaneSize;
     private StoreListener myListener = GuiConstants.GUI_MANAGER;
-
     private Dimension2D buttonSize;
     private Dimension2D imageSize;
     

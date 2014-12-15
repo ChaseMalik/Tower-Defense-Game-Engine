@@ -15,10 +15,12 @@ public class StoreItem {
     private String description;
     private BooleanBinding availableBinding;
     
+    public static final double ICON_SIZE = 100;
+    
     public StoreItem(String name, String imagePath, int cost, BooleanProperty available) {
         this.name = name;
         this.cost = cost;
-        this.imageView = StringToImageViewConverter.getImageView(100, 100, imagePath);
+        this.imageView = StringToImageViewConverter.getImageView(ICON_SIZE, ICON_SIZE, imagePath);
         this.availableBinding = Bindings.and(new SimpleBooleanProperty(true),available);
     }
     

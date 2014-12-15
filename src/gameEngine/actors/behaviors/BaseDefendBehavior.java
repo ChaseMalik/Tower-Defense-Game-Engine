@@ -46,13 +46,16 @@ public abstract class BaseDefendBehavior implements IBehavior {
         // TODO Auto-generated method stub
         myHealth = d;
     }
-
+    /*
+     * what to do when hit by a projectile
+     */
     public void gotHit (BaseActor actor, BaseProjectile p) {
         if (p.getInfo().getOnHit() != null) {
             for (IBehavior e : p.getInfo().getOnHit()) {
                 IBehavior effect = e.copy();
-                effect.execute(actor);
-                actor.addDebuff(effect);
+                if(actor.addDebuff(effect))
+                        effect.execute(actor);
+                
             }
         }
         handleBullet(p);
@@ -61,9 +64,13 @@ public abstract class BaseDefendBehavior implements IBehavior {
             onDeath(actor);
         }
     }
-
+    /*
+     * how to deal with the colliding bullet
+     */
     public abstract void handleBullet (BaseProjectile p);
-
+    /*
+     * what to do on death 
+     */
     public abstract void onDeath (BaseActor actor);
 
     private boolean checkTypes (BaseProjectile p, BaseActor a) {

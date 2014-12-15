@@ -14,6 +14,7 @@ public class WinStatusProperty extends SimpleDoubleProperty{
 
 	public WinStatusProperty() {
 		super();
+		this.set(0.0);
 	}
 
 	@Override
@@ -63,13 +64,13 @@ public class WinStatusProperty extends SimpleDoubleProperty{
 
 	@Override
 	public double get() {
-		return super.getValue();
+		return super.get();
 	}
 
 	@Override
 	public void set(double value) {
 		if (value == WIN || value == LOSS)
-			super.setValue(value);
+			super.set(value);
 	}
 
 }

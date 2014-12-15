@@ -5,7 +5,11 @@ import gameEngine.actors.behaviors.IBehavior;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ *  info class that defines projectiles
+ * 
+ *
+ */
 public class ProjectileInfo {
 
     private String myImage;
@@ -24,8 +28,10 @@ public class ProjectileInfo {
             for(String s: map.keySet()){
                 myOnHitEffects.add(map.get(s));
             }
-            myMovement=map.get("movement").copy();
+            myMovement=map.get("movement");
             myOnHitEffects.remove(myMovement);
+            myMovement=myMovement.copy();
+                    
         }
         myEnemyTypes=types;
 

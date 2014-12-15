@@ -1,16 +1,13 @@
 package gameEngine.Data;
 
 import gameEngine.actors.BaseActor;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.shape.Circle;
 
 public class RangeRestrictedCollection<T extends BaseActor> extends Group
 		implements Iterable<T> {

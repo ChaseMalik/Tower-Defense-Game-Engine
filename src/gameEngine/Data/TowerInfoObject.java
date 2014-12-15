@@ -1,5 +1,7 @@
 package gameEngine.Data;
-
+/*
+ * data class
+ */
 public class TowerInfoObject {
 
     private TowerInfoObject myUpgrade;
