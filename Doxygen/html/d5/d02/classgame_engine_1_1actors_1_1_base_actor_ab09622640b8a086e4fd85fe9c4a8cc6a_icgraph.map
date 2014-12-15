@@ -1,7 +1,0 @@
-<map id="gameEngine.actors.BaseActor.died" name="gameEngine.actors.BaseActor.died">
-<area shape="rect" id="node2" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#ac56b8c6d59f87cad83decf65b7fd368f" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.findNextTarget" alt="" coords="302,37,575,78"/>
-<area shape="rect" id="node5" href="$d2/d9a/classgame_engine_1_1actors_1_1behaviors_1_1_piercable_defense.html#a0533ca53ca0354b7e6a7d335762a8f6d" title="gameEngine.actors.behaviors.\lPiercableDefense.handleBullet" alt="" coords="331,102,547,143"/>
-<area shape="rect" id="node6" href="$df/d0a/classgame_engine_1_1actors_1_1behaviors_1_1_simple_defense.html#a4a721080fdb216f6c72bcca0995d2b3d" title="gameEngine.actors.behaviors.\lSimpleDefense.handleBullet" alt="" coords="331,167,547,209"/>
-<area shape="rect" id="node3" href="$d6/d0e/classgame_engine_1_1actors_1_1behaviors_1_1_a_i_movement.html#aeb1d8783ef4330c7c62ab30c03822b7d" title="gameEngine.actors.behaviors.\lAIMovement.execute" alt="" coords="624,5,840,46"/>
-<area shape="rect" id="node4" href="$da/d56/classgame_engine_1_1actors_1_1behaviors_1_1_linear_movement.html#a388237f4dafec0d8b13cd7c215b5ec87" title="gameEngine.actors.behaviors.\lLinearMovement.execute" alt="" coords="624,70,840,111"/>
-</map>

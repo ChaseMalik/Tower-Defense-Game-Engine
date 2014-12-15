@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.levelBuilding.LevelBuildingDisplay.addLevel" name="gameAuthoring.scenes.levelBuilding.LevelBuildingDisplay.addLevel">
-<area shape="rect" id="node2" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#a1378893d8197db294380765fbf2d72db" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.create\lMenuAndAddNewLevelOption" alt="" coords="318,5,562,61"/>
-<area shape="rect" id="node4" href="$d5/d00/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_display.html#a7f607a9e9e620b27f22944c141c7d87f" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingDisplay.\lLevelBuildingDisplay" alt="" coords="337,85,543,141"/>
-<area shape="rect" id="node3" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#a8b556e86b4aef6b87a1be44f901cec69" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.Level\lBuildingScene" alt="" coords="611,5,847,61"/>
-</map>

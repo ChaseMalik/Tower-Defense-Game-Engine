@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.levelBuilding.LevelBuildingScene.setupLevelDisplay" name="gameAuthoring.scenes.levelBuilding.LevelBuildingScene.setupLevelDisplay">
-<area shape="rect" id="node2" href="$d0/d68/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_level_configuring.html#af1770542a0d07b2e8e6910a054250ec8" title="gameAuthoring.mainclasses.controller\lInterfaces.ILevelConfiguring.fetchEnemies" alt="" coords="299,5,587,46"/>
-<area shape="rect" id="node3" href="$d0/d68/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_level_configuring.html#a328aa15c166d447e7546d092f421967a" title="gameAuthoring.mainclasses.controller\lInterfaces.ILevelConfiguring.getBackground\lImagePath" alt="" coords="293,69,592,125"/>
-<area shape="rect" id="node4" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="312,149,573,205"/>
-</map>

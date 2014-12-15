@@ -1,9 +1,0 @@
-<map id="gameEngine.tests.BehaviorTester.testMovementBehaviorSimple" name="gameEngine.tests.BehaviorTester.testMovementBehaviorSimple">
-<area shape="rect" id="node2" href="$dc/dde/classgame_engine_1_1tests_1_1_behavior_tester.html#a27cc680ecf7594bccf1d2ccd1b18b619" title="gameEngine.tests.Behavior\lTester.createActor" alt="" coords="310,5,509,46"/>
-<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#aa88ede8e4bc0a25270128b204bc1332f" title="gameEngine.actors.BaseActor.update" alt="" coords="557,72,821,99"/>
-<area shape="rect" id="node4" href="$dc/dde/classgame_engine_1_1tests_1_1_behavior_tester.html#a6f24e35b70fe115668ec08cff38b25bc" title="gameEngine.tests.Behavior\lTester.updateAndCheck" alt="" coords="310,122,509,163"/>
-<area shape="rect" id="node5" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a2106e623a36a5683759aff1a392c7686" title="gameEngine.actors.BaseActor.getX" alt="" coords="565,127,813,153"/>
-<area shape="rect" id="node7" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a4e1debba2b998a75964fb8c979cb15e8" title="gameEngine.actors.BaseActor.getY" alt="" coords="566,181,813,208"/>
-<area shape="rect" id="node6" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a063a62060b9b686601364fdbb8b6cd86" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getXCenter" alt="" coords="869,115,1125,157"/>
-<area shape="rect" id="node8" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#aa05843be4846dc0d9c23489cac21ed3d" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getYCenter" alt="" coords="870,181,1125,222"/>
-</map>

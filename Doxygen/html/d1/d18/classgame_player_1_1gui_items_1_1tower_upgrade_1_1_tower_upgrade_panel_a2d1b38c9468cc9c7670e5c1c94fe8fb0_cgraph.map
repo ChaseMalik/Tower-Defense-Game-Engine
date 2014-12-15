@@ -1,4 +1,0 @@
-<map id="gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel.sell" name="gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel.sell">
-<area shape="rect" id="node2" href="$d1/d18/classgame_player_1_1gui_items_1_1tower_upgrade_1_1_tower_upgrade_panel.html#a4dd7a166c98ebf68effcd02c939bd544" title="gamePlayer.guiItems.tower\lUpgrade.TowerUpgradePanel.deselectTower" alt="" coords="285,5,584,46"/>
-<area shape="rect" id="node3" href="$d8/dbf/interfacegame_player_1_1gui_items_listeners_1_1_upgrade_listener.html#aefa5cb4c4c2c84c231c779897246ed96" title="gamePlayer.guiItemsListeners.\lUpgradeListener.sellTower" alt="" coords="325,70,544,111"/>
-</map>

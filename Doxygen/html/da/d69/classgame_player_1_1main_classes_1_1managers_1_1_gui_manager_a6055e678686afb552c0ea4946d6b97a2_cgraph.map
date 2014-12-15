@@ -1,4 +1,0 @@
-<map id="gamePlayer.mainClasses.managers.GuiManager.makeTowerMap" name="gamePlayer.mainClasses.managers.GuiManager.makeTowerMap">
-<area shape="rect" id="node2" href="$d2/dae/classgame_engine_1_1_data_1_1_tower_info_object.html#aae3256ac67a3504c1e55820260c542a2" title="gameEngine.Data.TowerInfo\lObject.getMyUpgrade" alt="" coords="310,5,509,46"/>
-<area shape="rect" id="node3" href="$d2/dae/classgame_engine_1_1_data_1_1_tower_info_object.html#a52473d08f24e1e664999ec11f8f72632" title="gameEngine.Data.TowerInfo\lObject.getName" alt="" coords="310,70,509,111"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.DoTOnHit.during" name="gameEngine.actors.behaviors.DoTOnHit.during">
-<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a5c6428cc0e194e2d53638824e502885f" title="gameEngine.actors.BaseActor.get\lBehavior" alt="" coords="275,5,515,46"/>
-<area shape="rect" id="node3" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#af18efd576785fa50fc20db0920623064" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.getHealth" alt="" coords="283,70,506,111"/>
-<area shape="rect" id="node4" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ac332c713cfc3449329bd32ee151b4daf" title="gameEngine.actors.BaseActor.killed" alt="" coords="269,136,520,163"/>
-<area shape="rect" id="node5" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a6b8c10a820bab5b54587a0252b10123b" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.setHealth" alt="" coords="284,187,505,229"/>
-</map>

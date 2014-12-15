@@ -1,4 +1,0 @@
-<map id="gameAuthoring.scenes.WelcomeScene.getScene" name="gameAuthoring.scenes.WelcomeScene.getScene">
-<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a5188cd2fc34a2feef53cf500103fb207" title="gameAuthoring.mainclasses.\lAuthorController.showWelcomeScene" alt="" coords="285,5,544,46"/>
-<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#ae542dc4fa7cdb6ede23dee41b5070676" title="gameAuthoring.mainclasses.\lAuthorController.start" alt="" coords="592,5,800,46"/>
-</map>

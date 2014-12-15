@@ -1,6 +1,0 @@
-<map id="gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions.getMultiPlayerOption" name="gamePlayer.mainClasses.welcomeScreen.startingOptions.PlayerCountOptions.getMultiPlayerOption">
-<area shape="rect" id="node2" href="$d4/d3f/classgame_player_1_1main_classes_1_1managers_1_1_welcome_manager.html#afd11b6bf91712ea221c4f69945eda2e4" title="gamePlayer.mainClasses.managers.\lWelcomeManager.init" alt="" coords="305,5,559,46"/>
-<area shape="rect" id="node3" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#aaeadf75f81a631bdd0fde079470bc44e" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.initialize\lWelcomeScreen" alt="" coords="306,69,558,125"/>
-<area shape="rect" id="node4" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#ad8f1528149e361b0dfb590208d2b9532" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.init" alt="" coords="608,77,851,118"/>
-<area shape="rect" id="node5" href="$d3/dee/classgame_player_1_1main_classes_1_1welcome_screen_1_1_game_start_manager.html#a306af611e85c84fc7d2d297403407df9" title="gamePlayer.mainClasses.welcome\lScreen.GameStartManager.GameStart\lManager" alt="" coords="899,69,1171,125"/>
-</map>

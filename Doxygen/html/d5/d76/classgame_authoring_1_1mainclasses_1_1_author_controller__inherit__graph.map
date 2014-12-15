@@ -1,7 +1,0 @@
-<map id="gameAuthoring.mainclasses.AuthorController" name="gameAuthoring.mainclasses.AuthorController">
-<area shape="rect" id="node3" href="$d4/d81/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_general_settings_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.IGeneralSettingsConfiguring" alt="" coords="6,57,274,98"/>
-<area shape="rect" id="node4" href="$d6/da6/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_path_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.IPathConfiguring" alt="" coords="6,122,274,163"/>
-<area shape="rect" id="node5" href="$d2/d0a/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_tower_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.ITowerConfiguring" alt="" coords="6,187,274,229"/>
-<area shape="rect" id="node6" href="$d2/d8b/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_enemy_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.IEnemyConfiguring" alt="" coords="6,253,274,294"/>
-<area shape="rect" id="node7" href="$d0/d68/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_level_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.ILevelConfiguring" alt="" coords="6,318,274,359"/>
-</map>

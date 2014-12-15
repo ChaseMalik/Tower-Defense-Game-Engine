@@ -1,9 +1,0 @@
-<map id="gamePlayer.mainClasses.managers.GuiManager.saveGame" name="gamePlayer.mainClasses.managers.GuiManager.saveGame">
-<area shape="rect" id="node2" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#af9bf84f005d9d6734a650f1d38237dda" title="gamePlayer.guiFeatures.File\lLoader.getInstance" alt="" coords="345,5,543,46"/>
-<area shape="rect" id="node4" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#abfd4c13ab4f1a77896e202da74375b5a" title="gamePlayer.guiFeatures.File\lLoader.save" alt="" coords="345,70,543,111"/>
-<area shape="rect" id="node5" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a44adf39004b328c2a54900ee42da155a" title="gameEngine.MainEngineManager.save\lState" alt="" coords="310,135,578,177"/>
-<area shape="rect" id="node3" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#a023c6ba6bb44e7eeff28ead6f40a6587" title="gamePlayer.guiFeatures.File\lLoader.FileLoader" alt="" coords="662,5,861,46"/>
-<area shape="rect" id="node6" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a09aad9969ca8713d7ca77e57388f5712" title="gameEngine.MainEngineManager.wrap\lTowers" alt="" coords="627,102,895,143"/>
-<area shape="rect" id="node7" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a987e8b01664835eed515251fb43a0087" title="utilities.GSON.GSONFileWriter.write\lGameStateToJSon" alt="" coords="640,167,883,209"/>
-<area shape="rect" id="node8" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a9018e07caa8dfef50acd084050fc8713" title="utilities.GSON.GSONFileWriter.write\lToFile" alt="" coords="944,167,1187,209"/>
-</map>

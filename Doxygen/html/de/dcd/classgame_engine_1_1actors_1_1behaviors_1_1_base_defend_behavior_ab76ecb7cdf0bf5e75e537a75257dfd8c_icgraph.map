@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseDefendBehavior.onDeath" name="gameEngine.actors.behaviors.BaseDefendBehavior.onDeath">
-<area shape="rect" id="node2" href="$d9/df0/classgame_engine_1_1actors_1_1behaviors_1_1_earth_quake_effect.html#a6937fd3e557485b65aa5001b1b66b720" title="gameEngine.actors.behaviors.\lEarthQuakeEffect.during" alt="" coords="269,5,485,46"/>
-<area shape="rect" id="node3" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#adca48e093a239d0fbaa2d7bc3b648f09" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.gotHit" alt="" coords="269,70,485,111"/>
-<area shape="rect" id="node5" href="$dc/d40/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_effect.html#ab9f4fcfbf53370716362e4c71768623c" title="gameEngine.actors.behaviors.\lAoEEffect.start" alt="" coords="269,135,485,177"/>
-<area shape="rect" id="node4" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a9c4d907d4daabdcbf4706ebd765eb4d3" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.execute" alt="" coords="533,70,749,111"/>
-</map>

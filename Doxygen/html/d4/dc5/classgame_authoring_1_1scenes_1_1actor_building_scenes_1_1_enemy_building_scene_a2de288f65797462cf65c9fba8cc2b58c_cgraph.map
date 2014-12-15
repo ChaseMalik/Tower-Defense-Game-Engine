@@ -1,6 +1,0 @@
-<map id="gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene.makeNewActor" name="gameAuthoring.scenes.actorBuildingScenes.EnemyBuildingScene.makeNewActor">
-<area shape="rect" id="node2" href="$d2/d8b/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_enemy_configuring.html#afadc1520ca912c3723cabb7731f0e014" title="gameAuthoring.mainclasses.controller\lInterfaces.IEnemyConfiguring.fetchEnemyRoutes" alt="" coords="352,5,683,46"/>
-<area shape="rect" id="node3" href="$d8/dbd/classutilities_1_1_java_f_xutilities_1_1numerical_text_fields_1_1_labeled_numerical_text_field.html#a7965a2a42055843864a69c3f98beb704" title="utilities.JavaFXutilities.numerical\lTextFields.LabeledNumericalTextField.get\lNumberEntered" alt="" coords="378,69,657,125"/>
-<area shape="rect" id="node5" href="$d7/d46/classutilities_1_1_java_f_xutilities_1_1slider_1_1_slider_container.html#a9998589050ddba945c19feeb1f05410b" title="utilities.JavaFXutilities.slider.\lSliderContainer.getSliderValue" alt="" coords="410,149,625,190"/>
-<area shape="rect" id="node4" href="$dc/dc4/classutilities_1_1_java_f_xutilities_1_1numerical_text_fields_1_1_numerical_text_field.html#a9845b092d6d88a4a2322ee2394eab870" title="utilities.JavaFXutilities.numerical\lTextFields.NumericalTextField.getNumber" alt="" coords="731,77,1013,118"/>
-</map>

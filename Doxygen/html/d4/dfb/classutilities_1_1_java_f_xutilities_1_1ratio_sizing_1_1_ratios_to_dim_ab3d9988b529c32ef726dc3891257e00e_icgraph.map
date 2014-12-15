@@ -1,8 +1,0 @@
-<map id="utilities.JavaFXutilities.ratioSizing.RatiosToDim.convert" name="utilities.JavaFXutilities.ratioSizing.RatiosToDim.convert">
-<area shape="rect" id="node2" href="$d7/da7/classgame_player_1_1gui_items_1_1heads_up_display_1_1_h_u_d.html#a66a73bb8aebc06c0791fd9025d9a36ab" title="gamePlayer.guiItems.heads\lUpDisplay.HUD.initialize" alt="" coords="279,5,478,46"/>
-<area shape="rect" id="node3" href="$dd/dee/classgame_player_1_1gui_items_1_1message_display_1_1_message_display.html#a96d13e41954bf2669bfbfaca336ca7db" title="gamePlayer.guiItems.message\lDisplay.MessageDisplay.initialize" alt="" coords="265,70,492,111"/>
-<area shape="rect" id="node4" href="$d1/dd3/classgame_player_1_1gui_items_1_1store_1_1_store.html#aa40b0ec8e6942111ec3296250b8943e1" title="gamePlayer.guiItems.store.\lStore.initialize" alt="" coords="280,135,477,177"/>
-<area shape="rect" id="node5" href="$d1/d18/classgame_player_1_1gui_items_1_1tower_upgrade_1_1_tower_upgrade_panel.html#aef3a3b0222dccc4f3edb6364389d652a" title="gamePlayer.guiItems.tower\lUpgrade.TowerUpgradePanel.initialize" alt="" coords="249,201,509,242"/>
-<area shape="rect" id="node6" href="$d2/d0d/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1_control_dock_slider.html#aaaef8ba819895bf5352dc59563f7234d" title="gamePlayer.guiItems.control\lDockButtons.ControlDockSlider.set\lUpSizing" alt="" coords="256,265,501,321"/>
-<area shape="rect" id="node7" href="$d5/dbe/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1sliders_1_1_speed_slider.html#ab63aa1a4f1a58621abfba7db50103bac" title="gamePlayer.guiItems.control\lDockButtons.sliders.SpeedSlider.initialize" alt="" coords="558,273,842,314"/>
-</map>

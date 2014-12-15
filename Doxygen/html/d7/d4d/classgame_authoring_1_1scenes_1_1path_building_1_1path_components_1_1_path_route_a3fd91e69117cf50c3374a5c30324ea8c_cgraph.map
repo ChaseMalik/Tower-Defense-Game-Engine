@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute.getComponentsBefore" name="gameAuthoring.scenes.pathBuilding.pathComponents.PathRoute.getComponentsBefore">
-<area shape="rect" id="node2" href="$d7/d4d/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_route.html#ab8edca6679b327f0dd85b506e458dffd" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathRoute.add" alt="" coords="333,5,616,46"/>
-<area shape="rect" id="node3" href="$d7/d4d/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_route.html#aeee9e89e67151550871dc81b5c2c8938" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathRoute.\lPathRoute" alt="" coords="345,69,604,125"/>
-<area shape="rect" id="node4" href="$d7/d4d/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_route.html#a9096e6b2d30f29e4fb791a73297079ac" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathRoute.set\lStartingLocation" alt="" coords="335,149,614,205"/>
-</map>

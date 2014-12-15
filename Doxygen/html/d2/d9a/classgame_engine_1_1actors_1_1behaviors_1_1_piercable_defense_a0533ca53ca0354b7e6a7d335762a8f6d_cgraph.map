@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.PiercableDefense.handleBullet" name="gameEngine.actors.behaviors.PiercableDefense.handleBullet">
-<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ab09622640b8a086e4fd85fe9c4a8cc6a" title="gameEngine.actors.BaseActor.died" alt="" coords="290,5,537,32"/>
-<area shape="rect" id="node3" href="$da/d6a/classgame_engine_1_1actors_1_1_base_projectile.html#a1576fcb5d291dd025c11c0cab3f05bd4" title="gameEngine.actors.BaseProjectile.getInfo" alt="" coords="269,56,557,83"/>
-<area shape="rect" id="node4" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#afc62be82dc6db5ce8e30bb203f2d97e0" title="gameEngine.actors.Projectile\lInfo.getMyDamage" alt="" coords="309,107,517,149"/>
-<area shape="rect" id="node5" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#aa3c2b9a75c34ff655afc091587e2d2fc" title="gameEngine.actors.Projectile\lInfo.setMyDamage" alt="" coords="309,173,517,214"/>
-</map>

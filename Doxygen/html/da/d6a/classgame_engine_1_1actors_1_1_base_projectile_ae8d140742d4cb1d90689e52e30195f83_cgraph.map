@@ -1,7 +1,0 @@
-<map id="gameEngine.actors.BaseProjectile.BaseProjectile" name="gameEngine.actors.BaseProjectile.BaseProjectile">
-<area shape="rect" id="node2" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#ae5c78b2c16d86e8107a24aa8e2808bc1" title="gameEngine.actors.Projectile\lInfo.getImage" alt="" coords="340,5,548,46"/>
-<area shape="rect" id="node3" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#a554e5dd70eb8f5ac9d79ed1289fa702d" title="gameEngine.actors.Projectile\lInfo.getMove" alt="" coords="340,70,548,111"/>
-<area shape="rect" id="node4" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a8958b963f8a8252355d329f947f809df" title="gameEngine.actors.BaseActor.makeNode" alt="" coords="299,136,589,163"/>
-<area shape="rect" id="node5" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="640,88,901,144"/>
-<area shape="rect" id="node6" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#aa62f6dc2982420c08f2d1d30a9f3838a" title="gameEngine.actors.BaseActor.getSize" alt="" coords="637,168,904,195"/>
-</map>

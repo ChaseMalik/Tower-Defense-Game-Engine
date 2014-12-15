@@ -1,4 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation" name="gameAuthoring.scenes.pathBuilding.enemyLocations.PathLocation">
-<area shape="rect" id="node3" href="$d0/d86/classgame_authoring_1_1scenes_1_1path_building_1_1enemy_locations_1_1_path_ending_location.html" title="gameAuthoring.scenes.path\lBuilding.enemyLocations.PathEnding\lLocation" alt="" coords="431,5,687,61"/>
-<area shape="rect" id="node4" href="$d8/db0/classgame_authoring_1_1scenes_1_1path_building_1_1enemy_locations_1_1_path_starting_location.html" title="gameAuthoring.scenes.path\lBuilding.enemyLocations.PathStarting\lLocation" alt="" coords="427,85,691,141"/>
-</map>

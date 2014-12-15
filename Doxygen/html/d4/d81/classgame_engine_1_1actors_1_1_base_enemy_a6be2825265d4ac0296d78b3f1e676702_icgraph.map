@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.BaseEnemy.getGoal" name="gameEngine.actors.BaseEnemy.getGoal">
-<area shape="rect" id="node2" href="$d1/d5b/classgame_engine_1_1_a_i_1_1_grid_path_finder.html#a7e3ed2c2ff3c355a04437f91e62b89b2" title="gameEngine.AI.GridPathFinder.getPath" alt="" coords="333,12,600,39"/>
-<area shape="rect" id="node3" href="$d6/d0e/classgame_engine_1_1actors_1_1behaviors_1_1_a_i_movement.html#aeb1d8783ef4330c7c62ab30c03822b7d" title="gameEngine.actors.behaviors.\lAIMovement.execute" alt="" coords="648,5,864,46"/>
-</map>

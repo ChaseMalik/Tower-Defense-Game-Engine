@@ -1,4 +1,0 @@
-<map id="gamePlayer.mainClasses.managers.GuiManager.addBackground" name="gamePlayer.mainClasses.managers.GuiManager.addBackground">
-<area shape="rect" id="node2" href="$d0/dee/classgame_player_1_1gui_items_1_1game_world_1_1_game_world.html#a8a8ae6368ca74ad695e397f1e754853f" title="gamePlayer.guiItems.game\lWorld.GameWorld.setBackground" alt="" coords="310,11,543,53"/>
-<area shape="rect" id="node3" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="592,4,853,60"/>
-</map>

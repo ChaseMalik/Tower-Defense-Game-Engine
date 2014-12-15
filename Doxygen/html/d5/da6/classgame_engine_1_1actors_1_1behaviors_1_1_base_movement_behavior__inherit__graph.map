@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseMovementBehavior" name="gameEngine.actors.behaviors.BaseMovementBehavior">
-<area shape="rect" id="node3" href="$d6/d0e/classgame_engine_1_1actors_1_1behaviors_1_1_a_i_movement.html" title="gameEngine.actors.behaviors.\lAIMovement" alt="" coords="533,5,749,46"/>
-<area shape="rect" id="node4" href="$d6/d0d/classgame_engine_1_1actors_1_1behaviors_1_1_enemy_homing_movement.html" title="gameEngine.actors.behaviors.\lEnemyHomingMovement" alt="" coords="533,70,749,111"/>
-<area shape="rect" id="node5" href="$da/d56/classgame_engine_1_1actors_1_1behaviors_1_1_linear_movement.html" title="gameEngine.actors.behaviors.\lLinearMovement" alt="" coords="533,135,749,177"/>
-<area shape="rect" id="node2" href="$dd/d43/interfacegame_engine_1_1actors_1_1behaviors_1_1_i_behavior.html" title="gameEngine.actors.behaviors.\lIBehavior" alt="" coords="5,70,221,111"/>
-</map>

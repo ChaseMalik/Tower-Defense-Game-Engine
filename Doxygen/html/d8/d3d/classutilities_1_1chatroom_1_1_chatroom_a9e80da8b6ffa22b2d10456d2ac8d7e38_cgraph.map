@@ -1,4 +1,0 @@
-<map id="utilities.chatroom.Chatroom.setupAndBeginMessageRequests" name="utilities.chatroom.Chatroom.setupAndBeginMessageRequests">
-<area shape="rect" id="node2" href="$d8/d3d/classutilities_1_1chatroom_1_1_chatroom.html#a5c79dfde3501ea11d5eee4beff7bae0f" title="utilities.chatroom.Chatroom.poll\lServerForMessages" alt="" coords="296,5,523,46"/>
-<area shape="rect" id="node3" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html#a83fe2ca04deb090dbffa9b9ab2e44a3e" title="utilities.networking.HTTPConnection.sendGet" alt="" coords="571,12,877,39"/>
-</map>

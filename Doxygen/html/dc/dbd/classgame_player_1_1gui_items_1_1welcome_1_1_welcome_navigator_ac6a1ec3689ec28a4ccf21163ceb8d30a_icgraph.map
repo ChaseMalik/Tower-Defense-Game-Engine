@@ -1,5 +1,0 @@
-<map id="gamePlayer.guiItems.welcome.WelcomeNavigator.shift" name="gamePlayer.guiItems.welcome.WelcomeNavigator.shift">
-<area shape="rect" id="node2" href="$dc/dbd/classgame_player_1_1gui_items_1_1welcome_1_1_welcome_navigator.html#ac90b7ee172b70f339e02f5edfe26bb1a" title="gamePlayer.guiItems.welcome.\lWelcomeNavigator.setupContents" alt="" coords="275,38,514,79"/>
-<area shape="rect" id="node3" href="$dc/dbd/classgame_player_1_1gui_items_1_1welcome_1_1_welcome_navigator.html#ab0a1029d622f272fa15e5d8b0affa54c" title="gamePlayer.guiItems.welcome.\lWelcomeNavigator.deviceConnected" alt="" coords="563,5,818,46"/>
-<area shape="rect" id="node4" href="$dc/dbd/classgame_player_1_1gui_items_1_1welcome_1_1_welcome_navigator.html#a60b11ae18c01ae92903dee853bc4bf41" title="gamePlayer.guiItems.welcome.\lWelcomeNavigator.initialize" alt="" coords="581,70,801,111"/>
-</map>

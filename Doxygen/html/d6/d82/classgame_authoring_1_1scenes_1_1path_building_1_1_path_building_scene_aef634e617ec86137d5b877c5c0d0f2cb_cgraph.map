@@ -1,6 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.PathBuildingScene.proceedToStartLocationSelection" name="gameAuthoring.scenes.pathBuilding.PathBuildingScene.proceedToStartLocationSelection">
-<area shape="rect" id="node2" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#aae116242235a0efa968985d96e6e385e" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.set\lCurrentBuildingPane" alt="" coords="304,85,523,141"/>
-<area shape="rect" id="node3" href="$d4/d78/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_building_pane.html#a44b447044a666a8265e7d4cccd8e6b08" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Building\lPane.executeExitFunction" alt="" coords="571,5,789,61"/>
-<area shape="rect" id="node4" href="$d4/d78/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_building_pane.html#aaa45fd64c5462eda2ac271126820618c" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Building\lPane.executeEnterFunction" alt="" coords="571,85,789,141"/>
-<area shape="rect" id="node5" href="$d4/d78/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_building_pane.html#a41c56b421d936126177667cf2c94afd4" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Building\lPane.refreshScreen" alt="" coords="571,165,789,221"/>
-</map>

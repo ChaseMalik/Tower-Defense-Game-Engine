@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.DefaultMapSelectionPane.DefaultMapSelectionPane" name="gameAuthoring.scenes.pathBuilding.DefaultMapSelectionPane.DefaultMapSelectionPane">
-<area shape="rect" id="node2" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="309,5,571,61"/>
-<area shape="rect" id="node3" href="$de/d43/classgame_authoring_1_1scenes_1_1path_building_1_1_default_map_selection_pane.html#adb498efb7e931ae43c2339fc19a7946b" title="gameAuthoring.scenes.path\lBuilding.DefaultMapSelectionPane.handle\lImageClick" alt="" coords="297,85,583,141"/>
-<area shape="rect" id="node4" href="$d3/d75/interfacegame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_background_building.html#a12e766abd8a216c6b56abcb5d93f724f" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Background\lBuilding.setBackground" alt="" coords="632,85,875,141"/>
-</map>

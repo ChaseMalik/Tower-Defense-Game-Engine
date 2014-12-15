@@ -1,4 +1,0 @@
-<map id="gamePlayer.guiItems.welcome.GameChooser.loadGameDescriptions" name="gamePlayer.guiItems.welcome.GameChooser.loadGameDescriptions">
-<area shape="rect" id="node2" href="$dc/d80/classgame_player_1_1main_classes_1_1welcome_screen_1_1available_games_1_1_game_description_loader.html#a11fd7d4b0a0ef71b5c5460712bab3faa" title="gamePlayer.mainClasses.welcome\lScreen.availableGames.GameDescription\lLoader.getDescriptions" alt="" coords="317,4,605,60"/>
-<area shape="rect" id="node3" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="653,4,915,60"/>
-</map>

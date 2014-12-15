@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseMovementBehavior.setRoute" name="gameEngine.actors.behaviors.BaseMovementBehavior.setRoute">
-<area shape="rect" id="node2" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#abbe13fb6a28a1168081ede01b9626d45" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.calculateTotal\lDistance" alt="" coords="299,5,565,61"/>
-<area shape="rect" id="node3" href="$d0/d61/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_1_1_backend_route.html#a4decf5451f724697b0b0ba60cd230f6f" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.BackendRoute.getPoints" alt="" coords="291,85,573,141"/>
-</map>

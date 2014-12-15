@@ -1,9 +1,0 @@
-<map id="gameEngine.CoOpManager.startLevel" name="gameEngine.CoOpManager.startLevel">
-<area shape="rect" id="node2" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#a15a51949e52c7652ea6f6e420868bd6d" title="gameEngine.CoOpManager.get\lTowersFromServer" alt="" coords="285,135,507,177"/>
-<area shape="rect" id="node3" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#a6d2b1134b6ee9495331e5fdc76b99873" title="gameEngine.CoOpManager.add\lTower" alt="" coords="596,70,820,111"/>
-<area shape="rect" id="node7" href="$d5/db4/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_reader.html#a49e27e4c4dc02a80911ce5f1dab1f152" title="utilities.GSON.GSONFileReader.read\lWrappers" alt="" coords="583,135,833,177"/>
-<area shape="rect" id="node8" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html#a83fe2ca04deb090dbffa9b9ab2e44a3e" title="utilities.networking.HTTPConnection.sendGet" alt="" coords="555,201,861,228"/>
-<area shape="rect" id="node4" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#a17f40cda61275ecf97d25f881604c4dd" title="utilities.GSON.objectWrappers.\lDataWrapper.getName" alt="" coords="909,5,1125,46"/>
-<area shape="rect" id="node5" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#a3f1322770e9dce3c439bb7e1347c3e2f" title="utilities.GSON.objectWrappers.\lDataWrapper.getX" alt="" coords="909,70,1125,111"/>
-<area shape="rect" id="node6" href="$df/da2/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_data_wrapper.html#aea9e22ae53699f7f4a554eeb7e3fc05e" title="utilities.GSON.objectWrappers.\lDataWrapper.getY" alt="" coords="909,135,1125,177"/>
-</map>

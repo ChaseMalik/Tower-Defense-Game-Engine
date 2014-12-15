@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d3/d9c/interfaceutilities_1_1pathfinding_1_1_i_path_finder.html" title="utilities.pathfinding.IPath\lFinder\&lt; T \&gt;" alt="" coords="6,57,183,98"/>
-<area shape="rect" id="node2" href="$d5/de4/classutilities_1_1pathfinding_1_1_a_star_path_finder.html" title="utilities.pathfinding.AStar\lPathFinder\&lt; T \&gt;" alt="" coords="233,57,415,98"/>
-<area shape="rect" id="node3" href="$d1/d5b/classgame_engine_1_1_a_i_1_1_grid_path_finder.html" title="gameEngine.AI.GridPathFinder" alt="" coords="465,5,679,32"/>
-<area shape="rect" id="node4" href="$df/dc7/classutilities_1_1pathfinding_1_1example_1_1_linked_node_a_star_finder.html" title="utilities.pathfinding.example.\lLinkedNodeAStarFinder" alt="" coords="469,57,675,98"/>
-<area shape="rect" id="node5" href="$de/d82/classutilities_1_1pathfinding_1_1example_1_1_unlinked_node_a_star_finder.html" title="utilities.pathfinding.example.\lUnlinkedNodeAStarFinder" alt="" coords="469,122,675,163"/>
-</map>

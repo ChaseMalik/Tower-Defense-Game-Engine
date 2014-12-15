@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseMovementBehavior.calculateTotalDistance" name="gameEngine.actors.behaviors.BaseMovementBehavior.calculateTotalDistance">
-<area shape="rect" id="node2" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#a70e6d2becc4b988c5d35a4f5fed8b7dd" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.setRoute" alt="" coords="320,38,557,79"/>
-<area shape="rect" id="node3" href="$db/d9e/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_attack.html#a35d7f53636d745562765310ca1e4b850" title="gameEngine.actors.behaviors.\lAoEAttack.performAttack" alt="" coords="619,5,835,46"/>
-<area shape="rect" id="node4" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#ad01ed9c7d2605735948e6a8b0d1a9485" title="gameEngine.actors.behaviors.\lRangeAttack.shootActorFromActor" alt="" coords="605,70,848,111"/>
-<area shape="rect" id="node5" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#adce033b0e318665ad52cde7c985b8538" title="gameEngine.actors.behaviors.\lRangeAttack.performAttack" alt="" coords="896,70,1112,111"/>
-</map>

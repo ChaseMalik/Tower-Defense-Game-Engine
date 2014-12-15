@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.BaseActor.addDebuff" name="gameEngine.actors.BaseActor.addDebuff">
-<area shape="rect" id="node2" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#adca48e093a239d0fbaa2d7bc3b648f09" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.gotHit" alt="" coords="296,5,512,46"/>
-<area shape="rect" id="node3" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a9c4d907d4daabdcbf4706ebd765eb4d3" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.execute" alt="" coords="560,5,776,46"/>
-</map>

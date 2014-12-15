@@ -1,5 +1,0 @@
-<map id="gameEngine.actors.behaviors.SlowEffect.start" name="gameEngine.actors.behaviors.SlowEffect.start">
-<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a5c6428cc0e194e2d53638824e502885f" title="gameEngine.actors.BaseActor.get\lBehavior" alt="" coords="271,5,511,46"/>
-<area shape="rect" id="node3" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#abc861fafa5f76c78c0495f5ef103f37d" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.getSpeed" alt="" coords="269,70,512,111"/>
-<area shape="rect" id="node4" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#a55b47336bdc8e7c39d8876521e90d978" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.setSpeed" alt="" coords="269,135,512,177"/>
-</map>

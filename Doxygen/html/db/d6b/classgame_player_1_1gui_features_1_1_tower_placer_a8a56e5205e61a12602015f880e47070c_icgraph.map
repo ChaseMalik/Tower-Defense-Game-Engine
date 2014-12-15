@@ -1,4 +1,0 @@
-<map id="gamePlayer.guiFeatures.TowerPlacer.drop" name="gamePlayer.guiFeatures.TowerPlacer.drop">
-<area shape="rect" id="node2" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a2798d82694ca4f2a02b48f9516f0cd1b" title="gamePlayer.guiFeatures.Tower\lPlacer.placeItem" alt="" coords="270,5,485,46"/>
-<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae90e338dc9959e32627518bde3fdf2ff" title="gamePlayer.mainClasses.managers.\lGuiManager.placeTower" alt="" coords="534,5,789,46"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="gamePlayer.guiItems.headsUpDisplay.GameStat.getStatValue" name="gamePlayer.guiItems.headsUpDisplay.GameStat.getStatValue">
-<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a24eb4ad0dc462b3286f646544a33a42b" title="gamePlayer.mainClasses.managers.\lGuiManager.checkGold" alt="" coords="297,5,551,46"/>
-<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae90e338dc9959e32627518bde3fdf2ff" title="gamePlayer.mainClasses.managers.\lGuiManager.placeTower" alt="" coords="601,5,855,46"/>
-</map>

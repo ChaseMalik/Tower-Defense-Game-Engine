@@ -1,9 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$d2/dbe/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuItem" alt="" coords="142,169,341,210"/>
-<area shape="rect" id="node3" href="$d0/de6/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_change_theme_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.ChangeThemeMenuItem" alt="" coords="390,5,706,46"/>
-<area shape="rect" id="node4" href="$d1/d9d/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_game_selection_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.GameSelectionItem" alt="" coords="405,70,691,111"/>
-<area shape="rect" id="node5" href="$dc/dc0/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_load_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.LoadMenuItem" alt="" coords="421,135,675,177"/>
-<area shape="rect" id="node6" href="$db/da0/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_replay_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.ReplayMenuItem" alt="" coords="416,201,680,242"/>
-<area shape="rect" id="node7" href="$d1/dd3/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_save_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.SaveMenuItem" alt="" coords="421,266,675,307"/>
-<area shape="rect" id="node8" href="$d5/de9/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_switch_game_menu_item.html" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.SwitchGameMenuItem" alt="" coords="397,331,699,373"/>
-</map>

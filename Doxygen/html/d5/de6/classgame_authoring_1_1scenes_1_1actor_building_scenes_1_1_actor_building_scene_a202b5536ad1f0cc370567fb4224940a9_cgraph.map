@@ -1,8 +1,0 @@
-<map id="gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene.createCenterDisplay" name="gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene.createCenterDisplay">
-<area shape="rect" id="node2" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#ae10b830410011068de3a5b1f91c951d4" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.add\lRequiredNumericalTextFields" alt="" coords="356,5,631,61"/>
-<area shape="rect" id="node3" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#abb2fa6fd8fe17921ae65eafec6f0b1ff" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.create\lActorNameTextField" alt="" coords="347,85,639,141"/>
-<area shape="rect" id="node4" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#aaa34262e5a69e5d96d435c4f9872e544" title="utilities.multilanguage.\lMultiLanguageUtility.getInstance" alt="" coords="379,165,607,206"/>
-<area shape="rect" id="node6" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a6bc704aa624d0bc11d5f18717ef5842a" title="utilities.multilanguage.\lMultiLanguageUtility.getString\lProperty" alt="" coords="387,229,599,285"/>
-<area shape="rect" id="node5" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a18c8cee78f923458998009428cd84970" title="utilities.multilanguage.\lMultiLanguageUtility.MultiLanguage\lUtility" alt="" coords="689,157,935,213"/>
-<area shape="rect" id="node7" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a124b4a760f410841ecc50dd4b16e40bb" title="utilities.multilanguage.\lMultiLanguageUtility.getProperty" alt="" coords="698,237,926,278"/>
-</map>

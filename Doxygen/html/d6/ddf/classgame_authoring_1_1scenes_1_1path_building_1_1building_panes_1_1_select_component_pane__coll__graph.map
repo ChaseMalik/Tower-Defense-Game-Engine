@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane" name="gameAuthoring.scenes.pathBuilding.buildingPanes.SelectComponentPane">
-<area shape="rect" id="node2" href="$d4/d78/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_building_pane.html" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.BuildingPane" alt="" coords="507,37,755,78"/>
-<area shape="rect" id="node5" href="$d1/d65/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.Path" alt="" coords="521,223,740,265"/>
-<area shape="rect" id="node10" href="$df/dea/interfacegame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_component.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathComponent" alt="" coords="6,382,301,423"/>
-</map>

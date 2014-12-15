@@ -1,4 +1,0 @@
-<map id="gameEngine.MainEngineManager.loadLocations" name="gameEngine.MainEngineManager.loadLocations">
-<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a2304011654929eeb2527815849a58ccb" title="gameEngine.MainEngineManager.create\lGameSizedGridPane" alt="" coords="321,5,599,46"/>
-<area shape="rect" id="node3" href="$d5/db4/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_reader.html#abfe21735aa28feabf9ee4032fa6ee696" title="utilities.GSON.GSONFileReader.read\lTowerRegionsFromGameDirectory" alt="" coords="335,70,585,111"/>
-</map>

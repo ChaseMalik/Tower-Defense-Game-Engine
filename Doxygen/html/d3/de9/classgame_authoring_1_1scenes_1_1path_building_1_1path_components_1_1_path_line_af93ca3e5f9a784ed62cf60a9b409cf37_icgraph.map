@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.pathComponents.PathLine.setStartingPoint" name="gameAuthoring.scenes.pathBuilding.pathComponents.PathLine.setStartingPoint">
-<area shape="rect" id="node2" href="$d2/d34/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_creation_tests.html#ac9531a7f491a2dd23e3f1f4fefeae341" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathCreation\lTests.AttemptToConnectRoutesFORKTest" alt="" coords="341,5,619,61"/>
-<area shape="rect" id="node3" href="$d2/d34/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_creation_tests.html#a6981d0f68e924cf3aca2ebb00a781c66" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathCreation\lTests.AttemptToConnectRoutesNoForkTest" alt="" coords="335,85,625,141"/>
-<area shape="rect" id="node4" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#abbce2a64c961f9fab00747b850318576" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.deepCopy" alt="" coords="323,165,637,206"/>
-</map>

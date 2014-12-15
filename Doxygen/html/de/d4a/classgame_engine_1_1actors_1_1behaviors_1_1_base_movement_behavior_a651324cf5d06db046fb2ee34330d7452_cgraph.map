@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseMovementBehavior.moveTowards" name="gameEngine.actors.behaviors.BaseMovementBehavior.moveTowards">
-<area shape="rect" id="node2" href="$de/d4a/classgame_engine_1_1actors_1_1behaviors_1_1_base_movement_behavior.html#aff0b5253f4e7e0aab38f275509464092" title="gameEngine.actors.behaviors.\lBaseMovementBehavior.move" alt="" coords="321,57,538,98"/>
-<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ae877e5334153c4e125fb84bf993587af" title="gameEngine.actors.BaseActor.getNode" alt="" coords="587,5,861,32"/>
-<area shape="rect" id="node4" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a4df6d41d08c4c4a5c530290c736926f2" title="utilities.JavaFXutilities.image\lView.CenteredImageView.setXCenter" alt="" coords="597,57,851,98"/>
-<area shape="rect" id="node5" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a2bcbaa8cc681ef2663182084f742d29d" title="utilities.JavaFXutilities.image\lView.CenteredImageView.setYCenter" alt="" coords="597,122,851,163"/>
-</map>

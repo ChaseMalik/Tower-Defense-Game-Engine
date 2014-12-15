@@ -1,7 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.pathComponents.PathLine.deepCopy" name="gameAuthoring.scenes.pathBuilding.pathComponents.PathLine.deepCopy">
-<area shape="rect" id="node2" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#a3460e80c03faff7fb370f595d3243ca5" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.get\lEndingPoint" alt="" coords="369,5,639,61"/>
-<area shape="rect" id="node3" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#a1fc49ac4338ac115038bf124a2472f30" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.get\lStartingPoint" alt="" coords="369,85,639,141"/>
-<area shape="rect" id="node4" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#acd193f7315e019b2b29cbc3db1a4d846" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.\lPathLine" alt="" coords="379,165,629,221"/>
-<area shape="rect" id="node5" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#aeda4694a698c53dc870c6eed4420fe78" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.set\lEndingPoint" alt="" coords="369,245,639,301"/>
-<area shape="rect" id="node6" href="$d3/de9/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_line.html#af93ca3e5f9a784ed62cf60a9b409cf37" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathLine.set\lStartingPoint" alt="" coords="369,325,639,381"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="gameEngine.Data.RangeRestrictedCollection.remove" name="gameEngine.Data.RangeRestrictedCollection.remove">
-<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#ab2ef6260dd1521fb9762334c37a19667" title="gameEngine.MainEngineManager.remove\lTower" alt="" coords="299,38,586,79"/>
-<area shape="rect" id="node3" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a15acfa576230f027d46141878a2da50e" title="gameEngine.MainEngineManager.sell\lTower" alt="" coords="651,7,909,49"/>
-<area shape="rect" id="node5" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#ab5dbebb52c5edcf41787d314326cc1aa" title="gameEngine.MainEngineManager.upgrade" alt="" coords="635,75,925,101"/>
-<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a7749aaba2ab03cd1cb8dc3ad2ebfbd6f" title="gamePlayer.mainClasses.managers.\lGuiManager.sellTower" alt="" coords="974,5,1229,46"/>
-<area shape="rect" id="node6" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a162f5822f9bff033684bd28cada2f03e" title="gamePlayer.mainClasses.managers.\lGuiManager.upgradeTower" alt="" coords="974,70,1229,111"/>
-</map>

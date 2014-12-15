@@ -1,5 +1,0 @@
-<map id="gameEngine.actors.ProjectileInfo.ProjectileInfo" name="gameEngine.actors.ProjectileInfo.ProjectileInfo">
-<area shape="rect" id="node2" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#a6bc3b52780cbbf1aa200848b577dab33" title="gameEngine.actors.Projectile\lInfo.copy" alt="" coords="261,5,469,46"/>
-<area shape="rect" id="node3" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#ad01ed9c7d2605735948e6a8b0d1a9485" title="gameEngine.actors.behaviors.\lRangeAttack.shootActorFromActor" alt="" coords="517,5,760,46"/>
-<area shape="rect" id="node4" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#adce033b0e318665ad52cde7c985b8538" title="gameEngine.actors.behaviors.\lRangeAttack.performAttack" alt="" coords="808,5,1024,46"/>
-</map>

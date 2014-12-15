@@ -1,7 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint.getPoint" name="gameAuthoring.scenes.pathBuilding.pathComponents.routeToPointTranslation.VisibilityPoint.getPoint">
-<area shape="rect" id="node2" href="$d6/d0e/classgame_engine_1_1actors_1_1behaviors_1_1_a_i_movement.html#aeb1d8783ef4330c7c62ab30c03822b7d" title="gameEngine.actors.behaviors.\lAIMovement.execute" alt="" coords="653,5,869,46"/>
-<area shape="rect" id="node3" href="$d1/d5b/classgame_engine_1_1_a_i_1_1_grid_path_finder.html#a7e3ed2c2ff3c355a04437f91e62b89b2" title="gameEngine.AI.GridPathFinder.getPath" alt="" coords="329,40,596,67"/>
-<area shape="rect" id="node4" href="$da/d56/classgame_engine_1_1actors_1_1behaviors_1_1_linear_movement.html#aa8f07e5130f43a3683584d1d7eeeed1e" title="gameEngine.actors.behaviors.\lLinearMovement.move" alt="" coords="355,91,571,133"/>
-<area shape="rect" id="node6" href="$d0/d17/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_02993d587809a0174c9c81c680c3a1c8.html#a35dfb4879cf496d5c985c2da48c72052" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.BackendRouteTranslation\lTests.testVisibilityPointCreation" alt="" coords="320,157,605,227"/>
-<area shape="rect" id="node5" href="$da/d56/classgame_engine_1_1actors_1_1behaviors_1_1_linear_movement.html#a388237f4dafec0d8b13cd7c215b5ec87" title="gameEngine.actors.behaviors.\lLinearMovement.execute" alt="" coords="653,91,869,133"/>
-</map>

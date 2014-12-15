@@ -1,9 +1,0 @@
-<map id="gamePlayer.guiItems.messageDisplay.MessageDisplay.initialize" name="gamePlayer.guiItems.messageDisplay.MessageDisplay.initialize">
-<area shape="rect" id="node2" href="$d4/dfb/classutilities_1_1_java_f_xutilities_1_1ratio_sizing_1_1_ratios_to_dim.html#ab3d9988b529c32ef726dc3891257e00e" title="utilities.JavaFXutilities.ratio\lSizing.RatiosToDim.convert" alt="" coords="336,5,531,46"/>
-<area shape="rect" id="node3" href="$d3/db3/classgame_player_1_1gui_items_1_1tower_upgrade_1_1_standard_border.html#a63adb818e4839a1fd8a18375f74c3c61" title="gamePlayer.guiItems.tower\lUpgrade.StandardBorder.get" alt="" coords="330,70,537,111"/>
-<area shape="rect" id="node4" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#aac8c276e1fe06546bb4cc6488dd15047" title="utilities.XMLParsing.XMLParser.get\lDimension" alt="" coords="315,135,552,177"/>
-<area shape="rect" id="node8" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ac9b6097ed2b554d5e3f1dfc3a08da251" title="gamePlayer.mainClasses.managers.\lGuiManager.registerMessageDisplayListener" alt="" coords="281,201,586,242"/>
-<area shape="rect" id="node5" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a159b395412a8ce61e6decfefc9ed9854" title="utilities.XMLParsing.XMLParser.get\lDoubleValuesFromTag" alt="" coords="635,135,872,177"/>
-<area shape="rect" id="node6" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="920,135,1157,177"/>
-<area shape="rect" id="node7" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="1205,135,1443,177"/>
-</map>

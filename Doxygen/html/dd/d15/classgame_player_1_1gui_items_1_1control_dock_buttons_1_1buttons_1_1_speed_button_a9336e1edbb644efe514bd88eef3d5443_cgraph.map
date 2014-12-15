@@ -1,5 +1,0 @@
-<map id="gamePlayer.guiItems.controlDockButtons.buttons.SpeedButton.fastForward" name="gamePlayer.guiItems.controlDockButtons.buttons.SpeedButton.fastForward">
-<area shape="rect" id="node2" href="$dc/da5/interfacegame_player_1_1gui_items_listeners_1_1_speed_button_listener.html#abc704087f9722dfed9eb51c7f16367c2" title="gamePlayer.guiItemsListeners.\lSpeedButtonListener.fastForward" alt="" coords="379,5,613,46"/>
-<area shape="rect" id="node3" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html#a85368e275e2b877e912484e5d3220b36" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton.normalSpeed" alt="" coords="329,70,663,111"/>
-<area shape="rect" id="node4" href="$dc/da5/interfacegame_player_1_1gui_items_listeners_1_1_speed_button_listener.html#af86d41d6ac9e37953dfe76f619f9618d" title="gamePlayer.guiItemsListeners.\lSpeedButtonListener.normalSpeed" alt="" coords="713,70,959,111"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.TowerRegionsPane.generateBackendGrid" name="gameAuthoring.scenes.pathBuilding.buildingPanes.towerRegions.TowerRegionsPane.generateBackendGrid">
-<area shape="rect" id="node2" href="$de/d21/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1tower_regions_1_1_tower_regions_pane.html#a690430365776cbbf9766367a5c554ea3" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.towerRegions.\lTowerRegionsPane.getBackendTowerRegions" alt="" coords="333,4,635,60"/>
-<area shape="rect" id="node3" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#ae77dd48a8e8e500b98024d01001320d5" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.handle\lFinishButtonClick" alt="" coords="683,4,925,60"/>
-<area shape="rect" id="node4" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#a9e29faac2f6cb3602cf3bc2b6de78f5e" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.create\lPathBuildingOptions" alt="" coords="974,4,1213,60"/>
-<area shape="rect" id="node5" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#aa265fe743457d8feda83464c9af1f288" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.Path\lBuildingScene" alt="" coords="1261,4,1488,60"/>
-</map>

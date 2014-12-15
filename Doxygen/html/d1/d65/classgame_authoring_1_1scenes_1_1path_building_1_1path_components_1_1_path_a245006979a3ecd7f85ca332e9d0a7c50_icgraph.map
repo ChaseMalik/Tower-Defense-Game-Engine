@@ -1,5 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.pathComponents.Path.endingLocationsConfiguredCorrectly" name="gameAuthoring.scenes.pathBuilding.pathComponents.Path.endingLocationsConfiguredCorrectly">
-<area shape="rect" id="node2" href="$d2/d34/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_creation_tests.html#a8932141b60470a4000f603f423bcf6e0" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathCreation\lTests.ClearEndingLocationsTest" alt="" coords="345,5,618,61"/>
-<area shape="rect" id="node3" href="$d2/d34/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_creation_tests.html#a4a44352c312aae9f64faf3bf43eb0558" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathCreation\lTests.EndingLocationsMustExistToBeConfigured\lCorrectlyTest" alt="" coords="320,86,643,157"/>
-<area shape="rect" id="node4" href="$d6/d82/classgame_authoring_1_1scenes_1_1path_building_1_1_path_building_scene.html#ad97bed26bd38d6ea074801af3cecca4d" title="gameAuthoring.scenes.path\lBuilding.PathBuildingScene.proceed\lToLineDrawerModeIfLocationsVerified" alt="" coords="353,181,609,237"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.BaseActor.getInfoInterface" name="gameEngine.actors.BaseActor.getInfoInterface">
-<area shape="rect" id="node2" href="$d9/df0/classgame_engine_1_1actors_1_1behaviors_1_1_earth_quake_effect.html#a6937fd3e557485b65aa5001b1b66b720" title="gameEngine.actors.behaviors.\lEarthQuakeEffect.during" alt="" coords="293,5,509,46"/>
-<area shape="rect" id="node3" href="$d6/d0e/classgame_engine_1_1actors_1_1behaviors_1_1_a_i_movement.html#aeb1d8783ef4330c7c62ab30c03822b7d" title="gameEngine.actors.behaviors.\lAIMovement.execute" alt="" coords="293,70,509,111"/>
-</map>

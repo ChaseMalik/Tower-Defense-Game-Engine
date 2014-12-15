@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$db/d6c/classgame_engine_1_1_data_1_1_range_restricted_collection.html" title="gameEngine.Data.RangeRestricted\lCollection\&lt; T extends BaseActor \&gt;" alt="" coords="130,5,377,46"/>
-<area shape="rect" id="node4" href="$d8/dba/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_tower_upgrade_group.html" title="gameAuthoring.scenes.actor\lBuildingScenes.TowerUpgradeGroup" alt="" coords="127,70,379,111"/>
-<area shape="rect" id="node5" href="$d1/d65/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.Path" alt="" coords="144,135,363,177"/>
-<area shape="rect" id="node6" href="$d7/d4d/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path_route.html" title="gameAuthoring.scenes.path\lBuilding.pathComponents.PathRoute" alt="" coords="126,201,381,242"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="gameEngine.levels.BaseLevel.addEnemyCountPair" name="gameEngine.levels.BaseLevel.addEnemyCountPair">
-<area shape="rect" id="node2" href="$d5/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_enemy_count_pair.html#a169d821bf2463b1007a219ce2354fc8a" title="gameAuthoring.scenes.level\lBuilding.EnemyCountPair.getMyEnemy" alt="" coords="293,5,560,46"/>
-<area shape="rect" id="node3" href="$d5/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_enemy_count_pair.html#a88c8e3029e6be3a38a7d7b8252d13fab" title="gameAuthoring.scenes.level\lBuilding.EnemyCountPair.getMyNum\lEnemies" alt="" coords="299,69,554,125"/>
-</map>

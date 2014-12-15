@@ -1,5 +1,0 @@
-<map id="gamePlayer.guiFeatures.FileLoader.load" name="gamePlayer.guiFeatures.FileLoader.load">
-<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a88fc9dbbb49ae2c8c56612297174961c" title="gamePlayer.mainClasses.managers.\lGuiManager.changeTheme" alt="" coords="254,13,509,54"/>
-<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a3c6a6b6581cd16f2c9e702ce936c217b" title="gamePlayer.mainClasses.managers.\lGuiManager.loadState" alt="" coords="254,78,509,119"/>
-<area shape="rect" id="node3" href="$d0/de6/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_change_theme_menu_item.html#ad492dccdaadf2dc3ed098d28b959eb91" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.ChangeThemeMenu\lItem.initialize" alt="" coords="558,5,845,61"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="gameEngine.MainEngineManager.changeRunSpeed" name="gameEngine.MainEngineManager.changeRunSpeed">
-<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ac5ddd74ee0fcef60890364f57e3038db" title="gamePlayer.mainClasses.managers.\lGuiManager.changeSpeed" alt="" coords="350,5,605,46"/>
-<area shape="rect" id="node3" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a5ffcf0ba3cc49b269a26ce82591eccad" title="gameEngine.MainEngineManager.revert\lToOriginalSpeed" alt="" coords="339,70,615,111"/>
-</map>

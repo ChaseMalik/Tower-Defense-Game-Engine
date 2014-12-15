@@ -1,6 +1,0 @@
-<map id="gamePlayer.guiItems.controlDockButtons.ControlDockButton" name="gamePlayer.guiItems.controlDockButtons.ControlDockButton">
-<area shape="rect" id="node4" href="$da/d25/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_play_button.html" title="gamePlayer.guiItems.control\lDockButtons.buttons.PlayButton" alt="" coords="802,5,1033,46"/>
-<area shape="rect" id="node5" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton" alt="" coords="795,70,1040,111"/>
-<area shape="rect" id="node2" href="$de/d25/interfacegame_player_1_1gui_items_1_1_gui_item.html" title="gamePlayer.guiItems.GuiItem" alt="" coords="259,45,469,72"/>
-<area shape="rect" id="node3" href="$d7/d02/interfacegame_player_1_1main_classes_1_1gui_builder_1_1_gui_element.html" title="gamePlayer.mainClasses.gui\lBuilder.GuiElement" alt="" coords="5,38,211,79"/>
-</map>

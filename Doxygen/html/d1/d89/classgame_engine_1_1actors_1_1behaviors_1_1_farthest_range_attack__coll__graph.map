@@ -1,5 +1,0 @@
-<map id="gameEngine.actors.behaviors.FarthestRangeAttack" name="gameEngine.actors.behaviors.FarthestRangeAttack">
-<area shape="rect" id="node2" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html" title="gameEngine.actors.behaviors.\lRangeAttack" alt="" coords="101,206,317,247"/>
-<area shape="rect" id="node3" href="$dd/d7b/classgame_engine_1_1actors_1_1behaviors_1_1_base_attack.html" title="gameEngine.actors.behaviors.\lBaseAttack" alt="" coords="101,113,317,154"/>
-<area shape="rect" id="node4" href="$dd/d43/interfacegame_engine_1_1actors_1_1behaviors_1_1_i_behavior.html" title="gameEngine.actors.behaviors.\lIBehavior" alt="" coords="5,6,221,47"/>
-</map>

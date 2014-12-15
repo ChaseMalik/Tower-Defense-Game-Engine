@@ -1,7 +1,0 @@
-<map id="gameEngine.MainEngineManager.checkGold" name="gameEngine.MainEngineManager.checkGold">
-<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a148dc947569bdc60c98be5a853cf82ee" title="gamePlayer.mainClasses.managers.\lGuiManager.makeTower" alt="" coords="358,5,613,46"/>
-<area shape="rect" id="node6" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a162f5822f9bff033684bd28cada2f03e" title="gamePlayer.mainClasses.managers.\lGuiManager.upgradeTower" alt="" coords="358,70,613,111"/>
-<area shape="rect" id="node3" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a8a56e5205e61a12602015f880e47070c" title="gamePlayer.guiFeatures.Tower\lPlacer.drop" alt="" coords="662,5,877,46"/>
-<area shape="rect" id="node4" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a2798d82694ca4f2a02b48f9516f0cd1b" title="gamePlayer.guiFeatures.Tower\lPlacer.placeItem" alt="" coords="926,5,1141,46"/>
-<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae90e338dc9959e32627518bde3fdf2ff" title="gamePlayer.mainClasses.managers.\lGuiManager.placeTower" alt="" coords="1190,5,1445,46"/>
-</map>

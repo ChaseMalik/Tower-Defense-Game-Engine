@@ -1,5 +1,0 @@
-<map id="gameAuthoring.mainclasses.AuthorController.showEnemyBuildingScene" name="gameAuthoring.mainclasses.AuthorController.showEnemyBuildingScene">
-<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a91f790fde3a8af19e3308cac96d4dc23" title="gameAuthoring.mainclasses.\lAuthorController.setSceneAndTitle" alt="" coords="350,38,591,79"/>
-<area shape="rect" id="node3" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#adc8d9b19ad9462a9a8e6ab8a82f7bf3a" title="gameAuthoring.scenes.Building\lScene.getScene" alt="" coords="640,5,864,46"/>
-<area shape="rect" id="node4" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#a0a4c161ec45d0064d18c5e9997bb6a22" title="gameAuthoring.scenes.Building\lScene.getTitle" alt="" coords="640,70,864,111"/>
-</map>

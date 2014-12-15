@@ -1,8 +1,0 @@
-<map id="gameEngine.actors.BaseActor.getBehavior" name="gameEngine.actors.BaseActor.getBehavior">
-<area shape="rect" id="node2" href="$d6/db4/classgame_engine_1_1actors_1_1behaviors_1_1_farthest_range_attack.html#aae9aab5791d211ba4bbb115f0b058857" title="gameEngine.actors.behaviors.\lFarthestRangeAttack.defineComparison" alt="" coords="300,5,575,46"/>
-<area shape="rect" id="node3" href="$da/d49/classgame_engine_1_1actors_1_1behaviors_1_1_strongest_range_attack.html#a482948cfa4dccdb95b5c9d8e6afc51c8" title="gameEngine.actors.behaviors.\lStrongestRangeAttack.defineComparison" alt="" coords="294,70,581,111"/>
-<area shape="rect" id="node4" href="$dc/d58/classgame_engine_1_1actors_1_1behaviors_1_1_do_t_on_hit.html#ad11d0311ebed715d9afd96a7b6c47b76" title="gameEngine.actors.behaviors.\lDoTOnHit.during" alt="" coords="329,135,545,177"/>
-<area shape="rect" id="node5" href="$d6/dc5/classgame_engine_1_1actors_1_1behaviors_1_1_slow_effect.html#a4c539e92c6e4a825c19dc4a73ab04996" title="gameEngine.actors.behaviors.\lSlowEffect.end" alt="" coords="329,201,545,242"/>
-<area shape="rect" id="node6" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#aa3f11f196c3183d56dfd62303c1cc56d" title="gameEngine.actors.BaseActor.get\lRangeProperty" alt="" coords="317,266,557,307"/>
-<area shape="rect" id="node7" href="$d6/dc5/classgame_engine_1_1actors_1_1behaviors_1_1_slow_effect.html#ab997c714ae22ef5b5851f6405b3259e9" title="gameEngine.actors.behaviors.\lSlowEffect.start" alt="" coords="329,331,545,373"/>
-</map>

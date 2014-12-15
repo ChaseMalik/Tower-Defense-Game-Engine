@@ -1,5 +1,0 @@
-<map id="gamePlayer.mainClasses.managers.GuiManager.changeTheme" name="gamePlayer.mainClasses.managers.GuiManager.changeTheme">
-<area shape="rect" id="node2" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#af9bf84f005d9d6734a650f1d38237dda" title="gamePlayer.guiFeatures.File\lLoader.getInstance" alt="" coords="310,5,509,46"/>
-<area shape="rect" id="node4" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#ad9f337695d787ac03907ebd6164671db" title="gamePlayer.guiFeatures.File\lLoader.load" alt="" coords="310,70,509,111"/>
-<area shape="rect" id="node3" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#a023c6ba6bb44e7eeff28ead6f40a6587" title="gamePlayer.guiFeatures.File\lLoader.FileLoader" alt="" coords="558,5,757,46"/>
-</map>

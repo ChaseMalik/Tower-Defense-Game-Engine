@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.behaviors.AoEAttack.AoEAttack" name="gameEngine.actors.behaviors.AoEAttack.AoEAttack">
-<area shape="rect" id="node2" href="$db/d9e/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_attack.html#acb00a95e17f52372f469245b4cc13acf" title="gameEngine.actors.behaviors.\lAoEAttack.copy" alt="" coords="269,5,485,46"/>
-<area shape="rect" id="node3" href="$db/d9e/classgame_engine_1_1actors_1_1behaviors_1_1_ao_e_attack.html#a35d7f53636d745562765310ca1e4b850" title="gameEngine.actors.behaviors.\lAoEAttack.performAttack" alt="" coords="533,5,749,46"/>
-</map>

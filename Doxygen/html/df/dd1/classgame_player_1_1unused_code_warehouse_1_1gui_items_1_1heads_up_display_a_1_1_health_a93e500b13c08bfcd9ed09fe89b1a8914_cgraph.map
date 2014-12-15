@@ -1,8 +1,0 @@
-<map id="gamePlayer.unusedCodeWarehouse.guiItems.headsUpDisplayA.Health.initialize" name="gamePlayer.unusedCodeWarehouse.guiItems.headsUpDisplayA.Health.initialize">
-<area shape="rect" id="node2" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#aac8c276e1fe06546bb4cc6488dd15047" title="utilities.XMLParsing.XMLParser.get\lDimension" alt="" coords="712,35,949,76"/>
-<area shape="rect" id="node6" href="$df/dd1/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1heads_up_display_a_1_1_health.html#aefb9a5eef8d22b32f899300bb35f2675" title="gamePlayer.unusedCodeWarehouse.gui\lItems.headsUpDisplayA.Health.makeHealthBar" alt="" coords="334,28,658,70"/>
-<area shape="rect" id="node7" href="$df/dd1/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1heads_up_display_a_1_1_health.html#aa2528e437b85f0e24534585cd3453299" title="gamePlayer.unusedCodeWarehouse.gui\lItems.headsUpDisplayA.Health.makeHeartImage" alt="" coords="328,94,664,135"/>
-<area shape="rect" id="node3" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a159b395412a8ce61e6decfefc9ed9854" title="utilities.XMLParsing.XMLParser.get\lDoubleValuesFromTag" alt="" coords="997,35,1235,76"/>
-<area shape="rect" id="node4" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="1283,64,1520,106"/>
-<area shape="rect" id="node5" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="1568,64,1805,106"/>
-</map>

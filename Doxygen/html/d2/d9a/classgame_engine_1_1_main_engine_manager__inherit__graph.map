@@ -1,5 +1,0 @@
-<map id="gameEngine.MainEngineManager" name="gameEngine.MainEngineManager">
-<area shape="rect" id="node5" href="$d4/d66/classgame_engine_1_1_co_op_manager.html" title="gameEngine.CoOpManager" alt="" coords="560,64,757,91"/>
-<area shape="rect" id="node3" href="$db/ddb/interfacegame_engine_1_1_manager_interface_1_1_update_interface.html" title="gameEngine.ManagerInterface.\lUpdateInterface" alt="" coords="6,57,229,98"/>
-<area shape="rect" id="node4" href="$d2/d81/interfacegame_engine_1_1_manager_interface_1_1_information_interface.html" title="gameEngine.ManagerInterface.\lInformationInterface" alt="" coords="6,122,229,163"/>
-</map>

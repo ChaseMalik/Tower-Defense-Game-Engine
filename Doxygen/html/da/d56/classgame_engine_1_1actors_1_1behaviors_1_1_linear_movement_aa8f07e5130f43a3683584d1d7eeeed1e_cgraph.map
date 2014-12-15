@@ -1,5 +1,0 @@
-<map id="gameEngine.actors.behaviors.LinearMovement.move" name="gameEngine.actors.behaviors.LinearMovement.move">
-<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ae877e5334153c4e125fb84bf993587af" title="gameEngine.actors.BaseActor.getNode" alt="" coords="269,5,544,32"/>
-<area shape="rect" id="node3" href="$d8/d5b/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_1_1_visibility_point.html#a4bf2b5df218b78778c5eb9b2ad58e106" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.VisibilityPoint.getPoint" alt="" coords="273,56,540,112"/>
-<area shape="rect" id="node4" href="$d8/d5b/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_1_1_visibility_point.html#a0e7b99c7adabbffea1b4bc7d9a1aa895" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.VisibilityPoint.isVisible" alt="" coords="275,136,539,192"/>
-</map>

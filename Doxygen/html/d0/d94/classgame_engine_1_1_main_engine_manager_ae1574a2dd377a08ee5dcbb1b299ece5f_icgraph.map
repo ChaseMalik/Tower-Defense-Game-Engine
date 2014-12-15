@@ -1,6 +1,0 @@
-<map id="gameEngine.MainEngineManager.resume" name="gameEngine.MainEngineManager.resume">
-<area shape="rect" id="node2" href="$da/d10/classgame_authoring_1_1scenes_1_1level_building_1_1_level_display_cell.html#a7c364973b2428267a31e0a8e7be0238f" title="gameAuthoring.scenes.level\lBuilding.LevelDisplayCell.Level\lDisplayCell" alt="" coords="362,5,577,61"/>
-<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a9e5b0b6fdfd81b90ed43d120216de9ca" title="gamePlayer.mainClasses.managers.\lGuiManager.play" alt="" coords="342,85,597,126"/>
-<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a40dd9ef71bf16640c446758773e3ce88" title="gamePlayer.mainClasses.managers.\lGuiManager.normalSpeed" alt="" coords="646,51,901,93"/>
-<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a7feb4f1c4510a3b21fc707b746f58e20" title="gamePlayer.mainClasses.managers.\lGuiManager.fastForward" alt="" coords="646,117,901,158"/>
-</map>

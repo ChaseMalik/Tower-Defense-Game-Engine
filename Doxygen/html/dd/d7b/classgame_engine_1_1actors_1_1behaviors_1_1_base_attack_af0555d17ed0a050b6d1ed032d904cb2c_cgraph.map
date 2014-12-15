@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.behaviors.BaseAttack.execute" name="gameEngine.actors.behaviors.BaseAttack.execute">
-<area shape="rect" id="node2" href="$dd/d7b/classgame_engine_1_1actors_1_1behaviors_1_1_base_attack.html#acf5b284daaa0d5a35cc651d2c0cdd6f3" title="gameEngine.actors.behaviors.\lBaseAttack.performAttack" alt="" coords="269,5,485,46"/>
-<area shape="rect" id="node3" href="$dd/d7b/classgame_engine_1_1actors_1_1behaviors_1_1_base_attack.html#a93ae258b96a524273b821e91a48c6d75" title="gameEngine.actors.behaviors.\lBaseAttack.readyToShoot" alt="" coords="269,70,485,111"/>
-</map>

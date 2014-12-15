@@ -1,6 +1,0 @@
-<map id="gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene.actorSpecificFieldsValid" name="gameAuthoring.scenes.actorBuildingScenes.ActorBuildingScene.actorSpecificFieldsValid">
-<area shape="rect" id="node2" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#add9d6dd1e2d11268192bbe5081adf257" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.fields\lAreValidForActiveCreation" alt="" coords="339,4,623,60"/>
-<area shape="rect" id="node3" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#a7956b5ed3dcd86f2cca525066bbd4361" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.attempt\lToSaveActor" alt="" coords="673,4,975,60"/>
-<area shape="rect" id="node4" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#a4b14803e395701d52cf61ed9a1ef0229" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.setup\lFileMenu" alt="" coords="1025,4,1311,60"/>
-<area shape="rect" id="node5" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#af797c48013cb5e0b128c5e184056a90d" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.\lActorBuildingScene" alt="" coords="1360,4,1611,60"/>
-</map>

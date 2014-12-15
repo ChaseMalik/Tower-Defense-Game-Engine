@@ -1,6 +1,0 @@
-<map id="gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu.getNode" name="gameAuthoring.scenes.actorBuildingScenes.BuildingSceneMenu.getNode">
-<area shape="rect" id="node2" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#a1378893d8197db294380765fbf2d72db" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.create\lMenuAndAddNewLevelOption" alt="" coords="382,4,626,60"/>
-<area shape="rect" id="node4" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#a4b14803e395701d52cf61ed9a1ef0229" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.setup\lFileMenu" alt="" coords="361,84,647,140"/>
-<area shape="rect" id="node3" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#a8b556e86b4aef6b87a1be44f901cec69" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.Level\lBuildingScene" alt="" coords="703,4,939,60"/>
-<area shape="rect" id="node5" href="$d5/de6/classgame_authoring_1_1scenes_1_1actor_building_scenes_1_1_actor_building_scene.html#af797c48013cb5e0b128c5e184056a90d" title="gameAuthoring.scenes.actor\lBuildingScenes.ActorBuildingScene.\lActorBuildingScene" alt="" coords="696,84,947,140"/>
-</map>

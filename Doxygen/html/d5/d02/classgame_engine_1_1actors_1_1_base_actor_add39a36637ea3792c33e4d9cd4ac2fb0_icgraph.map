@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.BaseActor.changeAndNotify" name="gameEngine.actors.BaseActor.changeAndNotify">
-<area shape="rect" id="node2" href="$d4/d81/classgame_engine_1_1actors_1_1_base_enemy.html#ab34454917fda5e54bf234ce35e98dbc8" title="gameEngine.actors.BaseEnemy.died" alt="" coords="323,5,578,32"/>
-<area shape="rect" id="node3" href="$d4/d81/classgame_engine_1_1actors_1_1_base_enemy.html#a3e6cfe26361f1d8bbc079b366108e7f2" title="gameEngine.actors.BaseEnemy.killed" alt="" coords="321,56,581,83"/>
-<area shape="rect" id="node4" href="$de/dd5/classgame_engine_1_1actors_1_1behaviors_1_1_gold_gen_effect.html#ae4b9e87044dd48ff3c798f1b91c5ed83" title="gameEngine.actors.behaviors.\lGoldGenEffect.start" alt="" coords="343,107,559,149"/>
-<area shape="rect" id="node5" href="$dc/d28/classgame_engine_1_1actors_1_1behaviors_1_1_heal_effect.html#a5c7f5db308e8e2e4448ef3bb6020282e" title="gameEngine.actors.behaviors.\lHealEffect.start" alt="" coords="343,173,559,214"/>
-</map>

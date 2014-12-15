@@ -1,4 +1,0 @@
-<map id="gameAuthoring.scenes.pathBuilding.PathBuildingScene" name="gameAuthoring.scenes.pathBuilding.PathBuildingScene">
-<area shape="rect" id="node2" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html" title="gameAuthoring.scenes.Building\lScene" alt="" coords="15,5,239,46"/>
-<area shape="rect" id="node3" href="$d3/d75/interfacegame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_background_building.html" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Background\lBuilding" alt="" coords="5,69,248,125"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="gameEngine.MainEngineManager.saveState" name="gameEngine.MainEngineManager.saveState">
-<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a09aad9969ca8713d7ca77e57388f5712" title="gameEngine.MainEngineManager.wrap\lTowers" alt="" coords="323,5,591,46"/>
-<area shape="rect" id="node3" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a987e8b01664835eed515251fb43a0087" title="utilities.GSON.GSONFileWriter.write\lGameStateToJSon" alt="" coords="336,70,579,111"/>
-<area shape="rect" id="node4" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html#a9018e07caa8dfef50acd084050fc8713" title="utilities.GSON.GSONFileWriter.write\lToFile" alt="" coords="640,70,883,111"/>
-</map>

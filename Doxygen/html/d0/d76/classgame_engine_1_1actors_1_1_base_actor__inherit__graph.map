@@ -1,6 +1,0 @@
-<map id="gameEngine.actors.BaseActor" name="gameEngine.actors.BaseActor">
-<area shape="rect" id="node3" href="$da/d6a/classgame_engine_1_1actors_1_1_base_projectile.html" title="gameEngine.actors.BaseProjectile" alt="" coords="5,155,245,181"/>
-<area shape="rect" id="node4" href="$de/d0f/classgame_engine_1_1actors_1_1_real_actor.html" title="gameEngine.actors.RealActor" alt="" coords="269,155,479,181"/>
-<area shape="rect" id="node5" href="$d4/d81/classgame_engine_1_1actors_1_1_base_enemy.html" title="gameEngine.actors.BaseEnemy" alt="" coords="139,229,365,256"/>
-<area shape="rect" id="node6" href="$df/db9/classgame_engine_1_1actors_1_1_base_tower.html" title="gameEngine.actors.BaseTower" alt="" coords="390,229,607,256"/>
-</map>

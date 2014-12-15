@@ -1,4 +1,0 @@
-<map id="gameEngine.actors.RealActor.spawnProjectile" name="gameEngine.actors.RealActor.spawnProjectile">
-<area shape="rect" id="node2" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#ad01ed9c7d2605735948e6a8b0d1a9485" title="gameEngine.actors.behaviors.\lRangeAttack.shootActorFromActor" alt="" coords="307,5,549,46"/>
-<area shape="rect" id="node3" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#adce033b0e318665ad52cde7c985b8538" title="gameEngine.actors.behaviors.\lRangeAttack.performAttack" alt="" coords="597,5,813,46"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="gamePlayer.mainClasses.welcomeScreen.availableGames.GameDescriptionLoader.getDescriptions" name="gamePlayer.mainClasses.welcomeScreen.availableGames.GameDescriptionLoader.getDescriptions">
-<area shape="rect" id="node2" href="$d0/dc2/classgame_player_1_1gui_items_1_1welcome_1_1_game_chooser.html#a9bfb8915d44028a33c040e65653f3e04" title="gamePlayer.guiItems.welcome.\lGameChooser.loadGameDescriptions" alt="" coords="359,5,622,46"/>
-<area shape="rect" id="node4" href="$d8/d29/classgame_player_1_1main_classes_1_1welcome_screen_1_1available_games_1_1_game_chooser.html#ad1c8145721f82373b82ffb32dfc3e951" title="gamePlayer.mainClasses.welcome\lScreen.availableGames.GameChooser.load\lGameDescriptions" alt="" coords="341,69,640,125"/>
-<area shape="rect" id="node3" href="$d0/dc2/classgame_player_1_1gui_items_1_1welcome_1_1_game_chooser.html#ab358def14edd5e423994cf8232222adc" title="gamePlayer.guiItems.welcome.\lGameChooser.GameChooser" alt="" coords="714,5,934,46"/>
-<area shape="rect" id="node5" href="$d8/d29/classgame_player_1_1main_classes_1_1welcome_screen_1_1available_games_1_1_game_chooser.html#ab4252470d48d134124be132473fa31cf" title="gamePlayer.mainClasses.welcome\lScreen.availableGames.GameChooser.\lGameChooser" alt="" coords="688,69,960,125"/>
-</map>

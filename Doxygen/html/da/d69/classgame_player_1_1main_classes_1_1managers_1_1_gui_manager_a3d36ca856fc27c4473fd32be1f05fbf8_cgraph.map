@@ -1,5 +1,0 @@
-<map id="gamePlayer.mainClasses.managers.GuiManager.escapePlace" name="gamePlayer.mainClasses.managers.GuiManager.escapePlace">
-<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#aa36cd779c78f6d551e001fbe2ccbf2c8" title="gamePlayer.mainClasses.managers.\lGuiManager.displayMessage" alt="" coords="310,5,565,46"/>
-<area shape="rect" id="node4" href="$d0/dee/classgame_player_1_1gui_items_1_1game_world_1_1_game_world.html#ab07bae6d692a39832fd7ecc25f3b6cf3" title="gamePlayer.guiItems.game\lWorld.GameWorld.getMap" alt="" coords="339,70,536,111"/>
-<area shape="rect" id="node3" href="$dd/dee/classgame_player_1_1gui_items_1_1message_display_1_1_message_display.html#aab83737510993a53476288fcb995af19" title="gamePlayer.guiItems.message\lDisplay.MessageDisplay.showMessage" alt="" coords="613,5,877,46"/>
-</map>

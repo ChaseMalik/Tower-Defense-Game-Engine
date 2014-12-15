@@ -1,7 +1,0 @@
-<map id="gameEngine.actors.BaseEnemy.copy" name="gameEngine.actors.BaseEnemy.copy">
-<area shape="rect" id="node2" href="$d4/d81/classgame_engine_1_1actors_1_1_base_enemy.html#a67818ce6171fda1624ab7e1d27dc3efe" title="gameEngine.actors.BaseEnemy.\lBaseEnemy" alt="" coords="335,13,563,54"/>
-<area shape="rect" id="node5" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a7feb699c5d4dc6ca8588beacc5567eff" title="gameEngine.actors.BaseActor.copy\lBehaviors" alt="" coords="325,78,574,119"/>
-<area shape="rect" id="node6" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ae877e5334153c4e125fb84bf993587af" title="gameEngine.actors.BaseActor.getNode" alt="" coords="312,144,587,171"/>
-<area shape="rect" id="node3" href="$d4/d81/classgame_engine_1_1actors_1_1_base_enemy.html#a41db5e3bf03c06bd5b17abbe8b82e5e2" title="gameEngine.actors.BaseEnemy.initialize\lEnemy" alt="" coords="635,13,914,54"/>
-<area shape="rect" id="node4" href="$d0/d61/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_1_1_backend_route.html#a4decf5451f724697b0b0ba60cd230f6f" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.BackendRoute.getPoints" alt="" coords="963,5,1245,61"/>
-</map>
