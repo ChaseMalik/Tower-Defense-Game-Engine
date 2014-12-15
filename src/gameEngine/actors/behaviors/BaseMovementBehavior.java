@@ -37,6 +37,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
         mySpeed = speed;
         myRoute=route.getPoints();
     }
+    /*
+     * calculate distance of route
+     */
     private double calculateTotalDistance (List<VisibilityPoint> route) {
         double distance = 0;
         for(int i = 0; i<route.size()-1;i++){
@@ -61,6 +64,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
     public String toString(){
         return myString;
     }
+    /*
+     * move the actor
+     */
     protected void move (BaseActor a, Point2D point) {
         CenteredImageView actor = a.getNode();
         actor.setXCenter(point.getX());
@@ -71,7 +77,9 @@ public abstract class BaseMovementBehavior implements IBehavior {
         myRemainingDistance-=mySpeed;
         move(a,current.add(target.subtract(current).normalize().multiply(mySpeed)));
     }
-    
+    /*
+     * finds next target and moves toward it
+     */
     protected void findNextTarget(BaseActor actor, List<Point2D> route){
         Point2D current = new Point2D(actor.getX(), actor.getY());
         Point2D destination = route.get(myIndex);

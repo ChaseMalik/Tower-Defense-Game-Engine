@@ -48,4 +48,5 @@ public class Constants {
     public static final String XML_LOADING_ERROR = "XMLLoadingError";
     public static final String FILE_NOT_LOADED = "FileNotLoaded";
     public static final String LANG_NOT_FOUND = "LangNotFound";
+    public static final String DRAG_AND_DROP = "DragAndDrop";
 }

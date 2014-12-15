@@ -31,6 +31,7 @@ public abstract class BaseActor extends Observable {
     protected transient CenteredImageView myNode;
     protected transient InformationInterface myInfo;
     protected double myRange;
+    protected int myBounty;
     protected String myImagePath;
     protected transient Set<Class<? extends BaseActor>> myTypes;
     protected boolean myIsRemovable;
@@ -46,6 +47,7 @@ public abstract class BaseActor extends Observable {
         myBehaviors = behaviors;
         myImagePath = imageName;
         myRange = range;
+        myBounty = (int) range;
         myDebuffs = new HashMap<>();
         myDebuffsToRemove = new HashSet<>();
         myTypes = new HashSet<>();
@@ -65,9 +67,13 @@ public abstract class BaseActor extends Observable {
 
     }
 
-    public void addDebuff (IBehavior debuff) {
-        if (myDebuffs.containsKey(debuff.toString())) { return; }
+    /*
+     * add Debuffs to list of debuffs so they execute
+     */
+    public boolean addDebuff (IBehavior debuff) {
+        if (myDebuffs.containsKey(debuff.toString())) { return false; }
         myDebuffs.put(debuff.toString(), debuff);
+        return true;
     }
 
     public void removeDebuff (IBehavior debuff) {
@@ -80,7 +86,6 @@ public abstract class BaseActor extends Observable {
                                                          array[1],
                                                          myImagePath);
     }
-
 
     public void makeNode (Point2D point) {
         int[] array = getSize();

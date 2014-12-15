@@ -88,6 +88,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private GameStat level;
 	private GameStat health;
 	private GameStat gold;
+	private DoubleProperty endgame;
 	
 	public GuiManager(Stage stage) {
 		myStage = stage;
@@ -192,27 +193,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		makeTowerMap();
 		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		/*
+		
 		endgame = new WinStatusProperty();
 		endgame.bindBidirectional(myEngineManager.getWinStatus());
 		endgame.addListener(new ChangeListener<Number>(){
 			@Override
 			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				checkEndGame((double)newValue);
+				double status = (double)newValue;
+				if (status < 0.0) endGame(LOSS);
+			    if (status > 0.0) endGame(WIN);
 			}
-		});*/
+		});
 	}
- /*
-	private void checkEndGame(double d){
-		myScore = myEngineManager.getMyHealth()*myEngineManager.getCurrentLevelProperty().getValue()*myEngineManager.getMyGold();
-		if (d == WinStatusProperty.WIN){
-			displayMessage(YOU_WON + SCORE + myScore, false);
-		} else if (d == WinStatusProperty.LOSS){
-			displayMessage(YOU_LOST + SCORE + myScore, true);
-		}
-		
-	}
-	*/
+
 	private void addBackground(String directory) {
 		File parent = new File(directory += "/background/");
 		File background = parent.listFiles()[0];
@@ -334,13 +327,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		health = new GameStat();
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
-		health.statValueProperty().addListener(new ChangeListener<Number>(){
-			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				if ((double)newValue <= 0.0)
-					endGame(LOSS);
-			}
-		});
 
 		gameStats = new ArrayList<GameStat>();
 		gameStats.add(level);
@@ -352,6 +338,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	
 	private void endGame(String endCondition){
 		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
+		interactionAllowed = false;
 		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
 	}
 
@@ -481,5 +468,9 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		init();
 		if (isCoOp) startMultiPlayerGame();
 		else startSinglePlayerGame(myDirectory);
+	}
+
+	public void selectGame() {
+		new GameStartManager(myStage);
 	}
 }

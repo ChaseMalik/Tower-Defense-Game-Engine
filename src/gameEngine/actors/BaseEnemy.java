@@ -6,30 +6,37 @@ import gameEngine.ManagerInterface.GoldUpdate;
 import gameEngine.ManagerInterface.HealthUpdate;
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
-
 import java.util.List;
 import java.util.Map;
-
+import java.util.Random;
+/**
+ * 
+ * 
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public class BaseEnemy extends RealActor {
     
     private List<BackendRoute> myRoutes;
-    private int myBounty;
+    private int myDamage;
     private VisibilityPoint myStart;
     private VisibilityPoint myGoal;
-    
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, ProjectileInfo projectile, List<BackendRoute> route) {
+    private long MY_SEED=828;
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, ProjectileInfo projectile, List<BackendRoute> route) {
         super(behaviors, image, name, range,projectile);
-        initializeEnemy(behaviors, bounty, route);
+        initializeEnemy(behaviors, damage, route);
     }
-    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int bounty, List<BackendRoute> route) {
+    public BaseEnemy (Map<String, IBehavior> behaviors, String image, String name, double range, int damage, List<BackendRoute> route) {
         super(behaviors, image, name, range);
-        initializeEnemy(behaviors, bounty, route);
+        initializeEnemy(behaviors, damage, route);
     }
     
-    private void initializeEnemy(Map<String, IBehavior> behaviors, int bounty, List<BackendRoute> route) {
-    	myRoutes=route;
-        myBounty = bounty;
-        BackendRoute selectedRoute = route.get((int)(Math.random()*route.size()));
+    private void initializeEnemy(Map<String, IBehavior> behaviors, int damage, List<BackendRoute> route) {
+    	
+        myRoutes=route;
+        myDamage = damage;
+        BackendRoute selectedRoute = route.get((int) (Math.random()*(route.size())));
         ((BaseMovementBehavior)behaviors.get("movement")).setRoute(selectedRoute);
         List<VisibilityPoint> routePoints = selectedRoute.getPoints();
         myStart = routePoints.get(0);
@@ -53,7 +60,7 @@ public class BaseEnemy extends RealActor {
     }
     @Override
     public void died(){
-        this.changeAndNotify(new HealthUpdate(-1*myBounty));
+        this.changeAndNotify(new HealthUpdate(-1*myDamage));
         myIsRemovable=true;
             
     }

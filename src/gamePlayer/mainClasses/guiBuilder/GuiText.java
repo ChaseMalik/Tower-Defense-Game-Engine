@@ -23,4 +23,5 @@ public class GuiText {
     public static final String HEALTH = "Health";
 	public static final String REPLAY = "Replay";
 	public static final String SWITCH = "SwitchGames";
+	public static final String GAMESELECT = "GameSelect";
 }

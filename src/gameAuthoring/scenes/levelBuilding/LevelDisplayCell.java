@@ -119,7 +119,7 @@ public class LevelDisplayCell extends HBox {
     private boolean isAllEnemyFieldsValid () {
         return enemyToEnemyCountMap.values()
                 .stream()
-                .filter(field -> !(field.isValueEntered() && field.getNumber() > 0))
+                .filter(field -> !(field.isValueEntered() && field.getNumber() >= 0))
                 .count() == 0;
     }
 }

@@ -27,6 +27,7 @@ public class GoldGenEffect extends BaseEffect{
     public void start (BaseActor actor) {
         // TODO Auto-generated method stub
         actor.changeAndNotify(new GoldUpdate(myGold));
+        
     }
 
     @Override

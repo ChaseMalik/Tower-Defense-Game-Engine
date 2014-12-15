@@ -1,11 +1,7 @@
 package gameEngine.actors.behaviors;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import gameEngine.actors.BaseActor;
-import gameEngine.actors.BaseEnemy;
-import gameEngine.actors.BaseTower;
+import java.util.List;
 
 
 /**
@@ -30,6 +26,7 @@ public abstract class BaseAttack implements IBehavior {
         myList=list;
         myAttackSpeed=list.get(0);
         myRange=list.get(1);
+        myCooldown = READY_TO_SHOOT;
     }
     protected boolean readyToShoot () {
         return myCooldown == READY_TO_SHOOT;
@@ -46,7 +43,9 @@ public abstract class BaseAttack implements IBehavior {
         }
 
     }
-
+    /*
+     * attack to be performed on execute when ready to shoot
+     */
     protected abstract void performAttack (BaseActor actor);
 
     public void setAttackSpeed (int i) {

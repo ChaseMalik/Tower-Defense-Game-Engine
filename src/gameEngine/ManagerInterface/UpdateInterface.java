@@ -1,6 +1,11 @@
 package gameEngine.ManagerInterface;
 
-
+/**
+ *  interface objects to be passed to observer
+ * 
+ * @author Chase Malik, Timesh Patel
+ *
+ */
 public interface UpdateInterface {
 
 public double getMyGold();
