@@ -21,14 +21,12 @@ import utilities.reflection.Reflection;
  *
  */
 public class BottomContainer extends HBox implements GuiContainer {
-    private XMLParser myParser;
 
     @Override
     public void initialize (Dimension2D containerSize) {
-    	
-		CoreContainerSetup c = new CoreContainerSetup();
-		c.initialize(this, GuiConstants.BOTTOM_CONTAINER_WIDTH, GuiConstants.BOTTOM_CONTAINER_HEIGHT, containerSize);
-		this.getChildren().addAll(c.getChildList());
+        CoreContainerSetup c = new CoreContainerSetup();
+        this.getChildren().
+        addAll(c.initialize(this, GuiConstants.BOTTOM_CONTAINER_WIDTH, GuiConstants.BOTTOM_CONTAINER_HEIGHT, containerSize,myPropertiesPath));
     }
 
     @Override

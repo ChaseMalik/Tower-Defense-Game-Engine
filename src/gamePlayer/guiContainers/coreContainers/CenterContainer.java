@@ -22,14 +22,14 @@ import utilities.reflection.Reflection;
  *
  */
 public class CenterContainer extends Pane implements GuiContainer {
-	private XMLParser myParser;
 
 	@Override
 	public void initialize(Dimension2D containerSize) {
 		
 		CoreContainerSetup c = new CoreContainerSetup();
-		c.initialize(this, GuiConstants.CENTER_CONTAINER_WIDTH, GuiConstants.CENTER_CONTAINER_HEIGHT, containerSize);
-		this.getChildren().addAll(c.getChildList());
+		;
+		this.getChildren().
+		addAll(c.initialize(this, GuiConstants.CENTER_CONTAINER_WIDTH, GuiConstants.CENTER_CONTAINER_HEIGHT, containerSize,myPropertiesPath));
 	}
 
 	@Override

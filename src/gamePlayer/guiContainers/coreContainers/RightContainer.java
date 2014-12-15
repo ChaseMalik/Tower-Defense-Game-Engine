@@ -19,14 +19,12 @@ import utilities.reflection.Reflection;
  *
  */
 public class RightContainer extends VBox implements GuiContainer {
-    private XMLParser myParser;
 
     @Override
     public void initialize (Dimension2D containerSize) {
-    	
-		CoreContainerSetup c = new CoreContainerSetup();
-		c.initialize(this, GuiConstants.RIGHT_CONTAINER_WIDTH,GuiConstants.RIGHT_CONTAINER_HEIGHT, containerSize);
-		this.getChildren().addAll(c.getChildList());
+
+        CoreContainerSetup c = new CoreContainerSetup();
+        this.getChildren().addAll(c.initialize(this, GuiConstants.RIGHT_CONTAINER_WIDTH,GuiConstants.RIGHT_CONTAINER_HEIGHT, containerSize,myPropertiesPath));
     }
 
     @Override

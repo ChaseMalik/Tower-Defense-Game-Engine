@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Allan Kiplagat
+
 package gamePlayer.mainClasses.guiBuilder;
 
 import javafx.geometry.Dimension2D;

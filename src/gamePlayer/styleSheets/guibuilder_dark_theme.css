@@ -1,0 +1,109 @@
+.root{
+    -fx-font-size: 9pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+}
+
+.button{
+      -fx-background-color: 
+        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
+        linear-gradient(#020b02, #3a3a3a),
+        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-padding: 1 1 1 1;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
+}
+
+.borders{
+
+}
+
+
+
+.GameWorld {
+    -fx-background-image: url('file:./src/gameAuthoring/Resources/DefaultMapImages/Map1.jpg');
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
+}
+
+.HUD {
+    -fx-padding: 0 0 0 0;
+    -fx-border-width: 1;
+}
+
+.HUD-hover {
+    
+}
+
+.MessageDisplay {
+	-fx-text-fill: Black;
+	-fx-background-color: rgb(240,240,240);
+}
+
+.GameWorld-hover {
+    
+}
+   
+.Store {
+
+}
+
+.VoogaMenuBar {
+
+}
+
+.Header {
+	-fx-background-color: rgb(190,200,210);
+}
+
+.Button-Pane {
+	-fx-background-color: rgb(170,190,210);
+}
+
+.header-2 {
+	-fx-font-size: 18pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: rgb(255,255,255);
+	-fx-background-color: rgb(96, 96, 96);	
+}
+
+.ClickAnywherePane {
+	-fx-font-size: 24pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: White;
+	-fx-background-color: rgb(170,190,210);
+}
+
+.LMConnectBox {
+	-fx-font-size: 10pt;
+	-fx-font-family: Arial;
+	-fx-text-fill: White;
+	-fx-background-color: rgb(170,190,210);
+}
+
+.store-pane {
+	-fx-background-color: rgb(140,140,140);
+}
+
+#range-button {
+	-fx-background-color: rgb(102,178,255);
+}
+
+#New-Game {
+	-fx-background-color: rgb(255,51,51);
+	-fx-background-image: url('file:./src/gamePlayer/playerImages/NewGame.png');
+}
+
+#sell-button {
+	-fx-background-color: rgb(255,51,51);
+}
+
+#damage-button {
+	-fx-background-color: rgb(102,255,102);
+}
