@@ -27,9 +27,9 @@ class VideoPlayer extends BorderPane {
 
     private static final int PADDING = 20;
     private static final int BUTTON_WIDTH = 75;
-//    private static final int INT_CONVERT = 100;
     private static final int LABEL_WIDTH = 150;
 
+    private static final double DISABLED_SLIDER_OPACITY = 0.5;
     private static final double DOUBLE_CONVERT = 100.0;
 
     private static final int SECONDS_PER_MINUTE = 60;
@@ -71,6 +71,7 @@ class VideoPlayer extends BorderPane {
         defineMediaPlayerBehavior(player, PLAY_BUTTON);
     }
 
+    //done
     private void createMediaPlayer (final MediaPlayer player) {
         myMediaPlayer = player;
         setStyle(MEDIA_PLAYER_BACKGROUND_COLOR);
@@ -81,6 +82,7 @@ class VideoPlayer extends BorderPane {
         setCenter(moviePane);
     }
 
+    //done
     private void defineMediaBarBehavior () {
         myMediaBar = new HBox();
         setBottom(myMediaBar);
@@ -120,12 +122,14 @@ class VideoPlayer extends BorderPane {
         }
     }
 
+    //done
     private void bindPlayerAndSliderTimes (final MediaPlayer player) {
         if (myTimeSlider.isValueChanging()) {
             player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
         }
     }
 
+    //done
     private void createAndDefineAudioComponents (final MediaPlayer player) {
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
         VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
@@ -138,6 +142,7 @@ class VideoPlayer extends BorderPane {
         //        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT), myVolumeSlider);
     }
 
+    //done
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
         if (player.isMute()) {
             player.setMute(false);
@@ -147,7 +152,7 @@ class VideoPlayer extends BorderPane {
         else {
             player.setMute(true);
             button.setText(UNMUTE_BUTTON_TEXT);
-            slider.setOpacity(0.5);
+            slider.setOpacity(DISABLED_SLIDER_OPACITY);
         }
     }
 
@@ -155,12 +160,8 @@ class VideoPlayer extends BorderPane {
         player.setCycleCount(myVideoWillReplay ? MediaPlayer.INDEFINITE : 1);
         player.setOnPlaying(()->runOnPlaying(player, button));
         player.setOnPaused(()->runOnPaused(button));
-        player.setOnReady(new Runnable() {
-            public void run () {
-                myDuration = player.getMedia().getDuration();
-                updateValues();
-            }
-        });
+        player.setOnReady(()->runOnReady(player));
+        //        player.setOnPaused(()->runOnEndOfMedia(button));
         player.setOnEndOfMedia(new Runnable() {
             public void run () {
                 button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
@@ -178,9 +179,20 @@ class VideoPlayer extends BorderPane {
         button.setText(myVideoIsStopped ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
     }
 
-    private void runOnPaused (Button button) {
+    private void runOnPaused (final Button button) {
         button.setText(PLAY_BUTTON_TEXT);
     }
+
+    private void runOnReady (final MediaPlayer player) {
+        myDuration = player.getMedia().getDuration();
+        updateValues();
+    }
+
+    //    private void runOnEndOfMedia (final Button button) {
+    //        button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
+    //        myVideoIsStopped = !myVideoWillReplay;
+    //        myCycleIsComplete = !myVideoWillReplay;
+    //    }
 
     private void updateValues () {
         Platform.runLater(new Runnable() {
@@ -203,6 +215,7 @@ class VideoPlayer extends BorderPane {
         });
     }
 
+    //done
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
         int seconds = (int)Math.floor(elapsed.toSeconds());
 
@@ -214,6 +227,7 @@ class VideoPlayer extends BorderPane {
         return formatTime(videoDuration, hours, minutes, seconds);
     }
 
+    //done
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
         int seconds = (int)Math.floor(duration.toSeconds()) + 500000;
 
