@@ -1,5 +1,5 @@
 // This entire file is part of my masterpiece.
-// Austin Kyker
+// Austin Kyker (amk66)
 
 package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
@@ -18,9 +18,11 @@ import javafx.scene.layout.VBox;
 
 /**
  * This utility allows for the creation of drag and drop file panes.
- * Simply specify the extensions of files you accept, and where you want
- * the file to be dropped. The class extends Observable so you can
- * set up an observer class to listen for when a file is dropped.
+ * Simply specify the extensions of files you accept. The class extends 
+ * Observable so you can set up an observer class to listen for when a file
+ * is dropped. Subclasses should implement the actOnFile method to specify 
+ * the desired action to occur when a file is dragged and dropped (e.g. copy
+ * file to a specified directory).
  * 
  * @author Austin Kyker
  *

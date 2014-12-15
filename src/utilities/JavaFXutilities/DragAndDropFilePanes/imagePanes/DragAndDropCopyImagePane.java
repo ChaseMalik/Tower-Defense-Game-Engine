@@ -1,5 +1,5 @@
 // This entire file is part of my masterpiece.
-// Austin Kyker
+// Austin Kyker (amk66)
 
 package utilities.JavaFXutilities.DragAndDropFilePanes.imagePanes;
 
