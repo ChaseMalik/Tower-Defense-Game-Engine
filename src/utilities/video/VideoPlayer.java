@@ -41,7 +41,7 @@ class VideoPlayer extends BorderPane {
     private static final String MOVIE_PANE_BACKGROUND_COLOR = "-fx-background-color: #000000;";
 
     private static final String PLAY_BUTTON_TEXT = "PLAY";
-    private static final String STOP_BUTTON_TEXT = "STOP";
+    private static final String STOP_BUTTON_TEXT = "PAUSE";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
     private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
 
@@ -135,7 +135,7 @@ class VideoPlayer extends BorderPane {
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
         VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, myVolumeSlider));
         myMediaBar.getChildren().add(myVolumeSlider);
-//        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT), myVolumeSlider);
+        //        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT), myVolumeSlider);
     }
 
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
@@ -159,7 +159,7 @@ class VideoPlayer extends BorderPane {
                     player.pause();
                     myVideoIsStopped = false;
                 }
-                button.setText(myVideoIsStopped ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
+                button.setText(STOP_BUTTON_TEXT);
             }
         });
         player.setOnPaused(new Runnable() {
@@ -198,10 +198,6 @@ class VideoPlayer extends BorderPane {
                     double doubleTime = currentTime.divide(duration).toMillis();
                     double timeSliderValue = doubleTime * DOUBLE_CONVERT;
                     myTimeSlider.setValue(timeSliderValue);
-                }
-                if (!myVolumeSlider.isValueChanging()) {
-                    double playerVolume = myMediaPlayer.getVolume();
-                    myVolumeSlider.setValue((int)Math.round(playerVolume * INT_CONVERT));
                 }
             }
         });
