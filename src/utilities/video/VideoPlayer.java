@@ -153,20 +153,8 @@ class VideoPlayer extends BorderPane {
 
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
         player.setCycleCount(myVideoWillReplay ? MediaPlayer.INDEFINITE : 1);
-        player.setOnPlaying(new Runnable() {
-            public void run () {
-                if (myVideoIsStopped) {
-                    player.pause();
-                    myVideoIsStopped = false;
-                }
-                button.setText(STOP_BUTTON_TEXT);
-            }
-        });
-        player.setOnPaused(new Runnable() {
-            public void run () {
-                button.setText(PLAY_BUTTON_TEXT);
-            }
-        });
+        player.setOnPlaying(()->runOnPlaying(player, button));
+        player.setOnPaused(()->runOnPaused(button));
         player.setOnReady(new Runnable() {
             public void run () {
                 myDuration = player.getMedia().getDuration();
@@ -180,6 +168,18 @@ class VideoPlayer extends BorderPane {
                 myCycleIsComplete = !myVideoWillReplay;
             }
         });
+    }
+
+    private void runOnPlaying (final MediaPlayer player, final Button button) {
+        if (myVideoIsStopped) {
+            player.pause();
+            myVideoIsStopped = false;
+        }
+        button.setText(myVideoIsStopped ? PLAY_BUTTON_TEXT : STOP_BUTTON_TEXT);
+    }
+
+    private void runOnPaused (Button button) {
+        button.setText(PLAY_BUTTON_TEXT);
     }
 
     private void updateValues () {
