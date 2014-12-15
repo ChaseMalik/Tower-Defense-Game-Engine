@@ -41,21 +41,19 @@ class VideoPlayer extends BorderPane {
     private static final String MOVIE_PANE_BACKGROUND_COLOR = "-fx-background-color: #000000;";
 
     private static final String PLAY_BUTTON_TEXT = "PLAY";
-    private static final String STOP_BUTTON_TEXT = "PAUSE";
+    private static final String PAUSE_BUTTON_TEXT = "PAUSE";
     private static final String MUTE_BUTTON_TEXT = "MUTE";
     private static final String UNMUTE_BUTTON_TEXT = "UNMUTE";
 
     private static final String VOLUME_LABEL_TEXT = "Volume: ";
-    private static final String TIME_FORMAT = "%d:%02d:%02d / %d:%02d:%02d";
+    private static final String TIME_LABEL_TEXT = "%d:%02d:%02d / %d:%02d:%02d";
 
     private MediaPlayer myMediaPlayer;
     private MediaView myMediaView;
     private Slider myTimeSlider;
     private Label myTimeLabel;
-    private Slider myVolumeSlider;
     private Duration myDuration;
     private boolean myVideoWillReplay = true;
-    private boolean myVideoIsStopped = !myVideoWillReplay;
     private boolean myCycleIsComplete = !myVideoWillReplay;
     private HBox myMediaBar;
 
@@ -89,6 +87,7 @@ class VideoPlayer extends BorderPane {
         myMediaBar.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
     }
 
+    //done
     private void createAndDefineVisualComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
         button.setOnAction(event->playOrPause(player));
@@ -132,13 +131,12 @@ class VideoPlayer extends BorderPane {
     private void createAndDefineAudioComponents (final MediaPlayer player) {
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
         VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
-        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT));
+        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE));
 
-        myVolumeSlider = new Slider();
-        player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
-        VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, myVolumeSlider));
-        myMediaBar.getChildren().add(myVolumeSlider);
-        //        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT), myVolumeSlider);
+        final Slider VOLUME_SLIDER = new Slider();
+        player.volumeProperty().bind(VOLUME_SLIDER.valueProperty().divide(DOUBLE_CONVERT));
+        VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, VOLUME_SLIDER));
+        myMediaBar.getChildren().addAll(new Label(VOLUME_LABEL_TEXT), VOLUME_SLIDER);
     }
 
     //done
@@ -155,39 +153,31 @@ class VideoPlayer extends BorderPane {
         }
     }
 
+    //done
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
         player.setCycleCount(myVideoWillReplay ? MediaPlayer.INDEFINITE : 1);
-        player.setOnPlaying(()->runOnPlaying(player, button));
-        player.setOnPaused(()->runOnPaused(button));
+        player.setOnPlaying(()->playOrPause(player, button));
+        player.setOnPaused(()->playOrPause(player, button));
         player.setOnReady(()->runOnReady(player));
-        player.setOnEndOfMedia(()->runOnEndOfMedia(button));
     }
 
-    private void runOnPlaying (final MediaPlayer player, final Button button) {
-        if (myVideoIsStopped) {
+    //done
+    private void playOrPause (final MediaPlayer player, final Button button) {
+        Status status = player.getStatus();
+        if (status == Status.HALTED || status == Status.PAUSED || status == Status.STOPPED) {
             player.pause();
-            myVideoIsStopped = false;
+            button.setText(PLAY_BUTTON_TEXT);
         }
-        button.setText(STOP_BUTTON_TEXT);
+        else {
+            player.play();
+            button.setText(PAUSE_BUTTON_TEXT);
+        }
     }
 
-    private void runOnPaused (final Button button) {
-//        if (myVideoIsStopped) {
-//            player.pause();
-//            myVideoIsStopped = false;
-//        }
-        button.setText(PLAY_BUTTON_TEXT);
-    }
-
+    //done
     private void runOnReady (final MediaPlayer player) {
         myDuration = player.getMedia().getDuration();
         updateValues();
-    }
-
-    private void runOnEndOfMedia (final Button button) {
-        button.setText(myVideoWillReplay ? STOP_BUTTON_TEXT : PLAY_BUTTON_TEXT);
-//        myVideoIsStopped = !myVideoWillReplay;
-//        myCycleIsComplete = !myVideoWillReplay;
     }
 
     private void updateValues () {
@@ -225,13 +215,13 @@ class VideoPlayer extends BorderPane {
 
     //done
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
-        int seconds = (int)Math.floor(duration.toSeconds()) + 500000;
+        int seconds = (int)Math.floor(duration.toSeconds()) + 5000;
 
         int hours = seconds / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         seconds %= MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
         int minutes = seconds / SECONDS_PER_MINUTE;
         seconds %= SECONDS_PER_MINUTE;
 
-        return String.format(TIME_FORMAT, intHours, intMin, intSec, hours, minutes, seconds);
+        return String.format(TIME_LABEL_TEXT, intHours, intMin, intSec, hours, minutes, seconds);
     }
 }
