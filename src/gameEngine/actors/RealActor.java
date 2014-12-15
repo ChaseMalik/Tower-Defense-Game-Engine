@@ -1,8 +1,10 @@
 package gameEngine.actors;
 
-import gameEngine.InformationInterface;
+import gameEngine.ManagerInterface.InformationInterface;
 import gameEngine.actors.behaviors.IBehavior;
+
 import java.util.Map;
+
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 

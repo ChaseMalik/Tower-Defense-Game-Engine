@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import utilities.JavaFXutilities.imageView.StringToImageViewConverter;
 import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
-import gameEngine.TowerInfoObject;
+import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
@@ -140,8 +140,8 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	}
 	
 	private void doUpgrade(){
-		myListener.upgradeTower(myTowerImageView, myUpgradeName);
-		deselectTower();
+		if (myListener.upgradeTower(myTowerImageView, myUpgradeName))
+			deselectTower();
 	}
 
 	

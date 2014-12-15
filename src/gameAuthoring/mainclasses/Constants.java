@@ -12,6 +12,7 @@ public class Constants {
     public static final String NOT_ENOUGH_ENEMIES_MSG = "NotEnoughEnemiesMsg";
     public static final String NOT_ENOUGH_TOWERS_MSG = "NotEnoughTowersMsg";
     public static final String FINISHED = "finished";
+    public static final int SMALLEST_PADDING = 5;
     public static final int SM_PADDING = 10;
     public static final int MED_PADDING = 15;
     public static final double LG_PADDING = 20;
@@ -40,4 +41,12 @@ public class Constants {
     public static final String LEVEL_ERROR = "LevelError";
     public static final String UNIQUE_NAMES_ERROR = "UniqueNamesError";
     public static final String IMG_FILE_NOT_FOUND = "IMGFileNotFound";
+    public static final String BACKGROUND_IMG_NOT_COPIED = "BackgroundNotCopied";
+    public static final String ERROR_WRITING_STATE = "ErrorWritingState";
+    public static final String SAVE_STATE_DOESNT_CORRESPOND = "SaveStateDoesntCorrespond";
+    public static final String GENERAL_SETTING_MSG = "GameSettingsMsg";
+    public static final String XML_LOADING_ERROR = "XMLLoadingError";
+    public static final String FILE_NOT_LOADED = "FileNotLoaded";
+    public static final String LANG_NOT_FOUND = "LangNotFound";
+    public static final String DRAG_AND_DROP = "DragAndDrop";
 }

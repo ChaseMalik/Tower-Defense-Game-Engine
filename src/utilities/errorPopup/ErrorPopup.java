@@ -1,5 +1,6 @@
 package utilities.errorPopup;
 
+import gameAuthoring.mainclasses.Constants;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -25,7 +26,7 @@ public class ErrorPopup extends Stage {
     private static final String TITLE = "Error";
 
     public ErrorPopup (String message) {
-        VBox box = new VBox(10);
+        VBox box = new VBox(Constants.SM_PADDING);
         box.setAlignment(Pos.CENTER);
         ImageView imgView = StringToImageViewConverter.getImageView(ERROR_POPUP_WIDTH,
                                                                     ERROR_POPUP_HEIGHT,

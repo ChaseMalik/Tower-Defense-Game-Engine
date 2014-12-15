@@ -10,6 +10,13 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import utilities.errorPopup.ErrorPopup;
  
+/**
+ * 
+ * Modified code from http://www.mkyong.com/java/how-to-send-http-request-getpost-in-java/
+ * 
+ * @author Chase Malik
+ *
+ */
 public class HTTPConnection {
         private String myServer;
         private final String USER_AGENT = "Mozilla/5.0";
@@ -33,8 +40,6 @@ public class HTTPConnection {
                     con.setRequestProperty("User-Agent", USER_AGENT);
      
                     responseCode = con.getResponseCode();
-                    System.out.println("\nSending 'GET' request to URL : " + url);
-                    System.out.println("Response Code : " + responseCode);
      
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(con.getInputStream()));
@@ -45,13 +50,9 @@ public class HTTPConnection {
                             response.append(inputLine);
                     }
                     in.close();
-     
-                    //print result
-                    System.out.println(response.toString());
                     return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful get request" + responseCode);
                     return "";
                 }
                 
@@ -80,10 +81,6 @@ public class HTTPConnection {
                     wr.close();
      
                     responseCode = con.getResponseCode();
-                    System.out.println("\nSending 'POST' request to URL : " + url);
-                    System.out.println("Post parameters : " + urlParameters);
-                    System.out.println("Response Code : " + responseCode);
-     
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(con.getInputStream()));
                     String inputLine;
@@ -94,16 +91,10 @@ public class HTTPConnection {
                     }
                     in.close();
      
-                    //print result
-                    System.out.println(response.toString());
                     return response.toString();
                 }
                 catch (Exception e) {
-                    new ErrorPopup("Unsuccesful post request" + responseCode);
                     return "";
                 }
-                
- 
-        }
- 
+        } 
 }

@@ -1,11 +1,12 @@
 package gamePlayer.mainClasses.managers;
 
 import gameEngine.CoOpManager;
-import gameEngine.NullTowerInfoObject;
-import gameEngine.SingleThreadedEngineManager;
-import gameEngine.TowerInfoObject;
+import gameEngine.MainEngineManager;
+import gameEngine.Data.NullTowerInfoObject;
+import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
 import gamePlayer.guiFeatures.TowerPlacer;
+import gamePlayer.guiFeatures.WinStatusProperty;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
 import gamePlayer.guiItems.headsUpDisplay.HUD;
@@ -14,7 +15,6 @@ import gamePlayer.guiItems.store.Store;
 import gamePlayer.guiItems.store.StoreItem;
 import gamePlayer.guiItems.towerUpgrade.TowerIndicator;
 import gamePlayer.guiItems.towerUpgrade.TowerUpgradePanel;
-import gamePlayer.guiItemsListeners.GameItemListener;
 import gamePlayer.guiItemsListeners.GameWorldListener;
 import gamePlayer.guiItemsListeners.HUDListener;
 import gamePlayer.guiItemsListeners.MessageDisplayListener;
@@ -26,6 +26,7 @@ import gamePlayer.guiItemsListeners.UpgradeListener;
 import gamePlayer.guiItemsListeners.VoogaMenuBarListener;
 import gamePlayer.mainClasses.guiBuilder.GuiBuilder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
+import gamePlayer.mainClasses.welcomeScreen.GameStartManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
@@ -56,13 +56,20 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		GameWorldListener, UpgradeListener,
 		MessageDisplayListener, SpeedSliderListener {
 
-	private static String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
+	
+	public static final String LOSS = "GAME OVER";
+	public static final String WIN = "Congratulations, you won";
+	public static final String NO_UPGRADE = "No update available";
+	public static final String NO_GOLD = "Not enough gold available";
+	public static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
+	public static final String SCORE = "Your score: ";
+	public static final String PLAY_AGAIN = "Click anywhere on the map to play again";
 
 	private Stage myStage;
-	private SingleThreadedEngineManager myEngineManager;
+	private MainEngineManager myEngineManager;
 	private CoOpManager myCoOpManager;
 
-	private Group myRoot;
 	private TowerIndicator activeIndicator;
 	private ImageView activeTower;
 	private boolean interactionAllowed;
@@ -74,30 +81,35 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private MessageDisplay myMessageDisplay;
 	private Map<String, TowerInfoObject> towerMap;
 	private List<GameStat> gameStats;
+	private double myScore;
 	private boolean isCoOp;
-
+	private String myDirectory;
+	
+	private GameStat level;
+	private GameStat health;
+	private GameStat gold;
+	private DoubleProperty endgame;
+	
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
+
 	}
 
 	public void init() {
 		GuiConstants.DYNAMIC_SIZING = true;
-		myRoot = GuiBuilder.getInstance().build(myStage,
+		GuiBuilder.getInstance().build(myStage,
 				guiBuilderPropertiesPath);
+		
 	}
 
 	private void startGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
-		// myRoot.getChildren().add(engineGroup);
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
 		interactionAllowed = true;
 	}
 
@@ -117,20 +129,17 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		}
 	}
 
-	public static final String NO_UPGRADE = "No update available";
-	public static final String NO_GOLD = "Not enough gold available";
-	private static final String ESCAPE_TEXT = "Press ESC to escape from tower placement";
-
 	public void startSinglePlayerGame(String directoryPath) {
-		myEngineManager = new SingleThreadedEngineManager(myGameWorld.getMap());
+		myEngineManager = new MainEngineManager(myGameWorld.getMap());
 		myEngineManager.initializeGame(directoryPath);
 		initializeNewGameElements(directoryPath);
+		myDirectory = directoryPath;
 		interactionAllowed = true;
 	}
 
 	@Override
 	public void play() {
-		if (!interactionAllowed)
+		if (!interactionAllowed || isCoOp)
 			return;
 		myEngineManager.resume();
 	}
@@ -173,7 +182,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 					interactionAllowed = true;
 					myStore.unfreeze();
 				}
-			
 			}
 		});
 		gameStats.add(time);
@@ -183,12 +191,19 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private void initializeNewGameElements(String directoryPath) {
 		addBackground(directoryPath);
 		makeTowerMap();
-		testHUD();
-		// myRoot.getChildren().add(engineGroup);
+		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		// myGameWorld.getMap().getStyleClass().add("GameWorld");
-		// System.out.println(BuildingPane.DRAW_SCREEN_WIDTH + " " +
-		// AuthorController.SCREEN_HEIGHT);
+		
+		endgame = new WinStatusProperty();
+		endgame.bindBidirectional(myEngineManager.getWinStatus());
+		endgame.addListener(new ChangeListener<Number>(){
+			@Override
+			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
+				double status = (double)newValue;
+				if (status < 0.0) endGame(LOSS);
+			    if (status > 0.0) endGame(WIN);
+			}
+		});
 	}
 
 	private void addBackground(String directory) {
@@ -247,7 +262,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void normalSpeed() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(1.0);
 		play();
 	}
 
@@ -255,7 +269,6 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	public void fastForward() {
 		if (!interactionAllowed)
 			return;
-		// myEngineManager.changeRunSpeed(3.0);
 		play();
 	}
 
@@ -269,7 +282,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		List<StoreItem> storeItems = new ArrayList<StoreItem>();
 		for (TowerInfoObject info : towersAvailable) {
 			StoreItem newItem = new StoreItem(info.getName(),
-					info.getImageLocation(), new SimpleBooleanProperty(true));
+					info.getImageLocation(), info.getBuyCost(), new SimpleBooleanProperty(true));
 			storeItems.add(newItem);
 		}
 		myStore.fillStore(storeItems);
@@ -281,35 +294,39 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	}
 
 	@Override
-	public void upgradeTower(ImageView imageView, String upgradeName) {
-		if (!interactionAllowed) return;
-		if (upgradeName.equals(NO_UPGRADE)
-				&& !myEngineManager.checkGold(towerMap.get(upgradeName))) {
-			displayMessage(upgradeName, true);
-			return;
+	public boolean upgradeTower(ImageView imageView, String upgradeName) {
+		if (!interactionAllowed) return false;
+		if (upgradeName.equals(NO_UPGRADE)){
+			displayMessage(NO_UPGRADE, true);
+			return false;
 		}
-		DoubleProperty gold = myEngineManager.myGold();
+		if (!myEngineManager.checkGold(towerMap.get(upgradeName))) {
+			displayMessage(NO_GOLD, true);
+			return false;
+		}
+		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(upgradeName).getBuyCost());
 		ImageView newTower = myEngineManager.upgrade(imageView, upgradeName);
 		// if (newTower == null) displayMessage(NO_GOLD, true);
 		newTower.setOnMouseClicked(event -> selectTower(upgradeName, newTower));
 		selectTower(upgradeName, newTower);
+		return true;
 	}
 
-	private void testHUD() {
+	private void setUpHUD() {
 		gameStats = new ArrayList<GameStat>();
-		GameStat level = new GameStat();
+		level = new GameStat();
 		level.setGameStat("Level");
-		level.setStatValue(1);
+		level.statValueProperty().bindBidirectional(myEngineManager.getCurrentLevelProperty());
 
-		GameStat gold = new GameStat();
+		gold = new GameStat();
 		gold.setGameStat("Gold");
-		gold.statValueProperty().bindBidirectional(myEngineManager.myGold());
+		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
 		
-		GameStat health = new GameStat();
+		health = new GameStat();
 		health.setGameStat("Health");
-		health.statValueProperty().bindBidirectional(myEngineManager.myHealth());
+		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
 
 		gameStats = new ArrayList<GameStat>();
 		gameStats.add(level);
@@ -317,19 +334,22 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		gameStats.add(health);
 		this.setGameStats(gameStats);
 
-		// update game stats
-		// gameStats.get(1).setStatValue(50);
-		// gameStats.get(2).setStatValue(50);
+	}
+	
+	private void endGame(String endCondition){
+		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
+		interactionAllowed = false;
+		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
 	}
 
 	public void makeTower(String towerName, double x, double y) {
 		if (!interactionAllowed) return;
 		displayMessage(MessageDisplay.DEFAULT, false);
 		if (!myEngineManager.checkGold(towerMap.get(towerName))) {
-			displayMessage(towerName, true);
+			displayMessage(NO_GOLD, true);
 			return;
 		}
-		DoubleProperty gold = myEngineManager.myGold();
+		DoubleProperty gold = myEngineManager.getGoldProperty();
 		myEngineManager.setMyGold(gold.get()
 				- towerMap.get(towerName).getBuyCost());
 		ImageView towerImageView = myEngineManager.addTower(towerName, x, y);
@@ -366,9 +386,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		if (tower != null)
 			tower.setOnMouseClicked(event -> selectTower(towerName, tower));
 	}
+	
+	private boolean checkGold(String towerName) {
+		double cost = towerMap.get(towerName).getBuyCost();
+		return cost <= gold.getStatValue();
+	}
 
 	@Override
 	public void placeTower(String towerName) {
+		if (!checkGold (towerName))  {
+			displayMessage(NO_GOLD, true);
+			return;
+		}
 		TowerPlacer.getInstance().placeItem(towerName, myGameWorld.getMap(),
 				towerMap.get(towerName).getRange());
 		displayMessage(ESCAPE_TEXT, false);
@@ -423,9 +452,25 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public void escapePlace() {
+		
 		myGameWorld.getMap().setOnMouseMoved(null);
 		myGameWorld.getMap().setOnMouseReleased(null);
 		myGameWorld.getMap().getChildren().remove(myGameWorld.getMap().getChildren().size()-1);  //remove range circle (last thing added to children)
 		displayMessage(MessageDisplay.DEFAULT, false);
+		
+	}
+
+	public void switchGame() {
+		
+	}
+
+	public void replayGame() {
+		init();
+		if (isCoOp) startMultiPlayerGame();
+		else startSinglePlayerGame(myDirectory);
+	}
+
+	public void selectGame() {
+		new GameStartManager(myStage);
 	}
 }

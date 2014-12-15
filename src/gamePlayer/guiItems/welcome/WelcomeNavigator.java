@@ -31,7 +31,7 @@ public class WelcomeNavigator implements GuiItem {
 		myParser = new XMLParser(new File(propertiesPath)); 
 		setupNavPane();
 		setupContents();
-		GuiConstants.WELCOME_MANAGER.registerWelcomeNavigator(this);
+		//GuiConstants.WELCOME_MANAGER.registerWelcomeNavigator(this);
 	}
 
 	@Override

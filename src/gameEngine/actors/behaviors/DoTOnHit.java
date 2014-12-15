@@ -4,7 +4,7 @@ import java.util.List;
 import gameEngine.actors.BaseActor;
 
 
-public class DoTOnHit extends BaseOnHitBehavior {
+public class DoTOnHit extends BaseEffect {
     private double myDamage;
     public DoTOnHit(List<Double> list){
         super(list);

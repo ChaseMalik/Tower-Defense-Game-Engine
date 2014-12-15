@@ -5,6 +5,8 @@ import gamePlayer.guiItems.GuiItem;
 //import javafx.beans.binding.Bindings;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.Slider;
+import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
+import utilities.JavaFXutilities.slider.SliderContainer;
 //import javafx.scene.control.ToggleButton;
 //import javafx.scene.image.Image;
 //import javafx.scene.image.ImageView;
@@ -12,25 +14,18 @@ import utilities.XMLParsing.XMLParser;
 
 public abstract class ControlDockSlider implements GuiItem {
     protected XMLParser myParser;
-    protected Slider mySlider;
-
-    protected Dimension2D sliderSize;
-
+    protected SliderContainer mySlider;
+    
+    public static final String LABEL = "GameSpeed";
+    
     @Override
     public void initialize(Dimension2D containerSize) {
-    	mySlider = new Slider();
+    	mySlider = new SliderContainer(LABEL,1.0, 20.0);
     }
 
     protected void setUpSizing(Dimension2D containerSize) {
         Dimension2D sliderRatio = myParser.getDimension("SizeRatio");
-
-        sliderSize = new Dimension2D(sliderRatio.getWidth()
-                * containerSize.getWidth(), sliderRatio.getHeight()
-                * containerSize.getHeight());
-       // mySlider.setMinSize(sliderSize.getWidth(), sliderSize.getHeight());
+        Dimension2D sliderSize = RatiosToDim.convert(containerSize, sliderRatio);
     	mySlider.setMaxSize(sliderSize.getWidth(), sliderSize.getHeight());
-        //mySlider.setPrefSize(sliderSize.getWidth(), sliderSize.getHeight());
-       // mySlider.setMaxHeight(sliderSize.getHeight());
-       // mySlider.setMaxWidth(sliderSize.getWidth());
     }
 }

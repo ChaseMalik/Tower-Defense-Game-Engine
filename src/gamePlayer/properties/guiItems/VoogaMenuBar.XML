@@ -11,6 +11,8 @@
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.LoadMenuItem</element>
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.SaveMenuItem</element>
 		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.ChangeThemeMenuItem</element>
+		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.ReplayMenuItem</element>
+		 <element>gamePlayer.guiItems.voogaMenuBar.menuItems.GameSelectionItem</element>
     </FileMenu>
     
     <LanguageMenu>

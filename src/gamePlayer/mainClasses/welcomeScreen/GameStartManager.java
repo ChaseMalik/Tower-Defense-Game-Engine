@@ -35,7 +35,10 @@ public class GameStartManager {
 
         MultiLanguageUtility util = MultiLanguageUtility.getInstance();
         util.initLanguages("properties.gamePlayer.languages.English.properties",
-                           "properties.gamePlayer.languages.Swahili.properties");
+                "properties.gamePlayer.languages.Espanol.properties",
+                "properties.gamePlayer.languages.Deutsch.properties",
+                "properties.gamePlayer.languages.Swahili.properties",
+                "properties.gamePlayer.languages.Zhongwen.properties");
 
         util.setLanguage("English");
 
@@ -69,24 +72,27 @@ public class GameStartManager {
         PlayerCountOptions playerCountOptions = new PlayerCountOptions();
         playerCountOptions.getSinglePlayerOption().setOnMouseReleased(event->startSinglePlayerGameChooser());
         playerCountOptions.getMultiPlayerOption().setOnMouseReleased(event->startMultiPlayerOptions());
+
         welcomeScreen.setCenterContent(playerCountOptions); 
 
         welcomeScreen.setBottomContent(createLanguageSelector());
-        
+
         group.getChildren().add(welcomeScreen);
     }
 
     private ComboBox createLanguageSelector() {
         ComboBox<String> languageSelector = new ComboBox<>();
-        languageSelector.setLayoutX(100);
+        languageSelector.setLayoutY(WelcomeScreen.PANE_HEIGHT/2);
+        languageSelector.setPrefWidth(WelcomeScreen.PANE_WIDTH);
+
         languageSelector.itemsProperty().bind(GuiConstants.MULTILANGUAGE.getSupportedLanguages());
         languageSelector.getSelectionModel().select(GuiConstants.MULTILANGUAGE.getCurrentLanguage());
         languageSelector.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<String>() {
             @Override
             public void changed (ObservableValue<? extends String> arg0,
-                                 String oldVal,
-                                 String newVal) {
+                    String oldVal,
+                    String newVal) {
                 try {
                     GuiConstants.MULTILANGUAGE.setLanguage(newVal);
                 }
@@ -95,6 +101,7 @@ public class GameStartManager {
                 }
             }
         });
+
         return languageSelector;
     }
 
@@ -106,13 +113,13 @@ public class GameStartManager {
     private void startSinglePlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.SINGLE_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.SINGLE_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.setCenterLargeContent(chooser);
     }
 
     private void startMultiPlayerGameChooser() {
         gameTypeBeingChosen = GuiConstants.MULTI_PLAYER_GAME;
         GameChooser chooser = new GameChooser(GuiConstants.MULTI_PLAYER_GAMES_DIRECTORY);
-        welcomeScreen.setCenterContent(chooser);
+        welcomeScreen.setCenterLargeContent(chooser);
     }
 
     private void startMultiPlayerOptions() {

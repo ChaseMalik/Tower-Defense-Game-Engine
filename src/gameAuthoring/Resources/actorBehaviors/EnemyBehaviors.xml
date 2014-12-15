@@ -1,7 +1,7 @@
 <behaviors>
  	<movement>
  		<sliders>
- 			<slider name="speed" min="0" max="5"></slider>
+ 			<slider name="speed" min="1" max="5"></slider>
  		</sliders>
  		<elements>
 			<element>LinearMovement</element>

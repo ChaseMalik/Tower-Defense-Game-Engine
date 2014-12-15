@@ -2,7 +2,6 @@ package gameEngine.actors;
 
 import gameEngine.actors.behaviors.BaseMovementBehavior;
 import gameEngine.actors.behaviors.IBehavior;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,8 +23,6 @@ public class BaseProjectile extends BaseActor{
         myInfo=info;
         myImagePath=info.getImage();
         myTypes=new HashSet<>();
-  
-        myEffects=new HashSet<>();
         makeNode();
         myNode.setVisible(false);
         Map<String, IBehavior> behaviors=new HashMap<>();
@@ -34,7 +31,7 @@ public class BaseProjectile extends BaseActor{
     }
     @Override
     protected int[] getSize () {
-        return new int[]{10,10};
+        return new int[]{15,15};
     }
 
     public void setMove(BaseMovementBehavior move){
