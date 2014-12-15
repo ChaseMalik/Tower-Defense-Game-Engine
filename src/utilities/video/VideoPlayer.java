@@ -135,6 +135,7 @@ class VideoPlayer extends BorderPane {
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
         VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, myVolumeSlider));
         myMediaBar.getChildren().add(myVolumeSlider);
+//        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT), myVolumeSlider);
     }
 
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
