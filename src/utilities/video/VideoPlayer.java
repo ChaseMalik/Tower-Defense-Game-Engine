@@ -67,7 +67,6 @@ class VideoPlayer extends BorderPane {
         defineMediaPlayerBehavior(player, PLAY_BUTTON);
     }
 
-    //done
     private void createMediaPlayer (final MediaPlayer player) {
         myMediaPlayer = player;
         setStyle(MEDIA_PLAYER_BACKGROUND_COLOR);
@@ -78,7 +77,6 @@ class VideoPlayer extends BorderPane {
         setCenter(moviePane);
     }
 
-    //done
     private void defineMediaBarBehavior () {
         myMediaBar = new HBox();
         setBottom(myMediaBar);
@@ -86,7 +84,6 @@ class VideoPlayer extends BorderPane {
         myMediaBar.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
     }
 
-    //done
     private void createAndDefineVisualComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
         button.setOnAction(event->playOrPause(player));
@@ -115,14 +112,12 @@ class VideoPlayer extends BorderPane {
         }
     }
 
-    //done
     private void bindPlayerAndSliderTimes (final MediaPlayer player) {
         if (myTimeSlider.isValueChanging()) {
             player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
         }
     }
 
-    //done
     private void createAndDefineAudioComponents (final MediaPlayer player) {
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
         VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
@@ -134,7 +129,6 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().addAll(new Label(VOLUME_LABEL_TEXT), VOLUME_SLIDER);
     }
 
-    //done
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
         if (player.isMute()) {
             player.setMute(false);
@@ -148,16 +142,14 @@ class VideoPlayer extends BorderPane {
         }
     }
 
-    //done
     private void defineMediaPlayerBehavior (final MediaPlayer player, final Button button) {
         player.setCycleCount(myVideoWillReplay ? MediaPlayer.INDEFINITE : 1);
-        player.setOnPlaying(()->playOrPause(player, button));
-        player.setOnPaused(()->playOrPause(player, button));
+        player.setOnPlaying(()->checkPlayerStatus(player, button));
+        player.setOnPaused(()->checkPlayerStatus(player, button));
         player.setOnReady(()->runOnReady(player));
     }
 
-    //done
-    private void playOrPause (final MediaPlayer player, final Button button) {
+    private void checkPlayerStatus (final MediaPlayer player, final Button button) {
         Status status = player.getStatus();
         if (status == Status.HALTED || status == Status.PAUSED || status == Status.STOPPED) {
             player.pause();
@@ -169,34 +161,32 @@ class VideoPlayer extends BorderPane {
         }
     }
 
-    //done
     private void runOnReady (final MediaPlayer player) {
         myDuration = player.getMedia().getDuration();
         updateValues();
     }
 
     private void updateValues () {
-        Platform.runLater(new Runnable() {
-            public void run () {
-                Duration currentTime = myMediaPlayer.getCurrentTime();
-                myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
-                myTimeSlider.setDisable(myDuration.isUnknown());
-
-                boolean durationValid = myDuration.greaterThan(Duration.ZERO) ? true : false;
-                boolean sliderActive = !myTimeSlider.isDisabled() ? true : false;
-                boolean sliderValueChanging = !myTimeSlider.isValueChanging() ? true : false;
-
-                if (durationValid && sliderActive && sliderValueChanging) {
-                    double duration = myDuration.toMillis();
-                    double doubleTime = currentTime.divide(duration).toMillis();
-                    double timeSliderValue = doubleTime * DOUBLE_CONVERT;
-                    myTimeSlider.setValue(timeSliderValue);
-                }
-            }
-        });
+        Platform.runLater(()->verifyValues());
     }
 
-    //done
+    private void verifyValues () {
+        Duration currentTime = myMediaPlayer.getCurrentTime();
+        myTimeLabel.setText(calculateElapsedTime(currentTime, myDuration));
+        myTimeSlider.setDisable(myDuration.isUnknown());
+
+        boolean durationValid = myDuration.greaterThan(Duration.ZERO) ? true : false;
+        boolean sliderActive = !myTimeSlider.isDisabled() ? true : false;
+        boolean sliderValueChanging = !myTimeSlider.isValueChanging() ? true : false;
+
+        if (durationValid && sliderActive && sliderValueChanging) {
+            double duration = myDuration.toMillis();
+            double doubleTime = currentTime.divide(duration).toMillis();
+            double timeSliderValue = doubleTime * DOUBLE_CONVERT;
+            myTimeSlider.setValue(timeSliderValue);
+        }
+    }
+
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
         int seconds = (int)Math.floor(elapsed.toSeconds());
 
@@ -208,7 +198,6 @@ class VideoPlayer extends BorderPane {
         return formatTime(videoDuration, hours, minutes, seconds);
     }
 
-    //done
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
         int seconds = (int)Math.floor(duration.toSeconds()) + 5000;
 
