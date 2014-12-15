@@ -24,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 /**
  * 
@@ -66,7 +65,7 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 		String propertiesPath = GuiConstants.GUI_ELEMENT_PROPERTIES_PATH + myPropertiesPath+this.getClass().getSimpleName()+".XML";
 		myParser = new XMLParser(new File(propertiesPath)); 
 
-		Dimension2D mySize = makeDim(containerSize, "SizeRatio");
+		Dimension2D mySize = makeDim(containerSize, UpgradeConstants.SIZE_TAG);
 		this.setPrefSize(mySize.getWidth(), mySize.getHeight());
 
 		makePanelItems(mySize);	
@@ -85,9 +84,9 @@ public class TowerUpgradePanel extends Pane implements GuiItem {
 	 */
 
 	private void makePanelItems(Dimension2D mySize) {
-		Dimension2D myIconSize = makeDim(mySize, "IconSizeRatio");
-		Dimension2D myButtonSize = makeDim(mySize, "ButtonSizeRatio");
-		Dimension2D myLabelSize = makeDim(mySize, "LabelRatio");
+		Dimension2D myIconSize = makeDim(mySize, UpgradeConstants.ICON_TAG);
+		Dimension2D myButtonSize = makeDim(mySize, UpgradeConstants.BUTTON_TAG);
+		Dimension2D myLabelSize = makeDim(mySize, UpgradeConstants.LABEL_TAG);
 
 		UpgradePanelItem myIcon = new TowerIcon(myIconSize);
 		UpgradePanelItem myName = new NameLabel(myLabelSize);
