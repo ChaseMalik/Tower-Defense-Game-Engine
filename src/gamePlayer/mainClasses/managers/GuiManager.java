@@ -295,7 +295,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 
 	@Override
 	public boolean upgradeTower(ImageView imageView) {
-		String upgradeName = myEngineManager.getTowerName(imageView);
+		String towerName = myEngineManager.getTowerName(imageView);
+		String upgradeName = towerMap.get(towerName).getMyUpgrade().getName();
 		if (!interactionAllowed) return false;
 		if (upgradeName.equals(NO_UPGRADE)){
 			displayMessage(NO_UPGRADE, true);

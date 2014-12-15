@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.towerUpgrade;
+package gamePlayer.guiItems.towerUpgrade.panelItems;
 
 import gameEngine.Data.TowerInfoObject;
 import javafx.event.ActionEvent;
@@ -7,11 +7,9 @@ import javafx.geometry.Dimension2D;
 
 public class NameLabel extends BackgroundLabel implements UpgradePanelItem {
 
-	private EventHandler<ActionEvent> myHandler;
-
 	public NameLabel(Dimension2D labelSize, String imagePath, EventHandler<ActionEvent> handler) {
 		super("", labelSize, imagePath);
-		myHandler = handler;
+		this.wrapTextProperty().set(true);
 	}
 
 	@Override

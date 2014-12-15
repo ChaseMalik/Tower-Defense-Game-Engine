@@ -1,10 +1,11 @@
-package gamePlayer.guiItems.towerUpgrade;
+package gamePlayer.guiItems.towerUpgrade.panelItems;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import utilities.JavaFXutilities.BackgroundFromPath;
+import utilities.JavaFXutilities.StandardBorder;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

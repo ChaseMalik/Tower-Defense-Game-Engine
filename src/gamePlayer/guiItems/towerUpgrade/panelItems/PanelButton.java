@@ -1,7 +1,8 @@
-package gamePlayer.guiItems.towerUpgrade;
+package gamePlayer.guiItems.towerUpgrade.panelItems;
 
 import gameEngine.Data.TowerInfoObject;
 import utilities.JavaFXutilities.BackgroundFromPath;
+import utilities.JavaFXutilities.StandardBorder;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;

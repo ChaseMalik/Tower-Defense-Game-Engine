@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.towerUpgrade;
+package utilities.JavaFXutilities;
 
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;

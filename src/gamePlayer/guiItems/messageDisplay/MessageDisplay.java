@@ -2,10 +2,10 @@ package gamePlayer.guiItems.messageDisplay;
 
 import java.io.File;
 
+import utilities.JavaFXutilities.StandardBorder;
 import utilities.JavaFXutilities.ratioSizing.RatiosToDim;
 import utilities.XMLParsing.XMLParser;
 import gamePlayer.guiItems.GuiItem;
-import gamePlayer.guiItems.towerUpgrade.StandardBorder;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;

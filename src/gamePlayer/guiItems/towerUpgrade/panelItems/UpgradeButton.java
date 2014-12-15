@@ -1,4 +1,4 @@
-package gamePlayer.guiItems.towerUpgrade;
+package gamePlayer.guiItems.towerUpgrade.panelItems;
 
 import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiItemsListeners.UpgradeListener;
@@ -8,22 +8,21 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.paint.Color;
 
 public class UpgradeButton extends PanelButton implements UpgradePanelItem{
-	
-	private EventHandler<ActionEvent> myHandler;
 
 	public static final String UPGRADE_TEXT = "Upgrade to:" + "\n";
+	public static final String COST_TEXT = "\n for ";
 
 	public UpgradeButton(Color borderColor, Dimension2D size, String backgroundPath, EventHandler<ActionEvent> handler) {
 		super(borderColor, size, backgroundPath);
-		myHandler = handler;
-		
+		this.setOnAction(event -> handler.handle(event));
 	}
 
 
 	@Override
 	public void setCurrentTower(TowerInfoObject tower) {
-		this.setText(UPGRADE_TEXT + tower.getMyUpgrade().getName());
-		this.setOnAction(event -> myHandler.handle(event));
+		this.setText(UPGRADE_TEXT + tower.getMyUpgrade().getName()
+				   + COST_TEXT + tower.getMyUpgrade().getBuyCost());
+
 	}
 	
 
