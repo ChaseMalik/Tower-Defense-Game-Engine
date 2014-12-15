@@ -22,6 +22,9 @@ import javafx.util.Duration;
  * can use it with VideoViewer.java to play any video files placed in
  * this package.
  * 
+ * The audio components (player volume level and volume slider value)
+ * are bound together, and the time display 
+ * 
  */
 class VideoPlayer extends BorderPane {
 
@@ -199,7 +202,7 @@ class VideoPlayer extends BorderPane {
     }
 
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
-        int seconds = (int)Math.floor(duration.toSeconds()) + 5000;
+        int seconds = (int)Math.floor(duration.toSeconds());
 
         int hours = seconds / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
         seconds %= MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
