@@ -1,0 +1,10 @@
+<map id="gameEngine.MainEngineManager.removeTower" name="gameEngine.MainEngineManager.removeTower">
+<area shape="rect" id="node2" href="$db/d6c/classgame_engine_1_1_data_1_1_range_restricted_collection.html#a740018a0377ca1fdc643aefb3bf712a0" title="gameEngine.Data.RangeRestricted\lCollection.remove" alt="" coords="349,63,593,105"/>
+<area shape="rect" id="node3" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a80b291e3df09fa199760f6c7b1482638" title="gameEngine.MainEngineManager.set\lTowerTileStatus" alt="" coords="341,129,600,170"/>
+<area shape="rect" id="node4" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#ae877e5334153c4e125fb84bf993587af" title="gameEngine.actors.BaseActor.getNode" alt="" coords="648,5,923,32"/>
+<area shape="rect" id="node5" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#ac3e9c579c0ea0259bf4dd5a0dc7d29b1" title="gameEngine.MainEngineManager.get\lIntersectingTowerTileNode" alt="" coords="656,57,915,98"/>
+<area shape="rect" id="node6" href="$d5/db4/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1tower_regions_1_1_tile.html#afe5b972b91b5f857bfbabd1894a48592" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.towerRegions.\lTile.getRow" alt="" coords="658,121,913,177"/>
+<area shape="rect" id="node7" href="$d5/db4/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1tower_regions_1_1_tile.html#a71f5d493f80cf25cea9276247991294a" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.towerRegions.\lTile.getColumn" alt="" coords="658,201,913,257"/>
+<area shape="rect" id="node8" href="$da/df9/classgame_engine_1_1_data_1_1_tower_tile_grid.html#a367cfa2903c44048ec959bcc546486fe" title="gameEngine.Data.TowerTile\lGrid.setTowerTile" alt="" coords="687,281,884,322"/>
+<area shape="rect" id="node9" href="$da/df9/classgame_engine_1_1_data_1_1_tower_tile_grid.html#a2bcbce6f5009d9adf2d13bc540c36a52" title="gameEngine.Data.TowerTile\lGrid.setChangedStatus" alt="" coords="971,281,1168,322"/>
+</map>

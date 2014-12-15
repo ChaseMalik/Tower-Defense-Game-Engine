@@ -1,0 +1,8 @@
+<map id="gamePlayer.guiItems.voogaMenuBar.VoogaMenuBar.initializeMenus" name="gamePlayer.guiItems.voogaMenuBar.VoogaMenuBar.initializeMenus">
+<area shape="rect" id="node2" href="$da/dea/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_bar.html#aff0427df3f2b14fa6212b08d5549ca56" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuBar.createMenu" alt="" coords="328,66,587,107"/>
+<area shape="rect" id="node6" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a6bc704aa624d0bc11d5f18717ef5842a" title="utilities.multilanguage.\lMultiLanguageUtility.getString\lProperty" alt="" coords="351,131,563,187"/>
+<area shape="rect" id="node3" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="637,5,875,46"/>
+<area shape="rect" id="node5" href="$d2/dbe/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_item.html#adefa8c037c5ddfba536b8af439e50c13" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuItem.initialize" alt="" coords="635,70,877,111"/>
+<area shape="rect" id="node4" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="925,5,1163,46"/>
+<area shape="rect" id="node7" href="$dc/d2e/classutilities_1_1multilanguage_1_1_multi_language_utility.html#a124b4a760f410841ecc50dd4b16e40bb" title="utilities.multilanguage.\lMultiLanguageUtility.getProperty" alt="" coords="642,138,870,179"/>
+</map>

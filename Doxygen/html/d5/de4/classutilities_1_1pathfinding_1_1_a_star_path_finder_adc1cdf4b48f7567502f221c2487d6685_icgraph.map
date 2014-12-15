@@ -1,0 +1,4 @@
+<map id="utilities.pathfinding.AStarPathFinder.getHeuristicValue" name="utilities.pathfinding.AStarPathFinder.getHeuristicValue">
+<area shape="rect" id="node2" href="$d5/de4/classutilities_1_1pathfinding_1_1_a_star_path_finder.html#a374f2fdb05237dc453298e246c88c9c0" title="utilities.pathfinding.AStar\lPathFinder\&lt; Point2D \&gt;::findPath" alt="" coords="273,5,500,46"/>
+<area shape="rect" id="node3" href="$d5/de4/classutilities_1_1pathfinding_1_1_a_star_path_finder.html#ae09b905df7e5cc25af879984a290e174" title="utilities.pathfinding.AStar\lPathFinder\&lt; Point2D \&gt;::getAndCheck\lHeuristicValue" alt="" coords="256,69,517,125"/>
+</map>

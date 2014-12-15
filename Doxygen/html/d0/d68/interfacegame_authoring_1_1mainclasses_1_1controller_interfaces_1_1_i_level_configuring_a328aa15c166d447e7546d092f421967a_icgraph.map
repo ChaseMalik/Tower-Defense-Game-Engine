@@ -1,0 +1,4 @@
+<map id="gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring.getBackgroundImagePath" name="gameAuthoring.mainclasses.controllerInterfaces.ILevelConfiguring.getBackgroundImagePath">
+<area shape="rect" id="node2" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#affaf4a44d8924869a3f5c38c2cacebf5" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.setup\lLevelDisplay" alt="" coords="353,4,591,60"/>
+<area shape="rect" id="node3" href="$d4/d5e/classgame_authoring_1_1scenes_1_1level_building_1_1_level_building_scene.html#a8b556e86b4aef6b87a1be44f901cec69" title="gameAuthoring.scenes.level\lBuilding.LevelBuildingScene.Level\lBuildingScene" alt="" coords="641,4,877,60"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.ComponentVisibilityPane.executeExitFunction" name="gameAuthoring.scenes.pathBuilding.buildingPanes.ComponentVisibilityPane.executeExitFunction">
+<area shape="rect" id="node2" href="$d1/d65/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1_path.html#abc157365887356e62820ada65bf18002" title="gameAuthoring.scenes.path\lBuilding.pathComponents.Path.get\lAllPathComponents" alt="" coords="587,5,831,61"/>
+<area shape="rect" id="node3" href="$d6/d64/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_component_visibility_pane.html#adb4f5d60e71fb3655974fbd8655675a8" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.Component\lVisibilityPane.removeListeners" alt="" coords="296,37,539,93"/>
+</map>

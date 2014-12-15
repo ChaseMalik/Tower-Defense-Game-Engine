@@ -1,0 +1,5 @@
+<map id="gameAuthoring.scenes.levelBuilding.LevelDisplayCell.isUserInputValid" name="gameAuthoring.scenes.levelBuilding.LevelDisplayCell.isUserInputValid">
+<area shape="rect" id="node2" href="$dc/dc4/classutilities_1_1_java_f_xutilities_1_1numerical_text_fields_1_1_numerical_text_field.html#a9845b092d6d88a4a2322ee2394eab870" title="utilities.JavaFXutilities.numerical\lTextFields.NumericalTextField.getNumber" alt="" coords="579,42,861,83"/>
+<area shape="rect" id="node3" href="$da/d10/classgame_authoring_1_1scenes_1_1level_building_1_1_level_display_cell.html#a3004b9549ce4f7842d9bbf2c8d766ac9" title="gameAuthoring.scenes.level\lBuilding.LevelDisplayCell.isAll\lEnemyFieldsValid" alt="" coords="301,26,507,82"/>
+<area shape="rect" id="node4" href="$dc/dc4/classutilities_1_1_java_f_xutilities_1_1numerical_text_fields_1_1_numerical_text_field.html#a93ab2c03308370bacb4cf17917e23d5f" title="utilities.JavaFXutilities.numerical\lTextFields.NumericalTextField.isValue\lEntered" alt="" coords="277,106,531,162"/>
+</map>

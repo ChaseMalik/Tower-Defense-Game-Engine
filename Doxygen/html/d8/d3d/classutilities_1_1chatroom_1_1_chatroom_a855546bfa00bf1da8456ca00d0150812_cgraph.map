@@ -1,0 +1,6 @@
+<map id="utilities.chatroom.Chatroom.Chatroom" name="utilities.chatroom.Chatroom.Chatroom">
+<area shape="rect" id="node2" href="$d8/d3d/classutilities_1_1chatroom_1_1_chatroom.html#a9e80da8b6ffa22b2d10456d2ac8d7e38" title="utilities.chatroom.Chatroom.setup\lAndBeginMessageRequests" alt="" coords="259,5,501,46"/>
+<area shape="rect" id="node5" href="$d8/d3d/classutilities_1_1chatroom_1_1_chatroom.html#a1b1f459f3003bf238e4a51ce7976b063" title="utilities.chatroom.Chatroom.setup\lChatroomGraphics" alt="" coords="259,70,501,111"/>
+<area shape="rect" id="node3" href="$d8/d3d/classutilities_1_1chatroom_1_1_chatroom.html#a5c79dfde3501ea11d5eee4beff7bae0f" title="utilities.chatroom.Chatroom.poll\lServerForMessages" alt="" coords="549,5,776,46"/>
+<area shape="rect" id="node4" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html#a83fe2ca04deb090dbffa9b9ab2e44a3e" title="utilities.networking.HTTPConnection.sendGet" alt="" coords="824,12,1131,39"/>
+</map>

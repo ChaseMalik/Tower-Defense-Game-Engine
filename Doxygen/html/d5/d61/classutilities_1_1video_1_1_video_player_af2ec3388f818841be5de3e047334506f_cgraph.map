@@ -1,0 +1,11 @@
+<map id="utilities.video.VideoPlayer.VideoPlayer" name="utilities.video.VideoPlayer.VideoPlayer">
+<area shape="rect" id="node2" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a76240f327211c97ece546c1606366527" title="utilities.video.VideoPlayer.create\lAndDefineTimeComponents" alt="" coords="241,5,469,46"/>
+<area shape="rect" id="node3" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#ad9a5af70e91e0c6f35021edd591cba3e" title="utilities.video.VideoPlayer.create\lAndDefineVolumeComponents" alt="" coords="241,70,469,111"/>
+<area shape="rect" id="node4" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a57d1511a37e791b051e39492d7e6f8a4" title="utilities.video.VideoPlayer.create\lMediaPlayer" alt="" coords="241,135,469,177"/>
+<area shape="rect" id="node5" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a690bf4371fab807f9900278097dcdeb8" title="utilities.video.VideoPlayer.define\lMediaBarBehavior" alt="" coords="241,201,468,242"/>
+<area shape="rect" id="node6" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a1cdbc16be0c66f130cf9e1ea06176602" title="utilities.video.VideoPlayer.define\lMediaPlayerBehavior" alt="" coords="241,266,468,307"/>
+<area shape="rect" id="node10" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a48642adc909d4b5d62156f3235a698c0" title="utilities.video.VideoPlayer.define\lPlayButtonBehavior" alt="" coords="241,331,468,373"/>
+<area shape="rect" id="node7" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#ab66a43d9c5751156c47595d65b3488fe" title="utilities.video.VideoPlayer.update\lValues" alt="" coords="517,299,749,341"/>
+<area shape="rect" id="node8" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#a213728c181f9c56cb9979d9fc92b2df6" title="utilities.video.VideoPlayer.calculate\lElapsedTime" alt="" coords="798,299,1042,341"/>
+<area shape="rect" id="node9" href="$d5/d61/classutilities_1_1video_1_1_video_player.html#ad2d2aeeafedc99d6344df4e126f1553e" title="utilities.video.VideoPlayer.formatTime" alt="" coords="1091,307,1352,333"/>
+</map>

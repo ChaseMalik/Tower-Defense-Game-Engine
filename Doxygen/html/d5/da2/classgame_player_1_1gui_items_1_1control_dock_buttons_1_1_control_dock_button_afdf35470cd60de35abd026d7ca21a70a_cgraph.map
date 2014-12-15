@@ -1,0 +1,6 @@
+<map id="gamePlayer.guiItems.controlDockButtons.ControlDockButton.setUpSizing" name="gamePlayer.guiItems.controlDockButtons.ControlDockButton.setUpSizing">
+<area shape="rect" id="node2" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#aac8c276e1fe06546bb4cc6488dd15047" title="utilities.XMLParsing.XMLParser.get\lDimension" alt="" coords="307,11,544,53"/>
+<area shape="rect" id="node3" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a159b395412a8ce61e6decfefc9ed9854" title="utilities.XMLParsing.XMLParser.get\lDoubleValuesFromTag" alt="" coords="592,11,829,53"/>
+<area shape="rect" id="node4" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="877,11,1115,53"/>
+<area shape="rect" id="node5" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="1163,11,1400,53"/>
+</map>

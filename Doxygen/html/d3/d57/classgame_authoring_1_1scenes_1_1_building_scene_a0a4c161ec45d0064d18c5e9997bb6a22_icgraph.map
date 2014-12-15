@@ -1,0 +1,11 @@
+<map id="gameAuthoring.scenes.BuildingScene.getTitle" name="gameAuthoring.scenes.BuildingScene.getTitle">
+<area shape="rect" id="node2" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a91f790fde3a8af19e3308cac96d4dc23" title="gameAuthoring.mainclasses.\lAuthorController.setSceneAndTitle" alt="" coords="278,103,519,145"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a186f2328add62d4efb4152295884e005" title="gameAuthoring.mainclasses.\lAuthorController.showEnemyBuildingScene" alt="" coords="568,5,864,46"/>
+<area shape="rect" id="node5" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#ade2c0b5aaad7029da07a3dadb4b81b9f" title="gameAuthoring.mainclasses.\lAuthorController.showLevelBuildingScene" alt="" coords="573,70,859,111"/>
+<area shape="rect" id="node7" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#afac5b3fff2c9c3bc5b13dfb7b55c4a1f" title="gameAuthoring.mainclasses.\lAuthorController.showPathBuildingScene" alt="" coords="576,135,856,177"/>
+<area shape="rect" id="node9" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a69b7c2c54299394c733f2671a8d38399" title="gameAuthoring.mainclasses.\lAuthorController.showTowerBuildingScene" alt="" coords="573,201,859,242"/>
+<area shape="rect" id="node4" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a2bef83166256e4f814582d40095658fd" title="gameAuthoring.mainclasses.\lAuthorController.configurePath" alt="" coords="926,5,1143,46"/>
+<area shape="rect" id="node6" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a911d32420a0c728c7c53ef379eb148aa" title="gameAuthoring.mainclasses.\lAuthorController.configureTowers" alt="" coords="919,70,1150,111"/>
+<area shape="rect" id="node8" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a378aae96cc690d703e78b8db42af3dec" title="gameAuthoring.mainclasses.\lAuthorController.makeDirectory" alt="" coords="923,135,1147,177"/>
+<area shape="rect" id="node10" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a666091b7eb066236e85d52942088c3d5" title="gameAuthoring.mainclasses.\lAuthorController.configureEnemies" alt="" coords="913,201,1157,242"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="gameEngine.actors.BaseActor.makeNode" name="gameEngine.actors.BaseActor.makeNode">
+<area shape="rect" id="node2" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="347,5,608,61"/>
+<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#aa62f6dc2982420c08f2d1d30a9f3838a" title="gameEngine.actors.BaseActor.getSize" alt="" coords="344,85,611,112"/>
+<area shape="rect" id="node4" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a4df6d41d08c4c4a5c530290c736926f2" title="utilities.JavaFXutilities.image\lView.CenteredImageView.setXCenter" alt="" coords="350,137,605,178"/>
+<area shape="rect" id="node5" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a2bcbaa8cc681ef2663182084f742d29d" title="utilities.JavaFXutilities.image\lView.CenteredImageView.setYCenter" alt="" coords="350,202,605,243"/>
+</map>

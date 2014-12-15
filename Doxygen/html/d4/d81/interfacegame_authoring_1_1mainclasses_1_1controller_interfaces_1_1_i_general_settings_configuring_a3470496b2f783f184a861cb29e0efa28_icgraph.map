@@ -1,0 +1,6 @@
+<map id="gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring.makeDirectory" name="gameAuthoring.mainclasses.controllerInterfaces.IGeneralSettingsConfiguring.makeDirectory">
+<area shape="rect" id="node2" href="$d4/d4e/classgame_authoring_1_1scenes_1_1_general_setting_scene.html#a617e6b5af6f393494c7f4c4668e62af9" title="gameAuthoring.scenes.General\lSettingScene.handleButtonClick" alt="" coords="360,13,587,54"/>
+<area shape="rect" id="node3" href="$d4/d4e/classgame_authoring_1_1scenes_1_1_general_setting_scene.html#a9282c877dfdbca9fc95ae068ddcc45c4" title="gameAuthoring.scenes.General\lSettingScene.createNextButton" alt="" coords="635,13,861,54"/>
+<area shape="rect" id="node4" href="$d4/d4e/classgame_authoring_1_1scenes_1_1_general_setting_scene.html#ab5d7d1efd2c3cecbebf9db0a99d05ab8" title="gameAuthoring.scenes.General\lSettingScene.GeneralSettingScene" alt="" coords="1181,13,1429,54"/>
+<area shape="rect" id="node5" href="$d4/d4e/classgame_authoring_1_1scenes_1_1_general_setting_scene.html#af02688df88ba8091f244385b1344ccad" title="gameAuthoring.scenes.General\lSettingScene.createOptions" alt="" coords="909,42,1133,83"/>
+</map>

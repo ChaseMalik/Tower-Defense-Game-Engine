@@ -1,0 +1,7 @@
+<map id="gamePlayer.mainClasses.managers.GuiManager.validPlacement" name="gamePlayer.mainClasses.managers.GuiManager.validPlacement">
+<area shape="rect" id="node2" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a10670d3648daa0238e78318ee4fe5951" title="gamePlayer.guiFeatures.Tower\lPlacer.validPlacement" alt="" coords="310,38,525,79"/>
+<area shape="rect" id="node3" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#ac768c9b3c4bb29f9555739e8e821b061" title="gamePlayer.guiFeatures.Tower\lPlacer.drag" alt="" coords="574,5,789,46"/>
+<area shape="rect" id="node6" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a8a56e5205e61a12602015f880e47070c" title="gamePlayer.guiFeatures.Tower\lPlacer.drop" alt="" coords="574,70,789,111"/>
+<area shape="rect" id="node4" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a2798d82694ca4f2a02b48f9516f0cd1b" title="gamePlayer.guiFeatures.Tower\lPlacer.placeItem" alt="" coords="838,38,1053,79"/>
+<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae90e338dc9959e32627518bde3fdf2ff" title="gamePlayer.mainClasses.managers.\lGuiManager.placeTower" alt="" coords="1102,38,1357,79"/>
+</map>

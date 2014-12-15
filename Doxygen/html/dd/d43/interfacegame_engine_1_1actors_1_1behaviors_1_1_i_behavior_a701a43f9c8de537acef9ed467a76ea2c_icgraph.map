@@ -1,0 +1,8 @@
+<map id="gameEngine.actors.behaviors.IBehavior.copy" name="gameEngine.actors.behaviors.IBehavior.copy">
+<area shape="rect" id="node2" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#a6bc3b52780cbbf1aa200848b577dab33" title="gameEngine.actors.Projectile\lInfo.copy" alt="" coords="537,5,745,46"/>
+<area shape="rect" id="node5" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#adca48e093a239d0fbaa2d7bc3b648f09" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.gotHit" alt="" coords="269,99,485,141"/>
+<area shape="rect" id="node7" href="$d8/d65/classgame_engine_1_1actors_1_1_projectile_info.html#a54583f7736ac511b1aae0cacbb6ebf01" title="gameEngine.actors.Projectile\lInfo.ProjectileInfo" alt="" coords="273,34,481,75"/>
+<area shape="rect" id="node3" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#ad01ed9c7d2605735948e6a8b0d1a9485" title="gameEngine.actors.behaviors.\lRangeAttack.shootActorFromActor" alt="" coords="797,5,1040,46"/>
+<area shape="rect" id="node4" href="$d9/d41/classgame_engine_1_1actors_1_1behaviors_1_1_range_attack.html#adce033b0e318665ad52cde7c985b8538" title="gameEngine.actors.behaviors.\lRangeAttack.performAttack" alt="" coords="1088,5,1304,46"/>
+<area shape="rect" id="node6" href="$de/dcd/classgame_engine_1_1actors_1_1behaviors_1_1_base_defend_behavior.html#a9c4d907d4daabdcbf4706ebd765eb4d3" title="gameEngine.actors.behaviors.\lBaseDefendBehavior.execute" alt="" coords="533,99,749,141"/>
+</map>

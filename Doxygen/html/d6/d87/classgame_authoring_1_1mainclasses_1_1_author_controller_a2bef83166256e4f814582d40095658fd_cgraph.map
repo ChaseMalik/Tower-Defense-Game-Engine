@@ -1,0 +1,7 @@
+<map id="gameAuthoring.mainclasses.AuthorController.configurePath" name="gameAuthoring.mainclasses.AuthorController.configurePath">
+<area shape="rect" id="node2" href="$d8/dc4/classgame_authoring_1_1scenes_1_1path_building_1_1path_components_1_1route_to_point_translation_1_1_backend_routes_generator.html#a3d1d0aa9b9bd76641d45856238273f4b" title="gameAuthoring.scenes.path\lBuilding.pathComponents.routeTo\lPointTranslation.BackendRoutesGenerator.get\lBackendRoutes" alt="" coords="273,5,586,75"/>
+<area shape="rect" id="node3" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a186f2328add62d4efb4152295884e005" title="gameAuthoring.mainclasses.\lAuthorController.showEnemyBuildingScene" alt="" coords="281,99,577,141"/>
+<area shape="rect" id="node4" href="$d6/d87/classgame_authoring_1_1mainclasses_1_1_author_controller.html#a91f790fde3a8af19e3308cac96d4dc23" title="gameAuthoring.mainclasses.\lAuthorController.setSceneAndTitle" alt="" coords="635,99,877,141"/>
+<area shape="rect" id="node5" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#adc8d9b19ad9462a9a8e6ab8a82f7bf3a" title="gameAuthoring.scenes.Building\lScene.getScene" alt="" coords="925,66,1149,107"/>
+<area shape="rect" id="node6" href="$d3/d57/classgame_authoring_1_1scenes_1_1_building_scene.html#a0a4c161ec45d0064d18c5e9997bb6a22" title="gameAuthoring.scenes.Building\lScene.getTitle" alt="" coords="925,131,1149,173"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="gamePlayer.unusedCodeWarehouse.guiItems.store.StoreItemCell.buyItem" name="gamePlayer.unusedCodeWarehouse.guiItems.store.StoreItemCell.buyItem">
+<area shape="rect" id="node2" href="$d0/d33/classgame_player_1_1unused_code_warehouse_1_1gui_items_1_1store_1_1_store_item_cell.html#a61cdb981e8817442396e5b5f2411af16" title="gamePlayer.unusedCodeWarehouse.gui\lItems.store.StoreItemCell.initialize" alt="" coords="328,5,603,46"/>
+<area shape="rect" id="node3" href="$d4/d4f/classgame_player_1_1tests_1_1_gui_item_tester.html#a2293828b32563e3fb3ea6bece96bf4be" title="gamePlayer.tests.GuiItem\lTester.buildComponent" alt="" coords="651,5,837,46"/>
+<area shape="rect" id="node4" href="$d4/d4f/classgame_player_1_1tests_1_1_gui_item_tester.html#a514af8bbe33c8891df97edc7ca7519d8" title="gamePlayer.tests.GuiItem\lTester.start" alt="" coords="885,5,1072,46"/>
+</map>

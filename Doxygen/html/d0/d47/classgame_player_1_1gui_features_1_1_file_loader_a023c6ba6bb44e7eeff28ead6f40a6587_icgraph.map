@@ -1,0 +1,8 @@
+<map id="gamePlayer.guiFeatures.FileLoader.FileLoader" name="gamePlayer.guiFeatures.FileLoader.FileLoader">
+<area shape="rect" id="node2" href="$d0/d47/classgame_player_1_1gui_features_1_1_file_loader.html#af9bf84f005d9d6734a650f1d38237dda" title="gamePlayer.guiFeatures.File\lLoader.getInstance" alt="" coords="254,103,453,145"/>
+<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a287842e1d39b7ecf2e13befeeafa1a7b" title="gamePlayer.mainClasses.managers.\lGuiManager.loadGame" alt="" coords="502,5,757,46"/>
+<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a3c6a6b6581cd16f2c9e702ce936c217b" title="gamePlayer.mainClasses.managers.\lGuiManager.loadState" alt="" coords="502,70,757,111"/>
+<area shape="rect" id="node5" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#abc8fba7da6bc48fc13a656d9b0658b11" title="gamePlayer.mainClasses.managers.\lGuiManager.saveGame" alt="" coords="502,135,757,177"/>
+<area shape="rect" id="node6" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a88fc9dbbb49ae2c8c56612297174961c" title="gamePlayer.mainClasses.managers.\lGuiManager.changeTheme" alt="" coords="502,201,757,242"/>
+<area shape="rect" id="node7" href="$d0/de6/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1menu_items_1_1_change_theme_menu_item.html#ad492dccdaadf2dc3ed098d28b959eb91" title="gamePlayer.guiItems.vooga\lMenuBar.menuItems.ChangeThemeMenu\lItem.initialize" alt="" coords="806,193,1093,249"/>
+</map>

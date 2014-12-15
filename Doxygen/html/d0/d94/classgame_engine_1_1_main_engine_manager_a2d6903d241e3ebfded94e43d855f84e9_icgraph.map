@@ -1,0 +1,9 @@
+<map id="gameEngine.MainEngineManager.listCollidesWith" name="gameEngine.MainEngineManager.listCollidesWith">
+<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a0df1000af70082b96b286adf21e84a8e" title="gameEngine.MainEngineManager.validate\lTower" alt="" coords="309,38,597,79"/>
+<area shape="rect" id="node3" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ab9444687dde4ba3763273b1029bae12b" title="gamePlayer.mainClasses.managers.\lGuiManager.validPlacement" alt="" coords="646,38,901,79"/>
+<area shape="rect" id="node4" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a10670d3648daa0238e78318ee4fe5951" title="gamePlayer.guiFeatures.Tower\lPlacer.validPlacement" alt="" coords="950,38,1165,79"/>
+<area shape="rect" id="node5" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#ac768c9b3c4bb29f9555739e8e821b061" title="gamePlayer.guiFeatures.Tower\lPlacer.drag" alt="" coords="1214,5,1429,46"/>
+<area shape="rect" id="node8" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a8a56e5205e61a12602015f880e47070c" title="gamePlayer.guiFeatures.Tower\lPlacer.drop" alt="" coords="1214,70,1429,111"/>
+<area shape="rect" id="node6" href="$db/d6b/classgame_player_1_1gui_features_1_1_tower_placer.html#a2798d82694ca4f2a02b48f9516f0cd1b" title="gamePlayer.guiFeatures.Tower\lPlacer.placeItem" alt="" coords="1478,38,1693,79"/>
+<area shape="rect" id="node7" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ae90e338dc9959e32627518bde3fdf2ff" title="gamePlayer.mainClasses.managers.\lGuiManager.placeTower" alt="" coords="1742,38,1997,79"/>
+</map>

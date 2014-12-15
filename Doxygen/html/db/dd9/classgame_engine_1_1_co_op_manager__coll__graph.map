@@ -1,0 +1,14 @@
+<map id="gameEngine.CoOpManager" name="gameEngine.CoOpManager">
+<area shape="rect" id="node2" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html" title="gameEngine.MainEngineManager" alt="" coords="1209,544,1444,571"/>
+<area shape="rect" id="node4" href="$db/ddb/interfacegame_engine_1_1_manager_interface_1_1_update_interface.html" title="gameEngine.ManagerInterface.\lUpdateInterface" alt="" coords="751,57,974,98"/>
+<area shape="rect" id="node5" href="$d2/d81/interfacegame_engine_1_1_manager_interface_1_1_information_interface.html" title="gameEngine.ManagerInterface.\lInformationInterface" alt="" coords="751,122,974,163"/>
+<area shape="rect" id="node8" href="$db/d6c/classgame_engine_1_1_data_1_1_range_restricted_collection.html" title="gameEngine.Data.RangeRestricted\lCollection\&lt; gameEngine.actors.Base\lTower \&gt;" alt="" coords="733,304,992,360"/>
+<area shape="rect" id="node11" href="$d3/d3e/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_writer.html" title="utilities.GSON.GSONFileWriter" alt="" coords="758,515,967,541"/>
+<area shape="rect" id="node15" href="$d5/db4/classutilities_1_1_g_s_o_n_1_1_g_s_o_n_file_reader.html" title="utilities.GSON.GSONFileReader" alt="" coords="754,773,971,800"/>
+<area shape="rect" id="node14" href="$db/d6c/classgame_engine_1_1_data_1_1_range_restricted_collection.html" title="gameEngine.Data.RangeRestricted\lCollection\&lt; gameEngine.actors.Base\lProjectile \&gt;" alt="" coords="733,631,992,687"/>
+<area shape="rect" id="node16" href="$d2/d25/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_general_settings_wrapper.html" title="utilities.GSON.objectWrappers.\lGeneralSettingsWrapper" alt="" coords="337,839,553,881"/>
+<area shape="rect" id="node19" href="$d8/d32/classutilities_1_1_g_s_o_n_1_1object_wrappers_1_1_game_state_wrapper.html" title="utilities.GSON.objectWrappers.\lGameStateWrapper" alt="" coords="337,905,553,946"/>
+<area shape="rect" id="node21" href="$db/d6c/classgame_engine_1_1_data_1_1_range_restricted_collection.html" title="gameEngine.Data.RangeRestricted\lCollection\&lt; gameEngine.actors.Base\lEnemy \&gt;" alt="" coords="733,824,992,880"/>
+<area shape="rect" id="node23" href="$da/df9/classgame_engine_1_1_data_1_1_tower_tile_grid.html" title="gameEngine.Data.TowerTileGrid" alt="" coords="751,955,974,981"/>
+<area shape="rect" id="node27" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html" title="utilities.networking.HTTPConnection" alt="" coords="1203,645,1451,672"/>
+</map>

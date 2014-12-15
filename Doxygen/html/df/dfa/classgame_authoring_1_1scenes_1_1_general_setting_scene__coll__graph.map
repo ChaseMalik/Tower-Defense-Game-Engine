@@ -1,0 +1,4 @@
+<map id="gameAuthoring.scenes.GeneralSettingScene" name="gameAuthoring.scenes.GeneralSettingScene">
+<area shape="rect" id="node6" href="$dc/dc4/classutilities_1_1_java_f_xutilities_1_1numerical_text_fields_1_1_numerical_text_field.html" title="utilities.JavaFXutilities.numerical\lTextFields.NumericalTextField" alt="" coords="153,179,377,221"/>
+<area shape="rect" id="node8" href="$d4/d81/interfacegame_authoring_1_1mainclasses_1_1controller_interfaces_1_1_i_general_settings_configuring.html" title="gameAuthoring.mainclasses.controller\lInterfaces.IGeneralSettingsConfiguring" alt="" coords="131,347,399,389"/>
+</map>

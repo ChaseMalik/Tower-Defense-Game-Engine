@@ -1,0 +1,6 @@
+<map id="gameEngine.MainEngineManager.isInRangeOfField" name="gameEngine.MainEngineManager.isInRangeOfField">
+<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a2106e623a36a5683759aff1a392c7686" title="gameEngine.actors.BaseActor.getX" alt="" coords="301,16,549,43"/>
+<area shape="rect" id="node4" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a4e1debba2b998a75964fb8c979cb15e8" title="gameEngine.actors.BaseActor.getY" alt="" coords="302,71,549,97"/>
+<area shape="rect" id="node3" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a063a62060b9b686601364fdbb8b6cd86" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getXCenter" alt="" coords="597,5,853,46"/>
+<area shape="rect" id="node5" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#aa05843be4846dc0d9c23489cac21ed3d" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getYCenter" alt="" coords="598,70,853,111"/>
+</map>

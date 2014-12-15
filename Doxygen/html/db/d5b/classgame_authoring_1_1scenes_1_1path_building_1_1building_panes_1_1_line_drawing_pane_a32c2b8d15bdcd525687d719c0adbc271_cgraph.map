@@ -1,0 +1,4 @@
+<map id="gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane.LineDrawingPane" name="gameAuthoring.scenes.pathBuilding.buildingPanes.LineDrawingPane.LineDrawingPane">
+<area shape="rect" id="node2" href="$db/d5b/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_line_drawing_pane.html#ad1ec46030abe0036c10ccb1241d9dd14" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.LineDrawing\lPane.addListeners" alt="" coords="299,4,543,60"/>
+<area shape="rect" id="node3" href="$db/d5b/classgame_authoring_1_1scenes_1_1path_building_1_1building_panes_1_1_line_drawing_pane.html#ac487234df1be2775464acace00cc2eb9" title="gameAuthoring.scenes.path\lBuilding.buildingPanes.LineDrawing\lPane.stretchLineToEndAtCurrentMousePosition" alt="" coords="593,4,911,60"/>
+</map>

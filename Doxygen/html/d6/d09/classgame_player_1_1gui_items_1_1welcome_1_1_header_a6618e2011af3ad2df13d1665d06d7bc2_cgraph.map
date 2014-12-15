@@ -1,0 +1,7 @@
+<map id="gamePlayer.guiItems.welcome.Header.initialize" name="gamePlayer.guiItems.welcome.Header.initialize">
+<area shape="rect" id="node2" href="$d6/d09/classgame_player_1_1gui_items_1_1welcome_1_1_header.html#a07ea05befb6a61af8e3ec6938c499d3d" title="gamePlayer.guiItems.welcome.\lHeader.setupImage" alt="" coords="275,5,495,46"/>
+<area shape="rect" id="node6" href="$d6/d09/classgame_player_1_1gui_items_1_1welcome_1_1_header.html#a0dd69e5d9907b719d083a6c7f5271644" title="gamePlayer.guiItems.welcome.\lHeader.setupPane" alt="" coords="275,70,495,111"/>
+<area shape="rect" id="node3" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="829,5,1067,46"/>
+<area shape="rect" id="node5" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a159b395412a8ce61e6decfefc9ed9854" title="utilities.XMLParsing.XMLParser.get\lDoubleValuesFromTag" alt="" coords="544,34,781,75"/>
+<area shape="rect" id="node4" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="1115,5,1352,46"/>
+</map>

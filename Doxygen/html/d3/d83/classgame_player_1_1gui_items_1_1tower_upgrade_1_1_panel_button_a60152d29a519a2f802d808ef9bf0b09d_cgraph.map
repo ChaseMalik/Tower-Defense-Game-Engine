@@ -1,0 +1,4 @@
+<map id="gamePlayer.guiItems.towerUpgrade.PanelButton.PanelButton" name="gamePlayer.guiItems.towerUpgrade.PanelButton.PanelButton">
+<area shape="rect" id="node2" href="$d3/db3/classgame_player_1_1gui_items_1_1tower_upgrade_1_1_standard_border.html#a63adb818e4839a1fd8a18375f74c3c61" title="gamePlayer.guiItems.tower\lUpgrade.StandardBorder.get" alt="" coords="294,5,501,46"/>
+<area shape="rect" id="node3" href="$d8/d23/classutilities_1_1_java_f_xutilities_1_1_background_from_path.html#a67c29c92eaf23e3d20b720043e8466f4" title="utilities.JavaFXutilities.\lBackgroundFromPath.get" alt="" coords="306,70,489,111"/>
+</map>

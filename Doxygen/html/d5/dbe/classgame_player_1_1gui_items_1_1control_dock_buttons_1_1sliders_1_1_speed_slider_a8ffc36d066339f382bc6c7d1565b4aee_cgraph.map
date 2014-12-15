@@ -1,0 +1,4 @@
+<map id="gamePlayer.guiItems.controlDockButtons.sliders.SpeedSlider.setUpSlider" name="gamePlayer.guiItems.controlDockButtons.sliders.SpeedSlider.setUpSlider">
+<area shape="rect" id="node2" href="$d4/d68/interfacegame_player_1_1gui_items_listeners_1_1_speed_slider_listener.html#a8647df072b5c2b5a6dc4fbc9cd831f3c" title="gamePlayer.guiItemsListeners.\lSpeedSliderListener.changeSpeed" alt="" coords="307,5,549,46"/>
+<area shape="rect" id="node3" href="$d7/d46/classutilities_1_1_java_f_xutilities_1_1slider_1_1_slider_container.html#a469ecb29b057ee7dcaceb6034c36a137" title="utilities.JavaFXutilities.slider.\lSliderContainer.getValueProperty" alt="" coords="311,70,545,111"/>
+</map>

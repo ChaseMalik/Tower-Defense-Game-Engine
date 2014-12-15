@@ -1,0 +1,11 @@
+<map id="gamePlayer.mainClasses.testGameManager.TestGameManager.testLoadingGuiHUD" name="gamePlayer.mainClasses.testGameManager.TestGameManager.testLoadingGuiHUD">
+<area shape="rect" id="node2" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#a6a0e0959c86d6be192dab0aca0dc6aa2" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.setGameStat" alt="" coords="329,5,573,46"/>
+<area shape="rect" id="node4" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#a0f8f5877cb33bb58fc827c2ad673da0f" title="gamePlayer.mainClasses.managers.\lGuiManager.setGameStats" alt="" coords="323,70,578,111"/>
+<area shape="rect" id="node9" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#a288604a4395900eb1f99af7e6d040d4b" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.setStatValue" alt="" coords="331,135,571,177"/>
+<area shape="rect" id="node3" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#abfd86660751e85445800ec598f35c654" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.gameStatProperty" alt="" coords="627,5,903,46"/>
+<area shape="rect" id="node5" href="$d7/da7/classgame_player_1_1gui_items_1_1heads_up_display_1_1_h_u_d.html#a12c92f05f29dd70399bab705dbde1f2f" title="gamePlayer.guiItems.heads\lUpDisplay.HUD.setGameStats" alt="" coords="658,70,873,111"/>
+<area shape="rect" id="node6" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a159b395412a8ce61e6decfefc9ed9854" title="utilities.XMLParsing.XMLParser.get\lDoubleValuesFromTag" alt="" coords="952,70,1189,111"/>
+<area shape="rect" id="node7" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#a70485375200a84f459aa83ffedbea646" title="utilities.XMLParsing.XMLParser.get\lValuesFromTag" alt="" coords="1237,70,1475,111"/>
+<area shape="rect" id="node8" href="$df/db4/classutilities_1_1_x_m_l_parsing_1_1_x_m_l_parser.html#ab3a0a60481d20e93b1382f9a8a31fe9d" title="utilities.XMLParsing.XMLParser.get\lValues" alt="" coords="1523,70,1760,111"/>
+<area shape="rect" id="node10" href="$de/d1a/classgame_player_1_1gui_items_1_1heads_up_display_1_1_game_stat.html#a8b7a10b5d7454339159230a830272c69" title="gamePlayer.guiItems.heads\lUpDisplay.GameStat.statValueProperty" alt="" coords="629,135,901,177"/>
+</map>

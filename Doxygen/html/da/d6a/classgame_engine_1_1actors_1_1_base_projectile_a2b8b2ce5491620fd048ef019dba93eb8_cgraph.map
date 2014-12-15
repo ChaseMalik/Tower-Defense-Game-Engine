@@ -1,0 +1,4 @@
+<map id="gameEngine.actors.BaseProjectile.getRange" name="gameEngine.actors.BaseProjectile.getRange">
+<area shape="rect" id="node2" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#a063a62060b9b686601364fdbb8b6cd86" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getXCenter" alt="" coords="320,5,576,46"/>
+<area shape="rect" id="node3" href="$dd/df0/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_centered_image_view.html#aa05843be4846dc0d9c23489cac21ed3d" title="utilities.JavaFXutilities.image\lView.CenteredImageView.getYCenter" alt="" coords="321,70,575,111"/>
+</map>

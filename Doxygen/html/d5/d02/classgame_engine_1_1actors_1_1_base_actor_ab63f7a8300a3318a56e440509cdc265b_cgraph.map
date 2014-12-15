@@ -1,0 +1,5 @@
+<map id="gameEngine.actors.BaseActor.BaseActor" name="gameEngine.actors.BaseActor.BaseActor">
+<area shape="rect" id="node2" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#a8958b963f8a8252355d329f947f809df" title="gameEngine.actors.BaseActor.makeNode" alt="" coords="273,39,562,65"/>
+<area shape="rect" id="node3" href="$d5/d02/classgame_engine_1_1actors_1_1_base_actor.html#aa62f6dc2982420c08f2d1d30a9f3838a" title="gameEngine.actors.BaseActor.getSize" alt="" coords="611,5,877,32"/>
+<area shape="rect" id="node4" href="$dc/d37/classutilities_1_1_java_f_xutilities_1_1image_view_1_1_string_to_image_view_converter.html#a5beb76f3bbfa4aae7d9b897a285b007b" title="utilities.JavaFXutilities.image\lView.StringToImageViewConverter.get\lImageView" alt="" coords="613,56,875,112"/>
+</map>

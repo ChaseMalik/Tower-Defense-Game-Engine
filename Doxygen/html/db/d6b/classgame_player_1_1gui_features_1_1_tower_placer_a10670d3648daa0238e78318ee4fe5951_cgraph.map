@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiFeatures.TowerPlacer.validPlacement" name="gamePlayer.guiFeatures.TowerPlacer.validPlacement">
+<area shape="rect" id="node2" href="$da/d69/classgame_player_1_1main_classes_1_1managers_1_1_gui_manager.html#ab9444687dde4ba3763273b1029bae12b" title="gamePlayer.mainClasses.managers.\lGuiManager.validPlacement" alt="" coords="270,5,525,46"/>
+<area shape="rect" id="node3" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a0df1000af70082b96b286adf21e84a8e" title="gameEngine.MainEngineManager.validate\lTower" alt="" coords="573,5,861,46"/>
+<area shape="rect" id="node4" href="$d0/d94/classgame_engine_1_1_main_engine_manager.html#a2d6903d241e3ebfded94e43d855f84e9" title="gameEngine.MainEngineManager.list\lCollidesWith" alt="" coords="909,5,1165,46"/>
+</map>

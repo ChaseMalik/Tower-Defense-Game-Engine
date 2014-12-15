@@ -1,0 +1,5 @@
+<map id="gamePlayer.guiItems.voogaMenuBar.VoogaMenuItem.initialize" name="gamePlayer.guiItems.voogaMenuBar.VoogaMenuItem.initialize">
+<area shape="rect" id="node2" href="$da/dea/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_bar.html#aff0427df3f2b14fa6212b08d5549ca56" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuBar.createMenu" alt="" coords="296,5,555,46"/>
+<area shape="rect" id="node3" href="$da/dea/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_bar.html#a6d30f2a37964ea57895999434aa89609" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuBar.initializeMenus" alt="" coords="603,5,877,46"/>
+<area shape="rect" id="node4" href="$da/dea/classgame_player_1_1gui_items_1_1vooga_menu_bar_1_1_vooga_menu_bar.html#ad9f06b8904cfe0c510d8b8dd3819bad5" title="gamePlayer.guiItems.vooga\lMenuBar.VoogaMenuBar.initialize" alt="" coords="926,5,1159,46"/>
+</map>

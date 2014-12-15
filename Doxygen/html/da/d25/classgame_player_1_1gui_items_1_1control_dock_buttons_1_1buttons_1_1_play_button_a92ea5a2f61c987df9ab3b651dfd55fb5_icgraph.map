@@ -1,0 +1,4 @@
+<map id="gamePlayer.guiItems.controlDockButtons.buttons.PlayButton.play" name="gamePlayer.guiItems.controlDockButtons.buttons.PlayButton.play">
+<area shape="rect" id="node2" href="$da/d25/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_play_button.html#a6fda47484fb3443433041dadb8c2b2c1" title="gamePlayer.guiItems.control\lDockButtons.buttons.PlayButton.initialize" alt="" coords="315,5,600,46"/>
+<area shape="rect" id="node3" href="$da/d25/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_play_button.html#a37e42469d1960d9d90eb8cdc4c63a5a3" title="gamePlayer.guiItems.control\lDockButtons.buttons.PlayButton.pause" alt="" coords="321,70,594,111"/>
+</map>

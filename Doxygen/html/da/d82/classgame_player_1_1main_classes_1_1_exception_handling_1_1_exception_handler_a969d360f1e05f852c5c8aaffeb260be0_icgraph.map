@@ -1,0 +1,5 @@
+<map id="gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler.handle" name="gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler.handle">
+<area shape="rect" id="node2" href="$d5/da2/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1_control_dock_button.html#ad53cf2dc4b9ae27d30d70c6764277578" title="gamePlayer.guiItems.control\lDockButtons.ControlDockButton.setup\lImageViews" alt="" coords="301,31,571,87"/>
+<area shape="rect" id="node3" href="$dd/d15/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_speed_button.html#a2f0f314f2da9b1f6dd374976c3619734" title="gamePlayer.guiItems.control\lDockButtons.buttons.SpeedButton.initialize" alt="" coords="619,5,919,46"/>
+<area shape="rect" id="node4" href="$da/d25/classgame_player_1_1gui_items_1_1control_dock_buttons_1_1buttons_1_1_play_button.html#a6fda47484fb3443433041dadb8c2b2c1" title="gamePlayer.guiItems.control\lDockButtons.buttons.PlayButton.initialize" alt="" coords="627,70,912,111"/>
+</map>

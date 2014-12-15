@@ -1,0 +1,4 @@
+<map id="gamePlayer.mainClasses.managers.GuiManager.prepareMultiPlayerGame" name="gamePlayer.mainClasses.managers.GuiManager.prepareMultiPlayerGame">
+<area shape="rect" id="node2" href="$d4/d66/classgame_engine_1_1_co_op_manager.html#a708caace2b23a97f7d921602e638bc86" title="gameEngine.CoOpManager.start\lNewGame" alt="" coords="315,5,546,46"/>
+<area shape="rect" id="node3" href="$da/dae/classutilities_1_1networking_1_1_h_t_t_p_connection.html#a0206f93b4a11b7a226efb2c9cdf8f251" title="utilities.networking.HTTPConnection.sendPost" alt="" coords="595,12,906,39"/>
+</map>
