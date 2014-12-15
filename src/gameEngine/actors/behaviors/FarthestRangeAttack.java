@@ -5,22 +5,19 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class FarthestRangeAttack extends RangeAttack {
+public class FarthestRangeAttack extends RangedTowerAttack {
 
+    private static final String MOVEMENT_NAME = "movement";
     public FarthestRangeAttack (List<Double> list) {
         super(list);
     }
 
-    public FarthestRangeAttack (double attackSpeed) {
-        super(attackSpeed);
-    }
-
     @Override
-    public Comparator<BaseActor> defineComparison (BaseActor a) {
+    public Comparator<BaseActor> defineTargetComparison (BaseActor a) {
         return (BaseActor a1, BaseActor a2) -> Double
-                .compare(((BaseMovementBehavior) (a1.getBehavior("movement")))
+                .compare(((BaseMovementBehavior) (a1.getBehavior(MOVEMENT_NAME)))
                         .getRemainingDistance(),
-                         ((BaseMovementBehavior) (a2.getBehavior("movement")))
+                         ((BaseMovementBehavior) (a2.getBehavior(MOVEMENT_NAME)))
                                  .getRemainingDistance());
     }
 
@@ -28,6 +25,5 @@ public class FarthestRangeAttack extends RangeAttack {
     public IBehavior copy () {
         return new FarthestRangeAttack(myList);
     }
-
 
 }

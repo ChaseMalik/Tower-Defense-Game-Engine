@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Chase Malik
 package gameEngine.actors.behaviors;
 
 import gameEngine.actors.BaseActor;
@@ -9,20 +11,22 @@ import javafx.geometry.Point2D;
 /**
  * Example of BaseAttack, where the actor shoots at the nearest opposing actor
  * 
- * @author Chase Malik, Timesh Patel
+ * @author Chase Malik
  *
  */
-public class ClosestRangeAttack extends RangeAttack {
+public class ClosestRangeAttack extends RangedTowerAttack {
    
     public ClosestRangeAttack(List<Double> list){
         super(list);
     }
-    public ClosestRangeAttack (double attackSpeed) {
-        super(attackSpeed);
-    }
 
+    /**
+     * Returns a comparator such that the actor closest to the provided actor is returned first
+     * 
+     * @param actor the actor for which other actor's distances are being compared
+     */
     @Override
-    public Comparator<BaseActor> defineComparison (BaseActor actor) {
+    public Comparator<BaseActor> defineTargetComparison (BaseActor actor) {
         Point2D current = new Point2D(actor.getX(), actor.getY());
         return (BaseActor a1, BaseActor a2) -> Double
                 .compare(current.distance(a1.getX(), a1.getY()),

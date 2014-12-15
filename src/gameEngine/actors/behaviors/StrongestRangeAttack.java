@@ -5,21 +5,18 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class StrongestRangeAttack extends RangeAttack {
+public class StrongestRangeAttack extends RangedTowerAttack {
 
-    public static final String DEFEND = "defend";
+    public static final String DEFEND_NAME = "defend";
     public StrongestRangeAttack(List<Double> list){
         super(list);
     }
-    public StrongestRangeAttack (double attackSpeed) {
-        super(attackSpeed);
-    }
 
     @Override
-    public Comparator<BaseActor> defineComparison (BaseActor a) {
+    public Comparator<BaseActor> defineTargetComparison (BaseActor a) {
         return (BaseActor a1, BaseActor a2) -> Double
-                .compare(((BaseDefendBehavior) (a2.getBehavior(DEFEND))).getHealth(),
-                         ((BaseDefendBehavior) (a1.getBehavior(DEFEND))).getHealth());
+                .compare(((BaseDefendBehavior) (a2.getBehavior(DEFEND_NAME))).getHealth(),
+                         ((BaseDefendBehavior) (a1.getBehavior(DEFEND_NAME))).getHealth());
     }
 
     @Override
