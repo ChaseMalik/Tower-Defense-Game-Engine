@@ -19,8 +19,6 @@ import com.google.gson.reflect.TypeToken;
 
 public class GSONFileReader {
 
-
-
     GsonBuilder gson;
     private List<TowerUpgradeGroup> towerList;
     private List<BaseLevel> levelList;

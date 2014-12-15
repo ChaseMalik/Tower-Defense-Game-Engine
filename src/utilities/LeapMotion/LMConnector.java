@@ -1,6 +1,5 @@
-package gamePlayer.mainClasses.welcomeScreen;
+package utilities.LeapMotion;
 
-import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiItems.GuiItem;
 import gamePlayer.mainClasses.ExceptionHandling.ExceptionHandler;
 

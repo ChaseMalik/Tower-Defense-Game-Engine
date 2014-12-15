@@ -4,19 +4,26 @@ import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class MouseEarthquakeStrategy extends EarthquakeStrategy {
+public class MouseEarthquakeStrategy implements EarthquakeStrategy {
 
-	EventHandler<MouseEvent> swiper;
+	private EarthquakeController listener;
+	private EventHandler<MouseEvent> clicker;
 	
 	@Override
 	public void start(EarthquakeController listener) {
-		super.start(listener);
-		swiper = event -> swipe(0.6);
-		GuiConstants.GUI_MANAGER.addEventFilter(MouseEvent.MOUSE_PRESSED, swiper);
+		this.listener = listener;
+		clicker = event -> vibrate(0.6);
+		GuiConstants.GUI_MANAGER.addEventFilter(MouseEvent.MOUSE_PRESSED, clicker);
 	}
 
+	@Override
 	public void stop() {
-		GuiConstants.GUI_MANAGER.removeEventFilter(MouseEvent.MOUSE_PRESSED, swiper);
+		GuiConstants.GUI_MANAGER.removeEventFilter(MouseEvent.MOUSE_PRESSED, clicker);
 	}
 
+	@Override
+	public void vibrate(double mag) {
+		listener.vibrate(mag);
+	}
+	
 }

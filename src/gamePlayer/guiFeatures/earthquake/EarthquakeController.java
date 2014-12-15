@@ -1,53 +1,60 @@
+// This entire file is part of my masterpiece.
+// Brian Bolze (beb23)
 package gamePlayer.guiFeatures.earthquake;
 
 import gamePlayer.guiItemsListeners.EarthquakeListener;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.util.Duration;
+import utilities.LeapMotion.LMController;
 
+/**
+ * 
+ * @author brianbolze
+ */
 public class EarthquakeController {
-	
-	private double maxMag;
+
+	private double maxMag, magnitude;
+	private final int numUpdates = 60;
 	private EarthquakeStrategy strategy;
 	private EarthquakeListener listener;
-	private DoubleProperty magnitudeProperty;
-	
-	public EarthquakeController(double maxMag, EarthquakeStrategy strategy, EarthquakeListener listener) {
-		this.maxMag = maxMag;
-		this.strategy = strategy;
+
+	public EarthquakeController(EarthquakeListener listener,
+			double maximumManitude) {
+		this.maxMag = maximumManitude;
 		this.listener = listener;
-		magnitudeProperty = new SimpleDoubleProperty(0);
+		strategy = LMController.getInstance().deviceIsConnected() ? 
+				new LMEarthquakeStrategy() :
+				new MouseEarthquakeStrategy();
+		magnitude = 0;
 	}
-	
+
 	public void start(double time) {
 		strategy.start(this);
 		Timeline timeline = new Timeline();
-		KeyFrame kf = new KeyFrame(Duration.seconds(time/60), event -> decrement());
+		KeyFrame kf = new KeyFrame(Duration.seconds(time / numUpdates),
+				event -> decrement());
 		timeline.getKeyFrames().add(kf);
-		timeline.setCycleCount(60);
+		timeline.setCycleCount(numUpdates);
 		timeline.setAutoReverse(false);
 		timeline.getKeyFrames().add(kf);
 		timeline.setOnFinished(event -> stop());
 		timeline.play();
 	}
+	
+	protected void vibrate(double mag) {
+		magnitude += (maxMag - magnitude) * mag;
+	}
 
-	public void stop() {
+	private void stop() {
 		listener.vibrate(-1);
 		strategy.stop();
 	}
-	
-	public void vibrate(double mag) {
-		double currValue = magnitudeProperty.get();
-		magnitudeProperty.set(currValue + ((maxMag-currValue) * mag));
-	}
-	
+
 	private void decrement() {
-		double toValue = magnitudeProperty.get() - 0.4;
-		if (toValue >= 0)
-			magnitudeProperty.set(toValue);
-		listener.vibrate(magnitudeProperty.get());
+		if (magnitude - 0.6 >= 0)
+			magnitude -= 0.6;
+		listener.vibrate(magnitude);
 	}
-	
+
 }

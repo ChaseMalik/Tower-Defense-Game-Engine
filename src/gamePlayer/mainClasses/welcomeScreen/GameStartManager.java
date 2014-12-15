@@ -1,6 +1,5 @@
 package gamePlayer.mainClasses.welcomeScreen;
 
-import gamePlayer.guiFeatures.LMController;
 import gamePlayer.mainClasses.guiBuilder.GuiConstants;
 import gamePlayer.mainClasses.guiBuilder.GuiText;
 import gamePlayer.mainClasses.managers.GuiManager;
@@ -25,6 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilities.LeapMotion.LMConnector;
+import utilities.LeapMotion.LMController;
 import utilities.XMLParsing.XMLParser;
 import utilities.multilanguage.MultiLanguageUtility;
 

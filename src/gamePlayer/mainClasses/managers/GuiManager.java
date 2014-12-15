@@ -5,12 +5,9 @@ import gameEngine.MainEngineManager;
 import gameEngine.Data.NullTowerInfoObject;
 import gameEngine.Data.TowerInfoObject;
 import gamePlayer.guiFeatures.FileLoader;
-import gamePlayer.guiFeatures.LMController;
 import gamePlayer.guiFeatures.TowerPlacer;
 import gamePlayer.guiFeatures.WinStatusProperty;
 import gamePlayer.guiFeatures.earthquake.EarthquakeController;
-import gamePlayer.guiFeatures.earthquake.LMEarthquakeStrategy;
-import gamePlayer.guiFeatures.earthquake.MouseEarthquakeStrategy;
 import gamePlayer.guiItems.controlDockButtons.sliders.SpeedSlider;
 import gamePlayer.guiItems.gameWorld.GameWorld;
 import gamePlayer.guiItems.headsUpDisplay.GameStat;
@@ -54,6 +51,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utilities.JavaFXutilities.imageView.CenteredImageView;
+import utilities.LeapMotion.LMController;
 
 /**
  * Class controls all GUI items and MUST implement ALL of the interfaces in the
@@ -69,7 +67,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		SpeedSliderListener, SpecialButtonListener, EarthquakeListener {
 
 	private static final String guiBuilderPropertiesPath = "./src/gamePlayer/properties/GuiBuilderProperties.XML";
-	
+
 	public static final String LOSS = "GAME OVER";
 	public static final String WIN = "Congratulations, you won";
 	public static final String NO_UPGRADE = "No update available";
@@ -98,12 +96,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 	private double myScore;
 	private boolean isCoOp;
 	private String myDirectory;
-	
+
 	private GameStat level;
 	private GameStat health;
 	private GameStat gold;
 	private DoubleProperty endgame;
-	
+
 	public GuiManager(Stage stage) {
 		myStage = stage;
 		GuiConstants.GUI_MANAGER = this;
@@ -208,15 +206,18 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		makeTowerMap();
 		setUpHUD();
 		fillStore(myEngineManager.getAllTowerTypeInformation());
-		
+
 		endgame = new WinStatusProperty();
 		endgame.bindBidirectional(myEngineManager.getWinStatus());
-		endgame.addListener(new ChangeListener<Number>(){
+		endgame.addListener(new ChangeListener<Number>() {
 			@Override
-			public void changed(ObservableValue<? extends Number> o, Number oldValue, Number newValue) {
-				double status = (double)newValue;
-				if (status < 0.0) endGame(LOSS);
-			    if (status > 0.0) endGame(WIN);
+			public void changed(ObservableValue<? extends Number> o,
+					Number oldValue, Number newValue) {
+				double status = (double) newValue;
+				if (status < 0.0)
+					endGame(LOSS);
+				if (status > 0.0)
+					endGame(WIN);
 			}
 		});
 	}
@@ -335,7 +336,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		gameStats = new ArrayList<GameStat>();
 		level = new GameStat();
 		level.setGameStat("Level");
-		level.statValueProperty().bindBidirectional(myEngineManager.getCurrentLevelProperty());
+		level.statValueProperty().bindBidirectional(
+				myEngineManager.getCurrentLevelProperty());
 
 		gold = new GameStat();
 		gold.setGameStat("Gold");
@@ -346,11 +348,13 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		health.setGameStat("Health");
 		health.statValueProperty().bindBidirectional(
 				myEngineManager.getHealthProperty());
-		gold.statValueProperty().bindBidirectional(myEngineManager.getGoldProperty());
-		
+		gold.statValueProperty().bindBidirectional(
+				myEngineManager.getGoldProperty());
+
 		health = new GameStat();
 		health.setGameStat("Health");
-		health.statValueProperty().bindBidirectional(myEngineManager.getHealthProperty());
+		health.statValueProperty().bindBidirectional(
+				myEngineManager.getHealthProperty());
 
 		gameStats = new ArrayList<GameStat>();
 		// gameStats.add(level);
@@ -359,11 +363,12 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		this.setGameStats(gameStats);
 
 	}
-	
-	private void endGame(String endCondition){
+
+	private void endGame(String endCondition) {
 		displayMessage(endCondition + "\n" + PLAY_AGAIN, true);
 		interactionAllowed = false;
-		myGameWorld.getMap().setOnMouseClicked(event -> new GameStartManager(myStage));
+		myGameWorld.getMap().setOnMouseClicked(
+				event -> new GameStartManager(myStage));
 	}
 
 	public void makeTower(String towerName, double x, double y) {
@@ -525,19 +530,8 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 		// TODO : Create Vibrator
 		double maxMag = 0.2;
 		double length = 5;
-		if (earthquakeController == null) {
-			if (LMController.getInstance().deviceIsConnected()) {
-				earthquakeController = new EarthquakeController(maxMag,
-						new LMEarthquakeStrategy(), (EarthquakeListener) this);
-			} else {
-				earthquakeController = new EarthquakeController(maxMag,
-						new MouseEarthquakeStrategy(),
-						(EarthquakeListener) this);
-			}
-			
-		}
+		earthquakeController = new EarthquakeController(this, maxMag);
 		earthquakeController.start(length);
-
 		return length;
 	}
 
@@ -551,7 +545,7 @@ public class GuiManager implements VoogaMenuBarListener, HUDListener,
 			return;
 		}
 		Random rand = new Random();
-		double factor = 20*(2 * rand.nextDouble() - 1);
+		double factor = 20 * (2 * rand.nextDouble() - 1);
 		gameworld.setTranslateX(factor * 5 * magnitude);
 		factor = 2 * rand.nextDouble() - 1;
 		gameworld.setTranslateY(factor * 5 * magnitude);

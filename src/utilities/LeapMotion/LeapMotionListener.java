@@ -1,4 +1,4 @@
-package gamePlayer.guiFeatures;
+package utilities.LeapMotion;
 
 import javafx.application.Platform;
 
@@ -18,12 +18,12 @@ public class LeapMotionListener extends Listener {
 	private long swipeTimer, circleTimer;
 	private static long SWIPE_TIME_LIMITER = 500;
 	private static long CIRCLE_TIME_LIMITER = 1000;
+	
 	private LMController controller = LMController.getInstance();
 	
 	@Override
 	public void onConnect(Controller c) {
 		super.onConnect(c);
-		System.out.println("Device Connected!");
 		c.enableGesture(Gesture.Type.TYPE_SWIPE);
 		c.enableGesture(Gesture.Type.TYPE_CIRCLE);
 		// c.enableGesture(Gesture.Type.TYPE_KEY_TAP);
@@ -68,6 +68,10 @@ public class LeapMotionListener extends Listener {
 	
 	public void setSwipeTimer(long limit) {
 		SWIPE_TIME_LIMITER = limit;
+	}
+	
+	public void setTimeLimit(boolean isSwipeTimeLimit) {
+		this.isTimerLimit = isSwipeTimeLimit;
 	}
 
 	private void circle(CircleGesture circle) {
@@ -124,10 +128,6 @@ public class LeapMotionListener extends Listener {
 		swipeTimer = System.currentTimeMillis();
 		circleTimer = System.currentTimeMillis();
 		isTimerLimit = true;
-	}
-
-	public void setTimeLimit(boolean isSwipeTimeLimit) {
-		this.isTimerLimit = isSwipeTimeLimit;
 	}
 
 }

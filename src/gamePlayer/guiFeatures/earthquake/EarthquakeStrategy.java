@@ -1,18 +1,9 @@
+// This entire file is part of my masterpiece.
+// Brian Bolze (beb23)
 package gamePlayer.guiFeatures.earthquake;
 
-public abstract class EarthquakeStrategy {
-
-	private EarthquakeController listener;
-
-	public void start(EarthquakeController listener) {
-		this.listener = listener;
-	}
-
-	public void stop() {
-	}
-	
-	public void swipe(double mag) {
-		listener.vibrate(mag);
-	}
-	
+public interface EarthquakeStrategy {
+	public void start(EarthquakeController listener);
+	public void stop();
+	public void vibrate(double mag);
 }
