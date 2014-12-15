@@ -71,8 +71,7 @@ class VideoPlayer extends BorderPane {
 
         final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
         createAndDefineVisualComponents(player, PLAY_BUTTON);
-        final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
-        createAndDefineAudioComponents(player, VOLUME_BUTTON);
+        createAndDefineAudioComponents(player);
 
         defineMediaPlayerBehavior(player, PLAY_BUTTON);
     }
@@ -157,15 +156,16 @@ class VideoPlayer extends BorderPane {
     //        }
     //    }
 
-    private void createAndDefineAudioComponents (final MediaPlayer player, final Button button) {
-        button.setPrefWidth(BUTTON_WIDTH);
-        myMediaBar.getChildren().addAll(button, new Label(SPACE), new Label(VOLUME_LABEL_TEXT));
+    private void createAndDefineAudioComponents (final MediaPlayer player) {
+        final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
+        VOLUME_BUTTON.setPrefWidth(BUTTON_WIDTH);
+        myMediaBar.getChildren().addAll(VOLUME_BUTTON, new Label(SPACE), new Label(VOLUME_LABEL_TEXT));
 
         myVolumeSlider = new Slider();
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
-        button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
+        VOLUME_BUTTON.setOnAction(event->muteOrUnmute(player, VOLUME_BUTTON, myVolumeSlider));
 
-        myMediaBar.getChildren().addAll(myVolumeSlider, new Label(SPACE));
+        myMediaBar.getChildren().add(myVolumeSlider);
     }
 
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
