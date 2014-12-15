@@ -1,10 +1,6 @@
 package utilities.video;
 
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -100,17 +96,17 @@ class VideoPlayer extends BorderPane {
 
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
-        myTimeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated (Observable observable) {
-                if (myTimeSlider.isValueChanging()) {
-                    player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
-                }
-            }
-        });
+        myTimeSlider.valueProperty().addListener(observable->bindPlayerAndSliderTimes(player));
         myMediaBar.getChildren().add(myTimeSlider);
         myTimeLabel = new Label(TIME_LABEL_TEXT);
         myTimeLabel.setPrefWidth(LABEL_WIDTH);
         myMediaBar.getChildren().add(myTimeLabel);
+    }
+
+    private void bindPlayerAndSliderTimes (final MediaPlayer player) {
+        if (myTimeSlider.isValueChanging()) {
+            player.seek(myDuration.multiply(myTimeSlider.getValue() / DOUBLE_CONVERT));
+        }
     }
 
     private void playOrPause (final MediaPlayer player) {
