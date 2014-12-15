@@ -70,12 +70,9 @@ class VideoPlayer extends BorderPane {
         defineMediaBarBehavior();
 
         final Button PLAY_BUTTON = new Button(PLAY_BUTTON_TEXT);
-        definePlayButtonBehavior(player, PLAY_BUTTON);
-
-        createAndDefineTimeComponents(player);
-
+        createAndDefineVisualComponents(player, PLAY_BUTTON);
         final Button VOLUME_BUTTON = new Button(MUTE_BUTTON_TEXT);
-        createAndDefineVolumeComponents(player, VOLUME_BUTTON);
+        createAndDefineAudioComponents(player, VOLUME_BUTTON);
 
         defineMediaPlayerBehavior(player, PLAY_BUTTON);
     }
@@ -99,8 +96,9 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(new Label(SPACE));
     }
 
-    private void definePlayButtonBehavior (final MediaPlayer player, final Button button) {
+    private void createAndDefineVisualComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
+//        button.setOnAction(event->playOrPause(player));
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent e) {
                 Status status = player.getStatus();
@@ -126,9 +124,7 @@ class VideoPlayer extends BorderPane {
         });
         myMediaBar.getChildren().add(button);
         myMediaBar.getChildren().add(new Label(SPACE));
-    }
 
-    private void createAndDefineTimeComponents (final MediaPlayer player) {
         myTimeSlider = new Slider();
         HBox.setHgrow(myTimeSlider, Priority.ALWAYS);
         myTimeSlider.setMinWidth(SLIDER_WIDTH);
@@ -146,18 +142,32 @@ class VideoPlayer extends BorderPane {
         myMediaBar.getChildren().add(myTimeLabel);
     }
 
-    private void createAndDefineVolumeComponents (final MediaPlayer player, final Button button) {
+//    private void playOrPause (final MediaPlayer player) {
+//        Status status = player.getStatus();
+//        if (status == Status.HALTED || status == Status.UNKNOWN) {
+//            return;
+//        }
+//        if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+//            if (myCycleIsComplete) {
+//                player.seek(player.getStartTime());
+//                myCycleIsComplete = false;
+//            }
+//            player.play();
+//        }
+//        else {
+//            player.pause();
+//        }
+//    }
+
+    private void createAndDefineAudioComponents (final MediaPlayer player, final Button button) {
         button.setPrefWidth(BUTTON_WIDTH);
-        myMediaBar.getChildren().add(button);
-        myMediaBar.getChildren().add(new Label(SPACE));
-        myMediaBar.getChildren().add(new Label(VOLUME_LABEL_TEXT));
+        myMediaBar.getChildren().addAll(button, new Label(SPACE), new Label(VOLUME_LABEL_TEXT));
 
         myVolumeSlider = new Slider();
         player.volumeProperty().bind(myVolumeSlider.valueProperty().divide(DOUBLE_CONVERT));
         button.setOnAction(event->muteOrUnmute(player, button, myVolumeSlider));
 
-        myMediaBar.getChildren().add(myVolumeSlider);
-        myMediaBar.getChildren().add(new Label(SPACE));
+        myMediaBar.getChildren().addAll(myVolumeSlider, new Label(SPACE));
     }
 
     private void muteOrUnmute (final MediaPlayer player, final Button button, final Slider slider) {
@@ -230,43 +240,24 @@ class VideoPlayer extends BorderPane {
     }
 
     private static String calculateElapsedTime (Duration elapsed, Duration videoDuration) {
-        int time = (int)Math.floor(elapsed.toSeconds());
-        int hours, minutes, seconds;
+        int seconds = (int)Math.floor(elapsed.toSeconds());
 
-        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        minutes = time / SECONDS_PER_MINUTE;
-        time -= minutes * SECONDS_PER_MINUTE;
-        seconds = time;
+        int hours = seconds / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        seconds %= MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+        int minutes = seconds / SECONDS_PER_MINUTE;
+        seconds %= SECONDS_PER_MINUTE;
 
         return formatTime(videoDuration, hours, minutes, seconds);
     }
 
     private static String formatTime (Duration duration, int intHours, int intMin, int intSec) {
-        int time = (int)Math.floor(duration.toSeconds());
+        int seconds = (int)Math.floor(duration.toSeconds()) + 5000;
 
-        int hours = calculateHours(time);
-        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-        int minutes = calculateMinutes(time);
-        time -= minutes * SECONDS_PER_MINUTE;
-        int seconds = time;
+        int hours = seconds / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
+        seconds %= MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+        int minutes = seconds / SECONDS_PER_MINUTE;
+        seconds %= SECONDS_PER_MINUTE;
 
         return String.format(TIME_FORMAT, intHours, intMin, intSec, hours, minutes, seconds);
     }
-
-    private static int calculateHours (int time) {
-        return time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-    }
-
-    private static int calculateMinutes (int time) {
-        return time / SECONDS_PER_MINUTE;
-    }
-
-//    private static void calculateTime (int hours, int minutes, int seconds, int time) {
-//        hours = time / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE);
-//        time -= hours * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
-//        minutes = time / SECONDS_PER_MINUTE;
-//        time -= minutes * SECONDS_PER_MINUTE;
-//        seconds = time;
-//    }
 }
