@@ -54,7 +54,6 @@ class VideoPlayer extends BorderPane {
     private Label myTimeLabel;
     private Duration myDuration;
     private boolean myVideoWillReplay = true;
-    private boolean myCycleIsComplete = !myVideoWillReplay;
     private HBox myMediaBar;
 
     public VideoPlayer (final MediaPlayer player) {
@@ -109,10 +108,6 @@ class VideoPlayer extends BorderPane {
             return;
         }
         if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-            if (myCycleIsComplete) {
-                player.seek(player.getStartTime());
-                myCycleIsComplete = false;
-            }
             player.play();
         }
         else {
